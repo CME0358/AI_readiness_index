@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Index | Platform Readiness Research by Coa Retail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1628;
+  --navy-mid: #152238;
+  --navy-light: #1E3354;
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --white: #FAFAF8;
+  --gray-300: #C8C4BC;
+  --gray-500: #8A8680;
+  --accent-red: #E05252;
+  --accent-green: #06C755;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9999; opacity:0.35;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(to bottom, rgba(11,22,40,0.95) 0%, transparent 100%);
+  backdrop-filter:blur(2px);
+}
+.nav-logo {
+  font-family:var(--font-display); font-size:1.125rem; font-weight:600;
+  color:var(--gold); letter-spacing:0.05em; text-decoration:none;
+}
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  color:var(--gray-300); text-decoration:none; font-size:0.905rem;
+  font-weight:500; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s;
+}
+.nav-links a:hover { color:var(--gold); }
+.nav-cta {
+  background:var(--gold); color:var(--navy) !important;
+  padding:10px 22px; border-radius:2px; font-weight:600 !important;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:flex; align-items:center;
+  padding:140px 60px 100px;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 65% 70% at 60% 45%, rgba(201,168,76,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(30,51,84,0.5) 0%, transparent 70%),
+    linear-gradient(150deg, var(--navy) 0%, #0D1F3C 100%);
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+/* diagonal accent line */
+.hero-diagonal {
+  position:absolute;
+  top:0; right:0; bottom:0;
+  width:50%;
+  clip-path:polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+  background:linear-gradient(160deg, rgba(201,168,76,0.025) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-inner {
+  position:relative; width:100%;
+  display:grid; grid-template-columns:1.1fr 0.9fr;
+  gap:56px; align-items:center;
+  animation:heroIn 0.9s ease both;
+}
+@keyframes heroIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+.hero-content { max-width:580px; }
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(201,168,76,0.09); border:1px solid rgba(201,168,76,0.28);
+  color:var(--gold); font-size:0.825rem; font-weight:500; letter-spacing:0.15em;
+  text-transform:uppercase; padding:8px 18px; border-radius:2px; margin-bottom:28px;
+}
+.hero-badge::before {
+  content:''; width:6px; height:6px; background:var(--gold); border-radius:50%;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero h1 {
+  font-family:var(--font-display);
+  font-size:clamp(2.8rem, 4vw, 3.8rem);
+  font-weight:700; line-height:1.08;
+  color:var(--white); margin-bottom:10px;
+  letter-spacing:-0.01em;
+  white-space:nowrap;
+}
+.hero h1 .gold { color:var(--gold); }
+.hero-sub {
+  font-family:var(--font-display);
+  font-size:clamp(1.1rem, 1.8vw, 1.5rem);
+  color:var(--gray-300); font-style:italic; margin-bottom:20px;
+  letter-spacing:0.02em;
+}
+.hero-lead {
+  font-size:1.125rem; color:var(--gray-300); line-height:1.85;
+  margin-bottom:36px; max-width:520px;
+}
+.hero-lead strong { color:var(--white); font-weight:500; }
+
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-primary {
+  background:var(--gold); color:var(--navy);
+  padding:15px 34px; font-size:1rem; font-weight:600;
+  letter-spacing:0.04em; border:none; border-radius:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all 0.2s;
+}
+.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
+.btn-secondary {
+  background:transparent; color:var(--gold);
+  padding:15px 34px; font-size:1rem; font-weight:500;
+  border:1px solid rgba(201,168,76,0.38); border-radius:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all 0.2s;
+}
+.btn-secondary:hover { border-color:var(--gold); background:rgba(201,168,76,0.05); }
+
+/* HERO RIGHT — Status Panel */
+.hero-visual {
+  display:flex; align-items:center; justify-content:center;
+  animation:heroVisIn 1s ease 0.25s both;
+}
+.status-panel {
+  width:100%; max-width:504px;
+  background:rgba(21,34,56,0.7);
+  border:1px solid rgba(201,168,76,0.14);
+  border-radius:7px; padding:36px 34px;
+  backdrop-filter:blur(4px);
+}
+@keyframes heroVisIn { from{opacity:0;transform:translateX(36px)} to{opacity:1;transform:translateX(0)} }
+
+.sp-header {
+  font-family:var(--font-mono); font-size:0.864rem;
+  color:var(--gold); letter-spacing:0.15em; text-transform:uppercase;
+  margin-bottom:24px; opacity:0.7;
+}
+.sp-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:17px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  gap:19px;
+}
+.sp-row:last-child { border-bottom:none; padding-bottom:0; }
+.sp-industry {
+  display:flex; align-items:center; gap:12px;
+  font-size:1.158rem; font-weight:500; color:var(--white);
+}
+.sp-icon { font-size:1.35rem; width:34px; text-align:center; }
+.sp-status {
+  font-family:var(--font-mono); font-size:0.93rem;
+  padding:5px 14px; border-radius:2px; white-space:nowrap;
+}
+.status-live {
+  background:rgba(6,199,85,0.1); color:var(--accent-green);
+  border:1px solid rgba(6,199,85,0.25);
+}
+.status-soon {
+  background:rgba(201,168,76,0.08); color:var(--gold);
+  border:1px solid rgba(201,168,76,0.2);
+}
+.sp-footer {
+  margin-top:24px; padding-top:22px;
+  border-top:1px solid rgba(201,168,76,0.12);
+  font-size:1.002rem; color:var(--gray-500); line-height:1.6;
+  font-family:var(--font-mono);
+}
+
+/* ── TICKER ── */
+.ticker-section {
+  background:rgba(201,168,76,0.06);
+  border-top:1px solid rgba(201,168,76,0.18);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+  padding:14px 0;
+  display:flex; align-items:center; gap:20px;
+  overflow:hidden;
+}
+.ticker-label {
+  flex-shrink:0;
+  font-family:var(--font-mono); font-size:0.595rem;
+  color:var(--gold); letter-spacing:0.12em; text-transform:uppercase;
+  padding:0 28px; white-space:nowrap;
+  border-right:1px solid rgba(201,168,76,0.25);
+}
+.ticker-wrap { flex:1; overflow:hidden; }
+.ticker-track {
+  display:inline-flex; align-items:center; gap:16px;
+  white-space:nowrap;
+  animation:tickerScroll 40s linear infinite;
+}
+.ticker-track:hover { animation-play-state:paused; }
+@keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item { font-size:0.775rem; font-weight:500; color:var(--white); letter-spacing:0.02em; }
+.ticker-sep { color:var(--gold); opacity:0.4; font-size:0.625rem; }
+
+/* ── SECTION BASE ── */
+section { padding:96px 60px; }
+.section-label {
+  font-size:0.825rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--gold); font-weight:500; margin-bottom:14px;
+  display:flex; align-items:center; gap:12px;
+}
+.section-label::after { content:''; flex:1; max-width:36px; height:1px; background:var(--gold); opacity:0.4; }
+h2 {
+  font-family:var(--font-display);
+  font-size:clamp(2rem, 3.2vw, 2.9rem);
+  font-weight:700; line-height:1.15;
+  color:var(--white); margin-bottom:18px;
+}
+h2 .gold { color:var(--gold); }
+.section-desc { font-size:1.075rem; color:var(--gray-300); max-width:540px; line-height:1.85; }
+
+/* ── SECTION 2: WHY NOW ── */
+.whynow {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.1);
+  border-bottom:1px solid rgba(201,168,76,0.1);
+}
+.whynow-header { margin-bottom:56px; }
+
+.flow-compare {
+  display:grid; grid-template-columns:1fr 64px 1fr;
+  gap:0; align-items:center; margin-bottom:48px;
+}
+.flow-box {
+  background:var(--navy); border:1px solid rgba(201,168,76,0.12);
+  border-radius:4px; padding:28px 24px;
+}
+.flow-box-label {
+  font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.14em;
+  text-transform:uppercase; margin-bottom:18px; font-weight:500;
+}
+.flow-box-label.old { color:var(--gray-500); }
+.flow-box-label.new { color:var(--gold); }
+
+.flow-steps { display:flex; flex-direction:column; gap:0; }
+.flow-step {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:0.965rem; color:var(--gray-300);
+}
+.flow-step:last-child { border-bottom:none; }
+.flow-step .step-icon { font-size:1rem; width:24px; flex-shrink:0; }
+.flow-step.highlight { color:var(--white); font-weight:500; }
+.flow-step.highlight .step-icon { color:var(--gold); }
+
+.flow-arrow {
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.625rem; color:var(--gold); opacity:0.4;
+}
+
+.whynow-insight {
+  background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15);
+  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
+  padding:22px 26px;
+  font-size:1.045rem; color:var(--white); line-height:1.8;
+}
+.whynow-insight strong { color:var(--gold); font-weight:500; }
+
+/* ── SECTION 3: AI READINESS ── */
+.readiness { background:var(--navy); }
+.readiness-header { margin-bottom:56px; }
+
+.pillars-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:1px; background:rgba(201,168,76,0.1);
+  border:1px solid rgba(201,168,76,0.1); border-radius:4px;
+  overflow:hidden;
+}
+.pillar-item {
+  background:var(--navy); padding:36px 28px;
+  transition:background 0.2s;
+}
+.pillar-item:hover { background:var(--navy-mid); }
+.pillar-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); opacity:0.5; letter-spacing:0.1em; margin-bottom:8px;
+}
+.pillar-icon { font-size:1.825rem; margin-bottom:14px; }
+.pillar-item h3 {
+  font-family:var(--font-display); font-size:1.425rem;
+  font-weight:600; color:var(--gold); margin-bottom:6px;
+}
+.pillar-sub {
+  font-size:0.875rem; color:var(--gray-500); margin-bottom:16px;
+}
+.pillar-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.ptag {
+  display:inline-block; font-family:var(--font-mono); font-size:0.755rem;
+  color:var(--gray-300); background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:3px 10px; border-radius:2px;
+}
+
+/* ── SECTION 4: PROJECTS (TABS) ── */
+.projects {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.08);
+}
+.tabs {
+  display:flex; gap:0; margin-bottom:36px;
+  border:1px solid rgba(201,168,76,0.14); border-radius:3px; overflow:hidden;
+  width:fit-content;
+}
+.tab-btn {
+  padding:12px 28px; font-size:0.905rem; font-weight:500;
+  letter-spacing:0.06em; text-transform:uppercase;
+  background:transparent; color:var(--gray-500);
+  border:none; cursor:pointer;
+  border-right:1px solid rgba(201,168,76,0.14);
+  transition:all 0.2s; font-family:var(--font-body);
+}
+.tab-btn:last-child { border-right:none; }
+.tab-btn.active { background:var(--gold); color:var(--navy); font-weight:600; }
+.tab-btn:hover:not(.active) { background:rgba(201,168,76,0.06); color:var(--gray-300); }
+
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+.project-card {
+  background:var(--navy);
+  border:1px solid rgba(201,168,76,0.12);
+  border-radius:4px; padding:36px 32px;
+  max-width:680px;
+}
+.pc-status-row {
+  display:flex; align-items:center; gap:12px; margin-bottom:20px;
+}
+.pc-status {
+  font-family:var(--font-mono); font-size:0.775rem;
+  padding:4px 12px; border-radius:2px;
+}
+.pc-industry { font-size:0.875rem; color:var(--gray-500); }
+.project-card h3 {
+  font-family:var(--font-display); font-size:1.825rem;
+  font-weight:700; color:var(--white); margin-bottom:10px;
+}
+.project-card .pc-desc {
+  font-size:1.005rem; color:var(--gray-300); line-height:1.8; margin-bottom:24px;
+}
+.pc-targets {
+  margin-bottom:24px;
+}
+.pc-targets-label {
+  font-size:0.825rem; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--gold); font-weight:500; margin-bottom:12px;
+}
+.pc-target-list { display:flex; flex-wrap:wrap; gap:8px; }
+.pc-target-tag {
+  font-family:var(--font-mono); font-size:0.795rem;
+  background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.18);
+  color:var(--gold); padding:4px 12px; border-radius:2px;
+}
+.pc-comingsoon {
+  padding:28px; border:2px dashed rgba(201,168,76,0.18); border-radius:3px;
+  text-align:center;
+}
+.pc-comingsoon-icon { font-size:2rem; margin-bottom:10px; }
+.pc-comingsoon-text {
+  font-family:var(--font-display); font-size:1.225rem;
+  color:rgba(201,168,76,0.4); font-style:italic;
+}
+.pc-comingsoon-sub {
+  font-size:0.875rem; color:var(--gray-500); margin-top:6px;
+}
+
+/* ── SECTION 5: INDUSTRIES ── */
+.industries { background:var(--navy); }
+.industry-cards {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:16px; margin-top:56px;
+}
+.industry-card {
+  background:var(--navy-mid); border:1px solid rgba(201,168,76,0.1);
+  border-radius:4px; padding:28px 20px;
+  text-align:center;
+  transition:border-color 0.2s, transform 0.2s;
+}
+.industry-card:hover { border-color:rgba(201,168,76,0.28); transform:translateY(-2px); }
+.industry-card.active-card { border-color:rgba(201,168,76,0.3); }
+.ic-icon { font-size:2.125rem; margin-bottom:12px; }
+.ic-name {
+  font-family:var(--font-display); font-size:1.225rem;
+  font-weight:600; color:var(--white); margin-bottom:4px;
+}
+.ic-sub { font-size:0.835rem; color:var(--gray-500); line-height:1.5; }
+.ic-badge {
+  display:inline-block; margin-top:12px;
+  font-family:var(--font-mono); font-size:0.735rem;
+  padding:3px 10px; border-radius:2px;
+}
+
+/* ── SECTION 6: PARTNER CTA ── */
+.partner {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.1);
+}
+.partner-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:64px; align-items:start;
+}
+.partner-left h2 { margin-bottom:14px; }
+.partner-left .section-desc { margin-bottom:28px; }
+
+.partner-targets {
+  display:flex; flex-direction:column; gap:10px; margin-bottom:28px;
+}
+.ptarget-item {
+  display:flex; align-items:center; gap:10px;
+  font-size:0.975rem; color:var(--gray-300);
+}
+.ptarget-item::before {
+  content:''; width:5px; height:5px; background:var(--gold);
+  border-radius:50%; flex-shrink:0;
+}
+
+.partner-benefits {
+  display:flex; flex-direction:column; gap:12px;
+}
+.pb-item {
+  background:var(--navy); border:1px solid rgba(201,168,76,0.1);
+  border-radius:3px; padding:18px 20px;
+  display:flex; gap:14px; align-items:flex-start;
+}
+.pb-icon { font-size:1.25rem; flex-shrink:0; }
+.pb-body h4 { font-size:0.985rem; font-weight:600; color:var(--white); margin-bottom:4px; }
+.pb-body p { font-size:0.885rem; color:var(--gray-500); line-height:1.6; }
+
+/* ── SECTION 7: OPERATOR ── */
+.operator {
+  background:var(--navy);
+  border-top:1px solid rgba(201,168,76,0.08);
+}
+.operator-inner {
+  display:flex; gap:80px; align-items:flex-start;
+}
+.operator-brand {
+  flex-shrink:0;
+}
+.op-logo {
+  font-family:var(--font-display); font-size:1.625rem;
+  font-weight:700; color:var(--gold); margin-bottom:6px;
+}
+.op-sub { font-size:0.875rem; color:var(--gray-500); margin-bottom:20px; }
+.op-link {
+  font-size:0.875rem; color:var(--gold); text-decoration:none;
+  border-bottom:1px solid rgba(201,168,76,0.3); transition:border-color 0.2s;
+}
+.op-link:hover { border-color:var(--gold); }
+
+.research-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.rtag {
+  font-family:var(--font-mono); font-size:0.755rem;
+  background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.15);
+  color:var(--gold); padding:4px 12px; border-radius:2px;
+}
+
+.operator-statement {
+  flex:1;
+  background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.12);
+  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
+  padding:28px 30px;
+}
+.os-label {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); letter-spacing:0.14em; text-transform:uppercase;
+  margin-bottom:14px; opacity:0.7;
+}
+.os-text {
+  font-family:var(--font-display); font-size:1.225rem;
+  font-style:italic; line-height:1.75; color:var(--white);
+}
+.os-note {
+  margin-top:14px; font-size:0.875rem; color:var(--gray-500); line-height:1.65;
+}
+
+/* ── CTA FINAL ── */
+.cta-section {
+  background:var(--navy-mid); border-top:1px solid rgba(201,168,76,0.1);
+  text-align:center; position:relative; overflow:hidden;
+  padding:96px 60px;
+}
+.cta-section::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+}
+.cta-inner { position:relative; }
+.cta-eyebrow {
+  font-family:var(--font-display); font-size:1.2rem;
+  font-style:italic; color:var(--gold); margin-bottom:18px;
+}
+.cta-section h2 {
+  text-align:center; font-size:clamp(2rem, 3.5vw, 3.1rem);
+  max-width:600px; margin:0 auto 20px;
+}
+.cta-desc {
+  text-align:center; max-width:500px; margin:0 auto 44px;
+  font-size:1.045rem; color:var(--gray-300); line-height:1.85;
+}
+.cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:30px; }
+.btn-line {
+  background:var(--accent-green); color:var(--white);
+  padding:16px 38px; font-size:1.045rem; font-weight:600;
+  border:none; border-radius:3px; cursor:pointer; text-decoration:none;
+  display:inline-flex; align-items:center; gap:9px; transition:all 0.2s;
+}
+.btn-line:hover { background:#05b84c; transform:translateY(-1px); }
+.cta-note { font-size:0.875rem; color:var(--gray-500); }
+
+/* ── FOOTER ── */
+footer {
+  padding:36px 60px; border-top:1px solid rgba(255,255,255,0.05);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-logo {
+  font-family:var(--font-display); font-size:1.025rem; color:var(--gold); font-weight:600;
+}
+.footer-links { display:flex; gap:22px; }
+.footer-links a {
+  font-size:0.855rem; color:var(--gray-500); text-decoration:none; transition:color 0.2s;
+}
+.footer-links a:hover { color:var(--gold); }
+.footer-copy { font-size:0.855rem; color:var(--gray-500); }
+
+/* ── UTIL ── */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .industry-cards { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:1024px){
+  nav { padding:20px 28px; }
+  section { padding:72px 28px; }
+  .cta-section { padding:72px 28px; }
+  .hero { padding:120px 28px 80px; }
+  .hero-inner { grid-template-columns:1fr; }
+  .hero-visual { justify-content:center; }
+  .status-panel { max-width:576px; }
+  .flow-compare { grid-template-columns:1fr; gap:16px; }
+  .flow-arrow { transform:rotate(90deg); display:none; }
+  .pillars-grid { grid-template-columns:1fr 1fr; }
+  .partner-inner { grid-template-columns:1fr; gap:36px; }
+  .operator-inner { flex-direction:column; gap:32px; }
+  .industry-cards { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:640px){
+  nav .nav-links { display:none; }
+  .pillars-grid { grid-template-columns:1fr; }
+  .industry-cards { grid-template-columns:1fr 1fr; }
+  footer { flex-direction:column; gap:14px; text-align:center; }
+  .tabs { flex-wrap:wrap; }
+  .hero h1 { white-space:normal; font-size:clamp(2.2rem, 9vw, 3rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">AI Readiness Index</a>
+  <ul class="nav-links">
+    <li><a href="#whynow">背景</a></li>
+    <li><a href="#readiness">評価軸</a></li>
+    <li><a href="#projects">調査</a></li>
+    <li><a href="#contact" class="nav-cta">協力を申請</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-diagonal"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">現在進行中 · Research 2026</div>
+      <h1>AI Agent時代における<br><span class="gold">Platform Readiness</span><br>Research</h1>
+      <p class="hero-sub">AIが探し、AIが比較し、AIが予約する時代。</p>
+      <p class="hero-lead">
+        各業界の予約・CRMプラットフォームが、<strong>AI Agentに対応できているか</strong>を調査・スコアリングしています。
+        「人向けUI」だけでなく「Agent向け接続性」が問われる時代の、業界横断リサーチです。
+      </p>
+      <div class="hero-actions">
+        <a href="dental.html" class="btn-primary">Dental Surveyを見る</a>
+        <a href="#readiness" class="btn-secondary">AI Readinessとは</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+    <div class="status-panel">
+      <div class="sp-header">Survey Status — 2026</div>
+      <div class="sp-row">
+        <div class="sp-industry">
+          <span class="sp-icon">🦷</span>
+          Dental
+        </div>
+        <span class="sp-status status-live">✅ 進行中</span>
+      </div>
+      <div class="sp-row">
+        <div class="sp-industry">
+          <span class="sp-icon">💄</span>
+          Beauty
+        </div>
+        <span class="sp-status status-soon">⏳ 準備中</span>
+      </div>
+      <div class="sp-row">
+        <div class="sp-industry">
+          <span class="sp-icon">🏋️</span>
+          Fitness
+        </div>
+        <span class="sp-status status-soon">⏳ 準備中</span>
+      </div>
+      <div class="sp-row">
+        <div class="sp-industry">
+          <span class="sp-icon">🏠</span>
+          Real Estate
+        </div>
+        <span class="sp-status status-soon">⏳ 準備中</span>
+      </div>
+      <div class="sp-footer">
+        調査はスコアリング → ヒアリング → レポート公開の順で進行。<br>
+        掲載前確認を全企業に行います。
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-section">
+  <div class="ticker-label">Research Focus</div>
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item">Discovery Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Agent Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Conversion Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Schema.org対応</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">API公開状況</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">OAuth / Webhook</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">MCP対応</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">AI予約・申込完結</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">GEO / Entity Recognition</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">CRM連携</span>
+      <span class="ticker-sep">◆</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Discovery Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Agent Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Conversion Readiness</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">Schema.org対応</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">API公開状況</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">OAuth / Webhook</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">MCP対応</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">AI予約・申込完結</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">GEO / Entity Recognition</span>
+      <span class="ticker-sep">◆</span>
+      <span class="ticker-item">CRM連携</span>
+      <span class="ticker-sep">◆</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 2: WHY NOW ── -->
+<section class="whynow" id="whynow">
+  <div class="whynow-header reveal">
+    <div class="section-label">Why Now</div>
+    <h2>なぜ<span class="gold">今</span>調査するのか</h2>
+    <p class="section-desc">
+      予約・顧客管理のインフラが、人向けからAgent向けへと移行しつつある。この変化は静かに、しかし確実に進んでいる。
+    </p>
+  </div>
+
+  <div class="flow-compare reveal">
+    <div class="flow-box">
+      <div class="flow-box-label old">— 従来の流れ</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-icon">🔍</span>Google検索</div>
+        <div class="flow-step"><span class="step-icon">👤</span>人間が比較・検討</div>
+        <div class="flow-step"><span class="step-icon">📅</span>予約（人が操作）</div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-box-label new">— これからの流れ</div>
+      <div class="flow-steps">
+        <div class="flow-step highlight"><span class="step-icon">🤖</span>AI検索（ChatGPT / Perplexity）</div>
+        <div class="flow-step highlight"><span class="step-icon">🔄</span>AI Agentが比較・選定</div>
+        <div class="flow-step highlight"><span class="step-icon">✅</span>AI Agentが予約・申込完結</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="whynow-insight reveal">
+    予約システム・CRM・顧客管理システムは、<strong>「人向けUI」だけでなく「Agent向け接続性」</strong>が求められる時代へ。<br>
+    各プラットフォームがその変化に対応できているか——本調査はその実態を明らかにします。
+  </div>
+</section>
+
+<!-- ── SECTION 3: AI READINESS ── -->
+<section class="readiness" id="readiness">
+  <div class="readiness-header reveal">
+    <div class="section-label">Evaluation Framework</div>
+    <h2>AI Readinessとは<br><span class="gold">3つの観点から評価</span></h2>
+    <p class="section-desc">
+      単なるAPI公開状況だけでなく、「AIに発見される力」「AIと繋がる力」「AIが完結できる力」を多角的にスコアリングします。
+    </p>
+  </div>
+
+  <div class="pillars-grid reveal">
+    <div class="pillar-item">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon">🔍</div>
+      <h3>Discovery Readiness</h3>
+      <p class="pillar-sub">AIに発見される力</p>
+      <div class="pillar-tags">
+        <span class="ptag">Entity</span>
+        <span class="ptag">Schema.org</span>
+        <span class="ptag">Citation</span>
+        <span class="ptag">GEO</span>
+        <span class="ptag">AI Overview対応</span>
+      </div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon">🔗</div>
+      <h3>Agent Readiness</h3>
+      <p class="pillar-sub">AIと接続できる力</p>
+      <div class="pillar-tags">
+        <span class="ptag">API</span>
+        <span class="ptag">OAuth</span>
+        <span class="ptag">Webhook</span>
+        <span class="ptag">MCP</span>
+        <span class="ptag">Function Calling</span>
+      </div>
+    </div>
+    <div class="pillar-item">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon">📋</div>
+      <h3>Conversion Readiness</h3>
+      <p class="pillar-sub">AIが予約・申込できる力</p>
+      <div class="pillar-tags">
+        <span class="ptag">Reservation API</span>
+        <span class="ptag">Booking</span>
+        <span class="ptag">CRM連携</span>
+        <span class="ptag">完結フロー</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 4: PROJECTS (TABS) ── -->
+<section class="projects" id="projects">
+  <div class="reveal">
+    <div class="section-label">Survey Projects</div>
+    <h2>調査<span class="gold">プロジェクト</span></h2>
+    <p class="section-desc" style="margin-bottom:36px;">各業界タブをクリックして調査状況を確認できます。</p>
+  </div>
+
+  <div class="tabs reveal" id="tabs">
+    <button class="tab-btn active" onclick="switchTab('dental', this)">🦷 Dental</button>
+    <button class="tab-btn" onclick="switchTab('beauty', this)">💄 Beauty</button>
+    <button class="tab-btn" onclick="switchTab('fitness', this)">🏋️ Fitness</button>
+    <button class="tab-btn" onclick="switchTab('realestate', this)">🏠 Real Estate</button>
+  </div>
+
+  <div id="tab-dental" class="tab-panel active reveal">
+    <div class="project-card">
+      <div class="pc-status-row">
+        <span class="pc-status status-live">✅ 進行中</span>
+        <span class="pc-industry">歯科予約システム · 2026 Q2–Q3</span>
+      </div>
+      <h3>Dental AI Readiness Survey</h3>
+      <p class="pc-desc">
+        日本の歯科向け予約・診療管理SaaSを対象に、AI Agent対応状況をスコアリング。
+        Discovery / Agent / Conversion の3軸でA〜D評価を実施しています。
+      </p>
+      <div class="pc-targets">
+        <div class="pc-targets-label">調査対象（主要）</div>
+        <div class="pc-target-list">
+          <span class="pc-target-tag">ストランザ</span>
+          <span class="pc-target-tag">ジェニシス</span>
+          <span class="pc-target-tag">メディカルフォース</span>
+          <span class="pc-target-tag">GMOビューティー</span>
+          <span class="pc-target-tag">メドレー</span>
+          <span class="pc-target-tag">他</span>
+        </div>
+      </div>
+      <a href="dental.html" class="btn-primary">詳細を見る →</a>
+    </div>
+  </div>
+
+  <div id="tab-beauty" class="tab-panel reveal">
+    <div class="project-card">
+      <div class="pc-status-row">
+        <span class="pc-status status-soon">⏳ 準備中</span>
+        <span class="pc-industry">自由診療・美容医療 · 2026 Q4予定</span>
+      </div>
+      <h3>Beauty AI Readiness Survey</h3>
+      <p class="pc-desc">美容医療・自由診療クリニック向けプラットフォームのAI対応状況を調査予定です。</p>
+      <div class="pc-comingsoon">
+        <div class="pc-comingsoon-icon">⏳</div>
+        <div class="pc-comingsoon-text">Coming Soon</div>
+        <div class="pc-comingsoon-sub">調査開始まで今しばらくお待ちください</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-fitness" class="tab-panel reveal">
+    <div class="project-card">
+      <div class="pc-status-row">
+        <span class="pc-status status-soon">⏳ 準備中</span>
+        <span class="pc-industry">フィットネス・会員管理 · 2026 Q4予定</span>
+      </div>
+      <h3>Fitness AI Readiness Survey</h3>
+      <p class="pc-desc">フィットネスジム・スタジオ向け会員管理・予約システムのAI対応状況を調査予定です。</p>
+      <div class="pc-comingsoon">
+        <div class="pc-comingsoon-icon">⏳</div>
+        <div class="pc-comingsoon-text">Coming Soon</div>
+        <div class="pc-comingsoon-sub">調査開始まで今しばらくお待ちください</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-realestate" class="tab-panel reveal">
+    <div class="project-card">
+      <div class="pc-status-row">
+        <span class="pc-status status-soon">⏳ 準備中</span>
+        <span class="pc-industry">不動産・内見予約 · 2027 Q1予定</span>
+      </div>
+      <h3>Real Estate AI Readiness Survey</h3>
+      <p class="pc-desc">不動産仲介・賃貸管理プラットフォームの内見予約AI対応状況を調査予定です。</p>
+      <div class="pc-comingsoon">
+        <div class="pc-comingsoon-icon">⏳</div>
+        <div class="pc-comingsoon-text">Coming Soon</div>
+        <div class="pc-comingsoon-sub">調査開始まで今しばらくお待ちください</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 5: INDUSTRIES ── -->
+<section class="industries" id="industries">
+  <div class="reveal">
+    <div class="section-label">Coverage</div>
+    <h2>調査対象<span class="gold">業界</span></h2>
+    <p class="section-desc">AI Agentによる予約・申込が成立しうる業界を横断的に調査します。</p>
+  </div>
+  <div class="industry-cards reveal">
+    <div class="industry-card active-card">
+      <div class="ic-icon">🦷</div>
+      <div class="ic-name">Dental</div>
+      <div class="ic-sub">歯科予約システム</div>
+      <span class="ic-badge status-live">進行中</span>
+    </div>
+    <div class="industry-card">
+      <div class="ic-icon">💄</div>
+      <div class="ic-name">Beauty</div>
+      <div class="ic-sub">自由診療・美容医療</div>
+      <span class="ic-badge status-soon">準備中</span>
+    </div>
+    <div class="industry-card">
+      <div class="ic-icon">🏋️</div>
+      <div class="ic-name">Fitness</div>
+      <div class="ic-sub">フィットネス・会員管理</div>
+      <span class="ic-badge status-soon">準備中</span>
+    </div>
+    <div class="industry-card">
+      <div class="ic-icon">🏠</div>
+      <div class="ic-name">Real Estate</div>
+      <div class="ic-sub">不動産・内見予約</div>
+      <span class="ic-badge status-soon">準備中</span>
+    </div>
+    <div class="industry-card">
+      <div class="ic-icon">🏪</div>
+      <div class="ic-name">Local Commerce</div>
+      <div class="ic-sub">店舗来店・予約</div>
+      <span class="ic-badge status-soon">準備中</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 6: PARTNER ── -->
+<section class="partner" id="contact">
+  <div class="partner-inner">
+    <div class="partner-left reveal">
+      <div class="section-label">Call for Partners</div>
+      <h2>調査協力<span class="gold">企業募集</span></h2>
+      <p class="section-desc">
+        AI Agent時代における業界変化の共同調査を行っています。SaaS・予約システム・CRM・業界プラットフォームを運営する企業の担当者をお待ちしています。
+      </p>
+
+      <div class="partner-targets">
+        <div class="ptarget-item">SaaS・予約システム</div>
+        <div class="ptarget-item">CRM・顧客管理システム</div>
+        <div class="ptarget-item">業界特化プラットフォーム</div>
+      </div>
+
+      <div class="cta-actions" style="justify-content:flex-start;">
+        <a href="https://lin.ee/XXXXX" class="btn-line">
+          <span>📩</span> LINEで申請する
+        </a>
+        <a href="mailto:info@coaretail.com" class="btn-secondary">メールで問い合わせ</a>
+      </div>
+    </div>
+
+    <div class="partner-benefits reveal">
+      <div class="pb-item">
+        <div class="pb-icon">📋</div>
+        <div class="pb-body">
+          <h4>ヒアリング参加</h4>
+          <p>AI対応方針・ロードマップについてお話を伺います。無償・任意です。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">✅</div>
+        <div class="pb-body">
+          <h4>掲載前レビュー権</h4>
+          <p>スコア確定前に内容を確認・修正依頼できます。一方的な掲載は行いません。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">💡</div>
+        <div class="pb-body">
+          <h4>AI Readiness診断</h4>
+          <p>調査協力企業には、自社の3軸スコアと改善提案を無償で共有します。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">🔄</div>
+        <div class="pb-body">
+          <h4>情報交換</h4>
+          <p>AI Agent予約の業界動向・海外事例について相互に情報共有します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 7: OPERATOR ── -->
+<section class="operator">
+  <div class="operator-inner reveal">
+    <div class="operator-brand">
+      <div class="op-logo">Coa Retail</div>
+      <div class="op-sub">合同会社コア・リテール</div>
+      <a href="https://www.coaretail.com" class="op-link" target="_blank">aiscan.coaretail.com →</a>
+      <div class="research-tags">
+        <span class="rtag">GEO Search Protocol</span>
+        <span class="rtag">Local GEO</span>
+        <span class="rtag">AI Visibility</span>
+        <span class="rtag">AI Agent Booking</span>
+        <span class="rtag">AI Readiness Index</span>
+      </div>
+    </div>
+    <div class="operator-statement">
+      <div class="os-label">Research Mission</div>
+      <p class="os-text">
+        本調査が売るのは、サービスでも契約でもない。<br>
+        「AI Readiness」という概念そのものを、業界に届けることが目的です。
+      </p>
+      <p class="os-note">
+        GEOコンサルティング・AI検索最適化・AI Agent予約研究を通じて、
+        各業界プラットフォームのAI対応実態を調査。ヒアリング内容は調査・分析目的のみに使用し、
+        個別同意なく第三者提供は行いません。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">まず、Dentalから。</div>
+    <h2>最初の調査結果を<br><span class="gold">いち早く確認する</span></h2>
+    <p class="cta-desc">
+      歯科予約システム各社のAI Readinessスコアを公開中。あなたが導入している、または検討しているSaaSはどのランクか。
+    </p>
+    <div class="cta-actions">
+      <a href="dental.html" class="btn-primary">Dental Surveyを見る →</a>
+    </div>
+    <div class="cta-note">無料・登録不要で全スコアを閲覧できます</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">AI Readiness Index 2026</div>
+  <div class="footer-links">
+    <a href="#whynow">調査背景</a>
+    <a href="#readiness">評価軸</a>
+    <a href="#projects">調査一覧</a>
+    <a href="dental.html">Dental</a>
+    <a href="https://www.coaretail.com">GEO Search Protocol</a>
+  </div>
+  <div class="footer-copy">© 2026 合同会社コア・リテール. All rights reserved.</div>
+</footer>
+
+<script>
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Nav active state ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(s.getBoundingClientRect().top < 200) current = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = '';
+    if(a.getAttribute('href') === '#' + current) a.style.color = 'var(--gold)';
+  });
+});
+
+// ── Tabs ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
