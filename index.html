@@ -96,13 +96,13 @@ nav {
 
 .hero-inner {
   position:relative; width:100%;
-  display:grid; grid-template-columns:1.1fr 0.9fr;
-  gap:56px; align-items:center;
+  display:flex; flex-direction:column;
+  gap:32px;
   animation:heroIn 0.9s ease both;
 }
 @keyframes heroIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-.hero-content { max-width:580px; }
+.hero-content { max-width:100%; }
 
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
@@ -238,11 +238,17 @@ nav {
 }
 .paradigm-img {
   width:100%;
-  max-width:540px;
+  max-width:900px;
   height:auto;
-  border-radius:8px;
+  border-radius:10px;
   display:block;
-  box-shadow:0 8px 40px rgba(0,0,0,0.45);
+  box-shadow:0 12px 56px rgba(0,0,0,0.5);
+}
+@media(max-width:640px){
+  .paradigm-img {
+    max-width:100%;
+    border-radius:6px;
+  }
 }
 
 /* ── HERO BRAND BLOCK ── */
@@ -665,9 +671,6 @@ footer {
   section { padding:72px 28px; }
   .cta-section { padding:72px 28px; }
   .hero { padding:120px 28px 80px; }
-  .hero-inner { grid-template-columns:1fr; }
-  .hero-visual { justify-content:center; }
-  .status-panel { max-width:576px; }
   .flow-compare { grid-template-columns:1fr; gap:16px; }
   .flow-arrow { transform:rotate(90deg); display:none; }
   .pillars-grid { grid-template-columns:1fr 1fr; }
@@ -713,11 +716,15 @@ footer {
 
       <!-- 世界観コピー：主役 → 画像 -->
       <div class="hero-worldview">
-        <img
-          src="paradigm-shift.webp"
-          alt="検索行動のパラダイムシフト：人間が選ぶ時代から、Agentが完結する時代へ"
-          class="paradigm-img"
-        >
+        <picture>
+          <source media="(max-width:1024px)" srcset="paradigm-shift-mobile.webp">
+          <source media="(min-width:1025px)" srcset="paradigm-shift.webp">
+          <img
+            src="paradigm-shift.webp"
+            alt="検索行動のパラダイムシフト：人間が選ぶ時代から、Agentが完結する時代へ"
+            class="paradigm-img"
+          >
+        </picture>
       </div>
 
       <!-- ブランド名：サブタイトル扱い -->
@@ -738,43 +745,6 @@ footer {
       </div>
     </div>
 
-    <div class="hero-visual">
-    <div class="status-panel">
-      <div class="sp-header">Survey Status — 2026</div>
-      <div class="sp-row">
-        <div class="sp-industry">
-          <span class="sp-icon">🦷</span>
-          Dental
-        </div>
-        <span class="sp-status status-live">✅ 進行中</span>
-      </div>
-      <div class="sp-row">
-        <div class="sp-industry">
-          <span class="sp-icon">💄</span>
-          Beauty
-        </div>
-        <span class="sp-status status-soon">⏳ 準備中</span>
-      </div>
-      <div class="sp-row">
-        <div class="sp-industry">
-          <span class="sp-icon">🏋️</span>
-          Fitness
-        </div>
-        <span class="sp-status status-soon">⏳ 準備中</span>
-      </div>
-      <div class="sp-row">
-        <div class="sp-industry">
-          <span class="sp-icon">🏠</span>
-          Real Estate
-        </div>
-        <span class="sp-status status-soon">⏳ 準備中</span>
-      </div>
-      <div class="sp-footer">
-        調査はスコアリング → ヒアリング → レポート公開の順で進行。<br>
-        掲載前確認を全企業に行います。
-      </div>
-    </div>
-    </div>
   </div>
 </section>
 
