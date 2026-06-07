@@ -541,6 +541,105 @@ footer {
 .legend-dot.existing { background:var(--gray-500); opacity:0.7; }
 .legend-dot.ai { background:var(--gold); box-shadow:0 0 6px rgba(201,168,76,0.5); }
 
+/* ── WHY DENTAL ── */
+.why-dental {
+  background: var(--navy);
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
+.why-dental-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 56px;
+}
+.why-dental-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wd-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 26px;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+  transition: background 0.2s;
+}
+.wd-reason:last-child { border-bottom: none; }
+.wd-reason:hover { background: rgba(201,168,76,0.03); }
+.wd-icon { font-size: 1.275rem; flex-shrink: 0; margin-top: 2px; }
+.wd-text h4 { font-size: 0.985rem; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+.wd-text p { font-size: 0.905rem; color: var(--gray-300); line-height: 1.7; }
+
+.eval-framework {
+  background: var(--navy-mid);
+  border: 1px solid rgba(201,168,76,0.14);
+  border-radius: 4px;
+  padding: 30px 30px 26px;
+}
+.ef-label {
+  font-size: 0.745rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin-bottom: 20px;
+  opacity: 0.75;
+}
+.ef-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.ef-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.ef-step:last-child { border-bottom: none; }
+.ef-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 28px;
+}
+.ef-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); opacity: 0.7; flex-shrink: 0;
+}
+.ef-line {
+  width: 1px; height: 28px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.4), rgba(201,168,76,0.05));
+  margin-top: 4px;
+}
+.ef-step:last-child .ef-line { display: none; }
+.ef-body {}
+.ef-title {
+  font-family: var(--font-display);
+  font-size: 1.045rem; font-weight: 600;
+  color: var(--gold); margin-bottom: 4px;
+}
+.ef-why {
+  font-size: 0.885rem; color: var(--gray-300); line-height: 1.65;
+}
+.ef-footer {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  line-height: 1.7;
+  font-style: italic;
+}
+.ef-footer strong { color: var(--gold); font-style: normal; font-weight: 500; }
+
+@media(max-width:1024px){
+  .why-dental-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+
 /* ── RECRUIT BANNER ── */
 .recruit-banner {
   background: var(--navy-mid);
@@ -945,28 +1044,96 @@ footer {
   </div>
 </section>
 
+<!-- WHY DENTAL -->
+<section class="why-dental" id="criteria">
+  <div class="section-label">Why Dental</div>
+  <h2>なぜ歯科領域から<span class="gold">始めるのか</span></h2>
+  <p class="section-desc">AI検索から予約までの行動変化が、最も早く起きる可能性がある領域の一つ。それが歯科だ。</p>
+
+  <div class="why-dental-inner">
+    <div class="why-dental-reasons">
+      <div class="wd-reason reveal">
+        <div class="wd-icon">💰</div>
+        <div class="wd-text">
+          <h4>自由診療の拡大で「比較検討」が長くなる</h4>
+          <p>インビザライン・ホワイトニング・審美補綴——価格差が大きい自由診療は、患者の比較行動を誘発する。AI検索との相性が、医療分野の中で際立って高い。</p>
+        </div>
+      </div>
+      <div class="wd-reason reveal">
+        <div class="wd-icon">🔍</div>
+        <div class="wd-text">
+          <h4>「近くの歯医者」はAI検索の定番クエリになる</h4>
+          <p>ChatGPT・Perplexity・Geminiで既に「おすすめの歯医者」を検索するユーザーが増えている。AIが推薦する医院と、されない医院の差は、今この瞬間も広がっている。</p>
+        </div>
+      </div>
+      <div class="wd-reason reveal">
+        <div class="wd-icon">📅</div>
+        <div class="wd-text">
+          <h4>予約DXの普及で「AI経由予約」の土台が整いつつある</h4>
+          <p>WEB予約・LINE予約の普及が、次のステップ——AI Agentによる自動予約——の地ならしをしている。インフラが整った市場ほど、次の変化が早く来る。</p>
+        </div>
+      </div>
+      <div class="wd-reason reveal">
+        <div class="wd-icon">🌐</div>
+        <div class="wd-text">
+          <h4>海外ではすでに動いている</h4>
+          <p>米国のFrontDeskIndexはAI予約対応に特化したSaaSランキングを運営し、英語圏の歯科SaaS市場では「AI Agent対応」が選定基準の一つになりつつある。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="eval-framework reveal">
+      <div class="ef-label">Evaluation Framework</div>
+      <div class="ef-flow">
+        <div class="ef-step">
+          <div class="ef-arrow">
+            <div class="ef-dot"></div>
+            <div class="ef-line"></div>
+          </div>
+          <div class="ef-body">
+            <div class="ef-title">Discovery Readiness</div>
+            <div class="ef-why">AIが医院・サービスを発見できなければ、推薦は発生しない。構造化データ・GEO対応・LLM引用状況を評価する。</div>
+          </div>
+        </div>
+        <div class="ef-step">
+          <div class="ef-arrow">
+            <div class="ef-dot"></div>
+            <div class="ef-line"></div>
+          </div>
+          <div class="ef-body">
+            <div class="ef-title">Recommendation Readiness</div>
+            <div class="ef-why">AIが推薦するには、信頼できる根拠が必要になる。Entity最適化・引用実績・AI時代の集患方針を評価する。</div>
+          </div>
+        </div>
+        <div class="ef-step">
+          <div class="ef-arrow">
+            <div class="ef-dot"></div>
+            <div class="ef-line"></div>
+          </div>
+          <div class="ef-body">
+            <div class="ef-title">Action Readiness</div>
+            <div class="ef-why">AIが予約・申込を実行するには、接続可能な導線が必要になる。Reservation API・MCP対応・外部AI連携実績を評価する。</div>
+          </div>
+        </div>
+      </div>
+      <div class="ef-footer">
+        本調査は歯科医院・予約システム事業者・AIプラットフォームの声をもとに<strong>継続更新</strong>されます。
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SECTION 4: CRITERIA -->
-<section id="criteria" style="background:var(--navy);">
+<section style="background:var(--navy-mid); border-top:1px solid rgba(201,168,76,0.08); padding:72px 60px;">
   <div class="section-label">調査設計</div>
   <h2>3つの軸で<span class="gold">実態を把握する</span></h2>
-  <p class="section-desc">AI Agent Readiness・GEO Readiness・Platform Readinessの3軸。公開情報調査ののち、各社にヒアリングで補完する。</p>
+  <p class="section-desc">Discovery・Recommendation・Actionの3フェーズに対応した評価軸で、各ベンダーのAI対応実態を測る。</p>
 
   <div class="criteria-grid">
     <div class="criteria-item reveal">
-      <div class="criteria-icon">🤖</div>
-      <h3>AI Agent Readiness</h3>
-      <ul>
-        <li>Reservation API 公開有無</li>
-        <li>外部AIからの予約登録可否</li>
-        <li>Schema.org ReservationAction対応</li>
-        <li>MCP対応の方針・ロードマップ</li>
-        <li>AI電話・ボイスボット連携実績</li>
-        <li>外部AI連携に関する公式見解</li>
-      </ul>
-    </div>
-    <div class="criteria-item reveal">
       <div class="criteria-icon">🔍</div>
       <h3>GEO Readiness</h3>
+      <div style="font-size:0.825rem;color:var(--gray-500);margin-bottom:14px;line-height:1.55;font-style:italic;">→ Discovery：AIに発見されるための基盤</div>
       <ul>
         <li>構造化データ（JSON-LD）対応</li>
         <li>医院ページのEntity最適化支援</li>
@@ -979,6 +1146,7 @@ footer {
     <div class="criteria-item reveal">
       <div class="criteria-icon">🔗</div>
       <h3>Platform Readiness</h3>
+      <div style="font-size:0.825rem;color:var(--gray-500);margin-bottom:14px;line-height:1.55;font-style:italic;">→ Recommendation：AIに選ばれ続けるための信頼基盤</div>
       <ul>
         <li>LINE公式アカウント連携深度</li>
         <li>CRM・MA機能の充実度</li>
@@ -986,6 +1154,19 @@ footer {
         <li>SDK・開発者向けドキュメント</li>
         <li>レセコン連携の幅と深度</li>
         <li>今後12ヶ月のロードマップ</li>
+      </ul>
+    </div>
+    <div class="criteria-item reveal">
+      <div class="criteria-icon">🤖</div>
+      <h3>AI Agent Readiness</h3>
+      <div style="font-size:0.825rem;color:var(--gray-500);margin-bottom:14px;line-height:1.55;font-style:italic;">→ Action：AIが実際に予約を完結できるか</div>
+      <ul>
+        <li>Reservation API 公開有無</li>
+        <li>外部AIからの予約登録可否</li>
+        <li>Schema.org ReservationAction対応</li>
+        <li>MCP対応の方針・ロードマップ</li>
+        <li>AI電話・ボイスボット連携実績</li>
+        <li>外部AI連携に関する公式見解</li>
       </ul>
     </div>
   </div>
