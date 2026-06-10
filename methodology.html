@@ -1,671 +1,500 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Methodology | Agent Readiness Index</title>
-  <meta name="description" content="Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。" />
-  <link rel="canonical" href="https://readiness.coaretail.com/methodology.html" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://www.coaretail.com/#organization",
-        "name": "合同会社コア・リテール",
-        "alternateName": ["Coa Retail", "CoaRetail G.K."],
-        "url": "https://www.coaretail.com"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://readiness.coaretail.com/#website",
-        "url": "https://readiness.coaretail.com/",
-        "name": "Agent Readiness Index",
-        "publisher": { "@id": "https://www.coaretail.com/#organization" },
-        "inLanguage": "ja"
-      },
-      {
-        "@type": "ResearchProject",
-        "@id": "https://readiness.coaretail.com/#researchproject",
-        "name": "Agent Readiness Index",
-        "url": "https://readiness.coaretail.com/"
-      },
-      {
-        "@type": "Article",
-        "@id": "https://readiness.coaretail.com/methodology.html#article",
-        "headline": "Agent Readiness Index Methodology",
-        "name": "Agent Readiness Index Methodology",
-        "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
-        "url": "https://readiness.coaretail.com/methodology.html",
-        "author": { "@id": "https://www.coaretail.com/#organization" },
-        "publisher": { "@id": "https://www.coaretail.com/#organization" },
-        "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
-        "inLanguage": "ja",
-        "about": {
-          "@type": "Thing",
-          "name": "Agent Readiness評価フレームワーク",
-          "description": "Discovery Readiness・Agent Readiness・Conversion Readinessの3軸評価"
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology | Agent Readiness Index</title>
+<meta name="description" content="Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。">
+<link rel="canonical" href="https://readiness.coaretail.com/methodology.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.coaretail.com/#organization",
+      "name": "合同会社コア・リテール",
+      "alternateName": ["Coa Retail", "CoaRetail G.K."],
+      "url": "https://www.coaretail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://readiness.coaretail.com/#website",
+      "url": "https://readiness.coaretail.com/",
+      "name": "Agent Readiness Index",
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "ResearchProject",
+      "@id": "https://readiness.coaretail.com/#researchproject",
+      "name": "Agent Readiness Index",
+      "url": "https://readiness.coaretail.com/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://readiness.coaretail.com/methodology.html#article",
+      "headline": "Agent Readiness Index Methodology",
+      "name": "Agent Readiness Index Methodology",
+      "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
+      "url": "https://readiness.coaretail.com/methodology.html",
+      "author": { "@id": "https://www.coaretail.com/#organization" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
+      "inLanguage": "ja",
+      "about": {
+        "@type": "Thing",
+        "name": "Agent Readiness評価フレームワーク",
+        "description": "Discovery Readiness・Agent Readiness・Conversion Readinessの3軸評価"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://readiness.coaretail.com/methodology.html#webpage",
+      "url": "https://readiness.coaretail.com/methodology.html",
+      "name": "Methodology | Agent Readiness Index",
+      "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+      "breadcrumb": { "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb" },
+      "mainEntity": { "@id": "https://readiness.coaretail.com/methodology.html#article" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Agent Readiness Index",
+          "item": "https://readiness.coaretail.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Methodology",
+          "item": "https://readiness.coaretail.com/methodology.html"
         }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://readiness.coaretail.com/methodology.html#webpage",
-        "url": "https://readiness.coaretail.com/methodology.html",
-        "name": "Methodology | Agent Readiness Index",
-        "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
-        "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
-        "breadcrumb": { "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb" },
-        "mainEntity": { "@id": "https://readiness.coaretail.com/methodology.html#article" },
-        "inLanguage": "ja"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Agent Readiness Index",
-            "item": "https://readiness.coaretail.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Methodology",
-            "item": "https://readiness.coaretail.com/methodology.html"
-          }
-        ]
-      }
-    ]
-  }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1628;
+  --navy-mid: #152238;
+  --navy-light: #1E3354;
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --white: #FAFAF8;
+  --gray-300: #C8C4BC;
+  --gray-500: #8A8680;
+  --accent-red: #E05252;
+  --accent-green: #06C755;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9999; opacity:0.35;
+}
 
-  <style>
-    :root {
-      --bg:        #0a0a0b;
-      --bg2:       #111113;
-      --bg3:       #18181c;
-      --border:    rgba(255,255,255,0.07);
-      --text:      #e8e6e1;
-      --muted:     #6b6a68;
-      --accent:    #d4a847;
-      --accent2:   #4a9eff;
-      --accent3:   #6de0b0;
-      --red:       #e05a5a;
-      --mono:      'Space Mono', monospace;
-      --serif:     'DM Serif Display', serif;
-      --sans:      'Noto Sans JP', sans-serif;
-    }
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(to bottom, rgba(11,22,40,0.95) 0%, transparent 100%);
+  backdrop-filter:blur(2px);
+}
+.nav-logo {
+  font-family:var(--font-display); font-size:1.125rem; font-weight:600;
+  color:var(--gold); letter-spacing:0.05em; text-decoration:none;
+}
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  color:var(--gray-300); text-decoration:none; font-size:0.905rem;
+  font-weight:500; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color:var(--gold); }
+.nav-cta {
+  background:var(--gold); color:var(--navy) !important;
+  padding:10px 22px; border-radius:2px; font-weight:600 !important;
+}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── HERO ── */
+.hero {
+  min-height:auto;
+  display:flex; align-items:center;
+  padding:140px 60px 80px;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 65% 70% at 60% 45%, rgba(201,168,76,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(30,51,84,0.5) 0%, transparent 70%),
+    linear-gradient(150deg, var(--navy) 0%, #0D1F3C 100%);
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+.hero-diagonal {
+  position:absolute;
+  top:0; right:0; bottom:0;
+  width:50%;
+  clip-path:polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+  background:linear-gradient(160deg, rgba(201,168,76,0.025) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-inner {
+  position:relative; width:100%;
+  animation:heroIn 0.9s ease both;
+}
+@keyframes heroIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-    html { scroll-behavior: smooth; }
+.breadcrumb {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gray-500); letter-spacing:0.1em; text-transform:uppercase;
+  margin-bottom:24px; display:flex; align-items:center; gap:8px;
+}
+.breadcrumb a { color:var(--gray-500); text-decoration:none; transition:color 0.2s; }
+.breadcrumb a:hover { color:var(--gold); }
+.breadcrumb span { color:rgba(201,168,76,0.3); }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 15px;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
-    }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(201,168,76,0.09); border:1px solid rgba(201,168,76,0.28);
+  color:var(--gold); font-size:0.825rem; font-weight:500; letter-spacing:0.15em;
+  text-transform:uppercase; padding:8px 18px; border-radius:2px; margin-bottom:28px;
+}
+.hero-badge::before {
+  content:''; width:6px; height:6px; background:var(--gold); border-radius:50%;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,11,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 clamp(20px, 5vw, 80px);
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color .2s;
-    }
-    .nav-logo:hover { color: var(--text); }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--accent); }
+.hero h1 {
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight:700; line-height:1.1;
+  color:var(--white); margin-bottom:16px;
+  letter-spacing:-0.01em;
+}
+.hero h1 .gold { color:var(--gold); font-style:italic; }
+.hero-lead {
+  font-size:1.125rem; color:var(--gray-300); line-height:1.85;
+  max-width:560px;
+}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 100px);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      background-color: var(--bg);
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(212,168,71,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(74,158,255,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .breadcrumb {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .breadcrumb a { color: var(--muted); text-decoration: none; }
-    .breadcrumb a:hover { color: var(--accent); }
-    .breadcrumb span { color: var(--border); }
+/* ── BUTTONS ── */
+.btn-primary {
+  background:var(--gold); color:var(--navy);
+  padding:15px 34px; font-size:1rem; font-weight:600;
+  letter-spacing:0.04em; border:none; border-radius:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all 0.2s;
+}
+.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
+.btn-secondary {
+  background:transparent; color:var(--gold);
+  padding:15px 34px; font-size:1rem; font-weight:500;
+  border:1px solid rgba(201,168,76,0.38); border-radius:2px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all 0.2s;
+}
+.btn-secondary:hover { border-color:var(--gold); background:rgba(201,168,76,0.05); }
+.btn-line {
+  background:var(--accent-green); color:var(--white);
+  padding:16px 38px; font-size:1.045rem; font-weight:600;
+  border:none; border-radius:3px; cursor:pointer; text-decoration:none;
+  display:inline-flex; align-items:center; gap:9px; transition:all 0.2s;
+}
+.btn-line:hover { background:#05b84c; transform:translateY(-1px); }
 
-    .hero-tag {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(212,168,71,0.3);
-      padding: 4px 10px;
-      border-radius: 2px;
-      margin-bottom: 28px;
-    }
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(36px, 6vw, 72px);
-      line-height: 1.1;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      max-width: 800px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.7;
-    }
+/* ── SECTION BASE ── */
+section { padding:96px 60px; }
+.section-label {
+  font-size:0.825rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--gold); font-weight:500; margin-bottom:14px;
+  display:flex; align-items:center; gap:12px;
+}
+.section-label::after { content:''; flex:1; max-width:36px; height:1px; background:var(--gold); opacity:0.4; }
+h2 {
+  font-family:var(--font-display);
+  font-size:clamp(2rem, 3.2vw, 2.9rem);
+  font-weight:700; line-height:1.15;
+  color:var(--white); margin-bottom:18px;
+}
+h2 .gold { color:var(--gold); }
+.section-desc { font-size:1.075rem; color:var(--gray-300); max-width:540px; line-height:1.85; }
+.section-header { margin-bottom:56px; }
 
-    /* ── SECTION COMMONS ── */
-    .section {
-      padding: clamp(60px, 8vw, 120px) clamp(20px, 5vw, 80px);
-      border-bottom: 1px solid var(--border);
-    }
-    .section-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(26px, 4vw, 44px);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      letter-spacing: -0.01em;
-      color: #c8c6c1;
-    }
-    .section-lead {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 640px;
-      line-height: 1.8;
-      margin-bottom: 48px;
-    }
+/* ── WHY NOW ── */
+.whynow {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.1);
+  border-bottom:1px solid rgba(201,168,76,0.1);
+}
+.flow-compare {
+  display:grid; grid-template-columns:1fr 64px 1fr;
+  gap:0; align-items:center; margin-bottom:48px;
+}
+.flow-box {
+  background:var(--navy); border:1px solid rgba(201,168,76,0.12);
+  border-radius:4px; padding:28px 24px;
+}
+.flow-box-label {
+  font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.14em;
+  text-transform:uppercase; margin-bottom:18px; font-weight:500;
+}
+.flow-box-label.old { color:var(--gray-500); }
+.flow-box-label.new { color:var(--gold); }
+.flow-steps { display:flex; flex-direction:column; gap:0; }
+.flow-step {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:0.965rem; color:var(--gray-300);
+}
+.flow-step:last-child { border-bottom:none; }
+.flow-step .step-icon { font-size:1rem; width:24px; flex-shrink:0; }
+.flow-step.highlight { color:var(--white); font-weight:500; }
+.flow-step.highlight .step-icon { color:var(--gold); }
+.flow-arrow {
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.625rem; color:var(--gold); opacity:0.4;
+}
+.whynow-insight {
+  background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15);
+  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
+  padding:22px 26px;
+  font-size:1.045rem; color:var(--white); line-height:1.8;
+}
+.whynow-insight strong { color:var(--gold); font-weight:500; }
 
-    /* ── WHY NOW: behavior shift ── */
-    .behavior-grid {
-      display: grid;
-      grid-template-columns: 1fr 40px 1fr;
-      gap: 0;
-      max-width: 780px;
-      margin: 48px 0;
-      align-items: stretch;
-    }
-    .behavior-col {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 28px 24px;
-    }
-    .behavior-col.old { border-right: none; }
-    .behavior-col.new {
-      border-left: none;
-      border-color: rgba(212,168,71,0.2);
-      background: rgba(212,168,71,0.03);
-    }
-    .behavior-arrow {
-      width: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 18px;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .behavior-col-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-    .behavior-col.new .behavior-col-label { color: var(--accent); }
-    .behavior-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .behavior-step:last-child { margin-bottom: 0; }
-    .step-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .behavior-col.new .step-icon {
-      background: rgba(212,168,71,0.1);
-      border-color: rgba(212,168,71,0.2);
-    }
-    .step-text {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text);
-    }
-    .step-text small {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-    }
-    .insight-box {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 20px 24px;
-      max-width: 680px;
-      margin-top: 32px;
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.8;
-    }
+/* ── PILLARS ── */
+.readiness { background:var(--navy); }
+.pillars-grid {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:1px; background:rgba(201,168,76,0.1);
+  border:1px solid rgba(201,168,76,0.1); border-radius:4px;
+  overflow:hidden;
+}
+.pillar-item {
+  background:var(--navy); padding:36px 28px;
+  transition:background 0.2s;
+}
+.pillar-item:hover { background:var(--navy-mid); }
+.pillar-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); opacity:0.5; letter-spacing:0.1em; margin-bottom:8px;
+}
+.pillar-icon { font-size:1.825rem; margin-bottom:14px; }
+.pillar-item h3 {
+  font-family:var(--font-display); font-size:1.425rem;
+  font-weight:600; color:var(--gold); margin-bottom:6px;
+}
+.pillar-sub {
+  font-size:0.875rem; color:var(--gray-500); margin-bottom:16px;
+}
+.pillar-desc {
+  font-size:0.925rem; color:var(--gray-300); line-height:1.75;
+  margin-bottom:20px;
+}
+.pillar-criteria {
+  list-style:none; display:flex; flex-direction:column; gap:8px;
+}
+.pillar-criteria li {
+  font-size:0.875rem; color:var(--gray-300);
+  padding-left:16px; position:relative; line-height:1.5;
+}
+.pillar-criteria li::before {
+  content:'—'; position:absolute; left:0; color:var(--gold); font-size:0.8rem;
+}
 
-    /* ── WHAT WE MEASURE: 3 pillars ── */
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 48px;
-    }
-    .pillar {
-      background: var(--bg);
-      padding: 40px 32px;
-      position: relative;
-      transition: background .25s;
-    }
-    .pillar:hover { background: var(--bg2); }
-    .pillar-num {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .pillar-icon {
-      font-size: 28px;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .pillar-title {
-      font-family: var(--serif);
-      font-size: 22px;
-      font-weight: 400;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-    .pillar-subtitle {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.06em;
-      margin-bottom: 20px;
-    }
-    .pillar-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-    .pillar-criteria {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .pillar-criteria li {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--text);
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      line-height: 1.5;
-    }
-    .pillar-criteria li::before {
-      content: '—';
-      color: var(--accent);
-      flex-shrink: 0;
-      font-size: 12px;
-      margin-top: 1px;
-    }
-    .pillar-warning {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--muted);
-      font-style: italic;
-      line-height: 1.6;
-    }
+/* ── PROCESS ── */
+.process {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.08);
+}
+.process-list { display:flex; flex-direction:column; gap:12px; }
+.process-item {
+  background:var(--navy); border:1px solid rgba(201,168,76,0.1);
+  border-radius:3px; padding:22px 24px;
+  display:grid; grid-template-columns:80px 1fr; gap:8px 20px;
+  align-items:start; transition:border-color 0.2s;
+}
+.process-item:hover { border-color:rgba(201,168,76,0.22); }
+.process-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); letter-spacing:0.1em; text-transform:uppercase;
+  padding-top:3px;
+}
+.process-item h3 {
+  font-family:var(--font-display); font-size:1.2rem;
+  font-weight:600; color:var(--white); margin-bottom:4px;
+  grid-column:2;
+}
+.process-item p {
+  font-size:0.925rem; color:var(--gray-500); line-height:1.75;
+  grid-column:2;
+}
 
-    /* ── RESEARCH PROCESS ── */
-    .process-track {
-      margin-top: 48px;
-      max-width: 680px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .process-line { display: none; }
-    .process-step {
-      display: flex;
-      gap: 0;
-    }
-    .step-marker { display: none; }
-    .step-connector { display: none; }
-    .step-dot { display: none; }
-    .process-card {
-      width: 100%;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 24px 28px;
-      transition: border-color .25s;
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      gap: 0 20px;
-      align-items: start;
-    }
-    .process-card:hover { border-color: rgba(212,168,71,0.25); }
-    .process-step-num {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      text-transform: uppercase;
-      padding-top: 3px;
-      grid-column: 1;
-      grid-row: 1 / 3;
-    }
-    .process-step-title {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      grid-column: 2;
-      grid-row: 1;
-      color: var(--text);
-    }
-    .process-step-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      grid-column: 2;
-      grid-row: 2;
-    }
+/* ── INDUSTRIES ── */
+.industries { background:var(--navy); }
+.industry-cards {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:16px; margin-top:56px;
+}
+.industry-card {
+  background:var(--navy-mid); border:1px solid rgba(201,168,76,0.1);
+  border-radius:4px; padding:28px 20px;
+  text-align:center;
+  transition:border-color 0.2s, transform 0.2s;
+  text-decoration:none; color:inherit; display:block;
+}
+.industry-card:hover { border-color:rgba(201,168,76,0.28); transform:translateY(-2px); }
+.industry-card.active-card { border-color:rgba(201,168,76,0.3); }
+.ic-icon { font-size:2.125rem; margin-bottom:12px; }
+.ic-name {
+  font-family:var(--font-display); font-size:1.225rem;
+  font-weight:600; color:var(--white); margin-bottom:4px;
+}
+.ic-sub { font-size:0.835rem; color:var(--gray-500); line-height:1.5; }
+.ic-badge {
+  display:inline-block; margin-top:12px;
+  font-family:var(--font-mono); font-size:0.735rem;
+  padding:3px 10px; border-radius:2px;
+}
+.status-live {
+  background:rgba(6,199,85,0.1); color:var(--accent-green);
+  border:1px solid rgba(6,199,85,0.25);
+}
+.status-soon {
+  background:rgba(201,168,76,0.08); color:var(--gold);
+  border:1px solid rgba(201,168,76,0.2);
+}
 
-    /* ── CURRENT RESEARCH AREAS ── */
-    .areas-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 48px;
-    }
-    .area-item {
-      background: var(--bg);
-      padding: 28px 24px;
-      position: relative;
-    }
-    .area-item.active { background: var(--bg2); }
-    .area-icon { font-size: 24px; margin-bottom: 12px; display: block; }
-    .area-name {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    .area-name a {
-      color: var(--text);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .area-name a:hover { color: var(--accent); }
-    .area-status {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .status-active { color: var(--accent3); }
-    .status-soon { color: var(--muted); }
+/* ── PARTNER CTA ── */
+.partner {
+  background:var(--navy-mid);
+  border-top:1px solid rgba(201,168,76,0.1);
+}
+.partner-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:64px; align-items:start;
+}
+.partner-left h2 { margin-bottom:14px; }
+.partner-left .section-desc { margin-bottom:28px; }
+.partner-targets { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.ptarget-item {
+  display:flex; align-items:center; gap:10px;
+  font-size:0.975rem; color:var(--gray-300);
+}
+.ptarget-item::before {
+  content:''; width:5px; height:5px; background:var(--gold);
+  border-radius:50%; flex-shrink:0;
+}
+.partner-benefits { display:flex; flex-direction:column; gap:12px; }
+.pb-item {
+  background:var(--navy); border:1px solid rgba(201,168,76,0.1);
+  border-radius:3px; padding:18px 20px;
+  display:flex; gap:14px; align-items:flex-start;
+}
+.pb-icon { font-size:1.25rem; flex-shrink:0; }
+.pb-body h4 { font-size:0.985rem; font-weight:600; color:var(--white); margin-bottom:4px; }
+.pb-body p { font-size:0.885rem; color:var(--gray-500); line-height:1.6; }
+.cta-actions { display:flex; gap:14px; flex-wrap:wrap; }
 
-    /* ── PARTICIPATION CTA ── */
-    .participation {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 40px 40px;
-      max-width: 760px;
-      margin-top: 48px;
-    }
-    .participation h3 {
-      font-family: var(--serif);
-      font-size: 24px;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-    .participation p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-    .target-list {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 28px;
-    }
-    .target-list li {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      letter-spacing: 0.04em;
-    }
-    .cta-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--accent);
-      color: #0a0a0b;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: opacity .2s;
-    }
-    .btn-primary:hover { opacity: 0.85; }
-    .btn-secondary {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 10px 20px;
-      text-decoration: none;
-      transition: color .2s, border-color .2s;
-    }
-    .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
+/* ── DISCLAIMER ── */
+.disclaimer {
+  background:var(--navy);
+  border-top:1px solid rgba(201,168,76,0.08);
+  padding:72px 60px;
+}
+.disclaimer-box {
+  max-width:640px;
+  background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.12);
+  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
+  padding:28px 30px;
+}
+.disclaimer-label {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); letter-spacing:0.14em; text-transform:uppercase;
+  margin-bottom:14px; opacity:0.7;
+}
+.disclaimer-box p {
+  font-size:0.875rem; color:var(--gray-500); line-height:1.75;
+  margin-bottom:8px;
+}
+.disclaimer-box p:last-child { margin-bottom:0; }
 
-    /* ── DISCLAIMER ── */
-    .disclaimer {
-      padding: clamp(40px, 5vw, 64px) clamp(20px, 5vw, 80px);
-      border-bottom: 1px solid var(--border);
-    }
-    .disclaimer-inner {
-      max-width: 640px;
-    }
-    .disclaimer-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .disclaimer p {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 8px;
-    }
+/* ── FOOTER ── */
+footer {
+  padding:36px 60px; border-top:1px solid rgba(255,255,255,0.05);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-logo {
+  font-family:var(--font-display); font-size:1.025rem; color:var(--gold); font-weight:600;
+}
+.footer-links { display:flex; gap:22px; flex-wrap:wrap; }
+.footer-links a {
+  font-size:0.855rem; color:var(--gray-500); text-decoration:none; transition:color 0.2s;
+}
+.footer-links a:hover { color:var(--gold); }
+.footer-copy { font-size:0.855rem; color:var(--gray-500); }
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 32px clamp(20px, 5vw, 80px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color .2s;
-    }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-    }
+/* ── UTIL ── */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
 
-    /* ── FADE-IN ANIMATION ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up {
-      opacity: 0;
-      animation: fadeUp .6s ease forwards;
-    }
-    .fade-up:nth-child(1) { animation-delay: .05s; }
-    .fade-up:nth-child(2) { animation-delay: .12s; }
-    .fade-up:nth-child(3) { animation-delay: .19s; }
-    .fade-up:nth-child(4) { animation-delay: .26s; }
-    .fade-up:nth-child(5) { animation-delay: .33s; }
-
-    @media (max-width: 680px) {
-      .behavior-grid {
-        display: flex;
-        flex-direction: column;
-        max-width: 100%;
-      }
-      .behavior-col.old {
-        border-right: 1px solid var(--border);
-        border-bottom: none;
-      }
-      .behavior-col.new {
-        border-left: 1px solid rgba(212,168,71,0.2);
-        border-top: none;
-      }
-      .behavior-arrow {
-        width: 100%;
-        height: 36px;
-        border-left: 1px solid var(--border);
-        border-right: 1px solid var(--border);
-        font-size: 16px;
-      }
-      .nav-links { display: none; }
-      .process-line { display: none; }
-    }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .industry-cards { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:1024px){
+  nav { padding:20px 28px; }
+  section { padding:72px 28px; }
+  .hero { padding:120px 28px 64px; }
+  .disclaimer { padding:72px 28px; }
+  .flow-compare { grid-template-columns:1fr; gap:16px; }
+  .flow-arrow { display:none; }
+  .pillars-grid { grid-template-columns:1fr 1fr; }
+  .partner-inner { grid-template-columns:1fr; gap:36px; }
+}
+@media(max-width:640px){
+  nav .nav-links { display:none; }
+  .pillars-grid { grid-template-columns:1fr; }
+  .industry-cards { grid-template-columns:1fr 1fr; }
+  .process-item { grid-template-columns:1fr; }
+  .process-num { grid-column:1; margin-bottom:4px; }
+  .process-item h3, .process-item p { grid-column:1; }
+  footer { flex-direction:column; gap:14px; text-align:center; }
+}
+</style>
 </head>
 <body>
 
@@ -676,111 +505,85 @@
     <li><a href="index.html#whynow">背景</a></li>
     <li><a href="methodology.html" class="active">Methodology</a></li>
     <li><a href="dental.html">Dental</a></li>
-    <li><a href="index.html#contact">協力を申請</a></li>
+    <li><a href="index.html#contact" class="nav-cta">協力を申請</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<header class="hero">
-  <div class="breadcrumb">
-    <a href="index.html">Agent Readiness Index</a>
-    <span>›</span>
-    Methodology
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Agent Readiness Index</a>
+      <span>›</span>
+      Methodology
+    </div>
+    <div class="hero-badge">Research Framework</div>
+    <h1>Agent Readiness Index<br><span class="gold">Methodology</span></h1>
+    <p class="hero-lead">
+      AI Agent時代において、企業・サービスがどのように評価されるかを定義するフレームワーク。
+      調査の背景、評価軸、プロセスを公開します。
+    </p>
   </div>
-  <div class="hero-tag">Research Framework</div>
-  <h1 class="fade-up">Agent Readiness Index<br /><em>Methodology</em></h1>
-  <p class="hero-sub fade-up">
-    AI Agent時代において、企業・サービスがどのように評価されるかを定義するフレームワーク。
-    調査の背景、評価軸、プロセスを公開します。
-  </p>
-</header>
+</section>
 
 <!-- WHY NOW -->
-<section class="section" id="why">
-  <div class="section-label">Why Agent Readiness Matters</div>
-  <h2 class="section-title">検索行動は、<br />変化している</h2>
-  <p class="section-lead">
-    顧客が情報を得て、比較し、行動するプロセスが根本から変わりつつある。
-    これは仮説ではなく、すでに始まっている変化だ。
-  </p>
+<section class="whynow" id="why">
+  <div class="section-header reveal">
+    <div class="section-label">Why Agent Readiness Matters</div>
+    <h2>検索行動は、<br><span class="gold">変化している</span></h2>
+    <p class="section-desc">
+      顧客が情報を得て、比較し、行動するプロセスが根本から変わりつつある。
+      これは仮説ではなく、すでに始まっている変化だ。
+    </p>
+  </div>
 
-  <div class="behavior-grid">
-    <div class="behavior-col old">
-      <div class="behavior-col-label">従来の顧客行動</div>
-      <div class="behavior-step">
-        <div class="step-icon">🔍</div>
-        <div class="step-text">
-          検索
-          <small>Google / ホットペッパーで調べる</small>
-        </div>
-      </div>
-      <div class="behavior-step">
-        <div class="step-icon">👤</div>
-        <div class="step-text">
-          比較
-          <small>人間が候補を読んで選ぶ</small>
-        </div>
-      </div>
-      <div class="behavior-step">
-        <div class="step-icon">📅</div>
-        <div class="step-text">
-          予約
-          <small>Webフォームで人が入力・完了</small>
-        </div>
+  <div class="flow-compare reveal">
+    <div class="flow-box">
+      <div class="flow-box-label old">— 従来の顧客行動</div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-icon">🔍</span>検索 <span style="color:var(--gray-500);font-size:0.85rem;">— Google / ホットペッパー</span></div>
+        <div class="flow-step"><span class="step-icon">👤</span>比較 <span style="color:var(--gray-500);font-size:0.85rem;">— 人間が候補を選ぶ</span></div>
+        <div class="flow-step"><span class="step-icon">📅</span>予約 <span style="color:var(--gray-500);font-size:0.85rem;">— Webフォームで完了</span></div>
       </div>
     </div>
-    <div class="behavior-arrow">→</div>
-    <div class="behavior-col new">
-      <div class="behavior-col-label">AI Agent時代の顧客行動</div>
-      <div class="behavior-step">
-        <div class="step-icon">🤖</div>
-        <div class="step-text">
-          AI検索
-          <small>ChatGPT / Perplexityに話しかける</small>
-        </div>
-      </div>
-      <div class="behavior-step">
-        <div class="step-icon">🔄</div>
-        <div class="step-text">
-          AI推薦
-          <small>Agentが候補を比較・選定する</small>
-        </div>
-      </div>
-      <div class="behavior-step">
-        <div class="step-icon">✅</div>
-        <div class="step-text">
-          AI行動
-          <small>Agentが予約・申込を代行・完結</small>
-        </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">
+      <div class="flow-box-label new">— AI Agent時代の顧客行動</div>
+      <div class="flow-steps">
+        <div class="flow-step highlight"><span class="step-icon">🤖</span>AI検索 <span style="color:var(--gray-500);font-size:0.85rem;">— ChatGPT / Perplexity</span></div>
+        <div class="flow-step highlight"><span class="step-icon">🔄</span>AI推薦 <span style="color:var(--gray-500);font-size:0.85rem;">— Agentが比較・選定</span></div>
+        <div class="flow-step highlight"><span class="step-icon">✅</span>AI行動 <span style="color:var(--gray-500);font-size:0.85rem;">— 予約・申込を代行</span></div>
       </div>
     </div>
   </div>
 
-  <div class="insight-box">
-    企業やサービスは、Webサイトだけでなく、<strong>AI Agentからどのように認識され、推薦され、行動対象となるか</strong>を考える必要があります。
+  <div class="whynow-insight reveal">
+    企業やサービスは、Webサイトだけでなく、<strong>AI Agentからどのように認識され、推薦され、行動対象となるか</strong>を考える必要がある。
     Agent Readiness Indexは、この変化を可視化するための研究プロジェクトです。
   </div>
 </section>
 
-<!-- WHAT WE MEASURE -->
-<section class="section" id="framework">
-  <div class="section-label">What We Measure</div>
-  <h2 class="section-title">3つの観点から評価する</h2>
-  <p class="section-lead">
-    Agent Readiness Indexでは、企業・サービス・プラットフォームがAI Agent時代にどれだけ対応できているかを、
-    Discovery・Recommendation・Actionの3軸でスコアリングします。
-  </p>
+<!-- FRAMEWORK -->
+<section class="readiness" id="framework">
+  <div class="section-header reveal">
+    <div class="section-label">What We Measure</div>
+    <h2>3つの観点から<br><span class="gold">評価する</span></h2>
+    <p class="section-desc">
+      Agent Readiness Indexでは、企業・サービス・プラットフォームがAI Agent時代にどれだけ対応できているかを、
+      Discovery・Recommendation・Actionの3軸でスコアリングします。
+    </p>
+  </div>
 
-  <div class="pillars">
-    <div class="pillar fade-up">
+  <div class="pillars-grid reveal">
+    <div class="pillar-item">
       <div class="pillar-num">01</div>
-      <span class="pillar-icon">🔍</span>
-      <div class="pillar-title">Discovery Readiness</div>
-      <div class="pillar-subtitle">AIに発見される能力</div>
-      <p class="pillar-desc">
-        AIに発見されなければ、推薦も行動も発生しません。
-        Agentが情報を取得・解析できる構造が整っているかを評価します。
-      </p>
+      <div class="pillar-icon">🔍</div>
+      <h3>Discovery Readiness</h3>
+      <p class="pillar-sub">AIに発見される能力</p>
+      <p class="pillar-desc">AIに発見されなければ、推薦も行動も発生しない。Agentが情報を取得・解析できる構造が整っているかを評価する。</p>
       <ul class="pillar-criteria">
         <li>Entity設計</li>
         <li>構造化データ（JSON-LD / Schema.org）</li>
@@ -789,16 +592,12 @@
         <li>Third-party Presence</li>
       </ul>
     </div>
-
-    <div class="pillar fade-up">
+    <div class="pillar-item">
       <div class="pillar-num">02</div>
-      <span class="pillar-icon">⭐</span>
-      <div class="pillar-title">Recommendation Readiness</div>
-      <div class="pillar-subtitle">AIに推薦される能力</div>
-      <p class="pillar-desc">
-        AIは単に情報を検索するだけでなく、信頼できる候補を推薦します。
-        推薦の根拠となる情報資産や専門性が重要になります。
-      </p>
+      <div class="pillar-icon">⭐</div>
+      <h3>Recommendation Readiness</h3>
+      <p class="pillar-sub">AIに推薦される能力</p>
+      <p class="pillar-desc">AIは単に情報を検索するだけでなく、信頼できる候補を推薦する。推薦の根拠となる情報資産や専門性が重要になる。</p>
       <ul class="pillar-criteria">
         <li>Expertise（専門性の可視化）</li>
         <li>Authority（権威性の裏付け）</li>
@@ -807,16 +606,12 @@
         <li>Reputation（評判情報）</li>
       </ul>
     </div>
-
-    <div class="pillar fade-up">
+    <div class="pillar-item">
       <div class="pillar-num">03</div>
-      <span class="pillar-icon">⚡</span>
-      <div class="pillar-title">Action Readiness</div>
-      <div class="pillar-subtitle">AIが行動できる能力</div>
-      <p class="pillar-desc">
-        将来的にAI Agentが予約・申込・問い合わせを支援または代行するためには、
-        行動可能な導線が必要になります。
-      </p>
+      <div class="pillar-icon">⚡</div>
+      <h3>Action Readiness</h3>
+      <p class="pillar-sub">AIが行動できる能力</p>
+      <p class="pillar-desc">将来的にAI Agentが予約・申込・問い合わせを支援または代行するためには、行動可能な導線が必要になる。</p>
       <ul class="pillar-criteria">
         <li>API公開状況</li>
         <li>Authentication設計</li>
@@ -828,137 +623,168 @@
   </div>
 </section>
 
-<!-- RESEARCH PROCESS -->
-<section class="section" id="process">
-  <div class="section-label">Research Process</div>
-  <h2 class="section-title">調査プロセス</h2>
-  <p class="section-lead">
-    Agent Readiness Indexは、以下のプロセスで調査を実施します。
-    公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチです。
-  </p>
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-header reveal">
+    <div class="section-label">Research Process</div>
+    <h2>調査<span class="gold">プロセス</span></h2>
+    <p class="section-desc">
+      Agent Readiness Indexは、公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチで調査を実施します。
+    </p>
+  </div>
 
-  <div class="process-track">
-    <div class="process-step">
-      <div class="process-card">
-        <div class="process-step-num">Step 1</div>
-        <div class="process-step-title">公開情報調査</div>
-        <p class="process-step-desc">企業サイト、サービスサイト、技術資料、ドキュメントなどを調査します。AI Agentが参照しうる情報ソースを網羅的に収集・分析します。</p>
-      </div>
+  <div class="process-list reveal">
+    <div class="process-item">
+      <div class="process-num">Step 1</div>
+      <h3>公開情報調査</h3>
+      <p>企業サイト、サービスサイト、技術資料、ドキュメントなどを調査します。AI Agentが参照しうる情報ソースを網羅的に収集・分析します。</p>
     </div>
-    <div class="process-step">
-      <div class="process-card">
-        <div class="process-step-num">Step 2</div>
-        <div class="process-step-title">プロダクト分析</div>
-        <p class="process-step-desc">実際のサービスや導線を確認し、ユーザー体験や接続性を評価します。API・Webhook・MCP対応などの技術仕様を検証します。</p>
-      </div>
+    <div class="process-item">
+      <div class="process-num">Step 2</div>
+      <h3>プロダクト分析</h3>
+      <p>実際のサービスや導線を確認し、ユーザー体験や接続性を評価します。API・Webhook・MCP対応などの技術仕様を検証します。</p>
     </div>
-    <div class="process-step">
-      <div class="process-card">
-        <div class="process-step-num">Step 3</div>
-        <div class="process-step-title">業界ヒアリング</div>
-        <p class="process-step-desc">事業者、サービス提供企業、業界関係者へのヒアリングを行います。公開情報では把握できない方針・ロードマップ・実態を収集します。</p>
-      </div>
+    <div class="process-item">
+      <div class="process-num">Step 3</div>
+      <h3>業界ヒアリング</h3>
+      <p>事業者、サービス提供企業、業界関係者へのヒアリングを行います。公開情報では把握できない方針・ロードマップ・実態を収集します。</p>
     </div>
-    <div class="process-step">
-      <div class="process-card">
-        <div class="process-step-num">Step 4</div>
-        <div class="process-step-title">レビュー・確認</div>
-        <p class="process-step-desc">調査内容の妥当性を確認します。掲載対象企業には、公開前にスコアと内容を確認・修正できる機会を提供します。一方的な掲載は行いません。</p>
-      </div>
+    <div class="process-item">
+      <div class="process-num">Step 4</div>
+      <h3>レビュー・確認</h3>
+      <p>調査内容の妥当性を確認します。掲載対象企業には、公開前にスコアと内容を確認・修正できる機会を提供します。一方的な掲載は行いません。</p>
     </div>
-    <div class="process-step">
-      <div class="process-card">
-        <div class="process-step-num">Step 5</div>
-        <div class="process-step-title">公開・更新</div>
-        <p class="process-step-desc">レポート公開後も継続的に更新します。AI Agent市場は急速に変化しており、スコアは定期的に再評価・更新されます。</p>
-      </div>
+    <div class="process-item">
+      <div class="process-num">Step 5</div>
+      <h3>公開・更新</h3>
+      <p>レポート公開後も継続的に更新します。AI Agent市場は急速に変化しており、スコアは定期的に再評価・更新されます。</p>
     </div>
   </div>
 </section>
 
-<!-- CURRENT RESEARCH AREAS -->
-<section class="section" id="areas">
-  <div class="section-label">Current Research Areas</div>
-  <h2 class="section-title">現在の調査対象</h2>
-  <p class="section-lead">
-    AI Agentによる予約・申込が成立しうる業界を横断的に調査します。
-    今後も対象領域を拡大予定です。
-  </p>
+<!-- AREAS -->
+<section class="industries" id="areas">
+  <div class="section-header reveal">
+    <div class="section-label">Current Research Areas</div>
+    <h2>現在の<span class="gold">調査対象</span></h2>
+    <p class="section-desc">AI Agentによる予約・申込が成立しうる業界を横断的に調査します。今後も対象領域を拡大予定です。</p>
+  </div>
 
-  <div class="areas-grid">
-    <div class="area-item active">
-      <span class="area-icon">🦷</span>
-      <div class="area-name"><a href="dental.html">Dental</a></div>
-      <div class="area-status status-active">● 進行中 · 2026 Q2–Q3</div>
+  <div class="industry-cards reveal">
+    <a href="dental.html" class="industry-card active-card">
+      <div class="ic-icon">🦷</div>
+      <div class="ic-name">Dental</div>
+      <div class="ic-sub">歯科予約システム</div>
+      <span class="ic-badge status-live">進行中</span>
+    </a>
+    <div class="industry-card">
+      <div class="ic-icon">💄</div>
+      <div class="ic-name">Beauty</div>
+      <div class="ic-sub">自由診療・美容医療</div>
+      <span class="ic-badge status-soon">準備中</span>
     </div>
-    <div class="area-item">
-      <span class="area-icon">💄</span>
-      <div class="area-name">Beauty</div>
-      <div class="area-status status-soon">○ 準備中 · 2026 Q4予定</div>
+    <div class="industry-card">
+      <div class="ic-icon">🏋️</div>
+      <div class="ic-name">Fitness</div>
+      <div class="ic-sub">フィットネス・会員管理</div>
+      <span class="ic-badge status-soon">準備中</span>
     </div>
-    <div class="area-item">
-      <span class="area-icon">🏋️</span>
-      <div class="area-name">Fitness</div>
-      <div class="area-status status-soon">○ 準備中 · 2026 Q4予定</div>
-    </div>
-    <div class="area-item">
-      <span class="area-icon">🏠</span>
-      <div class="area-name">Real Estate</div>
-      <div class="area-status status-soon">○ 準備中 · 2027 Q1予定</div>
+    <div class="industry-card">
+      <div class="ic-icon">🏠</div>
+      <div class="ic-name">Real Estate</div>
+      <div class="ic-sub">不動産・内見予約</div>
+      <span class="ic-badge status-soon">準備中</span>
     </div>
   </div>
 </section>
 
 <!-- PARTICIPATION -->
-<section class="section" id="participate">
-  <div class="section-label">Research Participation</div>
-  <h2 class="section-title">調査への参加</h2>
-  <p class="section-lead">
-    Agent Readiness Indexでは、調査協力企業・業界パートナーを募集しています。
-  </p>
+<section class="partner" id="participate">
+  <div class="partner-inner">
+    <div class="partner-left reveal">
+      <div class="section-label">Research Participation</div>
+      <h2>調査への<span class="gold">参加</span></h2>
+      <p class="section-desc">
+        Agent Readiness Indexでは、調査協力企業・業界パートナーを募集しています。
+        ヒアリングへの参加企業には、掲載前レビュー権・AI Readiness診断・海外事例レポートを無償で提供します。
+      </p>
+      <div class="partner-targets">
+        <div class="ptarget-item">予約システム事業者</div>
+        <div class="ptarget-item">SaaS事業者</div>
+        <div class="ptarget-item">医療・美容・フィットネス事業者</div>
+        <div class="ptarget-item">AI関連事業者</div>
+      </div>
+      <div class="cta-actions">
+        <a href="https://lin.ee/vgZ5TVj" class="btn-line" target="_blank" rel="noopener noreferrer">
+          <span>📩</span> LINEで申請する
+        </a>
+        <a href="https://www.coaretail.com/contact" class="btn-secondary" target="_blank" rel="noopener noreferrer">メールで問い合わせ</a>
+      </div>
+    </div>
 
-  <div class="participation">
-    <h3>対象企業・組織</h3>
-    <p>
-      AI Agent対応状況の調査・ヒアリングにご参加いただける企業・組織を探しています。
-      ヒアリングへの参加企業には、掲載前レビュー権・AI Readiness診断・海外事例レポートを無償で提供します。
-    </p>
-    <ul class="target-list">
-      <li>予約システム事業者</li>
-      <li>SaaS事業者</li>
-      <li>医療・美容・フィットネス事業者</li>
-      <li>AI関連事業者</li>
-    </ul>
-    <div class="cta-row">
-      <a class="btn-primary" href="https://lin.ee/vgZ5TVj" target="_blank" rel="noopener noreferrer">📩 LINEで申請する</a>
-      <a class="btn-secondary" href="https://www.coaretail.com/contact" target="_blank" rel="noopener noreferrer">メールで問い合わせ</a>
+    <div class="partner-benefits reveal">
+      <div class="pb-item">
+        <div class="pb-icon">📋</div>
+        <div class="pb-body">
+          <h4>ヒアリング参加</h4>
+          <p>AI対応方針・ロードマップについてお話を伺います。無償・任意です。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">✅</div>
+        <div class="pb-body">
+          <h4>掲載前レビュー権</h4>
+          <p>スコア確定前に内容を確認・修正依頼できます。一方的な掲載は行いません。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">💡</div>
+        <div class="pb-body">
+          <h4>Agent Readiness診断</h4>
+          <p>調査協力企業には、自社の3軸スコアと改善提案を無償で共有します。</p>
+        </div>
+      </div>
+      <div class="pb-item">
+        <div class="pb-icon">🔄</div>
+        <div class="pb-body">
+          <h4>情報交換</h4>
+          <p>AI Agent予約の業界動向・海外事例について相互に情報共有します。</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- DISCLAIMER -->
-<div class="disclaimer">
-  <div class="disclaimer-inner">
+<section class="disclaimer">
+  <div class="disclaimer-box reveal">
     <div class="disclaimer-label">Disclaimer</div>
     <p>本調査は公開情報および独自調査に基づく研究プロジェクトです。</p>
     <p>評価結果は特定企業への推奨や投資判断を目的とするものではありません。</p>
     <p>調査内容および評価基準は継続的に改善・更新されます。</p>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <ul class="footer-links">
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="index.html#whynow">調査背景</a></li>
-    <li><a href="methodology.html">Methodology</a></li>
-    <li><a href="dental.html">Dental</a></li>
-    <li><a href="index.html#projects">調査一覧</a></li>
-    <li><a href="index.html#contact">協力を申請</a></li>
-    <li><a href="https://www.coaretail.com">GEO Search Protocol</a></li>
-  </ul>
+  <div class="footer-logo">Agent Readiness Index 2026</div>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="index.html#whynow">調査背景</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="dental.html">Dental</a>
+    <a href="index.html#projects">調査一覧</a>
+    <a href="index.html#contact">協力を申請</a>
+    <a href="https://www.coaretail.com">GEO Search Protocol</a>
+  </div>
   <div class="footer-copy">© 2026 合同会社コア・リテール. All rights reserved.</div>
 </footer>
 
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
