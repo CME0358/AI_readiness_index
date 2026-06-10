@@ -4,6 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Agent予約実態調査2026 | 歯科予約システム調査</title>
+<meta name="description" content="日本の歯科・自由診療クリニック向け予約／CRM SaaSベンダー23社のAI Agent対応実態調査。ChatGPTが歯科予約を完結できない理由を技術的に検証する研究プロジェクト。">
+<link rel="canonical" href="https://readiness.coaretail.com/dental.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.coaretail.com/#organization",
+      "name": "合同会社コア・リテール",
+      "alternateName": ["Coa Retail", "CoaRetail G.K."],
+      "url": "https://www.coaretail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://readiness.coaretail.com/#website",
+      "url": "https://readiness.coaretail.com/",
+      "name": "Agent Readiness Index",
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "ResearchProject",
+      "@id": "https://readiness.coaretail.com/#researchproject",
+      "name": "Agent Readiness Index",
+      "url": "https://readiness.coaretail.com/"
+    },
+    {
+      "@type": "ResearchProject",
+      "@id": "https://readiness.coaretail.com/dental.html#researchproject",
+      "name": "Dental Agent Readiness Survey",
+      "alternateName": "AI Agent予約実態調査2026",
+      "description": "日本の歯科・自由診療クリニック向け予約／CRM SaaSベンダー23社のAI Agent対応実態を調査するプロジェクト。Discovery / Agent / Conversionの3軸で評価。",
+      "url": "https://readiness.coaretail.com/dental.html",
+      "funder": { "@id": "https://www.coaretail.com/#organization" },
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
+      "keywords": ["歯科予約", "AI Agent", "SaaS", "CRM", "API", "予約システム", "ChatGPT"]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://readiness.coaretail.com/dental.html#webpage",
+      "url": "https://readiness.coaretail.com/dental.html",
+      "name": "AI Agent予約実態調査2026 | 歯科予約システム調査",
+      "description": "日本の歯科・自由診療クリニック向け予約／CRM SaaSベンダー23社のAI Agent対応実態調査。ChatGPTが歯科予約を完結できない理由を技術的に検証する研究プロジェクト。",
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+      "breadcrumb": { "@id": "https://readiness.coaretail.com/dental.html#breadcrumb" },
+      "about": { "@id": "https://readiness.coaretail.com/dental.html#researchproject" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://readiness.coaretail.com/dental.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Agent Readiness Index",
+          "item": "https://readiness.coaretail.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dental",
+          "item": "https://readiness.coaretail.com/dental.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -51,10 +121,15 @@ nav {
   background:linear-gradient(to bottom, rgba(11,22,40,0.95) 0%, transparent 100%);
   backdrop-filter:blur(2px);
 }
-.nav-logo { font-family:var(--font-display); font-size:1.175rem; font-weight:600; color:var(--gold); letter-spacing:0.05em; }
+.nav-logo {
+  font-family:var(--font-display); font-size:1.175rem; font-weight:600;
+  color:var(--gold); letter-spacing:0.05em; text-decoration:none;
+}
+.nav-logo:hover { color:var(--gold-light); }
 .nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a { color:var(--gray-300); text-decoration:none; font-size:0.905rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s; }
 .nav-links a:hover { color:var(--gold); }
+.nav-links a.active { color:var(--gold); }
 .nav-cta { background:var(--gold); color:var(--navy) !important; padding:10px 22px; border-radius:2px; font-weight:600 !important; }
 
 /* HERO */
@@ -689,12 +764,11 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">AI Agent予約実態調査 2026</div>
+  <a class="nav-logo" href="index.html">Agent Readiness Index</a>
   <ul class="nav-links">
-    <li><a href="#evidence">調査の背景</a></li>
-    <li><a href="#criteria">調査設計</a></li>
-    <li><a href="#vendors">対象ベンダー</a></li>
-    <li><a href="#benefits">参加特典</a></li>
+    <li><a href="index.html#whynow">背景</a></li>
+    <li><a href="methodology.html">Methodology</a></li>
+    <li><a href="dental.html" class="active">Dental</a></li>
     <li><a href="#contact" class="nav-cta">ヒアリングに参加</a></li>
   </ul>
 </nav>
@@ -1499,10 +1573,10 @@ footer {
       「掲載前レビュー権」「AI Readiness診断」「調査協力企業として掲載」——ヒアリングに参加するメリットを無償で提供します。担当者・責任者の方は、以下よりご連絡ください。
     </p>
     <div class="cta-actions">
-      <a href="https://lin.ee/XXXXX" class="btn-line">
+      <a href="https://lin.ee/vgZ5TVj" class="btn-line" target="_blank" rel="noopener noreferrer">
         <span>📩</span> LINEでヒアリングを申請
       </a>
-      <a href="mailto:info@coaretail.com" class="btn-primary">メールで問い合わせる</a>
+      <a href="https://www.coaretail.com/contact" class="btn-primary" target="_blank" rel="noopener noreferrer">メールで問い合わせる</a>
     </div>
     <div class="cta-note">
       本調査は、GEOコンサルティング・AI検索最適化・AI Agent予約研究を通じて、歯科・自由診療向け予約SaaSベンダーのAI対応実態を調査している 合同会社コア・リテール / GEO Search Protocol が運営しています。<br>
@@ -1515,9 +1589,12 @@ footer {
 <footer>
   <div class="footer-logo">AI Agent予約実態調査 2026</div>
   <div class="footer-links">
-    <a href="#evidence">調査の背景</a>
-    <a href="#criteria">調査設計</a>
-    <a href="#vendors">対象ベンダー</a>
+    <a href="index.html">トップ</a>
+    <a href="index.html#whynow">調査背景</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="dental.html">Dental</a>
+    <a href="index.html#projects">調査一覧</a>
+    <a href="#contact">ヒアリングに参加</a>
     <a href="https://www.coaretail.com">GEO Search Protocol</a>
   </div>
   <div class="footer-copy">© 2026 合同会社コア・リテール. All rights reserved.</div>

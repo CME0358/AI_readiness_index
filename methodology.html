@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methodology | Agent Readiness Index</title>
+  <meta name="description" content="Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。" />
+  <link rel="canonical" href="https://readiness.coaretail.com/methodology.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.coaretail.com/#organization",
+        "name": "合同会社コア・リテール",
+        "alternateName": ["Coa Retail", "CoaRetail G.K."],
+        "url": "https://www.coaretail.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://readiness.coaretail.com/#website",
+        "url": "https://readiness.coaretail.com/",
+        "name": "Agent Readiness Index",
+        "publisher": { "@id": "https://www.coaretail.com/#organization" },
+        "inLanguage": "ja"
+      },
+      {
+        "@type": "ResearchProject",
+        "@id": "https://readiness.coaretail.com/#researchproject",
+        "name": "Agent Readiness Index",
+        "url": "https://readiness.coaretail.com/"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://readiness.coaretail.com/methodology.html#article",
+        "headline": "Agent Readiness Index Methodology",
+        "name": "Agent Readiness Index Methodology",
+        "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
+        "url": "https://readiness.coaretail.com/methodology.html",
+        "author": { "@id": "https://www.coaretail.com/#organization" },
+        "publisher": { "@id": "https://www.coaretail.com/#organization" },
+        "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
+        "inLanguage": "ja",
+        "about": {
+          "@type": "Thing",
+          "name": "Agent Readiness評価フレームワーク",
+          "description": "Discovery Readiness・Agent Readiness・Conversion Readinessの3軸評価"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://readiness.coaretail.com/methodology.html#webpage",
+        "url": "https://readiness.coaretail.com/methodology.html",
+        "name": "Methodology | Agent Readiness Index",
+        "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
+        "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+        "breadcrumb": { "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb" },
+        "mainEntity": { "@id": "https://readiness.coaretail.com/methodology.html#article" },
+        "inLanguage": "ja"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Agent Readiness Index",
+            "item": "https://readiness.coaretail.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Methodology",
+            "item": "https://readiness.coaretail.com/methodology.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #0a0a0b;
+      --bg2:       #111113;
+      --bg3:       #18181c;
+      --border:    rgba(255,255,255,0.07);
+      --text:      #e8e6e1;
+      --muted:     #6b6a68;
+      --accent:    #d4a847;
+      --accent2:   #4a9eff;
+      --accent3:   #6de0b0;
+      --red:       #e05a5a;
+      --mono:      'Space Mono', monospace;
+      --serif:     'DM Serif Display', serif;
+      --sans:      'Noto Sans JP', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,11,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(20px, 5vw, 80px);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color .2s;
+    }
+    .nav-logo:hover { color: var(--text); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 100px);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      background-color: var(--bg);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(212,168,71,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(74,158,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .breadcrumb {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--border); }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(212,168,71,0.3);
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.1;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 800px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section {
+      padding: clamp(60px, 8vw, 120px) clamp(20px, 5vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+      color: #c8c6c1;
+    }
+    .section-lead {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    /* ── WHY NOW: behavior shift ── */
+    .behavior-grid {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 0;
+      max-width: 780px;
+      margin: 48px 0;
+      align-items: stretch;
+    }
+    .behavior-col {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+    .behavior-col.old { border-right: none; }
+    .behavior-col.new {
+      border-left: none;
+      border-color: rgba(212,168,71,0.2);
+      background: rgba(212,168,71,0.03);
+    }
+    .behavior-arrow {
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 18px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .behavior-col-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .behavior-col.new .behavior-col-label { color: var(--accent); }
+    .behavior-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .behavior-step:last-child { margin-bottom: 0; }
+    .step-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .behavior-col.new .step-icon {
+      background: rgba(212,168,71,0.1);
+      border-color: rgba(212,168,71,0.2);
+    }
+    .step-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .step-text small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .insight-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 20px 24px;
+      max-width: 680px;
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ── WHAT WE MEASURE: 3 pillars ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .pillar {
+      background: var(--bg);
+      padding: 40px 32px;
+      position: relative;
+      transition: background .25s;
+    }
+    .pillar:hover { background: var(--bg2); }
+    .pillar-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .pillar-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .pillar-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .pillar-subtitle {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+    .pillar-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .pillar-criteria {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pillar-criteria li {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .pillar-criteria li::before {
+      content: '—';
+      color: var(--accent);
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .pillar-warning {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── RESEARCH PROCESS ── */
+    .process-track {
+      margin-top: 48px;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .process-line { display: none; }
+    .process-step {
+      display: flex;
+      gap: 0;
+    }
+    .step-marker { display: none; }
+    .step-connector { display: none; }
+    .step-dot { display: none; }
+    .process-card {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      transition: border-color .25s;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0 20px;
+      align-items: start;
+    }
+    .process-card:hover { border-color: rgba(212,168,71,0.25); }
+    .process-step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding-top: 3px;
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .process-step-title {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      grid-column: 2;
+      grid-row: 1;
+      color: var(--text);
+    }
+    .process-step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    /* ── CURRENT RESEARCH AREAS ── */
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .area-item {
+      background: var(--bg);
+      padding: 28px 24px;
+      position: relative;
+    }
+    .area-item.active { background: var(--bg2); }
+    .area-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+    .area-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .area-name a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .area-name a:hover { color: var(--accent); }
+    .area-status {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .status-active { color: var(--accent3); }
+    .status-soon { color: var(--muted); }
+
+    /* ── PARTICIPATION CTA ── */
+    .participation {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 40px 40px;
+      max-width: 760px;
+      margin-top: 48px;
+    }
+    .participation h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+    .participation p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .target-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .target-list li {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      letter-spacing: 0.04em;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #0a0a0b;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      padding: clamp(40px, 5vw, 64px) clamp(20px, 5vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+    .disclaimer-inner {
+      max-width: 640px;
+    }
+    .disclaimer-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .disclaimer p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px clamp(20px, 5vw, 80px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── FADE-IN ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp .6s ease forwards;
+    }
+    .fade-up:nth-child(1) { animation-delay: .05s; }
+    .fade-up:nth-child(2) { animation-delay: .12s; }
+    .fade-up:nth-child(3) { animation-delay: .19s; }
+    .fade-up:nth-child(4) { animation-delay: .26s; }
+    .fade-up:nth-child(5) { animation-delay: .33s; }
+
+    @media (max-width: 680px) {
+      .behavior-grid {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+      }
+      .behavior-col.old {
+        border-right: 1px solid var(--border);
+        border-bottom: none;
+      }
+      .behavior-col.new {
+        border-left: 1px solid rgba(212,168,71,0.2);
+        border-top: none;
+      }
+      .behavior-arrow {
+        width: 100%;
+        height: 36px;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        font-size: 16px;
+      }
+      .nav-links { display: none; }
+      .process-line { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Agent Readiness Index</a>
+  <ul class="nav-links">
+    <li><a href="index.html#whynow">背景</a></li>
+    <li><a href="methodology.html" class="active">Methodology</a></li>
+    <li><a href="dental.html">Dental</a></li>
+    <li><a href="index.html#contact">協力を申請</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="breadcrumb">
+    <a href="index.html">Agent Readiness Index</a>
+    <span>›</span>
+    Methodology
+  </div>
+  <div class="hero-tag">Research Framework</div>
+  <h1 class="fade-up">Agent Readiness Index<br /><em>Methodology</em></h1>
+  <p class="hero-sub fade-up">
+    AI Agent時代において、企業・サービスがどのように評価されるかを定義するフレームワーク。
+    調査の背景、評価軸、プロセスを公開します。
+  </p>
+</header>
+
+<!-- WHY NOW -->
+<section class="section" id="why">
+  <div class="section-label">Why Agent Readiness Matters</div>
+  <h2 class="section-title">検索行動は、<br />変化している</h2>
+  <p class="section-lead">
+    顧客が情報を得て、比較し、行動するプロセスが根本から変わりつつある。
+    これは仮説ではなく、すでに始まっている変化だ。
+  </p>
+
+  <div class="behavior-grid">
+    <div class="behavior-col old">
+      <div class="behavior-col-label">従来の顧客行動</div>
+      <div class="behavior-step">
+        <div class="step-icon">🔍</div>
+        <div class="step-text">
+          検索
+          <small>Google / ホットペッパーで調べる</small>
+        </div>
+      </div>
+      <div class="behavior-step">
+        <div class="step-icon">👤</div>
+        <div class="step-text">
+          比較
+          <small>人間が候補を読んで選ぶ</small>
+        </div>
+      </div>
+      <div class="behavior-step">
+        <div class="step-icon">📅</div>
+        <div class="step-text">
+          予約
+          <small>Webフォームで人が入力・完了</small>
+        </div>
+      </div>
+    </div>
+    <div class="behavior-arrow">→</div>
+    <div class="behavior-col new">
+      <div class="behavior-col-label">AI Agent時代の顧客行動</div>
+      <div class="behavior-step">
+        <div class="step-icon">🤖</div>
+        <div class="step-text">
+          AI検索
+          <small>ChatGPT / Perplexityに話しかける</small>
+        </div>
+      </div>
+      <div class="behavior-step">
+        <div class="step-icon">🔄</div>
+        <div class="step-text">
+          AI推薦
+          <small>Agentが候補を比較・選定する</small>
+        </div>
+      </div>
+      <div class="behavior-step">
+        <div class="step-icon">✅</div>
+        <div class="step-text">
+          AI行動
+          <small>Agentが予約・申込を代行・完結</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    企業やサービスは、Webサイトだけでなく、<strong>AI Agentからどのように認識され、推薦され、行動対象となるか</strong>を考える必要があります。
+    Agent Readiness Indexは、この変化を可視化するための研究プロジェクトです。
+  </div>
+</section>
+
+<!-- WHAT WE MEASURE -->
+<section class="section" id="framework">
+  <div class="section-label">What We Measure</div>
+  <h2 class="section-title">3つの観点から評価する</h2>
+  <p class="section-lead">
+    Agent Readiness Indexでは、企業・サービス・プラットフォームがAI Agent時代にどれだけ対応できているかを、
+    Discovery・Recommendation・Actionの3軸でスコアリングします。
+  </p>
+
+  <div class="pillars">
+    <div class="pillar fade-up">
+      <div class="pillar-num">01</div>
+      <span class="pillar-icon">🔍</span>
+      <div class="pillar-title">Discovery Readiness</div>
+      <div class="pillar-subtitle">AIに発見される能力</div>
+      <p class="pillar-desc">
+        AIに発見されなければ、推薦も行動も発生しません。
+        Agentが情報を取得・解析できる構造が整っているかを評価します。
+      </p>
+      <ul class="pillar-criteria">
+        <li>Entity設計</li>
+        <li>構造化データ（JSON-LD / Schema.org）</li>
+        <li>Knowledge Base整備</li>
+        <li>Citation・LLM引用状況</li>
+        <li>Third-party Presence</li>
+      </ul>
+    </div>
+
+    <div class="pillar fade-up">
+      <div class="pillar-num">02</div>
+      <span class="pillar-icon">⭐</span>
+      <div class="pillar-title">Recommendation Readiness</div>
+      <div class="pillar-subtitle">AIに推薦される能力</div>
+      <p class="pillar-desc">
+        AIは単に情報を検索するだけでなく、信頼できる候補を推薦します。
+        推薦の根拠となる情報資産や専門性が重要になります。
+      </p>
+      <ul class="pillar-criteria">
+        <li>Expertise（専門性の可視化）</li>
+        <li>Authority（権威性の裏付け）</li>
+        <li>Trust Signals（信頼シグナル）</li>
+        <li>Original Content</li>
+        <li>Reputation（評判情報）</li>
+      </ul>
+    </div>
+
+    <div class="pillar fade-up">
+      <div class="pillar-num">03</div>
+      <span class="pillar-icon">⚡</span>
+      <div class="pillar-title">Action Readiness</div>
+      <div class="pillar-subtitle">AIが行動できる能力</div>
+      <p class="pillar-desc">
+        将来的にAI Agentが予約・申込・問い合わせを支援または代行するためには、
+        行動可能な導線が必要になります。
+      </p>
+      <ul class="pillar-criteria">
+        <li>API公開状況</li>
+        <li>Authentication設計</li>
+        <li>Reservation Flow</li>
+        <li>Integration（外部連携）</li>
+        <li>Agent Compatibility（MCP等）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH PROCESS -->
+<section class="section" id="process">
+  <div class="section-label">Research Process</div>
+  <h2 class="section-title">調査プロセス</h2>
+  <p class="section-lead">
+    Agent Readiness Indexは、以下のプロセスで調査を実施します。
+    公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチです。
+  </p>
+
+  <div class="process-track">
+    <div class="process-step">
+      <div class="process-card">
+        <div class="process-step-num">Step 1</div>
+        <div class="process-step-title">公開情報調査</div>
+        <p class="process-step-desc">企業サイト、サービスサイト、技術資料、ドキュメントなどを調査します。AI Agentが参照しうる情報ソースを網羅的に収集・分析します。</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-card">
+        <div class="process-step-num">Step 2</div>
+        <div class="process-step-title">プロダクト分析</div>
+        <p class="process-step-desc">実際のサービスや導線を確認し、ユーザー体験や接続性を評価します。API・Webhook・MCP対応などの技術仕様を検証します。</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-card">
+        <div class="process-step-num">Step 3</div>
+        <div class="process-step-title">業界ヒアリング</div>
+        <p class="process-step-desc">事業者、サービス提供企業、業界関係者へのヒアリングを行います。公開情報では把握できない方針・ロードマップ・実態を収集します。</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-card">
+        <div class="process-step-num">Step 4</div>
+        <div class="process-step-title">レビュー・確認</div>
+        <p class="process-step-desc">調査内容の妥当性を確認します。掲載対象企業には、公開前にスコアと内容を確認・修正できる機会を提供します。一方的な掲載は行いません。</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-card">
+        <div class="process-step-num">Step 5</div>
+        <div class="process-step-title">公開・更新</div>
+        <p class="process-step-desc">レポート公開後も継続的に更新します。AI Agent市場は急速に変化しており、スコアは定期的に再評価・更新されます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT RESEARCH AREAS -->
+<section class="section" id="areas">
+  <div class="section-label">Current Research Areas</div>
+  <h2 class="section-title">現在の調査対象</h2>
+  <p class="section-lead">
+    AI Agentによる予約・申込が成立しうる業界を横断的に調査します。
+    今後も対象領域を拡大予定です。
+  </p>
+
+  <div class="areas-grid">
+    <div class="area-item active">
+      <span class="area-icon">🦷</span>
+      <div class="area-name"><a href="dental.html">Dental</a></div>
+      <div class="area-status status-active">● 進行中 · 2026 Q2–Q3</div>
+    </div>
+    <div class="area-item">
+      <span class="area-icon">💄</span>
+      <div class="area-name">Beauty</div>
+      <div class="area-status status-soon">○ 準備中 · 2026 Q4予定</div>
+    </div>
+    <div class="area-item">
+      <span class="area-icon">🏋️</span>
+      <div class="area-name">Fitness</div>
+      <div class="area-status status-soon">○ 準備中 · 2026 Q4予定</div>
+    </div>
+    <div class="area-item">
+      <span class="area-icon">🏠</span>
+      <div class="area-name">Real Estate</div>
+      <div class="area-status status-soon">○ 準備中 · 2027 Q1予定</div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPATION -->
+<section class="section" id="participate">
+  <div class="section-label">Research Participation</div>
+  <h2 class="section-title">調査への参加</h2>
+  <p class="section-lead">
+    Agent Readiness Indexでは、調査協力企業・業界パートナーを募集しています。
+  </p>
+
+  <div class="participation">
+    <h3>対象企業・組織</h3>
+    <p>
+      AI Agent対応状況の調査・ヒアリングにご参加いただける企業・組織を探しています。
+      ヒアリングへの参加企業には、掲載前レビュー権・AI Readiness診断・海外事例レポートを無償で提供します。
+    </p>
+    <ul class="target-list">
+      <li>予約システム事業者</li>
+      <li>SaaS事業者</li>
+      <li>医療・美容・フィットネス事業者</li>
+      <li>AI関連事業者</li>
+    </ul>
+    <div class="cta-row">
+      <a class="btn-primary" href="https://lin.ee/vgZ5TVj" target="_blank" rel="noopener noreferrer">📩 LINEで申請する</a>
+      <a class="btn-secondary" href="https://www.coaretail.com/contact" target="_blank" rel="noopener noreferrer">メールで問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-label">Disclaimer</div>
+    <p>本調査は公開情報および独自調査に基づく研究プロジェクトです。</p>
+    <p>評価結果は特定企業への推奨や投資判断を目的とするものではありません。</p>
+    <p>調査内容および評価基準は継続的に改善・更新されます。</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <ul class="footer-links">
+    <li><a href="index.html">トップ</a></li>
+    <li><a href="index.html#whynow">調査背景</a></li>
+    <li><a href="methodology.html">Methodology</a></li>
+    <li><a href="dental.html">Dental</a></li>
+    <li><a href="index.html#projects">調査一覧</a></li>
+    <li><a href="index.html#contact">協力を申請</a></li>
+    <li><a href="https://www.coaretail.com">GEO Search Protocol</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 合同会社コア・リテール. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
