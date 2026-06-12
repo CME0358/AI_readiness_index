@@ -347,6 +347,34 @@ h2 .gold { color:var(--gold); }
 }
 .whynow-header { margin-bottom:56px; }
 
+/* milestone timeline */
+.milestones {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.12); border-radius:4px;
+  overflow:hidden; margin-bottom:48px;
+}
+.ms-item {
+  background:var(--navy); padding:26px 22px;
+  position:relative; transition:background 0.2s;
+}
+.ms-item:hover { background:var(--navy-light); }
+.ms-item::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  opacity:0; transition:opacity 0.2s;
+}
+.ms-item:hover::before { opacity:1; }
+.ms-date {
+  font-family:var(--font-mono); font-size:0.82rem;
+  color:var(--gold); letter-spacing:0.08em; margin-bottom:10px;
+}
+.ms-title {
+  font-size:1.005rem; font-weight:600; color:var(--white);
+  margin-bottom:8px; line-height:1.45;
+}
+.ms-desc { font-size:0.855rem; color:var(--gray-500); line-height:1.65; }
+
 .flow-compare {
   display:grid; grid-template-columns:1fr 64px 1fr;
   gap:0; align-items:center; margin-bottom:48px;
@@ -377,7 +405,17 @@ h2 .gold { color:var(--gold); }
 .flow-arrow {
   display:flex; align-items:center; justify-content:center;
   font-size:1.625rem; color:var(--gold); opacity:0.4;
+  animation:arrowPulse 2.4s ease-in-out infinite;
 }
+@keyframes arrowPulse { 0%,100%{opacity:0.3;transform:translateX(0)} 50%{opacity:0.8;transform:translateX(6px)} }
+.flow-box.new-flow { border-color:rgba(201,168,76,0.3); background:linear-gradient(150deg, var(--navy) 60%, rgba(201,168,76,0.04) 100%); }
+.flow-result {
+  margin-top:16px; padding-top:14px;
+  border-top:1px dashed rgba(255,255,255,0.08);
+  font-size:0.855rem; line-height:1.6;
+}
+.flow-result.old-r { color:var(--gray-500); }
+.flow-result.new-r { color:var(--gold); }
 
 .whynow-insight {
   background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15);
@@ -400,8 +438,19 @@ h2 .gold { color:var(--gold); }
 .pillar-item {
   background:var(--navy); padding:36px 28px;
   transition:background 0.2s;
+  position:relative;
+}
+.pillar-item::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--gold); opacity:0; transition:opacity 0.25s;
 }
 .pillar-item:hover { background:var(--navy-mid); }
+.pillar-item:hover::after { opacity:0.7; }
+.pillar-q {
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.005rem; color:var(--gray-300);
+  margin-bottom:16px; line-height:1.6;
+}
 .pillar-num {
   font-family:var(--font-mono); font-size:0.72rem;
   color:var(--gold); opacity:0.5; letter-spacing:0.1em; margin-bottom:8px;
@@ -494,6 +543,58 @@ h2 .gold { color:var(--gold); }
   font-size:0.875rem; color:var(--gray-500); margin-top:6px;
 }
 
+/* ── RANK BADGES（dental.htmlと共通の配色） ── */
+.badge {
+  display:inline-block; font-family:var(--font-mono); font-size:0.8rem;
+  font-weight:500; padding:3px 12px; border-radius:2px; white-space:nowrap;
+}
+.badge-a { background:rgba(201,168,76,0.14); color:var(--gold); border:1px solid rgba(201,168,76,0.28); }
+.badge-b { background:rgba(124,181,204,0.1); color:#7CB5CC; border:1px solid rgba(124,181,204,0.22); }
+.badge-c { background:rgba(138,134,128,0.1); color:var(--gray-500); border:1px solid rgba(138,134,128,0.18); }
+.badge-d { background:rgba(224,82,82,0.08); color:var(--accent-red); border:1px solid rgba(224,82,82,0.18); }
+
+/* key findings strip */
+.dc-findings {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:12px; margin-bottom:8px;
+}
+.dcf-item {
+  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+  border-radius:3px; padding:18px 16px; text-align:center;
+}
+.dcf-num {
+  font-family:var(--font-display); font-size:2.125rem; font-weight:700;
+  color:var(--gold); line-height:1.1; margin-bottom:4px;
+}
+.dcf-num.red { color:var(--accent-red); }
+.dcf-label { font-size:0.795rem; color:var(--gray-500); line-height:1.5; }
+
+/* rank distribution bar */
+.rank-dist { margin-top:4px; }
+.rank-bar {
+  display:flex; height:30px; border-radius:3px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.rb-seg {
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:0.755rem; font-weight:500;
+  min-width:0; white-space:nowrap; overflow:hidden;
+}
+.rb-a  { background:rgba(201,168,76,0.5);  color:var(--white); }
+.rb-bp { background:rgba(124,181,204,0.5); color:var(--white); }
+.rb-b  { background:rgba(124,181,204,0.28); color:#BCD9E5; }
+.rb-c  { background:rgba(138,134,128,0.28); color:var(--gray-300); }
+.rb-d  { background:rgba(224,82,82,0.22);  color:#E89B9B; }
+.rank-bar-legend {
+  display:flex; flex-wrap:wrap; gap:14px; margin-top:10px;
+  font-family:var(--font-mono); font-size:0.775rem; color:var(--gray-500);
+}
+.rank-bar-legend span b { font-weight:500; }
+.rank-bar-legend .la { color:var(--gold); }
+.rank-bar-legend .lb { color:#7CB5CC; }
+.rank-bar-legend .lc { color:var(--gray-300); }
+.rank-bar-legend .ld { color:var(--accent-red); }
+
 /* ── DENTAL CARD DETAIL ── */
 .dc-section {
   margin-bottom:28px;
@@ -569,6 +670,10 @@ h2 .gold { color:var(--gold); }
   font-family:var(--font-mono); font-size:0.735rem;
   padding:3px 10px; border-radius:2px;
 }
+.ic-when {
+  margin-top:10px; font-family:var(--font-mono);
+  font-size:0.735rem; color:var(--gray-500); letter-spacing:0.04em;
+}
 
 /* ── SECTION 6: PARTNER CTA ── */
 .partner {
@@ -601,6 +706,13 @@ h2 .gold { color:var(--gold); }
   background:var(--navy); border:1px solid rgba(201,168,76,0.1);
   border-radius:3px; padding:18px 20px;
   display:flex; gap:14px; align-items:flex-start;
+  transition:border-color 0.2s, transform 0.2s;
+}
+.pb-item:hover { border-color:rgba(201,168,76,0.28); transform:translateX(4px); }
+.pb-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); opacity:0.55; letter-spacing:0.1em;
+  flex-shrink:0; padding-top:3px;
 }
 .pb-icon { font-size:1.25rem; flex-shrink:0; }
 .pb-body h4 { font-size:0.985rem; font-weight:600; color:var(--white); margin-bottom:4px; }
@@ -722,6 +834,8 @@ footer {
   .operator-inner { flex-direction:column; gap:32px; }
   .industry-cards { grid-template-columns:repeat(2,1fr); }
   .dc-pillars { grid-template-columns:1fr 1fr; }
+  .milestones { grid-template-columns:1fr 1fr; }
+  .dc-findings { grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:640px){
   nav .nav-links { display:none; }
@@ -732,6 +846,8 @@ footer {
   .hero h1 { white-space:normal; font-size:clamp(2.2rem, 9vw, 3rem); }
   .dc-pillars { grid-template-columns:1fr; }
   .paradigm-img { max-width:100%; }
+  .milestones { grid-template-columns:1fr; }
+  .rb-seg { font-size:0.64rem; }
 }
 </style>
 </head>
@@ -845,11 +961,34 @@ footer {
 <!-- ── SECTION 2: WHY NOW ── -->
 <section class="whynow" id="whynow">
   <div class="whynow-header reveal">
-    <div class="section-label">Why Now</div>
+    <div class="section-label">01 — Why Now</div>
     <h2>検索・クリック・予約の時代が<br><span class="gold">終わる</span></h2>
     <p class="section-desc">
       AIが検索し、AIが比較し、AIが予約を完結する。この変化は静かに、しかし確実に進んでいる。プラットフォームが「人向けUI」だけでは生き残れない時代が来る。
     </p>
+  </div>
+
+  <div class="milestones reveal">
+    <div class="ms-item">
+      <div class="ms-date">2024.11</div>
+      <div class="ms-title">Anthropic、MCPを公開</div>
+      <div class="ms-desc">AIと外部システムを繋ぐ共通規格「Model Context Protocol」が登場。Agent接続の業界標準に。</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">2025.01</div>
+      <div class="ms-title">OpenAI「Operator」公開</div>
+      <div class="ms-desc">AI Agentがブラウザを操作し、予約・購入を人の代わりに実行する時代が始まる。</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">2025.05</div>
+      <div class="ms-title">Google「AI Mode」発表</div>
+      <div class="ms-desc">検索にエージェント機能を統合。チケット手配・予約検索をAIが代行する構想を提示。</div>
+    </div>
+    <div class="ms-item">
+      <div class="ms-date">2025.09</div>
+      <div class="ms-title">ChatGPTに「Instant Checkout」</div>
+      <div class="ms-desc">Agentic Commerce Protocolにより、会話の中で購入が完結。Agent経済圏が動き出す。</div>
+    </div>
   </div>
 
   <div class="flow-compare reveal">
@@ -860,15 +999,17 @@ footer {
         <div class="flow-step"><span class="step-icon">👤</span>人間が比較・検討</div>
         <div class="flow-step"><span class="step-icon">📅</span>予約（人が操作）</div>
       </div>
+      <div class="flow-result old-r">UIの使いやすさ・SEO順位が競争力だった</div>
     </div>
     <div class="flow-arrow">→</div>
-    <div class="flow-box">
+    <div class="flow-box new-flow">
       <div class="flow-box-label new">— これからの流れ</div>
       <div class="flow-steps">
         <div class="flow-step highlight"><span class="step-icon">🤖</span>AI検索（ChatGPT / Perplexity）</div>
         <div class="flow-step highlight"><span class="step-icon">🔄</span>AI Agentが比較・選定</div>
         <div class="flow-step highlight"><span class="step-icon">✅</span>AI Agentが予約・申込完結</div>
       </div>
+      <div class="flow-result new-r">AIに発見され、接続され、完結できるかが競争力になる</div>
     </div>
   </div>
 
@@ -881,7 +1022,7 @@ footer {
 <!-- ── SECTION 3: AI READINESS ── -->
 <section class="readiness" id="readiness">
   <div class="readiness-header reveal">
-    <div class="section-label">Evaluation Framework</div>
+    <div class="section-label">02 — Evaluation Framework</div>
     <h2>Agent Readinessとは<br><span class="gold">3つの観点から評価</span></h2>
     <p class="section-desc">
       単なるAPI公開状況だけでなく、「AIに発見される力」「AIと繋がる力」「AIが完結できる力」を多角的にスコアリングします。
@@ -894,6 +1035,7 @@ footer {
       <div class="pillar-icon">🔍</div>
       <h3>Discovery Readiness</h3>
       <p class="pillar-sub">AIに発見される力</p>
+      <p class="pillar-q">"AIは、あなたのプロダクトを見つけられるか？"</p>
       <div class="pillar-tags">
         <span class="ptag">Entity</span>
         <span class="ptag">Schema.org</span>
@@ -907,6 +1049,7 @@ footer {
       <div class="pillar-icon">🔗</div>
       <h3>Agent Readiness</h3>
       <p class="pillar-sub">AIと接続できる力</p>
+      <p class="pillar-q">"AI Agentは、あなたのシステムに繋がれるか？"</p>
       <div class="pillar-tags">
         <span class="ptag">API</span>
         <span class="ptag">OAuth</span>
@@ -920,6 +1063,7 @@ footer {
       <div class="pillar-icon">📋</div>
       <h3>Conversion Readiness</h3>
       <p class="pillar-sub">AIが予約・申込できる力</p>
+      <p class="pillar-q">"AI Agentは、予約・申込を完結できるか？"</p>
       <div class="pillar-tags">
         <span class="ptag">Reservation API</span>
         <span class="ptag">Booking</span>
@@ -933,7 +1077,7 @@ footer {
 <!-- ── SECTION 4: PROJECTS (TABS) ── -->
 <section class="projects" id="projects">
   <div class="reveal">
-    <div class="section-label">Survey Projects</div>
+    <div class="section-label">03 — Survey Projects</div>
     <h2>調査<span class="gold">プロジェクト</span></h2>
     <p class="section-desc" style="margin-bottom:36px;">各業界タブをクリックして調査状況を確認できます。</p>
   </div>
@@ -948,14 +1092,57 @@ footer {
   <div id="tab-dental" class="tab-panel active reveal">
     <div class="project-card" style="max-width:100%;">
       <div class="pc-status-row">
-        <span class="pc-status status-live">✅ 進行中</span>
+        <span class="pc-status status-live">✅ 暫定スコア公開中</span>
         <span class="pc-industry">歯科予約システム · 2026 Q2–Q3</span>
       </div>
       <h3>Dental Agent Readiness Survey</h3>
       <p class="pc-desc">
-        日本の歯科向け予約・診療管理SaaSを対象に、AI Agent対応状況をスコアリング。
-        Discovery / Agent / Conversion の3軸でA〜D評価を実施しています。
+        日本の歯科向け予約・CRM SaaSベンダー23プロダクトを対象に、AI Agent対応状況をスコアリング。
+        Discovery / Agent / Conversion の3軸でA〜D評価を実施し、公開情報をもとにした暫定ランクを公開しています。
       </p>
+
+      <!-- 調査結果サマリー -->
+      <div class="dc-section">
+        <div class="dc-section-label">調査結果サマリー</div>
+        <div class="dc-findings">
+          <div class="dcf-item">
+            <div class="dcf-num">23</div>
+            <div class="dcf-label">調査対象プロダクト</div>
+          </div>
+          <div class="dcf-item">
+            <div class="dcf-num">1</div>
+            <div class="dcf-label">Aランク（暫定）</div>
+          </div>
+          <div class="dcf-item">
+            <div class="dcf-num red">11</div>
+            <div class="dcf-label">Dランク（約半数）</div>
+          </div>
+          <div class="dcf-item">
+            <div class="dcf-num red">0</div>
+            <div class="dcf-label">API一般公開を確認できた数</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 暫定ランク分布 -->
+      <div class="dc-section">
+        <div class="dc-section-label">暫定ランク分布（23プロダクト）</div>
+        <div class="rank-dist">
+          <div class="rank-bar">
+            <div class="rb-seg rb-a"  style="width:4.4%">A</div>
+            <div class="rb-seg rb-bp" style="width:4.4%">B+</div>
+            <div class="rb-seg rb-b"  style="width:17.4%">B ×4</div>
+            <div class="rb-seg rb-c"  style="width:26.0%">C ×6</div>
+            <div class="rb-seg rb-d"  style="width:47.8%">D ×11</div>
+          </div>
+          <div class="rank-bar-legend">
+            <span class="la"><b>A</b> 1</span>
+            <span class="lb"><b>B+ / B</b> 5</span>
+            <span class="lc"><b>C</b> 6</span>
+            <span class="ld"><b>D</b> 11</span>
+          </div>
+        </div>
+      </div>
 
       <!-- 評価軸 -->
       <div class="dc-section">
@@ -979,39 +1166,35 @@ footer {
         </div>
       </div>
 
-      <!-- 調査対象企業 -->
+      <!-- 上位プロダクト（暫定ランク） -->
       <div class="dc-section">
-        <div class="dc-section-label">調査対象企業 <span style="font-weight:400;color:var(--gray-500);font-size:0.825rem;text-transform:none;letter-spacing:0;">（スコアは公開準備中）</span></div>
+        <div class="dc-section-label">上位プロダクト <span style="font-weight:400;color:var(--gray-500);font-size:0.825rem;text-transform:none;letter-spacing:0;">（暫定ランク）</span></div>
         <div class="dc-companies">
           <div class="dc-company">
-            <div class="dc-co-name">STRANZA（ストランザ）</div>
-            <div class="dc-co-score pending">調査中</div>
+            <div class="dc-co-name">Apotool &amp; Box（株式会社ストランザ）</div>
+            <span class="badge badge-a">A</span>
           </div>
           <div class="dc-company">
-            <div class="dc-co-name">medicalforce（メディカルフォース）</div>
-            <div class="dc-co-score pending">調査中</div>
+            <div class="dc-co-name">medicalforce（株式会社メディカルフォース）</div>
+            <span class="badge badge-b">B+</span>
           </div>
           <div class="dc-company">
-            <div class="dc-co-name">ジェニシス</div>
-            <div class="dc-co-score pending">調査中</div>
+            <div class="dc-co-name">Dentry by GMO（GMO医療予約技術研究所）</div>
+            <span class="badge badge-b">B</span>
           </div>
           <div class="dc-company">
-            <div class="dc-co-name">GMOビューティー（歯科）</div>
-            <div class="dc-co-score pending">調査中</div>
+            <div class="dc-co-name">キレイパスコネクト（GMOビューティー株式会社）</div>
+            <span class="badge badge-b">B</span>
           </div>
           <div class="dc-company">
-            <div class="dc-co-name">メドレー（CLINICS）</div>
-            <div class="dc-co-score pending">調査中</div>
-          </div>
-          <div class="dc-company">
-            <div class="dc-co-name">hacomono（ハコモノ）</div>
-            <div class="dc-co-score pending">調査中</div>
+            <div class="dc-co-name">CLINICS（株式会社メドレー）</div>
+            <span class="badge badge-b">B</span>
           </div>
         </div>
-        <div class="dc-companies-note">※スコアは調査完了後に順次公開。掲載前に各社確認の機会を設けます。</div>
+        <div class="dc-companies-note">※公開情報のみをもとにした暫定評価です。掲載前に各社へ確認連絡を行い、認識齟齬があれば修正の上でレポートに掲載します。全23プロダクトのスコアは詳細レポートで公開中。</div>
       </div>
 
-      <a href="dental.html" class="btn-primary">詳細レポートを見る →</a>
+      <a href="dental.html" class="btn-primary">全23社の詳細レポートを見る →</a>
     </div>
   </div>
 
@@ -1067,7 +1250,7 @@ footer {
 <!-- ── SECTION 5: INDUSTRIES ── -->
 <section class="industries" id="industries">
   <div class="reveal">
-    <div class="section-label">Coverage</div>
+    <div class="section-label">04 — Coverage</div>
     <h2>調査対象<span class="gold">業界</span></h2>
     <p class="section-desc">AI Agentによる予約・申込が成立しうる業界を横断的に調査します。</p>
   </div>
@@ -1077,30 +1260,35 @@ footer {
       <div class="ic-name">Dental</div>
       <div class="ic-sub">歯科予約システム</div>
       <span class="ic-badge status-live">進行中</span>
+      <div class="ic-when">2026 Q2–Q3</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">💄</div>
       <div class="ic-name">Beauty</div>
       <div class="ic-sub">自由診療・美容医療</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2026 Q4予定</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">🏋️</div>
       <div class="ic-name">Fitness</div>
       <div class="ic-sub">フィットネス・会員管理</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2026 Q4予定</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">🏠</div>
       <div class="ic-name">Real Estate</div>
       <div class="ic-sub">不動産・内見予約</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2027 Q1予定</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">🏪</div>
       <div class="ic-name">Local Commerce</div>
       <div class="ic-sub">店舗来店・予約</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">時期未定</div>
     </div>
   </div>
 </section>
@@ -1109,7 +1297,7 @@ footer {
 <section class="partner" id="contact">
   <div class="partner-inner">
     <div class="partner-left reveal">
-      <div class="section-label">Call for Partners</div>
+      <div class="section-label">05 — Call for Partners</div>
       <h2>調査協力<span class="gold">企業募集</span></h2>
       <p class="section-desc">
         AI Agent時代における業界変化の共同調査を行っています。SaaS・予約システム・CRM・業界プラットフォームを運営する企業の担当者をお待ちしています。
@@ -1131,6 +1319,7 @@ footer {
 
     <div class="partner-benefits reveal">
       <div class="pb-item">
+        <div class="pb-num">01</div>
         <div class="pb-icon">📋</div>
         <div class="pb-body">
           <h4>ヒアリング参加</h4>
@@ -1138,6 +1327,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">02</div>
         <div class="pb-icon">✅</div>
         <div class="pb-body">
           <h4>掲載前レビュー権</h4>
@@ -1145,6 +1335,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">03</div>
         <div class="pb-icon">💡</div>
         <div class="pb-body">
           <h4>Agent Readiness診断</h4>
@@ -1152,6 +1343,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">04</div>
         <div class="pb-icon">🔄</div>
         <div class="pb-body">
           <h4>情報交換</h4>
@@ -1166,9 +1358,10 @@ footer {
 <section class="operator">
   <div class="operator-inner reveal">
     <div class="operator-brand">
+      <div class="section-label">06 — Operator</div>
       <div class="op-logo">Coa Retail</div>
       <div class="op-sub">合同会社コア・リテール</div>
-      <a href="https://www.coaretail.com" class="op-link" target="_blank">aiscan.coaretail.com →</a>
+      <a href="https://www.coaretail.com" class="op-link" target="_blank">www.coaretail.com →</a>
       <div class="research-tags">
         <span class="rtag">GEO Search Protocol</span>
         <span class="rtag">Local GEO</span>
@@ -1198,7 +1391,7 @@ footer {
     <div class="cta-eyebrow">まず、Dentalから。</div>
     <h2>最初の調査結果を<br><span class="gold">いち早く確認する</span></h2>
     <p class="cta-desc">
-      歯科予約システム各社のAgent Readinessスコアを公開中。あなたが導入している、または検討しているSaaSはどのランクか。
+      歯科予約・CRM SaaS 23プロダクトの暫定Agent Readinessランクを公開中。あなたが導入している、または検討しているSaaSはどのランクか。
     </p>
     <div class="cta-actions">
       <a href="dental.html" class="btn-primary">Dental Surveyを見る →</a>

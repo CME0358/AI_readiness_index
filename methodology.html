@@ -286,7 +286,17 @@ h2 .gold { color:var(--gold); }
 .flow-arrow {
   display:flex; align-items:center; justify-content:center;
   font-size:1.625rem; color:var(--gold); opacity:0.4;
+  animation:arrowPulse 2.4s ease-in-out infinite;
 }
+@keyframes arrowPulse { 0%,100%{opacity:0.3;transform:translateX(0)} 50%{opacity:0.8;transform:translateX(6px)} }
+.flow-box.new-flow { border-color:rgba(201,168,76,0.3); background:linear-gradient(150deg, var(--navy) 60%, rgba(201,168,76,0.04) 100%); }
+.flow-result {
+  margin-top:16px; padding-top:14px;
+  border-top:1px dashed rgba(255,255,255,0.08);
+  font-size:0.855rem; line-height:1.6;
+}
+.flow-result.old-r { color:var(--gray-500); }
+.flow-result.new-r { color:var(--gold); }
 .whynow-insight {
   background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15);
   border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
@@ -306,8 +316,19 @@ h2 .gold { color:var(--gold); }
 .pillar-item {
   background:var(--navy); padding:36px 28px;
   transition:background 0.2s;
+  position:relative;
+}
+.pillar-item::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--gold); opacity:0; transition:opacity 0.25s;
 }
 .pillar-item:hover { background:var(--navy-mid); }
+.pillar-item:hover::after { opacity:0.7; }
+.pillar-q {
+  font-family:var(--font-display); font-style:italic;
+  font-size:1.005rem; color:var(--gray-300);
+  margin-bottom:16px; line-height:1.6;
+}
 .pillar-num {
   font-family:var(--font-mono); font-size:0.72rem;
   color:var(--gold); opacity:0.5; letter-spacing:0.1em; margin-bottom:8px;
@@ -334,6 +355,35 @@ h2 .gold { color:var(--gold); }
 .pillar-criteria li::before {
   content:'—'; position:absolute; left:0; color:var(--gold); font-size:0.8rem;
 }
+
+/* ── SCORE OUTPUT FLOW ── */
+.output-label {
+  font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--gold); font-weight:500;
+  margin:56px 0 20px; display:flex; align-items:center; gap:10px;
+}
+.output-label::after { content:''; flex:1; max-width:30px; height:1px; background:var(--gold); opacity:0.3; }
+.output-flow {
+  display:grid; grid-template-columns:1fr 48px 1fr 48px 1fr;
+  align-items:stretch;
+}
+.of-step {
+  background:var(--navy-mid); border:1px solid rgba(201,168,76,0.12);
+  border-radius:4px; padding:24px 22px;
+}
+.of-arrow {
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; color:var(--gold); opacity:0.4;
+}
+.of-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); opacity:0.55; letter-spacing:0.1em; margin-bottom:8px;
+}
+.of-title {
+  font-family:var(--font-display); font-size:1.175rem; font-weight:600;
+  color:var(--gold); margin-bottom:6px;
+}
+.of-desc { font-size:0.875rem; color:var(--gray-300); line-height:1.65; }
 
 /* ── PROCESS ── */
 .process {
@@ -366,7 +416,7 @@ h2 .gold { color:var(--gold); }
 /* ── INDUSTRIES ── */
 .industries { background:var(--navy); }
 .industry-cards {
-  display:grid; grid-template-columns:repeat(4,1fr);
+  display:grid; grid-template-columns:repeat(5,1fr);
   gap:16px; margin-top:56px;
 }
 .industry-card {
@@ -388,6 +438,10 @@ h2 .gold { color:var(--gold); }
   display:inline-block; margin-top:12px;
   font-family:var(--font-mono); font-size:0.735rem;
   padding:3px 10px; border-radius:2px;
+}
+.ic-when {
+  margin-top:10px; font-family:var(--font-mono);
+  font-size:0.735rem; color:var(--gray-500); letter-spacing:0.04em;
 }
 .status-live {
   background:rgba(6,199,85,0.1); color:var(--accent-green);
@@ -423,6 +477,13 @@ h2 .gold { color:var(--gold); }
   background:var(--navy); border:1px solid rgba(201,168,76,0.1);
   border-radius:3px; padding:18px 20px;
   display:flex; gap:14px; align-items:flex-start;
+  transition:border-color 0.2s, transform 0.2s;
+}
+.pb-item:hover { border-color:rgba(201,168,76,0.28); transform:translateX(4px); }
+.pb-num {
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--gold); opacity:0.55; letter-spacing:0.1em;
+  flex-shrink:0; padding-top:3px;
 }
 .pb-icon { font-size:1.25rem; flex-shrink:0; }
 .pb-body h4 { font-size:0.985rem; font-weight:600; color:var(--white); margin-bottom:4px; }
@@ -473,7 +534,7 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media(max-width:1200px){
-  .industry-cards { grid-template-columns:repeat(2,1fr); }
+  .industry-cards { grid-template-columns:repeat(3,1fr); }
 }
 @media(max-width:1024px){
   nav { padding:20px 28px; }
@@ -484,6 +545,9 @@ footer {
   .flow-arrow { display:none; }
   .pillars-grid { grid-template-columns:1fr 1fr; }
   .partner-inner { grid-template-columns:1fr; gap:36px; }
+  .industry-cards { grid-template-columns:repeat(2,1fr); }
+  .output-flow { grid-template-columns:1fr; gap:12px; }
+  .of-arrow { display:none; }
 }
 @media(max-width:640px){
   nav .nav-links { display:none; }
@@ -532,7 +596,7 @@ footer {
 <!-- WHY NOW -->
 <section class="whynow" id="why">
   <div class="section-header reveal">
-    <div class="section-label">Why Agent Readiness Matters</div>
+    <div class="section-label">01 — Why Agent Readiness Matters</div>
     <h2>検索行動は、<br><span class="gold">変化している</span></h2>
     <p class="section-desc">
       顧客が情報を得て、比較し、行動するプロセスが根本から変わりつつある。
@@ -548,15 +612,17 @@ footer {
         <div class="flow-step"><span class="step-icon">👤</span>比較 <span style="color:var(--gray-500);font-size:0.85rem;">— 人間が候補を選ぶ</span></div>
         <div class="flow-step"><span class="step-icon">📅</span>予約 <span style="color:var(--gray-500);font-size:0.85rem;">— Webフォームで完了</span></div>
       </div>
+      <div class="flow-result old-r">UIの使いやすさ・SEO順位が競争力だった</div>
     </div>
     <div class="flow-arrow">→</div>
-    <div class="flow-box">
+    <div class="flow-box new-flow">
       <div class="flow-box-label new">— AI Agent時代の顧客行動</div>
       <div class="flow-steps">
         <div class="flow-step highlight"><span class="step-icon">🤖</span>AI検索 <span style="color:var(--gray-500);font-size:0.85rem;">— ChatGPT / Perplexity</span></div>
         <div class="flow-step highlight"><span class="step-icon">🔄</span>AI推薦 <span style="color:var(--gray-500);font-size:0.85rem;">— Agentが比較・選定</span></div>
         <div class="flow-step highlight"><span class="step-icon">✅</span>AI行動 <span style="color:var(--gray-500);font-size:0.85rem;">— 予約・申込を代行</span></div>
       </div>
+      <div class="flow-result new-r">AIに発見され、推薦され、行動対象になるかが競争力になる</div>
     </div>
   </div>
 
@@ -569,7 +635,7 @@ footer {
 <!-- FRAMEWORK -->
 <section class="readiness" id="framework">
   <div class="section-header reveal">
-    <div class="section-label">What We Measure</div>
+    <div class="section-label">02 — What We Measure</div>
     <h2>3つの観点から<br><span class="gold">評価する</span></h2>
     <p class="section-desc">
       Agent Readiness Indexでは、企業・サービス・プラットフォームがAI Agent時代にどれだけ対応できているかを、
@@ -583,6 +649,7 @@ footer {
       <div class="pillar-icon">🔍</div>
       <h3>Discovery Readiness</h3>
       <p class="pillar-sub">AIに発見される能力</p>
+      <p class="pillar-q">"AIは、あなたを見つけられるか？"</p>
       <p class="pillar-desc">AIに発見されなければ、推薦も行動も発生しない。Agentが情報を取得・解析できる構造が整っているかを評価する。</p>
       <ul class="pillar-criteria">
         <li>Entity設計</li>
@@ -597,6 +664,7 @@ footer {
       <div class="pillar-icon">⭐</div>
       <h3>Recommendation Readiness</h3>
       <p class="pillar-sub">AIに推薦される能力</p>
+      <p class="pillar-q">"AIは、あなたを推薦する根拠を持っているか？"</p>
       <p class="pillar-desc">AIは単に情報を検索するだけでなく、信頼できる候補を推薦する。推薦の根拠となる情報資産や専門性が重要になる。</p>
       <ul class="pillar-criteria">
         <li>Expertise（専門性の可視化）</li>
@@ -611,6 +679,7 @@ footer {
       <div class="pillar-icon">⚡</div>
       <h3>Action Readiness</h3>
       <p class="pillar-sub">AIが行動できる能力</p>
+      <p class="pillar-q">"AI Agentは、予約・申込を完結できるか？"</p>
       <p class="pillar-desc">将来的にAI Agentが予約・申込・問い合わせを支援または代行するためには、行動可能な導線が必要になる。</p>
       <ul class="pillar-criteria">
         <li>API公開状況</li>
@@ -621,12 +690,36 @@ footer {
       </ul>
     </div>
   </div>
+
+  <!-- スコアの出力プロセス -->
+  <div class="reveal">
+    <div class="output-label">Score Output</div>
+    <div class="output-flow">
+      <div class="of-step">
+        <div class="of-num">STEP 01</div>
+        <div class="of-title">3軸スコアリング</div>
+        <div class="of-desc">公開情報をもとに、Discovery・Recommendation・Actionの3軸で各プロダクトを評価する。</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-step">
+        <div class="of-num">STEP 02</div>
+        <div class="of-title">暫定ランク（A〜D）</div>
+        <div class="of-desc">3軸の評価を総合し、暫定ランクとして公開する。公開情報のみに基づく一次評価。</div>
+      </div>
+      <div class="of-arrow">→</div>
+      <div class="of-step">
+        <div class="of-num">STEP 03</div>
+        <div class="of-title">確認・確定スコア</div>
+        <div class="of-desc">掲載前に各社へ確認連絡を行い、ヒアリング内容を反映してスコアを確定する。一方的な掲載は行わない。</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PROCESS -->
 <section class="process" id="process">
   <div class="section-header reveal">
-    <div class="section-label">Research Process</div>
+    <div class="section-label">03 — Research Process</div>
     <h2>調査<span class="gold">プロセス</span></h2>
     <p class="section-desc">
       Agent Readiness Indexは、公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチで調査を実施します。
@@ -665,7 +758,7 @@ footer {
 <!-- AREAS -->
 <section class="industries" id="areas">
   <div class="section-header reveal">
-    <div class="section-label">Current Research Areas</div>
+    <div class="section-label">04 — Current Research Areas</div>
     <h2>現在の<span class="gold">調査対象</span></h2>
     <p class="section-desc">AI Agentによる予約・申込が成立しうる業界を横断的に調査します。今後も対象領域を拡大予定です。</p>
   </div>
@@ -676,24 +769,35 @@ footer {
       <div class="ic-name">Dental</div>
       <div class="ic-sub">歯科予約システム</div>
       <span class="ic-badge status-live">進行中</span>
+      <div class="ic-when">2026 Q2–Q3</div>
     </a>
     <div class="industry-card">
       <div class="ic-icon">💄</div>
       <div class="ic-name">Beauty</div>
       <div class="ic-sub">自由診療・美容医療</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2026 Q4予定</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">🏋️</div>
       <div class="ic-name">Fitness</div>
       <div class="ic-sub">フィットネス・会員管理</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2026 Q4予定</div>
     </div>
     <div class="industry-card">
       <div class="ic-icon">🏠</div>
       <div class="ic-name">Real Estate</div>
       <div class="ic-sub">不動産・内見予約</div>
       <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">2027 Q1予定</div>
+    </div>
+    <div class="industry-card">
+      <div class="ic-icon">🏪</div>
+      <div class="ic-name">Local Commerce</div>
+      <div class="ic-sub">店舗来店・予約</div>
+      <span class="ic-badge status-soon">準備中</span>
+      <div class="ic-when">時期未定</div>
     </div>
   </div>
 </section>
@@ -702,7 +806,7 @@ footer {
 <section class="partner" id="participate">
   <div class="partner-inner">
     <div class="partner-left reveal">
-      <div class="section-label">Research Participation</div>
+      <div class="section-label">05 — Research Participation</div>
       <h2>調査への<span class="gold">参加</span></h2>
       <p class="section-desc">
         Agent Readiness Indexでは、調査協力企業・業界パートナーを募集しています。
@@ -724,6 +828,7 @@ footer {
 
     <div class="partner-benefits reveal">
       <div class="pb-item">
+        <div class="pb-num">01</div>
         <div class="pb-icon">📋</div>
         <div class="pb-body">
           <h4>ヒアリング参加</h4>
@@ -731,6 +836,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">02</div>
         <div class="pb-icon">✅</div>
         <div class="pb-body">
           <h4>掲載前レビュー権</h4>
@@ -738,6 +844,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">03</div>
         <div class="pb-icon">💡</div>
         <div class="pb-body">
           <h4>Agent Readiness診断</h4>
@@ -745,6 +852,7 @@ footer {
         </div>
       </div>
       <div class="pb-item">
+        <div class="pb-num">04</div>
         <div class="pb-icon">🔄</div>
         <div class="pb-body">
           <h4>情報交換</h4>

@@ -411,6 +411,81 @@ h2 .gold { color:var(--gold); }
   border-radius:3px; font-size:0.905rem; color:var(--gray-500); line-height:1.65;
 }
 
+/* vendor summary strip */
+.vendor-summary {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:12px; margin-top:56px;
+}
+.vs-item {
+  background:var(--navy); border:1px solid rgba(255,255,255,0.06);
+  border-radius:3px; padding:22px 16px; text-align:center;
+}
+.vs-num {
+  font-family:var(--font-display); font-size:2.325rem; font-weight:700;
+  color:var(--gold); line-height:1.1; margin-bottom:4px;
+}
+.vs-num.red { color:var(--accent-red); }
+.vs-label { font-size:0.795rem; color:var(--gray-500); line-height:1.5; }
+
+/* rank distribution bar */
+.rank-dist { margin-top:14px; }
+.rank-bar {
+  display:flex; height:30px; border-radius:3px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.rb-seg {
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-size:0.755rem; font-weight:500;
+  min-width:0; white-space:nowrap; overflow:hidden;
+}
+.rb-a  { background:rgba(201,168,76,0.5);  color:var(--white); }
+.rb-bp { background:rgba(124,181,204,0.5); color:var(--white); }
+.rb-b  { background:rgba(124,181,204,0.28); color:#BCD9E5; }
+.rb-c  { background:rgba(138,134,128,0.28); color:var(--gray-300); }
+.rb-d  { background:rgba(224,82,82,0.22);  color:#E89B9B; }
+
+/* rank filter */
+.vendor-filter {
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  margin-top:28px;
+}
+.vf-btn {
+  font-family:var(--font-mono); font-size:0.84rem;
+  padding:7px 18px; border-radius:2px;
+  background:transparent; border:1px solid rgba(255,255,255,0.14);
+  color:var(--gray-300); cursor:pointer; transition:all 0.2s;
+}
+.vf-btn:hover { border-color:rgba(201,168,76,0.4); color:var(--gold); }
+.vf-btn.active { background:var(--gold); border-color:var(--gold); color:var(--navy); font-weight:600; }
+.vf-count {
+  font-family:var(--font-mono); font-size:0.82rem;
+  color:var(--gray-500); margin-left:6px;
+}
+
+/* phase current highlight */
+.phase-item.current {
+  background:rgba(201,168,76,0.05);
+  box-shadow:inset 0 2px 0 var(--gold);
+}
+.phase-current-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-mono); font-size:0.72rem;
+  color:var(--accent-green); background:rgba(6,199,85,0.08);
+  border:1px solid rgba(6,199,85,0.25);
+  padding:3px 10px; border-radius:2px; margin-bottom:12px;
+}
+.phase-current-badge::before {
+  content:''; width:6px; height:6px; background:var(--accent-green);
+  border-radius:50%; animation:pulse 2s infinite;
+}
+
+/* scroll progress */
+.scroll-progress {
+  position:fixed; top:0; left:0; height:2px; width:0;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  z-index:200;
+}
+
 /* ── SECTION 6: BENEFITS ── */
 .benefits { background:var(--navy); }
 .benefits-grid {
@@ -509,6 +584,8 @@ footer {
   .tiktok-grid { grid-template-columns:1fr; }
   .benefits-grid { grid-template-columns:1fr; }
   footer { flex-direction:column; gap:14px; text-align:center; }
+  .vendor-summary { grid-template-columns:repeat(2,1fr); }
+  .rb-seg { font-size:0.64rem; }
 }
 
 /* ── TICKER ── */
@@ -762,6 +839,8 @@ footer {
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Agent Readiness Index</a>
@@ -934,7 +1013,7 @@ footer {
 
 <!-- SECTION 1: MARKET SHIFT -->
 <section class="market" id="market">
-  <div class="section-label">市場の変化</div>
+  <div class="section-label">01 — 市場の変化</div>
   <h2>患者行動は、<br>すでに<span class="gold">変わり始めている</span></h2>
   <p class="section-desc">ホットペッパーやGoogleで検索する時代から、AIに話しかけて予約する時代へ。その移行は静かに、確実に始まっている。</p>
 
@@ -983,7 +1062,7 @@ footer {
 <!-- SECTION 2: TIKTOK EVIDENCE -->
 <section class="evidence" id="evidence">
   <div class="evidence-inner">
-    <div class="section-label">調査の記録</div>
+    <div class="section-label">02 — 調査の記録</div>
     <h2>AI検索時代、<span class="gold">歯科市場に何が起きるか</span></h2>
     <p class="evidence-lead">
       2027年、患者は歯医者を「検索」しなくなる——AIが条件を読み取り、比較し、推薦する時代が静かに始まっている。<strong>あなたのクリニックは、AIに見えているか？</strong>この問いから、私たちの調査は始まった。
@@ -1015,7 +1094,7 @@ footer {
 
 <!-- SECTION 3: WHY NOW -->
 <section class="whynow" id="whynow">
-  <div class="section-label">調査の意義</div>
+  <div class="section-label">03 — 調査の意義</div>
   <h2>なぜ今、<span class="gold">この調査をしているか</span></h2>
   <p class="section-desc">競争軸が変わる前に、現状を正確に把握することが業界全体の利益になる。</p>
 
@@ -1120,7 +1199,7 @@ footer {
 
 <!-- WHY DENTAL -->
 <section class="why-dental" id="criteria">
-  <div class="section-label">Why Dental</div>
+  <div class="section-label">04 — Why Dental</div>
   <h2>なぜ歯科領域から<span class="gold">始めるのか</span></h2>
   <p class="section-desc">AI検索から予約までの行動変化が、最も早く起きる可能性がある領域の一つ。それが歯科だ。</p>
 
@@ -1199,7 +1278,7 @@ footer {
 
 <!-- SECTION 4: CRITERIA -->
 <section style="background:var(--navy-mid); border-top:1px solid rgba(201,168,76,0.08); padding:72px 60px;">
-  <div class="section-label">調査設計</div>
+  <div class="section-label">05 — 調査設計</div>
   <h2>3つの軸で<span class="gold">実態を把握する</span></h2>
   <p class="section-desc">Discovery・Recommendation・Actionの3フェーズに対応した評価軸で、各ベンダーのAI対応実態を測る。</p>
 
@@ -1248,11 +1327,53 @@ footer {
 
 <!-- SECTION 5: VENDORS -->
 <section class="vendors" id="vendors">
-  <div class="section-label">調査対象</div>
+  <div class="section-label">06 — 調査対象</div>
   <h2>対象ベンダー<span class="gold"> 23社</span></h2>
   <p class="section-desc">歯科医院そのものではなく、予約・CRM SaaSを提供するベンダー23プロダクトが対象。歯科専用・医療横断型・自由診療（美容）向けを含む。公開情報をもとに暫定スコアを算出し、掲載前に各社へ確認連絡を行う。</p>
 
-  <div class="vendor-table-wrap">
+  <!-- サマリー -->
+  <div class="vendor-summary reveal">
+    <div class="vs-item">
+      <div class="vs-num">23</div>
+      <div class="vs-label">調査対象プロダクト</div>
+    </div>
+    <div class="vs-item">
+      <div class="vs-num">1</div>
+      <div class="vs-label">Aランク（暫定）</div>
+    </div>
+    <div class="vs-item">
+      <div class="vs-num red">11</div>
+      <div class="vs-label">Dランク（約半数）</div>
+    </div>
+    <div class="vs-item">
+      <div class="vs-num red">0</div>
+      <div class="vs-label">API一般公開を確認できた数</div>
+    </div>
+  </div>
+
+  <!-- 暫定ランク分布 -->
+  <div class="rank-dist reveal">
+    <div class="rank-bar">
+      <div class="rb-seg rb-a"  style="width:4.4%">A</div>
+      <div class="rb-seg rb-bp" style="width:4.4%">B+</div>
+      <div class="rb-seg rb-b"  style="width:17.4%">B ×4</div>
+      <div class="rb-seg rb-c"  style="width:26.0%">C ×6</div>
+      <div class="rb-seg rb-d"  style="width:47.8%">D ×11</div>
+    </div>
+  </div>
+
+  <!-- ランクフィルタ -->
+  <div class="vendor-filter reveal">
+    <button class="vf-btn active" data-rank="all">すべて</button>
+    <button class="vf-btn" data-rank="A">A</button>
+    <button class="vf-btn" data-rank="B+">B+</button>
+    <button class="vf-btn" data-rank="B">B</button>
+    <button class="vf-btn" data-rank="C">C</button>
+    <button class="vf-btn" data-rank="D">D</button>
+    <span class="vf-count" id="vfCount">23 / 23 件表示</span>
+  </div>
+
+  <div class="vendor-table-wrap" style="margin-top:24px;">
     <table class="vendor-table">
       <thead>
         <tr>
@@ -1483,7 +1604,7 @@ footer {
 
 <!-- SECTION 6: BENEFITS -->
 <section class="benefits" id="benefits">
-  <div class="section-label">調査参加のメリット</div>
+  <div class="section-label">07 — 調査参加のメリット</div>
   <h2>ヒアリングに参加すると<br><span class="gold">何が得られるか</span></h2>
   <p class="section-desc">調査は一方的な評価ではない。参加ベンダーには、以下の情報と機会を提供する。</p>
 
@@ -1523,13 +1644,14 @@ footer {
 
 <!-- SECTION 7: PHASES -->
 <section class="phases" id="phases">
-  <div class="section-label">調査スケジュール</div>
+  <div class="section-label">08 — 調査スケジュール</div>
   <h2>3フェーズで<span class="gold">調査を進める</span></h2>
   <p class="section-desc">公開情報の収集から、ヒアリング、レポート公開まで。2026年Q3〜2027年Q1を予定している。</p>
 
   <div class="phases-row">
-    <div class="phase-item reveal">
+    <div class="phase-item current reveal">
       <div class="phase-num">PHASE 01</div>
+      <div class="phase-current-badge">現在ここ</div>
       <div class="phase-tag">〜2026年Q3</div>
       <h3>公開情報調査・<br>暫定スコア算出</h3>
       <ul>
@@ -1614,6 +1736,33 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(a => {
     a.style.color = '';
     if(a.getAttribute('href') === '#' + current) a.style.color = 'var(--gold)';
+  });
+});
+
+// ── Scroll progress ──
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+}, { passive:true });
+
+// ── Vendor rank filter ──
+const vfButtons = document.querySelectorAll('.vf-btn');
+const vendorRows = document.querySelectorAll('.vendor-table tbody tr');
+const vfCount = document.getElementById('vfCount');
+vfButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    vfButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const rank = btn.dataset.rank;
+    let shown = 0;
+    vendorRows.forEach(row => {
+      const badge = row.querySelector('.badge');
+      const match = rank === 'all' || (badge && badge.textContent.trim() === rank);
+      row.style.display = match ? '' : 'none';
+      if(match) shown++;
+    });
+    vfCount.textContent = shown + ' / ' + vendorRows.length + ' 件表示';
   });
 });
 </script>
