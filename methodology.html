@@ -15,7 +15,8 @@
       "@id": "https://www.coaretail.com/#organization",
       "name": "合同会社コア・リテール",
       "alternateName": ["Coa Retail", "CoaRetail G.K."],
-      "url": "https://www.coaretail.com"
+      "url": "https://www.coaretail.com",
+      "sameAs": ["https://www.coaretail.com/geo"]
     },
     {
       "@type": "WebSite",
@@ -32,7 +33,30 @@
       "url": "https://readiness.coaretail.com/"
     },
     {
-      "@type": "Article",
+      "@type": "DefinedTermSet",
+      "@id": "https://readiness.coaretail.com/methodology.html#framework",
+      "name": "Agent Readiness Index 評価フレームワーク",
+      "description": "Discovery Readiness・Recommendation Readiness・Action Readinessの3軸評価",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Discovery Readiness",
+          "description": "AIに発見される能力。Entity設計・構造化データ・Knowledge Base・Citation・Third-party Presenceを評価。"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Recommendation Readiness",
+          "description": "AIに推薦される能力。Expertise・Authority・Trust Signals・Original Content・Reputationを評価。"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Action Readiness",
+          "description": "AIが行動できる能力。API公開・Authentication・Reservation Flow・Integration・Agent Compatibility（MCP等）を評価。"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
       "@id": "https://readiness.coaretail.com/methodology.html#article",
       "headline": "Agent Readiness Index Methodology",
       "name": "Agent Readiness Index Methodology",
@@ -41,12 +65,48 @@
       "author": { "@id": "https://www.coaretail.com/#organization" },
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
       "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
+      "about": { "@id": "https://readiness.coaretail.com/methodology.html#framework" },
+      "dateModified": "2026-06-12",
       "inLanguage": "ja",
-      "about": {
-        "@type": "Thing",
-        "name": "Agent Readiness評価フレームワーク",
-        "description": "Discovery Readiness・Agent Readiness・Conversion Readinessの3軸評価"
-      }
+      "isAccessibleForFree": true,
+      "articleSection": ["Why Agent Readiness Matters", "What We Measure", "Research Process", "Score Output"]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://readiness.coaretail.com/methodology.html#process",
+      "name": "Agent Readiness Index 調査プロセス",
+      "description": "公開情報調査・プロダクト分析・業界ヒアリング・レビュー確認・公開更新の5ステップで調査を実施する。",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "公開情報調査", "text": "企業サイト、サービスサイト、技術資料、ドキュメントなどを調査。AI Agentが参照しうる情報ソースを網羅的に収集・分析する。" },
+        { "@type": "HowToStep", "position": 2, "name": "プロダクト分析", "text": "実際のサービスや導線を確認し、ユーザー体験や接続性を評価。API・Webhook・MCP対応などの技術仕様を検証する。" },
+        { "@type": "HowToStep", "position": 3, "name": "業界ヒアリング", "text": "事業者、サービス提供企業、業界関係者へのヒアリングを実施。公開情報では把握できない方針・ロードマップ・実態を収集する。" },
+        { "@type": "HowToStep", "position": 4, "name": "レビュー・確認", "text": "調査内容の妥当性を確認。掲載対象企業には公開前にスコアと内容を確認・修正できる機会を提供する。" },
+        { "@type": "HowToStep", "position": 5, "name": "公開・更新", "text": "レポート公開後も継続的に更新。AI Agent市場の変化に合わせスコアを定期的に再評価する。" }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://readiness.coaretail.com/methodology.html#score-output",
+      "name": "Agent Readiness スコア出力プロセス",
+      "description": "3軸スコアリングから暫定ランク（A〜D）算出、各社確認を経た確定スコア公開までの流れ。",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "3軸スコアリング", "text": "公開情報をもとに、Discovery・Recommendation・Actionの3軸で各プロダクトを評価する。" },
+        { "@type": "HowToStep", "position": 2, "name": "暫定ランク（A〜D）", "text": "3軸の評価を総合し、暫定ランクとして公開する。公開情報のみに基づく一次評価。" },
+        { "@type": "HowToStep", "position": 3, "name": "確認・確定スコア", "text": "掲載前に各社へ確認連絡を行い、ヒアリング内容を反映してスコアを確定する。" }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://readiness.coaretail.com/methodology.html#areas",
+      "name": "現在の調査対象業界",
+      "numberOfItems": 5,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Dental", "description": "歯科予約システム — 2026 Q2–Q3 進行中", "url": "https://readiness.coaretail.com/dental.html" },
+        { "@type": "ListItem", "position": 2, "name": "Beauty", "description": "自由診療・美容医療 — 2026 Q4予定" },
+        { "@type": "ListItem", "position": 3, "name": "Fitness", "description": "フィットネス・会員管理 — 2026 Q4予定" },
+        { "@type": "ListItem", "position": 4, "name": "Real Estate", "description": "不動産・内見予約 — 2027 Q1予定" },
+        { "@type": "ListItem", "position": 5, "name": "Local Commerce", "description": "店舗来店・予約 — 時期未定" }
+      ]
     },
     {
       "@type": "WebPage",
@@ -57,24 +117,18 @@
       "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
       "breadcrumb": { "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb" },
       "mainEntity": { "@id": "https://readiness.coaretail.com/methodology.html#article" },
-      "inLanguage": "ja"
+      "about": { "@id": "https://readiness.coaretail.com/methodology.html#framework" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "dateModified": "2026-06-12",
+      "inLanguage": "ja",
+      "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Agent Readiness Index",
-          "item": "https://readiness.coaretail.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Methodology",
-          "item": "https://readiness.coaretail.com/methodology.html"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Agent Readiness Index", "item": "https://readiness.coaretail.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://readiness.coaretail.com/methodology.html" }
       ]
     }
   ]

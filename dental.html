@@ -15,7 +15,8 @@
       "@id": "https://www.coaretail.com/#organization",
       "name": "合同会社コア・リテール",
       "alternateName": ["Coa Retail", "CoaRetail G.K."],
-      "url": "https://www.coaretail.com"
+      "url": "https://www.coaretail.com",
+      "sameAs": ["https://www.coaretail.com/geo"]
     },
     {
       "@type": "WebSite",
@@ -36,11 +37,91 @@
       "@id": "https://readiness.coaretail.com/dental.html#researchproject",
       "name": "Dental Agent Readiness Survey",
       "alternateName": "AI Agent予約実態調査2026",
-      "description": "日本の歯科・自由診療クリニック向け予約／CRM SaaSベンダー23社のAI Agent対応実態を調査するプロジェクト。Discovery / Agent / Conversionの3軸で評価。",
+      "description": "日本の歯科・自由診療クリニック向け予約／CRM SaaSベンダー23プロダクトのAI Agent対応実態を調査するプロジェクト。Discovery / Recommendation / Actionの3軸で評価。",
       "url": "https://readiness.coaretail.com/dental.html",
       "funder": { "@id": "https://www.coaretail.com/#organization" },
       "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
-      "keywords": ["歯科予約", "AI Agent", "SaaS", "CRM", "API", "予約システム", "ChatGPT"]
+      "temporalCoverage": "2026/Q2-Q3",
+      "keywords": ["歯科予約", "AI Agent", "SaaS", "CRM", "API", "予約システム", "ChatGPT"],
+      "about": { "@id": "https://readiness.coaretail.com/dental.html#framework" }
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://readiness.coaretail.com/dental.html#framework",
+      "name": "Dental Agent Readiness 評価軸",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "Discovery Readiness", "description": "AIに発見される力。Schema.org・GEO・Citation・Entity認識を評価。" },
+        { "@type": "DefinedTerm", "name": "Recommendation Readiness", "description": "AIに選ばれ続けるための信頼基盤。Platform Readiness・CRM・API連携を評価。" },
+        { "@type": "DefinedTerm", "name": "Action Readiness", "description": "AIが予約・申込を完結できる力。Reservation API・MCP・外部AI連携を評価。" }
+      ]
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://readiness.coaretail.com/dental.html#dataset",
+      "name": "Dental Agent Readiness Survey 2026 — 暫定ランク",
+      "description": "日本の歯科・自由診療向け予約／CRM SaaSベンダー23プロダクトの暫定Agent Readinessランク。公開情報のみに基づく一次評価。",
+      "url": "https://readiness.coaretail.com/dental.html#vendors",
+      "creator": { "@id": "https://www.coaretail.com/#organization" },
+      "isPartOf": { "@id": "https://readiness.coaretail.com/dental.html#researchproject" },
+      "dateModified": "2026-06-12",
+      "inLanguage": "ja",
+      "license": "https://readiness.coaretail.com/dental.html#vendors",
+      "isAccessibleForFree": true,
+      "numberOfItems": 23,
+      "variableMeasured": [
+        { "@type": "PropertyValue", "name": "暫定ランク", "description": "A / B+ / B / C / D" },
+        { "@type": "PropertyValue", "name": "API公開", "description": "一般公開・個別契約・非公開・不明" },
+        { "@type": "PropertyValue", "name": "AI連携実績", "description": "外部AI・ボイスボット等の連携実績" },
+        { "@type": "PropertyValue", "name": "LINE連携", "description": "LINE公式アカウント連携の有無" }
+      ],
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "text/html",
+        "contentUrl": "https://readiness.coaretail.com/dental.html#vendors"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://readiness.coaretail.com/dental.html#vendors",
+      "name": "歯科予約・CRM SaaS ベンダー23プロダクト（暫定ランク）",
+      "numberOfItems": 23,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "SoftwareApplication", "name": "Apotool & Box", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ストランザ" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "A" } } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "SoftwareApplication", "name": "medicalforce", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社メディカルフォース" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "B+" } } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "SoftwareApplication", "name": "Dentry by GMO", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "GMO医療予約技術研究所" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "B" } } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "SoftwareApplication", "name": "キレイパスコネクト", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "GMOビューティー株式会社" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "B" } } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "SoftwareApplication", "name": "EPARK歯科", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社EPARK" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "B" } } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "SoftwareApplication", "name": "DentNet", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ジェニシス" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 7, "item": { "@type": "SoftwareApplication", "name": "DENTIS", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社デンティス" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 8, "item": { "@type": "SoftwareApplication", "name": "ジニー & myDental", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ジニー" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 9, "item": { "@type": "SoftwareApplication", "name": "e-Apo", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ヨシダ" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 10, "item": { "@type": "SoftwareApplication", "name": "V-apo", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "日本ビスカ株式会社" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 11, "item": { "@type": "SoftwareApplication", "name": "CLINICS", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社メドレー" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "B" } } },
+        { "@type": "ListItem", "position": 12, "item": { "@type": "SoftwareApplication", "name": "アポクル予約", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "カルー株式会社" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 13, "item": { "@type": "SoftwareApplication", "name": "B4A", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社B4A" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 14, "item": { "@type": "SoftwareApplication", "name": "SMARTCRM", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "カルー株式会社" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 15, "item": { "@type": "SoftwareApplication", "name": "Dental Hub", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社プラネット" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 16, "item": { "@type": "SoftwareApplication", "name": "dentareserve", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "デンタリザーブ" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 17, "item": { "@type": "SoftwareApplication", "name": "SMSデンタルアポ", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ナレッジフロー" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 18, "item": { "@type": "SoftwareApplication", "name": "デンタルアクセス", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ヴァンガードNW" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 19, "item": { "@type": "SoftwareApplication", "name": "リザーブMaster", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社アイデンス" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 20, "item": { "@type": "SoftwareApplication", "name": "PLUM CONNECT", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社NNG" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 21, "item": { "@type": "SoftwareApplication", "name": "SELECTTYPE", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社セレクトタイプ" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } },
+        { "@type": "ListItem", "position": 22, "item": { "@type": "SoftwareApplication", "name": "クリニッククラウド GR", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "株式会社ASANO" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "C" } } },
+        { "@type": "ListItem", "position": 23, "item": { "@type": "SoftwareApplication", "name": "メディカルシステムNW", "applicationCategory": "BusinessApplication", "provider": { "@type": "Organization", "name": "複数社" }, "additionalProperty": { "@type": "PropertyValue", "name": "暫定ランク", "value": "D" } } }
+      ]
+    },
+    {
+      "@type": "Report",
+      "@id": "https://readiness.coaretail.com/dental.html#report",
+      "name": "Dental Agent Readiness Survey 2026",
+      "description": "歯科予約・CRM SaaS 23プロダクトの暫定Agent Readiness調査レポート。Aランク1・Dランク11・API一般公開確認0。",
+      "url": "https://readiness.coaretail.com/dental.html",
+      "author": { "@id": "https://www.coaretail.com/#organization" },
+      "about": { "@id": "https://readiness.coaretail.com/dental.html#dataset" },
+      "dateModified": "2026-06-12",
+      "inLanguage": "ja",
+      "isAccessibleForFree": true
     },
     {
       "@type": "WebPage",
@@ -51,24 +132,18 @@
       "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
       "breadcrumb": { "@id": "https://readiness.coaretail.com/dental.html#breadcrumb" },
       "about": { "@id": "https://readiness.coaretail.com/dental.html#researchproject" },
-      "inLanguage": "ja"
+      "mainEntity": { "@id": "https://readiness.coaretail.com/dental.html#dataset" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "dateModified": "2026-06-12",
+      "inLanguage": "ja",
+      "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "@id": "https://readiness.coaretail.com/dental.html#breadcrumb",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Agent Readiness Index",
-          "item": "https://readiness.coaretail.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Dental",
-          "item": "https://readiness.coaretail.com/dental.html"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Agent Readiness Index", "item": "https://readiness.coaretail.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Dental", "item": "https://readiness.coaretail.com/dental.html" }
       ]
     }
   ]

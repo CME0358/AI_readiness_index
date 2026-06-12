@@ -15,7 +15,8 @@
       "@id": "https://www.coaretail.com/#organization",
       "name": "合同会社コア・リテール",
       "alternateName": ["Coa Retail", "CoaRetail G.K."],
-      "url": "https://www.coaretail.com"
+      "url": "https://www.coaretail.com",
+      "sameAs": ["https://www.coaretail.com/geo"]
     },
     {
       "@type": "WebSite",
@@ -24,7 +25,12 @@
       "name": "Agent Readiness Index",
       "description": "AI Agent時代のプラットフォーム調査。Discovery / Agent / Conversion の3軸で業界SaaSのAI対応状況を可視化する研究プロジェクト。",
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "inLanguage": "ja"
+      "inLanguage": "ja",
+      "hasPart": [
+        { "@id": "https://readiness.coaretail.com/#webpage" },
+        { "@id": "https://readiness.coaretail.com/dental.html#webpage" },
+        { "@id": "https://readiness.coaretail.com/methodology.html#webpage" }
+      ]
     },
     {
       "@type": "ResearchProject",
@@ -33,7 +39,48 @@
       "description": "AI Agentによる予約・申込が成立しうる業界プラットフォームの対応状況を、Discovery Readiness・Agent Readiness・Conversion Readinessの3軸で調査する研究プロジェクト。",
       "url": "https://readiness.coaretail.com/",
       "funder": { "@id": "https://www.coaretail.com/#organization" },
-      "keywords": ["AI Agent", "Agent Readiness", "GEO", "Schema.org", "API", "MCP", "予約システム", "SaaS"]
+      "temporalCoverage": "2026/2027",
+      "keywords": ["AI Agent", "Agent Readiness", "GEO", "Schema.org", "API", "MCP", "予約システム", "SaaS"],
+      "hasPart": [
+        { "@id": "https://readiness.coaretail.com/dental.html#researchproject" }
+      ],
+      "about": { "@id": "https://readiness.coaretail.com/#framework" }
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://readiness.coaretail.com/#framework",
+      "name": "Agent Readiness Evaluation Framework",
+      "description": "AI Agent時代のプラットフォーム競争力を測る3軸評価フレームワーク",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Discovery Readiness",
+          "description": "AIに発見される力。Entity・Schema.org・Citation・GEO・AI Overview対応を評価する。"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Agent Readiness",
+          "description": "AIと接続できる力。API・OAuth・Webhook・MCP・Function Callingを評価する。"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Conversion Readiness",
+          "description": "AIが予約・申込できる力。Reservation API・Booking・CRM連携・完結フローを評価する。"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://readiness.coaretail.com/#industries",
+      "name": "調査対象業界",
+      "numberOfItems": 5,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Dental", "description": "歯科予約システム — 2026 Q2–Q3 進行中", "url": "https://readiness.coaretail.com/dental.html" },
+        { "@type": "ListItem", "position": 2, "name": "Beauty", "description": "自由診療・美容医療 — 2026 Q4予定" },
+        { "@type": "ListItem", "position": 3, "name": "Fitness", "description": "フィットネス・会員管理 — 2026 Q4予定" },
+        { "@type": "ListItem", "position": 4, "name": "Real Estate", "description": "不動産・内見予約 — 2027 Q1予定" },
+        { "@type": "ListItem", "position": 5, "name": "Local Commerce", "description": "店舗来店・予約 — 時期未定" }
+      ]
     },
     {
       "@type": "WebPage",
@@ -43,7 +90,11 @@
       "description": "AI Agent時代の競争力を可視化する Agent Readiness Index。歯科・美容・フィットネス・不動産向けSaaSのAI対応状況をDiscovery / Agent / Conversionの3軸で調査・スコアリング。",
       "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
       "about": { "@id": "https://readiness.coaretail.com/#researchproject" },
-      "inLanguage": "ja"
+      "mainEntity": { "@id": "https://readiness.coaretail.com/#researchproject" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "dateModified": "2026-06-12",
+      "inLanguage": "ja",
+      "isAccessibleForFree": true
     }
   ]
 }
