@@ -633,6 +633,10 @@ footer {
 }
 .footer-logo { font-family:var(--font-display); font-size:1.045rem; color:var(--gold); font-weight:600; }
 .footer-copy { font-size:0.855rem; color:var(--gray-500); }
+.footer-copy a {
+  color:var(--gray-500); text-decoration:none; transition:color 0.2s;
+}
+.footer-copy a:hover { color:var(--gold); }
 .footer-links { display:flex; gap:22px; }
 .footer-links a { font-size:0.855rem; color:var(--gray-500); text-decoration:none; transition:color 0.2s; }
 .footer-links a:hover { color:var(--gold); }
@@ -1794,7 +1798,7 @@ footer {
     <a href="#contact">ヒアリングに参加</a>
     <a href="https://www.coaretail.com">GEO Search Protocol</a>
   </div>
-  <div class="footer-copy">© 2026 合同会社コア・リテール. All rights reserved.</div>
+  <div class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener noreferrer">合同会社コア・リテール</a>. All rights reserved.</div>
 </footer>
 
 <script>
