@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Methodology | Agent Readiness Index</title>
-<meta name="description" content="Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。">
+<meta name="description" content="Agent Readiness Indexの評価方法論。Discovery・Recommendation・Actionの3軸フレームワーク、診断プロセス、調査設計を公開します。">
 <link rel="canonical" href="https://readiness.coaretail.com/methodology.html">
 <script type="application/ld+json">
 {
@@ -15,111 +15,37 @@
       "@id": "https://www.coaretail.com/#organization",
       "name": "合同会社コア・リテール",
       "alternateName": ["Coa Retail", "CoaRetail G.K."],
-      "url": "https://www.coaretail.com",
-      "sameAs": ["https://www.coaretail.com/geo"]
+      "url": "https://www.coaretail.com"
     },
     {
       "@type": "WebSite",
       "@id": "https://readiness.coaretail.com/#website",
       "url": "https://readiness.coaretail.com/",
-      "name": "Agent Readiness Index",
+      "name": "Agent Readiness",
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
       "inLanguage": "ja"
     },
     {
-      "@type": "ResearchProject",
-      "@id": "https://readiness.coaretail.com/#researchproject",
-      "name": "Agent Readiness Index",
-      "url": "https://readiness.coaretail.com/"
-    },
-    {
       "@type": "DefinedTermSet",
       "@id": "https://readiness.coaretail.com/methodology.html#framework",
-      "name": "Agent Readiness Index 評価フレームワーク",
+      "name": "Agent Readiness Evaluation Framework",
       "description": "Discovery Readiness・Recommendation Readiness・Action Readinessの3軸評価",
       "hasDefinedTerm": [
-        {
-          "@type": "DefinedTerm",
-          "name": "Discovery Readiness",
-          "description": "AIに発見される能力。Entity設計・構造化データ・Knowledge Base・Citation・Third-party Presenceを評価。"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Recommendation Readiness",
-          "description": "AIに推薦される能力。Expertise・Authority・Trust Signals・Original Content・Reputationを評価。"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Action Readiness",
-          "description": "AIが行動できる能力。API公開・Authentication・Reservation Flow・Integration・Agent Compatibility（MCP等）を評価。"
-        }
+        { "@type": "DefinedTerm", "name": "Discovery Readiness", "description": "AIに理解・発見される力" },
+        { "@type": "DefinedTerm", "name": "Recommendation Readiness", "description": "AIに比較・推薦される力" },
+        { "@type": "DefinedTerm", "name": "Action Readiness", "description": "AIに選択・実行される力" }
       ]
     },
     {
       "@type": "TechArticle",
       "@id": "https://readiness.coaretail.com/methodology.html#article",
       "headline": "Agent Readiness Index Methodology",
-      "name": "Agent Readiness Index Methodology",
-      "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
+      "description": "Agent Readiness Indexの評価方法論。3軸フレームワーク・診断プロセス・調査設計を解説。",
       "url": "https://readiness.coaretail.com/methodology.html",
       "author": { "@id": "https://www.coaretail.com/#organization" },
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "isPartOf": { "@id": "https://readiness.coaretail.com/#researchproject" },
       "about": { "@id": "https://readiness.coaretail.com/methodology.html#framework" },
-      "dateModified": "2026-06-12",
-      "inLanguage": "ja",
-      "isAccessibleForFree": true,
-      "articleSection": ["Why Agent Readiness Matters", "What We Measure", "Research Process", "Score Output"]
-    },
-    {
-      "@type": "HowTo",
-      "@id": "https://readiness.coaretail.com/methodology.html#process",
-      "name": "Agent Readiness Index 調査プロセス",
-      "description": "公開情報調査・プロダクト分析・業界ヒアリング・レビュー確認・公開更新の5ステップで調査を実施する。",
-      "step": [
-        { "@type": "HowToStep", "position": 1, "name": "公開情報調査", "text": "企業サイト、サービスサイト、技術資料、ドキュメントなどを調査。AI Agentが参照しうる情報ソースを網羅的に収集・分析する。" },
-        { "@type": "HowToStep", "position": 2, "name": "プロダクト分析", "text": "実際のサービスや導線を確認し、ユーザー体験や接続性を評価。API・Webhook・MCP対応などの技術仕様を検証する。" },
-        { "@type": "HowToStep", "position": 3, "name": "業界ヒアリング", "text": "事業者、サービス提供企業、業界関係者へのヒアリングを実施。公開情報では把握できない方針・ロードマップ・実態を収集する。" },
-        { "@type": "HowToStep", "position": 4, "name": "レビュー・確認", "text": "調査内容の妥当性を確認。掲載対象企業には公開前にスコアと内容を確認・修正できる機会を提供する。" },
-        { "@type": "HowToStep", "position": 5, "name": "公開・更新", "text": "レポート公開後も継続的に更新。AI Agent市場の変化に合わせスコアを定期的に再評価する。" }
-      ]
-    },
-    {
-      "@type": "HowTo",
-      "@id": "https://readiness.coaretail.com/methodology.html#score-output",
-      "name": "Agent Readiness スコア出力プロセス",
-      "description": "3軸スコアリングから暫定ランク（A〜D）算出、各社確認を経た確定スコア公開までの流れ。",
-      "step": [
-        { "@type": "HowToStep", "position": 1, "name": "3軸スコアリング", "text": "公開情報をもとに、Discovery・Recommendation・Actionの3軸で各プロダクトを評価する。" },
-        { "@type": "HowToStep", "position": 2, "name": "暫定ランク（A〜D）", "text": "3軸の評価を総合し、暫定ランクとして公開する。公開情報のみに基づく一次評価。" },
-        { "@type": "HowToStep", "position": 3, "name": "確認・確定スコア", "text": "掲載前に各社へ確認連絡を行い、ヒアリング内容を反映してスコアを確定する。" }
-      ]
-    },
-    {
-      "@type": "ItemList",
-      "@id": "https://readiness.coaretail.com/methodology.html#areas",
-      "name": "現在の調査対象業界",
-      "numberOfItems": 5,
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Dental", "description": "歯科予約システム — 2026 Q2–Q3 進行中", "url": "https://readiness.coaretail.com/dental.html" },
-        { "@type": "ListItem", "position": 2, "name": "Beauty", "description": "自由診療・美容医療 — 2026 Q4予定" },
-        { "@type": "ListItem", "position": 3, "name": "Fitness", "description": "フィットネス・会員管理 — 2026 Q4予定" },
-        { "@type": "ListItem", "position": 4, "name": "Real Estate", "description": "不動産・内見予約 — 2027 Q1予定" },
-        { "@type": "ListItem", "position": 5, "name": "Local Commerce", "description": "店舗来店・予約 — 時期未定" }
-      ]
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://readiness.coaretail.com/methodology.html#webpage",
-      "url": "https://readiness.coaretail.com/methodology.html",
-      "name": "Methodology | Agent Readiness Index",
-      "description": "Agent Readiness Indexの調査方法論。AI Agent時代における企業・サービスの評価フレームワークを解説します。",
-      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
-      "breadcrumb": { "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb" },
-      "mainEntity": { "@id": "https://readiness.coaretail.com/methodology.html#article" },
-      "about": { "@id": "https://readiness.coaretail.com/methodology.html#framework" },
-      "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "dateModified": "2026-06-12",
+      "dateModified": "2026-07-01",
       "inLanguage": "ja",
       "isAccessibleForFree": true
     },
@@ -127,7 +53,7 @@
       "@type": "BreadcrumbList",
       "@id": "https://readiness.coaretail.com/methodology.html#breadcrumb",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Agent Readiness Index", "item": "https://readiness.coaretail.com/" },
+        { "@type": "ListItem", "position": 1, "name": "Agent Readiness", "item": "https://readiness.coaretail.com/" },
         { "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://readiness.coaretail.com/methodology.html" }
       ]
     }
@@ -136,785 +62,667 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0B1628;
-  --navy-mid: #152238;
-  --navy-light: #1E3354;
-  --gold: #C9A84C;
-  --gold-light: #E8C97A;
-  --white: #FAFAF8;
-  --gray-300: #C8C4BC;
-  --gray-500: #8A8680;
-  --accent-red: #E05252;
-  --accent-green: #06C755;
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'DM Mono', monospace;
+  --bg: #FFFFFF;
+  --bg-elevated: #FAFAFA;
+  --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.16);
+  --text: #09090B;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+  --cta: #09090B;
+  --cta-text: #FFFFFF;
+  --cta-hover: #27272A;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --max: 1120px;
+  --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --green: #16A34A;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--navy);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.7;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-body::before {
-  content:'';
-  position:fixed; inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none; z-index:9999; opacity:0.35;
-}
 
-/* ── NAV ── */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:20px 60px;
-  display:flex; align-items:center; justify-content:space-between;
-  background:linear-gradient(to bottom, rgba(11,22,40,0.95) 0%, transparent 100%);
-  backdrop-filter:blur(2px);
-}
-.nav-logo {
-  font-family:var(--font-display); font-size:1.125rem; font-weight:600;
-  color:var(--gold); letter-spacing:0.05em; text-decoration:none;
-}
-.nav-links { display:flex; gap:32px; list-style:none; }
-.nav-links a {
-  color:var(--gray-300); text-decoration:none; font-size:0.905rem;
-  font-weight:500; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s;
-}
-.nav-links a:hover,
-.nav-links a.active { color:var(--gold); }
-.nav-cta {
-  background:var(--gold); color:var(--navy) !important;
-  padding:10px 22px; border-radius:2px; font-weight:600 !important;
-}
-
-/* ── HERO ── */
-.hero {
-  min-height:auto;
-  display:flex; align-items:center;
-  padding:140px 60px 80px;
-  position:relative; overflow:hidden;
-}
-.hero-bg {
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 65% 70% at 60% 45%, rgba(201,168,76,0.06) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(30,51,84,0.5) 0%, transparent 70%),
-    linear-gradient(150deg, var(--navy) 0%, #0D1F3C 100%);
-}
-.hero-grid {
-  position:absolute; inset:0;
-  background-image:
-    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
-  background-size:64px 64px;
-}
-.hero-diagonal {
-  position:absolute;
-  top:0; right:0; bottom:0;
-  width:50%;
-  clip-path:polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
-  background:linear-gradient(160deg, rgba(201,168,76,0.025) 0%, transparent 60%);
-  pointer-events:none;
-}
-.hero-inner {
-  position:relative; width:100%;
-  animation:heroIn 0.9s ease both;
-}
-@keyframes heroIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-
-.breadcrumb {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gray-500); letter-spacing:0.1em; text-transform:uppercase;
-  margin-bottom:24px; display:flex; align-items:center; gap:8px;
-}
-.breadcrumb a { color:var(--gray-500); text-decoration:none; transition:color 0.2s; }
-.breadcrumb a:hover { color:var(--gold); }
-.breadcrumb span { color:rgba(201,168,76,0.3); }
-
-.hero-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(201,168,76,0.09); border:1px solid rgba(201,168,76,0.28);
-  color:var(--gold); font-size:0.825rem; font-weight:500; letter-spacing:0.15em;
-  text-transform:uppercase; padding:8px 18px; border-radius:2px; margin-bottom:28px;
-}
-.hero-badge::before {
-  content:''; width:6px; height:6px; background:var(--gold); border-radius:50%;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.hero h1 {
-  font-family:var(--font-display);
-  font-size:clamp(2.2rem, 3.5vw, 3.2rem);
-  font-weight:700; line-height:1.1;
-  color:var(--white); margin-bottom:16px;
-  letter-spacing:-0.01em;
-}
-.hero h1 .gold { color:var(--gold); font-style:italic; }
-.hero-lead {
-  font-size:1.125rem; color:var(--gray-300); line-height:1.85;
-  max-width:560px;
-}
-
-/* ── BUTTONS ── */
-.btn-primary {
-  background:var(--gold); color:var(--navy);
-  padding:15px 34px; font-size:1rem; font-weight:600;
-  letter-spacing:0.04em; border:none; border-radius:2px;
-  cursor:pointer; text-decoration:none; display:inline-block;
-  transition:all 0.2s;
-}
-.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
-.btn-secondary {
-  background:transparent; color:var(--gold);
-  padding:15px 34px; font-size:1rem; font-weight:500;
-  border:1px solid rgba(201,168,76,0.38); border-radius:2px;
-  cursor:pointer; text-decoration:none; display:inline-block;
-  transition:all 0.2s;
-}
-.btn-secondary:hover { border-color:var(--gold); background:rgba(201,168,76,0.05); }
-.btn-line {
-  background:var(--accent-green); color:var(--white);
-  padding:16px 38px; font-size:1.045rem; font-weight:600;
-  border:none; border-radius:3px; cursor:pointer; text-decoration:none;
-  display:inline-flex; align-items:center; gap:9px; transition:all 0.2s;
-}
-.btn-line:hover { background:#05b84c; transform:translateY(-1px); }
-
-/* ── SECTION BASE ── */
-section { padding:96px 60px; }
+.container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.section { padding: 120px 0; }
 .section-label {
-  font-size:0.825rem; letter-spacing:0.2em; text-transform:uppercase;
-  color:var(--gold); font-weight:500; margin-bottom:14px;
-  display:flex; align-items:center; gap:12px;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 16px;
 }
-.section-label::after { content:''; flex:1; max-width:36px; height:1px; background:var(--gold); opacity:0.4; }
-h2 {
-  font-family:var(--font-display);
-  font-size:clamp(2rem, 3.2vw, 2.9rem);
-  font-weight:700; line-height:1.15;
-  color:var(--white); margin-bottom:18px;
-}
-h2 .gold { color:var(--gold); }
-.section-desc { font-size:1.075rem; color:var(--gray-300); max-width:540px; line-height:1.85; }
-.section-header { margin-bottom:56px; }
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; }
+h1 { font-size: clamp(2.25rem, 4.5vw, 3.25rem); }
+h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); margin-bottom: 20px; }
+h3 { font-size: 1.125rem; margin-bottom: 8px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); max-width: 560px; line-height: 1.75; }
+.section-header { margin-bottom: 64px; }
+.section-header.center { text-align: center; }
+.section-header.center .lead { margin: 0 auto; }
+.bg-elevated { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-/* ── WHY NOW ── */
-.whynow {
-  background:var(--navy-mid);
-  border-top:1px solid rgba(201,168,76,0.1);
-  border-bottom:1px solid rgba(201,168,76,0.1);
+/* Nav */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
 }
-.flow-compare {
-  display:grid; grid-template-columns:1fr 64px 1fr;
-  gap:0; align-items:center; margin-bottom:48px;
+.nav.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 0 var(--border); }
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
-.flow-box {
-  background:var(--navy); border:1px solid rgba(201,168,76,0.12);
-  border-radius:4px; padding:28px 24px;
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta {
+  background: var(--cta); color: var(--cta-text) !important;
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 14px !important; font-weight: 500 !important;
+  transition: background 0.15s;
 }
-.flow-box-label {
-  font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.14em;
-  text-transform:uppercase; margin-bottom:18px; font-weight:500;
-}
-.flow-box-label.old { color:var(--gray-500); }
-.flow-box-label.new { color:var(--gold); }
-.flow-steps { display:flex; flex-direction:column; gap:0; }
-.flow-step {
-  display:flex; align-items:center; gap:12px;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:0.965rem; color:var(--gray-300);
-}
-.flow-step:last-child { border-bottom:none; }
-.flow-step .step-icon { font-size:1rem; width:24px; flex-shrink:0; }
-.flow-step.highlight { color:var(--white); font-weight:500; }
-.flow-step.highlight .step-icon { color:var(--gold); }
-.flow-arrow {
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.625rem; color:var(--gold); opacity:0.4;
-  animation:arrowPulse 2.4s ease-in-out infinite;
-}
-@keyframes arrowPulse { 0%,100%{opacity:0.3;transform:translateX(0)} 50%{opacity:0.8;transform:translateX(6px)} }
-.flow-box.new-flow { border-color:rgba(201,168,76,0.3); background:linear-gradient(150deg, var(--navy) 60%, rgba(201,168,76,0.04) 100%); }
-.flow-result {
-  margin-top:16px; padding-top:14px;
-  border-top:1px dashed rgba(255,255,255,0.08);
-  font-size:0.855rem; line-height:1.6;
-}
-.flow-result.old-r { color:var(--gray-500); }
-.flow-result.new-r { color:var(--gold); }
-.whynow-insight {
-  background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15);
-  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
-  padding:22px 26px;
-  font-size:1.045rem; color:var(--white); line-height:1.8;
-}
-.whynow-insight strong { color:var(--gold); font-weight:500; }
+.nav-cta:hover { background: var(--cta-hover); }
+.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 4px; }
 
-/* ── PILLARS ── */
-.readiness { background:var(--navy); }
-.pillars-grid {
-  display:grid; grid-template-columns:repeat(3, 1fr);
-  gap:1px; background:rgba(201,168,76,0.1);
-  border:1px solid rgba(201,168,76,0.1); border-radius:4px;
-  overflow:hidden;
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px; border-radius: 10px;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+  transition: all 0.15s; cursor: pointer; border: none;
 }
-.pillar-item {
-  background:var(--navy); padding:36px 28px;
-  transition:background 0.2s;
-  position:relative;
+.btn-primary { background: var(--cta); color: var(--cta-text); }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--border-hover); background: rgba(0,0,0,0.03); }
+.btn-lg { padding: 16px 32px; font-size: 16px; }
+
+/* Hero */
+.page-hero {
+  padding: calc(var(--nav-h) + 72px) 0 80px;
+  position: relative;
 }
-.pillar-item::after {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:var(--gold); opacity:0; transition:opacity 0.25s;
+.page-hero-glow {
+  position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.03) 0%, transparent 70%);
+  pointer-events: none;
 }
-.pillar-item:hover { background:var(--navy-mid); }
-.pillar-item:hover::after { opacity:0.7; }
-.pillar-q {
-  font-family:var(--font-display); font-style:italic;
-  font-size:1.005rem; color:var(--gray-300);
-  margin-bottom:16px; line-height:1.6;
+.breadcrumb {
+  font-size: 13px; color: var(--text-muted); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 8px;
 }
-.pillar-num {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gold); opacity:0.5; letter-spacing:0.1em; margin-bottom:8px;
+.breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.breadcrumb a:hover { color: var(--text); }
+.hero-anim {
+  opacity: 0; transform: translateY(28px);
+  animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-.pillar-icon { font-size:1.825rem; margin-bottom:14px; }
-.pillar-item h3 {
-  font-family:var(--font-display); font-size:1.425rem;
-  font-weight:600; color:var(--gold); margin-bottom:6px;
+.hero-anim.d1 { animation-delay: 0.08s; }
+.hero-anim.d2 { animation-delay: 0.2s; }
+.hero-anim.d3 { animation-delay: 0.34s; }
+.hero-anim.d4 { animation-delay: 0.48s; }
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-muted); margin-bottom: 20px;
+  padding: 6px 14px; border: 1px solid var(--border); border-radius: 100px;
 }
-.pillar-sub {
-  font-size:0.875rem; color:var(--gray-500); margin-bottom:16px;
+.page-hero h1 { margin-bottom: 20px; max-width: 640px; }
+.page-hero .lead { max-width: 600px; margin-bottom: 32px; }
+
+/* Shift compare */
+.shift-grid {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: stretch;
+  margin-bottom: 40px;
 }
-.pillar-desc {
-  font-size:0.925rem; color:var(--gray-300); line-height:1.75;
-  margin-bottom:20px;
+.shift-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px;
 }
-.pillar-criteria {
-  list-style:none; display:flex; flex-direction:column; gap:8px;
+.shift-card.future { border-color: rgba(0,0,0,0.18); background: var(--bg); }
+.shift-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
 }
-.pillar-criteria li {
-  font-size:0.875rem; color:var(--gray-300);
-  padding-left:16px; position:relative; line-height:1.5;
+.shift-card.future .shift-tag { color: var(--text-secondary); }
+.shift-step {
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+  font-size: 15px; color: var(--text-secondary);
 }
-.pillar-criteria li::before {
-  content:'—'; position:absolute; left:0; color:var(--gold); font-size:0.8rem;
+.shift-step:last-child { border-bottom: none; }
+.shift-card.future .shift-step { color: var(--text); }
+.shift-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 20px;
+  opacity: 0; transition: opacity 0.6s ease 0.3s;
+}
+.anim-group.visible .shift-arrow,
+.reveal.visible .anim-group .shift-arrow {
+  opacity: 1; animation: arrowNudge 2.4s ease-in-out 0.8s infinite;
+}
+@keyframes arrowNudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+.anim-group .anim-item.shift-arrow { transform: none; }
+.insight-box {
+  padding: 24px 28px; border-radius: var(--radius);
+  background: var(--bg-card); border: 1px solid var(--border);
+  font-size: 15px; color: var(--text-secondary); line-height: 1.75;
+}
+.insight-box strong { color: var(--text); font-weight: 500; }
+
+/* Pillars */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pillar {
+  padding: 36px 28px; border-radius: var(--radius-lg);
+  background: var(--bg-card); border: 1px solid var(--border);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.pillar:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+.pillar-num { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.pillar h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.pillar-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.pillar-q { font-size: 14px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6; font-style: italic; }
+.pillar-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+.criteria { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.criteria li {
+  font-size: 13px; color: var(--text-secondary);
+  padding-left: 14px; position: relative; line-height: 1.5;
+}
+.criteria li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted);
 }
 
-/* ── SCORE OUTPUT FLOW ── */
-.output-label {
-  font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.15em;
-  text-transform:uppercase; color:var(--gold); font-weight:500;
-  margin:56px 0 20px; display:flex; align-items:center; gap:10px;
+/* Score flow */
+.score-section { margin-top: 72px; padding-top: 72px; border-top: 1px solid var(--border); }
+.score-label {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 24px;
 }
-.output-label::after { content:''; flex:1; max-width:30px; height:1px; background:var(--gold); opacity:0.3; }
-.output-flow {
-  display:grid; grid-template-columns:1fr 48px 1fr 48px 1fr;
-  align-items:stretch;
+.score-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.score-step {
+  padding: 28px 24px; border-radius: var(--radius-lg);
+  background: var(--bg); border: 1px solid var(--border);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.of-step {
-  background:var(--navy-mid); border:1px solid rgba(201,168,76,0.12);
-  border-radius:4px; padding:24px 22px;
-}
-.of-arrow {
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.4rem; color:var(--gold); opacity:0.4;
-}
-.of-num {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gold); opacity:0.55; letter-spacing:0.1em; margin-bottom:8px;
-}
-.of-title {
-  font-family:var(--font-display); font-size:1.175rem; font-weight:600;
-  color:var(--gold); margin-bottom:6px;
-}
-.of-desc { font-size:0.875rem; color:var(--gray-300); line-height:1.65; }
+.score-step:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+.score-num { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+.score-title { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+.score-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
-/* ── PROCESS ── */
-.process {
-  background:var(--navy-mid);
-  border-top:1px solid rgba(201,168,76,0.08);
-}
-.process-list { display:flex; flex-direction:column; gap:12px; }
+/* Process */
+.process-list { display: flex; flex-direction: column; gap: 12px; }
 .process-item {
-  background:var(--navy); border:1px solid rgba(201,168,76,0.1);
-  border-radius:3px; padding:22px 24px;
-  display:grid; grid-template-columns:80px 1fr; gap:8px 20px;
-  align-items:start; transition:border-color 0.2s;
+  display: grid; grid-template-columns: 88px 1fr; gap: 8px 24px;
+  padding: 24px 28px; border-radius: var(--radius-lg);
+  background: var(--bg-card); border: 1px solid var(--border);
+  transition: border-color 0.2s, transform 0.2s;
 }
-.process-item:hover { border-color:rgba(201,168,76,0.22); }
-.process-num {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gold); letter-spacing:0.1em; text-transform:uppercase;
-  padding-top:3px;
+.process-item:hover { border-color: var(--border-hover); transform: translateX(4px); }
+.process-num { font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.04em; padding-top: 2px; }
+.process-item h3 { font-size: 17px; font-weight: 500; grid-column: 2; margin-bottom: 6px; }
+.process-item p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; grid-column: 2; }
+
+/* Research areas */
+.research-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.research-card {
+  padding: 24px 18px; border-radius: var(--radius);
+  background: var(--bg-card); border: 1px solid var(--border);
+  text-align: center; text-decoration: none; color: inherit;
+  transition: border-color 0.2s, transform 0.2s;
+  display: block;
 }
-.process-item h3 {
-  font-family:var(--font-display); font-size:1.2rem;
-  font-weight:600; color:var(--white); margin-bottom:4px;
-  grid-column:2;
+.research-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.research-card.static { cursor: default; }
+.research-card.static:hover { transform: none; }
+.rc-name { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+.rc-sub { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+.rc-badge {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 100px;
 }
-.process-item p {
-  font-size:0.925rem; color:var(--gray-500); line-height:1.75;
-  grid-column:2;
+.rc-badge.live { background: rgba(22,163,74,0.1); color: var(--green); }
+.rc-badge.soon { background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
+.rc-when { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+
+/* Partners compact */
+.partners-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.partner-benefits { display: flex; flex-direction: column; gap: 12px; }
+.partner-benefit {
+  display: flex; gap: 16px; padding: 20px 24px;
+  border-radius: var(--radius); background: var(--bg-card); border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.partner-benefit:hover { border-color: var(--border-hover); }
+.partner-benefit-num { font-size: 12px; color: var(--text-muted); flex-shrink: 0; }
+.partner-benefit h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.partner-benefit p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.partner-types { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+.partner-type {
+  font-size: 13px; padding: 6px 14px; border-radius: 100px;
+  border: 1px solid var(--border); color: var(--text-secondary);
 }
 
-/* ── INDUSTRIES ── */
-.industries { background:var(--navy); }
-.industry-cards {
-  display:grid; grid-template-columns:repeat(5,1fr);
-  gap:16px; margin-top:56px;
-}
-.industry-card {
-  background:var(--navy-mid); border:1px solid rgba(201,168,76,0.1);
-  border-radius:4px; padding:28px 20px;
-  text-align:center;
-  transition:border-color 0.2s, transform 0.2s;
-  text-decoration:none; color:inherit; display:block;
-}
-.industry-card:hover { border-color:rgba(201,168,76,0.28); transform:translateY(-2px); }
-.industry-card.active-card { border-color:rgba(201,168,76,0.3); }
-.ic-icon { font-size:2.125rem; margin-bottom:12px; }
-.ic-name {
-  font-family:var(--font-display); font-size:1.225rem;
-  font-weight:600; color:var(--white); margin-bottom:4px;
-}
-.ic-sub { font-size:0.835rem; color:var(--gray-500); line-height:1.5; }
-.ic-badge {
-  display:inline-block; margin-top:12px;
-  font-family:var(--font-mono); font-size:0.735rem;
-  padding:3px 10px; border-radius:2px;
-}
-.ic-when {
-  margin-top:10px; font-family:var(--font-mono);
-  font-size:0.735rem; color:var(--gray-500); letter-spacing:0.04em;
-}
-.status-live {
-  background:rgba(6,199,85,0.1); color:var(--accent-green);
-  border:1px solid rgba(6,199,85,0.25);
-}
-.status-soon {
-  background:rgba(201,168,76,0.08); color:var(--gold);
-  border:1px solid rgba(201,168,76,0.2);
-}
-
-/* ── PARTNER CTA ── */
-.partner {
-  background:var(--navy-mid);
-  border-top:1px solid rgba(201,168,76,0.1);
-}
-.partner-inner {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:64px; align-items:start;
-}
-.partner-left h2 { margin-bottom:14px; }
-.partner-left .section-desc { margin-bottom:28px; }
-.partner-targets { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
-.ptarget-item {
-  display:flex; align-items:center; gap:10px;
-  font-size:0.975rem; color:var(--gray-300);
-}
-.ptarget-item::before {
-  content:''; width:5px; height:5px; background:var(--gold);
-  border-radius:50%; flex-shrink:0;
-}
-.partner-benefits { display:flex; flex-direction:column; gap:12px; }
-.pb-item {
-  background:var(--navy); border:1px solid rgba(201,168,76,0.1);
-  border-radius:3px; padding:18px 20px;
-  display:flex; gap:14px; align-items:flex-start;
-  transition:border-color 0.2s, transform 0.2s;
-}
-.pb-item:hover { border-color:rgba(201,168,76,0.28); transform:translateX(4px); }
-.pb-num {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gold); opacity:0.55; letter-spacing:0.1em;
-  flex-shrink:0; padding-top:3px;
-}
-.pb-icon { font-size:1.25rem; flex-shrink:0; }
-.pb-body h4 { font-size:0.985rem; font-weight:600; color:var(--white); margin-bottom:4px; }
-.pb-body p { font-size:0.885rem; color:var(--gray-500); line-height:1.6; }
-.cta-actions { display:flex; gap:14px; flex-wrap:wrap; }
-
-/* ── DISCLAIMER ── */
-.disclaimer {
-  background:var(--navy);
-  border-top:1px solid rgba(201,168,76,0.08);
-  padding:72px 60px;
-}
+/* Disclaimer */
 .disclaimer-box {
-  max-width:640px;
-  background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.12);
-  border-left:3px solid var(--gold); border-radius:0 4px 4px 0;
-  padding:28px 30px;
+  max-width: 640px; margin: 0 auto;
+  padding: 28px 32px; border-radius: var(--radius-lg);
+  background: var(--bg-card); border: 1px solid var(--border);
 }
 .disclaimer-label {
-  font-family:var(--font-mono); font-size:0.72rem;
-  color:var(--gold); letter-spacing:0.14em; text-transform:uppercase;
-  margin-bottom:14px; opacity:0.7;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px;
 }
 .disclaimer-box p {
-  font-size:0.875rem; color:var(--gray-500); line-height:1.75;
-  margin-bottom:8px;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.75;
 }
-.disclaimer-box p:last-child { margin-bottom:0; }
+.disclaimer-box p + p { margin-top: 8px; }
 
-/* ── FOOTER ── */
-footer {
-  padding:36px 60px; border-top:1px solid rgba(255,255,255,0.05);
-  display:flex; justify-content:space-between; align-items:center;
+/* Final CTA */
+.final-cta {
+  text-align: center; padding: 120px 24px; position: relative;
 }
-.footer-logo {
-  font-family:var(--font-display); font-size:1.025rem; color:var(--gold); font-weight:600;
+.final-cta-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(0,0,0,0.03), transparent);
+  pointer-events: none;
 }
-.footer-links { display:flex; gap:22px; flex-wrap:wrap; }
-.footer-links a {
-  font-size:0.855rem; color:var(--gray-500); text-decoration:none; transition:color 0.2s;
-}
-.footer-links a:hover { color:var(--gold); }
-.footer-copy { font-size:0.855rem; color:var(--gray-500); }
-.footer-copy a {
-  color:var(--gray-500); text-decoration:none; transition:color 0.2s;
-}
-.footer-copy a:hover { color:var(--gold); }
+.final-cta-inner { position: relative; max-width: 560px; margin: 0 auto; }
+.final-cta-note { margin-top: 16px; font-size: 13px; color: var(--text-muted); }
 
-/* ── UTIL ── */
-.reveal { opacity:0; transform:translateY(22px); transition:opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
+/* Footer */
+.footer { border-top: 1px solid var(--border); padding: 48px 0; }
+.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+.footer-brand { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+.footer-sub { font-size: 13px; color: var(--text-muted); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
+.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+.footer-copy a:hover { color: var(--text); }
 
-/* ── RESPONSIVE ── */
-@media(max-width:1200px){
-  .industry-cards { grid-template-columns:repeat(3,1fr); }
+/* Animations */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
-@media(max-width:1024px){
-  nav { padding:20px 28px; }
-  section { padding:72px 28px; }
-  .hero { padding:120px 28px 64px; }
-  .disclaimer { padding:72px 28px; }
-  .flow-compare { grid-template-columns:1fr; gap:16px; }
-  .flow-arrow { display:none; }
-  .pillars-grid { grid-template-columns:1fr 1fr; }
-  .partner-inner { grid-template-columns:1fr; gap:36px; }
-  .industry-cards { grid-template-columns:repeat(2,1fr); }
-  .output-flow { grid-template-columns:1fr; gap:12px; }
-  .of-arrow { display:none; }
+.reveal-left { transform: translateX(-36px); }
+.reveal-right { transform: translateX(36px); }
+.reveal-scale { transform: scale(0.94); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+  opacity: 1; transform: none;
 }
-@media(max-width:640px){
-  nav .nav-links { display:none; }
-  .pillars-grid { grid-template-columns:1fr; }
-  .industry-cards { grid-template-columns:1fr 1fr; }
-  .process-item { grid-template-columns:1fr; }
-  .process-num { grid-column:1; margin-bottom:4px; }
-  .process-item h3, .process-item p { grid-column:1; }
-  footer { flex-direction:column; gap:14px; text-align:center; }
+.anim-group .anim-item {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anim-group.visible .anim-item,
+.reveal.visible .anim-group .anim-item { opacity: 1; transform: translateY(0); }
+.anim-group.visible .anim-item:nth-child(1), .reveal.visible .anim-group .anim-item:nth-child(1) { transition-delay: 0.05s; }
+.anim-group.visible .anim-item:nth-child(2), .reveal.visible .anim-group .anim-item:nth-child(2) { transition-delay: 0.12s; }
+.anim-group.visible .anim-item:nth-child(3), .reveal.visible .anim-group .anim-item:nth-child(3) { transition-delay: 0.19s; }
+.anim-group.visible .anim-item:nth-child(4), .reveal.visible .anim-group .anim-item:nth-child(4) { transition-delay: 0.26s; }
+.anim-group.visible .anim-item:nth-child(5), .reveal.visible .anim-group .anim-item:nth-child(5) { transition-delay: 0.33s; }
+.reveal.visible .section-label, .anim-group.visible .section-label {
+  animation: labelIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes labelIn {
+  from { opacity: 0; letter-spacing: 0.14em; }
+  to { opacity: 1; letter-spacing: 0.06em; }
+}
+
+@media (max-width: 1024px) {
+  .shift-grid, .partners-layout { grid-template-columns: 1fr; }
+  .shift-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .pillars, .score-flow { grid-template-columns: 1fr; }
+  .research-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .section { padding: 80px 0; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .research-grid { grid-template-columns: 1fr 1fr; }
+  .process-item { grid-template-columns: 1fr; }
+  .process-num { margin-bottom: 4px; }
+  .process-item h3, .process-item p { grid-column: 1; }
+  .footer-inner { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim { opacity: 1; transform: none; animation: none; }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .anim-group .anim-item {
+    opacity: 1; transform: none; transition: none;
+  }
+  .shift-arrow { opacity: 1; animation: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">Agent Readiness Index</a>
-  <ul class="nav-links">
-    <li><a href="index.html#whynow">背景</a></li>
-    <li><a href="methodology.html" class="active">Methodology</a></li>
-    <li><a href="dental.html">Dental</a></li>
-    <li><a href="index.html#contact" class="nav-cta">協力を申請</a></li>
-  </ul>
-</nav>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Agent Readiness <span>Index</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html#concept">概念</a></li>
+      <li><a href="index.html#why-now">なぜ今</a></li>
+      <li><a href="index.html#how-it-works">診断</a></li>
+      <li><a href="methodology.html" class="active">評価指標</a></li>
+      <li><a href="index.html#research">調査</a></li>
+      <li><a href="index.html#partners">パートナー</a></li>
+      <li><a href="report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-diagonal"></div>
-  <div class="hero-inner">
-    <div class="breadcrumb">
-      <a href="index.html">Agent Readiness Index</a>
-      <span>›</span>
-      Methodology
-    </div>
-    <div class="hero-badge">Research Framework</div>
-    <h1>Agent Readiness Index<br><span class="gold">Methodology</span></h1>
-    <p class="hero-lead">
-      AI Agent時代において、企業・サービスがどのように評価されるかを定義するフレームワーク。
-      調査の背景、評価軸、プロセスを公開します。
+<section class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="container">
+    <nav class="breadcrumb hero-anim d1" aria-label="パンくず">
+      <a href="index.html">Agent Readiness</a>
+      <span aria-hidden="true">/</span>
+      <span>Methodology</span>
+    </nav>
+    <div class="hero-eyebrow hero-anim d2">Evaluation Framework</div>
+    <h1 class="hero-anim d3">Agent Readiness Index<br>Methodology</h1>
+    <p class="lead hero-anim d4">
+      AI時代に企業が選ばれるための準備状況を、どのように測るか。評価軸・スコアリング・調査プロセスを公開します。
     </p>
+    <div class="hero-anim d5">
+      <a href="report/" class="btn btn-primary">診断を申し込む</a>
+      <a href="#framework" class="btn btn-secondary" style="margin-left: 8px;">評価軸を見る</a>
+    </div>
   </div>
 </section>
 
-<!-- WHY NOW -->
-<section class="whynow" id="why">
-  <div class="section-header reveal">
-    <div class="section-label">01 — Why Agent Readiness Matters</div>
-    <h2>検索行動は、<br><span class="gold">変化している</span></h2>
-    <p class="section-desc">
-      顧客が情報を得て、比較し、行動するプロセスが根本から変わりつつある。
-      これは仮説ではなく、すでに始まっている変化だ。
-    </p>
-  </div>
-
-  <div class="flow-compare reveal">
-    <div class="flow-box">
-      <div class="flow-box-label old">— 従来の顧客行動</div>
-      <div class="flow-steps">
-        <div class="flow-step"><span class="step-icon">🔍</span>検索 <span style="color:var(--gray-500);font-size:0.85rem;">— Google / ホットペッパー</span></div>
-        <div class="flow-step"><span class="step-icon">👤</span>比較 <span style="color:var(--gray-500);font-size:0.85rem;">— 人間が候補を選ぶ</span></div>
-        <div class="flow-step"><span class="step-icon">📅</span>予約 <span style="color:var(--gray-500);font-size:0.85rem;">— Webフォームで完了</span></div>
-      </div>
-      <div class="flow-result old-r">UIの使いやすさ・SEO順位が競争力だった</div>
+<!-- WHY -->
+<section class="section bg-elevated" id="why">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Why This Framework</div>
+      <h2>測るべきは、検索順位ではない</h2>
+      <p class="lead">顧客の意思決定は、検索・比較・実行の各段階でAIに委ねられつつある。Agent Readiness Indexは、その各段階での準備状況を評価するフレームワークです。</p>
     </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-box new-flow">
-      <div class="flow-box-label new">— AI Agent時代の顧客行動</div>
-      <div class="flow-steps">
-        <div class="flow-step highlight"><span class="step-icon">🤖</span>AI検索 <span style="color:var(--gray-500);font-size:0.85rem;">— ChatGPT / Perplexity</span></div>
-        <div class="flow-step highlight"><span class="step-icon">🔄</span>AI推薦 <span style="color:var(--gray-500);font-size:0.85rem;">— Agentが比較・選定</span></div>
-        <div class="flow-step highlight"><span class="step-icon">✅</span>AI行動 <span style="color:var(--gray-500);font-size:0.85rem;">— 予約・申込を代行</span></div>
-      </div>
-      <div class="flow-result new-r">AIに発見され、推薦され、行動対象になるかが競争力になる</div>
-    </div>
-  </div>
 
-  <div class="whynow-insight reveal">
-    企業やサービスは、Webサイトだけでなく、<strong>AI Agentからどのように認識され、推薦され、行動対象となるか</strong>を考える必要がある。
-    Agent Readiness Indexは、この変化を可視化するための研究プロジェクトです。
+    <div class="shift-grid anim-group reveal">
+      <div class="shift-card anim-item">
+        <div class="shift-tag">従来の顧客行動</div>
+        <div class="shift-step">検索エンジンでキーワード検索</div>
+        <div class="shift-step">人間がサイトを比較・検討</div>
+        <div class="shift-step">人間がフォーム入力・予約</div>
+      </div>
+      <div class="shift-arrow anim-item">→</div>
+      <div class="shift-card future anim-item">
+        <div class="shift-tag">AI Agent時代</div>
+        <div class="shift-step">AIが意図を理解し情報を収集</div>
+        <div class="shift-step">AIが候補を比較・ランク付け</div>
+        <div class="shift-step">AIが推薦し、実行まで完結</div>
+      </div>
+    </div>
+
+    <div class="insight-box reveal">
+      <strong>企業・ブランド・店舗は、Webサイトだけでなく、AIからどのように理解され、比較され、推薦され、実行されるか</strong>を設計する必要があります。この方法論は、その状態を測定可能にするための共通言語です。
+    </div>
   </div>
 </section>
 
 <!-- FRAMEWORK -->
-<section class="readiness" id="framework">
-  <div class="section-header reveal">
-    <div class="section-label">02 — What We Measure</div>
-    <h2>3つの観点から<br><span class="gold">評価する</span></h2>
-    <p class="section-desc">
-      Agent Readiness Indexでは、企業・サービス・プラットフォームがAI Agent時代にどれだけ対応できているかを、
-      Discovery・Recommendation・Actionの3軸でスコアリングします。
-    </p>
-  </div>
+<section class="section" id="framework">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Evaluation Framework</div>
+      <h2>3軸で測る Agent Readiness</h2>
+      <p class="lead">企業・ブランドのAI時代における競争力を、Discovery・Recommendation・Actionの3つの独立した軸で評価します。特定業界やベンダーに限定されません。</p>
+    </div>
 
-  <div class="pillars-grid reveal">
-    <div class="pillar-item">
-      <div class="pillar-num">01</div>
-      <div class="pillar-icon">🔍</div>
-      <h3>Discovery Readiness</h3>
-      <p class="pillar-sub">AIに発見される能力</p>
-      <p class="pillar-q">"AIは、あなたを見つけられるか？"</p>
-      <p class="pillar-desc">AIに発見されなければ、推薦も行動も発生しない。Agentが情報を取得・解析できる構造が整っているかを評価する。</p>
-      <ul class="pillar-criteria">
-        <li>Entity設計</li>
-        <li>構造化データ（JSON-LD / Schema.org）</li>
-        <li>Knowledge Base整備</li>
-        <li>Citation・LLM引用状況</li>
-        <li>Third-party Presence</li>
-      </ul>
+    <div class="pillars anim-group reveal">
+      <div class="pillar anim-item">
+        <div class="pillar-num">01</div>
+        <h3>Discovery Readiness</h3>
+        <div class="pillar-sub">AIに理解・発見される力</div>
+        <p class="pillar-q">AIは、あなたのビジネスを正確に認識できているか。</p>
+        <p class="pillar-desc">AIに理解されなければ、比較も推薦も実行も発生しない。エージェントが情報を取得・解析できる構造が整っているかを評価する。</p>
+        <ul class="criteria">
+          <li>Entity設計</li>
+          <li>構造化データ（JSON-LD / Schema.org）</li>
+          <li>ナレッジカバレッジ</li>
+          <li>引用・LLM認識の整合性</li>
+          <li>Third-party Presence</li>
+        </ul>
+      </div>
+      <div class="pillar anim-item">
+        <div class="pillar-num">02</div>
+        <h3>Recommendation Readiness</h3>
+        <div class="pillar-sub">AIに比較・推薦される力</div>
+        <p class="pillar-q">AIは、競合と比較したときにあなたを候補に入れられるか。</p>
+        <p class="pillar-desc">AIは情報を列挙するだけでなく、信頼できる候補を推薦する。推薦の根拠となる権威性・専門性・評判が重要になる。</p>
+        <ul class="criteria">
+          <li>Expertise（専門性の可視化）</li>
+          <li>Authority（権威性の裏付け）</li>
+          <li>Trust Signals</li>
+          <li>Original Content</li>
+          <li>Reputation（評判情報）</li>
+        </ul>
+      </div>
+      <div class="pillar anim-item">
+        <div class="pillar-num">03</div>
+        <h3>Action Readiness</h3>
+        <div class="pillar-sub">AIに選択・実行される力</div>
+        <p class="pillar-q">AIは、推薦の先に予約・購入・問い合わせを完結できるか。</p>
+        <p class="pillar-desc">AIエージェントが予約・申込・問い合わせを支援または代行するには、実行可能な導線と接続性が必要になる。</p>
+        <ul class="criteria">
+          <li>予約・購入導線</li>
+          <li>フォーム最適化</li>
+          <li>API公開・連携設計</li>
+          <li>Authentication設計</li>
+          <li>Agent Compatibility（MCP等）</li>
+        </ul>
+      </div>
     </div>
-    <div class="pillar-item">
-      <div class="pillar-num">02</div>
-      <div class="pillar-icon">⭐</div>
-      <h3>Recommendation Readiness</h3>
-      <p class="pillar-sub">AIに推薦される能力</p>
-      <p class="pillar-q">"AIは、あなたを推薦する根拠を持っているか？"</p>
-      <p class="pillar-desc">AIは単に情報を検索するだけでなく、信頼できる候補を推薦する。推薦の根拠となる情報資産や専門性が重要になる。</p>
-      <ul class="pillar-criteria">
-        <li>Expertise（専門性の可視化）</li>
-        <li>Authority（権威性の裏付け）</li>
-        <li>Trust Signals（信頼シグナル）</li>
-        <li>Original Content</li>
-        <li>Reputation（評判情報）</li>
-      </ul>
-    </div>
-    <div class="pillar-item">
-      <div class="pillar-num">03</div>
-      <div class="pillar-icon">⚡</div>
-      <h3>Action Readiness</h3>
-      <p class="pillar-sub">AIが行動できる能力</p>
-      <p class="pillar-q">"AI Agentは、予約・申込を完結できるか？"</p>
-      <p class="pillar-desc">将来的にAI Agentが予約・申込・問い合わせを支援または代行するためには、行動可能な導線が必要になる。</p>
-      <ul class="pillar-criteria">
-        <li>API公開状況</li>
-        <li>Authentication設計</li>
-        <li>Reservation Flow</li>
-        <li>Integration（外部連携）</li>
-        <li>Agent Compatibility（MCP等）</li>
-      </ul>
-    </div>
-  </div>
 
-  <!-- スコアの出力プロセス -->
-  <div class="reveal">
-    <div class="output-label">Score Output</div>
-    <div class="output-flow">
-      <div class="of-step">
-        <div class="of-num">STEP 01</div>
-        <div class="of-title">3軸スコアリング</div>
-        <div class="of-desc">公開情報をもとに、Discovery・Recommendation・Actionの3軸で各プロダクトを評価する。</div>
+  </div>
+</section>
+
+<!-- SCORING -->
+<section class="section bg-elevated" id="scoring">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Scoring</div>
+      <h2>スコアの算出方法</h2>
+      <p class="lead">診断レポートと業界調査の、それぞれのスコアリングプロセスを公開します。</p>
+    </div>
+
+    <div class="reveal">
+      <div class="score-label">Agent Readiness Assessment（企業診断）</div>
+      <div class="score-flow anim-group">
+        <div class="score-step anim-item">
+          <div class="score-num">Step 01</div>
+          <div class="score-title">自動分析</div>
+          <div class="score-desc">公式サイトURLをもとに、AI可視性・構造化データ・予約導線・引用状況などを自動分析する。</div>
+        </div>
+        <div class="score-step anim-item">
+          <div class="score-num">Step 02</div>
+          <div class="score-title">3軸スコアリング</div>
+          <div class="score-desc">Discovery・Recommendation・Actionの各軸でスコアを算出し、総合スコアと業界内ポジションを可視化する。</div>
+        </div>
+        <div class="score-step anim-item">
+          <div class="score-num">Step 03</div>
+          <div class="score-title">改善ロードマップ</div>
+          <div class="score-desc">優先度付きの改善項目と実行計画を提示。影響度と実装コストを踏まえた施策を整理する。</div>
+        </div>
       </div>
-      <div class="of-arrow">→</div>
-      <div class="of-step">
-        <div class="of-num">STEP 02</div>
-        <div class="of-title">暫定ランク（A〜D）</div>
-        <div class="of-desc">3軸の評価を総合し、暫定ランクとして公開する。公開情報のみに基づく一次評価。</div>
-      </div>
-      <div class="of-arrow">→</div>
-      <div class="of-step">
-        <div class="of-num">STEP 03</div>
-        <div class="of-title">確認・確定スコア</div>
-        <div class="of-desc">掲載前に各社へ確認連絡を行い、ヒアリング内容を反映してスコアを確定する。一方的な掲載は行わない。</div>
+    </div>
+
+    <div class="score-section reveal">
+      <div class="score-label">Industry Survey（業界調査）</div>
+      <div class="score-flow anim-group">
+        <div class="score-step anim-item">
+          <div class="score-num">Step 01</div>
+          <div class="score-title">3軸スコアリング</div>
+          <div class="score-desc">公開情報をもとに、Discovery・Recommendation・Actionの3軸で各プロダクトを評価する。</div>
+        </div>
+        <div class="score-step anim-item">
+          <div class="score-num">Step 02</div>
+          <div class="score-title">暫定ランク（A〜D）</div>
+          <div class="score-desc">3軸の評価を総合し、暫定ランクとして公開する。公開情報のみに基づく一次評価。</div>
+        </div>
+        <div class="score-step anim-item">
+          <div class="score-num">Step 03</div>
+          <div class="score-title">確認・確定スコア</div>
+          <div class="score-desc">掲載前に各社へ確認連絡を行い、ヒアリング内容を反映してスコアを確定する。一方的な掲載は行わない。</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PROCESS -->
-<section class="process" id="process">
-  <div class="section-header reveal">
-    <div class="section-label">03 — Research Process</div>
-    <h2>調査<span class="gold">プロセス</span></h2>
-    <p class="section-desc">
-      Agent Readiness Indexは、公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチで調査を実施します。
-    </p>
-  </div>
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Research Process</div>
+      <h2>調査プロセス</h2>
+      <p class="lead">公開情報・実地検証・ヒアリングを組み合わせた多角的なアプローチで、再現可能な調査を実施します。</p>
+    </div>
 
-  <div class="process-list reveal">
-    <div class="process-item">
-      <div class="process-num">Step 1</div>
-      <h3>公開情報調査</h3>
-      <p>企業サイト、サービスサイト、技術資料、ドキュメントなどを調査します。AI Agentが参照しうる情報ソースを網羅的に収集・分析します。</p>
-    </div>
-    <div class="process-item">
-      <div class="process-num">Step 2</div>
-      <h3>プロダクト分析</h3>
-      <p>実際のサービスや導線を確認し、ユーザー体験や接続性を評価します。API・Webhook・MCP対応などの技術仕様を検証します。</p>
-    </div>
-    <div class="process-item">
-      <div class="process-num">Step 3</div>
-      <h3>業界ヒアリング</h3>
-      <p>事業者、サービス提供企業、業界関係者へのヒアリングを行います。公開情報では把握できない方針・ロードマップ・実態を収集します。</p>
-    </div>
-    <div class="process-item">
-      <div class="process-num">Step 4</div>
-      <h3>レビュー・確認</h3>
-      <p>調査内容の妥当性を確認します。掲載対象企業には、公開前にスコアと内容を確認・修正できる機会を提供します。一方的な掲載は行いません。</p>
-    </div>
-    <div class="process-item">
-      <div class="process-num">Step 5</div>
-      <h3>公開・更新</h3>
-      <p>レポート公開後も継続的に更新します。AI Agent市場は急速に変化しており、スコアは定期的に再評価・更新されます。</p>
-    </div>
-  </div>
-</section>
-
-<!-- AREAS -->
-<section class="industries" id="areas">
-  <div class="section-header reveal">
-    <div class="section-label">04 — Current Research Areas</div>
-    <h2>現在の<span class="gold">調査対象</span></h2>
-    <p class="section-desc">AI Agentによる予約・申込が成立しうる業界を横断的に調査します。今後も対象領域を拡大予定です。</p>
-  </div>
-
-  <div class="industry-cards reveal">
-    <a href="dental.html" class="industry-card active-card">
-      <div class="ic-icon">🦷</div>
-      <div class="ic-name">Dental</div>
-      <div class="ic-sub">歯科予約システム</div>
-      <span class="ic-badge status-live">進行中</span>
-      <div class="ic-when">2026 Q2–Q3</div>
-    </a>
-    <div class="industry-card">
-      <div class="ic-icon">💄</div>
-      <div class="ic-name">Beauty</div>
-      <div class="ic-sub">自由診療・美容医療</div>
-      <span class="ic-badge status-soon">準備中</span>
-      <div class="ic-when">2026 Q4予定</div>
-    </div>
-    <div class="industry-card">
-      <div class="ic-icon">🏋️</div>
-      <div class="ic-name">Fitness</div>
-      <div class="ic-sub">フィットネス・会員管理</div>
-      <span class="ic-badge status-soon">準備中</span>
-      <div class="ic-when">2026 Q4予定</div>
-    </div>
-    <div class="industry-card">
-      <div class="ic-icon">🏠</div>
-      <div class="ic-name">Real Estate</div>
-      <div class="ic-sub">不動産・内見予約</div>
-      <span class="ic-badge status-soon">準備中</span>
-      <div class="ic-when">2027 Q1予定</div>
-    </div>
-    <div class="industry-card">
-      <div class="ic-icon">🏪</div>
-      <div class="ic-name">Local Commerce</div>
-      <div class="ic-sub">店舗来店・予約</div>
-      <span class="ic-badge status-soon">準備中</span>
-      <div class="ic-when">時期未定</div>
+    <div class="process-list anim-group reveal">
+      <div class="process-item anim-item">
+        <div class="process-num">Step 01</div>
+        <h3>公開情報調査</h3>
+        <p>企業サイト、サービスサイト、技術資料、ドキュメントなどを調査。AIエージェントが参照しうる情報ソースを網羅的に収集・分析する。</p>
+      </div>
+      <div class="process-item anim-item">
+        <div class="process-num">Step 02</div>
+        <h3>プロダクト分析</h3>
+        <p>実際のサービスや導線を確認し、ユーザー体験や接続性を評価。API・Webhook・MCP対応などの技術仕様を検証する。</p>
+      </div>
+      <div class="process-item anim-item">
+        <div class="process-num">Step 03</div>
+        <h3>業界ヒアリング</h3>
+        <p>事業者、サービス提供企業、業界関係者へのヒアリングを実施。公開情報では把握できない方針・ロードマップ・実態を収集する。</p>
+      </div>
+      <div class="process-item anim-item">
+        <div class="process-num">Step 04</div>
+        <h3>レビュー・確認</h3>
+        <p>調査内容の妥当性を確認。掲載対象企業には公開前にスコアと内容を確認・修正できる機会を提供する。</p>
+      </div>
+      <div class="process-item anim-item">
+        <div class="process-num">Step 05</div>
+        <h3>公開・更新</h3>
+        <p>レポート公開後も継続的に更新。AIエージェント市場の変化に合わせ、スコアを定期的に再評価する。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PARTICIPATION -->
-<section class="partner" id="participate">
-  <div class="partner-inner">
-    <div class="partner-left reveal">
-      <div class="section-label">05 — Research Participation</div>
-      <h2>調査への<span class="gold">参加</span></h2>
-      <p class="section-desc">
-        Agent Readiness Indexでは、調査協力企業・業界パートナーを募集しています。
-        ヒアリングへの参加企業には、掲載前レビュー権・AI Readiness診断・海外事例レポートを無償で提供します。
-      </p>
-      <div class="partner-targets">
-        <div class="ptarget-item">予約システム事業者</div>
-        <div class="ptarget-item">SaaS事業者</div>
-        <div class="ptarget-item">医療・美容・フィットネス事業者</div>
-        <div class="ptarget-item">AI関連事業者</div>
-      </div>
-      <div class="cta-actions">
-        <a href="https://lin.ee/vgZ5TVj" class="btn-line" target="_blank" rel="noopener noreferrer">
-          <span>📩</span> LINEで申請する
-        </a>
-        <a href="https://www.coaretail.com/contact" class="btn-secondary" target="_blank" rel="noopener noreferrer">メールで問い合わせ</a>
-      </div>
+<!-- RESEARCH AREAS -->
+<section class="section bg-elevated" id="areas">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Research Areas</div>
+      <h2>業界調査の対象領域</h2>
+      <p class="lead">プラットフォーム・業界横断のベンチマーク調査を実施中・予定しています。企業診断は業界を問いません。</p>
     </div>
 
-    <div class="partner-benefits reveal">
-      <div class="pb-item">
-        <div class="pb-num">01</div>
-        <div class="pb-icon">📋</div>
-        <div class="pb-body">
-          <h4>ヒアリング参加</h4>
-          <p>AI対応方針・ロードマップについてお話を伺います。無償・任意です。</p>
-        </div>
+    <div class="research-grid anim-group reveal">
+      <a href="dental.html" class="research-card anim-item">
+        <div class="rc-name">Dental</div>
+        <div class="rc-sub">歯科予約システム</div>
+        <span class="rc-badge live">進行中</span>
+        <div class="rc-when">2026 Q2–Q3</div>
+      </a>
+      <div class="research-card static anim-item">
+        <div class="rc-name">Beauty</div>
+        <div class="rc-sub">自由診療・美容医療</div>
+        <span class="rc-badge soon">準備中</span>
+        <div class="rc-when">2026 Q4予定</div>
       </div>
-      <div class="pb-item">
-        <div class="pb-num">02</div>
-        <div class="pb-icon">✅</div>
-        <div class="pb-body">
-          <h4>掲載前レビュー権</h4>
-          <p>スコア確定前に内容を確認・修正依頼できます。一方的な掲載は行いません。</p>
-        </div>
+      <div class="research-card static anim-item">
+        <div class="rc-name">Fitness</div>
+        <div class="rc-sub">フィットネス・会員管理</div>
+        <span class="rc-badge soon">準備中</span>
+        <div class="rc-when">2026 Q4予定</div>
       </div>
-      <div class="pb-item">
-        <div class="pb-num">03</div>
-        <div class="pb-icon">💡</div>
-        <div class="pb-body">
-          <h4>Agent Readiness診断</h4>
-          <p>調査協力企業には、自社の3軸スコアと改善提案を無償で共有します。</p>
-        </div>
+      <div class="research-card static anim-item">
+        <div class="rc-name">Real Estate</div>
+        <div class="rc-sub">不動産・内見予約</div>
+        <span class="rc-badge soon">準備中</span>
+        <div class="rc-when">2027 Q1予定</div>
       </div>
-      <div class="pb-item">
-        <div class="pb-num">04</div>
-        <div class="pb-icon">🔄</div>
-        <div class="pb-body">
-          <h4>情報交換</h4>
-          <p>AI Agent予約の業界動向・海外事例について相互に情報共有します。</p>
+      <div class="research-card static anim-item">
+        <div class="rc-name">Local Commerce</div>
+        <div class="rc-sub">店舗来店・予約</div>
+        <span class="rc-badge soon">準備中</span>
+        <div class="rc-when">時期未定</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="section" id="partners">
+  <div class="container">
+    <div class="partners-layout">
+      <div class="reveal reveal-right">
+        <div class="section-label">Platform Partners</div>
+        <h2>調査協力・パートナー</h2>
+        <p class="lead">予約システム・CRM・POS・CMS・SaaSなど、エコシステムを構成するプラットフォーム向けの業界調査・ベンチマークプログラムを提供しています。</p>
+        <div class="partner-types">
+          <span class="partner-type">予約システム</span>
+          <span class="partner-type">CRM</span>
+          <span class="partner-type">SaaS</span>
+          <span class="partner-type">業界プラットフォーム</span>
+        </div>
+        <a href="index.html#partners" class="btn btn-secondary">詳細を見る</a>
+        <a href="https://lin.ee/vgZ5TVj" class="btn btn-secondary" target="_blank" rel="noopener" style="margin-left: 8px;">協力を申請</a>
+      </div>
+      <div class="partner-benefits anim-group reveal reveal-left">
+        <div class="partner-benefit anim-item">
+          <div class="partner-benefit-num">01</div>
+          <div>
+            <h4>掲載前レビュー権</h4>
+            <p>調査結果の公開前に内容を確認・修正依頼できます。</p>
+          </div>
+        </div>
+        <div class="partner-benefit anim-item">
+          <div class="partner-benefit-num">02</div>
+          <div>
+            <h4>業界ベンチマーク</h4>
+            <p>同業他社との比較データを取得し、業界標準の定義に参画できます。</p>
+          </div>
+        </div>
+        <div class="partner-benefit anim-item">
+          <div class="partner-benefit-num">03</div>
+          <div>
+            <h4>診断レポートの共有</h4>
+            <p>協力企業には自社プロダクトの3軸スコアと改善提案を無償で提供します。</p>
+          </div>
         </div>
       </div>
     </div>
@@ -922,35 +730,64 @@ footer {
 </section>
 
 <!-- DISCLAIMER -->
-<section class="disclaimer">
-  <div class="disclaimer-box reveal">
-    <div class="disclaimer-label">Disclaimer</div>
-    <p>本調査は公開情報および独自調査に基づく研究プロジェクトです。</p>
-    <p>評価結果は特定企業への推奨や投資判断を目的とするものではありません。</p>
-    <p>調査内容および評価基準は継続的に改善・更新されます。</p>
+<section class="section-sm">
+  <div class="container">
+    <div class="disclaimer-box reveal">
+      <div class="disclaimer-label">Disclaimer</div>
+      <p>本調査および診断は、公開情報および独自調査に基づく研究プロジェクトです。</p>
+      <p>評価結果は特定企業への推奨や投資判断を目的とするものではありません。</p>
+      <p>調査内容および評価基準は継続的に改善・更新されます。</p>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Agent Readiness Index 2026</div>
-  <div class="footer-links">
-    <a href="index.html">トップ</a>
-    <a href="index.html#whynow">調査背景</a>
-    <a href="methodology.html">Methodology</a>
-    <a href="dental.html">Dental</a>
-    <a href="index.html#projects">調査一覧</a>
-    <a href="index.html#contact">協力を申請</a>
-    <a href="https://www.coaretail.com">GEO Search Protocol</a>
+<!-- CTA -->
+<section class="final-cta bg-elevated">
+  <div class="final-cta-glow"></div>
+  <div class="final-cta-inner reveal reveal-scale">
+    <div class="section-label" style="text-align: center;">Agent Readiness Assessment</div>
+    <h2>方法論を、自社の現在地に。</h2>
+    <p class="lead">このフレームワークに基づき、貴社のAgent Readinessを診断レポートで可視化できます。</p>
+    <a href="report/" class="btn btn-primary btn-lg">診断を申し込む</a>
+    <p class="final-cta-note">Agent Readiness Assessment Report · 約3分</p>
   </div>
-  <div class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener noreferrer">合同会社コア・リテール</a>. All rights reserved.</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Agent Readiness Index</div>
+        <div class="footer-sub">by Coa Retail</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">トップ</a>
+        <a href="index.html#concept">概念</a>
+        <a href="report/">診断レポート</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="dental.html">Research</a>
+        <a href="index.html#partners">パートナー</a>
+        <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a>. All rights reserved.</div>
+  </div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    animObserver.unobserve(e.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
+
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+}, { passive: true });
 </script>
 </body>
 </html>
