@@ -73,258 +73,310 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<!-- ① あなたの診断結果を分析しました -->
+<section class="analysis-hero" id="step1">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="glow-orb" aria-hidden="true"></div>
-  <div class="container hero-grid">
-    <div>
-      <div class="hero-eyebrow">診断完了 · 次のステップ</div>
-      <h1>
-        診断で終わらせない。<br>
-        <span class="gradient">AIに選ばれる企業へ。</span>
-      </h1>
-      <p class="lead" style="max-width: 520px;">
-        Agent Readiness診断で見えた課題をもとに、<br>
-        AIが理解・比較・推薦しやすい企業情報へ改善します。
-      </p>
-      <div class="hero-actions">
-        <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
+  <div class="section-deco section-deco-blue" style="top:-80px;right:-60px;" aria-hidden="true"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-header center reveal">
+      <div class="section-label">Diagnosis Analysis</div>
+      <h2>あなたの診断結果を分析しました</h2>
+      <p class="lead"><span id="s1-company">御社</span>のAgent Readiness診断レポートに基づき、AIが御社をどう認識しているか、どこで機会を逃しているかを整理しました。</p>
+    </div>
+    <div class="score-visual-wrap reveal" id="score-visual">
+      <div class="score-scan" aria-hidden="true"></div>
+      <svg class="score-ring-svg" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e53e3e"/>
+            <stop offset="50%" stop-color="#3b72ff"/>
+            <stop offset="100%" stop-color="#00a870"/>
+          </linearGradient>
+        </defs>
+        <circle class="score-ring-bg" cx="100" cy="100" r="80"/>
+        <circle class="score-ring-fill" id="score-ring-fill" cx="100" cy="100" r="80"/>
+      </svg>
+      <div class="score-visual-center">
+        <p style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Score</p>
+        <div class="analysis-score-lg"><span id="fv-current-score">42</span><span class="unit"> /100</span></div>
       </div>
     </div>
-
-    <!-- 診断→改善ビジュアル (Local GEO Hero GlassPanel) -->
-    <div class="glass" style="overflow: hidden;">
-      <div class="dash-header">
-        <span class="dash-dot" style="background:#ff5f57"></span>
-        <span class="dash-dot" style="background:#febc2e"></span>
-        <span class="dash-dot" style="background:#28c840"></span>
-        <span class="dash-title" id="fv-dash-title">Agent Readiness → 改善</span>
-      </div>
-      <div class="dash-body">
-        <div class="dash-score-row">
-          <div class="dash-score-box">
-            <div class="dash-score-val low" id="fv-current-score">42</div>
-            <div class="dash-score-label">診断スコア</div>
-          </div>
-          <div class="dash-score-box">
-            <div class="dash-score-val high" id="fv-target-score">78</div>
-            <div class="dash-score-label">改善後（目標）</div>
-          </div>
-        </div>
-        <div class="dash-arrow-center">↓</div>
-        <div class="dash-sim">
-          <p class="dash-sim-label">AI推薦シミュレーション</p>
-          <p class="dash-sim-text">
-            「御社の強みが構造化され、AIが比較候補として推薦できる状態になりました。」
-          </p>
-        </div>
+    <div class="glass reveal" style="max-width:560px;margin:0 auto;padding:24px 32px;text-align:center;">
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;">診断スコアは、AIが御社を<strong style="color:var(--text);">理解・比較・推薦・実行</strong>できる準備度を示す指標です。</p>
+      <div style="display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;">
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">4軸</div><div style="font-size:11px;color:var(--text-muted);">評価項目</div></div>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">4社</div><div style="font-size:11px;color:var(--text-muted);">AI検証</div></div>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">100</div><div style="font-size:11px;color:var(--text-muted);">満点</div></div>
       </div>
     </div>
   </div>
 </section>
+<div class="flow-connector reveal">↓</div>
 
-<!-- SECTION 1: 診断結果が意味すること -->
-<section class="section" id="meaning">
-  <div class="container">
+<!-- ② 点数が伸びなかった理由 -->
+<section class="section section-alt" id="step2">
+  <div class="section-deco section-deco-green" style="bottom:-40px;left:-80px;" aria-hidden="true"></div>
+  <div class="container" style="position:relative;">
     <div class="section-header center reveal">
-      <div class="section-label">Your Diagnosis</div>
-      <h2>あなたの診断結果が意味すること</h2>
-      <p class="lead">見つかることと、選ばれることは別の問題です。スコアが示すのは、AIが御社をどこまで「理解し・比較し・推薦できるか」という現在地です。</p>
+      <div class="section-label">Gap Analysis</div>
+      <h2>点数が伸びなかった理由</h2>
+      <p class="lead">SEOで見つかっても、AIが正確に理解・比較できなければスコアは伸びません。診断で検出された構造的な課題は次のとおりです。</p>
+    </div>
+    <div class="section-graphic reveal gap-diagram" id="gap-diagram" aria-hidden="true">
+      <svg viewBox="0 0 560 160" fill="none">
+        <line x1="140" y1="80" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
+        <line x1="420" y1="80" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
+        <line x1="280" y1="30" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
+        <line x1="280" y1="130" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
+        <circle class="gap-node" cx="80" cy="80" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
+        <text x="80" y="84" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Entity</text>
+        <circle class="gap-node" cx="480" cy="80" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
+        <text x="480" y="84" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Schema</text>
+        <circle class="gap-node" cx="280" cy="30" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
+        <text x="280" y="34" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">FAQ</text>
+        <circle class="gap-node" cx="280" cy="130" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
+        <text x="280" y="134" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Citation</text>
+        <circle cx="280" cy="80" r="28" fill="rgba(59,114,255,0.1)" stroke="#3b72ff" stroke-width="2"/>
+        <text x="280" y="76" text-anchor="middle" fill="#3b72ff" font-size="10" font-weight="700">SCORE</text>
+        <text x="280" y="90" text-anchor="middle" fill="#e53e3e" font-size="14" font-weight="800" id="gap-score-label">42</text>
+      </svg>
     </div>
     <div class="card-grid-4 anim-group reveal">
       <div class="info-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <span class="info-card-num">01</span>
-        <div class="info-card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-        </div>
-        <h4>AIが企業を十分理解できない</h4>
-        <p>構造化データ・Entity情報・FAQが不足し、AIが御社の事業内容を正確に把握できていない状態です。</p>
+        <h4>Entity情報が不足</h4>
+        <p>企業・サービス・拠点がAIに一意に識別できず、事業内容の把握精度が下がっています。</p>
       </div>
       <div class="info-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/><path d="M18 17l2 2 4-4"/></svg></div>
         <span class="info-card-num">02</span>
-        <div class="info-card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h4>推薦候補に入りにくい</h4>
-        <p>比較に入っても、推薦の根拠がなければ選ばれません。引用元と権威性の設計が不足しています。</p>
+        <h4>構造化データ未整備</h4>
+        <p>Schema.org / JSON-LDが不足し、AIクローラーが情報を正確に読み取れていません。</p>
       </div>
       <div class="info-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <span class="info-card-num">03</span>
-        <div class="info-card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/></svg>
-        </div>
-        <h4>比較時に優位性を説明できない</h4>
-        <p>競合との差分がAIに伝わらず、比較検討の場で御社の強みが言語化されていません。</p>
+        <h4>FAQ・コンテンツの設計不足</h4>
+        <p>AIが参照するQ&Aや比較に必要な差分情報が、公式サイト上で言語化されていません。</p>
       </div>
       <div class="info-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
         <span class="info-card-num">04</span>
-        <div class="info-card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-        </div>
-        <h4>AI経由の流入機会を逃している</h4>
-        <p>選ばれても実行できなければ機会は消えます。予約・問い合わせ導線の接続性が課題です。</p>
+        <h4>Citation・権威性の弱さ</h4>
+        <p>推薦の根拠となる引用元・メディア露出・口コミ導線が不足しています。</p>
       </div>
     </div>
   </div>
 </section>
+<div class="flow-connector reveal">↓</div>
 
-<!-- SECTION 2: 改善プログラムフロー -->
-<section class="section section-alt" id="program">
+<!-- ③ AIではこう見えています -->
+<section class="section" id="step3">
   <div class="container">
     <div class="section-header center reveal">
-      <div class="section-label">Improvement Program</div>
-      <h2>Agent Readiness改善プログラム</h2>
+      <div class="section-label">AI Perception</div>
+      <h2>AIではこう見えています</h2>
+      <p class="lead">ChatGPT・Gemini・Claude・Perplexityが御社について、現時点でどう回答するか。これが実際のAI推薦の出発点です。</p>
+    </div>
+    <div class="ai-chat-mock reveal" id="ai-chat">
+      <div class="ai-chat-header">
+        <div class="ai-chat-avatar">AI</div>
+        <div>
+          <div class="ai-chat-title">AI検索アシスタント</div>
+          <div class="ai-chat-sub">4大AIの認識を統合</div>
+        </div>
+      </div>
+      <div class="ai-chat-body">
+        <div class="ai-logos">
+          <div class="ai-logo-item">
+            <img src="assets/ai-logos/chatgpt.svg" alt="ChatGPT" width="36" height="36" loading="lazy">
+            <span>ChatGPT</span>
+          </div>
+          <div class="ai-logo-item">
+            <img src="assets/ai-logos/gemini.svg" alt="Gemini" width="36" height="36" loading="lazy">
+            <span>Gemini</span>
+          </div>
+          <div class="ai-logo-item">
+            <img src="assets/ai-logos/claude.svg" alt="Claude" width="36" height="36" loading="lazy">
+            <span>Claude</span>
+          </div>
+          <div class="ai-logo-item">
+            <img src="assets/ai-logos/perplexity.png" alt="Perplexity" width="36" height="36" loading="lazy">
+            <span>Perplexity</span>
+          </div>
+        </div>
+        <div class="compare-card before" style="border:none;background:transparent;padding:0;">
+          <div class="compare-tag">現在のAI認識</div>
+          <div class="compare-bubble typing" id="ai-bubble-before">
+            <strong>AI</strong>
+            <span id="ai-typed-text"></span><span class="ai-typing-dots" id="ai-dots"><span></span><span></span><span></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="flow-connector reveal">↓</div>
+
+<!-- ④ この状態だと起こること -->
+<section class="section section-alt" id="step4">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Risk</div>
+      <h2>この状態だと起こること</h2>
+      <p class="lead">見つかることと、選ばれることは別の問題です。現状のままでは、次の機会損失が続きます。</p>
+    </div>
+    <div class="section-graphic reveal" style="max-width:400px;" aria-hidden="true">
+      <div class="risk-funnel">
+        <div class="risk-funnel-layer">AI検索で発見される</div>
+        <div class="risk-funnel-layer">比較候補に入る</div>
+        <div class="risk-funnel-layer">推薦される</div>
+        <div class="risk-funnel-layer">選ばれる ✕</div>
+      </div>
+    </div>
+    <div class="card-grid-4 anim-group reveal">
+      <div class="info-card risk-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="22" y2="11"/></svg></div>
+        <span class="info-card-num">01</span>
+        <h4>推薦候補に入りにくい</h4>
+        <p>比較に入っても、推薦の根拠がなければ選ばれません。</p>
+      </div>
+      <div class="info-card risk-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <span class="info-card-num">02</span>
+        <h4>比較時に優位性を説明できない</h4>
+        <p>競合との差分がAIに伝わらず、強みが言語化されていません。</p>
+      </div>
+      <div class="info-card risk-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <span class="info-card-num">03</span>
+        <h4>AI経由の流入機会を逃す</h4>
+        <p>AI検索・AIエージェント経由の新規接点に乗れない状態が続きます。</p>
+      </div>
+      <div class="info-card risk-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <span class="info-card-num">04</span>
+        <h4>実行まで完結しない</h4>
+        <p>選ばれても予約・問い合わせ導線の接続性が弱く、機会が消えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="flow-connector reveal">↓</div>
+
+<!-- ⑤ 改善するとここまで変わる -->
+<section class="section" id="step5">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Outcome</div>
+      <h2>改善するとここまで変わる</h2>
+      <p class="lead">Agent Readiness改善プログラムで構造化・Entity設計・AI検証を実施した場合の目標スコアと、AI推薦文の変化です。</p>
+    </div>
+    <div class="score-improve-row reveal" id="score-improve">
+      <div class="score-improve-box">
+        <div class="score-improve-val current" id="s5-current-score">42</div>
+        <div class="score-improve-label">現在のスコア</div>
+      </div>
+      <div class="score-improve-arrow">→</div>
+      <div class="score-improve-box">
+        <div class="score-improve-val target" id="fv-target-score">78</div>
+        <div class="score-improve-label">改善後（目標）</div>
+      </div>
+    </div>
+    <div class="score-bar-wrap reveal" id="score-bar-wrap">
+      <div class="score-bar-track">
+        <div class="score-bar-fill" id="score-bar-fill"></div>
+      </div>
+      <div class="score-bar-labels"><span>0</span><span>目標スコア</span><span>100</span></div>
+    </div>
+    <div class="compare-grid anim-group reveal" style="margin-top:40px;">
+      <div class="compare-card after anim-item" style="grid-column:1/-1;max-width:720px;margin:0 auto;width:100%;">
+        <div class="compare-tag">✦ 改善後のAI認識</div>
+        <div class="compare-bubble" id="ai-bubble-after">
+          <strong>AI</strong>
+          <span id="ai-after-text"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="flow-connector reveal">↓</div>
+
+<!-- ⑥ 改善プログラム紹介 -->
+<section class="section section-alt" id="step6">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Program</div>
+      <h2>改善プログラム紹介</h2>
       <p class="lead">診断で特定した課題を、優先度順に設計・実装・検証する伴走型プログラムです。</p>
     </div>
-    <div class="reveal" style="overflow-x: auto; padding-bottom: 8px;">
-      <div class="flow" style="min-width: max-content; padding: 8px 0;">
+    <div class="flow-timeline reveal" id="flow-timeline">
+      <div class="flow flow-program">
+        <div class="flow-timeline-line" aria-hidden="true"><div class="flow-timeline-progress"></div></div>
         <span class="flow-step active">診断</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">課題抽出</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">改善設計</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">コンテンツ改善</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">Entity設計</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">Schema整備</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step">AI検証</span>
-        <span class="flow-arrow">→</span>
         <span class="flow-step active">再診断</span>
       </div>
     </div>
-    <p class="reveal" style="text-align:center;margin-top:32px;font-size:15px;color:var(--text-secondary);max-width:640px;margin-left:auto;margin-right:auto;">
-      改善 → 検証 → 改善を継続することで、AIが理解し、比較し、推薦できる企業へ近づきます。
-    </p>
-  </div>
-</section>
-
-<!-- SECTION 3: Before / After -->
-<section class="section" id="impact">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Impact</div>
-      <h2>改善すると何が変わるのか</h2>
-      <p class="lead">SEOで可視化できても、AIが正確に理解できなければ比較に入れません。改善後はAIの推薦文そのものが変わります。</p>
-    </div>
-    <div class="compare-grid anim-group reveal">
-      <div class="compare-card before anim-item">
-        <div class="compare-tag">Before</div>
-        <h3 class="compare-before-title">改善前</h3>
-        <div class="compare-bubble">
-          <strong>AI</strong>
-          「情報が不足しているため、具体的な推薦はできません。公式サイトの構造化データやFAQの整備が必要です。」
-        </div>
-      </div>
-      <div class="compare-card after anim-item">
-        <div class="compare-tag">✦ After</div>
-        <h3 class="compare-after-title">改善後</h3>
-        <div class="compare-bubble">
-          <strong>AI</strong>
-          「御社は業界内で高いAgent Readinessを持ち、構造化された情報と権威ある引用元に基づき、比較候補として推薦できます。」
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 4: 改善内容 -->
-<section class="section section-alt" id="deliverables">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Deliverables</div>
-      <h2>改善内容</h2>
-      <p class="lead">GEO Search Protocolに基づき、AIが理解・比較・推薦・実行できる状態を設計します。</p>
-    </div>
     <div class="card-grid-3 anim-group reveal">
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
         <span class="info-card-num">01</span>
         <h4>Entity設計</h4>
         <p>企業・サービス・拠点をAIが一意に識別できるよう、Entity情報を構造化して設計します。</p>
       </div>
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
         <span class="info-card-num">02</span>
         <h4>Citation設計</h4>
         <p>AIが引用する権威ある情報源を整備。推薦の根拠となるメディア露出・口コミ導線を設計します。</p>
       </div>
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
         <span class="info-card-num">03</span>
         <h4>AI向けコンテンツ改善</h4>
         <p>AIが正確に理解できる形式でコンテンツを再設計。比較に必要な差分情報を言語化します。</p>
       </div>
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
         <span class="info-card-num">04</span>
         <h4>FAQ最適化</h4>
         <p>AIが参照するQ&Aを整備。顧客の意思決定に直結する質問と回答を構造化します。</p>
       </div>
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <span class="info-card-num">05</span>
-        <h4>Schema</h4>
+        <h4>Schema整備</h4>
         <p>Schema.org / JSON-LDによる構造化データを実装。AIクローラーが読み取れる状態に整備します。</p>
       </div>
-      <div class="info-card anim-item">
+      <div class="info-card program-card anim-item">
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <span class="info-card-num">06</span>
-        <h4>AI検索検証</h4>
-        <p>ChatGPT・Gemini・Claude・Perplexityでの認識状況を定点観測し、改善効果を検証します。</p>
-      </div>
-      <div class="info-card anim-item" style="grid-column: span 1;">
-        <span class="info-card-num">07</span>
-        <h4>継続改善</h4>
-        <p>再診断でスコアを追跡。改善 → 検証 → 改善のサイクルを回し、Agent Readinessを継続的に高めます。</p>
+        <h4>AI検索検証・継続改善</h4>
+        <p>4大AIでの認識状況を定点観測し、再診断でスコアを追跡。改善サイクルを継続します。</p>
       </div>
     </div>
   </div>
 </section>
+<div class="flow-connector reveal">↓</div>
 
-<!-- SECTION 5: なぜAgent Readinessなのか -->
-<section class="section" id="why-ari">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Why Agent Readiness</div>
-      <h2>なぜAgent Readinessなのか</h2>
-      <p class="lead">検索エンジン最適化の時代は、人間のクリックを最大化する技術でした。次の時代に求められるのは、AIが正しく理解し、公正に比較し、適切に推薦し、確実に実行できる状態です。</p>
-    </div>
-    <div class="evolution reveal" style="margin-bottom: 48px;">
-      <div class="evolution-item">
-        <div class="evolution-era">1990s〜</div>
-        <div class="evolution-term">Google時代</div>
-      </div>
-      <div class="evolution-item">
-        <div class="evolution-era">2000s〜</div>
-        <div class="evolution-term">SEO</div>
-      </div>
-      <div class="evolution-item">
-        <div class="evolution-era">2023〜</div>
-        <div class="evolution-term">GEO</div>
-      </div>
-      <div class="evolution-item highlight">
-        <div class="evolution-era">2026〜</div>
-        <div class="evolution-term">Agent Readiness</div>
-      </div>
-    </div>
-    <div class="glass reveal" style="padding: 32px 40px; max-width: 720px; margin: 0 auto; text-align: center;">
-      <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.85;">
-        Agent Readinessは、AIによる<strong>理解 → 比較 → 推薦 → 実行</strong>という一連の流れ全体を測る上位概念です。<br>
-        SEOは人間の検索結果での表示を最適化し、GEOは生成AIでの引用・推薦を意識した最適化。<br>
-        Agent Readinessはこれらを包含し、AIエージェント時代の企業信用指数として機能します。
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 6: 料金プラン (Local GEO Pricing.tsx 引用) -->
-<section class="section price-section" id="pricing">
+<!-- ⑦ 料金 -->
+<section class="section price-section" id="step7">
   <div class="container">
     <div class="section-header center reveal">
       <div class="section-label">Pricing</div>
-      <h2>シンプルな<br>月払い・年払い。</h2>
+      <h2>料金</h2>
       <p class="lead">契約・運用・レポートまで全て込み。余計なオプションや隠れコストは一切ありません。</p>
     </div>
 
-    <div class="price-card reveal">
+    <div class="price-card reveal" id="price-card">
       <div style="text-align:center;">
         <h3 class="price-card-title">Full Protocol Plan</h3>
       </div>
@@ -364,28 +416,28 @@
         <li><span>✓</span>専任担当者アサイン</li>
       </ul>
 
-      <div class="price-cta-wrap">
-        <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
-        <div class="price-note">
-          <p>※ 診断結果をもとに、優先施策から伴走します。</p>
-          <p>まずは無料相談で改善計画をご確認ください。</p>
-        </div>
+      <div class="price-note" style="margin-top:24px;">
+        <p>※ 診断結果をもとに、優先施策から伴走します。</p>
+        <p>内容のご確認は、下記の無料相談からお申し込みください。</p>
       </div>
     </div>
   </div>
 </section>
+<div class="flow-connector reveal">↓</div>
 
-<!-- FINAL CTA -->
-<section class="final-cta" id="cta">
+<!-- ⑧ 無料相談 -->
+<section class="final-cta" id="step8">
   <div class="final-cta-glow" aria-hidden="true"></div>
   <div class="final-cta-inner reveal reveal-scale">
-    <div class="section-label" style="text-align: center;">Next Phase</div>
-    <h2>次は改善フェーズです。</h2>
+    <div class="final-cta-graphic" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+    </div>
+    <div class="section-label" style="text-align: center;">Free Consultation</div>
+    <h2>無料相談</h2>
     <div class="final-cta-body">
       <p>診断結果はゴールではありません。</p>
-      <p>AI時代では</p>
-      <p><strong>改善 → 検証 → 改善</strong></p>
-      <p>を継続することで、<br>AIが理解し、比較し、推薦できる企業へ近づきます。</p>
+      <p>30分の無料相談で、御社の優先改善項目と進め方をご説明します。</p>
+      <p><strong>改善 → 検証 → 改善</strong>のサイクルで、<br>AIが理解し、比較し、推薦できる企業へ近づきます。</p>
     </div>
     <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
   </div>
@@ -412,31 +464,142 @@
 </footer>
 
 <script>
-// リザルトページの診断スコアを localStorage から引用（なければフォールバック）
+const AI_BEFORE = '「情報が不足しているため、具体的な推薦はできません。公式サイトの構造化データやFAQの整備が必要です。」';
+const AI_AFTER = '「御社は業界内で高いAgent Readinessを持ち、構造化された情報と権威ある引用元に基づき、比較候補として推薦できます。」';
+
+// リザルトページの診断スコアを localStorage から引用
 (function applyReportScores() {
   const FALLBACK = { overallScore: 42, targetScore: 78 };
   let data = null;
   try { data = JSON.parse(localStorage.getItem("ari_report_summary") || "null"); } catch { data = null; }
   const score = data?.overallScore ?? FALLBACK.overallScore;
   const target = data?.targetScore ?? FALLBACK.targetScore;
-  const elCurrent = document.getElementById("fv-current-score");
-  const elTarget = document.getElementById("fv-target-score");
-  if (elCurrent) elCurrent.textContent = score;
-  if (elTarget) elTarget.textContent = target;
-  if (data?.company) {
-    const title = document.getElementById("fv-dash-title");
-    if (title) title.textContent = data.company + " → 改善";
+  window.__ariScores = { score, target };
+
+  const els = {
+    current: document.getElementById("fv-current-score"),
+    target: document.getElementById("fv-target-score"),
+    s5: document.getElementById("s5-current-score"),
+    company: document.getElementById("s1-company"),
+    gapLabel: document.getElementById("gap-score-label"),
+    barFill: document.getElementById("score-bar-fill"),
+    ring: document.getElementById("score-ring-fill"),
+  };
+  if (els.current) els.current.textContent = score;
+  if (els.target) els.target.textContent = target;
+  if (els.s5) els.s5.textContent = score;
+  if (els.company && data?.company) els.company.textContent = data.company;
+  if (els.gapLabel) els.gapLabel.textContent = score;
+  if (els.barFill) els.barFill.style.setProperty('--bar-target', target + '%');
+  if (els.ring) {
+    const circ = 2 * Math.PI * 80;
+    const offset = circ - (score / 100) * circ;
+    els.ring.style.setProperty('--ring-offset', offset);
+    els.ring.style.strokeDasharray = circ;
+    els.ring.style.strokeDashoffset = circ;
   }
 })();
+
+function animateCount(el, to, duration = 1200) {
+  if (!el) return;
+  const from = 0;
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(from + (to - from) * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function typeText(el, text, speed = 28) {
+  if (!el) return;
+  let i = 0;
+  el.textContent = '';
+  function step() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(step, speed);
+    } else {
+      const dots = document.getElementById('ai-dots');
+      if (dots) dots.style.display = 'none';
+      const bubble = document.getElementById('ai-bubble-before');
+      if (bubble) bubble.classList.remove('typing');
+    }
+  }
+  step();
+}
+
+const fired = new Set();
+
+const sectionAnimators = {
+  'score-visual': (el) => {
+    if (fired.has('score-visual')) return;
+    fired.add('score-visual');
+    el.classList.add('scanning');
+    const ring = document.getElementById('score-ring-fill');
+    const scoreEl = document.getElementById('fv-current-score');
+    if (ring) ring.classList.add('animated');
+    const s = window.__ariScores?.score ?? 42;
+    if (scoreEl) { scoreEl.textContent = '0'; animateCount(scoreEl, s); }
+  },
+  'gap-diagram': (el) => { if (!fired.has('gap-diagram')) fired.add('gap-diagram'); el.classList.add('visible'); },
+  'ai-chat': (el) => {
+    if (fired.has('ai-chat')) return;
+    fired.add('ai-chat');
+    el.classList.add('visible');
+    typeText(document.getElementById('ai-typed-text'), AI_BEFORE);
+  },
+  'score-improve': () => {
+    if (fired.has('score-improve')) return;
+    fired.add('score-improve');
+    const s = window.__ariScores?.score ?? 42;
+    const t = window.__ariScores?.target ?? 78;
+    const cur = document.getElementById('s5-current-score');
+    const tgt = document.getElementById('fv-target-score');
+    if (cur) { cur.textContent = '0'; animateCount(cur, s, 800); }
+    if (tgt) { tgt.textContent = '0'; setTimeout(() => animateCount(tgt, t, 1000), 400); }
+  },
+  'score-bar-wrap': () => {
+    if (fired.has('score-bar')) return;
+    fired.add('score-bar');
+    const fill = document.getElementById('score-bar-fill');
+    if (fill) fill.classList.add('animated');
+  },
+  'ai-bubble-after': () => {
+    if (fired.has('ai-after')) return;
+    fired.add('ai-after');
+    typeText(document.getElementById('ai-after-text'), AI_AFTER, 22);
+  },
+  'flow-timeline': (el) => { if (!fired.has('flow')) { fired.add('flow'); el.classList.add('visible'); } },
+  'price-card': (el) => { if (!fired.has('price')) { fired.add('price'); el.classList.add('features-visible'); } },
+};
 
 const animObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.classList.add('visible');
-    animObserver.unobserve(e.target);
+    const id = e.target.id;
+    if (id && sectionAnimators[id]) sectionAnimators[id](e.target);
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
-document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .anim-group, .flow-connector, #score-visual, #gap-diagram, #ai-chat, #score-improve, #score-bar-wrap, #flow-timeline, #price-card').forEach(el => {
+  animObserver.observe(el);
+});
+
+// §5 after bubble: observe parent anim-group
+const afterGroup = document.querySelector('#step5 .anim-group');
+if (afterGroup) {
+  const afterObs = new IntersectionObserver((entries) => {
+    if (entries[0]?.isIntersecting) {
+      sectionAnimators['ai-bubble-after']();
+      afterObs.disconnect();
+    }
+  }, { threshold: 0.3 });
+  afterObs.observe(afterGroup);
+}
 </script>
 </body>
 </html>

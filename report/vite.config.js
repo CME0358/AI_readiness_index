@@ -11,19 +11,32 @@ const rootDir = path.resolve(__dirname, "..");
 function devStaticPagesPlugin() {
   const routes = {
     "/improve.html": path.join(rootDir, "improve.html"),
-    "/assets/localgeo-dark.css": path.join(rootDir, "assets/localgeo-dark.css"),
   };
-  const types = { ".html": "text/html", ".css": "text/css" };
 
   return {
     name: "dev-static-pages",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        const filePath = routes[req.url?.split("?")[0] ?? ""];
-        if (!filePath || !fs.existsSync(filePath)) return next();
-        const ext = path.extname(filePath);
-        res.setHeader("Content-Type", types[ext] || "text/plain");
-        res.end(fs.readFileSync(filePath));
+        const urlPath = req.url?.split("?")[0] ?? "";
+        const filePath = routes[urlPath];
+        if (filePath && fs.existsSync(filePath)) {
+          const ext = path.extname(filePath);
+          const types = { ".html": "text/html", ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp" };
+          res.setHeader("Content-Type", types[ext] || "application/octet-stream");
+          res.end(fs.readFileSync(filePath));
+          return;
+        }
+        if (urlPath.startsWith("/assets/")) {
+          const assetPath = path.join(rootDir, urlPath);
+          if (fs.existsSync(assetPath) && fs.statSync(assetPath).isFile()) {
+            const ext = path.extname(assetPath);
+            const types = { ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp" };
+            res.setHeader("Content-Type", types[ext] || "application/octet-stream");
+            res.end(fs.readFileSync(assetPath));
+            return;
+          }
+        }
+        next();
       });
     },
   };
