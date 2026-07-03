@@ -638,6 +638,22 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
+  .hero-visual {
+    height: auto;
+    min-height: unset;
+    margin-top: var(--nav-h);
+    aspect-ratio: 576 / 1024;
+    display: block;
+  }
+  .hero-visual picture {
+    height: auto;
+  }
+  .paradigm-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+  }
   .hero-content { padding-top: 40px; }
   .concept-grid, .partners-layout { grid-template-columns: 1fr; gap: 40px; }
   .shift-grid { grid-template-columns: 1fr; }
@@ -650,6 +666,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .industries { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
+  .hero { padding-bottom: 48px; }
   .section { padding: 80px 0; }
   .nav-links { display: none; }
   .nav-links.open {
