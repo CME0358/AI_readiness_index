@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Agent Readiness Index — 静的サイト + /report (Vite) モノレポ統合ビルド",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "build:all": "rm -rf public_build && cd report && npm ci && npm run build && cd .. && mkdir -p public_build/report && cp -r report/dist/. public_build/report/ && cp index.html dental.html methodology.html improve.html *.webp *.png public_build/ && cp -r assets public_build/"
   }
