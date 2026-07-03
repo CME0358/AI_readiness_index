@@ -1,9 +1,12 @@
-.DS_Store
 node_modules/
-public_build/
+dist/
 .vercel/
 
 # 環境変数（APIキーを含む。絶対にコミットしない）
 .env
 .env.*
 !.env.example
+
+# ログ・OS
+*.log
+.DS_Store

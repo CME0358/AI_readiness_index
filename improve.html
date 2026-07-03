@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>診断で終わらせない。AIに選ばれる企業へ。 | Agent Readiness</title>
+<meta name="description" content="Agent Readiness診断で見えた課題をもとに、AIが理解・比較・推薦しやすい企業情報へ改善します。Entity設計・Schema整備・AI検索検証まで伴走支援。">
+<link rel="canonical" href="https://readiness.coaretail.com/improve.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://readiness.coaretail.com/improve.html">
+<meta property="og:title" content="診断で終わらせない。AIに選ばれる企業へ。 | Agent Readiness">
+<meta property="og:description" content="診断結果はゴールではありません。Agent Readiness改善プログラムで、AIが理解し、比較し、推薦できる企業へ。">
+<meta property="og:site_name" content="Agent Readiness">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="診断で終わらせない。AIに選ばれる企業へ。">
+<meta name="twitter:description" content="Agent Readiness診断で見えた課題をもとに、AIが理解・比較・推薦しやすい企業情報へ改善します。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.coaretail.com/#organization",
+      "name": "合同会社コア・リテール",
+      "alternateName": ["Coa Retail", "CoaRetail G.K."],
+      "url": "https://www.coaretail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://readiness.coaretail.com/#website",
+      "url": "https://readiness.coaretail.com/",
+      "name": "Agent Readiness",
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://readiness.coaretail.com/improve.html#service",
+      "name": "Agent Readiness 改善プログラム",
+      "description": "Agent Readiness診断で特定した課題をもとに、Entity設計・Citation設計・Schema整備・AI検索検証を通じて、AIが理解・比較・推薦しやすい企業情報へ改善する伴走型プログラム。",
+      "provider": { "@id": "https://www.coaretail.com/#organization" },
+      "serviceType": "AI検索最適化・GEO Search Protocol",
+      "areaServed": "JP",
+      "url": "https://readiness.coaretail.com/improve.html"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://readiness.coaretail.com/improve.html#webpage",
+      "url": "https://readiness.coaretail.com/improve.html",
+      "name": "診断で終わらせない。AIに選ばれる企業へ。",
+      "description": "Agent Readiness診断後の改善プログラム。診断結果をもとにAI推薦率を高める伴走支援。",
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+      "about": { "@id": "https://readiness.coaretail.com/improve.html#service" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "dateModified": "2026-07-03",
+      "inLanguage": "ja"
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/localgeo-dark.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Agent Readiness <span>Index™</span></a>
+    <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary" target="_blank" rel="noopener noreferrer">無料相談を予約 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="glow-orb" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow">診断完了 · 次のステップ</div>
+      <h1>
+        診断で終わらせない。<br>
+        <span class="gradient">AIに選ばれる企業へ。</span>
+      </h1>
+      <p class="lead" style="max-width: 520px;">
+        Agent Readiness診断で見えた課題をもとに、<br>
+        AIが理解・比較・推薦しやすい企業情報へ改善します。
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
+      </div>
+    </div>
+
+    <!-- 診断→改善ビジュアル (Local GEO Hero GlassPanel) -->
+    <div class="glass" style="overflow: hidden;">
+      <div class="dash-header">
+        <span class="dash-dot" style="background:#ff5f57"></span>
+        <span class="dash-dot" style="background:#febc2e"></span>
+        <span class="dash-dot" style="background:#28c840"></span>
+        <span class="dash-title" id="fv-dash-title">Agent Readiness → 改善</span>
+      </div>
+      <div class="dash-body">
+        <div class="dash-score-row">
+          <div class="dash-score-box">
+            <div class="dash-score-val low" id="fv-current-score">42</div>
+            <div class="dash-score-label">診断スコア</div>
+          </div>
+          <div class="dash-score-box">
+            <div class="dash-score-val high" id="fv-target-score">78</div>
+            <div class="dash-score-label">改善後（目標）</div>
+          </div>
+        </div>
+        <div class="dash-arrow-center">↓</div>
+        <div class="dash-sim">
+          <p class="dash-sim-label">AI推薦シミュレーション</p>
+          <p class="dash-sim-text">
+            「御社の強みが構造化され、AIが比較候補として推薦できる状態になりました。」
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: 診断結果が意味すること -->
+<section class="section" id="meaning">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Your Diagnosis</div>
+      <h2>あなたの診断結果が意味すること</h2>
+      <p class="lead">見つかることと、選ばれることは別の問題です。スコアが示すのは、AIが御社をどこまで「理解し・比較し・推薦できるか」という現在地です。</p>
+    </div>
+    <div class="card-grid-4 anim-group reveal">
+      <div class="info-card anim-item">
+        <span class="info-card-num">01</span>
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <h4>AIが企業を十分理解できない</h4>
+        <p>構造化データ・Entity情報・FAQが不足し、AIが御社の事業内容を正確に把握できていない状態です。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">02</span>
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>推薦候補に入りにくい</h4>
+        <p>比較に入っても、推薦の根拠がなければ選ばれません。引用元と権威性の設計が不足しています。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">03</span>
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/></svg>
+        </div>
+        <h4>比較時に優位性を説明できない</h4>
+        <p>競合との差分がAIに伝わらず、比較検討の場で御社の強みが言語化されていません。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">04</span>
+        <div class="info-card-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <h4>AI経由の流入機会を逃している</h4>
+        <p>選ばれても実行できなければ機会は消えます。予約・問い合わせ導線の接続性が課題です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 改善プログラムフロー -->
+<section class="section section-alt" id="program">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Improvement Program</div>
+      <h2>Agent Readiness改善プログラム</h2>
+      <p class="lead">診断で特定した課題を、優先度順に設計・実装・検証する伴走型プログラムです。</p>
+    </div>
+    <div class="reveal" style="overflow-x: auto; padding-bottom: 8px;">
+      <div class="flow" style="min-width: max-content; padding: 8px 0;">
+        <span class="flow-step active">診断</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">課題抽出</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">改善設計</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">コンテンツ改善</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">Entity設計</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">Schema整備</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">AI検証</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step active">再診断</span>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:32px;font-size:15px;color:var(--text-secondary);max-width:640px;margin-left:auto;margin-right:auto;">
+      改善 → 検証 → 改善を継続することで、AIが理解し、比較し、推薦できる企業へ近づきます。
+    </p>
+  </div>
+</section>
+
+<!-- SECTION 3: Before / After -->
+<section class="section" id="impact">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Impact</div>
+      <h2>改善すると何が変わるのか</h2>
+      <p class="lead">SEOで可視化できても、AIが正確に理解できなければ比較に入れません。改善後はAIの推薦文そのものが変わります。</p>
+    </div>
+    <div class="compare-grid anim-group reveal">
+      <div class="compare-card before anim-item">
+        <div class="compare-tag">Before</div>
+        <h3 class="compare-before-title">改善前</h3>
+        <div class="compare-bubble">
+          <strong>AI</strong>
+          「情報が不足しているため、具体的な推薦はできません。公式サイトの構造化データやFAQの整備が必要です。」
+        </div>
+      </div>
+      <div class="compare-card after anim-item">
+        <div class="compare-tag">✦ After</div>
+        <h3 class="compare-after-title">改善後</h3>
+        <div class="compare-bubble">
+          <strong>AI</strong>
+          「御社は業界内で高いAgent Readinessを持ち、構造化された情報と権威ある引用元に基づき、比較候補として推薦できます。」
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: 改善内容 -->
+<section class="section section-alt" id="deliverables">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Deliverables</div>
+      <h2>改善内容</h2>
+      <p class="lead">GEO Search Protocolに基づき、AIが理解・比較・推薦・実行できる状態を設計します。</p>
+    </div>
+    <div class="card-grid-3 anim-group reveal">
+      <div class="info-card anim-item">
+        <span class="info-card-num">01</span>
+        <h4>Entity設計</h4>
+        <p>企業・サービス・拠点をAIが一意に識別できるよう、Entity情報を構造化して設計します。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">02</span>
+        <h4>Citation設計</h4>
+        <p>AIが引用する権威ある情報源を整備。推薦の根拠となるメディア露出・口コミ導線を設計します。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">03</span>
+        <h4>AI向けコンテンツ改善</h4>
+        <p>AIが正確に理解できる形式でコンテンツを再設計。比較に必要な差分情報を言語化します。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">04</span>
+        <h4>FAQ最適化</h4>
+        <p>AIが参照するQ&Aを整備。顧客の意思決定に直結する質問と回答を構造化します。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">05</span>
+        <h4>Schema</h4>
+        <p>Schema.org / JSON-LDによる構造化データを実装。AIクローラーが読み取れる状態に整備します。</p>
+      </div>
+      <div class="info-card anim-item">
+        <span class="info-card-num">06</span>
+        <h4>AI検索検証</h4>
+        <p>ChatGPT・Gemini・Claude・Perplexityでの認識状況を定点観測し、改善効果を検証します。</p>
+      </div>
+      <div class="info-card anim-item" style="grid-column: span 1;">
+        <span class="info-card-num">07</span>
+        <h4>継続改善</h4>
+        <p>再診断でスコアを追跡。改善 → 検証 → 改善のサイクルを回し、Agent Readinessを継続的に高めます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: なぜAgent Readinessなのか -->
+<section class="section" id="why-ari">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Why Agent Readiness</div>
+      <h2>なぜAgent Readinessなのか</h2>
+      <p class="lead">検索エンジン最適化の時代は、人間のクリックを最大化する技術でした。次の時代に求められるのは、AIが正しく理解し、公正に比較し、適切に推薦し、確実に実行できる状態です。</p>
+    </div>
+    <div class="evolution reveal" style="margin-bottom: 48px;">
+      <div class="evolution-item">
+        <div class="evolution-era">1990s〜</div>
+        <div class="evolution-term">Google時代</div>
+      </div>
+      <div class="evolution-item">
+        <div class="evolution-era">2000s〜</div>
+        <div class="evolution-term">SEO</div>
+      </div>
+      <div class="evolution-item">
+        <div class="evolution-era">2023〜</div>
+        <div class="evolution-term">GEO</div>
+      </div>
+      <div class="evolution-item highlight">
+        <div class="evolution-era">2026〜</div>
+        <div class="evolution-term">Agent Readiness</div>
+      </div>
+    </div>
+    <div class="glass reveal" style="padding: 32px 40px; max-width: 720px; margin: 0 auto; text-align: center;">
+      <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.85;">
+        Agent Readinessは、AIによる<strong>理解 → 比較 → 推薦 → 実行</strong>という一連の流れ全体を測る上位概念です。<br>
+        SEOは人間の検索結果での表示を最適化し、GEOは生成AIでの引用・推薦を意識した最適化。<br>
+        Agent Readinessはこれらを包含し、AIエージェント時代の企業信用指数として機能します。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 料金プラン (Local GEO Pricing.tsx 引用) -->
+<section class="section price-section" id="pricing">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="section-label">Pricing</div>
+      <h2>シンプルな<br>月払い・年払い。</h2>
+      <p class="lead">契約・運用・レポートまで全て込み。余計なオプションや隠れコストは一切ありません。</p>
+    </div>
+
+    <div class="price-card reveal">
+      <div style="text-align:center;">
+        <h3 class="price-card-title">Full Protocol Plan</h3>
+      </div>
+
+      <div class="price-options">
+        <div class="price-option">
+          <p class="price-option-label">月払い</p>
+          <div class="price-amount">
+            <span class="price-currency">¥</span>
+            <span class="price-value">60,000</span>
+          </div>
+          <p class="price-per">/ 月額（税別） · 12ヶ月契約</p>
+        </div>
+        <div class="price-option featured">
+          <span class="price-discount-badge">約17%OFF</span>
+          <p class="price-option-label">年払い</p>
+          <div class="price-amount">
+            <span class="price-currency">¥</span>
+            <span class="price-value">600,000</span>
+          </div>
+          <p class="price-per">/ 年額（税別） · 一括請求</p>
+          <p class="price-discount-note">月払い12ヶ月分（¥720,000）比 · 2ヶ月分お得</p>
+        </div>
+      </div>
+
+      <div class="price-divider"></div>
+
+      <ul class="price-features">
+        <li><span>✓</span>Agent Readiness改善設計</li>
+        <li><span>✓</span>Entity設計・Citation設計</li>
+        <li><span>✓</span>AI向けコンテンツ改善</li>
+        <li><span>✓</span>FAQ構造化（Schema markup）</li>
+        <li><span>✓</span>Schema.org / JSON-LD整備</li>
+        <li><span>✓</span>AI検索検証（4大AI）</li>
+        <li><span>✓</span>月次Agent Readinessレポート</li>
+        <li><span>✓</span>Zoom隔月次MTG（20分）</li>
+        <li><span>✓</span>専任担当者アサイン</li>
+      </ul>
+
+      <div class="price-cta-wrap">
+        <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
+        <div class="price-note">
+          <p>※ 診断結果をもとに、優先施策から伴走します。</p>
+          <p>まずは無料相談で改善計画をご確認ください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="cta">
+  <div class="final-cta-glow" aria-hidden="true"></div>
+  <div class="final-cta-inner reveal reveal-scale">
+    <div class="section-label" style="text-align: center;">Next Phase</div>
+    <h2>次は改善フェーズです。</h2>
+    <div class="final-cta-body">
+      <p>診断結果はゴールではありません。</p>
+      <p>AI時代では</p>
+      <p><strong>改善 → 検証 → 改善</strong></p>
+      <p>を継続することで、<br>AIが理解し、比較し、推薦できる企業へ近づきます。</p>
+    </div>
+    <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Agent Readiness Index™</div>
+        <div class="footer-sub">by Coa Retail · GEO Search Protocol</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">トップ</a>
+        <a href="report/">診断レポート</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="https://www.coaretail.com/geo_schedule" target="_blank" rel="noopener">無料相談</a>
+        <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a>. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// リザルトページの診断スコアを localStorage から引用（なければフォールバック）
+(function applyReportScores() {
+  const FALLBACK = { overallScore: 42, targetScore: 78 };
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem("ari_report_summary") || "null"); } catch { data = null; }
+  const score = data?.overallScore ?? FALLBACK.overallScore;
+  const target = data?.targetScore ?? FALLBACK.targetScore;
+  const elCurrent = document.getElementById("fv-current-score");
+  const elTarget = document.getElementById("fv-target-score");
+  if (elCurrent) elCurrent.textContent = score;
+  if (elTarget) elTarget.textContent = target;
+  if (data?.company) {
+    const title = document.getElementById("fv-dash-title");
+    if (title) title.textContent = data.company + " → 改善";
+  }
+})();
+
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    animObserver.unobserve(e.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
+</script>
+</body>
+</html>
