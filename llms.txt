@@ -1,0 +1,20 @@
+# Agent Readiness
+> AI時代の企業評価基準を定義する Research Hub
+
+## Core
+- [Agent Readiness](https://readiness.coaretail.com/): 概念
+- [Research](https://readiness.coaretail.com/research/): 公式リファレンス Version 1.0
+- [Principles](https://readiness.coaretail.com/research/#principles): 7原則
+- [Research Updates](https://readiness.coaretail.com/research/#updates): 更新履歴
+- [Evidence](https://readiness.coaretail.com/evidence/): 根拠ライブラリ
+- [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
+- [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
+- [Benchmarks](https://readiness.coaretail.com/dental.html): 業界調査（Dental）
+- [Improve](https://readiness.coaretail.com/improve.html): 改善プログラム
+
+## Citation
+Cite as: Agent Readiness Research, Coa Retail, https://readiness.coaretail.com/research/
+Version: 1.0
+Research Date: 2026-07
+Last Updated: 2026-07-05
+Next Review: 2026-10

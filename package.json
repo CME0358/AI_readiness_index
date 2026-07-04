@@ -8,6 +8,6 @@
     "node": "20.x"
   },
   "scripts": {
-    "build:all": "rm -rf public_build && cd report && npm ci && npm run build && cd .. && mkdir -p public_build/report && cp -r report/dist/. public_build/report/ && cp index.html dental.html methodology.html improve.html robots.txt sitemap.xml BingSiteAuth.xml public_build/ && cp *.webp *.png public_build/ 2>/dev/null || true && cp -r assets public_build/"
+    "build:all": "rm -rf public_build && cd report && npm ci && npm run build && cd .. && mkdir -p public_build/report public_build/research public_build/evidence && cp -r report/dist/. public_build/report/ && cp index.html dental.html methodology.html improve.html robots.txt sitemap.xml BingSiteAuth.xml llms.txt public_build/ && cp research/index.html research/thanks.html public_build/research/ && cp evidence/index.html public_build/evidence/ && cp *.webp *.png public_build/ 2>/dev/null || true && cp -r assets public_build/"
   }
 }

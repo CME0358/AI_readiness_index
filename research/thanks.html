@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ダウンロード受付完了 | Agent Readiness Research</title>
+<meta name="description" content="ホワイトペーパーのダウンロードを受け付けました。次はARI診断で自社スコアを確認できます。">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://readiness.coaretail.com/research/thanks.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08); --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF; --cta-hover: #27272A;
+  --radius: 12px; --max: 640px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column; }
+.nav {
+  height: var(--nav-h); border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.9); backdrop-filter: blur(16px);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; white-space: nowrap; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 4px; }
+main { flex: 1; display: flex; align-items: center; padding: calc(var(--nav-h) + 48px) 24px 48px; }
+.card { max-width: var(--max); margin: 0 auto; width: 100%; }
+.check {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 24px;
+}
+h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.025em; margin-bottom: 12px; }
+.lead { color: var(--text-secondary); margin-bottom: 32px; }
+.next-label { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+.steps { display: grid; gap: 12px; margin-bottom: 32px; }
+.step {
+  display: block; padding: 20px 24px; border: 1px solid var(--border);
+  border-radius: var(--radius); text-decoration: none; color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.step:hover { border-color: rgba(0,0,0,0.16); transform: translateY(-1px); }
+.step.primary { background: var(--cta); color: var(--cta-text); border-color: var(--cta); }
+.step.primary:hover { background: var(--cta-hover); }
+.step-n { font-size: 12px; opacity: 0.7; margin-bottom: 6px; }
+.step h2 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 4px; }
+.step p { font-size: 14px; opacity: 0.85; margin: 0; }
+.back { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back:hover { color: var(--text); }
+.note { font-size: 13px; color: var(--text-muted); margin-top: 24px; }
+.site-footer {
+  border-top: 1px solid var(--border); padding: 32px 24px; background: var(--bg-elevated);
+}
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: center; margin-bottom: 16px; }
+.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); text-align: center; }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+.hero-anim { opacity: 0; transform: translateY(24px); animation: heroIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero-anim.d1 { animation-delay: 0.06s; }
+.hero-anim.d2 { animation-delay: 0.18s; }
+.hero-anim.d3 { animation-delay: 0.3s; }
+.hero-anim.d4 { animation-delay: 0.42s; }
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+.check.hero-anim { transform: scale(0.6); animation-name: checkIn; }
+@keyframes checkIn { to { opacity: 1; transform: scale(1); } }
+.anim-group .anim-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.anim-group.visible .anim-item { opacity: 1; transform: translateY(0); }
+.anim-group.visible .anim-item:nth-child(1) { transition-delay: 0.08s; }
+.anim-group.visible .anim-item:nth-child(2) { transition-delay: 0.16s; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.visible { opacity: 1; transform: none; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim, .reveal, .anim-group .anim-item { opacity: 1; transform: none; animation: none; transition: none; }
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Agent Readiness <span>Index™</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="./" class="active">Research</a></li>
+      <li><a href="../evidence/">Evidence</a></li>
+      <li><a href="../methodology.html">Methodology</a></li>
+      <li><a href="../dental.html">Benchmarks</a></li>
+      <li><a href="../report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+<main>
+  <div class="card">
+    <div class="check hero-anim d1" aria-hidden="true">✓</div>
+    <h1 class="hero-anim d2">受け付けました</h1>
+    <p class="lead hero-anim d3">ホワイトペーパーのダウンロードを受け付けました。評価基準の全体像は Research ページでも公開しています。次は自社スコアを確認してください。</p>
+
+    <p class="next-label hero-anim d4">Next Steps</p>
+    <div class="steps anim-group" id="steps">
+      <a class="step primary anim-item" href="../report/">
+        <div class="step-n">01 · 推奨</div>
+        <h2>ARI Diagnosis（約3分）</h2>
+        <p>公式サイトURLを入力し、Agent Readinessスコアを確認する</p>
+      </a>
+      <a class="step anim-item" href="./" target="_blank" rel="noopener">
+        <div class="step-n">02</div>
+        <h2>Principles を読む</h2>
+        <p>7原則と実装手段の対応を Research Hub で確認する（別ページ）</p>
+      </a>
+    </div>
+
+    <a class="back reveal" href="./">← Research に戻る</a>
+    <p class="note reveal">PDFファイルは準備次第、ご登録メールにお送りします。本ページの内容は <a href="./" style="color:inherit">Research Hub</a> でも参照できます。</p>
+  </div>
+</main>
+<footer class="site-footer">
+  <nav class="footer-links" aria-label="Site">
+    <a href="../index.html">トップ</a>
+    <a href="./">Research</a>
+    <a href="../evidence/">Evidence</a>
+    <a href="../methodology.html">Methodology</a>
+    <a href="../dental.html">Benchmarks</a>
+    <a href="../improve.html">Improve</a>
+    <a href="../report/">診断レポート</a>
+    <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+  </nav>
+  <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+</footer>
+<script>
+(function () {
+  requestAnimationFrame(() => { document.getElementById('steps').classList.add('visible'); });
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      animObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(el => animObserver.observe(el));
+})();
+</script>
+</body>
+</html>

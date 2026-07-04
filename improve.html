@@ -62,6 +62,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/localgeo-dark.css">
+<style>
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+@media (max-width: 900px) { .nav-links { display: none; } }
+</style>
 </head>
 <body>
 
@@ -69,6 +76,14 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Agent Readiness <span>Index™</span></a>
+    <ul class="nav-links">
+      <li><a href="research/">Research</a></li>
+      <li><a href="evidence/">Evidence</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="dental.html">Benchmarks</a></li>
+      <li><a href="report/">診断レポート</a></li>
+      <li><a href="improve.html" class="active">Improve</a></li>
+    </ul>
     <a href="https://www.coaretail.com/geo_schedule" class="btn btn-primary" target="_blank" rel="noopener noreferrer">無料相談を予約 →</a>
   </div>
 </nav>
@@ -453,8 +468,12 @@
       </div>
       <div class="footer-links">
         <a href="index.html">トップ</a>
-        <a href="report/">診断レポート</a>
+        <a href="research/">Research</a>
+        <a href="evidence/">Evidence</a>
         <a href="methodology.html">Methodology</a>
+        <a href="dental.html">Benchmarks</a>
+        <a href="improve.html">Improve</a>
+        <a href="report/">診断レポート</a>
         <a href="https://www.coaretail.com/geo_schedule" target="_blank" rel="noopener">無料相談</a>
         <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
       </div>

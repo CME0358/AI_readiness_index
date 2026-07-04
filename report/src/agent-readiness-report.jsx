@@ -563,6 +563,24 @@ function MediaCoverage() {
   );
 }
 
+const SITE_NAV_LINKS = [
+  { href: "/research/", label: "Research" },
+  { href: "/evidence/", label: "Evidence" },
+  { href: "/methodology.html", label: "Methodology" },
+  { href: "/dental.html", label: "Benchmarks" },
+];
+
+const SITE_FOOTER_LINKS = [
+  { href: "/index.html", label: "トップ" },
+  { href: "/research/", label: "Research" },
+  { href: "/evidence/", label: "Evidence" },
+  { href: "/methodology.html", label: "Methodology" },
+  { href: "/dental.html", label: "Benchmarks" },
+  { href: "/improve.html", label: "Improve" },
+  { href: "/report/", label: "診断レポート" },
+  { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
+];
+
 function LandingPage({ onStart }) {
   const [legal, setLegal] = useState(null);
   const features = [
@@ -583,18 +601,15 @@ function LandingPage({ onStart }) {
     <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", background: "#FFFFFF", minHeight: "100vh" }}>
       {/* Nav */}
       <nav style={{ borderBottom: "1px solid #E8E8E8", padding: "0 40px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", zIndex: 100 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ width: 24, height: 24, background: "#0A0A0A", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "#fff", fontSize: 12, fontWeight: 800 }}>A</span>
-          </div>
-          <span style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.3px" }}>Agent Readiness</span>
-        </div>
-        <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
-          <a href="#features" style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}>特徴</a>
-          <a href="#pricing" style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}>料金</a>
-          <a href="#faq" style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}>FAQ</a>
+        <a href="/index.html" style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.3px", textDecoration: "none" }}>
+          Agent Readiness <span style={{ color: "#9B9B9B", fontWeight: 400 }}>Index™</span>
+        </a>
+        <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
+          {SITE_NAV_LINKS.map(link => (
+            <a key={link.href} href={link.href} style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}>{link.label}</a>
+          ))}
           <button onClick={onStart} style={{ background: "#0A0A0A", color: "#fff", border: "none", padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-            診断を始める →
+            診断レポート →
           </button>
         </div>
       </nav>
@@ -793,6 +808,19 @@ function LandingPage({ onStart }) {
 
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #E8E8E8", padding: "32px 40px", textAlign: "center" }}>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
+          {SITE_FOOTER_LINKS.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
         <div style={{ display: "flex", gap: 24, justifyContent: "center", marginBottom: 14 }}>
           <button type="button" onClick={() => setLegal("terms")} style={{ background: "none", border: "none", padding: 0, fontSize: 13, color: "#6B6B6B", textDecoration: "underline", cursor: "pointer" }}>利用規約</button>
           <button type="button" onClick={() => setLegal("privacy")} style={{ background: "none", border: "none", padding: 0, fontSize: 13, color: "#6B6B6B", textDecoration: "underline", cursor: "pointer" }}>プライバシーポリシー</button>
@@ -1793,6 +1821,19 @@ function ReportPage({ report, form }) {
         </div>
 
         <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid #F0F0F0", textAlign: "center" }}>
+          <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
+            {SITE_FOOTER_LINKS.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                style={{ fontSize: 12, color: "#9B9B9B", textDecoration: "none" }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
           <div style={{ fontSize: 12, color: "#9B9B9B", lineHeight: 1.8 }}>
             本レポートは合同会社コア・リテール（Coa Retail G.K.）が提供するAgent Readiness診断サービスにより生成されました。<br />
             レポート内のスコア・順位は診断実施時点（{report.analyzedAt}）のデータに基づきます。<br />

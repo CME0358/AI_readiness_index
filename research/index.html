@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Readiness Principles — AI時代の企業評価基準（Version 1.0）| Coa Retail</title>
+<meta name="description" content="Agent Readinessの7原則、DRA評価フレーム、主要AI5社・100項目の調査手法を定義。Version 1.0の公式リファレンス。引用可。">
+<link rel="canonical" href="https://readiness.coaretail.com/research/">
+<meta property="og:title" content="Agent Readiness Research, Version 1.0">
+<meta property="og:description" content="AI時代の企業評価基準を定義する。主要AI5社・100項目の独自調査。">
+<meta property="og:url" content="https://readiness.coaretail.com/research/">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.coaretail.com/#organization",
+      "name": "合同会社コア・リテール",
+      "alternateName": ["Coa Retail", "CoaRetail G.K."],
+      "url": "https://www.coaretail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://readiness.coaretail.com/#website",
+      "url": "https://readiness.coaretail.com/",
+      "name": "Agent Readiness",
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://readiness.coaretail.com/research/#webpage",
+      "url": "https://readiness.coaretail.com/research/",
+      "name": "Agent Readiness Research, Version 1.0",
+      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+      "about": { "@id": "https://readiness.coaretail.com/#agent-readiness" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-05",
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://readiness.coaretail.com/research/#article",
+      "headline": "Agent Readiness Research, Version 1.0",
+      "version": "1.0",
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-07-05",
+      "author": { "@id": "https://www.coaretail.com/#organization" },
+      "publisher": { "@id": "https://www.coaretail.com/#organization" },
+      "about": [
+        { "@id": "https://readiness.coaretail.com/#agent-readiness" },
+        { "@id": "https://readiness.coaretail.com/research/#principles" }
+      ],
+      "isAccessibleForFree": true,
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://readiness.coaretail.com/#agent-readiness",
+      "name": "Agent Readiness",
+      "alternateName": ["エージェント・レディネス", "ARI", "Agent Readiness Index"],
+      "description": "企業・ブランド・店舗・サービスが、AI検索・AIエージェント・AIレコメンドの時代に、比較され・推薦され・選択・実行されるための準備状況を示す評価概念。",
+      "url": "https://readiness.coaretail.com/research/#definition",
+      "inDefinedTermSet": { "@id": "https://readiness.coaretail.com/#framework" }
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://readiness.coaretail.com/#framework",
+      "name": "Agent Readiness Evaluation Framework",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "Discovery Readiness", "description": "AIに理解・発見される力" },
+        { "@type": "DefinedTerm", "name": "Recommendation Readiness", "description": "AIに比較・推薦される力" },
+        { "@type": "DefinedTerm", "name": "Action Readiness", "description": "AIに選択・実行される力" }
+      ]
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "https://readiness.coaretail.com/research/#principles",
+      "name": "Agent Readiness Principles",
+      "description": "AI時代に企業が満たすべき7つの原理",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "AIが理解できる", "description": "何の会社で、誰向けで、何を提供するかが一意に分かること" },
+        { "@type": "DefinedTerm", "name": "AIが比較できる", "description": "他社と並べたとき、差分が構造的に取れること" },
+        { "@type": "DefinedTerm", "name": "AIが検証できる", "description": "主張が数値・出典・更新日で裏付けられること" },
+        { "@type": "DefinedTerm", "name": "AIが信頼できる", "description": "誠実さ・専門性・一貫性があり、推薦してよいと判断できること" },
+        { "@type": "DefinedTerm", "name": "AIが推薦できる", "description": "ユーザーの問いに対し、理由付きで候補に入れられること" },
+        { "@type": "DefinedTerm", "name": "AIが実行できる", "description": "推薦の先で予約・購入・問い合わせを完結できること" },
+        { "@type": "DefinedTerm", "name": "AIが継続的に学習できる", "description": "情報が更新され、変化が機械可読に反映され続けること" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://readiness.coaretail.com/research/#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Agent Readinessとは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Agent Readiness（エージェント・レディネス）とは、企業・ブランド・店舗・サービスが、AI検索・AIエージェント・AIレコメンドの時代に、比較され・推薦され・選択・実行されるための準備状況を示す評価概念です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "GEOとAgent Readiness（ARI）の違いは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GEOは生成AIでの引用・推薦を最適化する手法です。Agent ReadinessはSEOとGEOを包含し、理解・比較・推薦に加え、予約・購入・問い合わせなどの実行まで含む上位概念です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Agent Readiness Principlesとは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI時代に企業が満たすべき7つの原理です。AIが理解できる、比較できる、検証できる、信頼できる、推薦できる、実行できる、継続的に学習できる——の7つです。FAQやSchemaなどの施策は、原則を満たすための実装手段です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "この研究の限界は何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2026年7月時点の主要AI5社が対象であり、モデル更新により評価基準は変化し得ます。また「AIが重視すると答えた項目」と「実際の推薦率への因果」は未検証です。ARIは継続的に研究・更新します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "調査結果は引用できますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可能です。引用時は「Agent Readiness Research」「Coa Retail」および引用URL（https://readiness.coaretail.com/research/）を記載してください。Version番号の併記を推奨します。"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://readiness.coaretail.com/research/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Agent Readiness", "item": "https://readiness.coaretail.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://readiness.coaretail.com/research/" }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --bg-elevated: #FAFAFA;
+  --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.16);
+  --text: #09090B;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+  --cta: #09090B;
+  --cta-text: #FFFFFF;
+  --cta-hover: #27272A;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --max: 1120px;
+  --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: 72px;
+}
+.container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+.section-sm { padding: 64px 0; }
+.section-alt { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section-label {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 16px;
+}
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin-bottom: 20px; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 16px; }
+h3 { font-size: 1.0625rem; margin-bottom: 8px; }
+.lead { font-size: 1.0625rem; color: var(--text-secondary); max-width: 640px; line-height: 1.75; }
+.section-header { margin-bottom: 48px; }
+.section-header .lead { margin-top: 8px; }
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.02em; white-space: nowrap; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta {
+  background: var(--cta); color: var(--cta-text) !important;
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 13px !important; font-weight: 500 !important;
+}
+.nav-cta:hover { background: var(--cta-hover); }
+.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 4px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 24px; border-radius: 10px;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+  transition: all 0.15s; cursor: pointer; border: none; font-family: inherit;
+}
+.btn-primary { background: var(--cta); color: var(--cta-text); }
+.btn-primary:hover { background: var(--cta-hover); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--border-hover); background: rgba(0,0,0,0.03); }
+.btn-lg { padding: 16px 28px; font-size: 16px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; background: var(--cta); color: #fff; padding: 8px 16px; z-index: 200;
+}
+.skip-link:focus { left: 16px; top: 16px; }
+
+/* TL;DR */
+.tldr-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 32px;
+  font-size: 1.0625rem; color: var(--text-secondary); line-height: 1.8;
+}
+.tldr-box strong { color: var(--text); font-weight: 600; }
+
+/* Hero */
+.page-hero { padding: calc(var(--nav-h) + 56px) 0 48px; position: relative; }
+.page-hero-glow {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 720px; height: 420px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-anim {
+  opacity: 0; transform: translateY(28px);
+  animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-anim.d1 { animation-delay: 0.08s; }
+.hero-anim.d2 { animation-delay: 0.18s; }
+.hero-anim.d3 { animation-delay: 0.3s; }
+.hero-anim.d4 { animation-delay: 0.42s; }
+.hero-anim.d5 { animation-delay: 0.54s; }
+.hero-anim.d6 { animation-delay: 0.66s; }
+.hero-anim.d7 { animation-delay: 0.78s; }
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+.breadcrumb {
+  font-size: 13px; color: var(--text-muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+  color: var(--text-muted); margin-bottom: 20px;
+  padding: 6px 14px; border: 1px solid var(--border); border-radius: 100px;
+  text-transform: uppercase;
+}
+.page-hero .lead { margin-bottom: 12px; }
+.hero-question { font-size: 15px; color: var(--text-muted); margin-bottom: 28px; }
+.ai-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.ai-badge {
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  padding: 6px 12px; background: var(--bg-card); border-radius: 100px;
+}
+
+/* Meta */
+.research-meta {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); overflow: hidden;
+}
+.research-meta dl {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+}
+.research-meta dl > div {
+  padding: 16px 18px; border-right: 1px solid var(--border);
+}
+.research-meta dl > div:last-child { border-right: none; }
+.research-meta dt {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+}
+.research-meta dd { font-size: 15px; font-weight: 600; color: var(--text); }
+
+/* Stats */
+.stats-bar {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+}
+.stats-bar > div {
+  text-align: center; padding: 24px 12px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.stats-bar dt {
+  font-size: 12px; color: var(--text-muted); margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.stats-bar dd {
+  font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.stats-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; text-align: center; }
+
+/* Updates timeline */
+.updates-timeline { list-style: none; max-width: 560px; }
+.updates-timeline li {
+  display: grid; grid-template-columns: 88px 1fr; gap: 20px;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.updates-timeline li:last-child { border-bottom: none; }
+.updates-timeline time {
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.updates-timeline li[data-status="planned"] time,
+.updates-timeline li[data-status="planned"] .update-body { color: var(--text-muted); }
+.updates-timeline li[data-status="done"] .update-body { font-weight: 500; color: var(--text); }
+.update-status {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+}
+.update-status.done { background: var(--bg-card); color: var(--text); }
+.update-status.planned { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+
+/* Flow / timeline vertical */
+.flow-list { list-style: none; max-width: 480px; }
+.flow-list li {
+  position: relative; padding: 0 0 28px 28px;
+  border-left: 2px solid var(--border);
+}
+.flow-list li:last-child { padding-bottom: 0; border-left-color: transparent; }
+.flow-list li::before {
+  content: ''; position: absolute; left: -7px; top: 4px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--text); border: 2px solid var(--bg);
+}
+.flow-list li.current::before { box-shadow: 0 0 0 4px rgba(0,0,0,0.08); }
+.flow-list .flow-title { font-weight: 600; margin-bottom: 4px; }
+.flow-list .flow-desc { font-size: 14px; color: var(--text-secondary); }
+
+/* Evolution 3-col */
+.evolution-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.evo-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px 24px;
+}
+.evo-card.highlight { border-color: rgba(0,0,0,0.2); box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+.evo-tag {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+}
+.evo-card.highlight .evo-tag { color: var(--text); }
+.evo-step {
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  font-size: 15px; color: var(--text-secondary);
+}
+.evo-step:last-child { border-bottom: none; }
+.evo-card.highlight .evo-step { color: var(--text); font-weight: 500; }
+.insight {
+  margin-top: 28px; padding: 20px 24px;
+  background: var(--bg-card); border-radius: var(--radius);
+  font-size: 15px; color: var(--text-secondary); line-height: 1.7;
+}
+.insight strong { color: var(--text); }
+
+/* Method flow */
+.method-flow { list-style: none; counter-reset: method; }
+.method-flow li {
+  counter-increment: method;
+  display: grid; grid-template-columns: 48px 1fr; gap: 16px;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.method-flow li:last-child { border-bottom: none; }
+.method-flow li::before {
+  content: counter(method, decimal-leading-zero);
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  padding-top: 2px;
+}
+.method-flow h3 { margin-bottom: 4px; }
+.method-flow p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+/* Principles */
+.principles-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+  margin-bottom: 40px;
+}
+.principle-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+}
+.principle-num {
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+  letter-spacing: 0.06em; margin-bottom: 10px;
+}
+.principle-card h3 { font-size: 1.125rem; margin-bottom: 6px; }
+.principle-en { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+.principle-card p { font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+.definition-block {
+  border-left: 3px solid var(--text);
+  padding: 16px 20px; margin: 24px 0 32px;
+  background: var(--bg-elevated);
+  font-size: 15px; line-height: 1.75; color: var(--text-secondary);
+}
+.definition-block strong { color: var(--text); }
+
+/* Tables */
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  margin: 24px 0;
+}
+.data-table th, .data-table td {
+  text-align: left; padding: 12px 14px;
+  border-bottom: 1px solid var(--border); vertical-align: top;
+}
+.data-table th {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-muted);
+  background: var(--bg-elevated);
+}
+.data-table td { color: var(--text-secondary); }
+.data-table td:first-child { color: var(--text); font-weight: 500; }
+
+/* Intent */
+.intent-flow {
+  display: flex; flex-direction: column; gap: 0;
+  max-width: 520px; margin-bottom: 40px;
+}
+.intent-flow li {
+  list-style: none; display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 8px;
+  font-weight: 600; font-size: 1.0625rem;
+}
+.intent-flow .intent-n {
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  min-width: 28px;
+}
+.intent-cards {
+  display: grid; grid-template-columns: 1fr; gap: 12px;
+}
+.intent-card {
+  padding: 20px 24px; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--bg);
+}
+.intent-card h3 { margin-bottom: 6px; }
+.intent-card p { font-size: 14px; color: var(--text-secondary); margin: 0 0 8px; }
+.intent-card .means { font-size: 13px; color: var(--text-muted); }
+
+/* Quotes */
+.quote-consensus {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 28px 32px; margin-bottom: 24px;
+}
+.quote-consensus p {
+  font-size: 1.0625rem; color: var(--text); margin-bottom: 12px;
+  padding-left: 16px; border-left: 2px solid var(--text);
+}
+.quote-consensus p:last-child { margin-bottom: 0; }
+.quote-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;
+}
+.quote-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; background: var(--bg); margin: 0;
+}
+.quote-card figcaption {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+}
+.quote-card blockquote {
+  font-size: 14px; color: var(--text); line-height: 1.65; margin: 0;
+}
+.quote-note { font-size: 13px; color: var(--text-muted); margin-top: 20px; }
+
+/* Cards 7 */
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px;
+}
+.item-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; background: var(--bg);
+}
+.item-card .tag {
+  display: inline-block; font-size: 11px; color: var(--text-muted);
+  background: var(--bg-elevated); padding: 2px 8px; border-radius: 4px;
+  margin-bottom: 10px;
+}
+.item-card p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+/* Score grades */
+.grade-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+.grade {
+  font-size: 13px; padding: 8px 14px; border-radius: 8px;
+  background: var(--bg-card); color: var(--text-secondary);
+}
+.grade strong { color: var(--text); }
+
+/* Limitations */
+.limitations-box {
+  display: grid; gap: 16px;
+}
+.limit-item {
+  padding: 20px 24px; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--bg);
+}
+.limit-item h3 { margin-bottom: 8px; }
+.limit-item p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+/* Form */
+.form-card {
+  max-width: 520px; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px; background: var(--bg);
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 13px; font-weight: 500;
+  margin-bottom: 6px; color: var(--text);
+}
+.form-group label .req { color: var(--text-muted); font-weight: 400; }
+.form-group input, .form-group select {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 15px; font-family: inherit;
+  background: var(--bg); color: var(--text);
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none; border-color: var(--text-muted);
+}
+.form-note { font-size: 13px; color: var(--text-muted); margin-top: 12px; }
+
+/* Next steps */
+.next-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;
+}
+.next-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; background: var(--bg); text-decoration: none; color: inherit;
+  transition: border-color 0.15s;
+}
+.next-card:hover { border-color: var(--border-hover); }
+.next-card .step-n { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+.next-card h3 { margin-bottom: 6px; }
+.next-card p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+/* FAQ */
+.faq-list { max-width: 720px; }
+.faq-list details {
+  border-bottom: 1px solid var(--border); padding: 18px 0;
+}
+.faq-list summary {
+  font-weight: 600; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; gap: 16px;
+  align-items: flex-start;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: '+'; color: var(--text-muted); font-weight: 400; flex-shrink: 0; }
+.faq-list details[open] summary::after { content: '−'; }
+.faq-list details p {
+  margin-top: 12px; font-size: 15px; color: var(--text-secondary); line-height: 1.7;
+}
+
+/* Glossary */
+.glossary dl { max-width: 720px; }
+.glossary dt { font-weight: 600; margin-top: 20px; margin-bottom: 6px; }
+.glossary dt:first-child { margin-top: 0; }
+.glossary dd { font-size: 15px; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+
+/* Citation */
+.cite-block {
+  background: var(--bg-card); border-radius: var(--radius);
+  padding: 20px 24px; font-size: 14px; line-height: 1.7;
+  overflow-x: auto; white-space: pre-wrap; font-family: inherit;
+  color: var(--text-secondary);
+}
+
+/* Hub */
+.hub-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;
+}
+.hub-item {
+  display: block; padding: 16px 18px; border: 1px solid var(--border);
+  border-radius: var(--radius); text-decoration: none; color: var(--text);
+  font-size: 14px; font-weight: 500; transition: border-color 0.15s;
+}
+.hub-item:hover { border-color: var(--border-hover); }
+.hub-item .hub-status {
+  display: block; font-size: 11px; font-weight: 400;
+  color: var(--text-muted); margin-top: 4px;
+}
+.hub-item.planned { color: var(--text-muted); }
+
+/* Footer research */
+.research-footer {
+  background: var(--bg-elevated); border-top: 1px solid var(--border);
+  padding: 48px 0 32px; margin-top: 0;
+}
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-program { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers {
+  display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px;
+}
+.footer-layers a {
+  font-size: 13px; color: var(--text-secondary); text-decoration: none;
+}
+.footer-layers a:hover { color: var(--text); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+
+.nav.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 0 var(--border); }
+
+/* Animations */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left { transform: translateX(-36px); }
+.reveal-right { transform: translateX(36px); }
+.reveal-scale { transform: scale(0.94); }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+  opacity: 1; transform: none;
+}
+.anim-group .anim-item {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anim-group.visible .anim-item,
+.reveal.visible .anim-group .anim-item { opacity: 1; transform: translateY(0); }
+.anim-group.visible .anim-item:nth-child(1), .reveal.visible .anim-group .anim-item:nth-child(1) { transition-delay: 0.05s; }
+.anim-group.visible .anim-item:nth-child(2), .reveal.visible .anim-group .anim-item:nth-child(2) { transition-delay: 0.12s; }
+.anim-group.visible .anim-item:nth-child(3), .reveal.visible .anim-group .anim-item:nth-child(3) { transition-delay: 0.19s; }
+.anim-group.visible .anim-item:nth-child(4), .reveal.visible .anim-group .anim-item:nth-child(4) { transition-delay: 0.26s; }
+.anim-group.visible .anim-item:nth-child(5), .reveal.visible .anim-group .anim-item:nth-child(5) { transition-delay: 0.33s; }
+.anim-group.visible .anim-item:nth-child(6), .reveal.visible .anim-group .anim-item:nth-child(6) { transition-delay: 0.4s; }
+.anim-group.visible .anim-item:nth-child(7), .reveal.visible .anim-group .anim-item:nth-child(7) { transition-delay: 0.47s; }
+.reveal.visible .section-label, .anim-group.visible .section-label {
+  animation: labelIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes labelIn {
+  from { opacity: 0; letter-spacing: 0.14em; }
+  to { opacity: 1; letter-spacing: 0.06em; }
+}
+
+/* Mobile CTA bar */
+.mobile-cta-bar {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  padding: 12px 16px; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px); border-top: 1px solid var(--border);
+}
+.mobile-cta-bar .btn { width: 100%; }
+
+@media (max-width: 900px) {
+  .research-meta dl { grid-template-columns: 1fr 1fr; }
+  .research-meta dl > div { border-right: none; border-bottom: 1px solid var(--border); }
+  .stats-bar { grid-template-columns: repeat(3, 1fr); }
+  .evolution-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .section { padding: 72px 0; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar > div:last-child { grid-column: span 2; }
+  .updates-timeline li { grid-template-columns: 72px 1fr; gap: 12px; }
+  .mobile-cta-bar { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-anim { opacity: 1; transform: none; animation: none; }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .anim-group .anim-item {
+    opacity: 1; transform: none; transition: none;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Agent Readiness <span>Index™</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="./" class="active">Research</a></li>
+      <li><a href="../evidence/">Evidence</a></li>
+      <li><a href="../methodology.html">Methodology</a></li>
+      <li><a href="../dental.html">Benchmarks</a></li>
+      <li><a href="../report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 00 TL;DR -->
+<aside id="tldr" class="section-sm section-alt" aria-label="TL;DR" style="padding-top: calc(var(--nav-h) + 40px);">
+  <div class="container">
+    <p class="section-label hero-anim d1">TL;DR</p>
+    <div class="tldr-box hero-anim d2">
+      <strong>Agent Readiness（エージェント・レディネス）</strong>とは、企業・ブランド・店舗がAI検索・AIエージェントの時代に、<strong>理解され・比較され・推薦され・実行される</strong>ための準備状況を示す評価概念です。合同会社コア・リテールは、主要AI5社への100問調査に基づき、<strong>Agent Readiness Principles（7原則）</strong>、<strong>DRA三層・100点評価フレームワーク</strong>、評価手法、業界ベンチマークを定義しています。本ページは、その公式リファレンス（Version 1.0）です。
+    </div>
+  </div>
+</aside>
+
+<!-- 01 Hero -->
+<section id="hero" class="page-hero">
+  <div class="page-hero-glow" aria-hidden="true"></div>
+  <div class="container">
+    <nav class="breadcrumb hero-anim d1" aria-label="パンくず">
+      <a href="/">Agent Readiness</a>
+      <span aria-hidden="true">/</span>
+      <span>Research</span>
+    </nav>
+    <p class="hero-eyebrow hero-anim d2">Agent Readiness Research / Version 1.0</p>
+    <h1 class="hero-anim d3">AI時代の企業評価基準を定義する。主要AI5社・100項目の独自調査。</h1>
+    <p class="lead hero-anim d4">ChatGPT、Claude、Gemini、Perplexity、Grok——5つのAIに同じ100問を投げ、Agent Readinessの原則・評価フレーム・手法を統合した。本ページはその一次情報を公開する。</p>
+    <p class="hero-question hero-anim d5">AIが企業を評価する共通基準が見えてきた。</p>
+    <div class="ai-badges hero-anim d6" aria-label="調査対象AI">
+      <span class="ai-badge">ChatGPT</span>
+      <span class="ai-badge">Claude</span>
+      <span class="ai-badge">Gemini</span>
+      <span class="ai-badge">Perplexity</span>
+      <span class="ai-badge">Grok</span>
+    </div>
+    <div class="cta-row hero-anim d7">
+      <a href="#download" class="btn btn-primary btn-lg">ホワイトペーパーを無料ダウンロード</a>
+      <a href="#principles" class="btn btn-secondary btn-lg">Principlesを読む</a>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Meta -->
+<section id="meta" class="section-sm">
+  <div class="container">
+    <aside class="research-meta" aria-label="Research metadata">
+      <dl>
+        <div><dt>Document</dt><dd>Agent Readiness White Paper</dd></div>
+        <div><dt>Version</dt><dd>1.0</dd></div>
+        <div><dt>Research Date</dt><dd>2026-07</dd></div>
+        <div><dt>Last Updated</dt><dd>2026-07-05</dd></div>
+        <div><dt>Next Review</dt><dd>2026-10</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<!-- 03 Stats -->
+<section id="stats" class="section-sm section-alt">
+  <div class="container">
+    <p class="section-label">Research Scale</p>
+    <dl class="stats-bar">
+      <div><dt>調査AI</dt><dd>5</dd></div>
+      <div><dt>質問</dt><dd>100</dd></div>
+      <div><dt>分析項目</dt><dd>500+</dd></div>
+      <div><dt>抽出知見</dt><dd>120+</dd></div>
+      <div><dt>共通項</dt><dd>7</dd></div>
+    </dl>
+    <p class="stats-note">2026年7月時点の独自調査。詳細は <a href="#method" style="color:inherit">研究方法</a> と <a href="#limitations" style="color:inherit">限界</a>。</p>
+  </div>
+</section>
+
+<!-- 04 Research Updates -->
+<section id="updates" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Living Research</p>
+      <h2>Research Updates</h2>
+      <p class="lead">Agent Readinessは、AIの進化とともに更新される評価基準です。本ページは一度きりの公開ではなく、Research Updatesとして継続的に追記します。</p>
+    </div>
+    <ol class="updates-timeline">
+      <li data-status="done">
+        <time datetime="2026-07">2026.07</time>
+        <div class="update-body">Version 1.0 公開（AI5社・100項目・Principles・DRA）<span class="update-status done">公開済</span></div>
+      </li>
+      <li data-status="planned">
+        <time datetime="2026-08">2026.08</time>
+        <div class="update-body">Claude 新モデル対応調査<span class="update-status planned">予定</span></div>
+      </li>
+      <li data-status="planned">
+        <time datetime="2026-09">2026.09</time>
+        <div class="update-body">Google AI Mode 調査追加<span class="update-status planned">予定</span></div>
+      </li>
+      <li data-status="planned">
+        <time datetime="2026-10">2026.10</time>
+        <div class="update-body">AI Commerce 研究追加 / Next Review<span class="update-status planned">予定</span></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 Why -->
+<section id="why" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Why This Research</p>
+      <h2>なぜこの研究を行ったのか</h2>
+      <p class="lead">意思決定の主体が人間からAIへ移っている。「見つかること」と「選ばれること」は別問題だ。施策の羅列ではなく、評価基準の標準化が必要である。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Timeline -->
+<section id="timeline" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Worldview</p>
+      <h2>Agent Readiness Timeline</h2>
+      <p class="lead">Agent Readinessは、GEOの次であり、AI Commerce / AI Decisionの前提条件である。</p>
+    </div>
+    <ol class="flow-list">
+      <li><div class="flow-title">SEO</div><div class="flow-desc">検索結果で見つかる</div></li>
+      <li><div class="flow-title">MEO</div><div class="flow-desc">マップ・ローカルで見つかる</div></li>
+      <li><div class="flow-title">GEO</div><div class="flow-desc">生成AIに引用・言及される</div></li>
+      <li class="current"><div class="flow-title">Agent Readiness</div><div class="flow-desc">理解・比較・推薦・実行まで備える — いまここ</div></li>
+      <li><div class="flow-title">AI Commerce</div><div class="flow-desc">AIが購買・予約を完結する</div></li>
+      <li><div class="flow-title">AI Decision</div><div class="flow-desc">AIが意思決定の主体になる</div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 07 AI Evolution -->
+<section id="evolution" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">AI Evolution</p>
+      <h2>意思決定の主体が移る</h2>
+      <p class="lead">比較・推薦・実行の主体がAIに移るほど、企業は「AIに選ばれる準備」——Agent Readiness——が必要になる。</p>
+    </div>
+    <div class="evolution-grid">
+      <div class="evo-card">
+        <div class="evo-tag">Google時代</div>
+        <div class="evo-step">検索</div>
+        <div class="evo-step">人が比較</div>
+        <div class="evo-step">購入</div>
+      </div>
+      <div class="evo-card">
+        <div class="evo-tag">AI Search</div>
+        <div class="evo-step">相談</div>
+        <div class="evo-step">AI比較</div>
+        <div class="evo-step">人が決定</div>
+      </div>
+      <div class="evo-card highlight">
+        <div class="evo-tag">Agent</div>
+        <div class="evo-step">相談</div>
+        <div class="evo-step">AI推薦</div>
+        <div class="evo-step">予約</div>
+        <div class="evo-step">決済</div>
+        <div class="evo-step">実行</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Method -->
+<section id="method" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Methodology</p>
+      <h2>研究方法</h2>
+      <p class="lead">100問を設計し、AI5社に投入。回答を比較分析したうえで、7専門家が統合レビューし、ARIを構築した。</p>
+    </div>
+    <ol class="method-flow">
+      <li><div><h3>100問設計</h3><p>Agent Readinessの評価項目をAI自身に語らせる設問を設計</p></div></li>
+      <li><div><h3>AI5社へ投入</h3><p>ChatGPT / Claude / Gemini / Perplexity / Grok</p></div></li>
+      <li><div><h3>回答取得</h3><p>5社 × 100問 = 500回答</p></div></li>
+      <li><div><h3>比較分析</h3><p>一致・差異・矛盾・優先順位を横断整理</p></div></li>
+      <li><div><h3>専門家レビュー</h3><p>7専門家統合レビュー（AIリサーチャー / ARI研究者 / 編集長 / データアナリスト / 批判的レビュアー / 戦略コンサルタント / ARI設計責任者）</p></div></li>
+      <li><div><h3>ARI構築</h3><p>DRA三層・100点モデル・7共通項・Principlesを統合</p></div></li>
+    </ol>
+    <table class="data-table">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>対象AI</td><td>ChatGPT / Claude / Gemini / Perplexity / Grok</td></tr>
+        <tr><td>手法</td><td>Agent Readinessの評価項目をAI自身に語らせる（100問）</td></tr>
+        <tr><td>実施</td><td>合同会社コア・リテール / GEO Search Protocol</td></tr>
+        <tr><td>時点</td><td>2026年7月</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 09 Principles -->
+<section id="principles" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Principles</p>
+      <h2>Agent Readiness Principles</h2>
+      <p class="lead">Agent Readinessは、施策のチェックリストではない。AI時代に企業が満たすべき7つの原則である。FAQ、Schema、料金公開、一次情報、更新日、導入事例は、すべてこの原則を満たすための実装手段である。</p>
+    </div>
+    <blockquote class="definition-block" id="principles-definition">
+      <strong>Agent Readiness Principles（エージェント・レディネス原則）</strong>とは、AI検索・AIエージェントの時代に、企業がAIから理解・比較・検証・信頼・推薦・実行・継続学習されるために満たすべき7つの原理である。個別の施策は、原則を満たすための実装手段として位置づける。
+    </blockquote>
+    <div class="principles-grid">
+      <article class="principle-card"><div class="principle-num">01</div><h3>AIが理解できる</h3><p class="principle-en">Understandable</p><p>何の会社で、誰向けで、何を提供するかが一意に分かること</p></article>
+      <article class="principle-card"><div class="principle-num">02</div><h3>AIが比較できる</h3><p class="principle-en">Comparable</p><p>他社と並べたとき、差分が構造的に取れること</p></article>
+      <article class="principle-card"><div class="principle-num">03</div><h3>AIが検証できる</h3><p class="principle-en">Verifiable</p><p>主張が数値・出典・更新日で裏付けられること</p></article>
+      <article class="principle-card"><div class="principle-num">04</div><h3>AIが信頼できる</h3><p class="principle-en">Trustworthy</p><p>誠実さ・専門性・一貫性があり、推薦してよいと判断できること</p></article>
+      <article class="principle-card"><div class="principle-num">05</div><h3>AIが推薦できる</h3><p class="principle-en">Recommendable</p><p>ユーザーの問いに対し、理由付きで候補に入れられること</p></article>
+      <article class="principle-card"><div class="principle-num">06</div><h3>AIが実行できる</h3><p class="principle-en">Actionable</p><p>推薦の先で予約・購入・問い合わせを完結できること</p></article>
+      <article class="principle-card"><div class="principle-num">07</div><h3>AIが継続的に学習できる</h3><p class="principle-en">Learnable</p><p>情報が更新され、変化が機械可読に反映され続けること</p></article>
+    </div>
+    <h3 style="margin-bottom:16px">原則 → 実装手段</h3>
+    <table class="data-table">
+      <thead><tr><th>原則</th><th>実装手段の例</th></tr></thead>
+      <tbody>
+        <tr><td>AIが理解できる</td><td>Schema.org / 定義の明記 / NAP一貫性 / FAQ / llms.txt</td></tr>
+        <tr><td>AIが比較できる</td><td>比較表 / 料金・条件 / 対象者の明示</td></tr>
+        <tr><td>AIが検証できる</td><td>数値実績 / 出典 / 更新日 / 一次情報</td></tr>
+        <tr><td>AIが信頼できる</td><td>E-E-A-T / 弱み開示 / 代表者情報 / メディア掲載</td></tr>
+        <tr><td>AIが推薦できる</td><td>質問への対応力 / 推薦理由の言語化材料 / FAQ充実</td></tr>
+        <tr><td>AIが実行できる</td><td>Web予約 / API / MCP / フォーム最適化</td></tr>
+        <tr><td>AIが継続的に学習できる</td><td>更新頻度 / 変更履歴 / リアルタイムデータ連携</td></tr>
+      </tbody>
+    </table>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary">詳細を資料で読む</a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 Intent -->
+<section id="intent" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">AI Intent</p>
+      <h2>AIは何をしたいのか？</h2>
+      <p class="lead">原則は「企業が満たすべき状態」。意図は「AIが実際にたどる判断の順序」。両方を揃えることで、施策の優先順位が決まる。</p>
+    </div>
+    <ol class="intent-flow">
+      <li><span class="intent-n">01</span>正しく理解したい</li>
+      <li><span class="intent-n">02</span>比較したい</li>
+      <li><span class="intent-n">03</span>自信を持ちたい</li>
+      <li><span class="intent-n">04</span>推薦したい</li>
+      <li><span class="intent-n">05</span>最後まで実行したい</li>
+    </ol>
+    <div class="intent-cards">
+      <div class="intent-card"><h3>01 正しく理解したい</h3><p>何の会社で、誰向けで、何を提供するかが一意に分かること</p><p class="means">手段: Schema.org / 定義 / NAP / FAQ</p></div>
+      <div class="intent-card"><h3>02 比較したい</h3><p>他社と並べたとき、差分が構造的に取れること</p><p class="means">手段: 比較表 / 料金・条件 / 対象者</p></div>
+      <div class="intent-card"><h3>03 自信を持ちたい</h3><p>推薦してよい根拠（証拠・鮮度・誠実さ）があること</p><p class="means">手段: 数値実績 / 更新日 / E-E-A-T / 弱み開示</p></div>
+      <div class="intent-card"><h3>04 推薦したい</h3><p>ユーザーの問いに対し、理由付きで候補に入れられること</p><p class="means">手段: 質問への対応力 / 推薦理由の言語化材料</p></div>
+      <div class="intent-card"><h3>05 最後まで実行したい</h3><p>推薦の先で予約・購入・問い合わせを完結できること</p><p class="means">手段: Web予約 / API / MCP / フォーム</p></div>
+    </div>
+    <div class="insight">
+      <strong>Schemaも、FAQも、料金の公開も、目的ではない。</strong>AIが「理解し、比較し、自信を持ち、推薦し、実行する」ために必要な材料である。Agent Readinessは、この5段階を企業がどこまで満たしているかを測る。
+    </div>
+  </div>
+</section>
+
+<!-- 11 Quotes -->
+<section id="quotes" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Primary Data</p>
+      <h2>AIの共通回答</h2>
+      <p class="lead">100問調査における各AIの回答から抽出した代表的見解。</p>
+    </div>
+    <div class="quote-consensus">
+      <p>「料金が不明瞭な企業は、推薦候補から外れる」</p>
+      <p>「比較できる形の情報がある企業ほど、判断しやすい」</p>
+      <p>「FAQは、AIが最も参照しやすい形式である」</p>
+    </div>
+    <div class="quote-grid">
+      <figure class="quote-card"><figcaption>ChatGPT</figcaption><blockquote>「推薦できるかどうかは、推薦理由を説明できるかにかかっている」</blockquote></figure>
+      <figure class="quote-card"><figcaption>Claude</figcaption><blockquote>「見つかるだけでは足りない。推薦の先の実行まで含めて評価する」</blockquote></figure>
+      <figure class="quote-card"><figcaption>Gemini</figcaption><blockquote>「人間向けの説得から、機械向けの説明へ」</blockquote></figure>
+      <figure class="quote-card"><figcaption>Perplexity</figcaption><blockquote>「情報が曖昧な企業は、ここでスコアを落とす」</blockquote></figure>
+      <figure class="quote-card"><figcaption>Grok</figcaption><blockquote>「料金と契約条件の透明化が、最初に手をつけるべき改善である」</blockquote></figure>
+    </div>
+    <p class="quote-note">引用は、2026年7月実施の100問調査における各AIの回答を、合同会社コア・リテールが要約・抽出したものです。モデル更新により表現は変わり得ます。根拠の詳細は <a href="/evidence/">Evidence Library</a>。</p>
+  </div>
+</section>
+
+<!-- 12 Consensus -->
+<section id="consensus" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Consensus</p>
+      <h2>原則を満たすために、AI5社が一致した7項目</h2>
+      <p class="lead">5社完全一致（100%）の評価項目。いずれもPrinciplesを満たす実装手段である。</p>
+    </div>
+    <div class="card-grid">
+      <article class="item-card"><span class="tag">理解できる</span><h3>Schema.org実装</h3><p>構造化データはAI理解の大前提。全社が必須扱い</p></article>
+      <article class="item-card"><span class="tag">比較・検証</span><h3>料金・条件の透明性</h3><p>不明瞭な料金＝推薦候補から自動除外</p></article>
+      <article class="item-card"><span class="tag">理解・推薦</span><h3>FAQ充実</h3><p>AIが最も参照しやすい形式。質問と回答の直接対応</p></article>
+      <article class="item-card"><span class="tag">検証できる</span><h3>数値化された実績</h3><p>導入社数・ROIなど具体数値が不可欠</p></article>
+      <article class="item-card"><span class="tag">継続学習</span><h3>情報の更新頻度</h3><p>古い情報は信頼性を損なう。更新日の表示も必須</p></article>
+      <article class="item-card"><span class="tag">比較できる</span><h3>比較可能性</h3><p>比較表・強み・弱みの明示がAIの判断効率を上げる</p></article>
+      <article class="item-card"><span class="tag">信頼・推薦</span><h3>E-E-A-T充足</h3><p>経験・専門性・権威・信頼の4軸は全社共通</p></article>
+    </div>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary">7項目の全文をダウンロード</a>
+    </div>
+  </div>
+</section>
+
+<!-- 13 Definition -->
+<section id="definition" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Definition</p>
+      <h2>Agent Readinessとは</h2>
+    </div>
+    <blockquote class="definition-block" id="agent-readiness-definition">
+      <strong>Agent Readiness（エージェント・レディネス）</strong>とは、企業・ブランド・店舗・サービスが、AI検索・AIエージェント・AIレコメンドの時代に、比較され・推薦され・選択・実行されるための準備状況を示す評価概念である。<strong>Agent Readiness Index™（ARI）</strong>は、その準備状況をDiscovery / Recommendation / Actionの3軸で測る評価フレームワークである。
+    </blockquote>
+    <table class="data-table">
+      <thead><tr><th>概念</th><th>最適化対象</th><th>到達点</th></tr></thead>
+      <tbody>
+        <tr><td>SEO</td><td>人間の検索結果での表示</td><td>見つかる</td></tr>
+        <tr><td>GEO</td><td>生成AIでの引用・推薦</td><td>言及される</td></tr>
+        <tr><td>ARI</td><td>理解・比較・推薦・実行まで</td><td>選ばれ、完了する</td></tr>
+      </tbody>
+    </table>
+    <p class="lead" style="margin-top:24px">SEO・MEO・GEOは「見つかる・言及される」までの最適化である。Agent Readinessは、Principlesに基づき、実行と継続学習まで含む。</p>
+  </div>
+</section>
+
+<!-- 14 DRA -->
+<section id="dra" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Framework</p>
+      <h2>DRAモデル</h2>
+      <p class="lead">Discovery / Recommendation / Action の三層で Agent Readiness を測る。</p>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>層</th><th>配点</th><th>問い</th><th>AIの意図</th></tr></thead>
+      <tbody>
+        <tr><td>Discovery</td><td>30点</td><td>AIはあなたのビジネスを正確に認識できるか</td><td>理解したい</td></tr>
+        <tr><td>Recommendation</td><td>35点</td><td>競合比較で候補に入れる根拠があるか</td><td>比較 / 自信 / 推薦</td></tr>
+        <tr><td>Action</td><td>35点</td><td>推薦の先で予約・購入・問い合わせを完結できるか</td><td>実行したい</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:16px"><a href="/methodology.html" style="color:var(--text-secondary)">評価方法論の詳細 →</a></p>
+  </div>
+</section>
+
+<!-- 15 Score -->
+<section id="score" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">100-Point Model</p>
+      <h2>AIに選ばれる企業とは</h2>
+      <p class="lead">10カテゴリ・100点満点。自社は何点か。</p>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>層</th><th>項目</th><th>配点</th></tr></thead>
+      <tbody>
+        <tr><td>D</td><td>FAQ・Q&Aの充実度</td><td>/10</td></tr>
+        <tr><td>D</td><td>Schema.org実装完成度</td><td>/10</td></tr>
+        <tr><td>D</td><td>クエリ×コンテンツ一致度</td><td>/10</td></tr>
+        <tr><td>R</td><td>料金・条件の完全透明性</td><td>/10</td></tr>
+        <tr><td>R</td><td>実績・証拠の定量化</td><td>/10</td></tr>
+        <tr><td>R</td><td>E-E-A-T対応</td><td>/10</td></tr>
+        <tr><td>R</td><td>比較・適合性情報</td><td>/5</td></tr>
+        <tr><td>A</td><td>予約・購買の機械化対応</td><td>/15</td></tr>
+        <tr><td>A</td><td>MCP/外部エージェント連携</td><td>/10</td></tr>
+        <tr><td>A</td><td>プラットフォーム整合性</td><td>/10</td></tr>
+      </tbody>
+    </table>
+    <div class="grade-row">
+      <span class="grade"><strong>S</strong> 90–100</span>
+      <span class="grade"><strong>A</strong> 75–89</span>
+      <span class="grade"><strong>B</strong> 60–74</span>
+      <span class="grade"><strong>C</strong> 45–59</span>
+      <span class="grade"><strong>D</strong> ≤44</span>
+    </div>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary">100点モデルの全文をダウンロード</a>
+      <a href="/report/" class="btn btn-secondary">自社スコアを約3分で診断</a>
+    </div>
+  </div>
+</section>
+
+<!-- 16 Evidence -->
+<section id="evidence" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Evidence</p>
+      <h2>根拠はこちら</h2>
+      <p class="lead">本リファレンスの主張は、AI回答・調査データ・実験・検証結果に基づきます。根拠の詳細は Evidence Library に集約しています。</p>
+    </div>
+    <div class="card-grid">
+      <article class="item-card"><h3>AI回答</h3><p>5社への100問回答の要約・代表引用</p></article>
+      <article class="item-card"><h3>調査データ</h3><p>一致率・差異表・配点比較</p></article>
+      <article class="item-card"><h3>実験</h3><p>介入前後の測定（今後追加）</p></article>
+      <article class="item-card"><h3>検証結果</h3><p>因果検証（今後追加）</p></article>
+      <article class="item-card"><h3>引用元</h3><p>外部ソース・一次資料</p></article>
+      <article class="item-card"><h3>更新履歴</h3><p>Research Updates と同期</p></article>
+    </div>
+    <div class="cta-row">
+      <a href="/evidence/" class="btn btn-secondary">Evidence Library を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- 17 Limitations -->
+<section id="limitations" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Limitations</p>
+      <h2>この研究の限界</h2>
+    </div>
+    <div class="limitations-box">
+      <div class="limit-item">
+        <h3>時点の限界</h3>
+        <p>今回の調査は、2026年7月時点の主要AI5社（ChatGPT / Claude / Gemini / Perplexity / Grok）を対象にしています。AIモデルの更新に伴い、評価基準や優先順位は変化する可能性があります。</p>
+      </div>
+      <div class="limit-item">
+        <h3>因果の限界</h3>
+        <p>本調査は「AIが自ら語った評価基準」の統合であり、各基準が実際の推薦率に与える因果関係（例：Schema実装が推薦率を何%上げるか）は、現時点では未検証です。因果の検証は今後の研究課題として継続します。</p>
+      </div>
+      <div class="limit-item">
+        <h3>継続方針</h3>
+        <p>Agent Readiness Index（ARI）は一度きりの指標ではなく、継続的に研究・更新を行う評価フレームワークです。次回レビュー予定: 2026-10。実施履歴は <a href="#updates" style="color:inherit">Research Updates</a> に追記します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 Findings -->
+<section id="findings" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">White Paper</p>
+      <h2>この資料で分かること</h2>
+    </div>
+    <ul style="max-width:560px;padding-left:1.25em;color:var(--text-secondary);line-height:2">
+      <li>AI5社それぞれの思想の核</li>
+      <li>AIの意図5段階と、それに対応する評価項目</li>
+      <li>5社完全一致の7評価項目</li>
+      <li>SEO / GEO / ARI の定義比較</li>
+      <li>DRA三層・100点モデルの詳細配点</li>
+      <li>優先改善TOP5のAI間比較</li>
+      <li>今後検証すべき仮説と研究ロードマップ</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 19 TOC -->
+<section id="toc" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Contents</p>
+      <h2>ホワイトペーパー目次</h2>
+    </div>
+    <ol style="max-width:480px;padding-left:1.25em;color:var(--text-secondary);line-height:2.1">
+      <li>調査概要と研究方法</li>
+      <li>AI5社の思想の核</li>
+      <li>5社完全一致の7項目</li>
+      <li>Agent Readiness Principles</li>
+      <li>DRA三層・100点モデル</li>
+      <li>SEO / GEO / ARI 定義比較</li>
+      <li>優先改善とロードマップ</li>
+      <li>研究の限界と今後の検証</li>
+    </ol>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary">目次どおりの資料を受け取る</a>
+    </div>
+  </div>
+</section>
+
+<!-- 20 Roadmap -->
+<section id="roadmap" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Roadmap</p>
+      <h2>今後の研究予定</h2>
+      <p class="lead">PrinciplesとFrameworkは維持しつつ、MethodologyとBenchmarkを更新します。実施履歴は Research Updates を参照。</p>
+    </div>
+    <ul style="max-width:560px;padding-left:1.25em;color:var(--text-secondary);line-height:2">
+      <li>Schema実装→AI推薦率の因果検証</li>
+      <li>llms.txtの効果測定</li>
+      <li>弱み開示実験</li>
+      <li>業界別ベンチマーク（Dental公開済、病院・採用・EC・SaaS・士業を予定）</li>
+      <li>Negotiation Readiness（2028予測）</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 21 Download -->
+<section id="download" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Download</p>
+      <h2>ホワイトペーパーを無料ダウンロード</h2>
+      <p class="lead">Agent Readiness Research Version 1.0。本資料は無料です。</p>
+    </div>
+    <form class="form-card" id="wp-form" action="/research/thanks.html" method="get">
+      <div class="form-group">
+        <label for="company">会社名 <span class="req">必須</span></label>
+        <input type="text" id="company" name="company" required autocomplete="organization">
+      </div>
+      <div class="form-group">
+        <label for="name">氏名 <span class="req">必須</span></label>
+        <input type="text" id="name" name="name" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="email">メール <span class="req">必須</span></label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="role">役職</label>
+        <input type="text" id="role" name="role" autocomplete="organization-title">
+      </div>
+      <div class="form-group">
+        <label for="topic">関心のある課題</label>
+        <select id="topic" name="topic">
+          <option value="">選択してください</option>
+          <option value="ai-recommend">AI推薦・可視性</option>
+          <option value="diagnosis">自社診断</option>
+          <option value="recruiting">採用</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%">ダウンロードする</button>
+      <p class="form-note">送信後、次のステップ（診断・改善）をご案内します。PDFは準備次第、メールでもお送りします。</p>
+    </form>
+  </div>
+</section>
+
+<!-- 22 Next -->
+<section id="next" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Next Steps</p>
+      <h2>ダウンロード後の次のステップ</h2>
+    </div>
+    <div class="next-grid">
+      <a class="next-card" href="/report/">
+        <div class="step-n">01</div>
+        <h3>ARI Diagnosis</h3>
+        <p>公式サイトURLを入力。約3分でスコアと改善提案。</p>
+      </a>
+      <a class="next-card" href="/methodology.html">
+        <div class="step-n">02</div>
+        <h3>Methodology</h3>
+        <p>評価方法論の詳細を読む。</p>
+      </a>
+      <a class="next-card" href="/improve.html">
+        <div class="step-n">03</div>
+        <h3>改善提案</h3>
+        <p>診断後の伴走プログラム。</p>
+      </a>
+      <a class="next-card" href="https://www.coaretail.com/geo_schedule" target="_blank" rel="noopener">
+        <div class="step-n">04</div>
+        <h3>無料相談</h3>
+        <p>30分のコンサルティング予約。</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 23 FAQ -->
+<section id="faq" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">FAQ</p>
+      <h2>よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <details><summary>Agent Readinessとは何ですか？</summary><p>Agent Readiness（エージェント・レディネス）とは、企業・ブランド・店舗・サービスが、AI検索・AIエージェント・AIレコメンドの時代に、比較され・推薦され・選択・実行されるための準備状況を示す評価概念です。</p></details>
+      <details><summary>GEOとAgent Readiness（ARI）の違いは何ですか？</summary><p>GEOは生成AIでの引用・推薦を最適化する手法です。Agent ReadinessはSEOとGEOを包含し、理解・比較・推薦に加え、予約・購入・問い合わせなどの実行まで含む上位概念です。</p></details>
+      <details><summary>SEOはもう不要ですか？</summary><p>不要ではありません。SEOはDiscovery層の一部として残ります。ただしSEOだけでは、AIが比較・推薦・実行する段階での脱落を防げません。</p></details>
+      <details><summary>Agent Readiness Principlesとは何ですか？</summary><p>AI時代に企業が満たすべき7つの原理です。AIが理解できる、比較できる、検証できる、信頼できる、推薦できる、実行できる、継続的に学習できる——の7つです。FAQやSchemaなどの施策は、原則を満たすための実装手段です。</p></details>
+      <details><summary>この研究はどのように行われましたか？</summary><p>100問を設計し、ChatGPT、Claude、Gemini、Perplexity、Grokの5社に投入。500件超の回答を比較分析したうえで、7専門家が統合レビューし、DRA三層・100点モデルと7共通項を構築しました。</p></details>
+      <details><summary>AIは何をしたいのですか？</summary><p>調査から見えたのは、AIが企業を選ぶ前に「正しく理解したい → 比較したい → 自信を持ちたい → 推薦したい → 最後まで実行したい」という5段階の意図を持っていることです。</p></details>
+      <details><summary>AI5社が完全に一致した評価項目は何ですか？</summary><p>Schema.org実装、料金・条件の透明性、FAQ充実、数値化された実績、情報の更新頻度、比較可能性、E-E-A-T充足の7項目です。</p></details>
+      <details><summary>DRAモデルとは何ですか？</summary><p>Discovery（発見・30点）、Recommendation（推薦・35点）、Action（実行・35点）の三層でAgent Readinessを測る評価モデルです。</p></details>
+      <details><summary>この研究の限界は何ですか？</summary><p>2026年7月時点の主要AI5社が対象であり、モデル更新により評価基準は変化し得ます。また「AIが重視すると答えた項目」と「実際の推薦率への因果」は未検証です。ARIは継続的に研究・更新します。</p></details>
+      <details><summary>Research Updatesとは何ですか？</summary><p>Agent ReadinessはAIの進化とともに更新される評価基準です。Research Updatesは、Version公開・モデル対応・新規調査の追加履歴を時系列で公開する欄です。</p></details>
+      <details><summary>Evidence Libraryとは何ですか？</summary><p>AI回答、調査データ、実験、検証結果、引用元、更新履歴を集約した根拠ページです。リファレンス上の主張の根拠は Evidence Library にあります。</p></details>
+      <details><summary>調査結果は引用できますか？</summary><p>可能です。引用時は「Agent Readiness Research」「Coa Retail」および引用URL（https://readiness.coaretail.com/research/）を記載してください。Version番号の併記を推奨します。詳細は Citation Policy を参照してください。</p></details>
+      <details><summary>診断は無料ですか？</summary><p>Agent Readiness Assessment（診断レポート）は公式サイトURLの入力で利用できます。所要時間は約3分です。</p></details>
+      <details><summary>Versionはどのように更新されますか？</summary><p>本リファレンスはVersion番号、Research Date、Last Updated、Next Reviewを公開しています。原則や評価フレームの変更はメジャーバージョンアップとして管理します。次回レビューは2026年10月を予定しています。</p></details>
+    </div>
+    <div class="cta-row">
+      <a href="#download" class="btn btn-primary">資料をダウンロード</a>
+    </div>
+  </div>
+</section>
+
+<!-- 24 Glossary -->
+<section id="glossary" class="section glossary">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Glossary</p>
+      <h2>用語集</h2>
+    </div>
+    <dl>
+      <dt>Agent Readiness</dt>
+      <dd>企業・ブランド・店舗・サービスが、AI検索・AIエージェントの時代に、比較され・推薦され・選択・実行されるための準備状況を示す評価概念。</dd>
+      <dt>Agent Readiness Principles</dt>
+      <dd>AI時代に企業が満たすべき7つの原理。施策はその実装手段。</dd>
+      <dt>GEO</dt>
+      <dd>Generative Engine Optimization。生成AIでの引用・推薦を最適化する手法。</dd>
+      <dt>DRA</dt>
+      <dd>Discovery / Recommendation / Action。Agent Readinessを測る三層モデル。</dd>
+      <dt>ARI</dt>
+      <dd>Agent Readiness Index™。準備状況をスコア化する評価フレームワーク。</dd>
+      <dt>Evidence Library</dt>
+      <dd>研究の根拠（AI回答・調査データ・実験・検証結果等）を集約したページ。</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- 25 Citation -->
+<section id="citation" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Citation Policy</p>
+      <h2>引用について</h2>
+      <p class="lead">この研究は引用可能です。引用時は以下を記載してください。</p>
+    </div>
+    <ul style="margin-bottom:24px;padding-left:1.25em;color:var(--text-secondary);line-height:2">
+      <li><strong style="color:var(--text)">Agent Readiness Research</strong></li>
+      <li><strong style="color:var(--text)">Coa Retail</strong>（合同会社コア・リテール）</li>
+      <li>引用URL: <a href="https://readiness.coaretail.com/research/">https://readiness.coaretail.com/research/</a></li>
+    </ul>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px">Version番号の記載を推奨します。</p>
+    <pre class="cite-block">合同会社コア・リテール（2026）. Agent Readiness Research, Version 1.0.
+https://readiness.coaretail.com/research/
+
+Coa Retail (2026). Agent Readiness Research, Version 1.0.
+https://readiness.coaretail.com/research/</pre>
+  </div>
+</section>
+
+<!-- 26 Hub -->
+<section id="hub" class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Research Hub</p>
+      <h2>Agent Readiness Hub</h2>
+      <p class="lead">評価体系を構成するエンティティ。今後、業界版・実験・事例をここに蓄積します。</p>
+    </div>
+    <div class="hub-grid">
+      <a class="hub-item" href="/">Agent Readiness<span class="hub-status">概念トップ</span></a>
+      <a class="hub-item" href="/research/">Research<span class="hub-status">本ページ</span></a>
+      <a class="hub-item" href="#principles">Principles<span class="hub-status">7原則</span></a>
+      <a class="hub-item" href="#download">White Paper<span class="hub-status">無料DL</span></a>
+      <a class="hub-item" href="/methodology.html">Methodology<span class="hub-status">評価手法</span></a>
+      <a class="hub-item" href="/evidence/">Evidence<span class="hub-status">根拠ライブラリ</span></a>
+      <a class="hub-item" href="#updates">Updates<span class="hub-status">更新履歴</span></a>
+      <a class="hub-item" href="/dental.html">Benchmarks<span class="hub-status">Dental調査</span></a>
+      <a class="hub-item" href="/report/">ARI Diagnosis<span class="hub-status">約3分診断</span></a>
+      <a class="hub-item" href="/improve.html">Improve<span class="hub-status">改善プログラム</span></a>
+      <a class="hub-item" href="#faq">FAQ<span class="hub-status">よくある質問</span></a>
+      <span class="hub-item planned">Experiments<span class="hub-status">予定</span></span>
+      <span class="hub-item planned">News<span class="hub-status">予定</span></span>
+      <span class="hub-item planned">Cases<span class="hub-status">予定</span></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Index™</p>
+    <p class="footer-org">Research Program · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-05 · Next Review 2026-10</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="../index.html">トップ</a>
+      <a href="./">Research</a>
+      <a href="../evidence/">Evidence</a>
+      <a href="../methodology.html">Methodology</a>
+      <a href="../dental.html">Benchmarks</a>
+      <a href="../improve.html">Improve</a>
+      <a href="../report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="#principles">Principles</a>
+      <a href="#dra">Framework</a>
+      <a href="#updates">Updates</a>
+      <a href="#citation">Citation Policy</a>
+      <a href="#download">White Paper</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a>（Coa Retail）</p>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar">
+  <a href="#download" class="btn btn-primary">資料をダウンロード</a>
+</div>
+
+<script>
+(function () {
+  const gridPairs = [
+    ['.stats-bar', '> div'],
+    ['.flow-list', '> li'],
+    ['.evolution-grid', '> .evo-card'],
+    ['.method-flow', '> li'],
+    ['.updates-timeline', '> li'],
+    ['.principles-grid', '> .principle-card'],
+    ['.intent-flow', '> li'],
+    ['.intent-cards', '> .intent-card'],
+    ['.quote-grid', '> .quote-card'],
+    ['.card-grid', '> .item-card'],
+    ['.next-grid', '> .next-card'],
+    ['.hub-grid', '> *']
+  ];
+  gridPairs.forEach(([gridSel, childSel]) => {
+    document.querySelectorAll(gridSel).forEach(grid => {
+      grid.classList.add('anim-group', 'reveal');
+      grid.querySelectorAll(childSel).forEach(child => child.classList.add('anim-item'));
+    });
+  });
+  document.querySelectorAll('.section-header, .research-meta, .definition-block, .quote-consensus, .insight, .cite-block, .form-card, .faq-list, .glossary, .data-table, .stats-note').forEach(el => {
+    el.classList.add('reveal');
+  });
+
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      animObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+  document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
+
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    }, { passive: true });
+  }
+})();
+</script>
+
+</body>
+</html>
