@@ -1806,7 +1806,7 @@ function ReportPage({ report, form }) {
               改善プログラムを見る →
             </a>
             <a
-              href="https://www.coaretail.com/geo_schedule"
+              href="https://www.coaretail.com/readiness/mtgschedule"
               target="_blank"
               rel="noopener noreferrer"
               style={{

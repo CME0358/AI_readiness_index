@@ -77,7 +77,7 @@ CTA                「自社は何点だろう」
        ↓
      改善提案（/improve.html）
        ↓
-     コンサル（geo_schedule）
+     コンサル（readiness/mtgschedule）
 ```
 
 **半年後の蓄積イメージ（すべてHubへ）**
@@ -625,7 +625,7 @@ Roadmap冒頭:
 1. White Paper DL（本ページ）
 2. ARI Diagnosis — `/report/`（約3分）
 3. 改善提案 — `/improve.html`
-4. コンサル（無料相談30分）— `https://www.coaretail.com/geo_schedule`
+4. コンサル（無料相談30分）— `https://www.coaretail.com/readiness/mtgschedule`
 
 ---
 
@@ -699,7 +699,7 @@ readiness.coaretail.com
          ↓
     Improve（/improve.html）
          ↓
-    Consulting（geo_schedule）
+    Consulting（readiness/mtgschedule）
 ```
 
 | エンティティ | URL（v1.0） | 状態 |
