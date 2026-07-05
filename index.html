@@ -35,8 +35,8 @@
     },
     {
       "@type": "DefinedTermSet",
-      "@id": "https://readiness.coaretail.com/#framework",
-      "name": "Agent Readiness Evaluation Framework",
+      "@id": "https://readiness.coaretail.com/framework/#framework",
+      "name": "Agent Readiness Framework",
       "hasDefinedTerm": [
         { "@type": "DefinedTerm", "name": "Discovery Readiness", "description": "AIに理解・発見される力" },
         { "@type": "DefinedTerm", "name": "Recommendation Readiness", "description": "AIに比較・推薦される力" },
@@ -401,6 +401,23 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 
 /* ── Research ── */
 .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.hub-item {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 22px 20px; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  background: var(--bg); text-decoration: none; color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.hub-item:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+.hub-item.featured { border-color: var(--text); background: var(--bg-card); }
+.hub-status { font-size: 12px; color: var(--text-muted); }
+.funnel-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.funnel-chip {
+  padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 14px; text-decoration: none; color: inherit; background: var(--bg);
+}
+.funnel-chip strong { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+.funnel-arrow { color: var(--text-muted); }
 .research-card {
   padding: 32px 28px; border-radius: var(--radius-lg);
   background: var(--bg-card); border: 1px solid var(--border);
@@ -661,6 +678,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .timeline { grid-template-columns: 1fr 1fr; }
   .forces, .steps, .pillars { grid-template-columns: 1fr 1fr; }
   .research-grid { grid-template-columns: 1fr; }
+  .hub-grid { grid-template-columns: 1fr 1fr; }
   .research-stats { grid-template-columns: 1fr 1fr; }
   .manifesto-principles { grid-template-columns: 1fr; }
   .industries { grid-template-columns: repeat(3, 1fr); }
@@ -702,12 +720,11 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
       <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <ul class="nav-links">
-      <li><a href="#concept">概念</a></li>
-      <li><a href="#why-now">なぜ今</a></li>
+      <li><a href="framework/">Framework</a></li>
       <li><a href="research/">Research</a></li>
+      <li><a href="reports/">Reports</a></li>
       <li><a href="evidence/">Evidence</a></li>
       <li><a href="methodology.html">Methodology</a></li>
-      <li><a href="dental.html">Benchmarks</a></li>
       <li><a href="report/" class="nav-cta">診断レポート</a></li>
     </ul>
   </div>
@@ -941,7 +958,14 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
     <div class="section-header reveal">
       <div class="section-label">Agent Readiness Index™</div>
       <h2>3軸で測る、選ばれる準備</h2>
-      <p class="lead">Agent Readiness Index™は、企業・ブランドのAI時代における競争力を、3つの独立した軸で評価するフレームワークです。</p>
+      <p class="lead"><a href="framework/" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Agent Readiness Framework</a>に基づき、企業のAI時代における競争力を診断指標として数値化します。</p>
+      <div class="funnel-row reveal">
+        <a class="funnel-chip" href="framework/"><strong>Framework</strong>評価基準</a>
+        <span class="funnel-arrow" aria-hidden="true">→</span>
+        <a class="funnel-chip" href="report/"><strong>Index</strong>診断指標</a>
+        <span class="funnel-arrow" aria-hidden="true">→</span>
+        <a class="funnel-chip" href="improve.html"><strong>Improve</strong>改善提案</a>
+      </div>
     </div>
 
     <div class="pillars anim-group reveal">
@@ -984,13 +1008,52 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
     </div>
 
     <div class="index-link reveal">
-      <a href="methodology.html">評価方法論の詳細を見る →</a>
+      <a href="framework/">Agent Readiness Frameworkを見る →</a>
+      <span style="margin:0 12px;color:var(--text-muted);">|</span>
+      <a href="methodology.html">調査手法（Methodology）→</a>
     </div>
   </div>
 </section>
 
-<!-- 6. RESEARCH -->
-<section class="section" id="research">
+<!-- 6. RESEARCH HUB -->
+<section class="section" id="research-hub">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Research Hub</div>
+      <h2>評価基準から診断まで、一つのエコシステム</h2>
+      <p class="lead">Frameworkを頂点に、調査・レポート・根拠・手法・診断が連なるResearch Hubの正式構成です。</p>
+    </div>
+    <div class="hub-grid anim-group reveal">
+      <a href="framework/" class="hub-item featured anim-item">
+        <strong>Framework</strong>
+        <span class="hub-status">DRA評価基準 · 最上位</span>
+      </a>
+      <a href="research/" class="hub-item anim-item">
+        <strong>Research</strong>
+        <span class="hub-status">調査研究 · v1.0公開中</span>
+      </a>
+      <a href="reports/" class="hub-item anim-item">
+        <strong>Reports</strong>
+        <span class="hub-status">2026レポートシリーズ</span>
+      </a>
+      <a href="evidence/" class="hub-item anim-item">
+        <strong>Evidence</strong>
+        <span class="hub-status">実証データ集</span>
+      </a>
+      <a href="methodology.html" class="hub-item anim-item">
+        <strong>Methodology</strong>
+        <span class="hub-status">調査手法</span>
+      </a>
+      <a href="report/" class="hub-item anim-item">
+        <strong>Agent Readiness Index</strong>
+        <span class="hub-status">診断 · 約3分</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 7. RESEARCH -->
+<section class="section bg-elevated" id="research">
   <div class="container">
     <div class="section-header reveal">
       <div class="section-label">Research</div>
@@ -1217,12 +1280,13 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
       </div>
       <div class="footer-links">
         <a href="index.html">トップ</a>
+        <a href="framework/">Framework</a>
         <a href="research/">Research</a>
+        <a href="reports/">Reports</a>
         <a href="evidence/">Evidence</a>
         <a href="methodology.html">Methodology</a>
-        <a href="dental.html">Benchmarks</a>
         <a href="report/">診断レポート</a>
-        <a href="#partners">パートナー</a>
+        <a href="dental.html">Benchmarks</a>
         <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
       </div>
     </div>

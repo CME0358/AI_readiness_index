@@ -564,18 +564,20 @@ function MediaCoverage() {
 }
 
 const SITE_NAV_LINKS = [
+  { href: "/framework/", label: "Framework" },
   { href: "/research/", label: "Research" },
+  { href: "/reports/", label: "Reports" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
-  { href: "/dental.html", label: "Benchmarks" },
 ];
 
 const SITE_FOOTER_LINKS = [
   { href: "/index.html", label: "トップ" },
+  { href: "/framework/", label: "Framework" },
   { href: "/research/", label: "Research" },
+  { href: "/reports/", label: "Reports" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
-  { href: "/dental.html", label: "Benchmarks" },
   { href: "/report/", label: "診断レポート" },
   { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
 ];
@@ -624,8 +626,7 @@ function LandingPage({ onStart }) {
           <span style={{ color: "#0A0A0A" }}>AIに選ばれる時代へ</span>
         </h1>
         <p style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px", fontWeight: 400 }}>
-          ChatGPT・Gemini・Claude・Perplexityが御社をどう認識し、どれだけ推薦しているか。
-          AIエージェント時代の"企業信用スコア"を、今すぐ診断します。
+          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、ChatGPT・Gemini・Claude・Perplexityが御社をどう認識し、どれだけ推薦しているかを診断指標として数値化します。
         </p>
         <button onClick={onStart} style={{
           background: "#0A0A0A", color: "#fff", border: "none",
