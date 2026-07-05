@@ -535,14 +535,35 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 .limit-item h3 { margin-bottom: 8px; }
 .limit-item p { font-size: 14px; color: var(--text-secondary); margin: 0; }
 
-/* Download CTA */
-.download-cta {
-  max-width: 520px; margin: 0 auto; text-align: center;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 40px 32px; background: var(--bg);
+/* Report Library */
+.report-library-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
 }
-.download-cta .btn { width: 100%; max-width: 380px; }
-.download-cta-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.7; }
+.report-card {
+  display: flex; flex-direction: column; align-items: flex-start;
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 28px 24px; background: var(--bg); min-height: 280px;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  text-decoration: none; color: inherit;
+}
+a.report-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.report-card-soon { opacity: 0.72; cursor: default; }
+.report-icon { font-size: 2rem; line-height: 1; margin-bottom: 16px; }
+.report-card h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
+.report-tier { font-size: 13px; color: var(--text-secondary); margin-bottom: auto; line-height: 1.6; flex: 1; }
+.report-price {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  margin: 20px 0 14px; color: var(--text);
+}
+.report-price-free { color: #0D7377; }
+.report-soon {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-muted); padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+}
+.report-card .btn { width: 100%; margin-top: auto; }
+.report-library-foot { margin-top: 24px; font-size: 14px; color: var(--text-secondary); }
+.report-library-foot a { color: var(--text); font-weight: 500; }
+@media (max-width: 900px) { .report-library-grid { grid-template-columns: 1fr; } }
 
 /* Next steps */
 .next-grid {
@@ -710,6 +731,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
     </button>
     <ul class="nav-links">
       <li><a href="./" class="active">Research</a></li>
+      <li><a href="../reports/">Reports</a></li>
       <li><a href="../evidence/">Evidence</a></li>
       <li><a href="../methodology.html">Methodology</a></li>
       <li><a href="../dental.html">Benchmarks</a></li>
@@ -751,7 +773,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <span class="ai-badge">Grok</span>
     </div>
     <div class="cta-row hero-anim d7">
-      <a href="ari_report_2026_free.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener">まずは無料版をダウンロード</a>
+      <a href="#reports" class="btn btn-primary btn-lg">Research Libraryを見る</a>
       <a href="#principles" class="btn btn-secondary btn-lg">Principlesを読む</a>
     </div>
   </div>
@@ -762,7 +784,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   <div class="container">
     <aside class="research-meta" aria-label="Research metadata">
       <dl>
-        <div><dt>Document</dt><dd>Agent Readiness White Paper</dd></div>
+        <div><dt>Document</dt><dd>Agent Readiness Report Series 2026</dd></div>
         <div><dt>Version</dt><dd>1.0</dd></div>
         <div><dt>Research Date</dt><dd>2026-07</dd></div>
         <div><dt>Last Updated</dt><dd>2026-07-05</dd></div>
@@ -941,7 +963,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       </tbody>
     </table>
     <div class="cta-row">
-      <a href="#download" class="btn btn-primary">詳細を資料で読む</a>
+      <a href="#reports" class="btn btn-primary">詳細を資料で読む</a>
     </div>
   </div>
 </section>
@@ -1016,7 +1038,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <article class="item-card"><span class="tag">信頼・推薦</span><h3>E-E-A-T充足</h3><p>経験・専門性・権威・信頼の4軸は全社共通</p></article>
     </div>
     <div class="cta-row">
-      <a href="#download" class="btn btn-primary">7項目の全文をダウンロード</a>
+      <a href="#reports" class="btn btn-primary">7項目の全文をダウンロード</a>
     </div>
   </div>
 </section>
@@ -1094,7 +1116,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <span class="grade"><strong>D</strong> ≤44</span>
     </div>
     <div class="cta-row">
-      <a href="#download" class="btn btn-primary">100点モデルの全文をダウンロード</a>
+      <a href="#reports" class="btn btn-primary">100点モデルの全文をダウンロード</a>
       <a href="/report/" class="btn btn-secondary">自社スコアを約3分で診断</a>
     </div>
   </div>
@@ -1150,7 +1172,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 <section id="findings" class="section">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">White Paper</p>
+      <p class="section-label">Report Series</p>
       <h2>この資料で分かること</h2>
     </div>
     <ul style="max-width:560px;padding-left:1.25em;color:var(--text-secondary);line-height:2">
@@ -1170,7 +1192,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   <div class="container">
     <div class="section-header">
       <p class="section-label">Contents</p>
-      <h2>ホワイトペーパー目次</h2>
+      <h2>無料版 Report 目次</h2>
     </div>
     <ol style="max-width:480px;padding-left:1.25em;color:var(--text-secondary);line-height:2.1">
       <li>調査概要と研究方法</li>
@@ -1183,7 +1205,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <li>研究の限界と今後の検証</li>
     </ol>
     <div class="cta-row">
-      <a href="#download" class="btn btn-primary">目次どおりの資料を受け取る</a>
+      <a href="#reports" class="btn btn-primary">目次どおりの資料を受け取る</a>
     </div>
   </div>
 </section>
@@ -1206,18 +1228,38 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   </div>
 </section>
 
-<!-- 21 Download -->
-<section id="download" class="section section-alt">
+<!-- 21 Reports -->
+<section id="reports" class="section section-alt">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">Download</p>
-      <h2>まずは無料版をダウンロード</h2>
-      <p class="lead">Agent Readiness Report 2026（市場教育版）。5業種・231件の観測データまで公開。業種別考察・評価基準は Research Report / Methodology Handbook に収録されています。</p>
+      <p class="section-label">Available Reports</p>
+      <h2>Research Library</h2>
+      <p class="lead">2026 AI Search Visibility Survey シリーズ。観測データから評価基準まで、調査深度に応じたレポートを段階的に公開しています。</p>
     </div>
-    <div class="download-cta">
-      <a href="ari_report_2026_free.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener">無料版 Report をダウンロード</a>
-      <p class="download-cta-note">ブラウザで閲覧できます。PDFは印刷メニューから保存可能です。読後は無料ARI診断で自社ポジションを確認してください。</p>
+    <div class="report-library-grid">
+      <a class="report-card" href="../reports/2026/free/">
+        <span class="report-icon" aria-hidden="true">📘</span>
+        <h3>Agent Readiness Report 2026</h3>
+        <p class="report-tier">市場教育版。5業種・231件の観測データとAI推薦格差の証拠。</p>
+        <span class="report-price report-price-free">FREE</span>
+        <span class="btn btn-primary">Download</span>
+      </a>
+      <div class="report-card report-card-soon" aria-disabled="true">
+        <span class="report-icon" aria-hidden="true">📕</span>
+        <h3>Research Edition</h3>
+        <p class="report-tier">5業種分析・4AIクロス検証・Evidence・Benchmark・業種別考察。</p>
+        <span class="report-price">¥29,800</span>
+        <span class="report-soon">Coming Soon</span>
+      </div>
+      <div class="report-card report-card-soon" aria-disabled="true">
+        <span class="report-icon" aria-hidden="true">📙</span>
+        <h3>Methodology Handbook</h3>
+        <p class="report-tier">DRA評価基準・Playbook・認証要件。Research Edition 全文収録。</p>
+        <span class="report-price">¥98,000</span>
+        <span class="report-soon">Coming Soon</span>
+      </div>
     </div>
+    <p class="report-library-foot">全レポート一覧は <a href="../reports/">Report Library</a> からもアクセスできます。</p>
   </div>
 </section>
 
@@ -1272,7 +1314,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <details><summary>Versionはどのように更新されますか？</summary><p>本リファレンスはVersion番号、Research Date、Last Updated、Next Reviewを公開しています。原則や評価フレームの変更はメジャーバージョンアップとして管理します。次回レビューは2026年10月を予定しています。</p></details>
     </div>
     <div class="cta-row">
-      <a href="#download" class="btn btn-primary">資料をダウンロード</a>
+      <a href="#reports" class="btn btn-primary">Research Library</a>
     </div>
   </div>
 </section>
@@ -1335,7 +1377,7 @@ https://readiness.coaretail.com/research/</pre>
       <a class="hub-item" href="/">Agent Readiness<span class="hub-status">概念トップ</span></a>
       <a class="hub-item" href="/research/">Research<span class="hub-status">本ページ</span></a>
       <a class="hub-item" href="#principles">Principles<span class="hub-status">7原則</span></a>
-      <a class="hub-item" href="#download">White Paper<span class="hub-status">無料DL</span></a>
+      <a class="hub-item" href="#reports">Report Library<span class="hub-status">2026シリーズ</span></a>
       <a class="hub-item" href="/methodology.html">Methodology<span class="hub-status">評価手法</span></a>
       <a class="hub-item" href="/evidence/">Evidence<span class="hub-status">根拠ライブラリ</span></a>
       <a class="hub-item" href="#updates">Updates<span class="hub-status">更新履歴</span></a>
@@ -1370,14 +1412,14 @@ https://readiness.coaretail.com/research/</pre>
       <a href="#dra">Framework</a>
       <a href="#updates">Updates</a>
       <a href="#citation">Citation Policy</a>
-      <a href="#download">White Paper</a>
+      <a href="#reports">Report Library</a>
     </nav>
     <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a>（Coa Retail）</p>
   </div>
 </footer>
 
 <div class="mobile-cta-bar">
-  <a href="#download" class="btn btn-primary">資料をダウンロード</a>
+  <a href="#reports" class="btn btn-primary">Research Library</a>
 </div>
 
 <script>
@@ -1394,6 +1436,7 @@ https://readiness.coaretail.com/research/</pre>
     ['.quote-grid', '> .quote-card'],
     ['.card-grid', '> .item-card'],
     ['.next-grid', '> .next-card'],
+    ['.report-library-grid', '> *'],
     ['.hub-grid', '> *']
   ];
   gridPairs.forEach(([gridSel, childSel]) => {
@@ -1402,7 +1445,7 @@ https://readiness.coaretail.com/research/</pre>
       grid.querySelectorAll(childSel).forEach(child => child.classList.add('anim-item'));
     });
   });
-  document.querySelectorAll('.section-header, .research-meta, .definition-block, .quote-consensus, .insight, .cite-block, .download-cta, .faq-list, .glossary, .data-table, .stats-note').forEach(el => {
+  document.querySelectorAll('.section-header, .research-meta, .definition-block, .quote-consensus, .insight, .cite-block, .report-library-grid, .faq-list, .glossary, .data-table, .stats-note').forEach(el => {
     el.classList.add('reveal');
   });
 
