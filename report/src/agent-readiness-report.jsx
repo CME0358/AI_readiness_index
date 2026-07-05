@@ -576,7 +576,6 @@ const SITE_FOOTER_LINKS = [
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
   { href: "/dental.html", label: "Benchmarks" },
-  { href: "/improve.html", label: "Improve" },
   { href: "/report/", label: "診断レポート" },
   { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
 ];
