@@ -568,6 +568,7 @@ const SITE_NAV_LINKS = [
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
   { href: "/dental.html", label: "Benchmarks" },
+  { href: "/improve.html", label: "Certification" },
 ];
 
 const SITE_FOOTER_LINKS = [
@@ -576,6 +577,7 @@ const SITE_FOOTER_LINKS = [
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
   { href: "/dental.html", label: "Benchmarks" },
+  { href: "/improve.html", label: "Certification" },
   { href: "/report/", label: "診断レポート" },
   { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
 ];
@@ -1470,7 +1472,7 @@ function ReportPage({ report, form }) {
             PDF保存
           </button>
           <a href="/improve.html" className="no-print" style={{ flexShrink: 0, background: "#06C755", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none" }}>
-            改善プログラム →
+            認証審査 →
           </a>
         </div>
         {/* ナビ横スクロール用シークバー */}
@@ -1789,8 +1791,8 @@ function ReportPage({ report, form }) {
             診断で終わらせない。AIに選ばれる企業へ。
           </h3>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: "0 0 28px", maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
-            診断結果はゴールではありません。Agent Readiness改善プログラムで、
-            AIが理解・比較・推薦できる状態へ伴走します。
+            診断結果はゴールではありません。Agent Ready Certificationで、
+            AI時代の第三者評価シグナルを取得できます。
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <a
@@ -1802,7 +1804,7 @@ function ReportPage({ report, form }) {
                 boxShadow: "0 4px 14px rgba(6,199,85,0.35)",
               }}
             >
-              改善プログラムを見る →
+              認証審査を見る →
             </a>
             <a
               href="https://www.coaretail.com/readiness/mtgschedule"

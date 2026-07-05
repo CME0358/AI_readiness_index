@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>診断で終わらせない。AIに選ばれる企業へ。 | Agent Readiness</title>
-<meta name="description" content="Agent Readiness診断で見えた課題をもとに、AIが理解・比較・推薦しやすい企業情報へ改善します。Entity設計・Schema整備・AI検索検証まで伴走支援。">
+<title>Agent Ready Certification — 第三者評価・認証審査 | Agent Readiness</title>
+<meta name="description" content="Agent Readiness Index™に基づく第三者認証。100項目詳細監査・ARI Bronze〜Platinumグレード確定・認定書付与・四半期維持監査。診断後の公式認証プログラム。">
 <link rel="canonical" href="https://readiness.coaretail.com/improve.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://readiness.coaretail.com/improve.html">
-<meta property="og:title" content="診断で終わらせない。AIに選ばれる企業へ。 | Agent Readiness">
-<meta property="og:description" content="診断結果はゴールではありません。Agent Readiness改善プログラムで、AIが理解し、比較し、推薦できる企業へ。">
+<meta property="og:title" content="Agent Ready Certification — 第三者評価・認証審査">
+<meta property="og:description" content="診断結果はゴールではありません。Agent Ready Certificationで、AI時代の信頼シグナルとしての第三者認定を取得できます。">
 <meta property="og:site_name" content="Agent Readiness">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="診断で終わらせない。AIに選ばれる企業へ。">
-<meta name="twitter:description" content="Agent Readiness診断で見えた課題をもとに、AIが理解・比較・推薦しやすい企業情報へ改善します。">
+<meta name="twitter:title" content="Agent Ready Certification — 第三者評価・認証審査">
+<meta name="twitter:description" content="ARI Methodologyに基づく100項目監査。Bronze〜Platinumの認証グレードと継続審査。">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,8 +36,8 @@
     {
       "@type": "Service",
       "@id": "https://readiness.coaretail.com/improve.html#service",
-      "name": "Agent Readiness 改善プログラム",
-      "description": "Agent Readiness診断で特定した課題をもとに、Entity設計・Citation設計・Schema整備・AI検索検証を通じて、AIが理解・比較・推薦しやすい企業情報へ改善する伴走型プログラム。",
+      "name": "Agent Ready Certification",
+      "description": "Agent Readiness Index™ Methodologyに基づく第三者認証審査。100項目評価・グレード確定（Bronze〜Platinum）・認定書付与・四半期維持監査を含む継続プログラム。",
       "provider": { "@id": "https://www.coaretail.com/#organization" },
       "serviceType": "AI検索最適化・GEO Search Protocol",
       "areaServed": "JP",
@@ -47,12 +47,12 @@
       "@type": "WebPage",
       "@id": "https://readiness.coaretail.com/improve.html#webpage",
       "url": "https://readiness.coaretail.com/improve.html",
-      "name": "診断で終わらせない。AIに選ばれる企業へ。",
-      "description": "Agent Readiness診断後の改善プログラム。診断結果をもとにAI推薦率を高める伴走支援。",
+      "name": "Agent Ready Certification",
+      "description": "Agent Readiness診断後の公式認証審査。第三者評価によりARIグレードを付与し、AI時代の信頼シグナルとして活用できる認定プログラム。",
       "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
       "about": { "@id": "https://readiness.coaretail.com/improve.html#service" },
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "dateModified": "2026-07-03",
+      "dateModified": "2026-07-05",
       "inLanguage": "ja"
     }
   ]
@@ -67,25 +67,44 @@
 .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
 .nav-links a:hover, .nav-links a.active { color: var(--text); }
 .nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
-@media (max-width: 900px) { .nav-links { display: none; } }
+.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 4px; }
+.cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 0; }
+.cert-tier { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; text-align: center; background: var(--bg-elevated); }
+.cert-tier strong { display: block; font-size: 14px; margin-bottom: 4px; color: var(--text); }
+.cert-tier span { font-size: 11px; color: var(--text-muted); }
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+  .cert-grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
+<header class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Agent Readiness <span>Index™</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
     <ul class="nav-links">
       <li><a href="research/">Research</a></li>
       <li><a href="evidence/">Evidence</a></li>
       <li><a href="methodology.html">Methodology</a></li>
       <li><a href="dental.html">Benchmarks</a></li>
-      <li><a href="report/">診断レポート</a></li>
+      <li><a href="improve.html" class="active">Certification</a></li>
+      <li><a href="report/" class="nav-cta">診断レポート</a></li>
     </ul>
-    <a href="https://www.coaretail.com/readiness/mtgschedule" class="btn btn-primary" target="_blank" rel="noopener noreferrer">無料相談を予約 →</a>
   </div>
-</nav>
+</header>
 
 <!-- ① あなたの診断結果を分析しました -->
 <section class="analysis-hero" id="step1">
@@ -286,7 +305,7 @@
     <div class="section-header center reveal">
       <div class="section-label">Outcome</div>
       <h2>改善するとここまで変わる</h2>
-      <p class="lead">Agent Readiness改善プログラムで構造化・Entity設計・AI検証を実施した場合の目標スコアと、AI推薦文の変化です。</p>
+      <p class="lead">Agent Ready Certificationの審査・改善施策を経た場合の目標スコアと、AI推薦文の変化です。</p>
     </div>
     <div class="score-improve-row reveal" id="score-improve">
       <div class="score-improve-box">
@@ -318,65 +337,63 @@
 </section>
 <div class="flow-connector reveal">↓</div>
 
-<!-- ⑥ 改善プログラム紹介 -->
+<!-- ⑥ Agent Ready Certification -->
 <section class="section section-alt" id="step6">
   <div class="container">
     <div class="section-header center reveal">
-      <div class="section-label">Program</div>
-      <h2>改善プログラム紹介</h2>
-      <p class="lead">診断で特定した課題を、優先度順に設計・実装・検証する伴走型プログラムです。</p>
+      <div class="section-label">Certification</div>
+      <h2>Agent Ready Certification</h2>
+      <p class="lead">診断で見えたギャップを、第三者評価基準に沿って審査・認定する公式プログラムです。PDFではなく、<strong>基準に基づく認証</strong>を取得します。</p>
     </div>
     <div class="flow-timeline reveal" id="flow-timeline">
       <div class="flow flow-program">
         <div class="flow-timeline-line" aria-hidden="true"><div class="flow-timeline-progress"></div></div>
-        <span class="flow-step active">診断</span>
-        <span class="flow-step">課題抽出</span>
-        <span class="flow-step">改善設計</span>
-        <span class="flow-step">コンテンツ改善</span>
-        <span class="flow-step">Entity設計</span>
-        <span class="flow-step">Schema整備</span>
-        <span class="flow-step">AI検証</span>
-        <span class="flow-step active">再診断</span>
+        <span class="flow-step active">無料診断</span>
+        <span class="flow-step">100項目監査</span>
+        <span class="flow-step">グレード確定</span>
+        <span class="flow-step">認定・ロゴ付与</span>
+        <span class="flow-step active">継続監査</span>
       </div>
     </div>
     <div class="card-grid-3 anim-group reveal">
       <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
         <span class="info-card-num">01</span>
-        <h4>Entity設計</h4>
-        <p>企業・サービス・拠点をAIが一意に識別できるよう、Entity情報を構造化して設計します。</p>
+        <h4>100項目詳細監査</h4>
+        <p>Discovery・Recommendation・Actionの3軸に基づき、Methodology Handbook準拠で評価します。</p>
       </div>
       <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <span class="info-card-num">02</span>
-        <h4>Citation設計</h4>
-        <p>AIが引用する権威ある情報源を整備。推薦の根拠となるメディア露出・口コミ導線を設計します。</p>
+        <h4>ARIグレード認定</h4>
+        <p>Bronze / Silver / Gold / Platinumの4段階で認定。サイト・営業資料・メディアで信頼シグナルとして活用できます。</p>
       </div>
       <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <span class="info-card-num">03</span>
-        <h4>AI向けコンテンツ改善</h4>
-        <p>AIが正確に理解できる形式でコンテンツを再設計。比較に必要な差分情報を言語化します。</p>
+        <h4>4大AI検証・継続監査</h4>
+        <p>ChatGPT・Gemini・Claude・Perplexityでの認識状況を定点観測。四半期ごとにスコアを更新し、グレードを維持します。</p>
       </div>
       <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
         <span class="info-card-num">04</span>
-        <h4>FAQ最適化</h4>
-        <p>AIが参照するQ&Aを整備。顧客の意思決定に直結する質問と回答を構造化します。</p>
+        <h4>Entity・Schema整備</h4>
+        <p>認証基準に沿ってEntity設計・Citation設計・Schema.org / JSON-LDを実装支援します。</p>
       </div>
       <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <span class="info-card-num">05</span>
-        <h4>Schema整備</h4>
-        <p>Schema.org / JSON-LDによる構造化データを実装。AIクローラーが読み取れる状態に整備します。</p>
+        <h4>FAQ・コンテンツ最適化</h4>
+        <p>AIが参照するQ&Aと比較情報を構造化。推薦の根拠となるデータを整備します。</p>
       </div>
       <div class="info-card program-card anim-item">
         <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
         <span class="info-card-num">06</span>
-        <h4>AI検索検証・継続改善</h4>
-        <p>4大AIでの認識状況を定点観測し、再診断でスコアを追跡。改善サイクルを継続します。</p>
+        <h4>月次レポート・隔月MTG</h4>
+        <p>月次Agent ReadinessレポートとZoom隔月次MTG（20分）で、認証維持に向けた改善を伴走します。</p>
       </div>
     </div>
+    <p class="note reveal" style="text-align:center;margin-top:20px;font-size:13px;color:var(--text-muted);">認証審査の詳細基準は <a href="methodology.html" style="color:var(--text-secondary);">Methodology Handbook</a> に準拠します。</p>
   </div>
 </section>
 <div class="flow-connector reveal">↓</div>
@@ -386,13 +403,14 @@
   <div class="container">
     <div class="section-header center reveal">
       <div class="section-label">Pricing</div>
-      <h2>料金</h2>
-      <p class="lead">契約・運用・レポートまで全て込み。余計なオプションや隠れコストは一切ありません。</p>
+      <h2>認証審査料金</h2>
+      <p class="lead">Agent Ready Certificationは継続審査型の第三者評価プログラムです。審査・レポート・維持監査まで全て込みです。</p>
     </div>
 
     <div class="price-card reveal" id="price-card">
       <div style="text-align:center;">
-        <h3 class="price-card-title">Full Protocol Plan</h3>
+        <h3 class="price-card-title">Agent Ready Certification</h3>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">継続審査・100項目監査・認定書・月次レポート</p>
       </div>
 
       <div class="price-options">
@@ -419,20 +437,26 @@
       <div class="price-divider"></div>
 
       <ul class="price-features">
-        <li><span>✓</span>Agent Readiness改善設計</li>
-        <li><span>✓</span>Entity設計・Citation設計</li>
-        <li><span>✓</span>AI向けコンテンツ改善</li>
-        <li><span>✓</span>FAQ構造化（Schema markup）</li>
-        <li><span>✓</span>Schema.org / JSON-LD整備</li>
-        <li><span>✓</span>AI検索検証（4大AI）</li>
+        <li><span>✓</span>100項目詳細監査・グレード確定</li>
+        <li><span>✓</span>ARI認定書・ロゴ付与・ランキング掲載</li>
+        <li><span>✓</span>Entity設計・Citation設計・Schema整備</li>
+        <li><span>✓</span>AI向けコンテンツ・FAQ構造化</li>
+        <li><span>✓</span>4大AI検証（ChatGPT / Gemini / Claude / Perplexity）</li>
         <li><span>✓</span>月次Agent Readinessレポート</li>
-        <li><span>✓</span>Zoom隔月次MTG（20分）</li>
-        <li><span>✓</span>専任担当者アサイン</li>
+        <li><span>✓</span>四半期維持監査・スコア更新</li>
+        <li><span>✓</span>Zoom隔月次MTG（20分）・専任担当者</li>
       </ul>
 
+      <div class="cert-grid">
+        <div class="cert-tier"><strong>ARI Bronze</strong><span>スコア 40〜59</span></div>
+        <div class="cert-tier"><strong>ARI Silver</strong><span>スコア 60〜74</span></div>
+        <div class="cert-tier"><strong>ARI Gold</strong><span>スコア 75〜89</span></div>
+        <div class="cert-tier"><strong>ARI Platinum</strong><span>スコア 90+</span></div>
+      </div>
+
       <div class="price-note" style="margin-top:24px;">
-        <p>※ 診断結果をもとに、優先施策から伴走します。</p>
-        <p>内容のご確認は、下記の無料相談からお申し込みください。</p>
+        <p>※ 審査基準は Agent Readiness Methodology Handbook に準拠します。</p>
+        <p>認証申請のご相談は、下記の無料相談からお申し込みください。</p>
       </div>
     </div>
   </div>
@@ -446,14 +470,14 @@
     <div class="final-cta-graphic" aria-hidden="true">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
     </div>
-    <div class="section-label" style="text-align: center;">Free Consultation</div>
-    <h2>無料相談</h2>
+    <div class="section-label" style="text-align: center;">Certification Inquiry</div>
+    <h2>認証審査の無料相談</h2>
     <div class="final-cta-body">
       <p>診断結果はゴールではありません。</p>
-      <p>30分の無料相談で、御社の優先改善項目と進め方をご説明します。</p>
-      <p><strong>改善 → 検証 → 改善</strong>のサイクルで、<br>AIが理解し、比較し、推薦できる企業へ近づきます。</p>
+      <p>30分の無料相談で、御社の認証グレード目標と審査の進め方をご説明します。</p>
+      <p><strong>審査 → 認定 → 維持監査</strong>のサイクルで、<br>AI時代の第三者評価シグナルを取得できます。</p>
     </div>
-    <a href="https://www.coaretail.com/readiness/mtgschedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">無料相談を予約する →</a>
+    <a href="https://www.coaretail.com/readiness/mtgschedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">認証審査の相談を予約する →</a>
   </div>
 </section>
 
@@ -463,7 +487,7 @@
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Agent Readiness Index™</div>
-        <div class="footer-sub">by Coa Retail · GEO Search Protocol</div>
+        <div class="footer-sub">by Coa Retail</div>
       </div>
       <div class="footer-links">
         <a href="index.html">トップ</a>
@@ -471,8 +495,9 @@
         <a href="evidence/">Evidence</a>
         <a href="methodology.html">Methodology</a>
         <a href="dental.html">Benchmarks</a>
+        <a href="improve.html">Certification</a>
         <a href="report/">診断レポート</a>
-        <a href="https://www.coaretail.com/readiness/mtgschedule" target="_blank" rel="noopener">無料相談</a>
+        <a href="index.html#partners">パートナー</a>
         <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
       </div>
     </div>
@@ -616,6 +641,13 @@ if (afterGroup) {
     }
   }, { threshold: 0.3 });
   afterObs.observe(afterGroup);
+}
+
+const nav = document.querySelector('.nav');
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
 }
 </script>
 </body>
