@@ -535,26 +535,14 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 .limit-item h3 { margin-bottom: 8px; }
 .limit-item p { font-size: 14px; color: var(--text-secondary); margin: 0; }
 
-/* Form */
-.form-card {
-  max-width: 520px; border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 32px; background: var(--bg);
+/* Download CTA */
+.download-cta {
+  max-width: 520px; margin: 0 auto; text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 40px 32px; background: var(--bg);
 }
-.form-group { margin-bottom: 18px; }
-.form-group label {
-  display: block; font-size: 13px; font-weight: 500;
-  margin-bottom: 6px; color: var(--text);
-}
-.form-group label .req { color: var(--text-muted); font-weight: 400; }
-.form-group input, .form-group select {
-  width: 100%; padding: 12px 14px; border: 1px solid var(--border);
-  border-radius: 8px; font-size: 15px; font-family: inherit;
-  background: var(--bg); color: var(--text);
-}
-.form-group input:focus, .form-group select:focus {
-  outline: none; border-color: var(--text-muted);
-}
-.form-note { font-size: 13px; color: var(--text-muted); margin-top: 12px; }
+.download-cta .btn { width: 100%; max-width: 380px; }
+.download-cta-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.7; }
 
 /* Next steps */
 .next-grid {
@@ -763,7 +751,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <span class="ai-badge">Grok</span>
     </div>
     <div class="cta-row hero-anim d7">
-      <a href="#download" class="btn btn-primary btn-lg">ホワイトペーパーを無料ダウンロード</a>
+      <a href="ari_report_2026_free.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener">まずは無料版をダウンロード</a>
       <a href="#principles" class="btn btn-secondary btn-lg">Principlesを読む</a>
     </div>
   </div>
@@ -1223,39 +1211,13 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   <div class="container">
     <div class="section-header">
       <p class="section-label">Download</p>
-      <h2>ホワイトペーパーを無料ダウンロード</h2>
-      <p class="lead">Agent Readiness Research Version 1.0。本資料は無料です。</p>
+      <h2>まずは無料版をダウンロード</h2>
+      <p class="lead">Agent Readiness Report 2026（市場教育版）。5業種・231件の観測データまで公開。業種別考察・評価基準は Research Report / Methodology Handbook に収録されています。</p>
     </div>
-    <form class="form-card" id="wp-form" action="/research/thanks.html" method="get">
-      <div class="form-group">
-        <label for="company">会社名 <span class="req">必須</span></label>
-        <input type="text" id="company" name="company" required autocomplete="organization">
-      </div>
-      <div class="form-group">
-        <label for="name">氏名 <span class="req">必須</span></label>
-        <input type="text" id="name" name="name" required autocomplete="name">
-      </div>
-      <div class="form-group">
-        <label for="email">メール <span class="req">必須</span></label>
-        <input type="email" id="email" name="email" required autocomplete="email">
-      </div>
-      <div class="form-group">
-        <label for="role">役職</label>
-        <input type="text" id="role" name="role" autocomplete="organization-title">
-      </div>
-      <div class="form-group">
-        <label for="topic">関心のある課題</label>
-        <select id="topic" name="topic">
-          <option value="">選択してください</option>
-          <option value="ai-recommend">AI推薦・可視性</option>
-          <option value="diagnosis">自社診断</option>
-          <option value="recruiting">採用</option>
-          <option value="other">その他</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg" style="width:100%">ダウンロードする</button>
-      <p class="form-note">送信後、次のステップ（診断・改善）をご案内します。PDFは準備次第、メールでもお送りします。</p>
-    </form>
+    <div class="download-cta">
+      <a href="ari_report_2026_free.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener">無料版 Report をダウンロード</a>
+      <p class="download-cta-note">ブラウザで閲覧できます。PDFは印刷メニューから保存可能です。読後は無料ARI診断で自社ポジションを確認してください。</p>
+    </div>
   </div>
 </section>
 
@@ -1440,7 +1402,7 @@ https://readiness.coaretail.com/research/</pre>
       grid.querySelectorAll(childSel).forEach(child => child.classList.add('anim-item'));
     });
   });
-  document.querySelectorAll('.section-header, .research-meta, .definition-block, .quote-consensus, .insight, .cite-block, .form-card, .faq-list, .glossary, .data-table, .stats-note').forEach(el => {
+  document.querySelectorAll('.section-header, .research-meta, .definition-block, .quote-consensus, .insight, .cite-block, .download-cta, .faq-list, .glossary, .data-table, .stats-note').forEach(el => {
     el.classList.add('reveal');
   });
 
