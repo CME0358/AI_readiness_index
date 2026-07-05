@@ -63,6 +63,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/hub-animations.css">
 <style>
 :root {
   --bg: #FFFFFF;
@@ -773,16 +774,8 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   </div>
 </footer>
 
+<script src="assets/hub-animations.js"></script>
 <script>
-const animObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('visible');
-    animObserver.unobserve(e.target);
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
-document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
-
 const nav = document.querySelector('.nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 24);

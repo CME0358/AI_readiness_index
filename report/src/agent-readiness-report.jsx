@@ -159,6 +159,20 @@ function useIntersection(ref, threshold = 0.2) {
   return visible || forced;
 }
 
+function Reveal({ children, delay = 0, className = "", style = {} }) {
+  const ref = useRef(null);
+  const visible = useIntersection(ref, 0.12);
+  return (
+    <div
+      ref={ref}
+      className={`ari-reveal${visible ? " ari-reveal--visible" : ""}${className ? ` ${className}` : ""}`}
+      style={{ transitionDelay: delay ? `${delay}s` : undefined, ...style }}
+    >
+      {children}
+    </div>
+  );
+}
+
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
 function StatusBadge({ status }) {
@@ -617,17 +631,18 @@ function LandingPage({ onStart }) {
 
       {/* Hero */}
       <section style={{ maxWidth: 820, margin: "0 auto", padding: "120px 40px 100px", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "6px 16px", marginBottom: 40 }}>
+        <div className="hero-anim d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "6px 16px", marginBottom: 40 }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A" }} />
           <span style={{ fontSize: 12, color: "#3A3A3A", fontWeight: 500 }}>2026年上半期 業界レポート公開中</span>
         </div>
-        <h1 style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 28 }}>
+        <h1 className="hero-anim d2" style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 28 }}>
           AIに見つかる時代から、<br />
           <span style={{ color: "#0A0A0A" }}>AIに選ばれる時代へ</span>
         </h1>
-        <p style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px", fontWeight: 400 }}>
+        <p className="hero-anim d3" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px", fontWeight: 400 }}>
           <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、ChatGPT・Gemini・Claude・Perplexityが御社をどう認識し、どれだけ推薦しているかを診断指標として数値化します。
         </p>
+        <div className="hero-anim d4">
         <button onClick={onStart} style={{
           background: "#0A0A0A", color: "#fff", border: "none",
           padding: "16px 40px", borderRadius: 12, fontSize: 16, fontWeight: 700,
@@ -644,11 +659,15 @@ function LandingPage({ onStart }) {
           <br />
           <span style={{ color: "#C9A84C", fontWeight: 700 }}>ベータ版：¥29,800（税別）</span>
         </p>
+        </div>
 
         {/* メディア掲載カルーセル（index.html より移植） */}
+        <Reveal delay={0.1}>
         <MediaCoverage />
+        </Reveal>
 
         {/* Stats */}
+        <Reveal delay={0.15}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#E8E8E8", border: "1px solid #E8E8E8", borderRadius: 12, marginTop: 80, overflow: "hidden" }}>
           {[["最大5.5倍", "業種間AI推薦率格差"], ["23項目", "評価チェックポイント"], ["3分", "レポート生成時間"]].map(([n, l]) => (
             <div key={l} style={{ background: "#fff", padding: "32px 24px", textAlign: "center" }}>
@@ -657,14 +676,18 @@ function LandingPage({ onStart }) {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Features */}
       <section id="features" style={{ maxWidth: 960, margin: "0 auto", padding: "80px 40px" }}>
+        <Reveal>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>特徴</span>
           <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>役員会に提出できるレベルの<br />診断レポート</h2>
         </div>
+        </Reveal>
+        <Reveal delay={0.08}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, background: "#E8E8E8", borderRadius: 12, overflow: "hidden" }}>
           {features.map((f) => (
             <div key={f.title} style={{ background: "#fff", padding: "40px 36px" }}>
@@ -673,10 +696,12 @@ function LandingPage({ onStart }) {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Sample Preview */}
       <section style={{ background: "#F8F8F8", padding: "80px 40px" }}>
+        <Reveal>
         <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>サンプル</span>
           <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 48 }}>こんなレポートが届きます</h2>
@@ -766,10 +791,12 @@ function LandingPage({ onStart }) {
 
           <p style={{ fontSize: 12, color: "#9B9B9B", marginTop: 24 }}>※ 実際のレポートは全12セクション・23項目の詳細分析が含まれます</p>
         </div>
+        </Reveal>
       </section>
 
       {/* Pricing */}
       <section id="pricing" style={{ maxWidth: 640, margin: "0 auto", padding: "80px 40px", textAlign: "center" }}>
+        <Reveal>
         <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>料金</span>
         <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 40 }}>シンプルな1プラン</h2>
         <div style={{ background: "#0A0A0A", borderRadius: 16, padding: "48px", color: "#fff" }}>
@@ -788,14 +815,18 @@ function LandingPage({ onStart }) {
             今すぐ診断を始める →
           </button>
         </div>
+        </Reveal>
       </section>
 
       {/* FAQ */}
       <section id="faq" style={{ maxWidth: 640, margin: "0 auto", padding: "40px 40px 120px" }}>
+        <Reveal>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>FAQ</span>
           <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>よくある質問</h2>
         </div>
+        </Reveal>
+        <Reveal delay={0.08}>
         <div style={{ display: "flex", flexDirection: "column", gap: 1, background: "#E8E8E8", borderRadius: 12, overflow: "hidden" }}>
           {faqs.map((f) => (
             <div key={f.q} style={{ background: "#fff", padding: "24px 28px" }}>
@@ -804,6 +835,7 @@ function LandingPage({ onStart }) {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* Footer */}

@@ -151,6 +151,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub-animations.css">
 <style>
 :root {
   --bg: #FFFFFF;
@@ -1424,6 +1425,7 @@ https://readiness.coaretail.com/research/</pre>
   <a href="#reports" class="btn btn-primary">Research Library</a>
 </div>
 
+<script src="../assets/hub-animations.js"></script>
 <script>
 (function () {
   const gridPairs = [
@@ -1451,14 +1453,7 @@ https://readiness.coaretail.com/research/</pre>
     el.classList.add('reveal');
   });
 
-  const animObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('visible');
-      animObserver.unobserve(e.target);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
-  document.querySelectorAll('.reveal, .anim-group').forEach(el => animObserver.observe(el));
+  if (window.ariRefreshAnimations) window.ariRefreshAnimations();
 
   const nav = document.querySelector('.nav');
   if (nav) {

@@ -1,0 +1,126 @@
+/* Agent Readiness Research Hub — shared scroll & hero animations */
+
+@keyframes heroIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes labelIn {
+  from { opacity: 0; letter-spacing: 0.14em; }
+  to { opacity: 1; letter-spacing: 0.08em; }
+}
+@keyframes checkIn {
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes statPop {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.hero-anim {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-anim.d1 { animation-delay: 0.06s; }
+.hero-anim.d2 { animation-delay: 0.16s; }
+.hero-anim.d3 { animation-delay: 0.26s; }
+.hero-anim.d4 { animation-delay: 0.36s; }
+.hero-anim.d5 { animation-delay: 0.46s; }
+.hero-anim.d6 { animation-delay: 0.56s; }
+.hero-anim.d7 { animation-delay: 0.66s; }
+.check.hero-anim { transform: scale(0.6); animation-name: checkIn; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left { transform: translateX(-36px); }
+.reveal-right { transform: translateX(36px); }
+.reveal-scale { transform: scale(0.94); }
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-scale.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.anim-group .anim-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.anim-group.visible .anim-item,
+.reveal.visible .anim-group .anim-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.anim-group.visible .anim-item:nth-child(1),
+.reveal.visible .anim-group .anim-item:nth-child(1) { transition-delay: 0.05s; }
+.anim-group.visible .anim-item:nth-child(2),
+.reveal.visible .anim-group .anim-item:nth-child(2) { transition-delay: 0.12s; }
+.anim-group.visible .anim-item:nth-child(3),
+.reveal.visible .anim-group .anim-item:nth-child(3) { transition-delay: 0.19s; }
+.anim-group.visible .anim-item:nth-child(4),
+.reveal.visible .anim-group .anim-item:nth-child(4) { transition-delay: 0.26s; }
+.anim-group.visible .anim-item:nth-child(5),
+.reveal.visible .anim-group .anim-item:nth-child(5) { transition-delay: 0.33s; }
+.anim-group.visible .anim-item:nth-child(6),
+.reveal.visible .anim-group .anim-item:nth-child(6) { transition-delay: 0.4s; }
+.anim-group.visible .anim-item:nth-child(7),
+.reveal.visible .anim-group .anim-item:nth-child(7) { transition-delay: 0.47s; }
+
+.reveal.visible .section-label,
+.anim-group.visible .section-label {
+  animation: labelIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.flow-connector {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  text-align: center;
+  color: var(--text-muted, #71717A);
+  font-size: 20px;
+  padding: 8px 0;
+}
+.flow-connector.visible { opacity: 1; transform: none; }
+
+.anim-group.visible .stat-num {
+  animation: statPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* React report landing */
+.ari-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ari-reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim,
+  .check.hero-anim {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .anim-group .anim-item,
+  .flow-connector,
+  .ari-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}

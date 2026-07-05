@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub-animations.css">
 <style>
 :root {
   --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
@@ -152,15 +153,8 @@ h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.0
 <script>
 (function () {
   requestAnimationFrame(() => { document.getElementById('steps').classList.add('visible'); });
-  const animObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('visible');
-      animObserver.unobserve(e.target);
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.reveal').forEach(el => animObserver.observe(el));
 })();
 </script>
+<script src="../assets/hub-animations.js"></script>
 </body>
 </html>

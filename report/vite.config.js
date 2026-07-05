@@ -30,7 +30,7 @@ function devStaticPagesPlugin() {
           const assetPath = path.join(rootDir, urlPath);
           if (fs.existsSync(assetPath) && fs.statSync(assetPath).isFile()) {
             const ext = path.extname(assetPath);
-            const types = { ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp" };
+            const types = { ".css": "text/css", ".js": "application/javascript", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp" };
             res.setHeader("Content-Type", types[ext] || "application/octet-stream");
             res.end(fs.readFileSync(assetPath));
             return;

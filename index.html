@@ -52,6 +52,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/hub-animations.css">
 <style>
 :root {
   --bg: #FFFFFF;
@@ -251,16 +252,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 .footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 24px; border-top: 1px solid var(--border); }
 .footer-copy a { color: var(--text-muted); text-decoration: none; }
 
-/* Reveal */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
-.reveal.visible { opacity: 1; transform: none; }
-.hero-anim { opacity: 0; transform: translateY(20px); animation: heroIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.hero-anim.d1 { animation-delay: 0.06s; }
-.hero-anim.d2 { animation-delay: 0.16s; }
-.hero-anim.d3 { animation-delay: 0.26s; }
-.hero-anim.d4 { animation-delay: 0.36s; }
-.hero-anim.d5 { animation-delay: 0.46s; }
-@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+/* Reveal — see assets/hub-animations.css */
 
 @media (max-width: 900px) {
   .hub-grid { grid-template-columns: 1fr; }
@@ -277,9 +269,6 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   }
   .nav-toggle { display: block; }
   .nav { position: relative; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-anim, .reveal { opacity: 1; transform: none; animation: none; transition: none; }
 }
 </style>
 </head>
@@ -508,15 +497,6 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   </div>
 </footer>
 
-<script>
-const animObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('visible');
-    animObserver.unobserve(e.target);
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => animObserver.observe(el));
-</script>
+<script src="assets/hub-animations.js" defer></script>
 </body>
 </html>

@@ -61,6 +61,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/hub-animations.css">
 <link rel="stylesheet" href="assets/localgeo-dark.css">
 <style>
 .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; }
@@ -617,18 +618,7 @@ const sectionAnimators = {
   'price-card': (el) => { if (!fired.has('price')) { fired.add('price'); el.classList.add('features-visible'); } },
 };
 
-const animObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('visible');
-    const id = e.target.id;
-    if (id && sectionAnimators[id]) sectionAnimators[id](e.target);
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal, .anim-group, .flow-connector, #score-visual, #gap-diagram, #ai-chat, #score-improve, #score-bar-wrap, #flow-timeline, #price-card').forEach(el => {
-  animObserver.observe(el);
-});
+window.__ariSectionAnimators = sectionAnimators;
 
 // §5 after bubble: observe parent anim-group
 const afterGroup = document.querySelector('#step5 .anim-group');
@@ -649,5 +639,6 @@ if (nav) {
   }, { passive: true });
 }
 </script>
+<script src="assets/hub-animations.js"></script>
 </body>
 </html>
