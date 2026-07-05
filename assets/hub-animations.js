@@ -14,7 +14,8 @@
     '.insight-box', '.cta-row', '.disclaimer-box', '.score-section', '.table-wrap',
     '.dialog-box', '.tiktok-wrap', '.filter', '.glass', '.price-card', '.final-cta-inner',
     '.definition-block', '.tldr-box', '.table-note', '.tiktok-note', '.note', '.score-bar-wrap',
-    '.score-improve-row', '.section-graphic', '.ai-chat-mock', '.score-visual-wrap'
+    '.score-improve-row', '.section-graphic', '.ai-chat-mock', '.score-visual-wrap',
+    '.compare-table-wrap', '.compare-cta-row'
   ];
 
   var CARD_SELECTORS = [
