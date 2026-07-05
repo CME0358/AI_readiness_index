@@ -580,7 +580,7 @@ function MediaCoverage() {
 const SITE_NAV_LINKS = [
   { href: "/framework/", label: "Framework" },
   { href: "/research/", label: "Research" },
-  { href: "/reports/", label: "Reports" },
+  { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
 ];
@@ -589,7 +589,7 @@ const SITE_FOOTER_LINKS = [
   { href: "/index.html", label: "トップ" },
   { href: "/framework/", label: "Framework" },
   { href: "/research/", label: "Research" },
-  { href: "/reports/", label: "Reports" },
+  { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/methodology.html", label: "Methodology" },
   { href: "/report/", label: "診断レポート" },
