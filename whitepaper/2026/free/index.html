@@ -46,9 +46,15 @@
     page-break-after: always;
   }
 
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
   @media print {
     body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .page { margin: 0; box-shadow: none; page-break-inside: avoid; }
+    .page:last-child { page-break-after: avoid; break-after: avoid; }
   }
 
   /* ===== PAGE NUMBERING ===== */
