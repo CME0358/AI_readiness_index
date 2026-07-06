@@ -888,6 +888,26 @@
     background: rgba(255,255,255,0.05);
   }
 
+  a.cta-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  a.cta-card:hover {
+    border-color: rgba(0,180,216,0.45);
+    background: rgba(255,255,255,0.08);
+  }
+
+  .cta-card-upgrade {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    margin: -2px 0 10px;
+    letter-spacing: 0.04em;
+  }
+
   .cta-card-tag {
     font-size: 7pt;
     font-weight: 700;
@@ -2202,15 +2222,17 @@
     <div class="cta-sub">どう測り、どう直すか — Methodology Handbook に標準がまとまっています。</div>
 
     <div class="cta-cards">
-      <div class="cta-card cta-card-paid">
+      <a class="cta-card cta-card-paid" href="https://buy.stripe.com/00waEY6JJ0Q9bELgpBcMM0j" target="_blank" rel="noopener">
         <div class="cta-card-tag">Handbook — ¥98,000（税別）</div>
+        <div class="cta-card-upgrade">※アップグレード版— ¥69,000（税別）</div>
         <div class="cta-card-title">Agent Readiness Methodology Handbook</div>
         <div class="cta-card-item">Research Report 全文収録済み</div>
         <div class="cta-card-item">DRAモデル・3軸×4要素の評価基準</div>
         <div class="cta-card-item">3フェーズ改善ロードマップ（Playbook）</div>
         <div class="cta-card-item">ARI Bronze〜Platinum 認証要件</div>
-        <a class="cta-url" href="https://readiness.coaretail.com/whitepaper/2026/handbook/checkout.html" target="_blank" rel="noopener">readiness.coaretail.com/whitepaper/2026/handbook/checkout.html</a>
-      </div>
+        <div class="cta-card-item">アップグレード版を追加購入いただくことでMethodology Handbookをご覧いただけます。</div>
+        <span class="cta-url">buy.stripe.com/00waEY6JJ0Q9bELgpBcMM0j</span>
+      </a>
       <div class="cta-card cta-card-free">
         <div class="cta-card-tag">Free — 約3分</div>
         <div class="cta-card-title">無料ARIスコア診断</div>
