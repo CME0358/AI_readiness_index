@@ -26,9 +26,21 @@
   </url>
   <url>
     <loc>https://readiness.coaretail.com/whitepaper/2026/free/</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://readiness.coaretail.com/whitepaper/2026/research/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://readiness.coaretail.com/whitepaper/2026/handbook/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://readiness.coaretail.com/evidence/</loc>

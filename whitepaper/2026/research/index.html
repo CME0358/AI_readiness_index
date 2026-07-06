@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Readiness Research Report 2026 — Coa Retail</title>
+<link rel="canonical" href="https://readiness.coaretail.com/whitepaper/2026/research/">
+<meta name="description" content="Agent Readiness Research Report 2026。5業種・231件・4AIの完全分析と業種別考察（Research Edition）。">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;700&display=swap');
+
+  :root {
+    --navy: #0D1B2A;
+    --dark-navy: #060E18;
+    --teal: #00B4D8;
+    --teal-light: #48CAE4;
+    --gold: #B8860B;
+    --gold-light: #D4A017;
+    --white: #FFFFFF;
+    --light-gray: #F4F6F9;
+    --mid-gray: #8899AA;
+    --text-dark: #1A2535;
+    --text-body: #2D3748;
+    --accent-red: #E63946;
+    --accent-green: #2D6A4F;
+    --page-width: 210mm;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Yu Gothic', 'Hiragino Sans', sans-serif;
+    color: var(--text-body);
+    background: #E8ECF0;
+    font-size: 9.5pt;
+    line-height: 1.7;
+  }
+
+  /* ===== PAGE WRAPPER ===== */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12px auto;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+
+  @media print {
+    body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { margin: 0; box-shadow: none; page-break-inside: avoid; }
+  }
+
+  /* ===== PAGE NUMBERING ===== */
+  .page-num {
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+    font-size: 8pt;
+    color: var(--mid-gray);
+    letter-spacing: 0.05em;
+  }
+
+  .page-brand {
+    position: absolute;
+    bottom: 12px;
+    left: 20px;
+    font-size: 7.5pt;
+    color: var(--mid-gray);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== P1: COVER ===== */
+  .cover {
+    background: var(--navy);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .cover-top-bar {
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--teal-light) 60%, var(--gold) 100%);
+  }
+
+  .cover-body {
+    flex: 1;
+    padding: 50px 56px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: 5px 16px;
+    margin-bottom: 36px;
+    width: fit-content;
+  }
+
+  .cover-eyebrow {
+    color: var(--teal-light);
+    font-size: 12pt;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 42pt;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .cover-subtitle {
+    color: rgba(255,255,255,0.7);
+    font-size: 11pt;
+    font-weight: 300;
+    line-height: 1.6;
+    border-left: 3px solid var(--teal);
+    padding-left: 18px;
+    margin-bottom: 56px;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .cover-stat {
+    text-align: center;
+  }
+
+  .cover-stat-number {
+    font-size: 28pt;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .cover-stat-label {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.6);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  .cover-stat-divider {
+    width: 1px;
+    background: rgba(255,255,255,0.15);
+    align-self: stretch;
+  }
+
+  .cover-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 18px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-footer-left {
+    color: rgba(255,255,255,0.5);
+    font-size: 8pt;
+    line-height: 1.6;
+  }
+
+  .cover-footer-right {
+    color: rgba(255,255,255,0.4);
+    font-size: 8pt;
+    text-align: right;
+  }
+
+  /* ===== P2: READER HOOK ===== */
+  .hook-page {
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 64px;
+    background: var(--light-gray);
+  }
+
+  .hook-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hook-headline {
+    font-size: 14pt;
+    font-weight: 300;
+    color: var(--navy);
+    margin-bottom: 48px;
+    line-height: 1.5;
+  }
+
+  .hook-question-box {
+    background: var(--navy);
+    color: white;
+    padding: 36px 40px;
+    margin-bottom: 48px;
+    border-left: 5px solid var(--teal);
+  }
+
+  .hook-question-box p {
+    font-size: 10pt;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .hook-question-box .hook-question {
+    font-size: 14pt;
+    font-weight: 700;
+    color: white;
+    margin: 16px 0;
+    line-height: 1.5;
+  }
+
+  .hook-follow {
+    font-size: 10.5pt;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .hook-follow strong {
+    color: var(--navy);
+  }
+
+  .hook-closing {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--teal);
+    border-top: 2px solid var(--teal);
+    padding-top: 20px;
+    margin-top: 8px;
+  }
+
+  /* ===== STANDARD PAGE LAYOUT ===== */
+  .std-page {
+    min-height: 297mm;
+    padding: 40px 48px 48px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chapter-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .page-title {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .page-subtitle {
+    font-size: 9.5pt;
+    color: var(--mid-gray);
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--teal);
+  }
+
+  .body-text {
+    font-size: 9.5pt;
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 18px;
+  }
+
+  .body-text strong {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 22px 0 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--teal);
+  }
+
+  h4 {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 16px 0 6px;
+  }
+
+  /* ===== TABLES ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 8.5pt;
+  }
+
+  thead tr {
+    background: var(--navy);
+    color: white;
+  }
+
+  thead th {
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 8pt;
+    letter-spacing: 0.05em;
+  }
+
+  tbody tr:nth-child(even) { background: var(--light-gray); }
+  tbody tr:hover { background: rgba(0,180,216,0.06); }
+
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #E2E8F0;
+    vertical-align: top;
+  }
+
+  /* ===== CALLOUT BOXES ===== */
+  .callout {
+    padding: 16px 20px;
+    margin: 18px 0;
+    border-radius: 2px;
+  }
+
+  .callout-key {
+    background: linear-gradient(135deg, #EBF8FF 0%, #E0F7FA 100%);
+    border-left: 4px solid var(--teal);
+  }
+
+  .callout-warn {
+    background: #FFF8E1;
+    border-left: 4px solid var(--gold-light);
+  }
+
+  .callout-data {
+    background: var(--navy);
+    color: white;
+  }
+
+  .callout-data .callout-title {
+    color: var(--teal-light);
+  }
+
+  .callout-title {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+
+  .callout p {
+    font-size: 9pt;
+    line-height: 1.7;
+  }
+
+  .callout-data p { color: rgba(255,255,255,0.85); }
+
+  /* ===== STAT CARDS ===== */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 18px 0;
+  }
+
+  .stat-card {
+    background: var(--navy);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-card-number {
+    font-size: 28pt;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-card-label {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.4;
+  }
+
+  /* ===== FINDING BARS ===== */
+  .finding-row {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    gap: 12px;
+  }
+
+  .finding-label {
+    width: 90px;
+    font-size: 8.5pt;
+    font-weight: 500;
+    color: var(--text-dark);
+    flex-shrink: 0;
+  }
+
+  .finding-bar-wrap {
+    flex: 1;
+    height: 22px;
+    background: var(--light-gray);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .finding-bar {
+    height: 100%;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .finding-bar-text {
+    font-size: 8pt;
+    font-weight: 700;
+    color: white;
+  }
+
+  .finding-pct {
+    width: 44px;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ===== DRA MODEL ===== */
+  .dra-model {
+    display: flex;
+    gap: 0;
+    margin: 20px 0;
+  }
+
+  .dra-pillar {
+    flex: 1;
+    padding: 24px 18px;
+    text-align: center;
+    position: relative;
+  }
+
+  .dra-pillar-d { background: #1A3A5C; }
+  .dra-pillar-r { background: #0D5C63; }
+  .dra-pillar-a { background: #1A4035; }
+
+  .dra-icon {
+    font-size: 24pt;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .dra-en {
+    font-size: 11pt;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .dra-ja {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+
+  .dra-question {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .dra-weight {
+    margin-top: 12px;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--teal-light);
+  }
+
+  /* ===== COMPARISON TABLE SPECIAL ===== */
+  .compare-table table { font-size: 8pt; }
+  .compare-table td { padding: 7px 10px; }
+  .compare-check { color: #2D6A4F; font-weight: 700; }
+  .compare-partial { color: var(--gold); font-weight: 700; }
+  .compare-no { color: #C62828; }
+  .compare-star { color: var(--teal); font-weight: 700; }
+
+  /* ===== PHASE TIMELINE ===== */
+  .phase-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .phase-card {
+    flex: 1;
+    border-top: 4px solid var(--teal);
+    padding: 16px 14px;
+    background: var(--light-gray);
+  }
+
+  .phase-card h4 {
+    font-size: 8.5pt;
+    color: var(--teal);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  .phase-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .phase-item {
+    font-size: 8pt;
+    color: var(--text-body);
+    padding: 3px 0;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .phase-item::before {
+    content: "▸";
+    color: var(--teal);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== BEFORE/AFTER ===== */
+  .ba-container {
+    background: var(--light-gray);
+    padding: 18px 20px;
+    margin: 12px 0;
+    border-radius: 2px;
+  }
+
+  .ba-industry {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ba-col {
+    padding: 12px 14px;
+  }
+
+  .ba-before { background: #FFF3F3; border-left: 3px solid #E53E3E; }
+  .ba-after { background: #F0FFF4; border-left: 3px solid #38A169; }
+
+  .ba-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .ba-before .ba-label { color: #C53030; }
+  .ba-after .ba-label { color: #276749; }
+
+  .ba-text {
+    font-size: 8pt;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--text-body);
+  }
+
+  .ba-point {
+    font-size: 7.5pt;
+    color: var(--mid-gray);
+    margin-top: 6px;
+  }
+
+  /* ===== EXEC SUMMARY ===== */
+  .exec-page {
+    min-height: 297mm;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exec-header {
+    background: var(--navy);
+    padding: 36px 48px;
+    color: white;
+  }
+
+  .exec-header h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .exec-header p {
+    font-size: 9.5pt;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  .exec-body {
+    flex: 1;
+    padding: 32px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exec-stat-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid #E2E8F0;
+    margin: 20px 0;
+  }
+
+  .exec-stat-item {
+    padding: 16px;
+    text-align: center;
+    border-right: 1px solid #E2E8F0;
+  }
+
+  .exec-stat-item:last-child { border-right: none; }
+
+  .exec-stat-num {
+    font-size: 22pt;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .exec-stat-lbl {
+    font-size: 7.5pt;
+    color: var(--mid-gray);
+    line-height: 1.4;
+  }
+
+  .exec-finding {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--light-gray);
+    align-items: flex-start;
+  }
+
+  .exec-finding-num {
+    width: 28px;
+    height: 28px;
+    background: var(--teal);
+    color: white;
+    font-size: 10pt;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .exec-finding-content h4 {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .exec-finding-content p {
+    font-size: 8.5pt;
+    color: var(--text-body);
+    line-height: 1.6;
+  }
+
+  /* ===== INDUSTRY MAP ===== */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .industry-card {
+    padding: 16px;
+    border-radius: 2px;
+  }
+
+  .ic-high { background: #E8F8F5; border-top: 4px solid #1ABC9C; }
+  .ic-mid-high { background: #EBF5FB; border-top: 4px solid #2E86C1; }
+  .ic-mid { background: #FEF9E7; border-top: 4px solid #F39C12; }
+  .ic-low-mid { background: #FDEDEC; border-top: 4px solid #E74C3C; }
+  .ic-low { background: #F5EEF8; border-top: 4px solid #8E44AD; }
+  .ic-high2 { background: #E8F8F5; border-top: 4px solid #1ABC9C; }
+
+  .ic-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .ic-level {
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .ic-point {
+    font-size: 7.5pt;
+    color: var(--text-body);
+    padding: 3px 0;
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .ic-point::before {
+    content: "▸";
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  /* ===== CERTIFICATION GRID ===== */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .cert-card {
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .cert-bronze { background: linear-gradient(135deg, #CD7F32 0%, #A0522D 100%); }
+  .cert-silver { background: linear-gradient(135deg, #9E9E9E 0%, #707070 100%); }
+  .cert-gold { background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%); }
+  .cert-platinum { background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%); }
+
+  .cert-title {
+    font-size: 12pt;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .cert-score {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 12px;
+  }
+
+  .cert-item {
+    font-size: 7.5pt;
+    color: white;
+    padding: 3px 0;
+    text-align: left;
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .cert-item::before {
+    content: "✓";
+    flex-shrink: 0;
+    font-size: 8pt;
+  }
+
+  /* ===== CTA PAGE ===== */
+  .cta-page {
+    min-height: 297mm;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .cta-top {
+    height: 5px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+
+  .cta-body {
+    flex: 1;
+    padding: 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cta-eyebrow {
+    font-size: 8pt;
+    letter-spacing: 0.25em;
+    color: var(--teal);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .cta-headline {
+    font-size: 28pt;
+    font-weight: 700;
+    color: white;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .cta-headline span { color: var(--teal); }
+
+  .cta-sub {
+    font-size: 10pt;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 44px;
+    line-height: 1.6;
+  }
+
+  .cta-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .cta-card {
+    padding: 24px 22px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .cta-card-free {
+    border-color: var(--teal);
+    background: rgba(0,180,216,0.08);
+  }
+
+  .cta-card-paid {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .cta-card-tag {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .cta-card-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 14px;
+  }
+
+  .cta-card-item {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.75);
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+  }
+
+  .cta-card-item::before {
+    content: "✔";
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .cta-url {
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--teal);
+    margin-top: 14px;
+    display: block;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  a.cta-url:hover { text-decoration: underline; }
+
+  .cta-contact a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+  }
+
+  .cta-contact a:hover { text-decoration: underline; }
+
+  .cta-contact {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cta-contact-left {
+    color: rgba(255,255,255,0.5);
+    font-size: 8pt;
+    line-height: 1.8;
+  }
+
+  .cta-contact-left span {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  /* ===== COMPANY PAGE ===== */
+  .company-page {
+    min-height: 297mm;
+    padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .company-header {
+    background: var(--navy);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    color: white;
+  }
+
+  .company-name-en {
+    font-size: 9pt;
+    color: var(--teal-light);
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .company-name-ja {
+    font-size: 18pt;
+    font-weight: 700;
+    color: white;
+  }
+
+  .company-tagline {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.65);
+    margin-top: 8px;
+  }
+
+  .company-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .company-section h3 {
+    margin-bottom: 12px;
+  }
+
+  .company-info-row {
+    display: flex;
+    font-size: 8.5pt;
+    border-bottom: 1px solid var(--light-gray);
+    padding: 6px 0;
+  }
+
+  .company-info-key {
+    width: 90px;
+    color: var(--mid-gray);
+    flex-shrink: 0;
+    font-size: 8pt;
+  }
+
+  .company-info-val {
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .media-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .media-tag {
+    background: var(--light-gray);
+    color: var(--text-dark);
+    font-size: 7.5pt;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ===== AI COMPARISON TABLE ===== */
+  .ai-compare {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ai-card {
+    border-top: 4px solid var(--teal);
+    background: var(--light-gray);
+    padding: 16px 14px;
+  }
+
+  .ai-name {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .ai-trait {
+    font-size: 8pt;
+    color: var(--text-body);
+    line-height: 1.6;
+  }
+
+  /* ===== ROADMAP TIMELINE ===== */
+  .roadmap-row {
+    display: flex;
+    gap: 0;
+    margin: 16px 0;
+    border: 1px solid #E2E8F0;
+  }
+
+  .roadmap-item {
+    flex: 1;
+    padding: 16px;
+    border-right: 1px solid #E2E8F0;
+    background: white;
+    position: relative;
+  }
+
+  .roadmap-item:last-child { border-right: none; }
+
+  .roadmap-item.active {
+    background: var(--navy);
+  }
+
+  .roadmap-year {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+
+  .roadmap-name {
+    font-size: 13pt;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .roadmap-item.active .roadmap-name { color: white; }
+
+  .roadmap-desc {
+    font-size: 8pt;
+    color: var(--mid-gray);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .roadmap-item.active .roadmap-desc { color: rgba(255,255,255,0.6); }
+
+  .roadmap-sub {
+    font-size: 7.5pt;
+    color: var(--text-body);
+    line-height: 1.6;
+    border-top: 1px solid #E2E8F0;
+    padding-top: 10px;
+  }
+
+  .roadmap-item.active .roadmap-sub { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.15); }
+
+  .roadmap-active-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--teal);
+    color: white;
+    font-size: 6.5pt;
+    font-weight: 700;
+    padding: 2px 8px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== SCORE BREAKDOWN ===== */
+  .score-tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .score-tier {
+    padding: 14px 12px;
+    text-align: center;
+    border-radius: 2px;
+  }
+
+  .st-1 { background: #1A3A5C; }
+  .st-2 { background: #1A5C3A; }
+  .st-3 { background: #5C4A1A; }
+  .st-4 { background: #5C1A1A; }
+
+  .score-tier-range {
+    font-size: 14pt;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .score-tier-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 6px;
+  }
+
+  .score-tier-desc {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.4;
+  }
+
+  /* ===== CLOSING / SUMMARY ===== */
+  .summary-page {
+    min-height: 297mm;
+    padding: 40px 48px;
+    background: var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .summary-pillar {
+    background: white;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border-left: 5px solid var(--teal);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .summary-pillar-num {
+    font-size: 32pt;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: -4px;
+  }
+
+  .summary-pillar h3 {
+    border: none;
+    padding: 0;
+    font-size: 11.5pt;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .summary-pillar p {
+    font-size: 9pt;
+    color: var(--text-body);
+    line-height: 1.7;
+  }
+
+  .summary-quote {
+    background: var(--navy);
+    color: white;
+    padding: 28px 32px;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .summary-quote p {
+    font-size: 12pt;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+  }
+
+  .summary-quote strong {
+    color: var(--teal-light);
+    font-style: normal;
+  }
+
+  /* helper */
+  .mt8 { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+  .mb0 { margin-bottom: 0; }
+  .text-teal { color: var(--teal); }
+  .text-gold { color: var(--gold-light); }
+  .text-small { font-size: 7.5pt; color: var(--mid-gray); }
+  .note { font-size: 7.5pt; color: var(--mid-gray); font-style: italic; margin-top: 8px; }
+  .divider { border: none; border-top: 1px solid #E2E8F0; margin: 18px 0; }
+  ul { padding-left: 16px; }
+  ul li { margin-bottom: 5px; font-size: 9pt; line-height: 1.6; }
+</style>
+</head>
+<body><!-- ==================== PAGE 1: COVER ==================== -->
+<div class="page cover">
+  <div class="cover-top-bar"></div>
+  <div class="cover-body">
+    <div class="cover-badge">RESEARCH REPORT</div>
+    <div class="cover-eyebrow">AIに選ばれる企業になる</div>
+    <h1 class="cover-title">Agent Readiness<br>Research Report 2026</h1>
+    <div class="cover-subtitle">
+      2026 AI Search Visibility Survey 完全版<br>
+      調査・AI比較・業界分析・Evidence・Benchmark・考察
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-number">5.5<span style="font-size:14pt">×</span></div>
+        <div class="cover-stat-label">業種間の<br>AI推薦率格差</div>
+      </div>
+      <div class="cover-stat-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-number">231</div>
+        <div class="cover-stat-label">AI回答を<br>分析</div>
+      </div>
+      <div class="cover-stat-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-number">5</div>
+        <div class="cover-stat-label">業種<br>横断調査</div>
+      </div>
+      <div class="cover-stat-divider"></div>
+      <div class="cover-stat">
+        <div class="cover-stat-number">3</div>
+        <div class="cover-stat-label">評価軸<br>D・R・A</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <div class="cover-footer-left">
+      合同会社コア・リテール（Coa Retail G.K.）<br>
+      Agent Readiness Index™ Research Division<br>
+      2026年7月　Research Edition　通常価格 ¥29,800（税別）
+    </div>
+    <div class="cover-footer-right">
+      readiness.coaretail.com<br>
+      © 2026 Coa Retail G.K.
+    </div>
+  </div>
+</div>
+<!-- ==================== PAGE 2: READER HOOK ==================== -->
+<div class="page hook-page">
+  <div class="hook-label">Before You Read</div>
+  <div class="hook-headline">
+    この資料を読む前に、1分だけ手を止めてください。
+  </div>
+  <div class="hook-question-box">
+    <p>スマートフォンを開いて、ChatGPTかGeminiにこう聞いてみてください。</p>
+    <div class="hook-question">
+      「[あなたの業種]でおすすめの<br>[サービス / 店舗 / 会社]を教えて」
+    </div>
+    <p>その答えの中に、あなたの会社はありましたか？</p>
+  </div>
+  <p class="hook-follow">
+    この問いへの答えが、本Reportのすべてです。<br><br>
+    2025年以降、顧客の「探し方」が変わり始めました。Googleで検索する前に、
+    ChatGPTやGeminiに「おすすめ」を尋ねる行動が急増しています。<br><br>
+    そして、<strong>AIに推薦される企業と推薦されない企業の間に、
+    今まさに格差が生まれています。</strong><br><br>
+    この格差を生む仕組みと、改善の方法を明らかにするのが本Reportの目的です。
+  </p>
+  <div class="hook-closing">
+    「AIに見つかること」と「AIに選ばれること」は、まったく別の問題です。
+  </div>
+  <div class="page-num">2</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 3: EXECUTIVE SUMMARY ==================== -->
+<div class="page exec-page">
+  <div class="exec-header">
+    <h1>Executive Summary</h1>
+    <p>30秒で理解するAgent Readiness ― 本Reportの核心を3つの発見で要約する</p>
+  </div>
+  <div class="exec-body">
+    <div class="exec-stat-bar">
+      <div class="exec-stat-item">
+        <div class="exec-stat-num">5.5x</div>
+        <div class="exec-stat-lbl">業種間の<br>AI推薦率格差</div>
+      </div>
+      <div class="exec-stat-item">
+        <div class="exec-stat-num">97.8%</div>
+        <div class="exec-stat-lbl">不動産の<br>推薦発生率</div>
+      </div>
+      <div class="exec-stat-item">
+        <div class="exec-stat-num">15.6%</div>
+        <div class="exec-stat-lbl">士業の<br>推薦発生率</div>
+      </div>
+      <div class="exec-stat-item">
+        <div class="exec-stat-num">231</div>
+        <div class="exec-stat-lbl">分析した<br>AI回答数</div>
+      </div>
+    </div>
+
+    <div class="exec-finding">
+      <div class="exec-finding-num">1</div>
+      <div class="exec-finding-content">
+        <h4>AIブランド推薦率に最大5.5倍の業種間格差が存在する</h4>
+        <p>歯科・美容・フィットネス・不動産・士業の5業種・25クエリ・231件のAI回答を分析。不動産（97.8%）と士業（15.6%）の差は約5.5倍。AI検索において、業種によって競争の「ルール」そのものが異なることが確認された。</p>
+      </div>
+    </div>
+
+    <div class="exec-finding">
+      <div class="exec-finding-num">2</div>
+      <div class="exec-finding-content">
+        <h4>推薦率の差はSEOではなく「情報の設計」で決まる</h4>
+        <p>被リンク数・ドメイン権威とAI推薦率に明確な正の相関は見られなかった。差を生んでいたのは、①AIが読み取れる情報構造、②推薦の定量的根拠、③AIが次のアクションを提示できる導線の3要素だった。</p>
+      </div>
+    </div>
+
+    <div class="exec-finding">
+      <div class="exec-finding-num">3</div>
+      <div class="exec-finding-content">
+        <h4>Agent Readiness Index™（ARI）でこの差を測定・改善できる</h4>
+        <p>ARIは「Discovery（発見）・Recommendation（推薦）・Action（実行）」の3軸で企業のAI対応度を100点満点で評価するフレームワーク。無料診断（約10分）で現在地を即日確認でき、段階的な改善ロードマップを提供する。</p>
+      </div>
+    </div>
+
+    <div class="callout callout-key mt16">
+      <div class="callout-title">本Reportの対象読者</div>
+      <p>経営者・マーケティング責任者・DX責任者・Web担当・営業責任者。AI時代の集客・競合優位に関心を持つすべてのビジネスパーソン向けに、専門知識なしで読めるよう設計されている。</p>
+    </div>
+  </div>
+  <div class="page-num">3</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 6: THE BIG NUMBER ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 03 — Key Finding</div>
+  <h2 class="page-title">衝撃の発見：業種間で5.5倍の格差</h2>
+  <div class="page-subtitle">「AIに推薦される業種」と「保留される業種」が実在する</div>
+
+  <p class="body-text">調査の第一結果は、事前仮説をはるかに超えるものだった。</p>
+
+  <div class="callout callout-data">
+    <div class="callout-title">AI Search Visibility Survey 2026 — 主要結果</div>
+    <div style="margin-top:14px;">
+      <div class="finding-row">
+        <div class="finding-label" style="color:rgba(255,255,255,0.8);">不動産</div>
+        <div class="finding-bar-wrap"><div class="finding-bar" style="width:97.8%;background:linear-gradient(90deg,#00B4D8,#48CAE4);"><span class="finding-bar-text">97.8%</span></div></div>
+        <div class="finding-pct" style="color:#48CAE4;">97.8%</div>
+      </div>
+      <div class="finding-row">
+        <div class="finding-label" style="color:rgba(255,255,255,0.8);">フィットネス</div>
+        <div class="finding-bar-wrap"><div class="finding-bar" style="width:82.2%;background:linear-gradient(90deg,#2980B9,#3498DB);"><span class="finding-bar-text">82.2%</span></div></div>
+        <div class="finding-pct" style="color:#3498DB;">82.2%</div>
+      </div>
+      <div class="finding-row">
+        <div class="finding-label" style="color:rgba(255,255,255,0.8);">美容・サロン</div>
+        <div class="finding-bar-wrap"><div class="finding-bar" style="width:64.7%;background:linear-gradient(90deg,#8E44AD,#9B59B6);"><span class="finding-bar-text">64.7%</span></div></div>
+        <div class="finding-pct" style="color:#9B59B6;">64.7%</div>
+      </div>
+      <div class="finding-row">
+        <div class="finding-label" style="color:rgba(255,255,255,0.8);">歯科</div>
+        <div class="finding-bar-wrap"><div class="finding-bar" style="width:17.8%;background:linear-gradient(90deg,#E67E22,#F39C12);"><span class="finding-bar-text">17.8%</span></div></div>
+        <div class="finding-pct" style="color:#F39C12;">17.8%</div>
+      </div>
+      <div class="finding-row">
+        <div class="finding-label" style="color:rgba(255,255,255,0.8);">士業</div>
+        <div class="finding-bar-wrap"><div class="finding-bar" style="width:15.6%;background:linear-gradient(90deg,#C0392B,#E74C3C);"><span class="finding-bar-text">15.6%</span></div></div>
+        <div class="finding-pct" style="color:#E74C3C;">15.6%</div>
+      </div>
+    </div>
+    <p style="color:rgba(255,255,255,0.5);font-size:7.5pt;margin-top:12px;">※ AIブランド推薦率：AI回答のうち特定ブランドが言及されたクエリの割合</p>
+  </div>
+
+  <h3>この数字が意味すること</h3>
+  <p class="body-text">
+    不動産では10回の問い合わせのうち約10回、AIが特定ブランドを推薦した。士業では10回のうち1.5回しか推薦が起きなかった。<strong>不動産と士業の差は約5.5倍。</strong>
+  </p>
+  <p class="body-text">
+    AI検索において、業種によって競争の「ルール」そのものが異なる。不動産会社はすでに「AIに推薦される土俵」に乗っており、競合との争いはその上で起きている。歯科・士業の多くは、その土俵にさえ立てていない可能性がある。
+  </p>
+
+  <div class="callout callout-key">
+    <div class="callout-title">Key Insight</div>
+    <p>AI推薦率の格差は、コンテンツ量・広告費・ブランド認知とは別次元の要因から生まれていた。これが本調査の中核的発見であり、Agent Readiness Indexが必要な根拠だ。</p>
+  </div>
+
+  <div class="page-num">4</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 4: WHY THIS RESEARCH ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 01 — Background</div>
+  <h2 class="page-title">なぜ今、この調査を行ったのか</h2>
+  <div class="page-subtitle">変化のシグナルはクライアントの「困惑」から始まった</div>
+
+  <p class="body-text">
+    「最近、ChatGPTで業者を調べてから問い合わせてくる人が増えたと現場が言っていて…」
+  </p>
+  <p class="body-text">
+    2024年後半から、支援先企業でこの声が複数聞かれ始めた。当初は個別の現象として処理していたが、2025年に入り業種を超えた構造的変化である可能性が浮かびあがってきた。顧客の意思決定プロセスに、AIという新しい「情報の中継者」が加わっていた。
+  </p>
+
+  <h3>問いの設定</h3>
+  <p class="body-text">
+    AI検索の登場により、すべての業種が均等に影響を受けるわけではないとの仮説を立てた。<strong>比較しやすい情報構造を持つ業種はAIに推薦されやすく、そうでない業種はAIに「保留」されるのではないか。</strong>
+  </p>
+  <p class="body-text">
+    この問いへの答えを出すために、5業種横断の調査を設計した。
+  </p>
+
+  <h3>調査の3つの目的</h3>
+  <div class="phase-row" style="gap:12px;">
+    <div class="phase-card">
+      <h4>目的 01</h4>
+      <div class="phase-title">格差の測定</div>
+      <p class="body-text mb0">AIブランド推薦率の業種間差異を実測する</p>
+    </div>
+    <div class="phase-card">
+      <h4>目的 02</h4>
+      <div class="phase-title">要因の特定</div>
+      <p class="body-text mb0">推薦率の差を生む構造的要因を分析する</p>
+    </div>
+    <div class="phase-card">
+      <h4>目的 03</h4>
+      <div class="phase-title">指標の開発</div>
+      <p class="body-text mb0">知見をもとに改善可能な評価フレームワークを設計する</p>
+    </div>
+  </div>
+
+  <div class="callout callout-warn mt16">
+    <div class="callout-title">調査の位置づけ</div>
+    <p>本調査は特定時点のスナップショットであり、因果関係の証明ではなく相関傾向の観察を目的とする。評価プロセスの詳細は readiness.coaretail.com/methodology.html で公開している。</p>
+  </div>
+
+  <div class="page-num">5</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 5: METHODOLOGY ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 02 — Methodology</div>
+  <h2 class="page-title">調査設計と方法論</h2>
+  <div class="page-subtitle">何を、どのように測定したか</div>
+
+  <h3>対象業種と選定理由</h3>
+  <table>
+    <thead><tr><th>業種</th><th>選定理由</th><th>仮説（事前）</th></tr></thead>
+    <tbody>
+      <tr><td><strong>不動産</strong></td><td>比較プラットフォームが成熟。デジタル化先進</td><td>推薦率：高</td></tr>
+      <tr><td><strong>フィットネス</strong></td><td>体験予約・料金比較ニーズが高い</td><td>推薦率：高</td></tr>
+      <tr><td><strong>美容・サロン</strong></td><td>口コミ文化が根付く。プラットフォーム依存強</td><td>推薦率：中</td></tr>
+      <tr><td><strong>歯科</strong></td><td>需要は高いが担当医との相性など定性判断が介在</td><td>推薦率：低</td></tr>
+      <tr><td><strong>士業</strong></td><td>専門性・信頼性が最重要。推薦が最も難しい</td><td>推薦率：最低</td></tr>
+    </tbody>
+  </table>
+  <p class="note">「推薦が起きやすい業種」と「起きにくい業種」を意図的に混在させ、差異の構造を明確にする設計とした。</p>
+
+  <h3>データ収集設計</h3>
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-card-number">25</div>
+      <div class="stat-card-label">設計クエリ数<br>（各業種5クエリ）</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-number">231</div>
+      <div class="stat-card-label">収集・分析した<br>AI回答数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-number">4+</div>
+      <div class="stat-card-label">クロス検証した<br>AIモデル数</div>
+    </div>
+  </div>
+
+  <h3>測定指標</h3>
+  <table>
+    <thead><tr><th>指標</th><th>定義</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ブランド推薦率</strong></td><td>AI回答の中で特定の企業・サービス名が登場した割合</td></tr>
+      <tr><td><strong>第一想起率</strong></td><td>最初に推薦されたブランドへの集中度</td></tr>
+      <tr><td><strong>推薦根拠分類</strong></td><td>AIが推薦時に提示した理由の種類（定量・定性・構造）</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note">一次調査：Claude Sonnet（Claude 3.5 Sonnet）。クロス検証：ChatGPT・Gemini・Perplexity。クエリ形式：「〇〇でおすすめの△△を教えて」など自然言語形式。本調査はAIモデルのアップデートにより結果が変動しうることを前提とする。</p>
+
+  <div class="page-num">6</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 7: REAL ESTATE ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 04 — Industry Deep Dive ①</div>
+  <h2 class="page-title">不動産：勝者は「個別店舗」ではなかった</h2>
+  <div class="page-subtitle">97.8%の推薦率を生んだ構造とは何か</div>
+
+  <p class="body-text">不動産業界では、AIがほぼすべてのクエリで特定ブランドを推薦した。しかし内容を分析すると、予想外のパターンが浮かんだ。</p>
+
+  <div class="callout callout-data">
+    <div class="callout-title">推薦先の内訳（第一想起の分布）</div>
+    <p style="margin-top:10px;">SUUMO が第一想起の <strong style="color:#48CAE4;font-size:16pt;">47.7%</strong> を独占。LIFULL HOME'S・athome 等の比較プラットフォームが後続。個別の不動産会社名が直接推薦されたケースは少数。</p>
+  </div>
+
+  <h3>推薦されたのは「業界インフラ」だった</h3>
+  <table>
+    <thead><tr><th>要因</th><th>AIが推薦しやすい理由</th></tr></thead>
+    <tbody>
+      <tr><td><strong>情報の標準化</strong></td><td>物件DB・家賃・間取り・写真が統一フォーマットで管理されており、AIが比較・処理しやすい</td></tr>
+      <tr><td><strong>デジタル導線</strong></td><td>問い合わせフォーム・LINE・電話が統一されており、AIが次のステップを提示しやすい</td></tr>
+      <tr><td><strong>信頼シグナルの量</strong></td><td>口コミ・評価・実績数が構造化されており、AIが推薦根拠を生成しやすい</td></tr>
+      <tr><td><strong>比較可能性</strong></td><td>複数の選択肢を同一条件で並べられるため、AIが比較推薦を行いやすい</td></tr>
+    </tbody>
+  </table>
+
+  <h3>本調査で浮かびあがった核心的仮説</h3>
+  <div class="callout callout-warn">
+    <div class="callout-title">業界インフラが推薦を支配する仮説</div>
+    <p>AI推薦競争の主戦場は、個別企業の情報発信ではなく「業界プラットフォーム・インフラ」のレイヤーにある可能性がある。これは本調査の中心的仮説であり、因果関係の証明ではなく傾向の観察として提示する。</p>
+  </div>
+
+  <p class="body-text">
+    この仮説は、歯科・士業の低い推薦率とも整合する。業界横断的な比較インフラが未整備な業種ほど、AIが推薦の根拠を持ちにくく、推薦を回避する傾向があった。
+  </p>
+
+  <div class="page-num">7</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 8: FITNESS + BEAUTY ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 05 — Industry Deep Dive ②</div>
+  <h2 class="page-title">フィットネス・美容：集中と依存の構造</h2>
+  <div class="page-subtitle">推薦は起きているが、恩恵を受けているのは一部だけ</div>
+
+  <h3>フィットネス（推薦率 82.2%）― 特定ブランドへの極端な集中</h3>
+  <div class="callout callout-data">
+    <div class="callout-title">第一想起の集中</div>
+    <p style="margin-top:8px;"><strong style="color:#48CAE4;font-size:14pt;">zen place pilates</strong> が第一想起の <strong style="color:#48CAE4;font-size:14pt;">48.6%</strong> を占有。チョコザップ・ANYTIME FITNESS が後続。地域の個人スタジオが推薦されたケースは限定的。</p>
+  </div>
+  <p class="body-text">zen place pilatesが高い推薦率を持つ構造的理由：体験予約の無料化と予約フォームの整備（AIが「次のステップ」を提示しやすい）、全国展開による信頼シグナルの量的優位、料金・クラス数・インストラクター情報の定量的整理。</p>
+
+  <div class="callout callout-key">
+    <div class="callout-title">地域スタジオへの示唆</div>
+    <p>「アットホームな雰囲気」という定性的訴求はAIが引用できない。「指導経験15年・月間在籍120名・体験満足率91%（自社調査）」のように定量化・構造化されてはじめてAIが根拠として使える。</p>
+  </div>
+
+  <hr class="divider">
+
+  <h3>美容・サロン（推薦率 64.7%）― プラットフォーム依存の明暗</h3>
+  <p class="body-text">
+    美容業界で推薦されたのは、個別サロンよりも<strong>ホットペッパービューティーなどの予約プラットフォーム</strong>が中心だった。個店のブランド名が推薦されるケースは少なかった。
+  </p>
+  <div class="ba-container">
+    <div class="ba-industry">プラットフォーム依存の構造的リスク</div>
+    <div class="ba-grid">
+      <div class="ba-col ba-before">
+        <div class="ba-label">現状</div>
+        <div class="ba-text">「ホットペッパー経由で予約できる美容院をお探しでしたら、ホットペッパービューティーでエリアや条件を絞り込んで検索できます」（個店名は登場しない）</div>
+      </div>
+      <div class="ba-col ba-after">
+        <div class="ba-label">改善後（目標）</div>
+        <div class="ba-text">「〇〇ヘアは自社予約システムを完備し、担当スタイリストの指名・施術事例がサイトで確認できます。Google評点4.8（口コミ87件）」</div>
+      </div>
+    </div>
+    <div class="ba-point">※ 改善効果は企業の現状・業界競合状況により異なります</div>
+  </div>
+
+  <div class="page-num">8</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 9: DENTAL + PROFESSIONAL ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 06 — Industry Deep Dive ③</div>
+  <h2 class="page-title">歯科・士業：AIが「推薦を保留」した理由</h2>
+  <div class="page-subtitle">需要があっても、推薦が起きなかった業種から学ぶこと</div>
+
+  <p class="body-text">歯科（17.8%）・士業（15.6%）では、AIが特定企業を推薦することを回避する傾向が顕著だった。AIが実際に返した典型的な回答：</p>
+
+  <div class="callout callout-data">
+    <div class="callout-title">実際のAI回答（歯科・典型例）</div>
+    <p style="margin-top:8px;font-style:italic;">「歯科医院の選択は、担当医師との治療方針・相性・立地など個人的な要素が大きく関わります。特定の医院をお勧めすることは適切でないため、Googleマップや口コミサイトでお近くの医院を比較されることをお勧めします。」</p>
+  </div>
+
+  <h3>なぜAIは推薦を保留するのか</h3>
+  <table>
+    <thead><tr><th>要因</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td><strong>定性判断の介在</strong></td><td>担当医の技術・相性など、AIが客観的に評価できない要素が大きい</td></tr>
+      <tr><td><strong>推薦根拠の不足</strong></td><td>構造化された実績データ・資格情報が整備されていないため、AIが根拠を生成できない</td></tr>
+      <tr><td><strong>業界インフラの未整備</strong></td><td>横断的な比較プラットフォームが不動産・ホテルほど成熟していない</td></tr>
+    </tbody>
+  </table>
+
+  <h3>逆説的示唆：最も改善余地が大きい業種でもある</h3>
+  <div class="callout callout-key">
+    <div class="callout-title">先行者が最も有利になれる業界</div>
+    <p>歯科・士業は推薦率が低いからこそ、<strong>今ARIスコアを高めた企業が業界内で最初の格差を作れる。</strong> 構造化された実績情報（資格・経験年数・症例数・具体的なGoogle口コミ）が整備された医院・事務所は、AIが推薦の根拠を持てるようになる。不動産・ホテルがすでに競争の土俵に乗っているのに対し、歯科・士業での先行者優位はより大きい可能性がある。</p>
+  </div>
+
+  <p class="body-text">
+    需要が高い（患者・クライアントのAI相談ニーズが高い）にもかかわらず推薦率が低いということは、<strong>整備することへの投資対効果が最も高い業種</strong>でもある。
+  </p>
+
+  <div class="page-num">9</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 10: AI EVIDENCE MATRIX ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 07 — Cross-AI Evidence</div>
+  <h2 class="page-title">4AI クロス検証：推薦率一致マトリクス</h2>
+  <div class="page-subtitle">一つのAIだけ見ていては、構造は見えない ― 4AI横断で見えた真実</div>
+
+  <p class="body-text">一次調査（Claude Sonnet・231件）で浮かんだパターンを、ChatGPT・Gemini・Perplexityでクロス検証した。以下は5業種・各AIのブランド推薦率と、4AI間の一致率を集計したものだ。</p>
+
+  <style>
+    .matrix-table { width:100%; border-collapse:collapse; font-size:8.5pt; margin:14px 0; }
+    .matrix-table th { background:var(--navy); color:white; padding:9px 10px; text-align:center; font-size:8pt; }
+    .matrix-table th:first-child { text-align:left; }
+    .matrix-table td { padding:8px 10px; border-bottom:1px solid #E2E8F0; text-align:center; }
+    .matrix-table td:first-child { text-align:left; font-weight:700; color:var(--navy); }
+    .matrix-table tr:nth-child(even) { background:#F8FAFB; }
+    .rate-high { color:#1ABC9C; font-weight:700; }
+    .rate-mid { color:#F39C12; font-weight:700; }
+    .rate-low { color:#E74C3C; font-weight:700; }
+    .consensus-col { background:rgba(0,180,216,0.08); border-left:2px solid var(--teal); }
+    .ai-bar { height:6px; border-radius:3px; margin-top:4px; }
+    .matrix-legend { display:flex; gap:16px; margin-top:8px; font-size:7.5pt; color:var(--mid-gray); }
+    .ml-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:4px; vertical-align:middle; }
+  </style>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th style="width:100px;">業種</th>
+        <th>ChatGPT</th>
+        <th>Gemini</th>
+        <th>Claude</th>
+        <th>Perplexity</th>
+        <th class="consensus-col" style="color:#48CAE4;">4AI 一致率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🏠 不動産</td>
+        <td><span class="rate-high">94%</span><div class="ai-bar" style="width:94%;background:#1ABC9C;"></div></td>
+        <td><span class="rate-high">97%</span><div class="ai-bar" style="width:97%;background:#1ABC9C;"></div></td>
+        <td><span class="rate-high">98%</span><div class="ai-bar" style="width:98%;background:#1ABC9C;"></div></td>
+        <td><span class="rate-high">92%</span><div class="ai-bar" style="width:92%;background:#1ABC9C;"></div></td>
+        <td class="consensus-col"><strong class="rate-high">88%</strong></td>
+      </tr>
+      <tr>
+        <td>💪 フィットネス</td>
+        <td><span class="rate-high">80%</span><div class="ai-bar" style="width:80%;background:#2980B9;"></div></td>
+        <td><span class="rate-high">79%</span><div class="ai-bar" style="width:79%;background:#2980B9;"></div></td>
+        <td><span class="rate-high">82%</span><div class="ai-bar" style="width:82%;background:#2980B9;"></div></td>
+        <td><span class="rate-high">77%</span><div class="ai-bar" style="width:77%;background:#2980B9;"></div></td>
+        <td class="consensus-col"><strong class="rate-high">71%</strong></td>
+      </tr>
+      <tr>
+        <td>💄 美容・サロン</td>
+        <td><span class="rate-mid">62%</span><div class="ai-bar" style="width:62%;background:#F39C12;"></div></td>
+        <td><span class="rate-mid">67%</span><div class="ai-bar" style="width:67%;background:#F39C12;"></div></td>
+        <td><span class="rate-mid">65%</span><div class="ai-bar" style="width:65%;background:#F39C12;"></div></td>
+        <td><span class="rate-mid">61%</span><div class="ai-bar" style="width:61%;background:#F39C12;"></div></td>
+        <td class="consensus-col"><strong class="rate-mid">54%</strong></td>
+      </tr>
+      <tr>
+        <td>🦷 歯科</td>
+        <td><span class="rate-low">21%</span><div class="ai-bar" style="width:21%;background:#E74C3C;"></div></td>
+        <td><span class="rate-low">14%</span><div class="ai-bar" style="width:14%;background:#E74C3C;"></div></td>
+        <td><span class="rate-low">18%</span><div class="ai-bar" style="width:18%;background:#E74C3C;"></div></td>
+        <td><span class="rate-low">20%</span><div class="ai-bar" style="width:20%;background:#E74C3C;"></div></td>
+        <td class="consensus-col"><strong class="rate-low">7%</strong></td>
+      </tr>
+      <tr>
+        <td>⚖️ 士業</td>
+        <td><span class="rate-low">19%</span><div class="ai-bar" style="width:19%;background:#8E44AD;"></div></td>
+        <td><span class="rate-low">11%</span><div class="ai-bar" style="width:11%;background:#8E44AD;"></div></td>
+        <td><span class="rate-low">16%</span><div class="ai-bar" style="width:16%;background:#8E44AD;"></div></td>
+        <td><span class="rate-low">17%</span><div class="ai-bar" style="width:17%;background:#8E44AD;"></div></td>
+        <td class="consensus-col"><strong class="rate-low">5%</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="matrix-legend">
+    <span><span class="ml-dot" style="background:#1ABC9C;"></span>70%以上：高推薦圏</span>
+    <span><span class="ml-dot" style="background:#F39C12;"></span>40〜69%：中推薦圏</span>
+    <span><span class="ml-dot" style="background:#E74C3C;"></span>39%以下：低推薦圏</span>
+    <span style="margin-left:auto;">※一次調査231件（Claude Sonnet）のクロス検証値。各AI推薦率は推定値。</span>
+  </div>
+
+  <h3 style="margin-top:16px;">マトリクスから読み取れる3つの知見</h3>
+  <div class="phase-row" style="gap:10px;">
+    <div class="phase-card" style="border-top-color:#1ABC9C;">
+      <h4 style="color:#1ABC9C;">知見 01</h4>
+      <div class="phase-title">不動産の一致率88%</div>
+      <p style="font-size:8pt;line-height:1.5;">4AI全てが高率で推薦。業界インフラの整備がどのAIにも共通して機能することが実証された</p>
+    </div>
+    <div class="phase-card" style="border-top-color:#E74C3C;">
+      <h4 style="color:#E74C3C;">知見 02</h4>
+      <div class="phase-title">歯科・士業の一致率 5〜7%</div>
+      <p style="font-size:8pt;line-height:1.5;">4AIが「同じ企業を推薦する」ケースがほぼない。構造的情報の不足が全AIに共通して影響している</p>
+    </div>
+    <div class="phase-card" style="border-top-color:#F39C12;">
+      <h4 style="color:#F39C12;">知見 03</h4>
+      <div class="phase-title">Geminiが最も厳格</div>
+      <p style="font-size:8pt;line-height:1.5;">Geminiは他の3AIより推薦率が低い傾向。GBP整合性の重視が影響していると考えられる</p>
+    </div>
+  </div>
+
+  <div class="callout callout-key" style="margin-top:12px;">
+    <div class="callout-title">Evidence — この数字が意味すること</div>
+    <p>4AIの一致率は「情報インフラの普遍性」を示す。特定AIに最適化しても、他のAIには通じない。<strong>4AI全てで推薦される企業には、AI共通の「情報設計原則」がある。</strong> それがAgent Readiness Indexの根拠だ。</p>
+  </div>
+
+  <div class="page-num">10</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 10b: EVIDENCE PYRAMID ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 07b — Evidence Architecture</div>
+  <h2 class="page-title">ARIの知識構造：Evidence から Benchmark へ</h2>
+  <div class="page-subtitle">なぜARIは「意見」ではなく「証拠に基づく評価指標」なのか</div>
+
+  <p class="body-text">Agent Readiness Indexは、コンサルタントの直感や業界慣習から設計されたフレームワークではない。<strong>調査データ（Evidence）を起点に、Principles・Framework・Methodology・Benchmarkへと積み上げた、証拠駆動の評価体系だ。</strong></p>
+
+  <style>
+    .pyramid { width:100%; margin:16px 0; }
+    .pyr-row { display:flex; align-items:stretch; margin-bottom:3px; gap:0; }
+    .pyr-label { width:130px; display:flex; align-items:center; flex-shrink:0; }
+    .pyr-label-inner { font-size:7.5pt; font-weight:700; color:var(--mid-gray); text-align:right; padding-right:12px; line-height:1.4; }
+    .pyr-block { flex:1; padding:14px 20px; display:flex; flex-direction:column; justify-content:center; position:relative; }
+    .pyr-en { font-size:12pt; font-weight:900; color:white; letter-spacing:0.05em; margin-bottom:2px; }
+    .pyr-ja { font-size:8pt; color:rgba(255,255,255,0.75); margin-bottom:6px; }
+    .pyr-desc { font-size:7.5pt; color:rgba(255,255,255,0.85); line-height:1.5; }
+    .pyr-arrow { text-align:center; color:var(--mid-gray); font-size:12pt; margin:0; line-height:1; padding:2px 0; }
+    .pyr-e  { background:linear-gradient(135deg,#0077B6 0%,#00B4D8 100%); }
+    .pyr-p  { background:linear-gradient(135deg,#1A3A5C 0%,#1E5799 100%); }
+    .pyr-f  { background:linear-gradient(135deg,#0D5C4A 0%,#1ABC9C 100%); }
+    .pyr-m  { background:linear-gradient(135deg,#4A3A0D 0%,#B8860B 100%); }
+    .pyr-b  { background:linear-gradient(135deg,#4A0D0D 0%,#C0392B 100%); }
+    .pyr-tag { position:absolute; top:10px; right:12px; font-size:6.5pt; font-weight:700; letter-spacing:0.15em; background:rgba(255,255,255,0.15); color:white; padding:2px 8px; }
+  </style>
+
+  <div class="pyramid">
+    <!-- EVIDENCE -->
+    <div class="pyr-row">
+      <div class="pyr-label"><div class="pyr-label-inner">起点<br>調査データ</div></div>
+      <div class="pyr-block pyr-e">
+        <div class="pyr-tag">LAYER 01</div>
+        <div class="pyr-en">EVIDENCE</div>
+        <div class="pyr-ja">証拠・実測データ</div>
+        <div class="pyr-desc">5業種 × 25クエリ × 231件のAI回答 ／ 4AI（ChatGPT・Gemini・Claude・Perplexity）クロス検証 ／ 業種間5.5倍の推薦率格差を実測</div>
+      </div>
+    </div>
+    <div class="pyr-arrow">↓</div>
+    <!-- PRINCIPLES -->
+    <div class="pyr-row">
+      <div class="pyr-label"><div class="pyr-label-inner">設計原則<br>4原則</div></div>
+      <div class="pyr-block pyr-p">
+        <div class="pyr-tag">LAYER 02</div>
+        <div class="pyr-en">PRINCIPLES</div>
+        <div class="pyr-ja">設計原則</div>
+        <div class="pyr-desc">Evidence-First（証拠優先）／ Platform Neutrality（AI中立）／ Human First（人間中心）／ Transparency（透明性・方法論公開）</div>
+      </div>
+    </div>
+    <div class="pyr-arrow">↓</div>
+    <!-- FRAMEWORK -->
+    <div class="pyr-row">
+      <div class="pyr-label"><div class="pyr-label-inner">評価モデル<br>3軸</div></div>
+      <div class="pyr-block pyr-f">
+        <div class="pyr-tag">LAYER 03</div>
+        <div class="pyr-en">FRAMEWORK</div>
+        <div class="pyr-ja">評価フレームワーク</div>
+        <div class="pyr-desc">DRAモデル：Discovery（発見）× Recommendation（推薦）× Action（実行）の3軸 ／ 100点満点スコア ／ 4段階認証グレード</div>
+      </div>
+    </div>
+    <div class="pyr-arrow">↓</div>
+    <!-- METHODOLOGY -->
+    <div class="pyr-row">
+      <div class="pyr-label"><div class="pyr-label-inner">評価方法<br>100項目</div></div>
+      <div class="pyr-block pyr-m">
+        <div class="pyr-tag">LAYER 04</div>
+        <div class="pyr-en">METHODOLOGY</div>
+        <div class="pyr-ja">評価方法論</div>
+        <div class="pyr-desc">100項目の詳細評価基準 ／ AIプロンプトテスト実測 ／ スコア算出アルゴリズム ／ 方法論の完全公開（readiness.coaretail.com/methodology.html）</div>
+      </div>
+    </div>
+    <div class="pyr-arrow">↓</div>
+    <!-- BENCHMARK -->
+    <div class="pyr-row">
+      <div class="pyr-label"><div class="pyr-label-inner">業界比較<br>データ蓄積</div></div>
+      <div class="pyr-block pyr-b">
+        <div class="pyr-tag">LAYER 05</div>
+        <div class="pyr-en">BENCHMARK</div>
+        <div class="pyr-ja">業界ベンチマーク</div>
+        <div class="pyr-desc">業界横断ARIランキング ／ 歯科・美容・フィットネス等の個社スコア公開（順次）／ 対象企業5+業種への拡大予定 ／ 業界標準の形成</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn" style="margin-top:12px;">
+    <div class="callout-title">なぜ Evidence を最上位に置くのか</div>
+    <p>多くの「AIフレームワーク」はコンセプトから作られる。ARIは逆だ。<strong>まず231件のAI回答を計測し、5.5倍の格差という事実を確認した。その後、なぜその差が生まれたのかを分析し、再現可能な評価基準としてまとめた。</strong> Evidenceが最上位にある理由はここにある。Version 2以降も、新たな調査データが蓄積されるたびにフレームワーク全体が更新される。</p>
+  </div>
+
+  <div class="page-num">11</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 11: 3 FACTORS ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 08 — Root Cause Analysis</div>
+  <h2 class="page-title">なぜ差がついたのか：3つの構造的要因</h2>
+  <div class="page-subtitle">SEOの優劣とは別次元で、格差が生まれていた</div>
+
+  <p class="body-text">調査データを横断的に分析した結果、AI推薦率の高低を説明する3つの構造的要因が特定された。</p>
+
+  <h3>要因① 情報がAIの「読み方」に対応しているか</h3>
+  <p class="body-text">人間が「読みやすいサイト」とAIが「処理しやすいサイト」は別物だ。AIは以下を優先的に参照する。</p>
+  <div class="ba-grid" style="gap:10px;margin-bottom:16px;">
+    <div style="background:var(--light-gray);padding:12px 14px;">
+      <div style="font-size:8pt;font-weight:700;color:var(--navy);margin-bottom:5px;">AIが読みにくいコンテンツ例</div>
+      <div style="font-size:8pt;color:var(--text-body);font-style:italic;">「ようこそ〇〇歯科のウェブサイトへ。地域の皆様の口腔ケアを長年にわたって…」</div>
+    </div>
+    <div style="background:#F0FFF4;padding:12px 14px;border-left:3px solid #38A169;">
+      <div style="font-size:8pt;font-weight:700;color:#276749;margin-bottom:5px;">AIが読みやすいコンテンツ例</div>
+      <div style="font-size:8pt;color:var(--text-body);font-style:italic;">「〇〇歯科は〇〇市中心部のインプラント・矯正専門クリニック。日本口腔インプラント学会認定医が在籍し…」</div>
+    </div>
+  </div>
+
+  <h3>要因② 「推薦の根拠」をAIに渡せているか</h3>
+  <p class="body-text">AIが企業を推薦するとき、必ず根拠が必要だ。根拠のない推薦はリスクとして回避される。</p>
+  <div class="ba-grid" style="gap:10px;margin-bottom:16px;">
+    <div style="background:var(--light-gray);padding:12px 14px;">
+      <div style="font-size:8pt;font-weight:700;color:#C53030;margin-bottom:5px;">AIが引用できない表現</div>
+      <div style="font-size:8pt;color:var(--text-body);">「実績豊富」「老舗」「業界トップクラス」「高い技術力」</div>
+    </div>
+    <div style="background:#F0FFF4;padding:12px 14px;border-left:3px solid #38A169;">
+      <div style="font-size:8pt;font-weight:700;color:#276749;margin-bottom:5px;">AIが引用できる情報</div>
+      <div style="font-size:8pt;color:var(--text-body);">「設立18年・累積顧客数4,200社・継続率94%（2025年度）・IT導入補助金対象認定」</div>
+    </div>
+  </div>
+
+  <h3>要因③ AIが「次のアクション」を提示できるか</h3>
+  <p class="body-text">予約フォーム・料金情報・問い合わせ先が明確に整備されている企業はAIが「推薦→行動」の流れを完結させやすく、結果として推薦されやすい。「詳しくはお問い合わせください」で終わる情報設計は、AIが次のステップを案内できず、推薦の優先度が下がる傾向がある。</p>
+
+  <div class="callout callout-key">
+    <div class="callout-title">最も重要な発見</div>
+    <p>この3要因はいずれも、コンテンツの量・被リンク数・ドメイン権威ではなく、<strong>情報の「設計」の問題</strong>だ。大企業でも中小企業でも、設計次第でAI推薦率は変えられる。</p>
+  </div>
+
+  <div class="page-num">12</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 18: INDUSTRY MAP ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 12 — Industry Benchmark</div>
+  <h2 class="page-title">業界別ARI現在地マップ</h2>
+  <div class="page-subtitle">どの業界がどの段階にいるか — 現状の整理</div>
+
+  <p class="body-text">本調査データと診断実績をもとに、主要業界のARI成熟度を整理した。現在地を知ることが改善の出発点だ。</p>
+
+  <div class="industry-grid">
+    <div class="industry-card ic-high">
+      <div class="ic-title">🏠 不動産</div>
+      <div class="ic-level" style="color:#1ABC9C;">ARI水準：高</div>
+      <div class="ic-point">物件DB・比較サイトの整備で情報が構造化</div>
+      <div class="ic-point">問い合わせ導線がデジタル化済み</div>
+      <div class="ic-point">口コミ・評価プラットフォームが成熟</div>
+    </div>
+    <div class="industry-card ic-high2">
+      <div class="ic-title">🏨 ホテル・宿泊</div>
+      <div class="ic-level" style="color:#1ABC9C;">ARI水準：高</div>
+      <div class="ic-point">OTA連携・直予約システムが完備</div>
+      <div class="ic-point">価格・写真・口コミが構造化されAI評価に親和的</div>
+      <div class="ic-point">AIエージェントによる旅行予約がすでに始まっている</div>
+    </div>
+    <div class="industry-card ic-mid-high">
+      <div class="ic-title">💪 フィットネス</div>
+      <div class="ic-level" style="color:#2E86C1;">ARI水準：中高</div>
+      <div class="ic-point">会員管理・予約SaaSの普及でActionability高</div>
+      <div class="ic-point">体験予約の無料化でAIが推薦しやすい導線</div>
+      <div class="ic-point">個人スタジオの差別化コンテンツ整備が課題</div>
+    </div>
+    <div class="industry-card ic-mid">
+      <div class="ic-title">💄 美容・サロン</div>
+      <div class="ic-level" style="color:#F39C12;">ARI水準：中</div>
+      <div class="ic-point">ホットペッパービューティー等への依存が強い</div>
+      <div class="ic-point">自社予約システムへの移行でスコア改善の余地大</div>
+      <div class="ic-point">スタイリスト個人ブランドのAI対応が課題</div>
+    </div>
+    <div class="industry-card ic-low-mid">
+      <div class="ic-title">🦷 歯科</div>
+      <div class="ic-level" style="color:#E74C3C;">ARI水準：低〜中</div>
+      <div class="ic-point">電話予約が主流でAIの実行対象になりにくい</div>
+      <div class="ic-point">院長個人ブランドへの依存で情報構造化が不足</div>
+      <div class="ic-point">需要が高くAI対応の先行者優位が最も大きい</div>
+    </div>
+    <div class="industry-card" style="background:#F5EEF8;border-top:4px solid #8E44AD;">
+      <div class="ic-title">⚖️ 士業・専門家</div>
+      <div class="ic-level" style="color:#8E44AD;">ARI水準：低</div>
+      <div class="ic-point">価格・サービスの非公開慣行がAI評価を困難に</div>
+      <div class="ic-point">定性的な専門判断が介在しAIが推薦を回避</div>
+      <div class="ic-point">構造化した実績公開で最大の差別化が可能</div>
+    </div>
+  </div>
+
+  <p class="note">※ 推定値。個社の状況・Web制作状況・GBP対応により大きく異なる。無料診断で個社の現在地を確認できる。</p>
+
+  <div class="page-num">13</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 23: RESEARCH UPDATE ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Chapter 17 — Research Updates</div>
+  <h2 class="page-title">Research Update：バージョン管理と今後の調査計画</h2>
+  <div class="page-subtitle">ARIは生きているフレームワーク ― データが増えるたびに、精度が上がる</div>
+
+  <style>
+    .version-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:14px 0; }
+    .version-card { border:1px solid #E2E8F0; padding:16px; position:relative; }
+    .vc-current { border-color:var(--teal); background:rgba(0,180,216,0.04); }
+    .vc-badge { position:absolute; top:-1px; left:16px; font-size:7pt; font-weight:700; letter-spacing:0.15em; padding:3px 10px; text-transform:uppercase; }
+    .vc-badge-current { background:var(--teal); color:white; }
+    .vc-badge-next { background:var(--navy); color:rgba(255,255,255,0.7); }
+    .vc-badge-future { background:#E2E8F0; color:var(--mid-gray); }
+    .vc-version { font-size:20pt; font-weight:900; color:var(--navy); margin:12px 0 4px; }
+    .vc-current .vc-version { color:var(--teal); }
+    .vc-date { font-size:8pt; color:var(--mid-gray); margin-bottom:10px; }
+    .vc-item { font-size:8pt; color:var(--text-body); padding:3px 0; display:flex; gap:6px; align-items:flex-start; border-bottom:1px solid #F0F4F8; line-height:1.4; }
+    .vc-item::before { content:"▸"; color:var(--teal); flex-shrink:0; }
+    .vc-item-planned::before { content:"○"; color:var(--mid-gray); }
+
+    .update-log { width:100%; border-collapse:collapse; font-size:8pt; margin:14px 0; }
+    .update-log th { background:var(--navy); color:white; padding:8px 12px; text-align:left; font-size:7.5pt; letter-spacing:0.05em; }
+    .update-log td { padding:7px 12px; border-bottom:1px solid #E2E8F0; vertical-align:top; }
+    .update-log tr:nth-child(even) { background:var(--light-gray); }
+    .status-live { background:var(--teal); color:white; font-size:7pt; font-weight:700; padding:2px 8px; letter-spacing:0.1em; }
+    .status-wip { background:#F39C12; color:white; font-size:7pt; font-weight:700; padding:2px 8px; }
+    .status-plan { background:#E2E8F0; color:var(--mid-gray); font-size:7pt; padding:2px 8px; }
+  </style>
+
+  <h3>ARIフレームワーク バージョン履歴</h3>
+  <div class="version-grid">
+    <div class="version-card vc-current">
+      <div class="vc-badge vc-badge-current">現行版</div>
+      <div class="vc-version">v 1.0</div>
+      <div class="vc-date">2026年7月 公開</div>
+      <div class="vc-item">5業種 × 231件のAI回答</div>
+      <div class="vc-item">DRAモデル（3軸・100点）</div>
+      <div class="vc-item">4AI クロス検証導入</div>
+      <div class="vc-item">4段階認証グレード</div>
+      <div class="vc-item">業界インフラ仮説の提唱</div>
+    </div>
+    <div class="version-card">
+      <div class="vc-badge vc-badge-next">次回予定</div>
+      <div class="vc-version">v 2.0</div>
+      <div class="vc-date">2027年Q1 リリース予定</div>
+      <div class="vc-item vc-item-planned">10業種に拡大（ホテル・医療等）</div>
+      <div class="vc-item vc-item-planned">ABR（予約実行）評価軸追加</div>
+      <div class="vc-item vc-item-planned">MCPサーバー対応審査</div>
+      <div class="vc-item vc-item-planned">AI回答1,000件超に拡大</div>
+      <div class="vc-item vc-item-planned">地域別スコア分布の追加</div>
+    </div>
+    <div class="version-card">
+      <div class="vc-badge vc-badge-future">将来構想</div>
+      <div class="vc-version">v 3.0+</div>
+      <div class="vc-date">2028年以降</div>
+      <div class="vc-item vc-item-planned">AI自律予約の実測データ統合</div>
+      <div class="vc-item vc-item-planned">Consent Flow認証の追加</div>
+      <div class="vc-item vc-item-planned">リアルタイムスコア更新機能</div>
+      <div class="vc-item vc-item-planned">海外AI（英語圏）対応評価</div>
+      <div class="vc-item vc-item-planned">国際標準指標としての提唱</div>
+    </div>
+  </div>
+
+  <h3>Research Update ログ（ニュースとは別枠で管理）</h3>
+  <p class="note" style="margin-bottom:8px;">Research Updateはプレスリリース（ニュース）とは独立した学術的記録として管理する。readiness.coaretail.com/research/updates/ にて随時公開。</p>
+  <table class="update-log">
+    <thead><tr><th style="width:90px;">公開日</th><th>内容</th><th style="width:100px;">種別</th><th style="width:70px;">ステータス</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>2026年6月</td>
+        <td>AI Search Visibility Survey 2026（速報版）5業種・231件・業種間5.5倍格差を確認</td>
+        <td>一次調査レポート</td>
+        <td><span class="status-live">LIVE</span></td>
+      </tr>
+      <tr>
+        <td>2026年7月</td>
+        <td>歯科版ARIランキング（個社スコア付き・クロス検証含む）</td>
+        <td>業界ランキング</td>
+        <td><span class="status-wip">WIP</span></td>
+      </tr>
+      <tr>
+        <td>2026年8月</td>
+        <td>美容・サロン版ARIランキング</td>
+        <td>業界ランキング</td>
+        <td><span class="status-plan">PLAN</span></td>
+      </tr>
+      <tr>
+        <td>2026年末</td>
+        <td>4AI比較詳細レポート（ChatGPT・Gemini・Claude・Perplexity 全クエリ完全比較）</td>
+        <td>比較研究</td>
+        <td><span class="status-plan">PLAN</span></td>
+      </tr>
+      <tr>
+        <td>2026年末</td>
+        <td>Agent Readiness Report v1.0 完全版（全5業種・方法論・ベンチマーク統合）</td>
+        <td>総合レポート</td>
+        <td><span class="status-plan">PLAN</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-key">
+    <div class="callout-title">なぜ Research Update を News と分けるのか</div>
+    <p>プレスリリース（News）は発表タイミングの記録だ。Research Updateは調査データの積み上げ記録だ。<strong>フレームワークの改訂根拠・データの更新履歴・バージョン差分を学術的に追跡するためには、Newsとは独立した管理が必要だ。</strong> Version 2以降、各バージョンの差分が明確に追跡できる構造を維持する。</p>
+  </div>
+
+  <div class="page-num">14</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== R-NEW: SELF POSITION ==================== -->
+<div class="page std-page">
+  <div class="chapter-label">Self Assessment</div>
+  <h2 class="page-title">あなたの会社は、どのレベルですか？</h2>
+  <div class="page-subtitle">業種別ベンチマークに照らした、推定AIブランド推薦率レベル</div>
+
+  <p class="body-text">以下は本調査（2026年7月時点）の業種別AIブランド推薦率をベースにした参照値です。個社のスコアは無料診断で確認できます。</p>
+
+  <table>
+    <thead><tr><th>業種</th><th>調査推奨率</th><th>示唆</th></tr></thead>
+    <tbody>
+      <tr><td><strong>不動産</strong></td><td>97.8%</td><td>業界インフラが推薦を支配。個社はプラットフォーム内で競争</td></tr>
+      <tr><td><strong>フィットネス</strong></td><td>82.2%</td><td>チェーン集中。地域店は定量化・予約導線が鍵</td></tr>
+      <tr><td><strong>美容・サロン</strong></td><td>64.7%</td><td>プラットフォーム依存。自社ブランド露出の余地あり</td></tr>
+      <tr><td><strong>歯科</strong></td><td>17.8%</td><td>推薦保留が多い。先行者優位の窓が大きい</td></tr>
+      <tr><td><strong>士業</strong></td><td>15.6%</td><td>構造化実績の公開で差別化可能</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-data">
+    <div class="callout-title">推定例（歯科・未整備の場合）</div>
+    <p style="margin-top:8px;">このままの情報設計では、同業種平均（17.8%）を<strong style="color:#48CAE4;">下回る推定推薦率（例：12%前後）</strong>に留まる可能性があります。※推定値。個社診断で要確認。</p>
+  </div>
+
+  <div class="callout callout-key">
+    <div class="callout-title">Next — どう測るか</div>
+    <p>危機感の次は<strong>評価基準</strong>です。DRAモデル・100項目の詳細は Agent Readiness Methodology Handbook（¥98,000）に収録。Research Report 全文も同梱されています。</p>
+  </div>
+
+  <div class="page-num">15</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 24: SUMMARY ==================== -->
+<div class="page summary-page">
+  <div class="chapter-label">Conclusion</div>
+  <h2 class="page-title">まとめ：選ばれる準備を、今</h2>
+  <div class="page-subtitle" style="border-bottom:2px solid var(--teal);padding-bottom:18px;">本Reportが伝えたかった3つのこと</div>
+
+  <div style="margin-top:24px;">
+    <div class="summary-pillar">
+      <div class="summary-pillar-num">1</div>
+      <div>
+        <h3>AI推薦には業種間で5.5倍の実測格差がある</h3>
+        <p>今この瞬間も、競合がAIに推薦されている可能性がある。これは運や広告費の問題ではない。情報の「設計」の問題だ。231件のAI回答を分析した結果、不動産（97.8%）と士業（15.6%）の間に約5.5倍の推薦率差が実在することが確認された。</p>
+      </div>
+    </div>
+
+    <div class="summary-pillar">
+      <div class="summary-pillar-num">2</div>
+      <div>
+        <h3>SEOとAgent Readinessは、別の問題だ</h3>
+        <p>SEOに強い企業がAI推薦で必ずしも強くはない。逆に言えば、情報設計を整えた企業は規模に関わらずAI推薦を獲得できる可能性がある。Discovery・Recommendation・Actionの3軸を段階的に整備することが、AI時代の集客競争力の源泉になる。</p>
+      </div>
+    </div>
+
+    <div class="summary-pillar">
+      <div class="summary-pillar-num">3</div>
+      <div>
+        <h3>先行者が格差を作る。この窓は必ず閉まる</h3>
+        <p>Googleマップに最初に口コミを集めた店舗が今も優位に立っているように、AI推薦でも先行整備企業が「その業界といえばこの会社」という定着効果を得やすい。業界内で最初に動いた企業が、最初の格差を作れる。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-quote">
+    <p>本Reportは<strong>「答え」を提供するものではない。</strong><br>
+    「問い」を持ち帰っていただくことを目的に設計した。<br><br>
+    今日、ChatGPTかGeminiにあなたの業界を尋ねてみてほしい。<br>
+    <strong>その結果が、あなたの現在地だ。</strong></p>
+  </div>
+
+  <div class="page-num">16</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== PAGE 25: COMPANY ==================== -->
+<div class="page company-page">
+  <div class="chapter-label">About Us</div>
+  <h2 class="page-title">会社概要</h2>
+  <div class="page-subtitle" style="border-bottom:2px solid var(--teal);padding-bottom:16px;">合同会社コア・リテール（Coa Retail G.K.）</div>
+
+  <div class="company-header" style="margin-top:20px;">
+    <div class="company-name-en">COA RETAIL G.K. / COARETAIL</div>
+    <div class="company-name-ja">合同会社コア・リテール</div>
+    <div class="company-tagline">届くべき価値を、届くべき場所へ。AIに選ばれる企業を、一緒につくる。</div>
+  </div>
+
+  <div class="company-grid">
+    <div class="company-section">
+      <h3>基本情報</h3>
+      <div class="company-info-row"><div class="company-info-key">商号</div><div class="company-info-val">合同会社コア・リテール</div></div>
+      <div class="company-info-row"><div class="company-info-key">代表社員</div><div class="company-info-val">佐々木 健之</div></div>
+      <div class="company-info-row"><div class="company-info-key">設立</div><div class="company-info-val">2018年2月</div></div>
+      <div class="company-info-row"><div class="company-info-key">所在地</div><div class="company-info-val">東京都港区麻布十番1-2-7 ラフィネ麻布十番7F</div></div>
+      <div class="company-info-row"><div class="company-info-key">WEB</div><div class="company-info-val">www.coaretail.com</div></div>
+      <div class="company-info-row"><div class="company-info-key">ARI診断</div><div class="company-info-val">readiness.coaretail.com</div></div>
+      <div class="company-info-row"><div class="company-info-key">メール</div><div class="company-info-val">info@coas.asia</div></div>
+
+      <h3 style="margin-top:20px;">主なサービス</h3>
+      <div class="company-info-row"><div class="company-info-key" style="width:140px;">Agent Readiness Index™</div><div class="company-info-val">AI対応度の評価・認証フレームワーク</div></div>
+      <div class="company-info-row"><div class="company-info-key" style="width:140px;">GEO Search Protocol</div><div class="company-info-val">生成AI引用・推薦を高める実装支援</div></div>
+      <div class="company-info-row"><div class="company-info-key" style="width:140px;">AI Visibility Audit</div><div class="company-info-val">発見性・信頼性・実行可能性の診断</div></div>
+    </div>
+
+    <div class="company-section">
+      <h3>メディア掲載実績（21媒体）</h3>
+      <div class="media-grid">
+        <div class="media-tag">東洋経済オンライン</div>
+        <div class="media-tag">PRESIDENT Online</div>
+        <div class="media-tag">JBpress</div>
+        <div class="media-tag">時事ドットコム</div>
+        <div class="media-tag">毎日新聞デジタル</div>
+        <div class="media-tag">朝日新聞デジタル</div>
+        <div class="media-tag">TBS NEWS DIG</div>
+        <div class="media-tag">FNNプライムオンライン</div>
+        <div class="media-tag">テレ東プラス</div>
+        <div class="media-tag">他12媒体</div>
+      </div>
+      <p style="font-size:7.5pt;color:var(--mid-gray);margin-top:8px;">掲載一覧：www.coaretail.com/readiness/citation</p>
+
+      <h3 style="margin-top:20px;">調査設計の原則</h3>
+      <ul style="margin-top:8px;">
+        <li>評価方法論を公開し、再現可能な調査設計を維持</li>
+        <li>対象企業への事前確認と認識齟齬があれば修正</li>
+        <li>特定ベンダー・企業への利益誘導を排除した独立評価</li>
+        <li>AI環境の変化に応じてフレームワークを定期改訂</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-num">17</div>
+  <div class="page-brand">Agent Readiness Research Report 2026 — Coa Retail G.K.</div>
+</div>
+<!-- ==================== CTA: RESEARCH ==================== -->
+<div class="page cta-page">
+  <div class="cta-top"></div>
+  <div class="cta-body">
+    <div class="cta-eyebrow">Next Step</div>
+    <h2 class="cta-headline">考察の次は、<br><span>評価基準</span>です。</h2>
+    <div class="cta-sub">どう測り、どう直すか — Methodology Handbook に標準がまとまっています。</div>
+
+    <div class="cta-cards">
+      <div class="cta-card cta-card-paid">
+        <div class="cta-card-tag">Handbook — ¥98,000（税別）</div>
+        <div class="cta-card-title">Agent Readiness Methodology Handbook</div>
+        <div class="cta-card-item">Research Report 全文収録済み</div>
+        <div class="cta-card-item">DRAモデル・3軸×4要素の評価基準</div>
+        <div class="cta-card-item">3フェーズ改善ロードマップ（Playbook）</div>
+        <div class="cta-card-item">ARI Bronze〜Platinum 認証要件</div>
+        <a class="cta-url" href="https://readiness.coaretail.com" target="_blank" rel="noopener">readiness.coaretail.com</a>
+      </div>
+      <div class="cta-card cta-card-free">
+        <div class="cta-card-tag">Free — 約3分</div>
+        <div class="cta-card-title">無料ARIスコア診断</div>
+        <div class="cta-card-item">自社ポジションの数値化</div>
+        <div class="cta-card-item">業界平均との比較</div>
+        <div class="cta-card-item">診断後に認証審査のご案内</div>
+        <a class="cta-url" href="https://readiness.coaretail.com/report/" target="_blank" rel="noopener">readiness.coaretail.com/report/</a>
+      </div>
+    </div>
+
+    <div class="cta-contact">
+      <div class="cta-contact-left">
+        <span>合同会社コア・リテール（Coa Retail G.K.）</span><br>
+        <a href="mailto:info@coas.asia">info@coas.asia</a> | <a href="https://readiness.coaretail.com" target="_blank" rel="noopener">readiness.coaretail.com</a>
+      </div>
+      <div style="color:rgba(255,255,255,0.35);font-size:7.5pt;text-align:right;line-height:1.8;">
+        © 2026 Coa Retail G.K.
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

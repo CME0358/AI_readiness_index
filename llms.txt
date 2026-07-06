@@ -11,6 +11,10 @@
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
 - [Benchmarks](https://readiness.coaretail.com/dental.html): 業界調査（Dental）
 - [Improve](https://readiness.coaretail.com/improve.html): 改善プログラム
+- [Whitepaper](https://readiness.coaretail.com/whitepaper/): ホワイトペーパー一覧
+- [Report 2026 Free](https://readiness.coaretail.com/whitepaper/2026/free/): 市場教育版
+- [Research Report 2026](https://readiness.coaretail.com/whitepaper/2026/research/): Research Edition
+- [Methodology Handbook 2026](https://readiness.coaretail.com/whitepaper/2026/handbook/): 評価基準・Playbook
 
 ## Citation
 Cite as: Agent Readiness Research, Coa Retail, https://readiness.coaretail.com/research/
