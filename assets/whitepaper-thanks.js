@@ -31,7 +31,10 @@
   if (hasAccess) {
     if (paidBlock) paidBlock.hidden = false;
     if (unpaidBlock) unpaidBlock.hidden = true;
-    if (downloadBtn) downloadBtn.href = cfg.pdfUrl;
+    if (downloadBtn) {
+      downloadBtn.href = cfg.pdfUrl;
+      if (cfg.downloadName) downloadBtn.setAttribute("download", cfg.downloadName);
+    }
     if (readLink) readLink.href = cfg.readUrl;
   } else {
     if (paidBlock) paidBlock.hidden = true;
