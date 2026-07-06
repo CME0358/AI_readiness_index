@@ -893,6 +893,18 @@
     background: rgba(255,255,255,0.05);
   }
 
+  a.cta-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  a.cta-card:hover {
+    border-color: rgba(0,180,216,0.45);
+    background: rgba(255,255,255,0.08);
+  }
+
   .cta-card-tag {
     font-size: 7pt;
     font-weight: 700;
@@ -1745,15 +1757,15 @@
     <div class="cta-sub">5業種・231件・4AIの完全分析と業種別考察は有料版に収録されています。</div>
 
     <div class="cta-cards">
-      <div class="cta-card cta-card-paid">
+      <a class="cta-card cta-card-paid" href="https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k" target="_blank" rel="noopener">
         <div class="cta-card-tag">Research Report — ¥29,800（税別）</div>
         <div class="cta-card-title">Agent Readiness Research Report</div>
         <div class="cta-card-item">5業種 × 25クエリ × 231件のAI回答分析</div>
         <div class="cta-card-item">ChatGPT / Gemini / Claude / Perplexity クロス検証</div>
         <div class="cta-card-item">業種別構造分析・Evidence・Benchmark・考察</div>
         <div class="cta-card-item">Research Update ロードマップ</div>
-        <a class="cta-url" href="https://readiness.coaretail.com/whitepaper/2026/research/" target="_blank" rel="noopener">readiness.coaretail.com/whitepaper/2026/research/</a>
-      </div>
+        <span class="cta-url">readiness.coaretail.com/research/</span>
+      </a>
       <div class="cta-card cta-card-free">
         <div class="cta-card-tag">Beta — ¥29,800（税別）· 約3分</div>
         <div class="cta-card-title">Agent Readiness Index 診断</div>
