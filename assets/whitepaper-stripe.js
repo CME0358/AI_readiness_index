@@ -11,7 +11,7 @@
  */
 window.WHITEPAPER_STRIPE = {
   research: {
-    paymentLink: "https://buy.stripe.com/test_cNi4gA1ppgP7gZ53CPcMM04",
+    paymentLink: "https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k",
     pdfUrl: "assets/ARI_Research_Report_2026.pdf",
     readUrl: "./index.html",
     productName: "Agent Readiness Research Report 2026",
@@ -20,7 +20,7 @@ window.WHITEPAPER_STRIPE = {
     storageKey: "wp_research_paid",
   },
   handbook: {
-    paymentLink: "https://buy.stripe.com/test_fZueVeecbfL3aAHgpBcMM05",
+    paymentLink: "https://buy.stripe.com/5kQ7sM6JJ0Q99wDehtcMM0i",
     pdfUrl: "assets/ARI_Methodology_Handbook_2026.pdf",
     readUrl: "./index.html",
     productName: "Agent Readiness Methodology Handbook 2026",
