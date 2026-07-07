@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /crucial_data/
 
 Sitemap: https://readiness.coaretail.com/sitemap.xml

@@ -3,6 +3,9 @@ node_modules/
 public_build/
 .vercel/
 
+# 内部調査データ（Web非公開・Git管理外）
+crucial_data/
+
 # 環境変数（APIキーを含む。絶対にコミットしない）
 .env
 .env.*

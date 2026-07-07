@@ -1,0 +1,9 @@
+# 本番公開しない内部データ（調査原稿・AI回答・設計メモ等）
+crucial_data/
+
+# ビルド成果物・開発用（vercel.json の outputDirectory は public_build）
+public_build/
+node_modules/
+report/node_modules/
+onboarding/
+research/comparison/
