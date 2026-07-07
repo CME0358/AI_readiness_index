@@ -988,7 +988,7 @@ Cite as: Agent Readiness Research, Coa Retail, https://readiness.coaretail.com/r
 ## ⑫ ディレクトリ構成（v4）
 
 ```
-10_Projects/AI Readiness Index/
+10_Projects/Agent Readiness/
 ├── research/
 │   ├── index.html              # Research Hub 中核（本ページ）
 │   ├── thanks.html
