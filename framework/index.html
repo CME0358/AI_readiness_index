@@ -130,6 +130,15 @@ h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; }
 }
 .funnel-step strong { display: block; font-size: 13px; margin-bottom: 2px; }
 .funnel-arrow { color: var(--text-muted); font-size: 18px; }
+.framework-visual { margin-top: 28px; }
+.framework-visual img {
+  width: 100%; max-width: 720px; height: auto; display: block;
+  border-radius: var(--radius-lg);
+}
+.framework-flow-visual { margin-top: 32px; }
+.framework-flow-visual img {
+  width: 100%; height: auto; display: block; border-radius: var(--radius-lg);
+}
 .site-footer { border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-elevated); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: center; margin-bottom: 16px; }
 .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
@@ -188,38 +197,31 @@ h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; }
         <p>Agent Readiness Frameworkは、AIが企業を<strong>理解する（Discovery）</strong>、<strong>比較・推薦する（Recommendation）</strong>、<strong>予約・問い合わせなどを実行する（Action）</strong>までを評価するフレームワークである。</p>
         <p>SEOやGEOを包含し、AI Agent時代の企業評価基準として設計している。</p>
       </div>
-      <div class="funnel">
-        <a class="funnel-step" href="./"><strong>Framework</strong>評価基準</a>
-        <span class="funnel-arrow" aria-hidden="true">→</span>
-        <a class="funnel-step" href="../report/"><strong>Index</strong>診断指標</a>
-        <span class="funnel-arrow" aria-hidden="true">→</span>
-        <span class="funnel-step"><strong>Improve</strong>改善提案</span>
-      </div>
+      <figure class="framework-visual">
+        <img
+          src="../assets/framework/framework-funnel.png"
+          alt="Framework（評価基準）から Index（診断指標）、Improve（改善提案）への流れ"
+          width="720"
+          height="120"
+          loading="lazy"
+        >
+      </figure>
     </div>
   </section>
 
   <section class="section section-alt" id="dra">
     <div class="container">
-      <p class="section-label">DRA Model</p>
-      <h2>DRAモデル — 100点満点</h2>
-      <div class="dra-grid">
-        <div class="dra-card">
-          <h3>Discovery</h3>
-          <div class="dra-score">30点</div>
-          <p style="font-size:14px;color:var(--text-secondary);">AIに理解・発見される力</p>
-        </div>
-        <div class="dra-card">
-          <h3>Recommendation</h3>
-          <div class="dra-score">35点</div>
-          <p style="font-size:14px;color:var(--text-secondary);">AIに比較・推薦される力</p>
-        </div>
-        <div class="dra-card">
-          <h3>Action</h3>
-          <div class="dra-score">35点</div>
-          <p style="font-size:14px;color:var(--text-secondary);">AIに選択・実行される力</p>
-        </div>
-      </div>
-      <p class="dra-total">合計 100点</p>
+      <p class="section-label">Product Flow</p>
+      <h2>Frameworkから改善提案まで</h2>
+      <figure class="framework-flow-visual">
+        <img
+          src="../assets/framework/framework-flow.png"
+          alt="Agent Readiness Framework、DRA評価基準、Agent Readiness Index、100点診断、Improve改善提案の5段階フロー"
+          width="1120"
+          height="480"
+          loading="lazy"
+        >
+      </figure>
     </div>
   </section>
 
