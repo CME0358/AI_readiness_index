@@ -2,6 +2,18 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build:all",
   "outputDirectory": "public_build",
+  "redirects": [
+    {
+      "source": "/insights/zentoshin-payment-readiness",
+      "destination": "/insights/zentoshin",
+      "permanent": true
+    },
+    {
+      "source": "/insights/zentoshin-payment-readiness/",
+      "destination": "/insights/zentoshin/",
+      "permanent": true
+    }
+  ],
   "functions": {
     "api/*.js": {
       "maxDuration": 60

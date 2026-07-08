@@ -1,0 +1,39 @@
+---
+description: Agent Readiness Insights 記事の slug 命名ルール
+globs: 10_Projects/Agent Readiness/insights/**
+alwaysApply: false
+---
+
+# Insights 記事 slug ルール
+
+`/insights/{slug}/` に公開するコラム記事では、**短く内容に沿った slug** を使う。
+
+## 形式
+
+- 小文字英数字とハイフンのみ（`a-z0-9-`）
+- 目安 **4〜20 文字**
+- ディレクトリ: `insights/{slug}/index.html`
+- 公開 URL: `https://readiness.coaretail.com/insights/{slug}/`
+
+## 付け方
+
+1. 記事の**固有名詞**または**テーマの核心**を1語〜短い複合語にする
+2. 長い説明語句・冗長な英訳は避ける
+3. 既存 slug と重複しないことを確認
+
+## 例
+
+| 記事テーマ | 良い slug | 避ける slug |
+| --- | --- | --- |
+| 全東信倒産と決済信用 | `zentoshin` | `zentoshin-payment-readiness` |
+| GEOとARIの違い | `geo-vs-ari` | `difference-between-geo-and-agent-readiness` |
+| 歯科SaaS調査所感 | `dental-saas` | `dental-agent-readiness-survey-2026` |
+
+## 公開時のチェックリスト
+
+- [ ] `canonical` / JSON-LD の URL を `{slug}` に統一
+- [ ] `insights/index.html` の一覧カード `href`
+- [ ] `sitemap.xml` に `<loc>` 追加
+- [ ] slug 変更時は `vercel.json` に 301 リダイレクト（旧 → 新）
+
+テンプレート: `insights/article-template.html`

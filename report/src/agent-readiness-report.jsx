@@ -583,6 +583,7 @@ const SITE_NAV_LINKS = [
   { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/news/", label: "News" },
+  { href: "/insights/", label: "Insights" },
   { href: "/methodology.html", label: "Methodology" },
 ];
 
@@ -593,6 +594,7 @@ const SITE_FOOTER_LINKS = [
   { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
   { href: "/news/", label: "News" },
+  { href: "/insights/", label: "Insights" },
   { href: "/methodology.html", label: "Methodology" },
   { href: "/dental.html", label: "Benchmarks" },
   { href: "/report/", label: "診断レポート" },

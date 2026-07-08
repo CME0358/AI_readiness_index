@@ -7,9 +7,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evidence Library｜Agent Readiness研究の根拠</title>
-<meta name="description" content="AI回答・調査データ・実験・検証結果を集約。Agent Readiness Frameworkの主張を裏付けるエビデンスライブラリ。">
-<link rel="canonical" href="https://readiness.coaretail.com/evidence/">
+<title>Insights｜Agent Readiness コラム</title>
+<meta name="description" content="Agent Readiness Research の考察・解説コラム。調査データの読み解き、業界動向、実装の示唆をエディトリアルとして公開。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -21,14 +21,12 @@
       "url": "https://www.coaretail.com"
     },
     {
-      "@type": "WebPage",
-      "@id": "https://readiness.coaretail.com/evidence/#webpage",
-      "url": "https://readiness.coaretail.com/evidence/",
-      "name": "Evidence Library | Agent Readiness Research",
-      "description": "Agent Readiness ResearchにおけるAI回答、調査データ、実験、検証結果、引用元、更新履歴を集約した根拠ページ。",
-      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
+      "@type": "Blog",
+      "@id": "https://readiness.coaretail.com/insights/#blog",
+      "url": "https://readiness.coaretail.com/insights/",
+      "name": "Agent Readiness Insights",
+      "description": "Agent Readiness Research の考察・解説コラム。",
       "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "dateModified": "2026-07-05",
       "inLanguage": "ja"
     },
     {
@@ -36,7 +34,7 @@
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Agent Readiness", "item": "https://readiness.coaretail.com/" },
         { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://readiness.coaretail.com/research/" },
-        { "@type": "ListItem", "position": 3, "name": "Evidence", "item": "https://readiness.coaretail.com/evidence/" }
+        { "@type": "ListItem", "position": 3, "name": "Insights", "item": "https://readiness.coaretail.com/insights/" }
       ]
     }
   ]
@@ -82,18 +80,10 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 .breadcrumb a { color: var(--text-muted); text-decoration: none; }
 .definition-block { border-left: 3px solid var(--text); padding: 16px 20px; margin: 24px 0 40px; background: var(--bg-elevated); font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
 .definition-block strong { color: var(--text); }
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-.item-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; background: var(--bg); }
-.item-card .status { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-.item-card .status.live { color: var(--text); background: var(--bg-card); padding: 2px 8px; border-radius: 4px; }
-.item-card p { font-size: 14px; color: var(--text-secondary); margin: 0 0 12px; }
-.item-card a { font-size: 14px; color: var(--text); font-weight: 500; text-decoration: none; }
-.item-card a:hover { text-decoration: underline; }
 .section-alt { background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
 .footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
-.footer-program { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
 .footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
 .footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
 .footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
@@ -109,10 +99,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   background: radial-gradient(ellipse, rgba(0,0,0,0.03) 0%, transparent 70%);
   pointer-events: none;
 }
-.hero-anim {
-  opacity: 0; transform: translateY(28px);
-  animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
+.hero-anim { opacity: 0; transform: translateY(28px); animation: heroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 .hero-anim.d1 { animation-delay: 0.08s; }
 .hero-anim.d2 { animation-delay: 0.2s; }
 .hero-anim.d3 { animation-delay: 0.34s; }
@@ -120,34 +107,34 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 .hero-anim.d5 { animation-delay: 0.62s; }
 @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 .nav.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 0 var(--border); }
-
-/* Animations */
-.reveal {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-}
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal.visible { opacity: 1; transform: none; }
-.anim-group .anim-item {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+.section-header { margin-bottom: 24px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.insights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.insight-card {
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 28px 24px; background: var(--bg); display: flex; flex-direction: column;
+  text-decoration: none; color: inherit; transition: border-color 0.15s, transform 0.15s;
 }
-.anim-group.visible .anim-item,
-.reveal.visible .anim-group .anim-item { opacity: 1; transform: translateY(0); }
-.anim-group.visible .anim-item:nth-child(1), .reveal.visible .anim-group .anim-item:nth-child(1) { transition-delay: 0.05s; }
-.anim-group.visible .anim-item:nth-child(2), .reveal.visible .anim-group .anim-item:nth-child(2) { transition-delay: 0.12s; }
-.anim-group.visible .anim-item:nth-child(3), .reveal.visible .anim-group .anim-item:nth-child(3) { transition-delay: 0.19s; }
-.anim-group.visible .anim-item:nth-child(4), .reveal.visible .anim-group .anim-item:nth-child(4) { transition-delay: 0.26s; }
-.anim-group.visible .anim-item:nth-child(5), .reveal.visible .anim-group .anim-item:nth-child(5) { transition-delay: 0.33s; }
-.anim-group.visible .anim-item:nth-child(6), .reveal.visible .anim-group .anim-item:nth-child(6) { transition-delay: 0.4s; }
-.reveal.visible .section-label, .anim-group.visible .section-label {
-  animation: labelIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.insight-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.insight-card.planned { opacity: 0.72; pointer-events: none; }
+.insight-meta { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-bottom: 12px; align-items: center; }
+.insight-meta time { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.insight-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-muted); background: var(--bg-card); padding: 2px 8px; border-radius: 4px;
 }
-@keyframes labelIn {
-  from { opacity: 0; letter-spacing: 0.14em; }
-  to { opacity: 1; letter-spacing: 0.06em; }
+.insight-tag.soon { border: 1px solid var(--border); background: transparent; }
+.insight-card h3 { font-size: 1.125rem; line-height: 1.45; margin-bottom: 10px; }
+.insight-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; flex: 1; margin-bottom: 16px; }
+.insight-card .read-more { font-size: 14px; font-weight: 500; color: var(--text); }
+.empty-note {
+  font-size: 14px; color: var(--text-muted); max-width: 640px; line-height: 1.75;
+  padding: 20px 24px; border: 1px dashed var(--border); border-radius: var(--radius);
 }
 
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-links.open {
@@ -162,10 +149,9 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-anim { opacity: 1; transform: none; animation: none; }
-  .reveal, .anim-group .anim-item { opacity: 1; transform: none; transition: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .insight-card:hover { transform: none; }
 }
-.section-header { margin-bottom: 24px; }
-
 </style>
 </head>
 <body>
@@ -180,9 +166,9 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <li><a href="/framework/">Framework</a></li>
       <li><a href="/research/">Research</a></li>
       <li><a href="/whitepaper/">Whitepaper</a></li>
-      <li><a href="/evidence/" class="active">Evidence</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
       <li><a href="/news/">News</a></li>
-      <li><a href="/insights/">Insights</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
       <li><a href="/methodology.html">Methodology</a></li>
       <li><a href="/report/" class="nav-cta">診断レポート</a></li>
     </ul>
@@ -198,13 +184,13 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <span aria-hidden="true">/</span>
       <a href="/research/">Research</a>
       <span aria-hidden="true">/</span>
-      <span>Evidence</span>
+      <span>Insights</span>
     </nav>
-    <p class="section-label hero-anim d2">Evidence Library</p>
-    <h1 class="hero-anim d3">研究の根拠</h1>
-    <p class="lead hero-anim d4"><a href="../framework/" style="color:inherit">Agent Readiness Framework</a>を支える実証データ集。リファレンスページ上の主張は、この Evidence Library の項目を根拠とします。</p>
+    <p class="section-label hero-anim d2">Column · Insights</p>
+    <h1 class="hero-anim d3">Insights</h1>
+    <p class="lead hero-anim d4">調査データの読み解き、業界動向、実装の示唆。Research の一次情報を、経営・マーケティングの文脈で解説するコラムです。</p>
     <blockquote class="definition-block hero-anim d5">
-      <strong>Evidence Library（エビデンス・ライブラリ）</strong>とは、Framework設計の根拠となるAI回答、調査データ、実験、検証結果、引用元、更新履歴を集約した根拠ページである。
+      <strong>Insights と News / Research Updates の違い</strong> — <a href="/news/" style="color:inherit">News</a>はプレスリリース（発表記録）。<a href="/research/#updates" style="color:inherit">Research Updates</a>は調査データの積み上げ。Insightsは、その両方を横断した<strong>考察・解説・実務への示唆</strong>です。
     </blockquote>
   </div>
 </section>
@@ -212,65 +198,47 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 <section class="section section-alt">
   <div class="container">
     <div class="section-header reveal">
-      <h2>カテゴリ</h2>
+      <h2>記事一覧</h2>
     </div>
-    <div class="card-grid anim-group reveal" style="margin-top:24px">
-      <article class="item-card anim-item">
-        <span class="status live">公開中</span>
-        <h3>AI回答</h3>
-        <p>5社への100問回答の要約・代表引用。</p>
-        <a href="/research/#quotes">Research の引用ブロック →</a>
-      </article>
-      <article class="item-card anim-item">
-        <span class="status live">公開中</span>
-        <h3>調査データ</h3>
-        <p>一致率・差異表・配点比較・7共通項。</p>
-        <a href="/research/#consensus">5社一致の7項目 →</a>
-      </article>
-      <article class="item-card anim-item">
-        <span class="status">予定</span>
-        <h3>実験</h3>
-        <p>介入前後の測定ログ。今後追加。</p>
-      </article>
-      <article class="item-card anim-item">
-        <span class="status">予定</span>
-        <h3>検証結果</h3>
-        <p>Schema→推薦率など因果検証。今後追加。</p>
-      </article>
-      <article class="item-card anim-item">
-        <span class="status live">公開中</span>
-        <h3>引用元・関連調査</h3>
-        <p>業界ベンチマーク等の一次資料。</p>
-        <a href="/dental.html">Dental Agent Readiness Survey →</a>
-      </article>
-      <article class="item-card anim-item">
-        <span class="status live">公開中</span>
-        <h3>更新履歴</h3>
-        <p>Research Updates と同期。</p>
-        <a href="/research/#updates">Research Updates →</a>
-      </article>
+
+    <div class="insights-grid reveal" id="insights-list">
+      <a class="insight-card" href="/insights/zentoshin/">
+        <div class="insight-meta">
+          <time datetime="2026-07-08">2026.07.08</time>
+          <span class="insight-tag">Column</span>
+        </div>
+        <h3>全東信の倒産が示したもの — AI時代は「決済できる企業」が選ばれる</h3>
+        <p>決済インフラの停止が露わにしたのは売上ではなく「売上を受け取れる仕組み」。AIに選ばれても決済できなければ事業は成長しない——信用設計の視点を整理する。</p>
+        <span class="read-more">続きを読む →</span>
+      </a>
     </div>
-    <div class="cta-row reveal">
-      <a href="/research/" class="btn btn-primary">Research に戻る</a>
-      <a href="/research/#citation" class="btn btn-secondary">Citation Policy</a>
-    </div>
+
+    <p class="empty-note reveal" id="insights-empty" hidden>
+      公開中の記事はまだありません。
+    </p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
     <div class="section-header reveal">
-      <h2>現時点で参照できる根拠</h2>
+      <h2>執筆予定</h2>
+      <p class="lead">2本目以降のコラムは順次追加します。</p>
     </div>
-    <ul class="reveal" style="margin-top:20px;padding-left:1.25em;color:var(--text-secondary);line-height:2.1;max-width:640px">
-      <li><a href="/research/#principles" style="color:inherit">Agent Readiness Principles（7原則）</a></li>
-      <li><a href="/research/#method" style="color:inherit">研究方法（100問・5社・専門家レビュー）</a></li>
-      <li><a href="/research/#quotes" style="color:inherit">AI一次データ引用</a></li>
-      <li><a href="/research/#limitations" style="color:inherit">研究の限界</a></li>
-      <li><a href="/methodology.html" style="color:inherit">Methodology（評価方法論）</a></li>
-      <li><a href="/dental.html" style="color:inherit">Dental Agent Readiness Survey（23プロダクト）</a></li>
-    </ul>
-    <p class="reveal" style="margin-top:24px;font-size:14px;color:var(--text-muted)">実験・検証結果は今後追加します。追加時は Research Updates に追記します。</p>
+    <div class="insights-grid reveal">
+      <article class="insight-card planned">
+        <div class="insight-meta">
+          <span class="insight-tag soon">執筆予定</span>
+        </div>
+        <h3>（タイトル未定）</h3>
+        <p>次回の Insights 記事を準備中です。</p>
+      </article>
+    </div>
+    <div class="cta-row reveal">
+      <a href="/research/" class="btn btn-primary">Research Hub</a>
+      <a href="/whitepaper/2026/free/" class="btn btn-secondary">無料版レポート</a>
+      <a href="/report/" class="btn btn-secondary">ARI診断</a>
+    </div>
   </div>
 </section>
 </main>
@@ -278,8 +246,8 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 <footer class="research-footer">
   <div class="container">
     <p class="footer-brand">Agent Readiness Research Hub</p>
-    <p class="footer-org">Evidence Library · Coa Retail</p>
-    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-05</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-08</p>
     <nav class="footer-links" aria-label="Site">
       <a href="/">トップ</a>
       <a href="/framework/">Framework</a>
@@ -294,10 +262,10 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
     </nav>
     <nav class="footer-layers" aria-label="Research">
-      <a href="../research/#principles">Principles</a>
-      <a href="../research/#quotes">AI回答</a>
-      <a href="../research/#updates">Updates</a>
-      <a href="../research/#citation">Citation Policy</a>
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
     </nav>
     <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
   </div>
@@ -309,6 +277,12 @@ const nav = document.querySelector('.nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 24);
 }, { passive: true });
+// 記事カードが追加されたら空状態メッセージを非表示
+const list = document.getElementById('insights-list');
+const empty = document.getElementById('insights-empty');
+if (list && empty && list.querySelector('a.insight-card')) {
+  empty.hidden = true;
+}
 </script>
 </body>
 </html>
