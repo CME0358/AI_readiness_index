@@ -1,6 +1,6 @@
 /**
  * Google Analytics 4 — readiness.coaretail.com
- * Measurement ID: G-R3QVBJZ53S (stream 15219144882)
+ * Measurement ID: G-R3QVBJZ53S
  */
 (function (w, d, id) {
   w.dataLayer = w.dataLayer || [];
