@@ -547,18 +547,38 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
 .report-card {
   display: flex; flex-direction: column; align-items: flex-start;
   border: 1px solid var(--border); border-radius: var(--radius-lg);
-  padding: 28px 24px; background: var(--bg); min-height: 280px;
+  padding: 28px 24px; background: var(--bg);
   transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
   text-decoration: none; color: inherit;
 }
+a.report-card { text-decoration: none; color: inherit; }
 a.report-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+a.report-card,
+a.report-card:hover,
+a.report-card * { text-decoration: none; }
 .report-card-soon { opacity: 0.72; cursor: default; }
 .report-icon { font-size: 2rem; line-height: 1; margin-bottom: 16px; }
-.report-card h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
-.report-tier { font-size: 13px; color: var(--text-secondary); margin-bottom: auto; line-height: 1.6; flex: 1; }
+.report-card h2 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+.report-subtitle { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.55; margin-bottom: 12px; }
+.report-tier { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+.report-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.report-meta {
+  width: 100%; margin-top: 4px; margin-bottom: 16px;
+  padding-top: 16px; border-top: 1px solid var(--border);
+}
+.report-meta div { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: 4px 10px; margin-bottom: 10px; }
+.report-meta div:last-child { margin-bottom: 0; }
+.report-meta dt { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.02em; }
+.report-meta dd { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin: 0; overflow-wrap: anywhere; word-break: break-word; min-width: 0; }
+.report-badge {
+  display: block; width: 100%; box-sizing: border-box;
+  font-size: 11px; line-height: 1.5; color: var(--text-muted);
+  background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; margin-bottom: 12px; overflow-wrap: anywhere; word-break: break-word;
+}
 .report-price {
   font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-  margin: 20px 0 14px; color: var(--text);
+  margin: auto 0 14px; color: var(--text);
 }
 .report-price-free { color: #0D7377; }
 .report-soon {
@@ -566,9 +586,18 @@ a.report-card:hover { border-color: var(--border-hover); transform: translateY(-
   color: var(--text-muted); padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
 }
 .report-card .btn { width: 100%; margin-top: auto; }
+.report-card .btn-primary { background: #06C755; color: #FFFFFF; }
+.report-card .btn-primary:hover { background: #05B04C; transform: translateY(-1px); }
+.report-card .btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.report-card .btn-navy:hover { background: #162040; transform: translateY(-1px); }
 .report-library-foot { margin-top: 24px; font-size: 14px; color: var(--text-secondary); }
 .report-library-foot a { color: var(--text); font-weight: 500; }
 @media (max-width: 900px) { .report-library-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .report-card { padding: 22px 16px; width: 100%; max-width: 100%; min-width: 0; }
+  .report-meta div { grid-template-columns: 1fr; gap: 2px; margin-bottom: 12px; }
+  .report-card .btn { font-size: 13px; padding: 12px 14px; white-space: normal; text-align: center; }
+}
 
 /* Next steps */
 .next-grid {
@@ -1251,26 +1280,46 @@ a.report-card:hover { border-color: var(--border-hover); transform: translateY(-
       <p class="lead">本レポートは、<a href="../framework/" style="color:inherit">Agent Readiness Framework</a>設計の根拠となる調査です。観測データから評価基準まで、調査深度に応じたレポートを段階的に公開しています。</p>
     </div>
     <div class="report-library-grid">
-      <a class="report-card" href="../whitepaper/2026/free/">
+      <a class="report-card" href="../whitepaper/2026/free/" data-item-name="Agent Readiness Report 2026 FREE" data-price="0">
         <span class="report-icon" aria-hidden="true">📘</span>
-        <h3>Agent Readiness Report 2026</h3>
+        <h2>Agent Readiness Report 2026</h2>
         <p class="report-tier">市場教育版。5業種・231件の観測データとAI推薦格差の証拠。</p>
+        <dl class="report-meta">
+          <div><dt>対象者</dt><dd>まず状況を知りたい方</dd></div>
+          <div><dt>得られるもの</dt><dd>5業種・231件の観測データから見える、AI推薦格差の全体像</dd></div>
+          <div><dt>収録内容</dt><dd>業種別AI推薦格差ランキング／Discovery・Recommendation・Actionの3層評価モデル／今すぐ確認すべき3つのチェック項目</dd></div>
+          <div><dt>使い方</dt><dd>社内共有・情報収集</dd></div>
+        </dl>
+        <span class="report-badge">まずは無料で全体傾向を把握 → 数値根拠が必要な方はResearch Editionへ</span>
         <span class="report-price report-price-free">FREE</span>
-        <span class="btn btn-primary">Download</span>
+        <span class="btn btn-primary btn-navy">無料レポートを入手する</span>
       </a>
-      <a class="report-card" href="https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k">
+      <a class="report-card" href="https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k" data-item-name="Research Edition" data-price="29800">
         <span class="report-icon" aria-hidden="true">📕</span>
-        <h3>Research Edition</h3>
-        <p class="report-tier">5業種分析・4AIクロス検証・Evidence・Benchmark・業種別考察。</p>
+        <h2>Research Edition</h2>
+        <p class="report-subtitle">その"感覚"、231件のデータで裏付けできますか。</p>
+        <p class="report-desc">無料版は傾向だけ。これは"証拠"です。<br>4つのAIを横断検証した観測データと、業種別の格差を数値化。<br>会議で「なんとなく」ではなく「根拠を持って」語れるようになります。</p>
+        <dl class="report-meta">
+          <div><dt>対象者</dt><dd>自社の立ち位置を<strong>数値</strong>で把握したい経営者</dd></div>
+          <div><dt>得られるもの</dt><dd>231件の生データ・4AIクロス検証・業種別考察</dd></div>
+          <div><dt>使い方</dt><dd>経営会議の"根拠資料"として提示</dd></div>
+        </dl>
         <span class="report-price">¥29,800</span>
-        <span class="btn btn-primary">Download</span>
+        <span class="btn btn-primary">レポートを入手する(¥29,800)</span>
       </a>
-      <a class="report-card" href="https://buy.stripe.com/5kQ7sM6JJ0Q99wDehtcMM0i">
+      <a class="report-card" href="https://buy.stripe.com/5kQ7sM6JJ0Q99wDehtcMM0i" data-item-name="Methodology Handbook" data-price="98000">
         <span class="report-icon" aria-hidden="true">📙</span>
-        <h3>Methodology Handbook</h3>
-        <p class="report-tier">DRA評価基準・Playbook・認証要件。Research Edition 全文収録。</p>
+        <h2>Methodology Handbook</h2>
+        <p class="report-subtitle">読むレポートから、使えるマニュアルへ。</p>
+        <p class="report-desc">Research Editionが"現状把握"なら、これは"実行手順"です。<br>DRA評価基準・現場で使えるPlaybook・認証要件までを1冊に収録。<br>自社実装はもちろん、クライアント提案資料としてもそのまま転用できます。</p>
+        <dl class="report-meta">
+          <div><dt>対象者</dt><dd>施策に<strong>そのまま落とし込みたい</strong>実務・代理店担当者</dd></div>
+          <div><dt>得られるもの</dt><dd>DRA評価基準・実行Playbook・認証要件</dd></div>
+          <div><dt>使い方</dt><dd>明日から現場で使う実装マニュアル</dd></div>
+        </dl>
+        <span class="report-badge">コンサル・代理店の実務利用を想定／Research Edition購入者は差額のみで追加可</span>
         <span class="report-price">¥98,000</span>
-        <span class="btn btn-primary">Download</span>
+        <span class="btn btn-primary">Handbookを入手する(¥98,000)</span>
       </a>
     </div>
     <p class="report-library-foot">全ホワイトペーパー一覧は <a href="../whitepaper/">Whitepaper</a> からもアクセスできます。</p>
@@ -1443,6 +1492,7 @@ https://readiness.coaretail.com/research/</pre>
 </div>
 
 <script src="../assets/hub-animations.js"></script>
+<script src="../assets/whitepaper-download-tracking.js" defer></script>
 <script>
 (function () {
   const gridPairs = [
