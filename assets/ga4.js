@@ -1,6 +1,7 @@
 /**
  * Google Analytics 4 — readiness.coaretail.com
- * Measurement ID: G-BS30YQY1N7 (Coa Retail corporate GA4)
+ * Measurement ID: G-R3QVBJZ53S
+ * Stream ID: 15219144882
  */
 (function (w, d, id) {
   w.dataLayer = w.dataLayer || [];
@@ -14,4 +15,4 @@
   tag.async = true;
   tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
   first.parentNode.insertBefore(tag, first);
-})(window, document, 'G-BS30YQY1N7');
+})(window, document, 'G-R3QVBJZ53S');
