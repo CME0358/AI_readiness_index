@@ -330,11 +330,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .hub-hero-visual { order: -1; }
   .hub-hero-visual img { max-width: 420px; }
 }
-@media (max-width: 768px) {
-  .pub-grid { grid-template-columns: 1fr; }
-  .compare-table th, .compare-table td { padding: 14px 16px; font-size: 14px; }
-  .compare-table thead th { font-size: 13px; }
-  .section { padding: 72px 0; }
+@media (max-width: 1100px) {
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; position: absolute;
@@ -343,6 +339,12 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   }
   .nav-toggle { display: block; }
   .nav { position: relative; }
+}
+@media (max-width: 768px) {
+  .pub-grid { grid-template-columns: 1fr; }
+  .compare-table th, .compare-table td { padding: 14px 16px; font-size: 14px; }
+  .compare-table thead th { font-size: 13px; }
+  .section { padding: 72px 0; }
 }
 </style>
 </head>

@@ -86,7 +86,7 @@ h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.0
 .anim-group.visible .anim-item:nth-child(2) { transition-delay: 0.16s; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal.visible { opacity: 1; transform: none; }
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; position: absolute;
@@ -96,6 +96,7 @@ h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.0
   .nav-toggle { display: block; }
   .nav { position: relative; }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-anim, .reveal, .anim-group .anim-item { opacity: 1; transform: none; animation: none; transition: none; }
 }

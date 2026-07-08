@@ -400,16 +400,21 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .pillars, .score-flow { grid-template-columns: 1fr; }
   .research-grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 768px) {
-  .section { padding: 80px 0; }
+@media (max-width: 1100px) {
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; position: absolute;
-    top: var(--nav-h); left: 0; right: 0;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+@media (max-width: 768px) {
+  .section { padding: 80px 0; }
     background: var(--bg); border-bottom: 1px solid var(--border);
     padding: 20px 24px; gap: 16px; align-items: flex-start;
   }
-  .nav-toggle { display: block; }
   .research-grid { grid-template-columns: 1fr 1fr; }
   .process-item { grid-template-columns: 1fr; }
   .process-num { margin-bottom: 4px; }
