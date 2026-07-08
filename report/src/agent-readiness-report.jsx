@@ -582,16 +582,19 @@ const SITE_NAV_LINKS = [
   { href: "/research/", label: "Research" },
   { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
+  { href: "/news/", label: "News" },
   { href: "/methodology.html", label: "Methodology" },
 ];
 
 const SITE_FOOTER_LINKS = [
-  { href: "/index.html", label: "トップ" },
+  { href: "/", label: "トップ" },
   { href: "/framework/", label: "Framework" },
   { href: "/research/", label: "Research" },
   { href: "/whitepaper/", label: "Whitepaper" },
   { href: "/evidence/", label: "Evidence" },
+  { href: "/news/", label: "News" },
   { href: "/methodology.html", label: "Methodology" },
+  { href: "/dental.html", label: "Benchmarks" },
   { href: "/report/", label: "診断レポート" },
   { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
 ];
@@ -616,7 +619,7 @@ function LandingPage({ onStart }) {
     <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", background: "#FFFFFF", minHeight: "100vh" }}>
       {/* Nav */}
       <nav style={{ borderBottom: "1px solid #E8E8E8", padding: "0 40px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", zIndex: 100 }}>
-        <a href="/index.html" style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.3px", textDecoration: "none" }}>
+        <a href="/" style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.3px", textDecoration: "none" }}>
           Agent Readiness <span style={{ color: "#9B9B9B", fontWeight: 400 }}>Index™</span>
         </a>
         <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
