@@ -79,7 +79,7 @@
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -87,6 +87,7 @@ body {
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 .section { padding: 100px 0; }
@@ -152,10 +153,11 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   padding: calc(var(--nav-h) + 80px) 0 88px;
   position: relative;
   border-bottom: 1px solid var(--border);
+  overflow-x: hidden;
 }
 .hub-hero-glow {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 480px; pointer-events: none;
+  width: min(800px, 100%); height: 480px; max-width: 100%; pointer-events: none;
   background: radial-gradient(ellipse, var(--accent-soft) 0%, transparent 70%);
 }
 .hub-hero-tagline {

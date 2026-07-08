@@ -217,8 +217,9 @@ h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); margin-bottom: 20px; }
 .btn-secondary:hover { border-color: var(--border-hover); background: rgba(0,0,0,0.03); }
 
 /* Hero */
-.page-hero { padding: calc(var(--nav-h) + 72px) 0 80px; position: relative; }
-.page-hero-glow { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(0,0,0,0.03) 0%, transparent 70%); pointer-events: none; }
+.page-hero {
+  overflow-x: hidden; padding: calc(var(--nav-h) + 72px) 0 80px; position: relative; }
+.page-hero-glow { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: min(700px, 100%); max-width: 100%; height: 400px; background: radial-gradient(ellipse, rgba(0,0,0,0.03) 0%, transparent 70%); pointer-events: none; }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
 .breadcrumb a { color: var(--text-muted); text-decoration: none; }
