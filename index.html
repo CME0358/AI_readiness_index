@@ -173,6 +173,28 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 }
 .hub-hero .lead { margin-bottom: 40px; max-width: 680px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hub-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 5vw, 56px);
+  align-items: center;
+  position: relative;
+}
+.hub-hero-content { min-width: 0; }
+.hub-hero-visual {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+.hub-hero-visual img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  background: transparent;
+}
 
 /* Hub cards */
 .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -284,6 +306,9 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 @media (max-width: 900px) {
   .hub-grid { grid-template-columns: 1fr; }
   .nav-cards { grid-template-columns: repeat(2, 1fr); }
+  .hub-hero-inner { grid-template-columns: 1fr; }
+  .hub-hero-visual { order: -1; }
+  .hub-hero-visual img { max-width: 420px; }
 }
 @media (max-width: 768px) {
   .pub-grid { grid-template-columns: 1fr; }
@@ -324,12 +349,26 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 <section class="hub-hero">
   <div class="hub-hero-glow" aria-hidden="true"></div>
   <div class="container" style="position:relative">
-    <p class="hub-hero-tagline hero-anim d1">AIに見つかる時代から、<br>AIに選ばれる時代へ</p>
-    <p class="hub-hero-title hero-anim d2">Agent Readiness Research Hub</p>
-    <p class="lead hero-anim d3">主要AI5社への独自調査をもとに、AI時代の企業評価基準「Agent Readiness Framework」を公開。<br><br>企業がAIに理解され、比較され、推薦され、実行されるための評価基準と研究成果を公開しています。</p>
-    <div class="hero-actions hero-anim d4">
-      <a href="framework/" class="btn btn-accent btn-lg">Frameworkを見る</a>
-      <a href="report/" class="btn btn-secondary btn-lg">診断を申し込む</a>
+    <div class="hub-hero-inner">
+      <div class="hub-hero-content">
+        <p class="hub-hero-tagline hero-anim d1">AIに見つかる時代から、<br>AIに選ばれる時代へ</p>
+        <p class="hub-hero-title hero-anim d2">Agent Readiness Research Hub</p>
+        <p class="lead hero-anim d3">主要AI5社への独自調査をもとに、AI時代の企業評価基準「Agent Readiness Framework」を公開。<br><br>企業がAIに理解され、比較され、推薦され、実行されるための評価基準と研究成果を公開しています。</p>
+        <div class="hero-actions hero-anim d4">
+          <a href="framework/" class="btn btn-accent btn-lg">Frameworkを見る</a>
+          <a href="report/" class="btn btn-secondary btn-lg">診断を申し込む</a>
+        </div>
+      </div>
+      <div class="hub-hero-visual hero-anim d3">
+        <img
+          src="assets/agent-readiness-hero.webp"
+          alt="Agent Readiness — Web理解から予約・実行までつなぐAI時代の企業評価"
+          width="1024"
+          height="682"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
     </div>
   </div>
 </section>
