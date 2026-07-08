@@ -212,7 +212,20 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 .hub-card-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
 .hub-card-meta { font-size: 12px; color: var(--text-muted); margin-top: auto; }
 
-/* DRA flow */
+/* Framework visual */
+.framework-visual {
+  margin: 40px auto 0;
+  max-width: 100%;
+  background: transparent;
+}
+.framework-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: transparent;
+}
+
+/* DRA flow — legacy (framework page only) */
 .dra-flow {
   display: flex; flex-direction: column; align-items: center; gap: 0;
   margin: 40px auto 32px; max-width: 320px;
@@ -445,23 +458,15 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
       <p>Agent Readiness Frameworkは、AIが企業を<strong>理解する</strong>、<strong>比較する</strong>、<strong>推薦する</strong>、<strong>実行する</strong>までを評価するフレームワークです。</p>
       <p>SEOやGEOを包含し、AI Agent時代の企業評価基準として設計されています。</p>
     </div>
-    <div class="dra-flow reveal" aria-label="DRAモデル">
-      <div class="dra-step">
-        <h3>Discovery</h3>
-        <div class="dra-score">30点</div>
-      </div>
-      <div class="dra-arrow" aria-hidden="true">↓</div>
-      <div class="dra-step">
-        <h3>Recommendation</h3>
-        <div class="dra-score">35点</div>
-      </div>
-      <div class="dra-arrow" aria-hidden="true">↓</div>
-      <div class="dra-step">
-        <h3>Action</h3>
-        <div class="dra-score">35点</div>
-      </div>
-    </div>
-    <p class="dra-total reveal">合計 100点</p>
+    <figure class="framework-visual reveal">
+      <img
+        src="assets/agent-readiness-framework.webp"
+        alt="Agent Readiness Frameworkとは — SEO・GEOからDRAモデル（Discovery・Recommendation・Action）までの評価基準"
+        width="1200"
+        height="800"
+        loading="lazy"
+      >
+    </figure>
     <div style="margin-top:28px" class="reveal">
       <a href="framework/" class="btn btn-accent">Frameworkを見る</a>
     </div>
