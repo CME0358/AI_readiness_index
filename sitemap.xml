@@ -49,6 +49,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://readiness.coaretail.com/news/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://readiness.coaretail.com/methodology.html</loc>
     <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
