@@ -325,13 +325,6 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 
 /* Reveal — see assets/hub-animations.css */
 
-@media (max-width: 900px) {
-  .hub-grid { grid-template-columns: 1fr; }
-  .nav-cards { grid-template-columns: repeat(2, 1fr); }
-  .hub-hero-inner { grid-template-columns: 1fr; }
-  .hub-hero-visual { order: -1; }
-  .hub-hero-visual img { max-width: 420px; }
-}
 @media (max-width: 1100px) {
   .nav-links { display: none; }
   .nav-links.open {
@@ -341,12 +334,25 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   }
   .nav-toggle { display: block; }
   .nav { position: relative; }
+  /* nav が relative になるため fixed 分の nav-h 余白は不要 */
+  .hub-hero { padding: 36px 0 56px; }
+}
+@media (max-width: 900px) {
+  .hub-grid { grid-template-columns: 1fr; }
+  .nav-cards { grid-template-columns: repeat(2, 1fr); }
+  .hub-hero-inner { grid-template-columns: 1fr; gap: 28px; }
+  .hub-hero-visual { order: -1; }
+  .hub-hero-visual img { max-width: 360px; }
+  .hub-hero { padding: 28px 0 48px; }
 }
 @media (max-width: 768px) {
   .pub-grid { grid-template-columns: 1fr; }
   .compare-table th, .compare-table td { padding: 14px 16px; font-size: 14px; }
   .compare-table thead th { font-size: 13px; }
   .section { padding: 72px 0; }
+  .hub-hero { padding: 20px 0 40px; }
+  .hub-hero-inner { gap: 20px; }
+  .hub-hero-visual img { max-width: 300px; }
 }
 </style>
 </head>
