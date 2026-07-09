@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>レビューだけでは足りない｜AIが本当に見ている「信頼の証拠」</title>
+<meta name="description" content="レビュー以外にAIが見ている信頼の証拠とは何か。第三者掲載、一貫性、専門性など、Authorityを支えるシグナルを解説。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/trust/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "レビューだけでは足りない──AIが本当に見ている「信頼の証拠」",
+  "description": "レビュー以外にAIが見ている信頼の証拠とは何か。第三者掲載、一貫性、専門性など、Authorityを支えるシグナルを解説。",
+  "datePublished": "2026-07-23",
+  "dateModified": "2026-07-23",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/trust/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>信頼の証拠</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-07-23">2026.07.23</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>レビューだけでは足りない──AIが本当に見ている「信頼の証拠」</h1>
+      <p class="lead">星の数や口コミだけではAuthorityは完成しない。AIが本当に見ている信頼の証拠は、もっと広い。</p>
+    </div>
+  </header>
+
+  <article class="article-body container">
+    <div class="article-container">
+      <h2>星4.8だから、AIは推薦してくれる？</h2>
+      <p>「Googleレビューは4.8です。」</p>
+      <p>「口コミも100件以上あります。」</p>
+      <p>「だからAIにも紹介されるはずです。」</p>
+      <p>そう考える企業は少なくありません。</p>
+      <p>もちろん、レビューは重要です。</p>
+      <p>実際、多くのAIサービスは、企業を評価する際にレビュー情報を参考にしています。</p>
+      <p>しかし、レビューだけで企業を推薦することはありません。</p>
+      <p>なぜなら、AIが判断しているのは「<strong>評価</strong>」<strong>ではなく</strong>「<strong>証拠</strong>」だからです。</p>
+      <p>レビューは数ある証拠の一つに過ぎません。</p>
+      <p>AIは、それ以外の情報も集めながら、「この企業を安心して紹介できるか」を判断しています。</p>
+      <h2>AIは「信頼の証拠」を集めている</h2>
+      <p>人も何かを購入するとき、一つの口コミだけで決めることは少ないでしょう。</p>
+      <p>公式サイトを見る。</p>
+      <p>口コミを読む。</p>
+      <p>SNSを調べる。</p>
+      <p>ニュース記事を探す。</p>
+      <p>知人の意見を聞く。</p>
+      <p>こうした複数の情報を組み合わせて、「この会社なら大丈夫そうだ」と判断します。</p>
+      <p>AIも同じです。</p>
+      <p>企業について質問されると、さまざまな情報を照らし合わせながら、信頼できる根拠を集めています。</p>
+      <p>つまり、AIが見ているのは「レビューの点数」ではなく、「信頼を裏付ける証拠の総量と整合性」なのです。</p>
+      <h2>レビューは「体験」の証拠</h2>
+      <p>レビューが重要なのは、実際に利用した人の体験が含まれているからです。</p>
+      <p>AIは、</p>
+      <p>レビュー件数。</p>
+      <p>評価の分布。</p>
+      <p>内容の具体性。</p>
+      <p>継続的に投稿されているか。</p>
+      <p>など、さまざまな視点から情報を読み取ります。</p>
+      <p>一方で、レビューだけでは分からないこともあります。</p>
+      <p>企業の専門性。</p>
+      <p>事業の継続性。</p>
+      <p>サービスの詳細。</p>
+      <p>最新の取り組み。</p>
+      <p>こうした情報は、別の証拠によって補われます。</p>
+      <h2>プレスリリースは「企業活動」の証拠</h2>
+      <p>新しいサービスを公開した。</p>
+      <p>新しい研究を発表した。</p>
+      <p>展示会へ出展した。</p>
+      <p>新しいパートナーシップを締結した。</p>
+      <p>こうした情報を継続的に発信している企業は、AIにとって「現在も活動している企業」と認識されやすくなります。</p>
+      <p>特に、第三者メディアにも配信されるプレスリリースは、企業活動を裏付ける重要な情報源になります。</p>
+      <p>単なる宣伝ではなく、「企業が継続的に事業を行っている」という証拠なのです。</p>
+      <h2>専門的な情報発信は「知識」の証拠</h2>
+      <p>AIは、その企業がどの分野に詳しいのかも見ています。</p>
+      <p>例えば、</p>
+      <p>調査レポート。</p>
+      <p>ホワイトペーパー。</p>
+      <p>技術ブログ。</p>
+      <p>コラム。</p>
+      <p>セミナー資料。</p>
+      <p>これらは、「この企業はこのテーマについて継続的に知見を発信している」というシグナルになります。</p>
+      <p>専門的な情報発信が積み重なるほど、AIは企業の専門性を理解しやすくなります。</p>
+      <h2>第三者からの言及は「客観性」の証拠</h2>
+      <p>企業自身が、</p>
+      <p>「私たちは業界No.1です」</p>
+      <p>と書くことはできます。</p>
+      <p>しかし、それだけではAIは慎重になります。</p>
+      <p>一方で、</p>
+      <p>業界メディアが紹介している。</p>
+      <p>新聞で取り上げられている。</p>
+      <p>インタビュー記事が公開されている。</p>
+      <p>専門家が言及している。</p>
+      <p>こうした第三者による情報は、客観的な評価として扱われやすくなります。</p>
+      <p>AIは、「企業自身が何を言っているか」だけでなく、「周囲がその企業をどう評価しているか」も見ているのです。</p>
+      <h2>AIは「証拠の束」で信頼を判断する</h2>
+      <p>ここまで紹介したように、AIは一つの情報だけで企業を評価していません。</p>
+      <p>例えば、</p>
+      <ul>
+        <li>レビュー</li>
+        <li>プレスリリース</li>
+        <li>専門記事</li>
+        <li>ホワイトペーパー</li>
+        <li>導入事例</li>
+        <li>メディア掲載</li>
+        <li>業界団体への登録</li>
+        <li>Googleビジネスプロフィール</li>
+        <li>公式サイト</li>
+      </ul>
+      <p>こうした情報を組み合わせながら、「企業の全体像」を形成しています。</p>
+      <p>一つひとつは小さな証拠でも、それらが積み重なることで、AIは安心して企業を推薦できるようになります。</p>
+      <p>Authorityとは、まさに「信頼の証拠が積み重なった状態」と言えるでしょう。</p>
+      <h2>Agent Readiness FrameworkにおけるAuthority</h2>
+      <p>私たちは、Agent Readiness FrameworkのAuthorityを、</p>
+      <p><strong>「AIが企業を信頼し、安心して推薦できる状態」</strong></p>
+      <p>と定義しています。</p>
+      <p>そのためには、</p>
+      <p>レビューを増やすだけでは不十分です。</p>
+      <p>企業活動を発信する。</p>
+      <p>専門性を示す。</p>
+      <p>第三者から認識される。</p>
+      <p>情報を継続的に更新する。</p>
+      <p>こうした取り組みを通じて、AIが参照できる「証拠」を増やしていくことが重要になります。</p>
+      <p>Authorityとは、一夜にして手に入るものではありません。</p>
+      <p>日々の積み重ねによって形成される、企業の信用資産なのです。</p>
+      <h2>AIは「沈黙している企業」を信頼しにくい</h2>
+      <p>長期間更新されていないWebサイト。</p>
+      <p>数年前のニュースしかない。</p>
+      <p>レビューも増えていない。</p>
+      <p>新しい情報発信が止まっている。</p>
+      <p>こうした企業は、実際には営業を続けていても、AIにとっては判断材料が不足しています。</p>
+      <p>AIは推測ではなく、公開された情報をもとに回答を生成します。</p>
+      <p>だからこそ、「情報を発信し続けること」そのものが、Authorityを維持する重要な取り組みになります。</p>
+      <h2>まとめ</h2>
+      <p>レビューは重要です。</p>
+      <p>しかし、レビューだけではAIに信頼される企業にはなれません。</p>
+      <p>AIは、</p>
+      <p>レビュー。</p>
+      <p>専門的な情報発信。</p>
+      <p>プレスリリース。</p>
+      <p>第三者メディア。</p>
+      <p>導入事例。</p>
+      <p>企業情報の一貫性。</p>
+      <p>こうした多様な証拠を組み合わせながら、企業を評価しています。</p>
+      <p>つまり、Authorityとは「評価が高い企業」ではなく、「信頼できる証拠を継続的に積み重ねている企業」のことです。</p>
+      <p>AI時代に求められるのは、一つの施策ではありません。</p>
+      <p>企業の信頼をWeb全体で証明し続けること。</p>
+      <p>それが、AIに選ばれる企業への近道になります。</p>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy">Framework</a>
+        <a href="/research/" class="btn btn-secondary">Research Hub</a>
+        <a href="/insights/auth/" class="btn btn-secondary">Authorityとは何か</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-23</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>

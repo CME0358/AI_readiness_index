@@ -6,7 +6,7 @@
  * Usage:
  *   node scripts/publish-scheduled-insights.mjs
  *   node scripts/publish-scheduled-insights.mjs --dry-run
- *   node scripts/publish-scheduled-insights.mjs --force-slug robots-sitemap-llms
+ *   node scripts/publish-scheduled-insights.mjs --force-slug files
  *   node scripts/publish-scheduled-insights.mjs --now 2026-07-13T10:00:00+09:00
  */
 import fs from 'node:fs';

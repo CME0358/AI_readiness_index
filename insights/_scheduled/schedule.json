@@ -7,7 +7,7 @@
   },
   "articles": [
     {
-      "slug": "robots-sitemap-llms",
+      "slug": "files",
       "publishAt": "2026-07-13T10:00:00+09:00",
       "status": "scheduled",
       "title": "robots.txt・sitemap.xml・llms.txtの違い──AIは何を見ているのか",
@@ -15,7 +15,7 @@
       "llmsLabel": "robots / sitemap / llms.txtの違い"
     },
     {
-      "slug": "schema-vs-llms-txt",
+      "slug": "schema",
       "publishAt": "2026-07-14T10:00:00+09:00",
       "status": "scheduled",
       "title": "Schema.orgとllms.txt、AIはどちらを重視するのか",
@@ -23,7 +23,7 @@
       "llmsLabel": "Schema.orgとllms.txt"
     },
     {
-      "slug": "why-llms-txt-is-not-enough",
+      "slug": "grounds",
       "publishAt": "2026-07-15T10:00:00+09:00",
       "status": "scheduled",
       "title": "llms.txtだけではAIに推薦されない理由──AIは何を根拠に企業を選んでいるのか",
@@ -31,7 +31,7 @@
       "llmsLabel": "llms.txtだけでは推薦されない理由"
     },
     {
-      "slug": "search-to-action",
+      "slug": "exec",
       "publishAt": "2026-07-16T10:00:00+09:00",
       "status": "scheduled",
       "title": "検索から実行へ──Agent Readinessという新しい考え方",
@@ -39,7 +39,7 @@
       "llmsLabel": "検索から実行へ（Agent Readiness）"
     },
     {
-      "slug": "what-is-visibility",
+      "slug": "vis",
       "publishAt": "2026-07-17T10:00:00+09:00",
       "status": "scheduled",
       "title": "Visibilityとは何か──AIは企業をどう見つけるのか",
@@ -47,7 +47,7 @@
       "llmsLabel": "Visibilityとは何か"
     },
     {
-      "slug": "why-ai-doesnt-know-your-company",
+      "slug": "blind",
       "publishAt": "2026-07-20T10:00:00+09:00",
       "status": "scheduled",
       "title": "なぜAIはあなたの会社を知らないのか──Visibilityを阻害する5つの原因",
@@ -55,7 +55,7 @@
       "llmsLabel": "Visibilityを阻害する5つの原因"
     },
     {
-      "slug": "visibility-checklist",
+      "slug": "checklist",
       "publishAt": "2026-07-21T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIに見つけてもらう企業は何が違うのか──Visibilityを高める実践チェックリスト",
@@ -63,7 +63,7 @@
       "llmsLabel": "Visibility実践チェックリスト"
     },
     {
-      "slug": "what-is-authority",
+      "slug": "auth",
       "publishAt": "2026-07-22T10:00:00+09:00",
       "status": "scheduled",
       "title": "Authorityとは何か──AIは企業を何で信頼するのか",
@@ -71,7 +71,7 @@
       "llmsLabel": "Authorityとは何か"
     },
     {
-      "slug": "trust-signals-beyond-reviews",
+      "slug": "trust",
       "publishAt": "2026-07-23T10:00:00+09:00",
       "status": "scheduled",
       "title": "レビューだけでは足りない──AIが本当に見ている「信頼の証拠」",
@@ -79,7 +79,7 @@
       "llmsLabel": "信頼の証拠（レビューの先）"
     },
     {
-      "slug": "how-ai-handles-wrong-info",
+      "slug": "wrong",
       "publishAt": "2026-07-24T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIは間違った情報をどう扱うのか──Authorityを失う企業の共通点",
@@ -87,7 +87,7 @@
       "llmsLabel": "Authorityを失う企業の共通点"
     },
     {
-      "slug": "what-is-actionability",
+      "slug": "act",
       "publishAt": "2026-07-27T10:00:00+09:00",
       "status": "scheduled",
       "title": "Actionabilityとは何か──AIエージェントは企業を何で比較しているのか",
@@ -95,7 +95,7 @@
       "llmsLabel": "Actionabilityとは何か"
     },
     {
-      "slug": "how-ai-understands-pricing",
+      "slug": "price",
       "publishAt": "2026-07-28T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIは価格をどう理解しているのか──「料金が書いてある」だけでは比較できない理由",
@@ -103,7 +103,7 @@
       "llmsLabel": "AIは価格をどう理解するか"
     },
     {
-      "slug": "how-ai-compares-reviews",
+      "slug": "reviews",
       "publishAt": "2026-07-29T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIはレビューをどう比較しているのか──星の数だけでは決まらない理由",
@@ -111,7 +111,7 @@
       "llmsLabel": "AIはレビューをどう比較するか"
     },
     {
-      "slug": "ai-bookable-companies",
+      "slug": "book",
       "publishAt": "2026-07-30T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIが予約できる会社、できない会社──Actionabilityは「実行」から始まる",
@@ -119,7 +119,7 @@
       "llmsLabel": "AIが予約できる会社"
     },
     {
-      "slug": "ai-payable-companies",
+      "slug": "pay",
       "publishAt": "2026-07-31T10:00:00+09:00",
       "status": "scheduled",
       "title": "AIが決済できる会社、できない会社──Agent Commerce時代の新しい競争力",
@@ -127,7 +127,7 @@
       "llmsLabel": "AIが決済できる会社"
     },
     {
-      "slug": "why-agent-readiness-matters",
+      "slug": "why-ari",
       "publishAt": "2026-08-03T10:00:00+09:00",
       "status": "scheduled",
       "title": "なぜAgent Readinessが企業評価の新しい基準になるのか──検索から実行へ",

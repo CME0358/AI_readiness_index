@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なぜAIはあなたの会社を知らないのか｜Visibilityを阻害する5つの原因</title>
+<meta name="description" content="AIに会社が認識されない5つの原因を整理。情報の分散、矛盾、構造化不足など、Visibilityを阻害するポイントと改善の方向性を解説。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/blind/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "なぜAIはあなたの会社を知らないのか──Visibilityを阻害する5つの原因",
+  "description": "AIに会社が認識されない5つの原因を整理。情報の分散、矛盾、構造化不足など、Visibilityを阻害するポイントと改善の方向性を解説。",
+  "datePublished": "2026-07-20",
+  "dateModified": "2026-07-20",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/blind/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Visibilityを阻害する5つの原因</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-07-20">2026.07.20</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>なぜAIはあなたの会社を知らないのか──Visibilityを阻害する5つの原因</h1>
+      <p class="lead">サイトがあるのにAIに出てこない。その多くは偶然ではなく、Visibilityを阻害する設計上の原因がある。</p>
+    </div>
+  </header>
+
+  <article class="article-body container">
+    <div class="article-container">
+      <h2>Webサイトがあるのに、AIは会社を知らない</h2>
+      <p>「うちはホームページもある。」</p>
+      <p>「SEO対策もしている。」</p>
+      <p>「Googleでは検索できる。」</p>
+      <p>それなのに、ChatGPTやGemini、Claudeに業界のおすすめ企業を聞いても、自社の名前が出てこない。</p>
+      <p>これは珍しいことではありません。</p>
+      <p>AIはGoogle検索とは違う方法で企業を認識しています。</p>
+      <p>Googleはページをインデックスします。</p>
+      <p>AIは企業という「存在（エンティティ）」を理解しようとします。</p>
+      <p>そのため、Webサイトが存在することと、AIが企業を認識していることは、まったく別の話なのです。</p>
+      <p>では、なぜAIは企業を見つけられないのでしょうか。</p>
+      <p>代表的な5つの原因を見ていきます。</p>
+      <h2>原因1　企業情報がバラバラになっている</h2>
+      <p>AIは、一つの情報源だけを見て企業を理解しているわけではありません。</p>
+      <p>公式サイト。</p>
+      <p>Googleビジネスプロフィール。</p>
+      <p>SNS。</p>
+      <p>業界ポータル。</p>
+      <p>ニュース記事。</p>
+      <p>プレスリリース。</p>
+      <p>こうした複数の情報を照らし合わせながら、「これは同じ会社だ」と判断しています。</p>
+      <p>しかし、</p>
+      <p>会社名の表記が異なる。</p>
+      <p>所在地の表記が違う。</p>
+      <p>電話番号が古い。</p>
+      <p>法人名とブランド名が混在している。</p>
+      <p>このような状態では、AIは情報を結び付けられません。</p>
+      <p>人なら「たぶん同じ会社だろう」と推測できますが、AIは一貫性のない情報を慎重に扱います。</p>
+      <p>Visibilityの第一歩は、企業情報の統一です。</p>
+      <h2>原因2　サービス内容が曖昧</h2>
+      <p>AIは、「何をしている会社なのか」を理解しなければ推薦できません。</p>
+      <p>しかし、多くの企業サイトでは、</p>
+      <p>「お客様の課題を解決します。」</p>
+      <p>「最適なソリューションをご提供します。」</p>
+      <p>といった抽象的な表現が目立ちます。</p>
+      <p>もちろん、人間には魅力的に映ることもあります。</p>
+      <p>しかしAIは、</p>
+      <p>何を提供しているのか。</p>
+      <p>誰のためのサービスなのか。</p>
+      <p>どの地域に対応しているのか。</p>
+      <p>どの業界を対象としているのか。</p>
+      <p>こうした情報が具体的に書かれていなければ、比較の対象にできません。</p>
+      <p>AIはキャッチコピーではなく、事実を理解したいのです。</p>
+      <h2>原因3　構造化されていない</h2>
+      <p>文章として書かれている情報と、AIが理解しやすい情報は同じではありません。</p>
+      <p>例えば、</p>
+      <p>「平日は夜10時まで営業しています。」</p>
+      <p>という文章は、人間には分かりやすくても、AIにとっては曖昧な場合があります。</p>
+      <p>営業時間。</p>
+      <p>所在地。</p>
+      <p>料金。</p>
+      <p>電話番号。</p>
+      <p>サービス。</p>
+      <p>レビュー。</p>
+      <p>これらを構造化データ（Schema.org）として提供することで、AIは「意味」を正確に理解できます。</p>
+      <p>Visibilityは、「情報があること」ではなく、「情報が理解できること」で決まります。</p>
+      <h2>原因4　企業の存在を示す外部情報が少ない</h2>
+      <p>AIは公式サイトだけを見て企業を判断しているわけではありません。</p>
+      <p>第三者が企業について発信している情報も重要です。</p>
+      <p>例えば、</p>
+      <ul>
+        <li>プレスリリース</li>
+        <li>業界団体への掲載</li>
+        <li>メディア記事</li>
+        <li>インタビュー</li>
+        <li>専門サイト</li>
+        <li>地域ポータル</li>
+        <li>Googleビジネスプロフィール</li>
+      </ul>
+      <p>こうした外部情報があることで、AIは「この企業は実在し、社会の中で認識されている」と判断しやすくなります。</p>
+      <p>Visibilityとは、自社サイトだけで完結するものではありません。</p>
+      <p>Web全体で企業がどのように認識されているかも重要なのです。</p>
+      <h2>原因5　AIが次の行動を想像できない</h2>
+      <p>AIは、単に企業を紹介するだけではなくなりつつあります。</p>
+      <p>これからのAIエージェントは、</p>
+      <p>比較し、</p>
+      <p>提案し、</p>
+      <p>予約し、</p>
+      <p>購入する。</p>
+      <p>そんな役割を担うようになります。</p>
+      <p>そのときAIは、</p>
+      <p>予約ページはあるか。</p>
+      <p>問い合わせ方法は明確か。</p>
+      <p>料金は公開されているか。</p>
+      <p>営業時間は分かるか。</p>
+      <p>サービス内容は整理されているか。</p>
+      <p>といった「次の行動につながる情報」も見ています。</p>
+      <p>つまりVisibilityは、存在を知らせるだけでは終わりません。</p>
+      <p>AIがその先のActionabilityへ進める状態であることも重要になります。</p>
+      <h2>Visibilityは「発見される力」である</h2>
+      <p>Visibilityという言葉を聞くと、多くの人は「検索順位」を思い浮かべます。</p>
+      <p>しかし、Agent Readiness FrameworkでいうVisibilityは、それより広い概念です。</p>
+      <p>AIが、</p>
+      <p>企業を認識できる。</p>
+      <p>企業情報を理解できる。</p>
+      <p>企業を他の情報と結び付けられる。</p>
+      <p>その状態を意味します。</p>
+      <p>だからこそ、SEOだけでは十分ではありません。</p>
+      <p>情報設計そのものが問われる時代になったのです。</p>
+      <h2>今日から確認したいチェックリスト</h2>
+      <p>AIが企業を認識しやすい状態になっているか、次の項目を確認してみてください。</p>
+      <ul>
+        <li>会社名・住所・電話番号はすべての媒体で統一されているか</li>
+        <li>サービス内容は具体的に説明されているか</li>
+        <li>Schema.orgによる構造化データを実装しているか</li>
+        <li>Googleビジネスプロフィールや業界ポータルの情報は最新か</li>
+        <li>AIが予約・問い合わせにつながる導線を理解できる構成になっているか</li>
+      </ul>
+      <p>一つでも不足している場合、AIは企業を十分に認識できていない可能性があります。</p>
+      <h2>まとめ</h2>
+      <p>AIが企業を知らない理由は、「AIが賢くないから」ではありません。</p>
+      <p>企業側の情報が、AIにとって理解しにくい形になっていることが多いのです。</p>
+      <p>情報が分散している。</p>
+      <p>サービス内容が曖昧。</p>
+      <p>構造化されていない。</p>
+      <p>第三者情報が少ない。</p>
+      <p>次の行動につながる情報が不足している。</p>
+      <p>こうした状態では、AIは企業を認識することも、比較することもできません。</p>
+      <p>Visibilityとは、「AIに見つけてもらうこと」ではなく、「AIが迷わず企業を理解できる状態」をつくることです。</p>
+      <p>そして、それはAgent Readiness Frameworkの第一歩でもあります。</p>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy">Framework</a>
+        <a href="/research/" class="btn btn-secondary">Research Hub</a>
+        <a href="/insights/vis/" class="btn btn-secondary">Visibilityとは何か</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-20</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>

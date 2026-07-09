@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIは間違った情報をどう扱うのか｜Authorityを失う企業の共通点</title>
+<meta name="description" content="AIが矛盾・古い情報をどう扱うかを解説。Authorityを失う企業の共通点と、信頼を守るための情報一貫性の考え方を整理する。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/wrong/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AIは間違った情報をどう扱うのか──Authorityを失う企業の共通点",
+  "description": "AIが矛盾・古い情報をどう扱うかを解説。Authorityを失う企業の共通点と、信頼を守るための情報一貫性の考え方を整理する。",
+  "datePublished": "2026-07-24",
+  "dateModified": "2026-07-24",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/wrong/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Authorityを失う共通点</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-07-24">2026.07.24</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>AIは間違った情報をどう扱うのか──Authorityを失う企業の共通点</h1>
+      <p class="lead">矛盾した情報は、AIにとって「紹介を避ける理由」になる。Authorityを失う企業には共通のパターンがある。</p>
+    </div>
+  </header>
+
+  <article class="article-body container">
+    <div class="article-container">
+      <h2>AIは「情報が多い企業」より、「情報が一致している企業」を信頼する</h2>
+      <p>「ホームページもある。」</p>
+      <p>「Googleビジネスプロフィールも登録している。」</p>
+      <p>「ポータルサイトにも掲載している。」</p>
+      <p>それでも、AIに企業を紹介してもらえないことがあります。</p>
+      <p>理由の一つが、</p>
+      <p><strong>情報の矛盾</strong>です。</p>
+      <p>人間は多少の違いがあっても、</p>
+      <p>「たぶん同じ会社だろう」</p>
+      <p>と判断できます。</p>
+      <p>しかしAIは違います。</p>
+      <p>複数の情報源を照らし合わせながら、「どれが正しい情報なのか」を判断しています。</p>
+      <p>その結果、情報同士に矛盾が多い企業ほど、AIは慎重になります。</p>
+      <p>Authorityとは、情報量ではありません。</p>
+      <p><strong>情報の整合性</strong>なのです。</p>
+      <h2>AIは「正しい情報」を知っているわけではない</h2>
+      <p>AIには、企業の正解データベースがあるわけではありません。</p>
+      <p>例えば、営業時間について調べる場合でも、</p>
+      <p>公式サイト。</p>
+      <p>Googleビジネスプロフィール。</p>
+      <p>業界ポータル。</p>
+      <p>SNS。</p>
+      <p>ニュース記事。</p>
+      <p>レビュー。</p>
+      <p>さまざまな情報を見比べています。</p>
+      <p>もし、</p>
+      <p>公式サイトは10時〜20時。</p>
+      <p>Googleでは9時〜19時。</p>
+      <p>ポータルサイトでは定休日が火曜日。</p>
+      <p>SNSでは水曜日が定休日。</p>
+      <p>このように情報が食い違っていたら、AIはどれを信じればよいか判断できません。</p>
+      <p>結果として、</p>
+      <p>紹介を控えたり、</p>
+      <p>曖昧な表現になったり、</p>
+      <p>回答そのものから除外したりする可能性があります。</p>
+      <h2>「古い情報」はAIにとってノイズになる</h2>
+      <p>企業では、情報更新が後回しになることがあります。</p>
+      <p>料金改定。</p>
+      <p>営業時間の変更。</p>
+      <p>サービス名称の変更。</p>
+      <p>会社所在地の移転。</p>
+      <p>こうした変更が一部の媒体だけに反映されると、AIは複数の情報を見比べたときに矛盾を検出します。</p>
+      <p>人間なら、</p>
+      <p>「ホームページが最新だろう」</p>
+      <p>と推測するかもしれません。</p>
+      <p>しかしAIは、推測ではなく根拠を重視します。</p>
+      <p>情報が一致していない状態では、自信を持って推薦することができません。</p>
+      <h2>表記ゆれも「別の企業」と認識されることがある</h2>
+      <p>意外に多いのが、企業名やサービス名の表記ゆれです。</p>
+      <p>例えば、</p>
+      <p>株式会社コア・リテール</p>
+      <p>合同会社コア・リテール</p>
+      <p>Coa Retail</p>
+      <p>COA RETAIL</p>
+      <p>CoaRetail</p>
+      <p>ブランド名だけの掲載</p>
+      <p>こうした違いが複数の媒体で混在すると、AIは同じエンティティとして結び付けにくくなります。</p>
+      <p>もちろん、AIは一定の推測を行います。</p>
+      <p>しかし、情報が一貫している企業ほど、認識の精度は高くなります。</p>
+      <p>Authorityは、小さな表記の積み重ねから生まれます。</p>
+      <h2>情報が更新されない企業は「現在」が見えない</h2>
+      <p>AIは、「今」の情報を重視します。</p>
+      <p>数年前のプレスリリースしかない。</p>
+      <p>ブログが更新されていない。</p>
+      <p>営業時間が古い。</p>
+      <p>サービスページが何年も変わっていない。</p>
+      <p>こうした状態では、</p>
+      <p>「この企業は現在も同じサービスを提供しているのだろうか。」</p>
+      <p>という疑問が生まれます。</p>
+      <p>活動していないと判断されるわけではありません。</p>
+      <p>しかし、現在の状況を裏付ける情報が少ない企業は、積極的に推薦しにくくなります。</p>
+      <h2>AIは「情報の多数決」をしているわけではない</h2>
+      <p>「いろいろなサイトに掲載すれば安心」</p>
+      <p>というわけでもありません。</p>
+      <p>もし古い情報が大量に残っていれば、</p>
+      <p>その情報もAIの判断材料になります。</p>
+      <p>重要なのは掲載数ではなく、</p>
+      <p><strong>どの情報も同じ内容を伝えていること</strong>です。</p>
+      <p>一貫性があるからこそ、AIは安心して企業を理解できます。</p>
+      <p>Authorityは、情報の数ではなく、情報の品質によって決まります。</p>
+      <h2>Authorityを維持するための実践チェック</h2>
+      <p>AI時代には、「公開すること」よりも「更新し続けること」が重要になります。</p>
+      <p>定期的に確認したい項目を整理すると、次のようになります。</p>
+      <ul>
+        <li>会社名の表記は統一されているか</li>
+        <li>所在地・電話番号・URLは最新か</li>
+        <li>営業時間や定休日に矛盾はないか</li>
+        <li>料金やサービス内容は更新されているか</li>
+        <li>Googleビジネスプロフィールと公式サイトの内容は一致しているか</li>
+        <li>プレスリリースや会社概要は現在の事業内容を反映しているか</li>
+      </ul>
+      <p>こうした小さな確認が、AIから見たAuthorityを支えています。</p>
+      <h2>Authorityは「積み上げるもの」であり、「失うもの」でもある</h2>
+      <p>企業の信頼は、一つの記事で生まれるものではありません。</p>
+      <p>レビュー。</p>
+      <p>専門記事。</p>
+      <p>プレスリリース。</p>
+      <p>ホワイトペーパー。</p>
+      <p>導入事例。</p>
+      <p>日々の情報発信。</p>
+      <p>これらが積み重なることでAuthorityは形成されます。</p>
+      <p>しかし、その一方で、</p>
+      <p>古い情報。</p>
+      <p>矛盾した情報。</p>
+      <p>更新されないページ。</p>
+      <p>こうした要素は、少しずつAuthorityを損なっていきます。</p>
+      <p>AIは企業の将来を予測しているのではありません。</p>
+      <p>公開されている情報をもとに、現在の信頼性を判断しています。</p>
+      <p>だからこそ、「正しい情報を維持すること」そのものが、AI時代の企業競争力になります。</p>
+      <h2>まとめ</h2>
+      <p>AIは、情報が多い企業を信頼するわけではありません。</p>
+      <p>情報が一致し、最新で、一貫している企業を信頼します。</p>
+      <p>表記ゆれ。</p>
+      <p>古い料金。</p>
+      <p>異なる営業時間。</p>
+      <p>更新されない会社概要。</p>
+      <p>こうした小さな矛盾が積み重なると、AIは企業を推薦することに慎重になります。</p>
+      <p>Authorityとは、「有名であること」ではありません。</p>
+      <p>Web全体で、企業情報が一つのストーリーとして整っていること。</p>
+      <p>それが、AIに信頼される企業の条件です。</p>
+      <p>そして、その信頼を得た企業だけが、次のステップへ進みます。</p>
+      <p>AIは信頼できる企業を見つけると、今度は他社と比較し、「どの企業を推薦すべきか」を考え始めます。</p>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy">Framework</a>
+        <a href="/research/" class="btn btn-secondary">Research Hub</a>
+        <a href="/insights/trust/" class="btn btn-secondary">信頼の証拠</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-24</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>
