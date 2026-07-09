@@ -1,5 +1,10 @@
 {
   "timezone": "Asia/Tokyo",
+  "policy": {
+    "publishTime": "10:00",
+    "weekdaysOnly": true,
+    "note": "平日（月〜金）のみ公開。土日はスキップ。"
+  },
   "articles": [
     {
       "slug": "robots-sitemap-llms",
@@ -32,6 +37,102 @@
       "title": "検索から実行へ──Agent Readinessという新しい考え方",
       "cardSummary": "SEOもGEOも重要だが、その先にあるのは実行。Visibility・Authority・Actionabilityで企業の競争力を定義する。",
       "llmsLabel": "検索から実行へ（Agent Readiness）"
+    },
+    {
+      "slug": "what-is-visibility",
+      "publishAt": "2026-07-17T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "Visibilityとは何か──AIは企業をどう見つけるのか",
+      "cardSummary": "AIに選ばれる前に、まず見つけてもらえるか。VisibilityはAgent Readinessの入口であり、認識・到達できる状態を指す。",
+      "llmsLabel": "Visibilityとは何か"
+    },
+    {
+      "slug": "why-ai-doesnt-know-your-company",
+      "publishAt": "2026-07-20T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "なぜAIはあなたの会社を知らないのか──Visibilityを阻害する5つの原因",
+      "cardSummary": "サイトがあるのにAIに出てこない。Visibilityを阻害する設計上の原因を5つに整理する。",
+      "llmsLabel": "Visibilityを阻害する5つの原因"
+    },
+    {
+      "slug": "visibility-checklist",
+      "publishAt": "2026-07-21T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIに見つけてもらう企業は何が違うのか──Visibilityを高める実践チェックリスト",
+      "cardSummary": "見つけてもらえる企業の共通点と、Visibilityを高める実践チェックリスト。",
+      "llmsLabel": "Visibility実践チェックリスト"
+    },
+    {
+      "slug": "what-is-authority",
+      "publishAt": "2026-07-22T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "Authorityとは何か──AIは企業を何で信頼するのか",
+      "cardSummary": "見つけてもらえただけでは推薦されない。AIが安心して紹介できる信頼の根拠＝Authorityを解説する。",
+      "llmsLabel": "Authorityとは何か"
+    },
+    {
+      "slug": "trust-signals-beyond-reviews",
+      "publishAt": "2026-07-23T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "レビューだけでは足りない──AIが本当に見ている「信頼の証拠」",
+      "cardSummary": "星の数だけではAuthorityは完成しない。AIが本当に見ている信頼の証拠を整理する。",
+      "llmsLabel": "信頼の証拠（レビューの先）"
+    },
+    {
+      "slug": "how-ai-handles-wrong-info",
+      "publishAt": "2026-07-24T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIは間違った情報をどう扱うのか──Authorityを失う企業の共通点",
+      "cardSummary": "矛盾した情報は紹介を避ける理由になる。Authorityを失う企業の共通パターンを読み解く。",
+      "llmsLabel": "Authorityを失う企業の共通点"
+    },
+    {
+      "slug": "what-is-actionability",
+      "publishAt": "2026-07-27T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "Actionabilityとは何か──AIエージェントは企業を何で比較しているのか",
+      "cardSummary": "理解と信頼の先にある実行。AIエージェントが予約・問い合わせ・決済まで進める状態を定義する。",
+      "llmsLabel": "Actionabilityとは何か"
+    },
+    {
+      "slug": "how-ai-understands-pricing",
+      "publishAt": "2026-07-28T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIは価格をどう理解しているのか──「料金が書いてある」だけでは比較できない理由",
+      "cardSummary": "料金ページがあるだけでは比較できない。条件・単位・例外が機械に伝わって初めてActionabilityになる。",
+      "llmsLabel": "AIは価格をどう理解するか"
+    },
+    {
+      "slug": "how-ai-compares-reviews",
+      "publishAt": "2026-07-29T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIはレビューをどう比較しているのか──星の数だけでは決まらない理由",
+      "cardSummary": "星の平均だけでは推薦は決まらない。内容・分布・一貫性まで含めた比較の視点を解説する。",
+      "llmsLabel": "AIはレビューをどう比較するか"
+    },
+    {
+      "slug": "ai-bookable-companies",
+      "publishAt": "2026-07-30T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIが予約できる会社、できない会社──Actionabilityは「実行」から始まる",
+      "cardSummary": "紹介できても予約できなければ仕事は止まる。Actionabilityは実行導線から始まる。",
+      "llmsLabel": "AIが予約できる会社"
+    },
+    {
+      "slug": "ai-payable-companies",
+      "publishAt": "2026-07-31T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "AIが決済できる会社、できない会社──Agent Commerce時代の新しい競争力",
+      "cardSummary": "予約の次は決済。最後まで取引を完了できる企業がAgent Commerce時代の競争力を持つ。",
+      "llmsLabel": "AIが決済できる会社"
+    },
+    {
+      "slug": "why-agent-readiness-matters",
+      "publishAt": "2026-08-03T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "なぜAgent Readinessが企業評価の新しい基準になるのか──検索から実行へ",
+      "cardSummary": "検索順位だけでは測れない。Visibility・Authority・Actionabilityが揃った企業だけが新しい評価基準を満たす。",
+      "llmsLabel": "なぜAgent Readinessが新しい基準か"
     }
   ]
 }
