@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>llms.txtだけではAIに推薦されない理由｜AIは何を根拠に企業を選んでいるのか</title>
+<meta name="description" content="AIが企業を推薦する根拠とは何か。情報の一貫性、エンティティ、第三者情報、予約・決済の実行可能性から、llms.txtだけでは足りない理由を解説。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/why-llms-txt-is-not-enough/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "llms.txtだけではAIに推薦されない理由──AIは何を根拠に企業を選んでいるのか",
+  "description": "AIが企業を推薦する根拠とは何か。情報の一貫性、エンティティ、第三者情報、予約・決済の実行可能性から、llms.txtだけでは足りない理由を解説。",
+  "datePublished": "2026-07-15",
+  "dateModified": "2026-07-15",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/why-llms-txt-is-not-enough/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>推薦の根拠</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-07-15">2026.07.15</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>llms.txtだけではAIに推薦されない理由──AIは何を根拠に企業を選んでいるのか</h1>
+      <p class="lead">llms.txtもSchema.orgも重要だが、それだけでは推薦されない。AIは一貫性・エンティティ・第三者情報・実行可能性まで含めて「紹介してよいか」の根拠を集めている。</p>
+    </div>
+  </header>
+
+  <article class="article-body container">
+    <div class="article-container">
+      <h2>AIは「情報を読んでいる」のではなく、「根拠を集めている」</h2>
+      <p>「llms.txtを設置しました。」</p>
+      <p>「Schema.orgも実装しました。」</p>
+      <p>「これでAIに推薦されますか？」</p>
+      <p>最近、このような相談を受けることが増えました。</p>
+      <p>結論から言えば、</p>
+      <p><strong>それだけでは十分ではありません。</strong></p>
+      <p>なぜなら、生成AIは一つの情報だけを見て企業を推薦しているわけではないからです。</p>
+      <p>人が友人から「おすすめの歯科医院は？」と聞かれたとき、公式サイトだけを見て答えることは少ないでしょう。</p>
+      <p>口コミを見たり、実績を調べたり、料金を比較したり、所在地や診療時間を確認したりします。</p>
+      <p>AIも同じです。</p>
+      <p>むしろ、人間以上に多くの情報を照らし合わせながら、「この企業を紹介しても大丈夫か」という根拠を集めています。</p>
+      <h2>AIは「一つの正解」を探しているわけではない</h2>
+      <p>生成AIには、Google検索のような順位表があるわけではありません。</p>
+      <p>質問に対して最適と思われる回答を組み立てるために、複数の情報源を組み合わせています。</p>
+      <p>例えば、</p>
+      <p>「港区でおすすめのパーソナルジムは？」</p>
+      <p>という質問に対してAIは、</p>
+      <ul>
+        <li>公式サイト</li>
+        <li>構造化データ</li>
+        <li>地図情報</li>
+        <li>口コミ</li>
+        <li>第三者メディア</li>
+        <li>プレスリリース</li>
+        <li>業界ディレクトリ</li>
+        <li>企業プロフィール</li>
+      </ul>
+      <p>など、さまざまな情報を突き合わせます。</p>
+      <p>そして、</p>
+      <p>「この企業は情報が一貫している」</p>
+      <p>「信頼できそうだ」</p>
+      <p>「予約まで案内できる」</p>
+      <p>と判断できた企業ほど、回答に含めやすくなります。</p>
+      <h2>AIは矛盾を嫌う</h2>
+      <p>企業情報が複数の場所で食い違っているケースは少なくありません。</p>
+      <p>例えば、</p>
+      <p>公式サイトでは営業時間が10時〜20時。</p>
+      <p>Googleビジネスプロフィールでは9時〜19時。</p>
+      <p>ポータルサイトでは定休日が異なる。</p>
+      <p>料金ページは昨年のまま。</p>
+      <p>こうした状態では、</p>
+      <p>AIはどの情報を信じるべきか判断できません。</p>
+      <p>結果として、</p>
+      <p>紹介を避けたり、</p>
+      <p>曖昧な回答になったりする可能性があります。</p>
+      <p>AIにとって重要なのは、「情報量」よりも「情報の一貫性」です。</p>
+      <h2>AIが見ているのは「エンティティ」</h2>
+      <p>近年の検索技術では、「エンティティ」という考え方が重要になっています。</p>
+      <p>エンティティとは、人・企業・商品・場所・ブランドなど、固有の存在を意味します。</p>
+      <p>AIは、</p>
+      <p>会社名だけを見ているのではありません。</p>
+      <p>その企業が、</p>
+      <ul>
+        <li>どんなサービスを提供しているか</li>
+        <li>どこに存在しているか</li>
+        <li>他社とどう違うか</li>
+        <li>どのような実績があるか</li>
+        <li>どのメディアで紹介されているか</li>
+      </ul>
+      <p>まで含めて、一つの「企業像」として理解しています。</p>
+      <p>つまり、AIに推薦される企業とは、「Webサイトがある企業」ではなく、「エンティティとして明確に認識されている企業」なのです。</p>
+      <h2>第三者情報が信頼性を補強する</h2>
+      <p>公式サイトだけでは伝えきれない情報もあります。</p>
+      <p>例えば、</p>
+      <ul>
+        <li>メディア掲載</li>
+        <li>業界団体への加盟</li>
+        <li>公的機関への登録</li>
+        <li>専門家による監修</li>
+        <li>プレスリリース</li>
+        <li>インタビュー記事</li>
+        <li>外部レビュー</li>
+      </ul>
+      <p>こうした第三者からの情報は、AIにとって重要な判断材料になります。</p>
+      <p>企業自身が「信頼できます」と書くよりも、第三者が客観的に評価している方が説得力を持つからです。</p>
+      <p>これは人間の意思決定にもよく似ています。</p>
+      <h2>「予約できる企業」はAIにとって扱いやすい</h2>
+      <p>今後、AIエージェントは情報を紹介するだけではありません。</p>
+      <p>ユーザーに代わって、</p>
+      <ul>
+        <li>空き状況を確認し、</li>
+        <li>条件を比較し、</li>
+        <li>予約し、</li>
+        <li>決済する</li>
+      </ul>
+      <p>ところまで担うようになります。</p>
+      <p>そのときAIが必要とするのは、</p>
+      <p>「この企業は良さそう」</p>
+      <p>という印象ではなく、</p>
+      <p>「この企業なら実際に予約を完了できる」</p>
+      <p>という確信です。</p>
+      <p>つまり、</p>
+      <p>予約導線やAPI、料金情報、営業時間などが機械的に理解できる企業ほど、AIにとって扱いやすい存在になります。</p>
+      <h2>Agent Readiness Frameworkが評価するもの</h2>
+      <p>私たちは、このようなAI時代の評価軸を整理するために、<strong>Agent Readiness Framework</strong>を提唱しています。</p>
+      <p>Agent Readinessとは、</p>
+      <blockquote>
+        <strong>AIが企業を理解し、比較し、推薦し、実行できる状態</strong>
+      </blockquote>
+      <p>を評価する考え方です。</p>
+      <p>Frameworkでは、単一の技術ではなく、企業全体を評価対象とします。</p>
+      <p>例えば、</p>
+      <ul>
+        <li>情報の見つけやすさ（Visibility）</li>
+        <li>信頼性・一貫性（Authority）</li>
+        <li>AIが予約・問い合わせ・決済まで実行できる状態（Actionability）</li>
+      </ul>
+      <p>これらが揃って初めて、AIは安心して企業を推薦できます。</p>
+      <p>llms.txtもSchema.orgも重要ですが、それだけではAgent Readinessは完成しません。</p>
+      <p>重要なのは、それぞれを「点」ではなく、「仕組み」としてつなげることです。</p>
+      <h2>AIに推薦される企業は、偶然ではない</h2>
+      <p>「最近、ChatGPTで会社名が出るようになった」</p>
+      <p>「AI検索で紹介されるようになった」</p>
+      <p>こうした現象は、決して偶然ではありません。</p>
+      <p>AIが理解しやすい情報設計を行い、複数の情報源で一貫性を保ち、信頼性を積み重ねてきた結果です。</p>
+      <p>AIは、一つのファイルや一つの施策だけを評価しているわけではありません。</p>
+      <p>企業全体の情報を総合的に見て、「この企業なら紹介してもよい」と判断しています。</p>
+      <h2>まとめ</h2>
+      <p>llms.txtは重要です。</p>
+      <p>Schema.orgも重要です。</p>
+      <p>しかし、それだけではAIに推薦される企業にはなれません。</p>
+      <p>AIが評価しているのは、ファイルではなく企業そのものです。</p>
+      <p>情報は一貫しているか。</p>
+      <p>第三者からも認識されているか。</p>
+      <p>AIがサービス内容を理解できるか。</p>
+      <p>そして、予約や購入といった次の行動まで実行できるか。</p>
+      <p>これらが揃ったとき、企業は初めて「AIに選ばれる存在」になります。</p>
+      <p>AI時代の競争力とは、検索順位だけでは測れません。</p>
+      <p>AIが安心して推薦し、実行できる状態をどれだけ整えられるか。</p>
+      <p>それこそが、これからの企業に求められる<strong>Agent Readiness</strong>なのです。</p>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy">Framework</a>
+        <a href="/research/" class="btn btn-secondary">Research Hub</a>
+        <a href="/insights/schema-vs-llms-txt/" class="btn btn-secondary">Schema.orgとllms.txt</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-15</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>

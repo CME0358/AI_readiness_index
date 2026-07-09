@@ -1,0 +1,74 @@
+name: Publish scheduled Insights
+
+on:
+  schedule:
+    # 01:00 UTC = 10:00 JST (Asia/Tokyo, no DST)
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      force_slug:
+        description: 'Optional: force-publish one slug (ignore publishAt)'
+        required: false
+        default: ''
+      now:
+        description: 'Optional: simulate now (ISO8601, e.g. 2026-07-13T10:00:00+09:00)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-scheduled-insights
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Publish due articles
+        id: publish
+        env:
+          FORCE_SLUG: ${{ github.event.inputs.force_slug }}
+          NOW: ${{ github.event.inputs.now }}
+        run: |
+          set -euo pipefail
+          CMD=(node scripts/publish-scheduled-insights.mjs)
+          if [ -n "${FORCE_SLUG:-}" ]; then
+            CMD+=(--force-slug "$FORCE_SLUG")
+          fi
+          if [ -n "${NOW:-}" ]; then
+            CMD+=(--now "$NOW")
+          fi
+          "${CMD[@]}" | tee /tmp/publish.log
+          if grep -q 'UPDATED=1' /tmp/publish.log; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.publish.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add insights/ sitemap.xml llms.txt
+          git status
+          git commit -m "$(cat <<'EOF'
+          Publish scheduled Insights columns
+
+          Automated by publish-scheduled-insights workflow (JST 10:00).
+          EOF
+          )"
+          git push

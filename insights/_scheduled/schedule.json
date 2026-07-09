@@ -1,0 +1,37 @@
+{
+  "timezone": "Asia/Tokyo",
+  "articles": [
+    {
+      "slug": "robots-sitemap-llms",
+      "publishAt": "2026-07-13T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "robots.txt・sitemap.xml・llms.txtの違い──AIは何を見ているのか",
+      "cardSummary": "「AI対応ならllms.txtだけで十分」は誤解。3ファイルの役割の違いと、AIが企業全体を見ている理由を整理する。",
+      "llmsLabel": "robots / sitemap / llms.txtの違い"
+    },
+    {
+      "slug": "schema-vs-llms-txt",
+      "publishAt": "2026-07-14T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "Schema.orgとllms.txt、AIはどちらを重視するのか",
+      "cardSummary": "競合ではなく役割が違う。入口のllms.txtと意味のSchema.org。AIエージェント時代に優先すべき視点を解説する。",
+      "llmsLabel": "Schema.orgとllms.txt"
+    },
+    {
+      "slug": "why-llms-txt-is-not-enough",
+      "publishAt": "2026-07-15T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "llms.txtだけではAIに推薦されない理由──AIは何を根拠に企業を選んでいるのか",
+      "cardSummary": "AIはファイルではなく根拠を集めている。一貫性・エンティティ・第三者情報・実行可能性から推薦の仕組みを読み解く。",
+      "llmsLabel": "llms.txtだけでは推薦されない理由"
+    },
+    {
+      "slug": "search-to-action",
+      "publishAt": "2026-07-16T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "検索から実行へ──Agent Readinessという新しい考え方",
+      "cardSummary": "SEOもGEOも重要だが、その先にあるのは実行。Visibility・Authority・Actionabilityで企業の競争力を定義する。",
+      "llmsLabel": "検索から実行へ（Agent Readiness）"
+    }
+  ]
+}

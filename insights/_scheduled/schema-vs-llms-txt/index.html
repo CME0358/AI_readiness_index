@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schema.orgとllms.txt、AIはどちらを重視するのか</title>
+<meta name="description" content="Schema.orgとllms.txtの役割の違いを整理。AIが企業を理解・比較・実行するために、どちらをどう位置づけるべきかをAgent Readinessの視点で解説。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/schema-vs-llms-txt/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Schema.orgとllms.txt、AIはどちらを重視するのか",
+  "description": "Schema.orgとllms.txtの役割の違いを整理。AIが企業を理解・比較・実行するために、どちらをどう位置づけるべきかをAgent Readinessの視点で解説。",
+  "datePublished": "2026-07-14",
+  "dateModified": "2026-07-14",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/schema-vs-llms-txt/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Schema.orgとllms.txt</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-07-14">2026.07.14</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>Schema.orgとllms.txt、AIはどちらを重視するのか</h1>
+      <p class="lead">Schema.orgとllms.txtは競合ではない。入口を案内するのがllms.txt、意味を伝えるのがSchema.org。AIエージェント時代に優先すべきは「理解」と「実行」だ。</p>
+    </div>
+  </header>
+
+  <article class="article-body container">
+    <div class="article-container">
+      <h2>「AI対応ならllms.txt」「SEOならSchema.org」ではない</h2>
+      <p>生成AIの普及により、「llms.txt」という言葉を耳にする機会が増えました。</p>
+      <p>その一方で、</p>
+      <p>「Schema.orgとどちらが重要なのですか？」</p>
+      <p>という質問もよく聞かれます。</p>
+      <p>結論から言えば、この問い自体が少し違います。</p>
+      <p>Schema.orgとllms.txtは競合する技術ではありません。</p>
+      <p>役割が異なるため、どちらか一方を選ぶものではないのです。</p>
+      <p>ただし、「AIが企業を理解する」という観点で優先順位を付けるなら、現時点ではSchema.orgのほうが影響範囲は広いと言えるでしょう。</p>
+      <p>その理由を見ていきます。</p>
+      <h2>llms.txtは「入口」を案内する技術</h2>
+      <p>llms.txtの役割は、とてもシンプルです。</p>
+      <p>AIに対して、</p>
+      <ul>
+        <li>どのページが重要なのか</li>
+        <li>どこに公式情報があるのか</li>
+        <li>どのドキュメントを参照してほしいのか</li>
+      </ul>
+      <p>を整理して伝えることです。</p>
+      <p>例えるなら、建物の受付案内です。</p>
+      <p>受付が分かりやすければ、目的の部屋へ迷わずたどり着けます。</p>
+      <p>しかし、受付だけ立派でも、肝心の部屋に情報がなければ意味がありません。</p>
+      <p>llms.txtは、AIを正しい場所へ導くための案内役なのです。</p>
+      <h2>Schema.orgは「意味」を伝える技術</h2>
+      <p>一方でSchema.orgは、ページの内容そのものをAIへ伝える仕組みです。</p>
+      <p>例えば、</p>
+      <p>「東京都港区にある歯科医院」</p>
+      <p>という文章があったとします。</p>
+      <p>人なら自然に理解できます。</p>
+      <p>しかしAIから見ると、</p>
+      <ul>
+        <li>東京都港区は住所なのか</li>
+        <li>歯科医院は業種なのか</li>
+        <li>予約可能なのか</li>
+        <li>営業時間はどこなのか</li>
+      </ul>
+      <p>といった情報は、文章だけでは曖昧です。</p>
+      <p>Schema.orgでは、</p>
+      <ul>
+        <li>Organization</li>
+        <li>LocalBusiness</li>
+        <li>MedicalBusiness</li>
+        <li>Dentist</li>
+        <li>Product</li>
+        <li>Service</li>
+        <li>FAQPage</li>
+        <li>Review</li>
+        <li>Offer</li>
+      </ul>
+      <p>などの語彙を使い、</p>
+      <p>「これは住所」「これは電話番号」「これは営業時間」「これはサービス内容」と意味を明示できます。</p>
+      <p>つまり、</p>
+      <p>AIに「読む」のではなく、「理解させる」ための共通言語なのです。</p>
+      <h2>AIは文章よりも「意味」を利用する</h2>
+      <p>生成AIは非常に自然な文章を扱えます。</p>
+      <p>しかし、推薦や比較、予約といった処理では、文章だけでは十分ではありません。</p>
+      <p>例えば、</p>
+      <p>「夜10時まで営業しています。」</p>
+      <p>という文章よりも、</p>
+      <p>構造化データで</p>
+      <p>営業時間：10:00〜22:00</p>
+      <p>と定義されている方が、AIは誤解なく利用できます。</p>
+      <p>同様に、</p>
+      <p>「初回限定キャンペーンがあります」</p>
+      <p>という文章よりも、</p>
+      <p>価格や条件が構造化されていれば、AIは比較や提案をしやすくなります。</p>
+      <p>つまり、AIエージェントが行動するためには、「自然言語」と「意味データ」の両方が必要なのです。</p>
+      <h2>AIエージェントの時代は「実行」が目的になる</h2>
+      <p>これまでの検索エンジンは、</p>
+      <p>ページを探してユーザーへ表示することが主な役割でした。</p>
+      <p>しかし、AIエージェントは違います。</p>
+      <p>これからは、</p>
+      <ul>
+        <li>飲食店を比較する</li>
+        <li>美容室を探す</li>
+        <li>パーソナルジムを予約する</li>
+        <li>ホテルを予約する</li>
+        <li>商品を購入する</li>
+      </ul>
+      <p>といった行動までAIが担うようになります。</p>
+      <p>このときAIに必要なのは、</p>
+      <p>「おすすめできそう」</p>
+      <p>という曖昧な情報ではありません。</p>
+      <ul>
+        <li>営業時間</li>
+        <li>料金</li>
+        <li>在庫</li>
+        <li>提供サービス</li>
+        <li>予約方法</li>
+        <li>決済手段</li>
+      </ul>
+      <p>といった、機械が扱える情報です。</p>
+      <p>だからこそSchema.orgの価値は今後さらに高まると考えられます。</p>
+      <h2>llms.txtだけでは実行できない</h2>
+      <p>ここで重要なのは、</p>
+      <p>llms.txtは企業の情報を整理して案内できますが、</p>
+      <p>予約を実行したり、</p>
+      <p>料金を比較したり、</p>
+      <p>営業時間を理解したりする仕組みではないということです。</p>
+      <p>AIが行動するためには、</p>
+      <p>構造化データやAPI、予約システムとの連携など、多くの情報が必要になります。</p>
+      <p>つまり、</p>
+      <p>llms.txtは入口、</p>
+      <p>Schema.orgは意味、</p>
+      <p>APIは実行、</p>
+      <p>というように、それぞれ役割が違うのです。</p>
+      <h2>Agent Readinessという全体設計</h2>
+      <p>私たちは、この状態を<strong>Agent Readiness</strong>と呼んでいます。</p>
+      <p>Agent Readinessとは、</p>
+      <blockquote>
+        <strong>AIが企業を理解し、比較し、推薦し、実行できる状態</strong>
+      </blockquote>
+      <p>を実現するための設計思想です。</p>
+      <p>その実現には、</p>
+      <ul>
+        <li>llms.txt</li>
+        <li>Schema.org</li>
+        <li>Entity設計</li>
+        <li>FAQ</li>
+        <li>レビュー</li>
+        <li>API</li>
+        <li>予約システム</li>
+        <li>決済</li>
+        <li>最新で一貫した企業情報</li>
+      </ul>
+      <p>など、複数の要素が連携する必要があります。</p>
+      <p>どれか一つだけでは十分ではありません。</p>
+      <p>重要なのは、「AIが迷わず理解し、そのまま行動できる状態」をつくることです。</p>
+      <h2>AI対応は「ファイルを置くこと」では終わらない</h2>
+      <p>Web担当者の仕事は、</p>
+      <p>新しいファイルを追加することではありません。</p>
+      <p>AIが企業を正しく理解できるように、</p>
+      <p>情報を整理し、</p>
+      <p>意味を持たせ、</p>
+      <p>信頼性を高め、</p>
+      <p>行動できる環境を整えることです。</p>
+      <p>その結果として、</p>
+      <p>AI検索でも、</p>
+      <p>AIエージェントでも、</p>
+      <p>企業が正しく比較・推薦される可能性が高まります。</p>
+      <h2>まとめ</h2>
+      <p>Schema.orgとllms.txtは、どちらもAI時代に重要な技術です。</p>
+      <p>しかし、役割はまったく異なります。</p>
+      <p>llms.txtはAIを正しい情報へ案内するための仕組み。</p>
+      <p>Schema.orgは、その情報の意味をAIへ正確に伝えるための共通言語です。</p>
+      <p>そして、AIエージェントが予約や購入まで行う時代には、それらに加えてAPIや予約・決済の仕組みまで含めた「実行可能性」が企業の競争力になります。</p>
+      <p>AIに選ばれる企業とは、単に情報を公開している企業ではありません。</p>
+      <p>AIが理解し、比較し、安心して行動できる企業です。</p>
+      <p>それこそが、私たちが提唱する<strong>Agent Readiness</strong>の考え方なのです。</p>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy">Framework</a>
+        <a href="/research/" class="btn btn-secondary">Research Hub</a>
+        <a href="/insights/robots-sitemap-llms/" class="btn btn-secondary">3ファイルの違い</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-07-14</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>

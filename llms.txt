@@ -9,6 +9,10 @@
 - [Evidence](https://readiness.coaretail.com/evidence/): 根拠ライブラリ
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
+# INSIGHTS_LLMS_START
+- [llms.txtは本当に必要か？](https://readiness.coaretail.com/insights/llms-txt/): Insights Column（2026-07-10）
+- [HTTP 402とx402](https://readiness.coaretail.com/insights/http-402/): Insights Column（2026-07-09）
+- [全東信と決済できる企業](https://readiness.coaretail.com/insights/zentoshin/): Insights Column（2026-07-08）
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
 - [Benchmarks](https://readiness.coaretail.com/dental.html): 業界調査（Dental）
