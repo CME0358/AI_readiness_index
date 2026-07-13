@@ -9,10 +9,11 @@
     {
       "slug": "files",
       "publishAt": "2026-07-13T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "robots.txt・sitemap.xml・llms.txtの違い──AIは何を見ているのか",
       "cardSummary": "「AI対応ならllms.txtだけで十分」は誤解。3ファイルの役割の違いと、AIが企業全体を見ている理由を整理する。",
-      "llmsLabel": "robots / sitemap / llms.txtの違い"
+      "llmsLabel": "robots / sitemap / llms.txtの違い",
+      "publishedAt": "2026-07-13T04:31:54.440Z"
     },
     {
       "slug": "schema",
