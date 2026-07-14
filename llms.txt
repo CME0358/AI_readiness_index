@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [Schema.orgとllms.txt](https://readiness.coaretail.com/insights/schema/): Insights Column（2026-07-14）
 - [robots / sitemap / llms.txtの違い](https://readiness.coaretail.com/insights/files/): Insights Column（2026-07-13）
 - [llms.txtは本当に必要か？](https://readiness.coaretail.com/insights/llms-txt/): Insights Column（2026-07-10）
 - [HTTP 402とx402](https://readiness.coaretail.com/insights/http-402/): Insights Column（2026-07-09）

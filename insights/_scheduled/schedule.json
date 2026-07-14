@@ -18,10 +18,11 @@
     {
       "slug": "schema",
       "publishAt": "2026-07-14T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Schema.orgとllms.txt、AIはどちらを重視するのか",
       "cardSummary": "競合ではなく役割が違う。入口のllms.txtと意味のSchema.org。AIエージェント時代に優先すべき視点を解説する。",
-      "llmsLabel": "Schema.orgとllms.txt"
+      "llmsLabel": "Schema.orgとllms.txt",
+      "publishedAt": "2026-07-14T03:57:32.947Z"
     },
     {
       "slug": "grounds",
