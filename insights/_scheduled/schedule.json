@@ -27,10 +27,11 @@
     {
       "slug": "grounds",
       "publishAt": "2026-07-15T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "llms.txtだけではAIに推薦されない理由──AIは何を根拠に企業を選んでいるのか",
       "cardSummary": "AIはファイルではなく根拠を集めている。一貫性・エンティティ・第三者情報・実行可能性から推薦の仕組みを読み解く。",
-      "llmsLabel": "llms.txtだけでは推薦されない理由"
+      "llmsLabel": "llms.txtだけでは推薦されない理由",
+      "publishedAt": "2026-07-15T04:05:57.806Z"
     },
     {
       "slug": "exec",
