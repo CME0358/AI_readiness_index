@@ -45,10 +45,11 @@
     {
       "slug": "vis",
       "publishAt": "2026-07-17T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Visibilityとは何か──AIは企業をどう見つけるのか",
       "cardSummary": "AIに選ばれる前に、まず見つけてもらえるか。VisibilityはAgent Readinessの入口であり、認識・到達できる状態を指す。",
-      "llmsLabel": "Visibilityとは何か"
+      "llmsLabel": "Visibilityとは何か",
+      "publishedAt": "2026-07-17T04:07:43.300Z"
     },
     {
       "slug": "blind",

@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [Visibilityとは何か](https://readiness.coaretail.com/insights/vis/): Insights Column（2026-07-17）
 - [検索から実行へ（Agent Readiness）](https://readiness.coaretail.com/insights/exec/): Insights Column（2026-07-16）
 - [llms.txtだけでは推薦されない理由](https://readiness.coaretail.com/insights/grounds/): Insights Column（2026-07-15）
 - [Schema.orgとllms.txt](https://readiness.coaretail.com/insights/schema/): Insights Column（2026-07-14）
