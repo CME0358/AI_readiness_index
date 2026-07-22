@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [Authorityとは何か](https://readiness.coaretail.com/insights/auth/): Insights Column（2026-07-22）
 - [Visibility実践チェックリスト](https://readiness.coaretail.com/insights/checklist/): Insights Column（2026-07-21）
 - [Visibilityを阻害する5つの原因](https://readiness.coaretail.com/insights/blind/): Insights Column（2026-07-20）
 - [Visibilityとは何か](https://readiness.coaretail.com/insights/vis/): Insights Column（2026-07-17）

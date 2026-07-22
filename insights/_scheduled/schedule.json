@@ -72,10 +72,11 @@
     {
       "slug": "auth",
       "publishAt": "2026-07-22T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Authorityとは何か──AIは企業を何で信頼するのか",
       "cardSummary": "見つけてもらえただけでは推薦されない。AIが安心して紹介できる信頼の根拠＝Authorityを解説する。",
-      "llmsLabel": "Authorityとは何か"
+      "llmsLabel": "Authorityとは何か",
+      "publishedAt": "2026-07-22T04:17:29.279Z"
     },
     {
       "slug": "trust",
