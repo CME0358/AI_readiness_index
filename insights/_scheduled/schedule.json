@@ -81,10 +81,11 @@
     {
       "slug": "trust",
       "publishAt": "2026-07-23T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "レビューだけでは足りない──AIが本当に見ている「信頼の証拠」",
       "cardSummary": "星の数だけではAuthorityは完成しない。AIが本当に見ている信頼の証拠を整理する。",
-      "llmsLabel": "信頼の証拠（レビューの先）"
+      "llmsLabel": "信頼の証拠（レビューの先）",
+      "publishedAt": "2026-07-23T04:16:06.782Z"
     },
     {
       "slug": "wrong",
