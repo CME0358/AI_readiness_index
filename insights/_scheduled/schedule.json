@@ -99,10 +99,11 @@
     {
       "slug": "act",
       "publishAt": "2026-07-27T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Actionabilityとは何か──AIエージェントは企業を何で比較しているのか",
       "cardSummary": "理解と信頼の先にある実行。AIエージェントが予約・問い合わせ・決済まで進める状態を定義する。",
-      "llmsLabel": "Actionabilityとは何か"
+      "llmsLabel": "Actionabilityとは何か",
+      "publishedAt": "2026-07-27T04:36:59.434Z"
     },
     {
       "slug": "price",
