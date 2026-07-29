@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [AIはレビューをどう比較するか](https://readiness.coaretail.com/insights/reviews/): Insights Column（2026-07-29）
 - [AIは価格をどう理解するか](https://readiness.coaretail.com/insights/price/): Insights Column（2026-07-28）
 - [Actionabilityとは何か](https://readiness.coaretail.com/insights/act/): Insights Column（2026-07-27）
 - [Authorityを失う企業の共通点](https://readiness.coaretail.com/insights/wrong/): Insights Column（2026-07-24）

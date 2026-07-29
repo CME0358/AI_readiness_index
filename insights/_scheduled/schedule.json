@@ -117,10 +117,11 @@
     {
       "slug": "reviews",
       "publishAt": "2026-07-29T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "AIはレビューをどう比較しているのか──星の数だけでは決まらない理由",
       "cardSummary": "星の平均だけでは推薦は決まらない。内容・分布・一貫性まで含めた比較の視点を解説する。",
-      "llmsLabel": "AIはレビューをどう比較するか"
+      "llmsLabel": "AIはレビューをどう比較するか",
+      "publishedAt": "2026-07-29T04:13:24.296Z"
     },
     {
       "slug": "book",
