@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [AIが決済できる会社](https://readiness.coaretail.com/insights/pay/): Insights Column（2026-07-31）
 - [AIが予約できる会社](https://readiness.coaretail.com/insights/book/): Insights Column（2026-07-30）
 - [AIはレビューをどう比較するか](https://readiness.coaretail.com/insights/reviews/): Insights Column（2026-07-29）
 - [AIは価格をどう理解するか](https://readiness.coaretail.com/insights/price/): Insights Column（2026-07-28）
