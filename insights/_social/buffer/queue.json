@@ -36,13 +36,13 @@
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/ai-search-shift.md",
-          "publishAt": "2026-08-04T12:15:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "publishAt": "2026-08-04T13:00:00+09:00",
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a715af62e9d172962a86440",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-04T03:22:29.767Z",
           "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.432Z"
+          "updatedAt": "2026-08-04T03:22:29.767Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
@@ -60,7 +60,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T02:52:21.437Z"
+      "updatedAt": "2026-08-04T03:22:29.767Z"
     },
     {
       "slug": "recommendation-logic",
