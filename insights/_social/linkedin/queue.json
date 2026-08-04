@@ -18,13 +18,13 @@
       "linkedinPublishAt": "2026-08-04T12:00:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-search-shift/",
       "contentFile": "insights/_social/linkedin/posts/ai-search-shift.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a71515dd702c24ecb20b57d",
+      "attempts": 1,
+      "lastAttemptAt": "2026-08-04T02:41:33.297Z",
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-08-04T02:41:33.297Z"
     },
     {
       "id": "ARI-LI-002",
