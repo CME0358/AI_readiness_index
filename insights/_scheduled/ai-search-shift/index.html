@@ -1,167 +1,4 @@
-#!/usr/bin/env node
-/**
- * Convert a column markdown file into insights article HTML.
- * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label]
- */
-import fs from 'node:fs';
-import path from 'node:path';
-
-function arg(name, fallback = null) {
-  const i = process.argv.indexOf(name);
-  return i >= 0 ? process.argv[i + 1] : fallback;
-}
-
-const mdPath = arg('--md');
-const slug = arg('--slug');
-const date = arg('--date');
-const outDir = arg('--out');
-const lead = arg('--lead', '');
-const desc = arg('--desc', '');
-const crumb = arg('--crumb', '');
-const titleOverride = arg('--title', '');
-const ctaExtra = arg('--cta-extra', ''); // href|label
-
-if (!mdPath || !slug || !date || !outDir) {
-  console.error('Required: --md --slug --date --out');
-  process.exit(1);
-}
-
-const md = fs.readFileSync(mdPath, 'utf8');
-const lines = md.split(/\r?\n/);
-
-function escapeHtml(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function inlineFormat(text) {
-  const links = [];
-  let raw = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
-    const id = links.length;
-    links.push({ label, href });
-    return `\x00L${id}\x00`;
-  });
-  let t = escapeHtml(raw);
-  t = t.replace(/\x00L(\d+)\x00/g, (_, id) => {
-    const { label, href } = links[Number(id)];
-    return `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
-  });
-  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  return t;
-}
-
-const blocks = [];
-let i = 0;
-let titleFromH2 = '';
-
-while (i < lines.length) {
-  const line = lines[i];
-  if (!line.trim() || line.trim() === '---') {
-    i++;
-    continue;
-  }
-  if (line.startsWith('## ')) {
-    const h = line.slice(3).trim();
-    if (!titleFromH2) titleFromH2 = h;
-    blocks.push({ type: 'h2', text: h });
-    i++;
-    continue;
-  }
-  if (line.startsWith('### ')) {
-    blocks.push({ type: 'h3', text: line.slice(4).trim() });
-    i++;
-    continue;
-  }
-  if (line.trim().startsWith('>')) {
-    const quoteLines = [];
-    while (i < lines.length && lines[i].trim().startsWith('>')) {
-      quoteLines.push(lines[i].replace(/^\s*>\s?/, '').trim());
-      i++;
-    }
-    blocks.push({ type: 'blockquote', text: quoteLines.join(' ') });
-    continue;
-  }
-  if (line.trim().startsWith('- ')) {
-    const items = [];
-    while (i < lines.length && (lines[i].trim().startsWith('- ') || !lines[i].trim())) {
-      if (lines[i].trim().startsWith('- ')) {
-        items.push(lines[i].replace(/^\s*-\s+/, '').trim());
-      }
-      i++;
-    }
-    blocks.push({ type: 'ul', items });
-    continue;
-  }
-  // paragraph: collect consecutive non-empty non-special lines
-  const para = [];
-  while (
-    i < lines.length &&
-    lines[i].trim() &&
-    lines[i].trim() !== '---' &&
-    !lines[i].startsWith('## ') &&
-    !lines[i].startsWith('### ') &&
-    !lines[i].trim().startsWith('- ') &&
-    !lines[i].trim().startsWith('>')
-  ) {
-    para.push(lines[i].trim());
-    i++;
-  }
-  if (para.length) {
-    blocks.push({ type: 'p', text: para.join('') });
-  }
-}
-
-const title = titleOverride || (path.basename(mdPath, '.md').replace(/──/g, '──'));
-const displayTitle = titleOverride || path.basename(mdPath, '.md');
-const dateDot = date.replace(/-/g, '.');
-const crumbText = crumb || displayTitle.slice(0, 24);
-const description = desc || lead || displayTitle;
-const pageTitle = `${displayTitle.replace(/──/g, '｜').replace(/—/g, '｜')}｜Agent Readiness Insights`.replace(
-  /｜Agent Readiness Insights｜Agent Readiness Insights$/,
-  '｜Agent Readiness Insights'
-);
-
-// Prefer cleaner <title>
-const htmlTitle = `${displayTitle.split('──')[0].split('—')[0].trim()}｜${
-  displayTitle.includes('──') || displayTitle.includes('—')
-    ? displayTitle.split(/──|—/).slice(1).join('—').trim() || 'Agent Readiness Insights'
-    : 'Agent Readiness Insights'
-}`;
-
-let bodyHtml = '';
-let firstH2Skipped = false;
-// Use first H2 as article section start; keep all H2s including first as body sections
-// Lead is provided separately; first content H2 stays in body.
-
-for (let bi = 0; bi < blocks.length; bi++) {
-  const b = blocks[bi];
-  if (b.type === 'h2') {
-    bodyHtml += `      <h2>${inlineFormat(b.text)}</h2>\n`;
-  } else if (b.type === 'h3') {
-    bodyHtml += `      <h3>${inlineFormat(b.text)}</h3>\n`;
-  } else if (b.type === 'p') {
-    bodyHtml += `      <p>${inlineFormat(b.text)}</p>\n`;
-  } else if (b.type === 'ul') {
-    bodyHtml += '      <ul>\n';
-    for (const item of b.items) {
-      bodyHtml += `        <li>${inlineFormat(item)}</li>\n`;
-    }
-    bodyHtml += '      </ul>\n';
-  } else if (b.type === 'blockquote') {
-    bodyHtml += `      <blockquote>\n        ${inlineFormat(b.text)}\n      </blockquote>\n`;
-  }
-}
-
-let ctaExtraBtn = '';
-if (ctaExtra) {
-  const [href, label] = ctaExtra.split('|');
-  ctaExtraBtn = `        <a href="${href}" class="btn btn-secondary">${escapeHtml(label)}</a>\n`;
-}
-
-const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <script src="/assets/ga4.js" async></script>
@@ -170,20 +7,20 @@ const html = `<!DOCTYPE html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(htmlTitle)}</title>
-<meta name="description" content="${escapeHtml(description)}">
-<link rel="canonical" href="https://readiness.coaretail.com/insights/${slug}/">
+<title>AI検索が変える「比較」の意味｜Agent Readiness Insights</title>
+<meta name="description" content="AI検索では比較の主語がユーザーからエージェントへ移る。順位ではなく候補形成・根拠提示・実行可能性を整える視点を、Agent Readinessの三層で整理する。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/ai-search-shift/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": ${JSON.stringify(displayTitle)},
-  "description": ${JSON.stringify(description)},
-  "datePublished": "${date}",
-  "dateModified": "${date}",
+  "headline": "AI検索が変える「比較」の意味",
+  "description": "AI検索では比較の主語がユーザーからエージェントへ移る。順位ではなく候補形成・根拠提示・実行可能性を整える視点を、Agent Readinessの三層で整理する。",
+  "datePublished": "2026-08-04",
+  "dateModified": "2026-08-04",
   "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
   "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
-  "mainEntityOfPage": "https://readiness.coaretail.com/insights/${slug}/",
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/ai-search-shift/",
   "inLanguage": "ja"
 }
 </script>
@@ -292,26 +129,56 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>${escapeHtml(crumbText)}</span>
+        <span>AI検索と比較の変化</span>
       </nav>
       <p class="article-meta">
-        <time datetime="${date}">${dateDot}</time>
+        <time datetime="2026-08-04">2026.08.04</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>${escapeHtml(displayTitle)}</h1>
-      <p class="lead">${escapeHtml(lead)}</p>
+      <h1>AI検索が変える「比較」の意味</h1>
+      <p class="lead">検索結果の一覧を眺める行為から、AIが候補を組み立てて説明する行為へ。比較の主語が移ると、企業に求められる情報設計も変わる。</p>
     </div>
   </header>
 
   <article class="article-body container">
     <div class="article-container">
-${bodyHtml}
+      <h2>検索結果の一覧から、候補の説明へ</h2>
+      <p>従来のWeb検索では、ユーザーが検索結果ページを開き、複数のサイトを自分で読み比べていました。AI検索では、その比較作業の相当部分をエージェントが担います。ユーザーは「港区で信頼できる歯科医院は？」と聞き、AIは候補を数社に絞って理由付きで返します。比較に入るかどうかは、AIが最初に組み立てる候補集合でほぼ決まります。</p>
+      <h3>比較の主語が移る</h3>
+      <p>比較の主体がユーザーからAIへ移ると、企業側の最適化対象も変わります。クリック率や検索順位だけを追うのではなく、「AIが候補に含めるか」「含めたときに何を根拠に説明できるか」が問われます。<a href="/insights/exec/">検索から実行へ</a>で述べたように、Agent Readinessはこの先の実行まで含めた準備状態を指します。</p>
+      <h2>AIが比較に使う情報の種類</h2>
+      <p>AIは単一ページのキーワード密度だけで判断しません。公式サイト、地図情報、レビュー、業界データベース、ニュースなど複数ソースを組み合わせ、企業を一つの存在として理解しようとします。サイト内の説明だけが整っていても、外部情報と矛盾している企業は候補から外れやすくなります。</p>
+      <h3>比較可能な属性</h3>
+      <p>AIが比較しやすいのは、属性が明確な情報です。所在地、営業時間、提供サービス、料金体系、予約方法、対応言語など、項目として切り出せる情報ほど候補形成に使われます。<a href="/insights/vis/">Visibilityとは何か</a>の観点では、まずAIに「存在として認識される」ことが前提になります。</p>
+      <h2>順位競争から候補形成競争へ</h2>
+      <p>SEOの文脈で語られる「比較」は、しばしば検索順位の上下に結びついていました。AI検索では、順位という単一軸がそのまま通用しない場面が増えます。エージェントは用途や制約条件に応じて候補集合を動的に作るため、特定キーワードの1位だけでは不十分なケースがあります。</p>
+      <h3>同じ業界でも比較セットは変わる</h3>
+      <p>「駅近で当日予約可能な整体」と「慢性的な腰痛に強い整体」では、AIが集める候補の顔ぶれが異なることがあります。固定の競合3社ベンチマークだけでは、この変動を捉えきれません。自社がどの条件文脈で候補に入るか——ここを定点観測する視点が重要です。</p>
+      <h2>企業が整備すべき比較情報</h2>
+      <p>比較に耐える情報設計では、サービス内容をカテゴリ単位で明記する、料金や条件をページ上で完結させる、営業時間と対応エリアを統一する、公式情報と外部掲載の矛盾を解消する——これらが基本です。派手な施策ではありませんが、AIが候補を組み立てるうえでの土台になります。</p>
+      <h3>比較軸を自社で定義する</h3>
+      <p>すべての比較軸をコントロールできるわけではありません。それでも、自社が提供価値の中心とする軸——専門分野、対応時間帯、初回相談の有無——はサイト上で明示しておく価値があります。</p>
+      <h2>比較の先にある行動</h2>
+      <p>AI検索における比較は、最終的にはユーザーの行動——予約、問い合わせ、購入——につながります。候補に入っただけでは成果にはなりません。比較後にユーザーが次の一手を取れるか、つまりActionabilityが問われる段階へ進みます。<a href="/insights/act/">Actionabilityとは何か</a>で整理した実行可能性が、比較の先に待っています。</p>
+      <h2>まとめ：比較の意味を再定義する</h2>
+      <p>AI検索が変えるのは、比較が順位ではなく理解・根拠・実行可能性の総合判断になることです。企業は「何位か」より「候補に入る情報があるか」「入ったあと説明できるか」「選ばれたあと動けるか」を順に整える必要があります。情報の連続性を点検する言語として、Agent Readinessが機能します。まずは自社の比較軸を一覧化することから始められます。</p>
+      <h2>比較設計の実務チェック</h2>
+      <p>自社サイトで比較軸になりうる項目——地域、料金帯、営業時間、予約方法——を一覧化し、公式サイト・地図・FAQで矛盾がないか四半期ごとに確認する。代表質問を10件決め、月次でAI回答を記録すると、候補入りと説明根拠の変化を定点観測できます。</p>
+      <p>順位レポートだけでは、比較セットそのものの変化に気づきにくい——この点がAI時代の分析の分岐点です。改善は「キーワード順位」だけでなく「どの条件で候補に入るか」から設計し直すほうが、Agent Readinessの三層——Visibility、Authority、Actionability——に沿います。</p>
+      <h2>関連するInsights</h2>
+      <ul>
+        <li>前提：<a href="/insights/why-ari/">なぜAgent Readinessが企業評価の新しい基準になるのか</a></li>
+        <li>次に読む：AIは「おすすめ」をどう組み立てるのか（公開予定）</li>
+        <li>関連：<a href="/insights/grounds/">llms.txtだけではAIに推薦されない理由</a>、SEO・GEO・ARIの役割分担（公開予定）</li>
+      </ul>
+
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
         <a href="/framework/" class="btn btn-navy">Framework</a>
         <a href="/research/" class="btn btn-secondary">Research Hub</a>
-${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/framework/" class="btn btn-secondary">Frameworkを見る</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
@@ -323,7 +190,7 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
   <div class="container">
     <p class="footer-brand">Agent Readiness Research Hub</p>
     <p class="footer-org">Insights · Coa Retail</p>
-    <p class="footer-meta">Version 1.0 · Last Updated ${date}</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-08-04</p>
     <nav class="footer-links" aria-label="Site">
       <a href="/">トップ</a>
       <a href="/framework/">Framework</a>
@@ -348,9 +215,3 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
 </footer>
 </body>
 </html>
-`;
-
-fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, 'index.html');
-fs.writeFileSync(outPath, html, 'utf8');
-console.log('Wrote', outPath);

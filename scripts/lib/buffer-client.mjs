@@ -1,0 +1,120 @@
+/**
+ * Buffer GraphQL client — pattern from upload_buffer_drafts.py (QOL project).
+ * Uses BUFFER_ACCESS_TOKEN + BUFFER_CHANNEL_ID env vars.
+ */
+
+const BUFFER_API = 'https://api.buffer.com';
+
+const CREATE_POST_MUTATION = `
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    __typename
+    ... on PostActionSuccess {
+      post { id status text }
+    }
+    ... on MutationError {
+      message
+    }
+  }
+}
+`;
+
+export function getBufferConfig() {
+  return {
+    accessToken: process.env.BUFFER_ACCESS_TOKEN?.trim() || '',
+    channelId: process.env.BUFFER_CHANNEL_ID?.trim() || '',
+    organizationId: process.env.BUFFER_ORGANIZATION_ID?.trim() || '',
+    linkedinProfileId: process.env.BUFFER_LINKEDIN_PROFILE_ID?.trim() || '',
+  };
+}
+
+export function isBufferConfigured(cfg = getBufferConfig()) {
+  return Boolean(cfg.accessToken && cfg.channelId);
+}
+
+export function isRateLimitError(message) {
+  if (!message) return false;
+  const e = message.toUpperCase();
+  return e.includes('429') || e.includes('RATE') || e.includes('TOO MANY');
+}
+
+export function isQueueLimitError(message) {
+  if (!message) return false;
+  const e = message.toLowerCase();
+  return (
+    e.includes('limit') ||
+    e.includes('quota') ||
+    e.includes('maximum') ||
+    e.includes('10') ||
+    e.includes('queue is full')
+  );
+}
+
+export async function bufferGraphql(accessToken, query, variables, { timeoutMs = 30000 } = {}) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(BUFFER_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ query, variables }),
+      signal: controller.signal,
+    });
+    const text = await res.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error(`Invalid JSON (HTTP ${res.status}): ${text.slice(0, 300)}`);
+    }
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${text.slice(0, 500)}`);
+    }
+    return data;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * @returns {Promise<{postId: string|null, error: string|null, rejected: boolean}>}
+ */
+export async function createBufferPost({
+  channelId,
+  accessToken,
+  text,
+  dueAt,
+  dryRun = false,
+}) {
+  if (dryRun) {
+    return { postId: 'dry-run-mock-id', error: null, rejected: false };
+  }
+
+  const input = {
+    channelId,
+    text,
+    schedulingType: 'automatic',
+    saveToDraft: false,
+    mode: dueAt ? 'customScheduled' : 'addToQueue',
+  };
+  if (dueAt) input.dueAt = dueAt;
+
+  const data = await bufferGraphql(accessToken, CREATE_POST_MUTATION, { input });
+  if (data.errors?.length) {
+    const msg = JSON.stringify(data.errors);
+    return { postId: null, error: msg, rejected: isQueueLimitError(msg) };
+  }
+
+  const result = data.data?.createPost;
+  if (result?.__typename === 'PostActionSuccess') {
+    return { postId: result.post?.id || null, error: null, rejected: false };
+  }
+  if (result?.__typename === 'MutationError') {
+    const msg = result.message || 'MutationError';
+    return { postId: null, error: msg, rejected: isQueueLimitError(msg) };
+  }
+  return { postId: null, error: JSON.stringify(result).slice(0, 500), rejected: false };
+}

@@ -1,0 +1,407 @@
+{
+  "generatedAt": "2026-08-04T00:53:45.189Z",
+  "counts": {
+    "PASS": 1,
+    "REVISE": 0,
+    "REWRITE": 29,
+    "REJECT": 0
+  },
+  "repetitionClusters": [],
+  "articles": [
+    {
+      "slug": "ai-search-shift",
+      "title": "AI検索が変える「比較」の意味",
+      "category": "AI Search",
+      "verdict": "PASS",
+      "reasons": [
+        "テーマ固有の構成が主体で公開可能"
+      ],
+      "markers": 0,
+      "charCount": 2021,
+      "repeatTail": 0
+    },
+    {
+      "slug": "recommendation-logic",
+      "title": "AIは「おすすめ」をどう組み立てるのか",
+      "category": "AI Search",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が8回反復"
+      ],
+      "markers": 4,
+      "charCount": 2024,
+      "repeatTail": 8
+    },
+    {
+      "slug": "citation-vs-action",
+      "title": "引用されることと実行されることの差",
+      "category": "AI Search",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が9回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 4,
+      "charCount": 2029,
+      "repeatTail": 9
+    },
+    {
+      "slug": "competitor-blind-spot",
+      "title": "競合分析がAI時代に見えなくなる理由",
+      "category": "AI Search",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が10回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 4,
+      "charCount": 2004,
+      "repeatTail": 10
+    },
+    {
+      "slug": "three-pillars-ops",
+      "title": "Visibility・Authority・Actionabilityを運用に落とす",
+      "category": "Agent Readiness基礎",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 6,
+      "charCount": 2036,
+      "repeatTail": 0
+    },
+    {
+      "slug": "ari-vs-geo-seo",
+      "title": "SEO・GEO・ARIの役割分担を整理する",
+      "category": "Agent Readiness基礎",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2084,
+      "repeatTail": 0
+    },
+    {
+      "slug": "readiness-baseline",
+      "title": "「準備できている」の最低ライン",
+      "category": "Agent Readiness基礎",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2055,
+      "repeatTail": 0
+    },
+    {
+      "slug": "entity-consistency",
+      "title": "企業情報の一貫性がAIの理解を決める",
+      "category": "企業情報・構造化",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2095,
+      "repeatTail": 0
+    },
+    {
+      "slug": "faq-for-agents",
+      "title": "AI向けFAQ設計の基本",
+      "category": "企業情報・構造化",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2025,
+      "repeatTail": 0
+    },
+    {
+      "slug": "org-schema-basics",
+      "title": "Organizationスキーマの実務的役割",
+      "category": "企業情報・構造化",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 7,
+      "charCount": 2014,
+      "repeatTail": 0
+    },
+    {
+      "slug": "semantic-web-ai",
+      "title": "Web上の意味構造とAIの読み取り",
+      "category": "企業情報・構造化",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2010,
+      "repeatTail": 1
+    },
+    {
+      "slug": "hiring-readiness",
+      "title": "求人情報をAIが比較できる状態",
+      "category": "予約・決済・求人・購買",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2010,
+      "repeatTail": 0
+    },
+    {
+      "slug": "availability-signals",
+      "title": "空きと営業時間を機械に伝える",
+      "category": "予約・決済・求人・購買",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2000,
+      "repeatTail": 0
+    },
+    {
+      "slug": "purchase-path-design",
+      "title": "購買導線をAIが辿れる設計",
+      "category": "予約・決済・求人・購買",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2025,
+      "repeatTail": 2
+    },
+    {
+      "slug": "policy-clarity",
+      "title": "規約・返金・キャンセルの明確さ",
+      "category": "予約・決済・求人・購買",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2004,
+      "repeatTail": 2
+    },
+    {
+      "slug": "agent-handoff",
+      "title": "AIエージェントと人間の引き継ぎ設計",
+      "category": "AIエージェント",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2020,
+      "repeatTail": 2
+    },
+    {
+      "slug": "mcp-business-api",
+      "title": "MCPとビジネスAPIの接点",
+      "category": "AIエージェント",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2019,
+      "repeatTail": 0
+    },
+    {
+      "slug": "multi-agent-compare",
+      "title": "複数エージェントが比較するとき",
+      "category": "AIエージェント",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2016,
+      "repeatTail": 1
+    },
+    {
+      "slug": "agent-experience",
+      "title": "Agent Experienceとは何か",
+      "category": "AIエージェント",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2024,
+      "repeatTail": 0
+    },
+    {
+      "slug": "marketing-info-design",
+      "title": "マーケが担う情報設計の再定義",
+      "category": "経営・マーケティング",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が3回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2033,
+      "repeatTail": 3
+    },
+    {
+      "slug": "exec-readiness-kpi",
+      "title": "経営が見るべきReadiness指標",
+      "category": "経営・マーケティング",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が3回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2032,
+      "repeatTail": 3
+    },
+    {
+      "slug": "vendor-selection",
+      "title": "予約SaaS選定のReadiness視点",
+      "category": "経営・マーケティング",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2014,
+      "repeatTail": 1
+    },
+    {
+      "slug": "content-ops-ai",
+      "title": "コンテンツ運用のAI前提化",
+      "category": "経営・マーケティング",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が3回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2003,
+      "repeatTail": 3
+    },
+    {
+      "slug": "interaction-contract",
+      "title": "ビジネスとの約束を機械可読に",
+      "category": "Business Interaction",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2002,
+      "repeatTail": 1
+    },
+    {
+      "slug": "consent-data-design",
+      "title": "同意とデータ提供の設計",
+      "category": "Business Interaction",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "末尾の定型文が3回反復",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2008,
+      "repeatTail": 3
+    },
+    {
+      "slug": "execution-readiness",
+      "title": "Execution Readinessの実務",
+      "category": "Business Interaction",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2005,
+      "repeatTail": 0
+    },
+    {
+      "slug": "abis-intro",
+      "title": "ABISが目指すBusiness Interaction",
+      "category": "ABISへの導入",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 7,
+      "charCount": 2010,
+      "repeatTail": 0
+    },
+    {
+      "slug": "abis-ari-bridge",
+      "title": "ABISとAgent Readinessの接続",
+      "category": "ABISへの導入",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 8,
+      "charCount": 2039,
+      "repeatTail": 0
+    },
+    {
+      "slug": "standards-landscape",
+      "title": "標準化の動きをどう読むか",
+      "category": "ABISへの導入",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2009,
+      "repeatTail": 2
+    },
+    {
+      "slug": "abis-readiness-gap",
+      "title": "ABIS視点で見る企業のギャップ",
+      "category": "ABISへの導入",
+      "verdict": "REWRITE",
+      "reasons": [
+        "テンプレート骨格（論点の整理/企業が準備すべきこと等）が支配的",
+        "「まとめ」H2が重複"
+      ],
+      "markers": 9,
+      "charCount": 2017,
+      "repeatTail": 2
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+{
+  "before": [
+    {
+      "slug": "ai-search-shift",
+      "articlePublishAt": "2026-08-04T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-04T11:00:00+09:00"
+    },
+    {
+      "slug": "recommendation-logic",
+      "articlePublishAt": "2026-08-05T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-05T11:00:00+09:00"
+    },
+    {
+      "slug": "citation-vs-action",
+      "articlePublishAt": "2026-08-06T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-06T11:00:00+09:00"
+    },
+    {
+      "slug": "competitor-blind-spot",
+      "articlePublishAt": "2026-08-07T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-07T11:00:00+09:00"
+    },
+    {
+      "slug": "three-pillars-ops",
+      "articlePublishAt": "2026-08-10T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-10T11:00:00+09:00"
+    },
+    {
+      "slug": "ari-vs-geo-seo",
+      "articlePublishAt": "2026-08-11T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-11T11:00:00+09:00"
+    },
+    {
+      "slug": "readiness-baseline",
+      "articlePublishAt": "2026-08-12T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-12T11:00:00+09:00"
+    },
+    {
+      "slug": "entity-consistency",
+      "articlePublishAt": "2026-08-13T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-13T11:00:00+09:00"
+    },
+    {
+      "slug": "faq-for-agents",
+      "articlePublishAt": "2026-08-14T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-14T11:00:00+09:00"
+    },
+    {
+      "slug": "org-schema-basics",
+      "articlePublishAt": "2026-08-17T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-17T11:00:00+09:00"
+    },
+    {
+      "slug": "semantic-web-ai",
+      "articlePublishAt": "2026-08-18T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-18T11:00:00+09:00"
+    },
+    {
+      "slug": "hiring-readiness",
+      "articlePublishAt": "2026-08-19T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-19T11:00:00+09:00"
+    },
+    {
+      "slug": "availability-signals",
+      "articlePublishAt": "2026-08-20T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-20T11:00:00+09:00"
+    },
+    {
+      "slug": "purchase-path-design",
+      "articlePublishAt": "2026-08-21T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-21T11:00:00+09:00"
+    },
+    {
+      "slug": "policy-clarity",
+      "articlePublishAt": "2026-08-24T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-24T11:00:00+09:00"
+    },
+    {
+      "slug": "agent-handoff",
+      "articlePublishAt": "2026-08-25T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-25T11:00:00+09:00"
+    },
+    {
+      "slug": "mcp-business-api",
+      "articlePublishAt": "2026-08-26T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-26T11:00:00+09:00"
+    },
+    {
+      "slug": "multi-agent-compare",
+      "articlePublishAt": "2026-08-27T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-27T11:00:00+09:00"
+    },
+    {
+      "slug": "agent-experience",
+      "articlePublishAt": "2026-08-28T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-28T11:00:00+09:00"
+    },
+    {
+      "slug": "marketing-info-design",
+      "articlePublishAt": "2026-08-31T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-31T11:00:00+09:00"
+    },
+    {
+      "slug": "exec-readiness-kpi",
+      "articlePublishAt": "2026-09-01T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-01T11:00:00+09:00"
+    },
+    {
+      "slug": "vendor-selection",
+      "articlePublishAt": "2026-09-02T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-02T11:00:00+09:00"
+    },
+    {
+      "slug": "content-ops-ai",
+      "articlePublishAt": "2026-09-03T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-03T11:00:00+09:00"
+    },
+    {
+      "slug": "interaction-contract",
+      "articlePublishAt": "2026-09-04T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-04T11:00:00+09:00"
+    },
+    {
+      "slug": "consent-data-design",
+      "articlePublishAt": "2026-09-07T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-07T11:00:00+09:00"
+    },
+    {
+      "slug": "execution-readiness",
+      "articlePublishAt": "2026-09-08T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-08T11:00:00+09:00"
+    },
+    {
+      "slug": "abis-intro",
+      "articlePublishAt": "2026-09-09T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-09T11:00:00+09:00"
+    },
+    {
+      "slug": "abis-ari-bridge",
+      "articlePublishAt": "2026-09-10T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-10T11:00:00+09:00"
+    },
+    {
+      "slug": "standards-landscape",
+      "articlePublishAt": "2026-09-11T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-11T11:00:00+09:00"
+    },
+    {
+      "slug": "abis-readiness-gap",
+      "articlePublishAt": "2026-09-14T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-14T11:00:00+09:00"
+    }
+  ],
+  "after": [
+    {
+      "slug": "ai-search-shift",
+      "articlePublishAt": "2026-08-05T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-05T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-05T10:30:00+09:00"
+    },
+    {
+      "slug": "recommendation-logic",
+      "articlePublishAt": "2026-08-06T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-06T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-06T10:30:00+09:00"
+    },
+    {
+      "slug": "citation-vs-action",
+      "articlePublishAt": "2026-08-07T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-07T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-07T10:30:00+09:00"
+    },
+    {
+      "slug": "competitor-blind-spot",
+      "articlePublishAt": "2026-08-10T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-10T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-10T10:30:00+09:00"
+    },
+    {
+      "slug": "three-pillars-ops",
+      "articlePublishAt": "2026-08-11T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-11T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-11T10:30:00+09:00"
+    },
+    {
+      "slug": "ari-vs-geo-seo",
+      "articlePublishAt": "2026-08-12T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-12T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-12T10:30:00+09:00"
+    },
+    {
+      "slug": "readiness-baseline",
+      "articlePublishAt": "2026-08-13T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-13T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-13T10:30:00+09:00"
+    },
+    {
+      "slug": "entity-consistency",
+      "articlePublishAt": "2026-08-14T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-14T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-14T10:30:00+09:00"
+    },
+    {
+      "slug": "faq-for-agents",
+      "articlePublishAt": "2026-08-17T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-17T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-17T10:30:00+09:00"
+    },
+    {
+      "slug": "org-schema-basics",
+      "articlePublishAt": "2026-08-18T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-18T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-18T10:30:00+09:00"
+    },
+    {
+      "slug": "semantic-web-ai",
+      "articlePublishAt": "2026-08-19T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-19T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-19T10:30:00+09:00"
+    },
+    {
+      "slug": "hiring-readiness",
+      "articlePublishAt": "2026-08-20T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-20T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-20T10:30:00+09:00"
+    },
+    {
+      "slug": "availability-signals",
+      "articlePublishAt": "2026-08-21T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-21T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-21T10:30:00+09:00"
+    },
+    {
+      "slug": "purchase-path-design",
+      "articlePublishAt": "2026-08-24T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-24T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-24T10:30:00+09:00"
+    },
+    {
+      "slug": "policy-clarity",
+      "articlePublishAt": "2026-08-25T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-25T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-25T10:30:00+09:00"
+    },
+    {
+      "slug": "agent-handoff",
+      "articlePublishAt": "2026-08-26T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-26T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-26T10:30:00+09:00"
+    },
+    {
+      "slug": "mcp-business-api",
+      "articlePublishAt": "2026-08-27T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-27T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-27T10:30:00+09:00"
+    },
+    {
+      "slug": "multi-agent-compare",
+      "articlePublishAt": "2026-08-28T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-28T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-28T10:30:00+09:00"
+    },
+    {
+      "slug": "agent-experience",
+      "articlePublishAt": "2026-08-31T10:00:00+09:00",
+      "linkedinPublishAt": "2026-08-31T11:30:00+09:00",
+      "bufferTransferAt": "2026-08-31T10:30:00+09:00"
+    },
+    {
+      "slug": "marketing-info-design",
+      "articlePublishAt": "2026-09-01T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-01T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-01T10:30:00+09:00"
+    },
+    {
+      "slug": "exec-readiness-kpi",
+      "articlePublishAt": "2026-09-02T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-02T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-02T10:30:00+09:00"
+    },
+    {
+      "slug": "vendor-selection",
+      "articlePublishAt": "2026-09-03T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-03T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-03T10:30:00+09:00"
+    },
+    {
+      "slug": "content-ops-ai",
+      "articlePublishAt": "2026-09-04T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-04T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-04T10:30:00+09:00"
+    },
+    {
+      "slug": "interaction-contract",
+      "articlePublishAt": "2026-09-07T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-07T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-07T10:30:00+09:00"
+    },
+    {
+      "slug": "consent-data-design",
+      "articlePublishAt": "2026-09-08T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-08T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-08T10:30:00+09:00"
+    },
+    {
+      "slug": "execution-readiness",
+      "articlePublishAt": "2026-09-09T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-09T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-09T10:30:00+09:00"
+    },
+    {
+      "slug": "abis-intro",
+      "articlePublishAt": "2026-09-10T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-10T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-10T10:30:00+09:00"
+    },
+    {
+      "slug": "abis-ari-bridge",
+      "articlePublishAt": "2026-09-11T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-11T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-11T10:30:00+09:00"
+    },
+    {
+      "slug": "standards-landscape",
+      "articlePublishAt": "2026-09-14T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-14T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-14T10:30:00+09:00"
+    },
+    {
+      "slug": "abis-readiness-gap",
+      "articlePublishAt": "2026-09-15T10:00:00+09:00",
+      "linkedinPublishAt": "2026-09-15T11:30:00+09:00",
+      "bufferTransferAt": "2026-09-15T10:30:00+09:00"
+    }
+  ],
+  "startYmd": "2026-08-05",
+  "dryRun": false
+}

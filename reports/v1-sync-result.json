@@ -1,0 +1,183 @@
+{
+  "synced": [
+    "files",
+    "schema",
+    "grounds",
+    "exec",
+    "vis",
+    "blind",
+    "checklist",
+    "auth",
+    "trust",
+    "wrong",
+    "act",
+    "price",
+    "reviews",
+    "book",
+    "pay",
+    "why-ari"
+  ],
+  "report": [
+    {
+      "slug": "files",
+      "scheduledDate": "2026-07-13T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "robots.txt・sitemap.xml・llms.txtの違い｜AIは何を見ているのか",
+      "canonical": "https://readiness.coaretail.com/insights/files/"
+    },
+    {
+      "slug": "schema",
+      "scheduledDate": "2026-07-14T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "Schema.orgとllms.txt、AIはどちらを重視するのか",
+      "canonical": "https://readiness.coaretail.com/insights/schema/"
+    },
+    {
+      "slug": "grounds",
+      "scheduledDate": "2026-07-15T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "llms.txtだけではAIに推薦されない理由｜AIは何を根拠に企業を選んでいるのか",
+      "canonical": "https://readiness.coaretail.com/insights/grounds/"
+    },
+    {
+      "slug": "exec",
+      "scheduledDate": "2026-07-16T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "検索から実行へ｜Agent Readinessという新しい考え方",
+      "canonical": "https://readiness.coaretail.com/insights/exec/"
+    },
+    {
+      "slug": "vis",
+      "scheduledDate": "2026-07-17T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "Visibilityとは何か｜AIは企業をどう見つけるのか",
+      "canonical": "https://readiness.coaretail.com/insights/vis/"
+    },
+    {
+      "slug": "blind",
+      "scheduledDate": "2026-07-20T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "なぜAIはあなたの会社を知らないのか｜Visibilityを阻害する5つの原因",
+      "canonical": "https://readiness.coaretail.com/insights/blind/"
+    },
+    {
+      "slug": "checklist",
+      "scheduledDate": "2026-07-21T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIに見つけてもらう企業は何が違うのか｜Visibilityを高める実践チェックリスト",
+      "canonical": "https://readiness.coaretail.com/insights/checklist/"
+    },
+    {
+      "slug": "auth",
+      "scheduledDate": "2026-07-22T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "Authorityとは何か｜AIは企業を何で信頼するのか",
+      "canonical": "https://readiness.coaretail.com/insights/auth/"
+    },
+    {
+      "slug": "trust",
+      "scheduledDate": "2026-07-23T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "レビューだけでは足りない｜AIが本当に見ている「信頼の証拠」",
+      "canonical": "https://readiness.coaretail.com/insights/trust/"
+    },
+    {
+      "slug": "wrong",
+      "scheduledDate": "2026-07-24T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIは間違った情報をどう扱うのか｜Authorityを失う企業の共通点",
+      "canonical": "https://readiness.coaretail.com/insights/wrong/"
+    },
+    {
+      "slug": "act",
+      "scheduledDate": "2026-07-27T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "Actionabilityとは何か｜AIエージェントは企業を何で比較しているのか",
+      "canonical": "https://readiness.coaretail.com/insights/act/"
+    },
+    {
+      "slug": "price",
+      "scheduledDate": "2026-07-28T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIは価格をどう理解しているのか｜「料金が書いてある」だけでは比較できない理由",
+      "canonical": "https://readiness.coaretail.com/insights/price/"
+    },
+    {
+      "slug": "reviews",
+      "scheduledDate": "2026-07-29T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIはレビューをどう比較しているのか｜星の数だけでは決まらない理由",
+      "canonical": "https://readiness.coaretail.com/insights/reviews/"
+    },
+    {
+      "slug": "book",
+      "scheduledDate": "2026-07-30T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIが予約できる会社、できない会社｜Actionabilityは「実行」から始まる",
+      "canonical": "https://readiness.coaretail.com/insights/book/"
+    },
+    {
+      "slug": "pay",
+      "scheduledDate": "2026-07-31T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "AIが決済できる会社、できない会社｜Agent Commerce時代の新しい競争力",
+      "canonical": "https://readiness.coaretail.com/insights/pay/"
+    },
+    {
+      "slug": "why-ari",
+      "scheduledDate": "2026-08-03T10:00:00+09:00",
+      "localStatus": "scheduled",
+      "remoteHttpStatus": 200,
+      "remotePublished": true,
+      "recommendedAction": "mark_published",
+      "remoteTitle": "なぜAgent Readinessが企業評価の新しい基準になるのか｜検索から実行へ",
+      "canonical": "https://readiness.coaretail.com/insights/why-ari/"
+    }
+  ],
+  "dryRun": false
+}

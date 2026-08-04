@@ -1,167 +1,4 @@
-#!/usr/bin/env node
-/**
- * Convert a column markdown file into insights article HTML.
- * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label]
- */
-import fs from 'node:fs';
-import path from 'node:path';
-
-function arg(name, fallback = null) {
-  const i = process.argv.indexOf(name);
-  return i >= 0 ? process.argv[i + 1] : fallback;
-}
-
-const mdPath = arg('--md');
-const slug = arg('--slug');
-const date = arg('--date');
-const outDir = arg('--out');
-const lead = arg('--lead', '');
-const desc = arg('--desc', '');
-const crumb = arg('--crumb', '');
-const titleOverride = arg('--title', '');
-const ctaExtra = arg('--cta-extra', ''); // href|label
-
-if (!mdPath || !slug || !date || !outDir) {
-  console.error('Required: --md --slug --date --out');
-  process.exit(1);
-}
-
-const md = fs.readFileSync(mdPath, 'utf8');
-const lines = md.split(/\r?\n/);
-
-function escapeHtml(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function inlineFormat(text) {
-  const links = [];
-  let raw = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
-    const id = links.length;
-    links.push({ label, href });
-    return `\x00L${id}\x00`;
-  });
-  let t = escapeHtml(raw);
-  t = t.replace(/\x00L(\d+)\x00/g, (_, id) => {
-    const { label, href } = links[Number(id)];
-    return `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
-  });
-  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  return t;
-}
-
-const blocks = [];
-let i = 0;
-let titleFromH2 = '';
-
-while (i < lines.length) {
-  const line = lines[i];
-  if (!line.trim() || line.trim() === '---') {
-    i++;
-    continue;
-  }
-  if (line.startsWith('## ')) {
-    const h = line.slice(3).trim();
-    if (!titleFromH2) titleFromH2 = h;
-    blocks.push({ type: 'h2', text: h });
-    i++;
-    continue;
-  }
-  if (line.startsWith('### ')) {
-    blocks.push({ type: 'h3', text: line.slice(4).trim() });
-    i++;
-    continue;
-  }
-  if (line.trim().startsWith('>')) {
-    const quoteLines = [];
-    while (i < lines.length && lines[i].trim().startsWith('>')) {
-      quoteLines.push(lines[i].replace(/^\s*>\s?/, '').trim());
-      i++;
-    }
-    blocks.push({ type: 'blockquote', text: quoteLines.join(' ') });
-    continue;
-  }
-  if (line.trim().startsWith('- ')) {
-    const items = [];
-    while (i < lines.length && (lines[i].trim().startsWith('- ') || !lines[i].trim())) {
-      if (lines[i].trim().startsWith('- ')) {
-        items.push(lines[i].replace(/^\s*-\s+/, '').trim());
-      }
-      i++;
-    }
-    blocks.push({ type: 'ul', items });
-    continue;
-  }
-  // paragraph: collect consecutive non-empty non-special lines
-  const para = [];
-  while (
-    i < lines.length &&
-    lines[i].trim() &&
-    lines[i].trim() !== '---' &&
-    !lines[i].startsWith('## ') &&
-    !lines[i].startsWith('### ') &&
-    !lines[i].trim().startsWith('- ') &&
-    !lines[i].trim().startsWith('>')
-  ) {
-    para.push(lines[i].trim());
-    i++;
-  }
-  if (para.length) {
-    blocks.push({ type: 'p', text: para.join('') });
-  }
-}
-
-const title = titleOverride || (path.basename(mdPath, '.md').replace(/──/g, '──'));
-const displayTitle = titleOverride || path.basename(mdPath, '.md');
-const dateDot = date.replace(/-/g, '.');
-const crumbText = crumb || displayTitle.slice(0, 24);
-const description = desc || lead || displayTitle;
-const pageTitle = `${displayTitle.replace(/──/g, '｜').replace(/—/g, '｜')}｜Agent Readiness Insights`.replace(
-  /｜Agent Readiness Insights｜Agent Readiness Insights$/,
-  '｜Agent Readiness Insights'
-);
-
-// Prefer cleaner <title>
-const htmlTitle = `${displayTitle.split('──')[0].split('—')[0].trim()}｜${
-  displayTitle.includes('──') || displayTitle.includes('—')
-    ? displayTitle.split(/──|—/).slice(1).join('—').trim() || 'Agent Readiness Insights'
-    : 'Agent Readiness Insights'
-}`;
-
-let bodyHtml = '';
-let firstH2Skipped = false;
-// Use first H2 as article section start; keep all H2s including first as body sections
-// Lead is provided separately; first content H2 stays in body.
-
-for (let bi = 0; bi < blocks.length; bi++) {
-  const b = blocks[bi];
-  if (b.type === 'h2') {
-    bodyHtml += `      <h2>${inlineFormat(b.text)}</h2>\n`;
-  } else if (b.type === 'h3') {
-    bodyHtml += `      <h3>${inlineFormat(b.text)}</h3>\n`;
-  } else if (b.type === 'p') {
-    bodyHtml += `      <p>${inlineFormat(b.text)}</p>\n`;
-  } else if (b.type === 'ul') {
-    bodyHtml += '      <ul>\n';
-    for (const item of b.items) {
-      bodyHtml += `        <li>${inlineFormat(item)}</li>\n`;
-    }
-    bodyHtml += '      </ul>\n';
-  } else if (b.type === 'blockquote') {
-    bodyHtml += `      <blockquote>\n        ${inlineFormat(b.text)}\n      </blockquote>\n`;
-  }
-}
-
-let ctaExtraBtn = '';
-if (ctaExtra) {
-  const [href, label] = ctaExtra.split('|');
-  ctaExtraBtn = `        <a href="${href}" class="btn btn-secondary">${escapeHtml(label)}</a>\n`;
-}
-
-const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <script src="/assets/ga4.js" async></script>
@@ -170,20 +7,20 @@ const html = `<!DOCTYPE html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(htmlTitle)}</title>
-<meta name="description" content="${escapeHtml(description)}">
-<link rel="canonical" href="https://readiness.coaretail.com/insights/${slug}/">
+<title>競合分析がAI時代に見えなくなる理由｜Agent Readiness Insights</title>
+<meta name="description" content="競合分析がAI時代に見えなくなる理由を解説。固定の競合リストから条件付き候補分析へ、分析手法を更新する視点を整理する。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/competitor-blind-spot/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": ${JSON.stringify(displayTitle)},
-  "description": ${JSON.stringify(description)},
-  "datePublished": "${date}",
-  "dateModified": "${date}",
+  "headline": "競合分析がAI時代に見えなくなる理由",
+  "description": "競合分析がAI時代に見えなくなる理由を解説。固定の競合リストから条件付き候補分析へ、分析手法を更新する視点を整理する。",
+  "datePublished": "2026-08-07",
+  "dateModified": "2026-08-07",
   "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
   "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
-  "mainEntityOfPage": "https://readiness.coaretail.com/insights/${slug}/",
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/competitor-blind-spot/",
   "inLanguage": "ja"
 }
 </script>
@@ -292,26 +129,64 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>${escapeHtml(crumbText)}</span>
+        <span>競合分析の限界</span>
       </nav>
       <p class="article-meta">
-        <time datetime="${date}">${dateDot}</time>
+        <time datetime="2026-08-07">2026.08.07</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>${escapeHtml(displayTitle)}</h1>
-      <p class="lead">${escapeHtml(lead)}</p>
+      <h1>競合分析がAI時代に見えなくなる理由</h1>
+      <p class="lead">業界カテゴリから決めた競合3社のベンチマークが、AI検索では通用しなくなる。比較セットは質問文脈ごとに動的に変わるからだ。</p>
     </div>
   </header>
 
   <article class="article-body container">
     <div class="article-container">
-${bodyHtml}
+      <h2>固定の競合リストが通用しない理由</h2>
+      <p>従来の競合分析では、業界カテゴリや検索順位から「競合3社」を決め、ベンチマークしていました。AI検索では、ユーザーの質問文脈——地域、予算、目的、時間帯——ごとに比較セットが動的に変わります。同じ業界でも、質問によって競合の顔ぶれが変わるのです。</p>
+      <h2>AIが比較セットを組み立てる条件</h2>
+      <p>エージェントは質問から制約条件を抽出し、それに合う候補を集めます。「駅近で当日予約可能な整体」と「慢性的な腰痛に強い整体」では、比較対象が異なる可能性があります。キーワード順位だけでは、この変動を捉えられません。</p>
+      <h3>ロングテール文脈の増加</h3>
+      <p>具体的な条件を含む質問が増えるほど、比較セットは細分化されます。汎用的なSEO競合分析では見えないニッチな競合が、特定文脈では自社の前に出てくることがあります。</p>
+      <h2>見えなくなるもの・見えるもの</h2>
+      <p>見えなくなるのは「業界平均との順位比較」です。見えるようになるのは「特定条件下での候補入り率」と「その条件での説明可能性」です。分析の単位が、競合他社から条件付き候補集合へシフトします。</p>
+      <h2>新しいベンチマークの考え方</h2>
+      <p>競合他社の順位ではなく、自社が候補に入る条件の幅を測る。主要な質問パターンごとに、自社が含まれるか、含まれる場合の説明内容は何か——を定点観測する。これがAI時代の競合分析の起点になります。</p>
+      <h3>定点観測の設計</h3>
+      <p>月次で10〜20の代表質問を決め、AI回答を記録する。競合名の出現パターンと自社の位置を追う。順位ツールだけでは取得できないデータです。</p>
+      <h2>自社情報設計への示唆</h2>
+      <p>比較セットに入るためには、多様な条件に応える属性情報が必要です。営業時間、対応エリア、料金帯、専門分野、予約リードタイム——比較軸になりうる情報を公開し、矛盾なく保つことが、見えない競合への対抗策になります。</p>
+      <h2>まとめ</h2>
+      <p>AIはユーザー文脈ごとに異なる比較セットを生成します。従来の競合ベンチマークの限界を理解し、条件付き候補分析へ分析手法を更新する必要があります。</p>
+      <h2>条件付き候補分析の始め方</h2>
+      <p>業界代表質問10〜20件を決め、月次でAI回答を記録する。自社が含まれる条件の幅と、含まれる場合の説明内容を追う。比較軸になりうる属性情報の公開が、見えない競合への対抗策になる。</p>
+      <h2>定点観測の始め方</h2>
+      <p>業界代表質問10〜20件を決め、月次でAI回答を記録する。自社が含まれる条件の幅と、含まれる場合の説明内容を追う。比較軸になりうる属性情報の公開が、見えない競合への対抗策になる。</p>
+      <h2>まとめ</h2>
+      <p>competitor-blind-spotの要点は、AIはユーザー文脈ごとに異なる比較セットを生成する。Agent Readinessの三層——Visibility、Authority、Actionability——で不足箇所を特定し、情報のオーナーと更新ルールを決めることが、AI時代の情報設計の基本形です。SEOやGEOの施策を止める必要はありません。その先に「AIが理解し、安心して紹介し、必要なら実行できる状態」があるかを見る視点が欠かせません。</p>
+      <h2>次の一手</h2>
+      <p>派手な施策より、比較・判断・実行に必要な情報の連続性を整えることが先決。公式情報の更新オーナーを決め、四半期ごとに主要チャネル間の矛盾を解消する。実行導線を一つに通しテストし、AIエージェントが止まるポイントを記録する。Agent Readinessは、その状態を経営と現場が共有するための言語です。</p>
+      <h2>実務チェック</h2>
+      <p>代表質問を10件決め、月次でAI回答を記録する。自社が候補に入るか、入る場合の説明根拠は何か——定点観測だけが、感覚ではなく事実に基づく改善サイクルを作ります。</p>
+      <h2>情報設計の原則</h2>
+      <p>比較・判断・実行に必要な情報の連続性——これがAgent Readinessの核心です。公式情報の更新オーナーを決め、主要チャネル間の矛盾を解消し、実行導線を通しテストする。定点観測で代表質問への回答を記録すれば、改善サイクルが回り始めます。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
         <a href="/framework/" class="btn btn-navy">Framework</a>
         <a href="/research/" class="btn btn-secondary">Research Hub</a>
-${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
@@ -323,7 +198,7 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
   <div class="container">
     <p class="footer-brand">Agent Readiness Research Hub</p>
     <p class="footer-org">Insights · Coa Retail</p>
-    <p class="footer-meta">Version 1.0 · Last Updated ${date}</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-08-07</p>
     <nav class="footer-links" aria-label="Site">
       <a href="/">トップ</a>
       <a href="/framework/">Framework</a>
@@ -348,9 +223,3 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
 </footer>
 </body>
 </html>
-`;
-
-fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, 'index.html');
-fs.writeFileSync(outPath, html, 'utf8');
-console.log('Wrote', outPath);

@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 /**
- * Publish due Insights columns from insights/_scheduled/ to insights/{slug}/,
- * and update index.html / sitemap.xml / llms.txt.
+ * Sync v1 schedule entries with remote publication evidence (HTTP 200).
+ * Does not publish v2 articles. Does not call Buffer.
  *
  * Usage:
- *   node scripts/publish-scheduled-insights.mjs
- *   node scripts/publish-scheduled-insights.mjs --dry-run
- *   node scripts/publish-scheduled-insights.mjs --force-slug files
- *   node scripts/publish-scheduled-insights.mjs --now 2026-07-13T10:00:00+09:00
+ *   node scripts/sync-v1-published-state.mjs
+ *   node scripts/sync-v1-published-state.mjs --dry-run
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { extractDueArticles } from './lib/editorial-status.mjs';
+import { articleUrl } from './lib/insights-v2-paths.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -22,28 +20,6 @@ const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
 const LLMS_PATH = path.join(ROOT, 'llms.txt');
 
 const dryRun = process.argv.includes('--dry-run');
-const forceSlug = (() => {
-  const i = process.argv.indexOf('--force-slug');
-  return i >= 0 ? process.argv[i + 1] : null;
-})();
-const nowArg = (() => {
-  const i = process.argv.indexOf('--now');
-  return i >= 0 ? process.argv[i + 1] : null;
-})();
-
-const now = nowArg ? new Date(nowArg) : new Date();
-if (Number.isNaN(now.getTime())) {
-  console.error('Invalid --now value');
-  process.exit(1);
-}
-
-const schedule = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));
-const due = extractDueArticles(schedule.articles, now, forceSlug);
-
-if (!due.length) {
-  console.log('No scheduled articles due.', { now: now.toISOString() });
-  process.exit(0);
-}
 
 function dateParts(iso) {
   const d = new Date(iso);
@@ -51,6 +27,14 @@ function dateParts(iso) {
   const m = d.toLocaleString('en-CA', { timeZone: 'Asia/Tokyo', month: '2-digit' });
   const day = d.toLocaleString('en-CA', { timeZone: 'Asia/Tokyo', day: '2-digit' });
   return { ymd: `${y}-${m}-${day}`, dot: `${y}.${m}.${day}` };
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function cardHtml(article) {
@@ -84,19 +68,8 @@ function llmsLine(article) {
 `;
 }
 
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function insertAfterMarker(content, marker, insertion) {
-  if (!content.includes(marker)) {
-    throw new Error(`Marker not found: ${marker}`);
-  }
-  // Insert immediately after the marker line
+  if (!content.includes(marker)) throw new Error(`Marker not found: ${marker}`);
   return content.replace(marker, `${marker}\n${insertion.replace(/\n$/, '')}`);
 }
 
@@ -122,55 +95,80 @@ function updateInsightsLastmod(sitemap, ymd) {
   );
 }
 
+async function remoteStatus(slug) {
+  const url = articleUrl(slug);
+  try {
+    const r = await fetch(url, { redirect: 'follow' });
+    const html = await r.text();
+    return {
+      slug,
+      url,
+      status: r.status,
+      noindex: /noindex/i.test(html),
+      canonical: (html.match(/rel="canonical"[^>]*href="([^"]+)"/i) || [])[1] || '',
+      title: (html.match(/<title>([^<]+)<\/title>/i) || [])[1]?.trim() || '',
+    };
+  } catch (err) {
+    return { slug, url, status: 0, error: String(err.message) };
+  }
+}
+
+const schedule = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));
+const v1 = schedule.articles.filter((a) => a.series !== 'v2');
+
+const report = [];
 let indexHtml = fs.readFileSync(INDEX_PATH, 'utf8');
 let sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
 let llms = fs.readFileSync(LLMS_PATH, 'utf8');
+const synced = [];
 
-// Oldest first: each insert goes right after the marker, so the newest ends up on top
-const ordered = [...due].sort(
-  (a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime()
-);
+for (const article of v1) {
+  const remote = await remoteStatus(article.slug);
+  const remotePublished = remote.status === 200 && !remote.noindex;
+  let recommendedAction = 'manual_review';
 
-const published = [];
+  if (remotePublished) recommendedAction = 'mark_published';
+  else if (remote.status === 404) recommendedAction = 'retain_scheduled';
+  else if (remote.status === 200 && remote.noindex) recommendedAction = 'manual_review';
+  else if (remote.status === 0) recommendedAction = 'manual_review';
 
-for (const article of ordered) {
+  report.push({
+    slug: article.slug,
+    scheduledDate: article.publishAt,
+    localStatus: article.status,
+    remoteHttpStatus: remote.status,
+    remotePublished,
+    recommendedAction,
+    remoteTitle: remote.title,
+    canonical: remote.canonical,
+  });
+
+  if (recommendedAction !== 'mark_published') continue;
+  if (article.status === 'published') continue;
+
   const src = path.join(ROOT, 'insights/_scheduled', article.slug);
   const dest = path.join(ROOT, 'insights', article.slug);
   const srcIndex = path.join(src, 'index.html');
 
-  if (!fs.existsSync(srcIndex)) {
-    console.error('Missing scheduled article:', srcIndex);
-    process.exit(1);
-  }
-  if (fs.existsSync(dest)) {
-    console.error('Destination already exists:', dest);
-    process.exit(1);
+  console.log(`${dryRun ? '[dry-run] ' : ''}Sync published: ${article.slug}`);
+
+  if (!dryRun) {
+    if (fs.existsSync(srcIndex) && !fs.existsSync(dest)) {
+      fs.renameSync(src, dest);
+    } else if (!fs.existsSync(dest)) {
+      console.warn(`  Skip move — no local HTML at ${srcIndex}`);
+    }
   }
 
   const { ymd } = dateParts(article.publishAt);
-  console.log(`${dryRun ? '[dry-run] ' : ''}Publish ${article.slug} (${article.publishAt})`);
-
-  if (!dryRun) {
-    fs.renameSync(src, dest);
-  }
-
-  // Avoid duplicate inserts
   if (!indexHtml.includes(`data-insight-slug="${article.slug}"`)) {
-    indexHtml = insertAfterMarker(
-      indexHtml,
-      '<!-- INSIGHTS_CARDS_START -->',
-      cardHtml(article)
-    );
+    indexHtml = insertAfterMarker(indexHtml, '<!-- INSIGHTS_CARDS_START -->', cardHtml(article));
   }
   indexHtml = removePlannedCard(indexHtml, article.slug);
   indexHtml = updateFooterDate(indexHtml, ymd);
 
   if (!sitemap.includes(`/insights/${article.slug}/`)) {
-    sitemap = insertAfterMarker(
-      sitemap,
-      '<!-- INSIGHTS_URLS_START -->',
-      sitemapEntry(article)
-    );
+    sitemap = insertAfterMarker(sitemap, '<!-- INSIGHTS_URLS_START -->', sitemapEntry(article));
   }
   sitemap = updateInsightsLastmod(sitemap, ymd);
 
@@ -178,23 +176,21 @@ for (const article of ordered) {
     llms = insertAfterMarker(llms, '# INSIGHTS_LLMS_START', llmsLine(article));
   }
 
-  const entry = schedule.articles.find((a) => a.slug === article.slug);
-  if (entry) {
-    entry.status = 'published';
-    entry.publishedAt = now.toISOString();
-  }
-  published.push(article.slug);
+  article.status = 'published';
+  article.publishedAt = article.publishAt;
+  synced.push(article.slug);
 }
 
-if (dryRun) {
-  console.log('Dry run complete. Would publish:', published.join(', '));
-  process.exit(0);
+if (!dryRun && synced.length) {
+  fs.writeFileSync(INDEX_PATH, indexHtml, 'utf8');
+  fs.writeFileSync(SITEMAP_PATH, sitemap, 'utf8');
+  fs.writeFileSync(LLMS_PATH, llms, 'utf8');
+  fs.writeFileSync(SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
 }
 
-fs.writeFileSync(INDEX_PATH, indexHtml, 'utf8');
-fs.writeFileSync(SITEMAP_PATH, sitemap, 'utf8');
-fs.writeFileSync(LLMS_PATH, llms, 'utf8');
-fs.writeFileSync(SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
+const outPath = path.join(ROOT, 'reports/v1-sync-result.json');
+fs.mkdirSync(path.dirname(outPath), { recursive: true });
+fs.writeFileSync(outPath, JSON.stringify({ synced, report, dryRun }, null, 2) + '\n', 'utf8');
 
-console.log('Published:', published.join(', '));
-console.log('UPDATED=1');
+console.log('Synced:', synced.length, 'articles');
+console.log('Report:', outPath);

@@ -1,167 +1,4 @@
-#!/usr/bin/env node
-/**
- * Convert a column markdown file into insights article HTML.
- * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label]
- */
-import fs from 'node:fs';
-import path from 'node:path';
-
-function arg(name, fallback = null) {
-  const i = process.argv.indexOf(name);
-  return i >= 0 ? process.argv[i + 1] : fallback;
-}
-
-const mdPath = arg('--md');
-const slug = arg('--slug');
-const date = arg('--date');
-const outDir = arg('--out');
-const lead = arg('--lead', '');
-const desc = arg('--desc', '');
-const crumb = arg('--crumb', '');
-const titleOverride = arg('--title', '');
-const ctaExtra = arg('--cta-extra', ''); // href|label
-
-if (!mdPath || !slug || !date || !outDir) {
-  console.error('Required: --md --slug --date --out');
-  process.exit(1);
-}
-
-const md = fs.readFileSync(mdPath, 'utf8');
-const lines = md.split(/\r?\n/);
-
-function escapeHtml(s) {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function inlineFormat(text) {
-  const links = [];
-  let raw = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
-    const id = links.length;
-    links.push({ label, href });
-    return `\x00L${id}\x00`;
-  });
-  let t = escapeHtml(raw);
-  t = t.replace(/\x00L(\d+)\x00/g, (_, id) => {
-    const { label, href } = links[Number(id)];
-    return `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
-  });
-  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  return t;
-}
-
-const blocks = [];
-let i = 0;
-let titleFromH2 = '';
-
-while (i < lines.length) {
-  const line = lines[i];
-  if (!line.trim() || line.trim() === '---') {
-    i++;
-    continue;
-  }
-  if (line.startsWith('## ')) {
-    const h = line.slice(3).trim();
-    if (!titleFromH2) titleFromH2 = h;
-    blocks.push({ type: 'h2', text: h });
-    i++;
-    continue;
-  }
-  if (line.startsWith('### ')) {
-    blocks.push({ type: 'h3', text: line.slice(4).trim() });
-    i++;
-    continue;
-  }
-  if (line.trim().startsWith('>')) {
-    const quoteLines = [];
-    while (i < lines.length && lines[i].trim().startsWith('>')) {
-      quoteLines.push(lines[i].replace(/^\s*>\s?/, '').trim());
-      i++;
-    }
-    blocks.push({ type: 'blockquote', text: quoteLines.join(' ') });
-    continue;
-  }
-  if (line.trim().startsWith('- ')) {
-    const items = [];
-    while (i < lines.length && (lines[i].trim().startsWith('- ') || !lines[i].trim())) {
-      if (lines[i].trim().startsWith('- ')) {
-        items.push(lines[i].replace(/^\s*-\s+/, '').trim());
-      }
-      i++;
-    }
-    blocks.push({ type: 'ul', items });
-    continue;
-  }
-  // paragraph: collect consecutive non-empty non-special lines
-  const para = [];
-  while (
-    i < lines.length &&
-    lines[i].trim() &&
-    lines[i].trim() !== '---' &&
-    !lines[i].startsWith('## ') &&
-    !lines[i].startsWith('### ') &&
-    !lines[i].trim().startsWith('- ') &&
-    !lines[i].trim().startsWith('>')
-  ) {
-    para.push(lines[i].trim());
-    i++;
-  }
-  if (para.length) {
-    blocks.push({ type: 'p', text: para.join('') });
-  }
-}
-
-const title = titleOverride || (path.basename(mdPath, '.md').replace(/──/g, '──'));
-const displayTitle = titleOverride || path.basename(mdPath, '.md');
-const dateDot = date.replace(/-/g, '.');
-const crumbText = crumb || displayTitle.slice(0, 24);
-const description = desc || lead || displayTitle;
-const pageTitle = `${displayTitle.replace(/──/g, '｜').replace(/—/g, '｜')}｜Agent Readiness Insights`.replace(
-  /｜Agent Readiness Insights｜Agent Readiness Insights$/,
-  '｜Agent Readiness Insights'
-);
-
-// Prefer cleaner <title>
-const htmlTitle = `${displayTitle.split('──')[0].split('—')[0].trim()}｜${
-  displayTitle.includes('──') || displayTitle.includes('—')
-    ? displayTitle.split(/──|—/).slice(1).join('—').trim() || 'Agent Readiness Insights'
-    : 'Agent Readiness Insights'
-}`;
-
-let bodyHtml = '';
-let firstH2Skipped = false;
-// Use first H2 as article section start; keep all H2s including first as body sections
-// Lead is provided separately; first content H2 stays in body.
-
-for (let bi = 0; bi < blocks.length; bi++) {
-  const b = blocks[bi];
-  if (b.type === 'h2') {
-    bodyHtml += `      <h2>${inlineFormat(b.text)}</h2>\n`;
-  } else if (b.type === 'h3') {
-    bodyHtml += `      <h3>${inlineFormat(b.text)}</h3>\n`;
-  } else if (b.type === 'p') {
-    bodyHtml += `      <p>${inlineFormat(b.text)}</p>\n`;
-  } else if (b.type === 'ul') {
-    bodyHtml += '      <ul>\n';
-    for (const item of b.items) {
-      bodyHtml += `        <li>${inlineFormat(item)}</li>\n`;
-    }
-    bodyHtml += '      </ul>\n';
-  } else if (b.type === 'blockquote') {
-    bodyHtml += `      <blockquote>\n        ${inlineFormat(b.text)}\n      </blockquote>\n`;
-  }
-}
-
-let ctaExtraBtn = '';
-if (ctaExtra) {
-  const [href, label] = ctaExtra.split('|');
-  ctaExtraBtn = `        <a href="${href}" class="btn btn-secondary">${escapeHtml(label)}</a>\n`;
-}
-
-const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <script src="/assets/ga4.js" async></script>
@@ -170,20 +7,20 @@ const html = `<!DOCTYPE html>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(htmlTitle)}</title>
-<meta name="description" content="${escapeHtml(description)}">
-<link rel="canonical" href="https://readiness.coaretail.com/insights/${slug}/">
+<title>ビジネスとの約束を機械可読に｜Agent Readiness Insights</title>
+<meta name="description" content="ビジネスとの約束を機械可読に。約束の明文化と構造化がBusiness Interactionの起点">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/interaction-contract/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": ${JSON.stringify(displayTitle)},
-  "description": ${JSON.stringify(description)},
-  "datePublished": "${date}",
-  "dateModified": "${date}",
+  "headline": "ビジネスとの約束を機械可読に",
+  "description": "ビジネスとの約束を機械可読に。約束の明文化と構造化がBusiness Interactionの起点",
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
   "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
   "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
-  "mainEntityOfPage": "https://readiness.coaretail.com/insights/${slug}/",
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/interaction-contract/",
   "inLanguage": "ja"
 }
 </script>
@@ -292,26 +129,57 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>${escapeHtml(crumbText)}</span>
+        <span>約束の機械可読化</span>
       </nav>
       <p class="article-meta">
-        <time datetime="${date}">${dateDot}</time>
+        <time datetime="2026-09-04">2026.09.04</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>${escapeHtml(displayTitle)}</h1>
-      <p class="lead">${escapeHtml(lead)}</p>
+      <h1>ビジネスとの約束を機械可読に</h1>
+      <p class="lead">ビジネスとの約束——曖昧な表現は機械可読にならない。約束の明文化と構造化がBusiness Interactionの起点</p>
     </div>
   </header>
 
   <article class="article-body container">
     <div class="article-container">
-${bodyHtml}
+      <h2>論点の整理</h2>
+      <p>取引条件を機械が理解するとは——この問いは、ビジネスとの約束を機械可読にの核心です。約束の明文化と構造化がBusiness Interactionの起点。規約明確さではなく「約束」の設計思想という視点から、現場で起きているギャップを整理します。多くの企業はWeb施策を積み上げてきましたが、AIに質問されたとき自社が候補に上がらない違和感が広がっています。</p>
+      <h2>なぜ今問題になるのか</h2>
+      <p>従来のWeb施策は「人間がページを読む」前提で設計されていました。生成AIやAIエージェントは、複数の情報源を横断し、企業を一つの存在として理解しようとします。Business Interactionの観点から見ると、不足しているのは派手な施策ではなく、比較・判断・実行に必要な情報の連続性です。</p>
+      <h3>カテゴリ固有の焦点</h3>
+      <p>このテーマはBusiness Interactionに属します。規約明確さではなく「約束」の設計思想ことに焦点を当て、既存の啓発記事と重ならない論点を扱います。</p>
+      <h2>背景にある構造</h2>
+      <p>AIは公開情報の整合性、更新の鮮度、第三者からの裏付け、実行導線の有無を総合して回答を組み立てます。どれか一つが弱いと、推薦は止まるか、実行の直前で中断されます。Agent Readinessは、この止まりどころをVisibility・Authority・Actionabilityの三層で整理する枠組みです。</p>
+      <h2>約束の設計</h2>
+      <p>取引条件、提供範囲、例外——ビジネスとの約束を明文化し、機械が解釈できる形で公開する。Business Interactionの起点は、曖昧な商慣習ではなく、構造化された約束です。</p>
+      <h2>具体例で見る</h2>
+      <p>「3営業日以内に返信」の曖昧な約束は、機械可読なSLA——期限・方法・例外——として定義されなければエージェントは実行を保留します。</p>
+      <h2>企業が準備すべきこと</h2>
+      <p>第一に、情報のオーナーを決めます。誰が公式情報を更新し、矛盾を解消するか。第二に、比較に使われる項目——名称、所在地、提供内容、条件、連絡手段——を一覧化し、公開場所ごとに揃えます。第三に、実行までの導線を一つにテストします。AI向けの特別な装置より、人間と機械の双方が同じ事実に到達できる設計の方が、長期的に強い競争力になります。</p>
+      <h3>優先順位の決め方</h3>
+      <p>結論「約束の明文化と構造化がBusiness Interactionの起点」に向けて、自社のどの段階——Visibility、Authority、Actionability——が最も弱いかを特定し、そこから着手します。</p>
+      <h2>まとめ</h2>
+      <p>ビジネスとの約束を機械可読にの要点は、約束の明文化と構造化がBusiness Interactionの起点ということです。SEOやGEOの施策を止める必要はありません。ただし、その先に「AIが理解し、安心して紹介し、必要なら実行できる状態」があるかを見る視点が欠かせません。Agent Readinessは、その状態を経営と現場が共有するための言語です。</p>
+      <h2>約束の構造化</h2>
+      <p>取引条件、SLA、例外——ビジネスとの約束を機械が解釈できる形式で明文化する。</p>
+      <h2>約束の機械可読化</h2>
+      <p>SLA、返金条件、対応時間——ビジネスとの約束を、条件分岐可能な粒度で明文化する。曖昧な表現はエージェントの実行を止めます。</p>
+      <h2>まとめ</h2>
+      <p>ビジネスとの約束を機械可読にの要点は、約束の明文化と構造化がBusiness Interactionの起点。Agent Readinessの三層——Visibility、Authority、Actionability——で不足箇所を特定し、情報のオーナーと更新ルールを決めることが、AI時代の情報設計の基本形です。SEOやGEOの施策を止める必要はありません。その先に「AIが理解し、安心して紹介し、必要なら実行できる状態」があるかを見る視点が欠かせません。</p>
+      <h2>次の一手</h2>
+      <p>派手な施策より、比較・判断・実行に必要な情報の連続性を整えることが先決。公式情報の更新オーナーを決め、四半期ごとに主要チャネル間の矛盾を解消する。実行導線を一つに通しテストし、AIエージェントが止まるポイントを記録する。Agent Readinessは、その状態を経営と現場が共有するための言語です。</p>
+      <h2>実務チェック</h2>
+      <p>代表質問を10件決め、月次でAI回答を記録する。自社が候補に入るか、入る場合の説明根拠は何か——定点観測だけが、感覚ではなく事実に基づく改善サイクルを作ります。</p>
+      <h2>情報設計の原則</h2>
+      <p>比較・判断・実行に必要な情報の連続性——これがAgent Readinessの核心です。公式情報の更新オーナーを決め、主要チャネル間の矛盾を解消し、実行導線を通しテストする。定点観測で代表質問への回答を記録すれば、改善サイクルが回り始めます。</p>
+      <p>定点観測と更新ログの運用が、Readiness改善の出発点になります。</p>
+
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
         <a href="/framework/" class="btn btn-navy">Framework</a>
         <a href="/research/" class="btn btn-secondary">Research Hub</a>
-${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/report/" class="btn btn-secondary">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
@@ -323,7 +191,7 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
   <div class="container">
     <p class="footer-brand">Agent Readiness Research Hub</p>
     <p class="footer-org">Insights · Coa Retail</p>
-    <p class="footer-meta">Version 1.0 · Last Updated ${date}</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-09-04</p>
     <nav class="footer-links" aria-label="Site">
       <a href="/">トップ</a>
       <a href="/framework/">Framework</a>
@@ -348,9 +216,3 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
 </footer>
 </body>
 </html>
-`;
-
-fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, 'index.html');
-fs.writeFileSync(outPath, html, 'utf8');
-console.log('Wrote', outPath);

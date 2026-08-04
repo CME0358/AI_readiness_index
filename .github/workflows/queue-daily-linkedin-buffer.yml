@@ -1,0 +1,77 @@
+name: Queue daily LinkedIn to Buffer
+
+on:
+  schedule:
+    # 01:30 UTC = 10:30 JST (weekdays) — 15min buffer after Web publish
+    - cron: '30 1 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      force_slug:
+        description: 'Optional: force one slug'
+        required: false
+        default: ''
+      now:
+        description: 'Optional: simulate now (ISO8601)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (true/false)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: queue-daily-linkedin-buffer
+  cancel-in-progress: false
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate v2 assets
+        run: node scripts/validate-insights-v2.mjs || true
+
+      - name: Queue LinkedIn to Buffer
+        id: queue
+        env:
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
+          BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+          FORCE_SLUG: ${{ github.event.inputs.force_slug }}
+          NOW: ${{ github.event.inputs.now }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          CMD=(node scripts/queue-daily-linkedin-buffer.mjs)
+          if [ "${DRY_RUN_INPUT:-true}" = "true" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            CMD+=(--dry-run)
+          elif [ "${{ github.event_name }}" = "schedule" ] && [ -z "${BUFFER_ACCESS_TOKEN:-}" ]; then
+            echo "BUFFER_ACCESS_TOKEN not set — dry-run only"
+            CMD+=(--dry-run)
+          fi
+          if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
+          if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
+          "${CMD[@]}" | tee /tmp/queue.log
+          if grep -q 'UPDATED=1' /tmp/queue.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Commit queue/logs
+        if: steps.queue.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add insights/_social/linkedin/
+          git commit -m "$(cat <<'EOF'
+          Update LinkedIn Buffer queue logs
+
+          Automated by queue-daily-linkedin-buffer workflow.
+          EOF
+          )"
+          git push
