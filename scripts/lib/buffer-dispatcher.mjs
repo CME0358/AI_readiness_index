@@ -255,6 +255,7 @@ export async function processArticleChannels({
     const channelId = getChannelId(ch, cfg);
 
     const { postId, error, rejected, dueAtUtc } = await createBufferPost({
+      channelKey: ch,
       channelId,
       accessToken: cfg.accessToken,
       text,

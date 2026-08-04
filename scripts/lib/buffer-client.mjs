@@ -102,10 +102,37 @@ export async function bufferGraphql(accessToken, query, variables, { timeoutMs =
   }
 }
 
+/** Build GraphQL CreatePostInput with per-channel metadata (Buffer schema). */
+export function buildCreatePostInput({ channelKey, channelId, text, dueAtUtc }) {
+  const input = {
+    channelId,
+    text,
+    schedulingType: 'automatic',
+    saveToDraft: false,
+    mode: dueAtUtc ? 'customScheduled' : 'addToQueue',
+    assets: [],
+  };
+  if (dueAtUtc) input.dueAt = dueAtUtc;
+
+  // Facebook requires metadata.facebook.type (post | story | reel)
+  if (channelKey === 'facebook') {
+    input.metadata = { facebook: { type: 'post' } };
+  }
+
+  return input;
+}
+
+function mutationErrorMessage(result) {
+  if (!result) return 'Unknown Buffer response';
+  if (typeof result.message === 'string') return result.message;
+  return JSON.stringify(result).slice(0, 500);
+}
+
 /**
- * @returns {Promise<{postId: string|null, error: string|null, rejected: boolean}>}
+ * @returns {Promise<{postId: string|null, error: string|null, rejected: boolean, dueAtUtc?: string|null}>}
  */
 export async function createBufferPost({
+  channelKey = null,
   channelId,
   accessToken,
   text,
@@ -130,28 +157,30 @@ export async function createBufferPost({
     }
   }
 
-  const input = {
-    channelId,
-    text,
-    schedulingType: 'automatic',
-    saveToDraft: false,
-    mode: dueAtUtc ? 'customScheduled' : 'addToQueue',
-  };
-  if (dueAtUtc) input.dueAt = dueAtUtc;
+  const input = buildCreatePostInput({ channelKey, channelId, text, dueAtUtc });
 
   const data = await bufferGraphql(accessToken, CREATE_POST_MUTATION, { input });
   if (data.errors?.length) {
     const msg = JSON.stringify(data.errors);
-    return { postId: null, error: msg, rejected: isQueueLimitError(msg) };
+    return { postId: null, error: msg, rejected: isQueueLimitError(msg), dueAtUtc };
   }
 
   const result = data.data?.createPost;
   if (result?.__typename === 'PostActionSuccess') {
-    return { postId: result.post?.id || null, error: null, rejected: false };
+    return { postId: result.post?.id || null, error: null, rejected: false, dueAtUtc };
+  }
+  if (result?.__typename === 'InvalidInputError' || result?.__typename === 'UnexpectedError') {
+    const msg = mutationErrorMessage(result);
+    return { postId: null, error: msg, rejected: isQueueLimitError(msg), dueAtUtc };
   }
   if (result?.__typename === 'MutationError') {
-    const msg = result.message || 'MutationError';
-    return { postId: null, error: msg, rejected: isQueueLimitError(msg) };
+    const msg = mutationErrorMessage(result);
+    return { postId: null, error: msg, rejected: isQueueLimitError(msg), dueAtUtc };
   }
-  return { postId: null, error: JSON.stringify(result).slice(0, 500), rejected: false };
+  return {
+    postId: null,
+    error: mutationErrorMessage(result),
+    rejected: false,
+    dueAtUtc,
+  };
 }

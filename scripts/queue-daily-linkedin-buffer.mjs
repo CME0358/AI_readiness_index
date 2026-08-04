@@ -174,6 +174,7 @@ async function main() {
   }
 
   const { postId, error, rejected } = await createBufferPost({
+    channelKey: 'linkedin',
     channelId: cfg.channelId,
     accessToken: cfg.accessToken,
     text,

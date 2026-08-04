@@ -20,7 +20,11 @@ import {
   EXISTING_BUFFER_SENTINEL,
 } from '../lib/social-channels.mjs';
 import { resolvePublishAt, toBufferDueAt, jstMinutesFromMidnight } from '../lib/social-schedule.mjs';
-import { getChannelId, getBufferConfig, createBufferPost } from '../lib/buffer-client.mjs';
+import {
+  getChannelId,
+  getBufferConfig,
+  buildCreatePostInput,
+} from '../lib/buffer-client.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
@@ -92,6 +96,27 @@ test('resolvePublishAt uses JST on UTC runner (GHA 12:14 JST scenario)', () => {
 test('toBufferDueAt converts JST schedule to UTC ISO for Buffer API', () => {
   assert.equal(toBufferDueAt('2026-08-04T12:30:00+09:00'), '2026-08-04T03:30:00.000Z');
   assert.equal(toBufferDueAt('2026-08-04T12:45:00+09:00'), '2026-08-04T03:45:00.000Z');
+});
+
+test('buildCreatePostInput sets Facebook type post and UTC dueAt', () => {
+  const input = buildCreatePostInput({
+    channelKey: 'facebook',
+    channelId: 'fb-ch',
+    text: 'hello',
+    dueAtUtc: '2026-08-04T03:30:00.000Z',
+  });
+  assert.equal(input.dueAt, '2026-08-04T03:30:00.000Z');
+  assert.deepEqual(input.metadata, { facebook: { type: 'post' } });
+});
+
+test('buildCreatePostInput omits Facebook metadata for X', () => {
+  const input = buildCreatePostInput({
+    channelKey: 'x',
+    channelId: 'x-ch',
+    text: 'hello',
+    dueAtUtc: '2026-08-04T04:00:00.000Z',
+  });
+  assert.equal(input.metadata, undefined);
 });
 
 test('jstMinutesFromMidnight is TZ-independent', () => {
