@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "at": "2026-08-04T03:18:54.184Z",
+      "slug": "ai-search-shift",
+      "channel": "x",
+      "bufferUpdateId": "6a715a1e3e02cab4771090d2",
+      "publishAt": "2026-08-04T13:15:00+09:00",
+      "dueAtUtc": "2026-08-04T04:15:00.000Z",
+      "dryRun": false
+    },
+    {
       "at": "2026-08-04T03:22:29.767Z",
       "slug": "ai-search-shift",
       "channel": "facebook",
@@ -10,5 +19,5 @@
       "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-04T03:22:30.678Z"
+  "updatedAt": "2026-08-04T03:45:00.000Z"
 }

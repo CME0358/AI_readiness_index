@@ -18,7 +18,7 @@
     {
       "slug": "ai-search-shift",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-search-shift/",
-      "status": "partially_queued",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-04T11:00:00+09:00",
       "bufferTransferAt": "2026-08-04T11:30:00+09:00",
       "channels": {
@@ -47,13 +47,13 @@
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/ai-search-shift.md",
-          "publishAt": "2026-08-04T12:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "publishAt": "2026-08-04T13:15:00+09:00",
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a715a1e3e02cab4771090d2",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-04T03:18:54.184Z",
           "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.432Z"
+          "updatedAt": "2026-08-04T03:18:54.184Z"
         }
       },
       "attempts": 0,
