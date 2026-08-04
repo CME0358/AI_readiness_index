@@ -14,7 +14,7 @@ import {
   parseChannelsArg,
   validateChannelKeys,
 } from './social-channels.mjs';
-import { resolvePublishAt, addMinutesJst } from './social-schedule.mjs';
+import { resolvePublishAt, addMinutesJst, toBufferDueAt } from './social-schedule.mjs';
 import { getChannelId, isChannelConfigured } from './buffer-client.mjs';
 
 function resolveChannelPublishAt(ch, channel, article, now) {
@@ -210,9 +210,14 @@ export async function processArticleChannels({
 
     if (!isChannelConfigured(ch, cfg)) {
       if (dryRun) {
-        // Simulate transfer in dry-run even without local credentials
         const publishAt = resolveChannelPublishAt(ch, channel, article, now);
-        results.push({ channel: ch, action: 'dry_run', postId: 'dry-run-mock-id', publishAt });
+        results.push({
+          channel: ch,
+          action: 'dry_run',
+          postId: 'dry-run-mock-id',
+          publishAt,
+          dueAtUtc: toBufferDueAt(publishAt),
+        });
         continue;
       }
       channel.status = CHANNEL_STATUSES.MANUAL;
@@ -249,7 +254,7 @@ export async function processArticleChannels({
     const publishAt = resolveChannelPublishAt(ch, channel, article, now);
     const channelId = getChannelId(ch, cfg);
 
-    const { postId, error, rejected } = await createBufferPost({
+    const { postId, error, rejected, dueAtUtc } = await createBufferPost({
       channelId,
       accessToken: cfg.accessToken,
       text,
@@ -290,6 +295,7 @@ export async function processArticleChannels({
         channel: ch,
         bufferUpdateId: postId,
         publishAt,
+        dueAtUtc,
         dryRun,
       }, { dryRun });
     }
@@ -299,6 +305,7 @@ export async function processArticleChannels({
       action: dryRun ? 'dry_run' : 'queued',
       postId,
       publishAt,
+      dueAtUtc,
     });
   }
 

@@ -19,8 +19,8 @@ import {
   CHANNEL_STATUSES,
   EXISTING_BUFFER_SENTINEL,
 } from '../lib/social-channels.mjs';
-import { resolvePublishAt } from '../lib/social-schedule.mjs';
-import { getChannelId, getBufferConfig } from '../lib/buffer-client.mjs';
+import { resolvePublishAt, toBufferDueAt, jstMinutesFromMidnight } from '../lib/social-schedule.mjs';
+import { getChannelId, getBufferConfig, createBufferPost } from '../lib/buffer-client.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
@@ -75,6 +75,28 @@ test('resolvePublishAt bumps past times by 30min minimum', () => {
   const now = new Date('2026-08-04T11:45:00+09:00');
   const bumped = resolvePublishAt('2026-08-04T11:45:00+09:00', now, 30);
   assert.ok(new Date(bumped).getTime() >= now.getTime() + 30 * 60_000);
+});
+
+test('resolvePublishAt uses JST on UTC runner (GHA 12:14 JST scenario)', () => {
+  // GitHub Actions runner: system TZ=UTC, now=03:14Z = 12:14 JST
+  const now = new Date('2026-08-04T03:14:00.000Z');
+  const fb = resolvePublishAt('2026-08-04T12:30:00+09:00', now, 30);
+  assert.equal(fb, '2026-08-04T12:45:00+09:00');
+  assert.equal(toBufferDueAt(fb), '2026-08-04T03:45:00.000Z');
+
+  const x = resolvePublishAt('2026-08-04T12:45:00+09:00', now, 30);
+  assert.equal(x, '2026-08-04T12:45:00+09:00');
+  assert.equal(toBufferDueAt(x), '2026-08-04T03:45:00.000Z');
+});
+
+test('toBufferDueAt converts JST schedule to UTC ISO for Buffer API', () => {
+  assert.equal(toBufferDueAt('2026-08-04T12:30:00+09:00'), '2026-08-04T03:30:00.000Z');
+  assert.equal(toBufferDueAt('2026-08-04T12:45:00+09:00'), '2026-08-04T03:45:00.000Z');
+});
+
+test('jstMinutesFromMidnight is TZ-independent', () => {
+  const utcRunnerNow = new Date('2026-08-04T03:14:00.000Z');
+  assert.equal(jstMinutesFromMidnight(utcRunnerNow), 12 * 60 + 14);
 });
 
 test('pickTodayArticle rejects editorial_hold with force-slug', () => {

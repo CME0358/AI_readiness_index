@@ -4,6 +4,7 @@
  */
 
 import { CHANNEL_ENV, LEGACY_CHANNEL_ENV } from './social-channels.mjs';
+import { toBufferDueAt, isScheduleInstantInFuture } from './social-schedule.mjs';
 
 const BUFFER_API = 'https://api.buffer.com';
 
@@ -112,7 +113,21 @@ export async function createBufferPost({
   dryRun = false,
 }) {
   if (dryRun) {
-    return { postId: 'dry-run-mock-id', error: null, rejected: false };
+    const dueAtUtc = dueAt ? toBufferDueAt(dueAt) : null;
+    return { postId: 'dry-run-mock-id', error: null, rejected: false, dueAtUtc };
+  }
+
+  let dueAtUtc = null;
+  if (dueAt) {
+    dueAtUtc = toBufferDueAt(dueAt);
+    if (!isScheduleInstantInFuture(dueAtUtc)) {
+      return {
+        postId: null,
+        error: `Invalid post input: dueAt must be in the future (got ${dueAtUtc}, now ${new Date().toISOString()})`,
+        rejected: false,
+        dueAtUtc,
+      };
+    }
   }
 
   const input = {
@@ -120,9 +135,9 @@ export async function createBufferPost({
     text,
     schedulingType: 'automatic',
     saveToDraft: false,
-    mode: dueAt ? 'customScheduled' : 'addToQueue',
+    mode: dueAtUtc ? 'customScheduled' : 'addToQueue',
   };
-  if (dueAt) input.dueAt = dueAt;
+  if (dueAtUtc) input.dueAt = dueAtUtc;
 
   const data = await bufferGraphql(accessToken, CREATE_POST_MUTATION, { input });
   if (data.errors?.length) {

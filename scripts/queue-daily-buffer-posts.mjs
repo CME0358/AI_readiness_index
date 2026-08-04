@@ -98,7 +98,8 @@ async function main() {
   });
 
   for (const r of results) {
-    console.log(' ', r.channel, r.action, r.reason || r.postId || r.error || '');
+    const extra = [r.publishAt, r.dueAtUtc].filter(Boolean).join(' → ');
+    console.log(' ', r.channel, r.action, r.reason || r.postId || r.error || '', extra ? `(${extra})` : '');
   }
 
   if (reason === 'url_unavailable') {
