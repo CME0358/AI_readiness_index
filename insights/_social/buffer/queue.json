@@ -1,0 +1,1429 @@
+{
+  "timezone": "Asia/Tokyo",
+  "policy": {
+    "provider": "buffer",
+    "transferMode": "daily",
+    "postsPerTransfer": 1,
+    "channelsPerArticle": 3,
+    "weekdaysOnly": true,
+    "articlePublishTime": "10:00",
+    "bufferTransferTime": "10:30",
+    "channelPublishTimes": {
+      "linkedin": "11:30",
+      "facebook": "11:45",
+      "x": "12:00"
+    }
+  },
+  "posts": [
+    {
+      "slug": "ai-search-shift",
+      "articleUrl": "https://readiness.coaretail.com/insights/ai-search-shift/",
+      "status": "partially_queued",
+      "articlePublishAt": "2026-08-04T11:00:00+09:00",
+      "bufferTransferAt": "2026-08-04T11:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/ai-search-shift.md",
+          "publishAt": "2026-08-04T12:00:00+09:00",
+          "status": "buffer_queued",
+          "bufferUpdateId": "pre-existing-buffer-post",
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:51:08.699Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/ai-search-shift.md",
+          "publishAt": "2026-08-04T12:15:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.432Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/ai-search-shift.md",
+          "publishAt": "2026-08-04T12:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.432Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.437Z"
+    },
+    {
+      "slug": "recommendation-logic",
+      "articleUrl": "https://readiness.coaretail.com/insights/recommendation-logic/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/recommendation-logic.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/recommendation-logic.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/recommendation-logic.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.437Z"
+    },
+    {
+      "slug": "citation-vs-action",
+      "articleUrl": "https://readiness.coaretail.com/insights/citation-vs-action/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/citation-vs-action.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/citation-vs-action.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/citation-vs-action.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.437Z"
+    },
+    {
+      "slug": "competitor-blind-spot",
+      "articleUrl": "https://readiness.coaretail.com/insights/competitor-blind-spot/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/competitor-blind-spot.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/competitor-blind-spot.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/competitor-blind-spot.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.437Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.437Z"
+    },
+    {
+      "slug": "three-pillars-ops",
+      "articleUrl": "https://readiness.coaretail.com/insights/three-pillars-ops/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/three-pillars-ops.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.442Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/three-pillars-ops.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.442Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/three-pillars-ops.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.442Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.442Z"
+    },
+    {
+      "slug": "ari-vs-geo-seo",
+      "articleUrl": "https://readiness.coaretail.com/insights/ari-vs-geo-seo/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/ari-vs-geo-seo.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/ari-vs-geo-seo.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/ari-vs-geo-seo.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "readiness-baseline",
+      "articleUrl": "https://readiness.coaretail.com/insights/readiness-baseline/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/readiness-baseline.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/readiness-baseline.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/readiness-baseline.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "entity-consistency",
+      "articleUrl": "https://readiness.coaretail.com/insights/entity-consistency/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/entity-consistency.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/entity-consistency.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/entity-consistency.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "faq-for-agents",
+      "articleUrl": "https://readiness.coaretail.com/insights/faq-for-agents/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/faq-for-agents.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/faq-for-agents.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/faq-for-agents.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "org-schema-basics",
+      "articleUrl": "https://readiness.coaretail.com/insights/org-schema-basics/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/org-schema-basics.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/org-schema-basics.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/org-schema-basics.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "semantic-web-ai",
+      "articleUrl": "https://readiness.coaretail.com/insights/semantic-web-ai/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/semantic-web-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/semantic-web-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/semantic-web-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "hiring-readiness",
+      "articleUrl": "https://readiness.coaretail.com/insights/hiring-readiness/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/hiring-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/hiring-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/hiring-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "availability-signals",
+      "articleUrl": "https://readiness.coaretail.com/insights/availability-signals/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/availability-signals.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/availability-signals.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/availability-signals.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "purchase-path-design",
+      "articleUrl": "https://readiness.coaretail.com/insights/purchase-path-design/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/purchase-path-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/purchase-path-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/purchase-path-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "policy-clarity",
+      "articleUrl": "https://readiness.coaretail.com/insights/policy-clarity/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/policy-clarity.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/policy-clarity.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/policy-clarity.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "agent-handoff",
+      "articleUrl": "https://readiness.coaretail.com/insights/agent-handoff/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/agent-handoff.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/agent-handoff.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/agent-handoff.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "mcp-business-api",
+      "articleUrl": "https://readiness.coaretail.com/insights/mcp-business-api/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/mcp-business-api.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/mcp-business-api.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/mcp-business-api.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "multi-agent-compare",
+      "articleUrl": "https://readiness.coaretail.com/insights/multi-agent-compare/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/multi-agent-compare.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/multi-agent-compare.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/multi-agent-compare.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "agent-experience",
+      "articleUrl": "https://readiness.coaretail.com/insights/agent-experience/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/agent-experience.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/agent-experience.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/agent-experience.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "marketing-info-design",
+      "articleUrl": "https://readiness.coaretail.com/insights/marketing-info-design/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/marketing-info-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/marketing-info-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/marketing-info-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "exec-readiness-kpi",
+      "articleUrl": "https://readiness.coaretail.com/insights/exec-readiness-kpi/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/exec-readiness-kpi.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/exec-readiness-kpi.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/exec-readiness-kpi.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "vendor-selection",
+      "articleUrl": "https://readiness.coaretail.com/insights/vendor-selection/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/vendor-selection.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/vendor-selection.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/vendor-selection.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "content-ops-ai",
+      "articleUrl": "https://readiness.coaretail.com/insights/content-ops-ai/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/content-ops-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/content-ops-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/content-ops-ai.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "interaction-contract",
+      "articleUrl": "https://readiness.coaretail.com/insights/interaction-contract/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/interaction-contract.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/interaction-contract.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/interaction-contract.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "consent-data-design",
+      "articleUrl": "https://readiness.coaretail.com/insights/consent-data-design/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/consent-data-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/consent-data-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/consent-data-design.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "execution-readiness",
+      "articleUrl": "https://readiness.coaretail.com/insights/execution-readiness/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/execution-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/execution-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/execution-readiness.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "abis-intro",
+      "articleUrl": "https://readiness.coaretail.com/insights/abis-intro/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/abis-intro.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/abis-intro.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/abis-intro.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "abis-ari-bridge",
+      "articleUrl": "https://readiness.coaretail.com/insights/abis-ari-bridge/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/abis-ari-bridge.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/abis-ari-bridge.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/abis-ari-bridge.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "standards-landscape",
+      "articleUrl": "https://readiness.coaretail.com/insights/standards-landscape/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/standards-landscape.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/standards-landscape.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/standards-landscape.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    },
+    {
+      "slug": "abis-readiness-gap",
+      "articleUrl": "https://readiness.coaretail.com/insights/abis-readiness-gap/",
+      "status": "editorial_hold",
+      "articlePublishAt": null,
+      "bufferTransferAt": null,
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/abis-readiness-gap.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/abis-readiness-gap.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/abis-readiness-gap.md",
+          "publishAt": null,
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-08-04T02:52:21.443Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-04T00:02:50.111Z",
+      "updatedAt": "2026-08-04T02:52:21.443Z"
+    }
+  ]
+}

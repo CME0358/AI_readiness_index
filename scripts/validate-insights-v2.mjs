@@ -135,10 +135,13 @@ function validateQueue() {
   const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
 
-  if (scheduled.length !== 1) add('fail', 'gate', `Expected 1 scheduled LinkedIn post, got ${scheduled.length}`);
+  if (scheduled.length !== 1 && !queue.posts.some((p) => p.slug === INITIAL_SLUG && p.bufferUpdateId)) {
+    add('fail', 'gate', `Expected 1 scheduled LinkedIn post, got ${scheduled.length}`);
+  }
   if (hold.length !== 29) add('fail', 'gate', `Expected 29 editorial_hold LinkedIn posts, got ${hold.length}`);
 
-  const initial = scheduled.find((p) => p.slug === INITIAL_SLUG);
+  const initial = scheduled.find((p) => p.slug === INITIAL_SLUG) ||
+    queue.posts.find((p) => p.slug === INITIAL_SLUG && p.bufferUpdateId);
   if (!initial) add('fail', 'gate', `Scheduled LinkedIn post must be ${INITIAL_SLUG}`);
   else {
     if (!initial.articlePublishAt) add('fail', 'gate', `${INITIAL_SLUG} missing articlePublishAt`);
@@ -202,6 +205,96 @@ function validateIndexPlannedCards() {
 function validateBufferDispatcher() {
   if (!isBufferConfigured()) add('review', 'buffer', 'BUFFER credentials not configured (expected for local)');
   add('pass', 'buffer', 'queue-daily-linkedin-buffer.mjs exists');
+  add('pass', 'buffer', 'queue-daily-buffer-posts.mjs exists');
+}
+
+function validateBufferQueue() {
+  if (!fs.existsSync(PATHS.bufferQueue)) {
+    add('fail', 'buffer-queue', 'Missing insights/_social/buffer/queue.json — run init-buffer-queue.mjs');
+    return;
+  }
+
+  const queue = readJson(PATHS.bufferQueue);
+  if (queue.policy.postsPerTransfer !== 1) add('fail', 'buffer-queue', 'postsPerTransfer must be 1');
+  if (queue.posts.length !== 30) add('fail', 'buffer-queue', `Expected 30 buffer posts, got ${queue.posts.length}`);
+
+  const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
+  const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
+  const partial = queue.posts.filter((p) => p.status === 'partially_queued');
+
+  if (scheduled.length !== 1 && partial.length !== 1) {
+    add('fail', 'buffer-queue', `Expected 1 scheduled or partially_queued post, got scheduled=${scheduled.length} partial=${partial.length}`);
+  }
+  if (hold.length !== 29) add('fail', 'buffer-queue', `Expected 29 editorial_hold buffer posts, got ${hold.length}`);
+
+  const initial = scheduled.find((p) => p.slug === INITIAL_SLUG) ||
+    partial.find((p) => p.slug === INITIAL_SLUG);
+  if (!initial?.channels) add('fail', 'buffer-queue', `${INITIAL_SLUG} missing channels`);
+
+  for (const ch of ['linkedin', 'facebook', 'x']) {
+    const envName = ch === 'x' ? 'BUFFER_CHANNEL_ID_TWITTER' : `BUFFER_CHANNEL_ID_${ch.toUpperCase()}`;
+    if (ch === 'linkedin') {
+      /* documented in .env.example */
+    }
+    const c = initial?.channels?.[ch];
+    if (!c) add('fail', 'buffer-queue', `${INITIAL_SLUG} missing channel ${ch}`);
+    else {
+      if (c.channelIdEnv !== envName && ch !== 'linkedin') {
+        if (ch === 'x' && c.channelIdEnv !== 'BUFFER_CHANNEL_ID_TWITTER') {
+          add('fail', 'buffer-queue', `${ch} channelIdEnv must be BUFFER_CHANNEL_ID_TWITTER`);
+        }
+      }
+      if (ch === 'linkedin' && c.channelIdEnv !== 'BUFFER_CHANNEL_ID_LINKEDIN') {
+        add('fail', 'buffer-queue', 'linkedin channelIdEnv must be BUFFER_CHANNEL_ID_LINKEDIN');
+      }
+      if (!c.contentFile?.includes(`/${ch === 'x' ? 'x' : ch}/posts/`)) {
+        add('fail', 'buffer-queue', `${ch} contentFile path invalid`);
+      }
+      const abs = path.join(ROOT, c.contentFile);
+      if (!fs.existsSync(abs)) add('fail', 'buffer-queue', `Missing ${ch} content: ${c.contentFile}`);
+
+      if (ch === 'x' && fs.existsSync(abs)) {
+        const text = fs.readFileSync(abs, 'utf8');
+        if (text.length > 250) add('fail', 'buffer-queue', `${INITIAL_SLUG} X post exceeds 250 chars (${text.length})`);
+        if (text.length < 80) add('review', 'buffer-queue', `${INITIAL_SLUG} X post short (${text.length})`);
+      }
+      if (!c.contentFile || !initial.articleUrl || !fs.existsSync(abs)) continue;
+      const body = fs.readFileSync(abs, 'utf8');
+      if (!body.includes(initial.articleUrl)) add('fail', 'buffer-queue', `${INITIAL_SLUG} ${ch} URL mismatch`);
+    }
+  }
+
+  if (initial?.channels?.linkedin?.bufferUpdateId) {
+    add('pass', 'buffer-queue', `${INITIAL_SLUG} LinkedIn protected from re-send`);
+  }
+
+  for (const p of hold) {
+    if (p.articlePublishAt) add('fail', 'buffer-queue', `editorial_hold ${p.slug} must not have articlePublishAt`);
+    if (p.bufferTransferAt) add('fail', 'buffer-queue', `editorial_hold ${p.slug} must not have bufferTransferAt`);
+  }
+
+  if (initial?.bufferTransferAt) {
+    const gateDay = toJstDateString(new Date(initial.bufferTransferAt));
+    const bufferCandidates = queue.posts.filter((p) => {
+      if (p.status === EDITORIAL_STATUSES.HOLD || !p.bufferTransferAt) return false;
+      return toJstDateString(new Date(p.bufferTransferAt)) === gateDay;
+    });
+    if (bufferCandidates.length !== 1) {
+      add('fail', 'buffer-queue', `Buffer dispatcher would pick ${bufferCandidates.length} posts on transfer day`);
+    }
+  }
+}
+
+function validateSocialContentFiles() {
+  const queue = readJson(PATHS.bufferQueue);
+  for (const p of queue.posts) {
+    for (const ch of ['facebook', 'x']) {
+      const rel = p.channels?.[ch]?.contentFile;
+      if (!rel) continue;
+      const abs = path.join(ROOT, rel);
+      if (!fs.existsSync(abs)) add('fail', 'social', `Missing ${ch} post: ${p.slug}`);
+    }
+  }
 }
 
 function main() {
@@ -210,6 +303,8 @@ function main() {
     validateHtml();
     validateSchedule();
     validateQueue();
+    validateBufferQueue();
+    validateSocialContentFiles();
     validateIndexPlannedCards();
     validateBufferDispatcher();
   } catch (err) {

@@ -20,7 +20,12 @@
     "validate:insights:v2": "node scripts/validate-insights-v2.mjs",
     "queue:linkedin": "node scripts/queue-daily-linkedin-buffer.mjs",
     "queue:linkedin:dry": "node scripts/queue-daily-linkedin-buffer.mjs --dry-run",
+    "init:buffer-queue": "node scripts/init-buffer-queue.mjs",
+    "generate:social:fb-x": "node scripts/generate-facebook-x-posts.mjs",
+    "queue:buffer": "node scripts/queue-daily-buffer-posts.mjs",
+    "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
+    "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
-    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs"
+    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs"
   }
 }

@@ -1,7 +1,9 @@
 /**
  * Buffer GraphQL client — pattern from upload_buffer_drafts.py (QOL project).
- * Uses BUFFER_ACCESS_TOKEN + BUFFER_CHANNEL_ID env vars.
+ * Uses BUFFER_ACCESS_TOKEN + per-channel BUFFER_CHANNEL_ID_* env vars.
  */
+
+import { CHANNEL_ENV, LEGACY_CHANNEL_ENV } from './social-channels.mjs';
 
 const BUFFER_API = 'https://api.buffer.com';
 
@@ -20,16 +22,36 @@ mutation CreatePost($input: CreatePostInput!) {
 `;
 
 export function getBufferConfig() {
+  const legacy = process.env[LEGACY_CHANNEL_ENV]?.trim() || '';
   return {
     accessToken: process.env.BUFFER_ACCESS_TOKEN?.trim() || '',
-    channelId: process.env.BUFFER_CHANNEL_ID?.trim() || '',
+    channelId: legacy,
     organizationId: process.env.BUFFER_ORGANIZATION_ID?.trim() || '',
     linkedinProfileId: process.env.BUFFER_LINKEDIN_PROFILE_ID?.trim() || '',
+    channelIds: {
+      linkedin: process.env[CHANNEL_ENV.linkedin]?.trim() || legacy,
+      facebook: process.env[CHANNEL_ENV.facebook]?.trim() || '',
+      x: process.env[CHANNEL_ENV.x]?.trim() || '',
+    },
   };
 }
 
+/** Resolve channel ID — per-channel env first, legacy BUFFER_CHANNEL_ID for LinkedIn only */
+export function getChannelId(channelKey, cfg = getBufferConfig()) {
+  const envName = CHANNEL_ENV[channelKey];
+  if (!envName) return '';
+  const specific = process.env[envName]?.trim();
+  if (specific) return specific;
+  if (channelKey === 'linkedin' && cfg.channelId) return cfg.channelId;
+  return '';
+}
+
+export function isChannelConfigured(channelKey, cfg = getBufferConfig()) {
+  return Boolean(cfg.accessToken && getChannelId(channelKey, cfg));
+}
+
 export function isBufferConfigured(cfg = getBufferConfig()) {
-  return Boolean(cfg.accessToken && cfg.channelId);
+  return Boolean(cfg.accessToken && (cfg.channelId || cfg.channelIds.linkedin));
 }
 
 export function isRateLimitError(message) {
