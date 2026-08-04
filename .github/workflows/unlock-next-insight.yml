@@ -1,0 +1,66 @@
+name: Unlock next Insight (day-before 15:00 JST)
+
+on:
+  schedule:
+    # 06:00 UTC = 15:00 JST (weekdays) — unlock tomorrow's article + Buffer schedule
+    - cron: '0 6 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      publish_date:
+        description: 'Optional: force publish date YYYY-MM-DD (e.g. 2026-08-05)'
+        required: false
+        default: ''
+      now:
+        description: 'Optional: simulate now (ISO8601)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (true/false)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: unlock-next-insight
+  cancel-in-progress: false
+
+jobs:
+  unlock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Unlock next article
+        id: unlock
+        env:
+          PUBLISH_DATE: ${{ github.event.inputs.publish_date }}
+          NOW: ${{ github.event.inputs.now }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          CMD=(node scripts/unlock-next-insight.mjs)
+          if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
+          if [ -n "${PUBLISH_DATE:-}" ]; then CMD+=(--publish-date "$PUBLISH_DATE"); fi
+          if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
+          "${CMD[@]}" | tee /tmp/unlock.log
+          if grep -q 'UPDATED=1' /tmp/unlock.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Commit unlock changes
+        if: steps.unlock.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add insights/_scheduled/schedule.json insights/_social/ insights/index.html reports/unlock-next-insight.json
+          git commit -m "$(cat <<'EOF'
+          Unlock next Insight for publication (15:00 JST gate)
+
+          Automated by unlock-next-insight workflow.
+          EOF
+          )"
+          git push

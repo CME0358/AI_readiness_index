@@ -48,13 +48,13 @@ test('pick today uses JST date string', () => {
   assert.equal(toJstDateString(d), '2026-08-05');
 });
 
-test('production gate: 1 scheduled and 29 editorial_hold in queue', () => {
+test('production gate: 1 scheduled LinkedIn post', () => {
   const q = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
   const scheduled = q.posts.filter((p) => p.status === 'scheduled');
   const hold = q.posts.filter((p) => p.status === 'editorial_hold');
-  const initial = q.posts.find((p) => p.slug === 'ai-search-shift');
-  assert.ok(scheduled.length === 1 || initial?.bufferUpdateId, 'ai-search-shift must be scheduled or protected');
-  assert.equal(hold.length, 29);
+  const queued = q.posts.filter((p) => p.status === 'buffer_queued');
+  assert.equal(scheduled.length, 1);
+  assert.equal(hold.length, 30 - scheduled.length - queued.length);
   for (const p of hold) {
     assert.equal(p.bufferTransferAt, null);
     assert.equal(p.linkedinPublishAt, null);
@@ -66,7 +66,7 @@ test('production gate: schedule has 1 scheduled v2 article', () => {
   const s = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
   const v2scheduled = s.articles.filter((a) => a.series === 'v2' && a.status === 'scheduled');
   const v2hold = s.articles.filter((a) => a.series === 'v2' && a.status === 'editorial_hold');
+  const v2published = s.articles.filter((a) => a.series === 'v2' && a.status === 'published');
   assert.equal(v2scheduled.length, 1);
-  assert.equal(v2scheduled[0].slug, 'ai-search-shift');
-  assert.equal(v2hold.length, 29);
+  assert.equal(v2hold.length, 30 - v2scheduled.length - v2published.length);
 });

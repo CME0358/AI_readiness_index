@@ -132,12 +132,13 @@ test('pickTodayArticle rejects editorial_hold with force-slug', () => {
   assert.equal(r.error?.includes('editorial_hold'), true);
 });
 
-test('pickTodayArticle returns one article for transfer day', () => {
+test('pickTodayArticle returns scheduled article for transfer day', () => {
   const queue = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
-  const initial = queue.posts.find((p) => p.slug === 'ai-search-shift');
-  const ymd = initial.bufferTransferAt.slice(0, 10);
+  const next = queue.posts.find((p) => p.status === 'scheduled');
+  assert.ok(next?.bufferTransferAt, 'scheduled post must have bufferTransferAt');
+  const ymd = next.bufferTransferAt.slice(0, 10);
   const r = pickTodayArticle(queue, ymd);
-  assert.equal(r.article?.slug, 'ai-search-shift');
+  assert.equal(r.article?.slug, next.slug);
 });
 
 test('validateChannelContent enforces X length', () => {
@@ -258,14 +259,16 @@ test('getChannelId prefers per-channel env names', () => {
   process.env = orig;
 });
 
-test('buffer queue has 30 posts and linkedin protected for ai-search-shift', () => {
+test('buffer queue has 30 posts', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
   assert.equal(q.posts.length, 30);
   assert.equal(q.policy.postsPerTransfer, 1);
-  const initial = q.posts.find((p) => p.slug === 'ai-search-shift');
-  assert.equal(initial.channels.linkedin.bufferUpdateId, EXISTING_BUFFER_SENTINEL);
-  assert.ok(initial.channels.facebook.contentFile.includes('facebook/posts'));
-  assert.ok(initial.channels.x.contentFile.includes('x/posts'));
+});
+
+test('buffer queue has 1 scheduled post', () => {
+  const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
+  const scheduled = q.posts.filter((p) => p.status === 'scheduled');
+  assert.equal(scheduled.length, 1);
 });
 
 test('facebook and x content files exist for all scheduled slugs', () => {

@@ -16,6 +16,8 @@
     "sync:linkedin:git": "node scripts/sync-linkedin-posts-to-git.mjs",
     "apply:production-gate": "node scripts/apply-initial-production-gate.mjs",
     "apply:same-day": "node scripts/apply-same-day-publication.mjs",
+    "unlock:next": "node scripts/unlock-next-insight.mjs",
+    "unlock:next:dry": "node scripts/unlock-next-insight.mjs --dry-run",
     "generate:insights:v2": "node scripts/generate-insights-v2.mjs",
     "validate:insights:v2": "node scripts/validate-insights-v2.mjs",
     "queue:linkedin": "node scripts/queue-daily-linkedin-buffer.mjs",
@@ -26,6 +28,6 @@
     "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
-    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs"
+    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs"
   }
 }

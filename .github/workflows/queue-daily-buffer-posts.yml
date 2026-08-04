@@ -19,9 +19,9 @@ on:
         required: false
         default: 'true'
       channels:
-        description: 'Channels: linkedin,facebook,x or subset (e.g. facebook,x)'
+        description: 'Channels: linkedin,facebook,x or subset'
         required: false
-        default: 'facebook,x'
+        default: 'linkedin,facebook,x'
 
 permissions:
   contents: write

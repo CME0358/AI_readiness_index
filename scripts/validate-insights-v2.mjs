@@ -72,7 +72,20 @@ function validateArticles() {
 
 function validateHtml() {
   const plan = readJson(PATHS.editorialPlan);
+  const schedule = readJson(PATHS.schedule);
+  const publishedSlugs = new Set(
+    schedule.articles.filter((a) => a.status === EDITORIAL_STATUSES.PUBLISHED).map((a) => a.slug)
+  );
+
   for (const a of plan.articles) {
+    if (publishedSlugs.has(a.slug)) {
+      const livePath = path.join(ROOT, 'insights', a.slug, 'index.html');
+      if (!fs.existsSync(livePath)) {
+        add('fail', 'html', `Published but missing live HTML: ${a.slug}`);
+      }
+      continue;
+    }
+
     const htmlPath = path.join(PATHS.scheduledDir, a.slug, 'index.html');
     if (!fs.existsSync(htmlPath)) {
       add('fail', 'html', `Missing HTML: ${a.slug}`);
@@ -97,32 +110,36 @@ function validateSchedule() {
 
   const scheduled = v2.filter((a) => a.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = v2.filter((a) => a.status === EDITORIAL_STATUSES.HOLD);
+  const published = v2.filter((a) => a.status === EDITORIAL_STATUSES.PUBLISHED);
 
   if (scheduled.length !== 1) add('fail', 'gate', `Expected 1 scheduled v2 article, got ${scheduled.length}`);
-  if (hold.length !== 29) add('fail', 'gate', `Expected 29 editorial_hold v2 articles, got ${hold.length}`);
+  const expectedHold = 30 - scheduled.length - published.length;
+  if (hold.length !== expectedHold) {
+    add('fail', 'gate', `Expected ${expectedHold} editorial_hold v2 articles, got ${hold.length} (published=${published.length})`);
+  }
 
-  const initial = scheduled.find((a) => a.slug === INITIAL_SLUG);
-  if (!initial) add('fail', 'gate', `Scheduled article must be ${INITIAL_SLUG}`);
-  else if (!initial.publishAt) {
-    add('fail', 'gate', `${INITIAL_SLUG} must have publishAt`);
-  } else if (!initial.publishAt.includes('+09:00')) {
-    add('fail', 'gate', `${INITIAL_SLUG} publishAt must be JST (+09:00)`);
+  const active = scheduled[0];
+  if (!active) add('fail', 'gate', 'No scheduled v2 article');
+  else if (!active.publishAt) {
+    add('fail', 'gate', `${active.slug} must have publishAt`);
+  } else if (!active.publishAt.includes('+09:00')) {
+    add('fail', 'gate', `${active.slug} publishAt must be JST (+09:00)`);
   }
 
   for (const a of hold) {
     if (a.publishAt) add('fail', 'gate', `editorial_hold ${a.slug} must not have publishAt`);
   }
 
-  if (initial?.publishAt) {
-    const due = extractDueArticles(v2, new Date(initial.publishAt));
-    if (due.length !== 1 || due[0].slug !== INITIAL_SLUG) {
-      add('fail', 'gate', `Publish script would target ${due.length} articles at ${initial.publishAt}`);
+  if (active?.publishAt) {
+    const due = extractDueArticles(v2, new Date(active.publishAt));
+    if (due.length !== 1 || due[0].slug !== active.slug) {
+      add('fail', 'gate', `Publish script would target ${due.length} articles at ${active.publishAt}`);
     }
   }
 
   const dueHold = extractDueArticles(
-    v2.map((a) => ({ ...a, status: EDITORIAL_STATUSES.HOLD, publishAt: initial?.publishAt })),
-    new Date(initial?.publishAt || '2099-01-01T10:00:00+09:00')
+    v2.map((a) => ({ ...a, status: EDITORIAL_STATUSES.HOLD, publishAt: active?.publishAt })),
+    new Date(active?.publishAt || '2099-01-01T10:00:00+09:00')
   );
   if (dueHold.length !== 0) add('fail', 'gate', 'editorial_hold articles must not be publish-eligible');
 }
@@ -134,22 +151,25 @@ function validateQueue() {
 
   const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
+  const queued = queue.posts.filter((p) => p.status === 'buffer_queued');
 
-  if (scheduled.length !== 1 && !queue.posts.some((p) => p.slug === INITIAL_SLUG && p.bufferUpdateId)) {
+  if (scheduled.length !== 1) {
     add('fail', 'gate', `Expected 1 scheduled LinkedIn post, got ${scheduled.length}`);
   }
-  if (hold.length !== 29) add('fail', 'gate', `Expected 29 editorial_hold LinkedIn posts, got ${hold.length}`);
+  const expectedHold = 30 - scheduled.length - queued.length;
+  if (hold.length !== expectedHold) {
+    add('fail', 'gate', `Expected ${expectedHold} editorial_hold LinkedIn posts, got ${hold.length} (buffer_queued=${queued.length})`);
+  }
 
-  const initial = scheduled.find((p) => p.slug === INITIAL_SLUG) ||
-    queue.posts.find((p) => p.slug === INITIAL_SLUG && p.bufferUpdateId);
-  if (!initial) add('fail', 'gate', `Scheduled LinkedIn post must be ${INITIAL_SLUG}`);
+  const active = scheduled[0];
+  if (!active) add('fail', 'gate', 'No scheduled LinkedIn post');
   else {
-    if (!initial.articlePublishAt) add('fail', 'gate', `${INITIAL_SLUG} missing articlePublishAt`);
-    if (!initial.bufferTransferAt) add('fail', 'gate', `${INITIAL_SLUG} missing bufferTransferAt`);
-    if (!initial.linkedinPublishAt) add('fail', 'gate', `${INITIAL_SLUG} missing linkedinPublishAt`);
-    if (initial.articlePublishAt && initial.bufferTransferAt) {
+    if (!active.articlePublishAt) add('fail', 'gate', `${active.slug} missing articlePublishAt`);
+    if (!active.bufferTransferAt) add('fail', 'gate', `${active.slug} missing bufferTransferAt`);
+    if (!active.linkedinPublishAt) add('fail', 'gate', `${active.slug} missing linkedinPublishAt`);
+    if (active.articlePublishAt && active.bufferTransferAt) {
       const gap =
-        new Date(initial.bufferTransferAt).getTime() - new Date(initial.articlePublishAt).getTime();
+        new Date(active.bufferTransferAt).getTime() - new Date(active.articlePublishAt).getTime();
       if (gap < 25 * 60_000) add('fail', 'gate', 'Buffer must be at least 25min after Web publish');
     }
   }
@@ -161,13 +181,13 @@ function validateQueue() {
     if (isBufferEligible(p)) add('fail', 'gate', `editorial_hold ${p.slug} must not be buffer-eligible`);
   }
 
-  if (initial?.bufferTransferAt) {
-    const gateDay = toJstDateString(new Date(initial.bufferTransferAt));
+  if (active?.bufferTransferAt) {
+    const gateDay = toJstDateString(new Date(active.bufferTransferAt));
     const bufferCandidates = queue.posts.filter((p) => {
       if (p.status === EDITORIAL_STATUSES.HOLD || !p.bufferTransferAt) return false;
       return toJstDateString(new Date(p.bufferTransferAt)) === gateDay && isBufferEligible(p);
     });
-    if (bufferCandidates.length !== 1 || bufferCandidates[0].slug !== INITIAL_SLUG) {
+    if (bufferCandidates.length !== 1 || bufferCandidates[0].slug !== active.slug) {
       add('fail', 'gate', `Buffer dispatcher would pick ${bufferCandidates.length} posts on transfer day`);
     }
   }
@@ -185,6 +205,9 @@ function validateQueue() {
 
 function validateIndexPlannedCards() {
   const schedule = readJson(PATHS.schedule);
+  const scheduled = schedule.articles.find(
+    (a) => a.series === 'v2' && a.status === EDITORIAL_STATUSES.SCHEDULED
+  );
   const holdSlugs = schedule.articles.filter((a) => a.status === EDITORIAL_STATUSES.HOLD).map((a) => a.slug);
   const html = fs.readFileSync(PATHS.insightsIndex, 'utf8');
 
@@ -194,8 +217,8 @@ function validateIndexPlannedCards() {
     }
   }
 
-  if (!html.includes(`data-scheduled-slug="${INITIAL_SLUG}"`)) {
-    add('fail', 'gate', `index.html must show planned card for ${INITIAL_SLUG}`);
+  if (scheduled && !html.includes(`data-scheduled-slug="${scheduled.slug}"`)) {
+    add('fail', 'gate', `index.html must show planned card for ${scheduled.slug}`);
   }
 
   const plannedCount = (html.match(/class="insight-card planned"/g) || []).length;
@@ -221,31 +244,32 @@ function validateBufferQueue() {
   const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
   const partial = queue.posts.filter((p) => p.status === 'partially_queued');
+  const queued = queue.posts.filter((p) => p.status === 'buffer_queued');
 
-  if (scheduled.length !== 1 && partial.length !== 1) {
-    add('fail', 'buffer-queue', `Expected 1 scheduled or partially_queued post, got scheduled=${scheduled.length} partial=${partial.length}`);
+  if (scheduled.length !== 1) {
+    add('fail', 'buffer-queue', `Expected 1 scheduled buffer post, got ${scheduled.length}`);
   }
-  if (hold.length !== 29) add('fail', 'buffer-queue', `Expected 29 editorial_hold buffer posts, got ${hold.length}`);
+  if (partial.length > 1) {
+    add('fail', 'buffer-queue', `Expected at most 1 partially_queued post, got ${partial.length}`);
+  }
+  const expectedHold = 30 - scheduled.length - partial.length - queued.length;
+  if (hold.length !== expectedHold) {
+    add('fail', 'buffer-queue', `Expected ${expectedHold} editorial_hold buffer posts, got ${hold.length} (partial=${partial.length} queued=${queued.length})`);
+  }
 
-  const initial = scheduled.find((p) => p.slug === INITIAL_SLUG) ||
-    partial.find((p) => p.slug === INITIAL_SLUG);
-  if (!initial?.channels) add('fail', 'buffer-queue', `${INITIAL_SLUG} missing channels`);
+  const active = scheduled[0];
+  if (!active?.channels) add('fail', 'buffer-queue', 'Scheduled buffer post missing channels');
 
   for (const ch of ['linkedin', 'facebook', 'x']) {
     const envName = ch === 'x' ? 'BUFFER_CHANNEL_ID_TWITTER' : `BUFFER_CHANNEL_ID_${ch.toUpperCase()}`;
-    if (ch === 'linkedin') {
-      /* documented in .env.example */
-    }
-    const c = initial?.channels?.[ch];
-    if (!c) add('fail', 'buffer-queue', `${INITIAL_SLUG} missing channel ${ch}`);
+    const c = active?.channels?.[ch];
+    if (!c) add('fail', 'buffer-queue', `${active?.slug || 'scheduled'} missing channel ${ch}`);
     else {
-      if (c.channelIdEnv !== envName && ch !== 'linkedin') {
-        if (ch === 'x' && c.channelIdEnv !== 'BUFFER_CHANNEL_ID_TWITTER') {
-          add('fail', 'buffer-queue', `${ch} channelIdEnv must be BUFFER_CHANNEL_ID_TWITTER`);
-        }
-      }
       if (ch === 'linkedin' && c.channelIdEnv !== 'BUFFER_CHANNEL_ID_LINKEDIN') {
         add('fail', 'buffer-queue', 'linkedin channelIdEnv must be BUFFER_CHANNEL_ID_LINKEDIN');
+      }
+      if (ch === 'x' && c.channelIdEnv !== 'BUFFER_CHANNEL_ID_TWITTER') {
+        add('fail', 'buffer-queue', `${ch} channelIdEnv must be BUFFER_CHANNEL_ID_TWITTER`);
       }
       if (!c.contentFile?.includes(`/${ch === 'x' ? 'x' : ch}/posts/`)) {
         add('fail', 'buffer-queue', `${ch} contentFile path invalid`);
@@ -255,17 +279,17 @@ function validateBufferQueue() {
 
       if (ch === 'x' && fs.existsSync(abs)) {
         const text = fs.readFileSync(abs, 'utf8');
-        if (text.length > 250) add('fail', 'buffer-queue', `${INITIAL_SLUG} X post exceeds 250 chars (${text.length})`);
-        if (text.length < 80) add('review', 'buffer-queue', `${INITIAL_SLUG} X post short (${text.length})`);
+        if (text.length > 250) add('fail', 'buffer-queue', `${active.slug} X post exceeds 250 chars (${text.length})`);
+        if (text.length < 80) add('review', 'buffer-queue', `${active.slug} X post short (${text.length})`);
       }
-      if (!c.contentFile || !initial.articleUrl || !fs.existsSync(abs)) continue;
+      if (!c.contentFile || !active?.articleUrl || !fs.existsSync(abs)) continue;
       const body = fs.readFileSync(abs, 'utf8');
-      if (!body.includes(initial.articleUrl)) add('fail', 'buffer-queue', `${INITIAL_SLUG} ${ch} URL mismatch`);
+      if (!body.includes(active.articleUrl)) add('fail', 'buffer-queue', `${active.slug} ${ch} URL mismatch`);
     }
   }
 
-  if (initial?.channels?.linkedin?.bufferUpdateId) {
-    add('pass', 'buffer-queue', `${INITIAL_SLUG} LinkedIn protected from re-send`);
+  if (active?.channels?.linkedin?.bufferUpdateId) {
+    add('review', 'buffer-queue', `${active.slug} LinkedIn already has bufferUpdateId`);
   }
 
   for (const p of hold) {
@@ -273,8 +297,8 @@ function validateBufferQueue() {
     if (p.bufferTransferAt) add('fail', 'buffer-queue', `editorial_hold ${p.slug} must not have bufferTransferAt`);
   }
 
-  if (initial?.bufferTransferAt) {
-    const gateDay = toJstDateString(new Date(initial.bufferTransferAt));
+  if (active?.bufferTransferAt) {
+    const gateDay = toJstDateString(new Date(active.bufferTransferAt));
     const bufferCandidates = queue.posts.filter((p) => {
       if (p.status === EDITORIAL_STATUSES.HOLD || !p.bufferTransferAt) return false;
       return toJstDateString(new Date(p.bufferTransferAt)) === gateDay;
