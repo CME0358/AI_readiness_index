@@ -17,7 +17,34 @@
       "publishAt": "2026-08-04T13:00:00+09:00",
       "dueAtUtc": "2026-08-04T04:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-05T01:59:34.077Z",
+      "slug": "recommendation-logic",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a729907c6717b2bad682088",
+      "publishAt": "2026-08-05T11:30:00+09:00",
+      "dueAtUtc": "2026-08-05T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-05T01:59:34.077Z",
+      "slug": "recommendation-logic",
+      "channel": "facebook",
+      "bufferUpdateId": "6a729907c6717b2bad6820ac",
+      "publishAt": "2026-08-05T11:45:00+09:00",
+      "dueAtUtc": "2026-08-05T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-05T01:59:34.077Z",
+      "slug": "recommendation-logic",
+      "channel": "x",
+      "bufferUpdateId": "6a729907c82d97b511b91594",
+      "publishAt": "2026-08-05T12:00:00+09:00",
+      "dueAtUtc": "2026-08-05T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-04T03:45:00.000Z"
+  "updatedAt": "2026-08-05T01:59:35.681Z"
 }
