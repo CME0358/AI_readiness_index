@@ -26,6 +26,7 @@ import {
 } from './lib/buffer-dispatcher.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
+const waitDeploy = process.argv.includes('--wait-deploy');
 const forceSlug = (() => {
   const i = process.argv.indexOf('--force-slug');
   return i >= 0 ? process.argv[i + 1] : null;
@@ -80,6 +81,25 @@ async function main() {
   console.log(
     `${dryRun ? '[dry-run] ' : ''}Processing ${article.slug} channels=[${requestedChannels.join(',')}]`
   );
+
+  if (waitDeploy && !dryRun) {
+    const deadline = Date.now() + 90_000;
+    let live = false;
+    while (Date.now() < deadline) {
+      const check = await verifyArticleUrl(article.slug);
+      if (check.ok) {
+        live = true;
+        console.log('Article URL live:', check.url);
+        break;
+      }
+      console.log('Waiting for deploy...', check.reason || 'not ready');
+      await new Promise((r) => setTimeout(r, 10_000));
+    }
+    if (!live) {
+      console.error('Article URL not live after wait — aborting Buffer transfer');
+      process.exit(1);
+    }
+  }
 
   const { updated, results, exitCode, reason } = await processArticleChannels({
     article,

@@ -11,7 +11,7 @@ on:
         required: false
         default: ''
       now:
-        description: 'Optional: simulate now (ISO8601, e.g. 2026-07-13T10:00:00+09:00)'
+        description: 'Optional: simulate now (full ISO8601, e.g. 2026-08-05T10:00:00+09:00 — date-only不可)'
         required: false
         default: ''
 
@@ -25,6 +25,9 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.publish.outputs.changed }}
+      slug: ${{ steps.publish.outputs.slug }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,6 +46,10 @@ jobs:
           NOW: ${{ github.event.inputs.now }}
         run: |
           set -euo pipefail
+          if [ -n "${NOW:-}" ] && [[ ! "${NOW}" =~ T ]]; then
+            echo "NOW must be full ISO8601 (e.g. 2026-08-05T10:00:00+09:00). Date-only values are rejected."
+            exit 1
+          fi
           CMD=(node scripts/publish-scheduled-insights.mjs)
           if [ -n "${FORCE_SLUG:-}" ]; then
             CMD+=(--force-slug "$FORCE_SLUG")
@@ -53,8 +60,11 @@ jobs:
           "${CMD[@]}" | tee /tmp/publish.log
           if grep -q 'UPDATED=1' /tmp/publish.log; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            SLUG=$(grep '^Published:' /tmp/publish.log | sed 's/Published: //' | awk -F, '{print $1}' | xargs)
+            echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "slug=" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Commit and push
@@ -69,6 +79,54 @@ jobs:
           Publish scheduled Insights columns
 
           Automated by publish-scheduled-insights workflow (JST 10:00).
+          EOF
+          )"
+          git push
+
+  buffer-queue:
+    needs: publish
+    if: needs.publish.outputs.changed == 'true' && needs.publish.outputs.slug != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Queue Buffer posts (after Web deploy)
+        id: queue
+        env:
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
+          BUFFER_CHANNEL_ID_LINKEDIN: ${{ secrets.BUFFER_CHANNEL_ID_LINKEDIN }}
+          BUFFER_CHANNEL_ID_FACEBOOK: ${{ secrets.BUFFER_CHANNEL_ID_FACEBOOK }}
+          BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
+          BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+          PUBLISHED_SLUG: ${{ needs.publish.outputs.slug }}
+        run: |
+          set -euo pipefail
+          node scripts/queue-daily-buffer-posts.mjs \
+            --force-slug "$PUBLISHED_SLUG" \
+            --wait-deploy \
+            --channels linkedin,facebook,x \
+            | tee /tmp/queue-buffer.log
+          if grep -q 'UPDATED=1' /tmp/queue-buffer.log; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit queue/logs
+        if: steps.queue.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add insights/_social/buffer/
+          git commit -m "$(cat <<'EOF'
+          Update Buffer queue after Insights publish
+
+          Chained from publish-scheduled-insights workflow.
           EOF
           )"
           git push

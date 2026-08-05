@@ -2,8 +2,8 @@ name: Queue daily Buffer posts (multi-channel)
 
 on:
   schedule:
-    # 01:30 UTC = 10:30 JST (weekdays) — after Web publish
-    - cron: '30 1 * * 1-5'
+    # Fallback: 04:00 UTC ≈ 13:00 JST weekdays (publish cron 遅延 + 手動公開漏れの救済)
+    - cron: '0 4 * * 1-5'
   workflow_dispatch:
     inputs:
       force_slug:
@@ -11,13 +11,13 @@ on:
         required: false
         default: ''
       now:
-        description: 'Optional: simulate now (ISO8601)'
+        description: 'Optional: simulate now (full ISO8601, e.g. 2026-08-05T10:30:00+09:00)'
         required: false
         default: ''
       dry_run:
         description: 'Dry run (true/false)'
         required: false
-        default: 'true'
+        default: 'false'
       channels:
         description: 'Channels: linkedin,facebook,x or subset'
         required: false
@@ -58,12 +58,18 @@ jobs:
           CHANNELS_INPUT: ${{ github.event.inputs.channels }}
         run: |
           set -euo pipefail
+          if [ -n "${NOW:-}" ] && [[ ! "${NOW}" =~ T ]]; then
+            echo "NOW must be full ISO8601 (e.g. 2026-08-05T10:30:00+09:00). Date-only values are rejected."
+            exit 1
+          fi
           CMD=(node scripts/queue-daily-buffer-posts.mjs)
-          if [ "${DRY_RUN_INPUT:-true}" = "true" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then
             CMD+=(--dry-run)
           elif [ "${{ github.event_name }}" = "schedule" ] && [ -z "${BUFFER_ACCESS_TOKEN:-}" ]; then
             echo "BUFFER_ACCESS_TOKEN not set — dry-run only"
             CMD+=(--dry-run)
+          else
+            CMD+=(--wait-deploy)
           fi
           if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
           if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
