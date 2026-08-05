@@ -33,6 +33,11 @@ if (result.reason === 'another_article_scheduled') {
   process.exit(1);
 }
 
+if (result.reason?.startsWith('prepare_failed')) {
+  console.error('Cannot unlock — article quality gate failed:', result.slug, result.prepare);
+  process.exit(1);
+}
+
 if (result.updated) console.log('UPDATED=1');
 else console.log('UPDATED=0');
 

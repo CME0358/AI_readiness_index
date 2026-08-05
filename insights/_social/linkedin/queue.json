@@ -34,13 +34,13 @@
       "linkedinPublishAt": "2026-08-05T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/recommendation-logic/",
       "contentFile": "insights/_social/linkedin/posts/recommendation-logic.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a729907c6717b2bad682088",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T06:00:00.000Z"
+      "updatedAt": "2026-08-05T09:51:06.237Z"
     },
     {
       "id": "ARI-LI-003",

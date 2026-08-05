@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractDueArticles } from './lib/editorial-status.mjs';
+import { prepareScheduledArticle } from './lib/prepare-scheduled-article.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -142,6 +143,16 @@ for (const article of ordered) {
     console.error('Missing scheduled article:', srcIndex);
     process.exit(1);
   }
+
+  const prepared = prepareScheduledArticle(article.slug, { strict: true });
+  if (!prepared.ok) {
+    console.error('Article quality gate failed:', article.slug, prepared);
+    process.exit(1);
+  }
+  if (prepared.changed) {
+    console.log(`Prepared ${article.slug}: ${prepared.removed?.join(', ') || 'sanitized'}`);
+  }
+
   if (fs.existsSync(dest)) {
     console.error('Destination already exists:', dest);
     process.exit(1);

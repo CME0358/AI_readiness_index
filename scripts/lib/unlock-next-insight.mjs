@@ -16,6 +16,7 @@ import {
   nextPublishDayAfterUnlock,
   articleTimesForPublishDay,
 } from './business-days.mjs';
+import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
 
 export const UNLOCK_TIME_JST = '15:00';
 
@@ -106,6 +107,17 @@ export function unlockNextInsight({
     return { updated: false, slug: next.slug, publishYmd, reason: 'dry_run' };
   }
 
+  const prepared = prepareScheduledArticle(next.slug, { strict: true });
+  if (!prepared.ok) {
+    return {
+      updated: false,
+      slug: next.slug,
+      publishYmd,
+      reason: `prepare_failed:${prepared.error}`,
+      prepare: prepared,
+    };
+  }
+
   const unlockedAt = now.toISOString();
   next.status = EDITORIAL_STATUSES.SCHEDULED;
   next.publishAt = times.web;
@@ -157,5 +169,5 @@ export function unlockNextInsight({
     'utf8'
   );
 
-  return { updated: true, slug: next.slug, publishYmd, times };
+  return { updated: true, slug: next.slug, publishYmd, times, prepared };
 }

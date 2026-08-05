@@ -6,6 +6,7 @@ import path from 'node:path';
 import { ROOT } from './insights-v2-paths.mjs';
 import { toJstDateString, isWeekday, charCountNoSpace } from './business-days.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
+import { syncLinkedInQueueFromBuffer } from './sync-linkedin-queue.mjs';
 import {
   CHANNEL_KEYS,
   CHANNEL_STATUSES,
@@ -327,6 +328,10 @@ export async function processArticleChannels({
     }
     article.updatedAt = now.toISOString();
     writeJsonFile(paths.queue, queue, { dryRun });
+
+    if (!dryRun && article.status === 'buffer_queued') {
+      syncLinkedInQueueFromBuffer(article.slug);
+    }
   }
 
   return {

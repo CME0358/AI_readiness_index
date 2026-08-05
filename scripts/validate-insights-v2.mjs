@@ -15,6 +15,7 @@ import {
   isBufferEligible,
 } from './lib/editorial-status.mjs';
 import { toJstDateString } from './lib/business-days.mjs';
+import { detectHtmlQualityIssues } from './lib/article-quality.mjs';
 
 const jsonOut = process.argv.includes('--json');
 const results = { pass: [], review: [], fail: [], blocking: [], nonBlocking: [] };
@@ -97,6 +98,24 @@ function validateHtml() {
     if (html.includes('noindex')) add('fail', 'html', `${a.slug} has noindex`);
     if (!html.includes('BlogPosting')) add('fail', 'html', `${a.slug} missing JSON-LD`);
     if (!html.includes('article-cta')) add('fail', 'html', `${a.slug} missing CTA`);
+  }
+
+  const scheduled = schedule.articles.find(
+    (a) => a.series === 'v2' && a.status === EDITORIAL_STATUSES.SCHEDULED
+  );
+  if (scheduled) {
+    const htmlPath = path.join(PATHS.scheduledDir, scheduled.slug, 'index.html');
+    if (fs.existsSync(htmlPath)) {
+      const html = fs.readFileSync(htmlPath, 'utf8');
+      const issues = detectHtmlQualityIssues(html, { slug: scheduled.slug });
+      for (const issue of issues) {
+        add(
+          'fail',
+          'quality',
+          `${scheduled.slug} ${issue.code}${issue.count ? ` (${issue.count})` : issue.title ? `: ${issue.title}` : ''}`
+        );
+      }
+    }
   }
 
   const pkg = fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8');
