@@ -173,12 +173,13 @@
     },
     {
       "slug": "citation-vs-action",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-06T10:00:00+09:00",
+      "status": "scheduled",
       "title": "引用されることと実行されることの差",
       "cardSummary": "引用はVisibility/Authority、実行はActionabilityの領域。GEO成果とARI成果の境界線を実務視点で整理",
       "llmsLabel": "引用されることと実行されることの差",
-      "series": "v2"
+      "series": "v2",
+      "unlockedAt": "2026-08-05T08:39:53.807Z"
     },
     {
       "slug": "competitor-blind-spot",
