@@ -163,12 +163,13 @@
     {
       "slug": "recommendation-logic",
       "publishAt": "2026-08-05T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "AIは「おすすめ」をどう組み立てるのか",
       "cardSummary": "推薦は単一情報ではなく、複数根拠の整合性から組み立てられる。groundsの「根拠」論を推薦プロセスの読み方として再構成",
       "llmsLabel": "AIは「おすすめ」をどう組み立てるのか",
       "series": "v2",
-      "unlockedAt": "2026-08-04T06:00:00.000Z"
+      "unlockedAt": "2026-08-04T06:00:00.000Z",
+      "publishedAt": "2026-08-05T01:53:11.404Z"
     },
     {
       "slug": "citation-vs-action",

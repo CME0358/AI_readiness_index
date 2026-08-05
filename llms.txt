@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [AIは「おすすめ」をどう組み立てるのか](https://readiness.coaretail.com/insights/recommendation-logic/): Insights Column（2026-08-05）
 - [AI検索が変える「比較」の意味](https://readiness.coaretail.com/insights/ai-search-shift/): Insights Column（2026-08-04）
 - [なぜAgent Readinessが新しい基準か](https://readiness.coaretail.com/insights/why-ari/): Insights Column（2026-08-03）
 - [AIが決済できる会社](https://readiness.coaretail.com/insights/pay/): Insights Column（2026-07-31）
