@@ -80,13 +80,12 @@ jobs:
       - name: Commit queue/logs
         if: steps.queue.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add insights/_social/buffer/
-          git commit -m "$(cat <<'EOF'
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "$(cat <<'EOF'
           Update multi-channel Buffer queue logs
 
           Automated by queue-daily-buffer-posts workflow.
           EOF
-          )"
-          git push
+          )" \
+            insights/_social/buffer/ insights/_social/linkedin/queue.json

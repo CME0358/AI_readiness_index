@@ -14,6 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extractDueArticles } from './lib/editorial-status.mjs';
 import { prepareScheduledArticle } from './lib/prepare-scheduled-article.mjs';
+import { isWeekday } from './lib/business-days.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -36,6 +37,11 @@ const now = nowArg ? new Date(nowArg) : new Date();
 if (Number.isNaN(now.getTime())) {
   console.error('Invalid --now value');
   process.exit(1);
+}
+
+if (!forceSlug && !isWeekday(now)) {
+  console.log('Weekend — no publish.', { now: now.toISOString() });
+  process.exit(0);
 }
 
 const schedule = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));

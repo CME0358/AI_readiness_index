@@ -50,6 +50,13 @@ export const CHANNEL_STATUSES = {
 /** Sentinel — LinkedIn already registered in Buffer before multi-channel migration */
 export const EXISTING_BUFFER_SENTINEL = 'pre-existing-buffer-post';
 
+/** Buffer API: same slot already scheduled (re-run safe). */
+export function isBufferDuplicateScheduleError(error) {
+  return /already got this one scheduled|already scheduled or posted around the same time/i.test(
+    String(error || '')
+  );
+}
+
 export function parseChannelsArg(raw) {
   if (!raw || raw === 'all') return [...CHANNEL_KEYS];
   return raw

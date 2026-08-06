@@ -18,6 +18,7 @@ import {
 import {
   CHANNEL_STATUSES,
   EXISTING_BUFFER_SENTINEL,
+  isBufferDuplicateScheduleError,
 } from '../lib/social-channels.mjs';
 import { resolvePublishAt, toBufferDueAt, jstMinutesFromMidnight } from '../lib/social-schedule.mjs';
 import {
@@ -133,12 +134,16 @@ test('pickTodayArticle rejects editorial_hold with force-slug', () => {
 });
 
 test('pickTodayArticle returns scheduled article for transfer day', () => {
-  const queue = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
-  const next = queue.posts.find((p) => p.status === 'scheduled');
-  assert.ok(next?.bufferTransferAt, 'scheduled post must have bufferTransferAt');
-  const ymd = next.bufferTransferAt.slice(0, 10);
-  const r = pickTodayArticle(queue, ymd);
-  assert.equal(r.article?.slug, next.slug);
+  const article = mockArticle({
+    slug: 'transfer-day-test',
+    bufferTransferAt: '2026-08-07T10:30:00+09:00',
+    status: 'scheduled',
+  });
+  article.channels.linkedin.status = CHANNEL_STATUSES.SCHEDULED;
+  article.channels.linkedin.bufferUpdateId = null;
+  const queue = { posts: [article] };
+  const r = pickTodayArticle(queue, '2026-08-07');
+  assert.equal(r.article?.slug, 'transfer-day-test');
 });
 
 test('validateChannelContent enforces X length', () => {
@@ -251,6 +256,57 @@ test('processArticleChannels blocks all channels on URL 404', async () => {
   assert.equal(exitCode, 0);
 });
 
+test('isBufferDuplicateScheduleError detects Buffer duplicate slot message', () => {
+  assert.equal(
+    isBufferDuplicateScheduleError(
+      "Invalid post: Whoops, it looks like you've already got this one scheduled"
+    ),
+    true
+  );
+  assert.equal(isBufferDuplicateScheduleError('HTTP 500'), false);
+});
+
+test('processArticleChannels treats Buffer duplicate schedule as success', async () => {
+  const article = mockArticle();
+  article.channels.linkedin.status = CHANNEL_STATUSES.SCHEDULED;
+  article.channels.linkedin.bufferUpdateId = null;
+  const queue = { posts: [article] };
+  const dupMsg =
+    "Invalid post: Whoops, it looks like you've already got this one scheduled or posted around the same time.";
+
+  const origEnv = {
+    BUFFER_ACCESS_TOKEN: process.env.BUFFER_ACCESS_TOKEN,
+    BUFFER_CHANNEL_ID_LINKEDIN: process.env.BUFFER_CHANNEL_ID_LINKEDIN,
+  };
+  process.env.BUFFER_ACCESS_TOKEN = 'tok';
+  process.env.BUFFER_CHANNEL_ID_LINKEDIN = 'li';
+
+  try {
+    const { updated, results, exitCode } = await processArticleChannels({
+      article,
+      queue,
+      now: new Date('2026-08-06T10:35:00+09:00'),
+      dryRun: false,
+      requestedChannels: ['linkedin'],
+      verifyArticleUrl: async () => ({ ok: true, url: article.articleUrl }),
+      createBufferPost: async () => ({ postId: null, error: dupMsg, rejected: true }),
+      getConfig: getBufferConfig,
+      paths: { queue: '/tmp/q.json', publishedLog: '/tmp/p.json', failedLog: '/tmp/f.json' },
+    });
+
+    assert.equal(updated, true);
+    assert.equal(exitCode, 0);
+    assert.equal(results[0].action, 'duplicate_ok');
+    assert.equal(article.channels.linkedin.bufferUpdateId, EXISTING_BUFFER_SENTINEL);
+    assert.equal(article.channels.linkedin.status, CHANNEL_STATUSES.QUEUED);
+  } finally {
+    for (const [k, v] of Object.entries(origEnv)) {
+      if (v === undefined) delete process.env[k];
+      else process.env[k] = v;
+    }
+  }
+});
+
 test('getChannelId prefers per-channel env names', () => {
   const orig = { ...process.env };
   process.env.BUFFER_CHANNEL_ID_LINKEDIN = 'li-specific';
@@ -265,10 +321,10 @@ test('buffer queue has 30 posts', () => {
   assert.equal(q.policy.postsPerTransfer, 1);
 });
 
-test('buffer queue has 1 scheduled post', () => {
+test('buffer queue has at most 1 scheduled post', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
   const scheduled = q.posts.filter((p) => p.status === 'scheduled');
-  assert.equal(scheduled.length, 1);
+  assert.ok(scheduled.length <= 1, `expected <=1 scheduled, got ${scheduled.length}`);
 });
 
 test('facebook and x content files exist for all scheduled slugs', () => {

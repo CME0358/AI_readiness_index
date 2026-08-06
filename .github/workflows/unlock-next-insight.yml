@@ -54,13 +54,12 @@ jobs:
       - name: Commit unlock changes
         if: steps.unlock.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add insights/_scheduled/schedule.json insights/_social/ insights/index.html reports/unlock-next-insight.json
-          git commit -m "$(cat <<'EOF'
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "$(cat <<'EOF'
           Unlock next Insight for publication (15:00 JST gate)
 
           Automated by unlock-next-insight workflow.
           EOF
-          )"
-          git push
+          )" \
+            insights/_scheduled/schedule.json insights/_social/ insights/index.html reports/unlock-next-insight.json

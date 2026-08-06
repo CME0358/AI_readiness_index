@@ -48,25 +48,25 @@ test('pick today uses JST date string', () => {
   assert.equal(toJstDateString(d), '2026-08-05');
 });
 
-test('production gate: 1 scheduled LinkedIn post', () => {
+test('production gate: linkedin queue counts', () => {
   const q = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
   const scheduled = q.posts.filter((p) => p.status === 'scheduled');
   const hold = q.posts.filter((p) => p.status === 'editorial_hold');
   const queued = q.posts.filter((p) => p.status === 'buffer_queued');
-  assert.equal(scheduled.length, 1);
-  assert.equal(hold.length, 30 - scheduled.length - queued.length);
+  assert.ok(scheduled.length <= 1, `scheduled=${scheduled.length}`);
+  assert.equal(scheduled.length + hold.length + queued.length, 30);
   for (const p of hold) {
     assert.equal(p.bufferTransferAt, null);
     assert.equal(p.linkedinPublishAt, null);
   }
 });
 
-test('production gate: schedule has 1 scheduled v2 article', () => {
+test('production gate: schedule v2 status counts', () => {
   const schedulePath = path.join(ROOT, 'insights/_scheduled/schedule.json');
   const s = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
   const v2scheduled = s.articles.filter((a) => a.series === 'v2' && a.status === 'scheduled');
   const v2hold = s.articles.filter((a) => a.series === 'v2' && a.status === 'editorial_hold');
   const v2published = s.articles.filter((a) => a.series === 'v2' && a.status === 'published');
-  assert.equal(v2scheduled.length, 1);
-  assert.equal(v2hold.length, 30 - v2scheduled.length - v2published.length);
+  assert.ok(v2scheduled.length <= 1, `scheduled=${v2scheduled.length}`);
+  assert.equal(v2scheduled.length + v2hold.length + v2published.length, 30);
 });

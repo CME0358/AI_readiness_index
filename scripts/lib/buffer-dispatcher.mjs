@@ -12,6 +12,7 @@ import {
   CHANNEL_STATUSES,
   CONTENT_LIMITS,
   EXISTING_BUFFER_SENTINEL,
+  isBufferDuplicateScheduleError,
   parseChannelsArg,
   validateChannelKeys,
 } from './social-channels.mjs';
@@ -268,6 +269,14 @@ export async function processArticleChannels({
     channel.attempts = (channel.attempts || 0) + 1;
 
     if (error) {
+      if (isBufferDuplicateScheduleError(error)) {
+        channel.bufferUpdateId = channel.bufferUpdateId || EXISTING_BUFFER_SENTINEL;
+        channel.status = CHANNEL_STATUSES.QUEUED;
+        channel.lastError = null;
+        anyUpdated = true;
+        results.push({ channel: ch, action: 'duplicate_ok', error });
+        continue;
+      }
       channel.status = rejected ? CHANNEL_STATUSES.REJECTED : CHANNEL_STATUSES.FAILED;
       channel.lastError = error;
       anyFailed = true;

@@ -2,8 +2,11 @@ name: Publish scheduled Insights
 
 on:
   schedule:
-    # 01:00 UTC = 10:00 JST (Asia/Tokyo, no DST)
-    - cron: '0 1 * * *'
+    # Primary: 01:00 UTC (nominal 10:00 JST). GHA often runs ~3h late → ~13:00 JST in practice.
+    - cron: '0 1 * * 1-5'
+    # Fallback: idempotent re-run if primary skipped or still delayed (weekdays).
+    - cron: '0 4 * * 1-5'
+    - cron: '30 5 * * 1-5'
   workflow_dispatch:
     inputs:
       force_slug:
@@ -23,11 +26,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  publish-and-buffer:
     runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.publish.outputs.changed }}
-      slug: ${{ steps.publish.outputs.slug }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,12 +54,8 @@ jobs:
             exit 1
           fi
           CMD=(node scripts/publish-scheduled-insights.mjs)
-          if [ -n "${FORCE_SLUG:-}" ]; then
-            CMD+=(--force-slug "$FORCE_SLUG")
-          fi
-          if [ -n "${NOW:-}" ]; then
-            CMD+=(--now "$NOW")
-          fi
+          if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
+          if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
           "${CMD[@]}" | tee /tmp/publish.log
           if grep -q 'UPDATED=1' /tmp/publish.log; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -70,34 +66,9 @@ jobs:
             echo "slug=" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit and push
-        if: steps.publish.outputs.changed == 'true'
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add insights/ sitemap.xml llms.txt
-          git commit -m "$(cat <<'EOF'
-          Publish scheduled Insights columns
-
-          Automated by publish-scheduled-insights workflow (JST 10:00).
-          EOF
-          )"
-          git push
-
-  buffer-queue:
-    needs: publish
-    if: needs.publish.outputs.changed == 'true' && needs.publish.outputs.slug != ''
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Queue Buffer posts (after Web deploy)
-        id: queue
+        id: buffer
+        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.slug != ''
         env:
           BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
           BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
@@ -105,11 +76,10 @@ jobs:
           BUFFER_CHANNEL_ID_FACEBOOK: ${{ secrets.BUFFER_CHANNEL_ID_FACEBOOK }}
           BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
-          PUBLISHED_SLUG: ${{ needs.publish.outputs.slug }}
         run: |
           set -euo pipefail
           node scripts/queue-daily-buffer-posts.mjs \
-            --force-slug "$PUBLISHED_SLUG" \
+            --force-slug "${{ steps.publish.outputs.slug }}" \
             --wait-deploy \
             --channels linkedin,facebook,x \
             | tee /tmp/queue-buffer.log
@@ -119,16 +89,16 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit queue/logs
-        if: steps.queue.outputs.changed == 'true'
+      - name: Commit and push (single atomic commit)
+        if: steps.publish.outputs.changed == 'true' || steps.buffer.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add insights/_social/buffer/
-          git commit -m "$(cat <<'EOF'
-          Update Buffer queue after Insights publish
+          set -euo pipefail
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "$(cat <<'EOF'
+          Publish scheduled Insights (+ Buffer queue)
 
-          Chained from publish-scheduled-insights workflow.
+          Single commit: Web publish, index/sitemap/llms, buffer + linkedin queue state.
           EOF
-          )"
-          git push
+          )" \
+            insights/ sitemap.xml llms.txt
