@@ -113,7 +113,7 @@
     {
       "slug": "citation-vs-action",
       "articleUrl": "https://readiness.coaretail.com/insights/citation-vs-action/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-06T10:00:00+09:00",
       "bufferTransferAt": "2026-08-06T10:30:00+09:00",
       "channels": {
@@ -121,41 +121,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/citation-vs-action.md",
           "publishAt": "2026-08-06T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a73e6a82770c3bfc7599e03",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-06T01:43:04.840Z",
           "lastError": null,
-          "updatedAt": "2026-08-05T08:39:53.820Z"
+          "updatedAt": "2026-08-06T01:43:04.840Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/citation-vs-action.md",
           "publishAt": "2026-08-06T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a73e6a88cf8fa20e4bed1be",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-06T01:43:04.840Z",
           "lastError": null,
-          "updatedAt": "2026-08-05T08:39:53.820Z"
+          "updatedAt": "2026-08-06T01:43:04.840Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/citation-vs-action.md",
           "publishAt": "2026-08-06T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a73e6a83360c8973c005f63",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-06T01:43:04.840Z",
           "lastError": null,
-          "updatedAt": "2026-08-05T08:39:53.820Z"
+          "updatedAt": "2026-08-06T01:43:04.840Z"
         }
       },
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-08-06T01:43:04.840Z",
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-05T08:39:53.807Z",
+      "updatedAt": "2026-08-06T01:43:04.840Z",
       "unlockedAt": "2026-08-05T08:39:53.807Z"
     },
     {

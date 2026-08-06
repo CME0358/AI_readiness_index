@@ -50,13 +50,13 @@
       "linkedinPublishAt": "2026-08-06T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/citation-vs-action/",
       "contentFile": "insights/_social/linkedin/posts/citation-vs-action.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a73e6a82770c3bfc7599e03",
+      "attempts": 1,
+      "lastAttemptAt": "2026-08-06T01:43:04.840Z",
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-05T08:39:53.807Z"
+      "updatedAt": "2026-08-06T01:43:04.840Z"
     },
     {
       "id": "ARI-LI-004",
