@@ -30,8 +30,8 @@ function resolveSlugs() {
       (a) => a.series === 'v2' && a.status === EDITORIAL_STATUSES.SCHEDULED
     );
     if (!active) {
-      console.error('No scheduled v2 article in schedule.json');
-      process.exit(1);
+      console.log('No scheduled v2 article — nothing to prepare.');
+      return [];
     }
     return [active.slug];
   }
@@ -49,6 +49,10 @@ function prepareSlug(slug) {
 }
 
 const slugs = resolveSlugs();
+if (!slugs.length) {
+  console.log('UPDATED=0');
+  process.exit(0);
+}
 const results = slugs.map(prepareSlug);
 let anyChanged = false;
 let failed = false;
