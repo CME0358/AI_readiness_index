@@ -44,7 +44,34 @@
       "publishAt": "2026-08-05T12:00:00+09:00",
       "dueAtUtc": "2026-08-05T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-07T01:12:53.678Z",
+      "slug": "competitor-blind-spot",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a753119ab236f0ec586f340",
+      "publishAt": "2026-08-07T11:30:00+09:00",
+      "dueAtUtc": "2026-08-07T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-07T01:12:53.678Z",
+      "slug": "competitor-blind-spot",
+      "channel": "facebook",
+      "bufferUpdateId": "6a75311940ccc95679dc5865",
+      "publishAt": "2026-08-07T11:45:00+09:00",
+      "dueAtUtc": "2026-08-07T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-07T01:12:53.678Z",
+      "slug": "competitor-blind-spot",
+      "channel": "x",
+      "bufferUpdateId": "6a75311940ccc95679dc589b",
+      "publishAt": "2026-08-07T12:00:00+09:00",
+      "dueAtUtc": "2026-08-07T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-05T01:59:35.681Z"
+  "updatedAt": "2026-08-07T01:12:58.758Z"
 }

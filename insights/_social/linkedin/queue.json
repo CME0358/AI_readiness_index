@@ -66,13 +66,13 @@
       "linkedinPublishAt": "2026-08-07T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/competitor-blind-spot/",
       "contentFile": "insights/_social/linkedin/posts/competitor-blind-spot.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a753119ab236f0ec586f340",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-06T06:00:00.000Z"
+      "updatedAt": "2026-08-07T01:12:58.764Z"
     },
     {
       "id": "ARI-LI-005",

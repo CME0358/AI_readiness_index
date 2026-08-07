@@ -161,7 +161,7 @@
     {
       "slug": "competitor-blind-spot",
       "articleUrl": "https://readiness.coaretail.com/insights/competitor-blind-spot/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-07T10:00:00+09:00",
       "bufferTransferAt": "2026-08-07T10:30:00+09:00",
       "channels": {
@@ -169,41 +169,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/competitor-blind-spot.md",
           "publishAt": "2026-08-07T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a753119ab236f0ec586f340",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-07T01:12:53.678Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T01:09:53.507Z"
+          "updatedAt": "2026-08-07T01:12:53.678Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/competitor-blind-spot.md",
           "publishAt": "2026-08-07T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a75311940ccc95679dc5865",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-07T01:12:53.678Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T01:09:53.508Z"
+          "updatedAt": "2026-08-07T01:12:53.678Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/competitor-blind-spot.md",
           "publishAt": "2026-08-07T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a75311940ccc95679dc589b",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-07T01:12:53.678Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T01:09:53.508Z"
+          "updatedAt": "2026-08-07T01:12:53.678Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-06T06:00:00.000Z",
+      "updatedAt": "2026-08-07T01:12:53.678Z",
       "unlockedAt": "2026-08-06T06:00:00.000Z"
     },
     {
