@@ -184,12 +184,14 @@
     },
     {
       "slug": "competitor-blind-spot",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-07T10:00:00+09:00",
+      "status": "published",
       "title": "競合分析がAI時代に見えなくなる理由",
       "cardSummary": "AIはユーザー文脈ごとに異なる比較セットを生成する。Visibility阻害ではなく競合分析手法の限界を論じる",
       "llmsLabel": "競合分析がAI時代に見えなくなる理由",
-      "series": "v2"
+      "series": "v2",
+      "unlockedAt": "2026-08-06T06:00:00.000Z",
+      "publishedAt": "2026-08-07T01:10:12.593Z"
     },
     {
       "slug": "three-pillars-ops",

@@ -62,4 +62,4 @@ jobs:
           Automated by unlock-next-insight workflow.
           EOF
           )" \
-            insights/_scheduled/schedule.json insights/_social/ insights/index.html reports/unlock-next-insight.json
+            insights/_scheduled/ insights/_social/ insights/index.html reports/unlock-next-insight.json

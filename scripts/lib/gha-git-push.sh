@@ -25,7 +25,7 @@ git commit -m "$MSG"
 
 branch="${GITHUB_REF_NAME:-main}"
 for attempt in 1 2 3 4 5; do
-  if git pull --rebase origin "$branch"; then
+  if git pull --rebase --autostash origin "$branch"; then
     if git push origin "HEAD:${branch}"; then
       echo "Pushed on attempt ${attempt}"
       exit 0
