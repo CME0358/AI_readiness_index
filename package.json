@@ -22,6 +22,8 @@
     "validate:insights:v2": "node scripts/validate-insights-v2.mjs",
     "validate:insights:seo": "node scripts/tmvu-01b-validate.mjs",
     "apply:insights:seo": "node scripts/apply-tmvu-01b-scheduled-seo.mjs",
+    "validate:insights:links": "node scripts/tmvu-03-validate.mjs",
+    "apply:insights:links": "node scripts/apply-tmvu-03-internal-links.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "indexnow:dry": "node scripts/submit-indexnow.mjs --dry-run",
     "indexnow:keyfile": "node scripts/generate-indexnow-key-file.mjs",
@@ -33,6 +35,6 @@
     "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
-    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs scripts/tests/indexnow.test.mjs"
+    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs scripts/tests/indexnow.test.mjs scripts/tests/related-links.test.mjs"
   }
 }

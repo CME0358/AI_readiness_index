@@ -11,6 +11,12 @@ import {
   escapeHtml,
   SITE_SUFFIX,
 } from './lib/insights-seo-package.mjs';
+import {
+  applyInternalLinksToHtml,
+  isProtectedInternalLinkSlug,
+  loadSchedule,
+  RELATED_INSIGHTS_CSS,
+} from './lib/insights-related-links.mjs';
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(name);
@@ -254,6 +260,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
 .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
 .back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
 .back-link:hover { color: var(--text); }
+${RELATED_INSIGHTS_CSS}
 .research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
 .footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
@@ -364,5 +371,18 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
 
 fs.mkdirSync(outDir, { recursive: true });
 const outPath = path.join(outDir, 'index.html');
-fs.writeFileSync(outPath, html, 'utf8');
+
+let finalHtml = html;
+if (!isProtectedInternalLinkSlug(slug)) {
+  const schedule = loadSchedule();
+  const entry = schedule.articles.find((a) => a.slug === slug);
+  const linkResult = applyInternalLinksToHtml(finalHtml, slug, {
+    mode: 'scheduled',
+    publishAt: entry?.publishAt || `${date}T10:00:00+09:00`,
+    schedule,
+  });
+  finalHtml = linkResult.html;
+}
+
+fs.writeFileSync(outPath, finalHtml, 'utf8');
 console.log('Wrote', outPath);

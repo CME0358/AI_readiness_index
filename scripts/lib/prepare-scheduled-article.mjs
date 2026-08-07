@@ -10,6 +10,12 @@ import {
   assertPublishQuality,
 } from './article-quality.mjs';
 import { getScheduledSeoPackage, validateInsightSeo } from './insights-seo-package.mjs';
+import {
+  applyInternalLinksToHtml,
+  assertInternalLinks,
+  isProtectedInternalLinkSlug,
+  loadSchedule,
+} from './insights-related-links.mjs';
 
 /**
  * @param {string} slug
@@ -22,7 +28,21 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
   }
 
   const before = fs.readFileSync(filePath, 'utf8');
-  const { html, changed, removed, issues } = sanitizeArticleHtmlFile(before, { slug });
+  let { html, changed, removed, issues } = sanitizeArticleHtmlFile(before, { slug });
+
+  if (!isProtectedInternalLinkSlug(slug)) {
+    const schedule = loadSchedule();
+    const entry = schedule.articles.find((a) => a.slug === slug);
+    const linkResult = applyInternalLinksToHtml(html, slug, {
+      mode: 'scheduled',
+      publishAt: entry?.publishAt || null,
+      schedule,
+    });
+    if (linkResult.changed) {
+      html = linkResult.html;
+      changed = true;
+    }
+  }
 
   if (changed) {
     fs.writeFileSync(filePath, html, 'utf8');
@@ -47,6 +67,28 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
           ok: false,
           error: 'seo_gate',
           message: seoErrors.join('; '),
+          changed,
+          removed,
+          issues,
+        };
+      }
+    }
+
+    if (!isProtectedInternalLinkSlug(slug)) {
+      try {
+        const schedule = loadSchedule();
+        const entry = schedule.articles.find((a) => a.slug === slug);
+        assertInternalLinks(html, slug, {
+          mode: 'scheduled',
+          publishAt: entry?.publishAt || null,
+          schedule,
+        });
+      } catch (err) {
+        return {
+          slug,
+          ok: false,
+          error: 'internal_links_gate',
+          message: err.message,
           changed,
           removed,
           issues,
