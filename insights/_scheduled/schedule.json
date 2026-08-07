@@ -195,12 +195,13 @@
     },
     {
       "slug": "three-pillars-ops",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-10T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Visibility・Authority・Actionabilityを運用に落とす",
       "cardSummary": "部門横断の情報オーナーシップと更新ルールが必要。定義ではなく運用設計とオーナーシップ",
       "llmsLabel": "Visibility・Authority・Actionabilityを運用に落と",
-      "series": "v2"
+      "series": "v2",
+      "unlockedAt": "2026-08-07T07:19:48.057Z"
     },
     {
       "slug": "ari-vs-geo-seo",
