@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
+import { trackReportStartOnce } from "./analytics.js";
 
 // ─── DUMMY DATA ───────────────────────────────────────────────────────────────
 const DUMMY_REPORT = {
@@ -1985,7 +1986,10 @@ export default function App() {
     }
   }, []);
 
-  const handleStart       = () => setStage("form");
+  const handleStart       = () => {
+    trackReportStartOnce();
+    setStage("form");
+  };
   const handleFormSubmit  = (data) => { setFormData(data); setStage("payment"); };
 
   const handlePay = () => {

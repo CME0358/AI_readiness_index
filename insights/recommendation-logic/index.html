@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
   <script src="/assets/ga4.js" async></script>
+<script src="/assets/analytics.js" defer></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -153,7 +154,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
     </div>
   </header>
 
-  <article class="article-body container">
+  <article class="article-body container" data-article-slug="recommendation-logic" data-article-title="AIの「おすすめ」はどう組み立てられる？">
     <div class="article-container">
       <h2>おすすめは瞬間の判断ではない</h2>
       <p>ユーザーから見ると、AIのおすすめは一問一答で返ってくるように見えます。内部では、候補の集合を作り、各候補について情報を集め、矛盾や不足がないかを確認し、ユーザーの条件に合わせて順位を付ける——という段階的な処理が行われています。</p>
@@ -200,9 +201,9 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
-        <a href="/framework/" class="btn btn-navy">Framework</a>
-        <a href="/research/" class="btn btn-secondary">Research Hub</a>
-        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>

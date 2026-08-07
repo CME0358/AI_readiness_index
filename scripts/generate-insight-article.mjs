@@ -201,6 +201,7 @@ const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -322,15 +323,15 @@ ${RELATED_INSIGHTS_CSS}
     </div>
   </header>
 
-  <article class="article-body container">
+  <article class="article-body container" data-article-slug="${slug}" data-article-title="${escapeHtmlLocal(displayTitle)}">
     <div class="article-container">
 ${bodyHtml}
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
-        <a href="/framework/" class="btn btn-navy">Framework</a>
-        <a href="/research/" class="btn btn-secondary">Research Hub</a>
-${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>

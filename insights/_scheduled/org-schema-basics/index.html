@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <script src="/assets/ga4.js" async></script>
+<script src="/assets/analytics.js" defer></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -153,7 +154,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
     </div>
   </header>
 
-  <article class="article-body container">
+  <article class="article-body container" data-article-slug="org-schema-basics" data-article-title="Organization Schemaとは？AI検索で企業情報を正しく伝える方法">
     <div class="article-container">
       <h2>論点の整理</h2>
       <p>Organizationスキーマは何を解決するか——この問いは、Organizationスキーマの実務的役割の核心です。企業エンティティの公式定義として機能する。schema vs llms.txt 比較ではなくOrganization型の実務という視点から、現場で起きているギャップを整理します。多くの企業はWeb施策を積み上げてきましたが、AIに質問されたとき自社が候補に上がらない違和感が広がっています。</p>
@@ -202,9 +203,9 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
-        <a href="/framework/" class="btn btn-navy">Framework</a>
-        <a href="/research/" class="btn btn-secondary">Research Hub</a>
-        <a href="/report/" class="btn btn-secondary">ARI診断</a>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
       </div>
 
       <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
