@@ -8,7 +8,7 @@
     "node": "20.x"
   },
   "scripts": {
-    "build:all": "rm -rf public_build && cd report && npm ci && npm run build && cd .. && mkdir -p public_build/report public_build/research public_build/whitepaper public_build/reports public_build/framework public_build/evidence public_build/news public_build/insights && cp -r report/dist/. public_build/report/ && cp index.html dental.html methodology.html improve.html robots.txt sitemap.xml BingSiteAuth.xml llms.txt public_build/ && cp favicon.ico favicon.svg apple-touch-icon.png public_build/ && cp research/index.html research/thanks.html research/ari_report_2026_free.html public_build/research/ && cp -r whitepaper/. public_build/whitepaper/ && cp -r reports/. public_build/reports/ && cp -r framework/. public_build/framework/ && cp evidence/index.html public_build/evidence/ && cp news/index.html public_build/news/ && cp -r insights/. public_build/insights/ && rm -rf public_build/insights/_scheduled && rm -rf public_build/insights/_social && cp *.webp *.png public_build/ 2>/dev/null || true && cp -r assets public_build/ && rm -rf public_build/crucial_data 2>/dev/null || true",
+    "build:all": "rm -rf public_build && cd report && npm ci && npm run build && cd .. && mkdir -p public_build/report public_build/research public_build/whitepaper public_build/reports public_build/framework public_build/evidence public_build/news public_build/insights && cp -r report/dist/. public_build/report/ && cp index.html dental.html methodology.html improve.html robots.txt sitemap.xml BingSiteAuth.xml llms.txt public_build/ && cp favicon.ico favicon.svg apple-touch-icon.png public_build/ && cp research/index.html research/thanks.html research/ari_report_2026_free.html public_build/research/ && cp -r whitepaper/. public_build/whitepaper/ && cp -r reports/. public_build/reports/ && cp -r framework/. public_build/framework/ && cp evidence/index.html public_build/evidence/ && cp news/index.html public_build/news/ && cp -r insights/. public_build/insights/ && rm -rf public_build/insights/_scheduled && rm -rf public_build/insights/_social && cp *.webp *.png public_build/ 2>/dev/null || true && cp -r assets public_build/ && rm -rf public_build/crucial_data 2>/dev/null || true && node scripts/generate-indexnow-key-file.mjs",
     "publish:insights": "node scripts/publish-scheduled-insights.mjs",
     "publish:insights:dry": "node scripts/publish-scheduled-insights.mjs --dry-run",
     "sync:v1-published": "node scripts/sync-v1-published-state.mjs",
@@ -22,6 +22,9 @@
     "validate:insights:v2": "node scripts/validate-insights-v2.mjs",
     "validate:insights:seo": "node scripts/tmvu-01b-validate.mjs",
     "apply:insights:seo": "node scripts/apply-tmvu-01b-scheduled-seo.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs",
+    "indexnow:dry": "node scripts/submit-indexnow.mjs --dry-run",
+    "indexnow:keyfile": "node scripts/generate-indexnow-key-file.mjs",
     "queue:linkedin": "node scripts/queue-daily-linkedin-buffer.mjs",
     "queue:linkedin:dry": "node scripts/queue-daily-linkedin-buffer.mjs --dry-run",
     "init:buffer-queue": "node scripts/init-buffer-queue.mjs",
@@ -30,6 +33,6 @@
     "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
-    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs"
+    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs scripts/tests/indexnow.test.mjs"
   }
 }

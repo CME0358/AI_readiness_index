@@ -47,6 +47,7 @@ jobs:
         env:
           FORCE_SLUG: ${{ github.event.inputs.force_slug }}
           NOW: ${{ github.event.inputs.now }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -euo pipefail
           if [ -n "${NOW:-}" ] && [[ ! "${NOW}" =~ T ]]; then

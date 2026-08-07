@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { extractDueArticles } from './lib/editorial-status.mjs';
 import { prepareScheduledArticle } from './lib/prepare-scheduled-article.mjs';
 import { isWeekday } from './lib/business-days.mjs';
+import { publishedUrlsFromSlugs, submitIndexNow } from './lib/indexnow-client.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -129,6 +130,13 @@ function updateInsightsLastmod(sitemap, ymd) {
   );
 }
 
+/** @param {string[]} slugs */
+async function notifyIndexNow(slugs) {
+  if (!slugs.length) return;
+  const urls = publishedUrlsFromSlugs(slugs);
+  await submitIndexNow(urls, { dryRun });
+}
+
 let indexHtml = fs.readFileSync(INDEX_PATH, 'utf8');
 let sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
 let llms = fs.readFileSync(LLMS_PATH, 'utf8');
@@ -204,6 +212,7 @@ for (const article of ordered) {
 }
 
 if (dryRun) {
+  await notifyIndexNow(published);
   console.log('Dry run complete. Would publish:', published.join(', '));
   process.exit(0);
 }
@@ -212,6 +221,8 @@ fs.writeFileSync(INDEX_PATH, indexHtml, 'utf8');
 fs.writeFileSync(SITEMAP_PATH, sitemap, 'utf8');
 fs.writeFileSync(LLMS_PATH, llms, 'utf8');
 fs.writeFileSync(SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
+
+await notifyIndexNow(published);
 
 console.log('Published:', published.join(', '));
 console.log('UPDATED=1');
