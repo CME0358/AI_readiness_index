@@ -16,6 +16,7 @@ import {
 } from './lib/editorial-status.mjs';
 import { toJstDateString } from './lib/business-days.mjs';
 import { detectHtmlQualityIssues } from './lib/article-quality.mjs';
+import { getScheduledSeoPackage, validateInsightSeo } from './lib/insights-seo-package.mjs';
 
 const jsonOut = process.argv.includes('--json');
 const results = { pass: [], review: [], fail: [], blocking: [], nonBlocking: [] };
@@ -98,6 +99,12 @@ function validateHtml() {
     if (html.includes('noindex')) add('fail', 'html', `${a.slug} has noindex`);
     if (!html.includes('BlogPosting')) add('fail', 'html', `${a.slug} missing JSON-LD`);
     if (!html.includes('article-cta')) add('fail', 'html', `${a.slug} missing CTA`);
+
+    if (getScheduledSeoPackage(a.slug)) {
+      for (const msg of validateInsightSeo(html, a.slug, { scheduled: true })) {
+        add('fail', 'seo', msg);
+      }
+    }
   }
 
   const scheduled = schedule.articles.find(

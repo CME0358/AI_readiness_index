@@ -9,6 +9,7 @@ import {
   detectHtmlQualityIssues,
   assertPublishQuality,
 } from './article-quality.mjs';
+import { getScheduledSeoPackage, validateInsightSeo } from './insights-seo-package.mjs';
 
 /**
  * @param {string} slug
@@ -36,6 +37,21 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
       assertPublishQuality(html, { slug });
     } catch (err) {
       return { slug, ok: false, error: 'quality_gate', message: err.message, changed, removed, issues };
+    }
+    const seoPkg = getScheduledSeoPackage(slug);
+    if (seoPkg) {
+      const seoErrors = validateInsightSeo(html, slug, { scheduled: true });
+      if (seoErrors.length) {
+        return {
+          slug,
+          ok: false,
+          error: 'seo_gate',
+          message: seoErrors.join('; '),
+          changed,
+          removed,
+          issues,
+        };
+      }
     }
   }
 

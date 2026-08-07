@@ -5,6 +5,12 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+  getScheduledSeoPackage,
+  buildArticleHeadHtml,
+  escapeHtml,
+  SITE_SUFFIX,
+} from './lib/insights-seo-package.mjs';
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(name);
@@ -29,7 +35,7 @@ if (!mdPath || !slug || !date || !outDir) {
 const md = fs.readFileSync(mdPath, 'utf8');
 const lines = md.split(/\r?\n/);
 
-function escapeHtml(s) {
+function escapeHtmlLocal(s) {
   return s
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -44,10 +50,10 @@ function inlineFormat(text) {
     links.push({ label, href });
     return `\x00L${id}\x00`;
   });
-  let t = escapeHtml(raw);
+  let t = escapeHtmlLocal(raw);
   t = t.replace(/\x00L(\d+)\x00/g, (_, id) => {
     const { label, href } = links[Number(id)];
-    return `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+    return `<a href="${escapeHtmlLocal(href)}">${escapeHtmlLocal(label)}</a>`;
   });
   t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   return t;
@@ -114,22 +120,44 @@ while (i < lines.length) {
   }
 }
 
-const title = titleOverride || (path.basename(mdPath, '.md').replace(/──/g, '──'));
-const displayTitle = titleOverride || path.basename(mdPath, '.md');
+const seoPkg = getScheduledSeoPackage(slug);
+const displayTitle = seoPkg?.h1 ?? (titleOverride || path.basename(mdPath, '.md'));
+const crumbText = seoPkg?.breadcrumb ?? (crumb || displayTitle.slice(0, 24));
+const description = seoPkg?.meta ?? (desc || lead || displayTitle);
+const leadText = seoPkg?.lead ?? lead;
 const dateDot = date.replace(/-/g, '.');
-const crumbText = crumb || displayTitle.slice(0, 24);
-const description = desc || lead || displayTitle;
-const pageTitle = `${displayTitle.replace(/──/g, '｜').replace(/—/g, '｜')}｜Agent Readiness Insights`.replace(
-  /｜Agent Readiness Insights｜Agent Readiness Insights$/,
-  '｜Agent Readiness Insights'
-);
-
-// Prefer cleaner <title>
-const htmlTitle = `${displayTitle.split('──')[0].split('—')[0].trim()}｜${
+const pageTitle = seoPkg ? `${seoPkg.h1}${SITE_SUFFIX}` : `${displayTitle.replace(/──/g, '｜').replace(/—/g, '｜')}｜${
   displayTitle.includes('──') || displayTitle.includes('—')
     ? displayTitle.split(/──|—/).slice(1).join('—').trim() || 'Agent Readiness Insights'
     : 'Agent Readiness Insights'
-}`;
+}`.replace(/｜Agent Readiness Insights｜Agent Readiness Insights$/, '｜Agent Readiness Insights');
+
+const headMetadata = seoPkg
+  ? buildArticleHeadHtml({
+      slug,
+      h1: seoPkg.h1,
+      metaDescription: seoPkg.meta,
+      datePublished: date,
+    })
+  : `<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtmlLocal(pageTitle)}</title>
+<meta name="description" content="${escapeHtmlLocal(description)}">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/${slug}/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": ${JSON.stringify(displayTitle)},
+  "description": ${JSON.stringify(description)},
+  "datePublished": "${date}",
+  "dateModified": "${date}",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/${slug}/",
+  "inLanguage": "ja"
+}
+</script>`;
 
 let bodyHtml = '';
 let firstH2Skipped = false;
@@ -158,35 +186,19 @@ for (let bi = 0; bi < blocks.length; bi++) {
 let ctaExtraBtn = '';
 if (ctaExtra) {
   const [href, label] = ctaExtra.split('|');
-  ctaExtraBtn = `        <a href="${href}" class="btn btn-secondary">${escapeHtml(label)}</a>\n`;
+  ctaExtraBtn = `        <a href="${href}" class="btn btn-secondary">${escapeHtmlLocal(label)}</a>\n`;
 }
 
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/assets/ga4.js" async></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(htmlTitle)}</title>
-<meta name="description" content="${escapeHtml(description)}">
-<link rel="canonical" href="https://readiness.coaretail.com/insights/${slug}/">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": ${JSON.stringify(displayTitle)},
-  "description": ${JSON.stringify(description)},
-  "datePublished": "${date}",
-  "dateModified": "${date}",
-  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
-  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
-  "mainEntityOfPage": "https://readiness.coaretail.com/insights/${slug}/",
-  "inLanguage": "ja"
-}
-</script>
+${seoPkg ? headMetadata.replace(/<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n/, '') : headMetadata}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -292,14 +304,14 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>${escapeHtml(crumbText)}</span>
+        <span>${escapeHtmlLocal(crumbText)}</span>
       </nav>
       <p class="article-meta">
         <time datetime="${date}">${dateDot}</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>${escapeHtml(displayTitle)}</h1>
-      <p class="lead">${escapeHtml(lead)}</p>
+      <h1>${escapeHtmlLocal(displayTitle)}</h1>
+      <p class="lead">${escapeHtmlLocal(leadText)}</p>
     </div>
   </header>
 

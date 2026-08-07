@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { PATHS, ROOT, articleUrl } from './lib/insights-v2-paths.mjs';
+import { getScheduledSeoPackage } from './lib/insights-seo-package.mjs';
 import { isoAtJst, toJstDateString, charCountNoSpace } from './lib/business-days.mjs';
 
 const skipHtml = process.argv.includes('--skip-html');
@@ -32,11 +33,16 @@ function materializeMarkdown(articles) {
   for (const a of articles) {
     const mdPath = path.join(PATHS.columnDir, `${a.slug}.md`);
     fs.writeFileSync(mdPath, a.body.trim() + '\n', 'utf8');
+    const seo = getScheduledSeoPackage(a.slug);
     meta[a.slug] = {
       title: a.title,
-      lead: a.lead,
-      desc: a.desc,
-      crumb: a.crumb,
+      seoTitle: seo?.h1,
+      lead: seo?.lead ?? a.lead,
+      desc: seo?.meta ?? a.desc,
+      metaDescription: seo?.meta,
+      searchIntentClass: seo?.intent,
+      primarySearchIntent: seo?.primarySearchIntent,
+      crumb: seo?.breadcrumb ?? a.crumb,
       cardSummary: a.cardSummary,
       ctaExtra: a.ctaExtra || '',
       mdFile: `${a.slug}.md`,

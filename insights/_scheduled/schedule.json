@@ -201,7 +201,11 @@
       "cardSummary": "部門横断の情報オーナーシップと更新ルールが必要。定義ではなく運用設計とオーナーシップ",
       "llmsLabel": "Visibility・Authority・Actionabilityを運用に落と",
       "series": "v2",
-      "unlockedAt": "2026-08-07T07:19:48.057Z"
+      "unlockedAt": "2026-08-07T07:19:48.057Z",
+      "seoTitle": "Visibility・Authority・Actionabilityを運用に落とす方法",
+      "metaDescription": "Visibility・Authority・Actionabilityを部門横断で運用する方法。定義の理解から情報オーナーシップ・更新ルールまで、Agent Readinessを現場に落とす設計を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "三柱フレームワークの運用設計"
     },
     {
       "slug": "ari-vs-geo-seo",
@@ -210,7 +214,11 @@
       "title": "SEO・GEO・ARIの役割分担を整理する",
       "cardSummary": "検索→引用→実行と段階が異なり、役割分担で設計すべき。why-ariの基準論ではなく3手法の役割分担表",
       "llmsLabel": "SEO・GEO・ARIの役割分担を整理する",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "SEO・GEO・Agent Readinessの違いとは？AI検索対策を比較",
+      "metaDescription": "SEO・GEO・Agent Readinessは段階が異なる。検索流入・AI回答での引用・予約や購入の実行完了まで、3手法の役割分担とAI検索対策の設計優先順位をAgent Readinessの視点で比較解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "SEO GEO Agent Readiness 違い 比較"
     },
     {
       "slug": "readiness-baseline",
@@ -219,7 +227,11 @@
       "title": "「準備できている」の最低ライン",
       "cardSummary": "発見・理解・信頼・実行の各段階に最低条件がある。チェックリスト項目ではなく「最低ライン」の判断基準",
       "llmsLabel": "「準備できている」の最低ライン",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "Agent Readinessの最低ラインとは？準備度の判断基準",
+      "metaDescription": "「準備できている」の判断基準——発見・理解・信頼・実行の各段階に最低条件がある。チェックリストの項目数ではなく、Agent Readinessの最低ラインを判断する基準と、段階ごとの止まりどころを解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "Agent Readiness 最低ライン 判断基準"
     },
     {
       "slug": "entity-consistency",
@@ -228,7 +240,11 @@
       "title": "企業情報の一貫性がAIの理解を決める",
       "cardSummary": "エンティティ解決の失敗はVisibility/Authority両方を損なう。矛盾の結果論ではなくエンティティ一貫性の設計",
       "llmsLabel": "企業情報の一貫性がAIの理解を決める",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "企業情報の一貫性がAI理解を左右する理由",
+      "metaDescription": "名称・所在地・提供内容が場所ごとに異なるとAIのエンティティ解決が失敗する。VisibilityとAuthorityを同時に損なう一貫性設計をAgent Readinessの視点で解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "企業情報 一貫性 AI エンティティ"
     },
     {
       "slug": "faq-for-agents",
@@ -237,7 +253,11 @@
       "title": "AI向けFAQ設計の基本",
       "cardSummary": "人間向けFAQとAIが参照できるFAQは要件が異なる。Authorityの一般論ではなくFAQ設計実務",
       "llmsLabel": "AI向けFAQ設計の基本",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "FAQはAI検索対策に効果がある？AIに理解されるFAQ設計",
+      "metaDescription": "人間向けFAQとAIが参照できるFAQは要件が異なる。質問の構造化・回答の明確さ・更新ルールなど、AI検索対策として効くFAQ設計の基本と、Agent ReadinessのAuthority・Visibilityへの効き方を解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "FAQ AI検索対策 設計"
     },
     {
       "slug": "org-schema-basics",
@@ -246,7 +266,11 @@
       "title": "Organizationスキーマの実務的役割",
       "cardSummary": "企業エンティティの公式定義として機能する。schema vs llms.txt 比較ではなくOrganization型の実",
       "llmsLabel": "Organizationスキーマの実務的役割",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "Organization Schemaとは？AI検索で企業情報を正しく伝える方法",
+      "metaDescription": "Organizationスキーマは企業エンティティの公式定義として機能する。Schema.orgのOrganization型の実務的役割と、AI検索で企業情報を正しく伝える設計を解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "Organization Schema 企業情報 構造化"
     },
     {
       "slug": "semantic-web-ai",
@@ -255,7 +279,11 @@
       "title": "Web上の意味構造とAIの読み取り",
       "cardSummary": "見出し・ラベル・構造化データが意味の骨格になる。ファイル比較ではなく意味構造の読み取り",
       "llmsLabel": "Web上の意味構造とAIの読み取り",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "セマンティックWebとは？生成AI・AI検索との関係を解説",
+      "metaDescription": "セマンティックWebの意味構造——見出し・ラベル・構造化データ——がAIの読み取りの骨格になる。生成AI・AI検索との関係と、Agent Readinessの情報設計への示唆を解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "セマンティックWeb AI 意味構造"
     },
     {
       "slug": "hiring-readiness",
@@ -264,7 +292,11 @@
       "title": "求人情報をAIが比較できる状態",
       "cardSummary": "職種・条件・勤務地・選考フローの構造化が必要。予約/決済ではなく採用ドメインのActionability",
       "llmsLabel": "求人情報をAIが比較できる状態",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "求人情報をAIが比較できる状態にするには？",
+      "metaDescription": "職種・条件・勤務地・選考フローが構造化されていないとAIは求人を比較できない。採用ドメインにおけるAgent Readiness——Actionabilityの設計と、求人比較の前提条件を解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "求人情報 AI 比較 構造化"
     },
     {
       "slug": "availability-signals",
@@ -273,7 +305,11 @@
       "title": "空きと営業時間を機械に伝える",
       "cardSummary": "静的表記だけでなく更新可能なシグナル設計が必要。予約可否の一般論ではなく空きシグナル設計",
       "llmsLabel": "空きと営業時間を機械に伝える",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "空き状況・営業時間をAIに伝えるシグナル設計",
+      "metaDescription": "静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "空き状況 営業時間 機械可読 シグナル"
     },
     {
       "slug": "purchase-path-design",
@@ -282,7 +318,11 @@
       "title": "購買導線をAIが辿れる設計",
       "cardSummary": "商品理解・在庫・価格・決済の各段階が連続している必要。決済単体ではなく購買導線全体",
       "llmsLabel": "購買導線をAIが辿れる設計",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "購買導線をAIが辿れる設計——決済までの連続性",
+      "metaDescription": "商品理解・在庫・価格・決済の各段階が途切れるとAIは購買を完結できない。決済単体ではなく、購買導線全体の連続性とAgent Readiness設計の観点から、AIが辿れる購買導線を解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "購買導線 AI 決済 設計"
     },
     {
       "slug": "policy-clarity",
@@ -291,7 +331,11 @@
       "title": "規約・返金・キャンセルの明確さ",
       "cardSummary": "条件の曖昧さはAIの実行判断を止める。信頼の一般論ではなく規約の機械可読性",
       "llmsLabel": "規約・返金・キャンセルの明確さ",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "返金・キャンセル規約の明確さがAI実行に与える影響",
+      "metaDescription": "返金・キャンセル条件の曖昧さはAIの実行判断を止める。規約の機械可読性とActionabilityへの影響を、Agent Readinessの視点から解説し、返金・キャンセル規約の明確さが実行に与える影響を整理します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "返金 キャンセル 規約 AI 実行"
     },
     {
       "slug": "agent-handoff",
@@ -300,7 +344,11 @@
       "title": "AIエージェントと人間の引き継ぎ設計",
       "cardSummary": "引き継ぎ条件・エスカレーション・記録が設計要素。予約実行ではなく人間へのハンドオフ",
       "llmsLabel": "AIエージェントと人間の引き継ぎ設計",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "AIエージェントから人間への引き継ぎ設計",
+      "metaDescription": "AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "AI 人間 引き継ぎ ハンドオフ"
     },
     {
       "slug": "mcp-business-api",
@@ -309,7 +357,11 @@
       "title": "MCPとビジネスAPIの接点",
       "cardSummary": "MCPはエージェントが業務APIを安全に呼ぶための接続層。決済プロトコルではなくMCPのビジネス接点",
       "llmsLabel": "MCPとビジネスAPIの接点",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "MCPとは？AIエージェントと企業システムをつなぐ仕組み",
+      "metaDescription": "MCP（Model Context Protocol）はAIエージェントが業務APIを安全に呼ぶ接続層。決済プロトコルではなく、企業システムとエージェントをつなぐ仕組みを解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "MCP AIエージェント ビジネスAPI"
     },
     {
       "slug": "multi-agent-compare",
@@ -318,7 +370,11 @@
       "title": "複数エージェントが比較するとき",
       "cardSummary": "参照情報源・実行能力・ポリシーがエージェントごとに異なる。単一AIの推薦論ではなくマルチエージェント比較",
       "llmsLabel": "複数エージェントが比較するとき",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "ChatGPT・Gemini・Google AIで企業評価は違う？AI推薦を比較",
+      "metaDescription": "ChatGPT・Gemini・Google AIは参照情報源・実行能力・ポリシーが異なる。単一AIの推薦論ではなく、マルチエージェント環境での企業評価の違いを比較し、Agent Readiness設計への示唆を整理します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "ChatGPT Gemini Google AI 企業評価 比較"
     },
     {
       "slug": "agent-experience",
@@ -327,7 +383,11 @@
       "title": "Agent Experienceとは何か",
       "cardSummary": "エージェントが目的達成する体験設計が必要。Actionability定義ではなく体験設計の視点",
       "llmsLabel": "Agent Experienceとは何か",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "Agent Experience（AX）とは？エージェント体験設計の基本",
+      "metaDescription": "Agent Experience（AX）とは、AIエージェントが目的達成する体験設計。Actionabilityの定義ではなく、エージェント視点での情報設計とAgent Readinessの関係を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "Agent Experience AX 体験設計"
     },
     {
       "slug": "marketing-info-design",
@@ -336,7 +396,11 @@
       "title": "マーケが担う情報設計の再定義",
       "cardSummary": "比較可能な情報設計がマーケの中核になる。運用論ではなくマーケ機能の再定義",
       "llmsLabel": "マーケが担う情報設計の再定義",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "マーケティングが担うAI時代の情報設計",
+      "metaDescription": "AI時代のマーケティングは、比較可能な情報設計が中核になる。キャンペーン運用の話ではなく、Agent Readinessを支える情報設計としてのマーケ機能の再定義と、現場での役割分担を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "マーケティング 情報設計 AI時代"
     },
     {
       "slug": "exec-readiness-kpi",
@@ -345,7 +409,11 @@
       "title": "経営が見るべきReadiness指標",
       "cardSummary": "順位ではなく段階別到達率と実行成功率を見る。基準論ではなく経営KPI設計",
       "llmsLabel": "経営が見るべきReadiness指標",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "経営が見るべきAgent Readiness KPI",
+      "metaDescription": "検索順位ではなく段階別到達率と実行成功率——経営が見るべきAgent Readiness KPIの設計。基準論ではなく、経営ダッシュボードの指標選定と、Visibility・Authority・Actionabilityの測り方を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "Agent Readiness KPI 経営指標"
     },
     {
       "slug": "vendor-selection",
@@ -354,7 +422,11 @@
       "title": "予約SaaS選定のReadiness視点",
       "cardSummary": "機能表ではなくAIが接続・実行できるかで選ぶ。予約可否の説明ではなくSaaS選定基準",
       "llmsLabel": "予約SaaS選定のReadiness視点",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "予約SaaS選定のReadiness視点——機能比較の先",
+      "metaDescription": "予約SaaS選定は機能表ではなく、AIが接続・実行できるかで判断する。Agent Readinessの視点から、SaaS選定基準と実行可能性——空き確認から予約完了まで——を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "予約SaaS 選定 Agent Readiness"
     },
     {
       "slug": "content-ops-ai",
@@ -363,7 +435,11 @@
       "title": "コンテンツ運用のAI前提化",
       "cardSummary": "更新頻度・一貫性・構造化がSEO以上に重要。意味構造論ではなく運用プロセス",
       "llmsLabel": "コンテンツ運用のAI前提化",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "コンテンツ運用のAI前提化——更新と一貫性",
+      "metaDescription": "AI前提のコンテンツ運用では、更新頻度・一貫性・構造化がSEO以上に重要。運用プロセスをAgent Readinessの改善サイクルとして再設計する方法と、更新と一貫性の管理を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "コンテンツ運用 AI 更新 一貫性"
     },
     {
       "slug": "interaction-contract",
@@ -372,7 +448,11 @@
       "title": "ビジネスとの約束を機械可読に",
       "cardSummary": "約束の明文化と構造化がBusiness Interactionの起点。規約明確さではなく「約束」の設計思想",
       "llmsLabel": "ビジネスとの約束を機械可読に",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "ビジネスとの約束を機械可読にする設計",
+      "metaDescription": "ビジネスとの約束——提供条件・SLA・制約——を明文化し構造化する設計。規約の明確さを超えた、Business Interactionの起点となる約束設計と、Agent Readinessの実行レイヤーへの効き方を解説します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "ビジネス 約束 機械可読 設計"
     },
     {
       "slug": "consent-data-design",
@@ -381,7 +461,11 @@
       "title": "同意とデータ提供の設計",
       "cardSummary": "最小必要データと同意フローが実行の前提。信頼の一般論ではなくデータ同意設計",
       "llmsLabel": "同意とデータ提供の設計",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "同意とデータ提供の設計——AI実行の前提",
+      "metaDescription": "AI実行には最小必要データと同意フローの設計が前提。信頼の一般論ではなく、データ同意と提供範囲をAgent Readinessの実行レイヤーとして解説し、同意とデータ提供の設計を整理します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "同意 データ提供 AI 実行 設計"
     },
     {
       "slug": "execution-readiness",
@@ -390,7 +474,11 @@
       "title": "Execution Readinessの実務",
       "cardSummary": "実行前チェックリストと障害ログが改善を加速。Actionability定義ではなく実行改善サイクル",
       "llmsLabel": "Execution Readinessの実務",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "AIエージェントが予約・購入できるサイトの条件とは？",
+      "metaDescription": "AIエージェントが予約・購入を完結できるサイトの条件——実行前チェックリストと障害ログ。Actionabilityの定義ではなく、Execution Readinessの実務改善サイクルを解説します。",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "AI 予約 購入 サイト 条件"
     },
     {
       "slug": "abis-intro",
@@ -399,7 +487,11 @@
       "title": "ABISが目指すBusiness Interaction",
       "cardSummary": "エージェントとビジネスの相互作用を記述・検証する枠組み。ABISを正式標準と断定せず、目的と位置づけを説明",
       "llmsLabel": "ABISが目指すBusiness Interaction",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "ABISとは？AIエージェントと企業のBusiness Interaction標準",
+      "metaDescription": "ABISはエージェントとビジネスの相互作用を記述・検証する新興フレームワーク。正式標準ではなく、Business Interactionの目的と位置づけをAgent Readiness文脈で解説します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "ABIS Business Interaction とは"
     },
     {
       "slug": "abis-ari-bridge",
@@ -408,7 +500,11 @@
       "title": "ABISとAgent Readinessの接続",
       "cardSummary": "ARIは評価軸、ABISは相互作用の記述・検証の方向性。ARI概論ではなく両者の接続マップ",
       "llmsLabel": "ABISとAgent Readinessの接続",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "ABISとAgent Readiness（ARI）の関係とは？",
+      "metaDescription": "ARIは評価軸、ABISは相互作用の記述・検証——両者は同義ではない。Agent ReadinessとABISの接続マップと、設計・評価での使い分け、評価と記述のレイヤーの違いを解説します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "ABIS ARI 関係 違い"
     },
     {
       "slug": "standards-landscape",
@@ -417,7 +513,11 @@
       "title": "標準化の動きをどう読むか",
       "cardSummary": "標準は競合ではなく層が異なる — 用途で選ぶ。個別技術比較ではなく標準ランドscape",
       "llmsLabel": "標準化の動きをどう読むか",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "Schema.org・MCP・ABIS——標準化の動きをどう読むか",
+      "metaDescription": "Schema.org・MCP・ABISは競合ではなく層が異なる。個別技術比較ではなく、標準化の動きを用途別に読み解き、Agent Readiness設計への示唆と、組み合わせ方の考え方を整理します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "Schema.org MCP ABIS 標準 比較"
     },
     {
       "slug": "abis-readiness-gap",
@@ -426,7 +526,11 @@
       "title": "ABIS視点で見る企業のギャップ",
       "cardSummary": "相互作用の記述不足が実行失敗の温床。ギャップ診断の実務視点（正式標準とは断定しない）",
       "llmsLabel": "ABIS視点で見る企業のギャップ",
-      "series": "v2"
+      "series": "v2",
+      "seoTitle": "ABIS視点で見る企業のReadinessギャップ",
+      "metaDescription": "相互作用の記述不足が実行失敗の温床。ABIS視点から企業のReadinessギャップを診断する実務視点——新興フレームワークとしての位置づけを踏まえ、Agent Readinessとの接点も解説します。",
+      "searchIntentClass": "C",
+      "primarySearchIntent": "ABIS Readiness ギャップ 診断"
     }
   ]
 }

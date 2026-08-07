@@ -20,6 +20,8 @@
     "unlock:next:dry": "node scripts/unlock-next-insight.mjs --dry-run",
     "generate:insights:v2": "node scripts/generate-insights-v2.mjs",
     "validate:insights:v2": "node scripts/validate-insights-v2.mjs",
+    "validate:insights:seo": "node scripts/tmvu-01b-validate.mjs",
+    "apply:insights:seo": "node scripts/apply-tmvu-01b-scheduled-seo.mjs",
     "queue:linkedin": "node scripts/queue-daily-linkedin-buffer.mjs",
     "queue:linkedin:dry": "node scripts/queue-daily-linkedin-buffer.mjs --dry-run",
     "init:buffer-queue": "node scripts/init-buffer-queue.mjs",

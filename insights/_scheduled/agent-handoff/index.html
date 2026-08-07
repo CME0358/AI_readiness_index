@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="/assets/ga4.js" async></script>
+  <meta charset="UTF-8">
+<script src="/assets/ga4.js" async></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIエージェントと人間の引き継ぎ設計｜Agent Readiness Insights</title>
-<meta name="description" content="AIエージェントと人間の引き継ぎ設計。引き継ぎ条件・エスカレーション・記録が設計要素">
+<title>AIエージェントから人間への引き継ぎ設計 | Agent Readiness Insights</title>
+<meta name="description" content="AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。">
 <link rel="canonical" href="https://readiness.coaretail.com/insights/agent-handoff/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIエージェントから人間への引き継ぎ設計">
+<meta property="og:description" content="AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/agent-handoff/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIエージェントから人間への引き継ぎ設計">
+<meta name="twitter:description" content="AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "AIエージェントと人間の引き継ぎ設計",
-  "description": "AIエージェントと人間の引き継ぎ設計。引き継ぎ条件・エスカレーション・記録が設計要素",
+  "headline": "AIエージェントから人間への引き継ぎ設計",
+  "description": "AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。",
   "datePublished": "2026-08-25",
   "dateModified": "2026-08-25",
   "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
@@ -129,14 +137,14 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>エージェント引き継ぎ</span>
+        <span>ハンドオフ設計</span>
       </nav>
       <p class="article-meta">
         <time datetime="2026-08-25">2026.08.25</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>AIエージェントと人間の引き継ぎ設計</h1>
-      <p class="lead">AIが途中で止まるとき——引き継ぎ設計がなければユーザー体験は途切れる。引き継ぎ条件・エスカレーション・記録が設計要素</p>
+      <h1>AIエージェントから人間への引き継ぎ設計</h1>
+      <p class="lead">すべてをAIが完結させる必要はない。引き継ぎ条件・エスカレーション・記録が設計されていなければ、エージェント体験は途中で破綻する——AIから人間へのハンドオフ設計の基本と、現場での要点を本記事で整理する。</p>
     </div>
   </header>
 

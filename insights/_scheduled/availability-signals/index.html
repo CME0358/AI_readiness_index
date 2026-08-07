@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="/assets/ga4.js" async></script>
+  <meta charset="UTF-8">
+<script src="/assets/ga4.js" async></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>空きと営業時間を機械に伝える｜Agent Readiness Insights</title>
-<meta name="description" content="空きと営業時間を機械に伝える。静的表記だけでなく更新可能なシグナル設計が必要">
+<title>空き状況・営業時間をAIに伝えるシグナル設計 | Agent Readiness Insights</title>
+<meta name="description" content="静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。">
 <link rel="canonical" href="https://readiness.coaretail.com/insights/availability-signals/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空き状況・営業時間をAIに伝えるシグナル設計">
+<meta property="og:description" content="静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/availability-signals/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="空き状況・営業時間をAIに伝えるシグナル設計">
+<meta name="twitter:description" content="静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "空きと営業時間を機械に伝える",
-  "description": "空きと営業時間を機械に伝える。静的表記だけでなく更新可能なシグナル設計が必要",
+  "headline": "空き状況・営業時間をAIに伝えるシグナル設計",
+  "description": "静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。",
   "datePublished": "2026-08-20",
   "dateModified": "2026-08-20",
   "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
@@ -129,14 +137,14 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
       <nav class="breadcrumb" aria-label="パンくず">
         <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
         <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
-        <span>空きシグナル設計</span>
+        <span>空きシグナル</span>
       </nav>
       <p class="article-meta">
         <time datetime="2026-08-20">2026.08.20</time>
         <span class="article-tag">Column</span>
       </p>
-      <h1>空きと営業時間を機械に伝える</h1>
-      <p class="lead">営業時間の静的表記だけでは、当日の空きは機械に伝わらない。静的表記だけでなく更新可能なシグナル設計が必要</p>
+      <h1>空き状況・営業時間をAIに伝えるシグナル設計</h1>
+      <p class="lead">空き状況と営業時間は、静的表記だけではAIに伝わらない。更新可能なシグナル設計がなければ、紹介の直前で予約可否の判断が止まる——空き・営業時間を機械に伝えるシグナル設計の考え方と要点を本記事で整理する。</p>
     </div>
   </header>
 
