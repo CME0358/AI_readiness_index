@@ -710,7 +710,10 @@ function LandingPage({ onStart }) {
         <Reveal>
         <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>サンプル</span>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 48 }}>こんなレポートが届きます</h2>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 12 }}>こんなレポートが届きます</h2>
+          <div style={{ display: "inline-block", background: "#FFFBEB", border: "1px solid #FDE68A", color: "#92400E", fontSize: 11, fontWeight: 700, padding: "6px 14px", borderRadius: 100, marginBottom: 36, letterSpacing: 0.5 }}>
+            ILLUSTRATIVE DATA — 正式購入レポートとはデータソースが異なります
+          </div>
           <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "48px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap" }}>
               <div style={{ textAlign: "center" }}>
@@ -1225,7 +1228,7 @@ const ANALYSIS_STEPS = [
   { id: "report",     label: "レポートを生成中…",           fn: null },
 ];
 
-function AnalyzingPage({ onComplete, form }) {
+function AnalyzingPage({ onComplete, form, isPaidFlow = false }) {
   const [currentStep, setCurrentStep]   = useState(0);
   const [completedSteps, setCompleted]  = useState([]);
   const [progress, setProgress]         = useState(0);
@@ -1262,11 +1265,18 @@ function AnalyzingPage({ onComplete, form }) {
             url:      form?.url      || "",
             industry: form?.industry || "",
             email:    form?.email    || "",
+            paid:     isPaidFlow,
           }),
         });
-        if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const msg = data?.message || data?.error || `サーバーエラー (${res.status})`;
+          throw new Error(msg);
+        }
         if (!data?.report) throw new Error("レポートデータを取得できませんでした");
+        if (isPaidFlow && data.mode !== "live") {
+          throw new Error("有料診断にはライブ解析結果が必要です。しばらくして再試行してください。");
+        }
 
         clearInterval(stepTimer);
         setApiMode(data.mode === "live" ? "live" : "demo");
@@ -1435,7 +1445,7 @@ function NavSeekBar({ targetRef }) {
 }
 
 // ─── REPORT PAGE ──────────────────────────────────────────────────────────────
-function ReportPage({ report, form }) {
+function ReportPage({ report, form, reportMode = "demo" }) {
   const [activeSection, setActiveSection] = useState("overview");
   const [printing, setPrinting] = useState(false);
   const scoreRef = useRef(null);
@@ -1454,16 +1464,21 @@ function ReportPage({ report, form }) {
   const animScore = useCountUp(report.overallScore, 2000, scoreVisible);
   const certLevel = typeof report.certification === "string" ? report.certification : report.certification?.level;
   const cert = CERT_COLORS[certLevel] || CERT_COLORS.Bronze;
+  const isSampleReport = reportMode === "sample";
+  const showRankMetrics = !!(report.rank && report.deviation != null);
+  const showKnowledge = Array.isArray(report.knowledgeCoverage) && report.knowledgeCoverage.length > 0;
+  const showAuthority = Array.isArray(report.authority) && report.authority.length > 0;
+  const showCompetitors = Array.isArray(report.competitors) && report.competitors.length > 0;
   const sections = [
     { id: "overview", label: "総合スコア" },
     { id: "summary", label: "エグゼクティブ" },
     { id: "breakdown", label: "スコア詳細" },
     { id: "ai", label: "AI認識" },
-    { id: "knowledge", label: "情報カバレッジ" },
-    { id: "authority", label: "権威性" },
+    ...(showKnowledge ? [{ id: "knowledge", label: "情報カバレッジ" }] : []),
+    ...(showAuthority ? [{ id: "authority", label: "権威性" }] : []),
     { id: "booking", label: "予約導線" },
     { id: "technical", label: "技術" },
-    { id: "competitors", label: "競合比較" },
+    ...(showCompetitors ? [{ id: "competitors", label: "競合比較" }] : []),
     { id: "proposals", label: "改善点提案" },
     { id: "roadmap", label: "改善ロードマップ" },
   ];
@@ -1489,6 +1504,13 @@ function ReportPage({ report, form }) {
   return (
     <PrintContext.Provider value={printing}>
     <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", background: "#fff" }}>
+      {isSampleReport && (
+        <div style={{ background: "#FFFBEB", borderBottom: "1px solid #FDE68A", padding: "10px 40px", textAlign: "center" }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#92400E", letterSpacing: 1 }}>
+            SAMPLE / DEMO — ILLUSTRATIVE DATA（サンプル表示。実購入レポートとはデータソースが異なります）
+          </span>
+        </div>
+      )}
       {/* Sticky Nav */}
       <div style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #E8E8E8" }}>
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", gap: 12, height: 52 }}>
@@ -1528,6 +1550,7 @@ function ReportPage({ report, form }) {
             <div style={{ display: "inline-block", background: cert.bg, color: cert.text, padding: "8px 24px", borderRadius: 100, fontSize: 14, fontWeight: 800, marginBottom: 24, letterSpacing: "-0.3px" }}>
               {certLevel} Certified
             </div>
+            {showRankMetrics ? (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               {[
                 ["全国順位", `${report.rank.national.toLocaleString()}位`],
@@ -1541,6 +1564,15 @@ function ReportPage({ report, form }) {
                 </div>
               ))}
             </div>
+            ) : (
+            <div style={{ ...cardStyle, marginBottom: 8 }}>
+              <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4 }}>Readiness Level</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{report.level}</div>
+              <div style={{ fontSize: 12, color: "#6B6B6B", marginTop: 8, lineHeight: 1.6 }}>
+                自社サイト解析と主要AIクエリに基づくARIスコアです。母集団順位・偏差値は含みません。
+              </div>
+            </div>
+            )}
           </div>
           <div>
             <div style={{ ...cardStyle, textAlign: "center", padding: "32px" }}>
@@ -1548,8 +1580,9 @@ function ReportPage({ report, form }) {
               <div style={{ fontSize: 36, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-1px" }}>{report.level}</div>
               <div style={{ width: 48, height: 2, background: cert.bg, margin: "16px auto" }} />
               <p style={{ fontSize: 13, color: "#6B6B6B", lineHeight: 1.7 }}>
-                上位15%のAI推薦適性を持つ企業として認定されました。
-                業界内でも高い競争優位性を維持しています。
+                {isSampleReport
+                  ? "上位15%のAI推薦適性を持つ企業として認定されました。業界内でも高い競争優位性を維持しています。"
+                  : `${report.level}レベルの評価です。カテゴリ別スコアと改善ロードマップを確認してください。`}
               </p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginTop: 16 }}>
@@ -1640,6 +1673,7 @@ function ReportPage({ report, form }) {
       </section>
 
       {/* ⑤ Knowledge Coverage */}
+      {showKnowledge && (
       <section id="knowledge" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
         <div style={headingStyle}>05 / Knowledge Coverage</div>
         <h2 style={h2Style}>AIの情報カバレッジ</h2>
@@ -1659,8 +1693,10 @@ function ReportPage({ report, form }) {
           ))}
         </div>
       </section>
+      )}
 
       {/* ⑥ Authority */}
+      {showAuthority && (
       <section id="authority" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
         <div style={headingStyle}>06 / Authority & Citation</div>
         <h2 style={h2Style}>AI引用元の権威分布</h2>
@@ -1668,6 +1704,7 @@ function ReportPage({ report, form }) {
           <PieChart data={report.authority} />
         </div>
       </section>
+      )}
 
       {/* ⑦ Booking Readiness */}
       <section id="booking" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
@@ -1721,13 +1758,15 @@ function ReportPage({ report, form }) {
       </section>
 
       {/* ⑨ Competitor Comparison */}
+      {showCompetitors && (
       <section id="competitors" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
         <div style={headingStyle}>09 / Competitor Comparison</div>
-        <h2 style={h2Style}>競合比較</h2>
+        <h2 style={h2Style}>競合比較{isSampleReport ? "（サンプル）" : ""}</h2>
         <div style={cardStyle}>
           <BarChart data={report.competitors} />
         </div>
       </section>
+      )}
 
       {/* ⑩ Improvement Proposals */}
       <section id="proposals" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
@@ -1939,6 +1978,8 @@ export default function App() {
   const [stage, setStage]         = useState("landing");
   const [formData, setFormData]   = useState(null);
   const [reportData, setReport]   = useState(null);
+  const [isPaidFlow, setIsPaidFlow] = useState(false);
+  const [reportMode, setReportMode] = useState("demo"); // demo | paid | sample
 
   // リザルト表示時に improve.html へ渡すスコアを localStorage に保存
   useEffect(() => {
@@ -1962,6 +2003,8 @@ export default function App() {
         email: "demo@example.com",
       });
       setReport(DUMMY_REPORT);
+      setReportMode("sample");
+      setIsPaidFlow(false);
       saveReportSummary(DUMMY_REPORT);
       setStage("report");
       return;
@@ -1978,6 +2021,8 @@ export default function App() {
     window.history.replaceState({}, "", window.location.pathname);
 
     if (paid) {
+      setIsPaidFlow(true);
+      setReportMode("paid");
       if (saved) { setFormData(saved); setStage("analyzing"); }
       else { setStage("form"); }   // フォーム情報が無ければ再入力へ
     } else if (canceled) {
@@ -2009,13 +2054,14 @@ export default function App() {
     try { localStorage.removeItem(PENDING_FORM_KEY); } catch { /* noop */ }
     saveReportSummary(report);
     setReport(report);
+    if (isPaidFlow) setReportMode("paid");
     setStage("report");
   };
 
   if (stage === "landing")   return <LandingPage onStart={handleStart} />;
   if (stage === "form")      return <FormPage onSubmit={handleFormSubmit} onClose={() => setStage("landing")} />;
   if (stage === "payment")   return <PaymentPage form={formData} onPay={handlePay} onBack={() => setStage("form")} onClose={() => setStage("landing")} />;
-  if (stage === "analyzing") return <AnalyzingPage onComplete={handleAnalysisComplete} form={formData} />;
-  if (stage === "report")    return <ReportPage report={reportData || DUMMY_REPORT} form={formData} />;
+  if (stage === "analyzing") return <AnalyzingPage onComplete={handleAnalysisComplete} form={formData} isPaidFlow={isPaidFlow} />;
+  if (stage === "report")    return <ReportPage report={reportData || DUMMY_REPORT} form={formData} reportMode={reportMode} />;
   return null;
 }

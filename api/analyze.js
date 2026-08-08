@@ -1,3 +1,8 @@
+import {
+  applyPaidProductIntegrity,
+  shouldRejectPaidAnalysis,
+} from "../scripts/lib/product-integrity.mjs";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // /api/analyze — Agent Readiness Index 解析バックエンド
 //
@@ -379,9 +384,11 @@ function buildImprovementProposals(form, { roadmap, siteData, specialFiles, vali
 }
 
 // AI結果 + サイト解析結果 → レポートオブジェクトを生成
-function buildReport(form, aiResults, siteData, specialFiles) {
+function buildReport(form, aiResults, siteData, specialFiles, options = {}) {
+  const productMode = options.productMode || "demo";
   const validAI = aiResults.filter(Boolean);
   if (validAI.length === 0) {
+    if (productMode === "paid") return null;
     return { ...DUMMY_REPORT, company: form.company, url: form.url, industry: form.industry };
   }
 
@@ -451,7 +458,7 @@ function buildReport(form, aiResults, siteData, specialFiles) {
   const today    = new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" });
   const nextYear = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" });
 
-  return {
+  const report = {
     company:    form.company,
     url:        form.url,
     industry:   form.industry,
@@ -507,7 +514,16 @@ ${roadmap.length > 0 ? `特に「${roadmap[0].action}」などの施策を優先
       validUntil: nextYear,
     },
   };
+
+  if (productMode === "paid") {
+    return applyPaidProductIntegrity(report, form);
+  }
+
+  report.integrity = { productMode: "demo", analysisMode: "demo" };
+  return report;
 }
+
+export { buildReport };
 
 // ─── AIRTABLE PERSISTENCE ─────────────────────────────────────────────────────
 // 会社名・URL・メール・業種・診断結果を Airtable に1行追加する。
@@ -601,9 +617,24 @@ export default async function handler(req, res) {
       industry: (body.industry || "").trim(),
       email:    (body.email    || "").trim(),
     };
+    const paid = body.paid === true;
+    const productMode = paid ? "paid" : "demo";
 
     const targetUrl = form.url || "https://example.com";
     const hasAnyKey = Object.values(API_KEYS).some((fn) => fn());
+
+    const paidGate = shouldRejectPaidAnalysis({ paid, hasAnyKey, validAICount: hasAnyKey ? 1 : 0 });
+    if (paidGate.reject && paidGate.reason === "missing_api_keys") {
+      res.statusCode = paidGate.status;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({
+        error: "live_analysis_unavailable",
+        reason: paidGate.reason,
+        paid: true,
+        message: "有料診断にはライブAI解析が必要です。APIキーが未設定のため解析できません。",
+      }));
+      return;
+    }
 
     const [siteData, specialFiles, chatgpt, gemini, claude, perplexity] = await Promise.all([
       analyzeSite(targetUrl),
@@ -614,8 +645,36 @@ export default async function handler(req, res) {
       queryPerplexity(form.company, targetUrl, form.industry),
     ]);
 
-    const report = buildReport(form, [chatgpt, gemini, claude, perplexity], siteData, specialFiles);
-    const mode = hasAnyKey ? "live" : "demo";
+    const aiResults = [chatgpt, gemini, claude, perplexity];
+    const validAICount = aiResults.filter(Boolean).length;
+
+    const postQueryGate = shouldRejectPaidAnalysis({ paid, hasAnyKey, validAICount });
+    if (postQueryGate.reject) {
+      res.statusCode = postQueryGate.status;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({
+        error: "live_analysis_unavailable",
+        reason: postQueryGate.reason,
+        paid: true,
+        message: "有料診断にはライブAI解析が必要です。AIクエリが失敗したため、デモ結果は返しません。",
+      }));
+      return;
+    }
+
+    const report = buildReport(form, aiResults, siteData, specialFiles, { productMode });
+    if (paid && !report) {
+      res.statusCode = 503;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({
+        error: "live_analysis_unavailable",
+        reason: "report_build_failed",
+        paid: true,
+        message: "レポート生成に失敗しました。時間をおいて再試行してください。",
+      }));
+      return;
+    }
+
+    const mode = hasAnyKey && validAICount > 0 ? "live" : "demo";
 
     // レポート生成完了 → Airtableへ蓄積（未設定/失敗でも応答は返す）
     const save = await saveToAirtable(form, report, mode);
