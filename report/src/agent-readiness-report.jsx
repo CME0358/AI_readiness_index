@@ -739,7 +739,9 @@ function LandingPage({ onStart }) {
                 <div style={{ fontSize: 12, color: "#9B9B9B", marginTop: 4 }}>/100点</div>
               </div>
               <div style={{ textAlign: "left" }}>
-                <div style={{ display: "inline-block", background: CERT_COLORS.Gold.bg, color: "#fff", padding: "6px 20px", borderRadius: 100, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>Gold Certified</div>
+                <div style={{ display: "inline-block", background: "#F5F5F5", color: "#0A0A0A", padding: "6px 20px", borderRadius: 100, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
+                  Readiness Level: Leader
+                </div>
                 <div style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.8 }}>
                   全国 847位 ／ 東京都 203位<br />
                   業界 47位 ／ 偏差値 68.4<br />
@@ -1204,8 +1206,12 @@ function PaymentPage({ form, onPay, onBack, onClose }) {
         </div>
         <div style={{ borderTop: "1px solid #E5E5E5", borderBottom: "1px solid #E5E5E5", padding: "20px 0", marginBottom: 32 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontSize: 14, color: "#6B6B6B" }}>Agent Readiness Report（ベータ版）</span>
+            <span style={{ fontSize: 14, color: "#6B6B6B" }}>Agent Readiness Company Report</span>
             <span style={{ fontSize: 14, color: "#0A0A0A" }}>¥29,800</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+            <span style={{ fontSize: 14, color: "#6B6B6B" }}>同梱: Research Edition 2026（Benchmark Evidence）</span>
+            <span style={{ fontSize: 14, color: "#16A34A" }}>Included</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
             <span style={{ fontSize: 14, color: "#6B6B6B" }}>消費税（10%）</span>
@@ -1577,7 +1583,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             印刷 / PDF保存
           </button>
           <a href="/improve.html" className="no-print" style={{ flexShrink: 0, background: "#06C755", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none" }}>
-            認証審査 →
+            年間改善支援 →
           </a>
         </div>
         {/* ナビ横スクロール用シークバー */}
@@ -1591,7 +1597,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
               {purchaseState?.verified ? "PURCHASE VERIFIED" : "PURCHASE RECORDED"}
             </div>
             <p style={{ fontSize: 13, color: "#166534", margin: "0 0 16px", lineHeight: 1.6 }}>
-              Company Report と Research Edition へのアクセスが有効です（このブラウザ・72時間）。
+              Personalized Company Report と Research Edition 2026（Benchmark Evidence）へのアクセスが有効です（このブラウザ・72時間）。
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               <button
@@ -1607,7 +1613,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                   onClick={() => openResearchEdition(purchaseState)}
                   style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
                 >
-                  Research Editionを開く
+                  調査データ・Benchmarkを見る
                 </button>
               )}
               {!purchaseState?.entitlements?.methodologyHandbook && (
@@ -1632,9 +1638,10 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             <div style={{ fontSize: 96, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-6px", lineHeight: 1 }}>
               {animScore}
             </div>
-            <div style={{ fontSize: 16, color: "#9B9B9B", marginBottom: 24 }}>/100点</div>
-            <div style={{ display: "inline-block", background: cert.bg, color: cert.text, padding: "8px 24px", borderRadius: 100, fontSize: 14, fontWeight: 800, marginBottom: 24, letterSpacing: "-0.3px" }}>
-              {certLevel} Certified
+            <div style={{ fontSize: 16, color: "#9B9B9B", marginBottom: 16 }}>/100点</div>
+            <div style={{ ...cardStyle, marginBottom: showRankMetrics ? 16 : 24, padding: "16px 20px" }}>
+              <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4, letterSpacing: 1 }}>Readiness Level</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{report.level}</div>
             </div>
             {showRankMetrics ? (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -1664,7 +1671,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             <div style={{ ...cardStyle, textAlign: "center", padding: "32px" }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 16 }}>Agent Readiness Level</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-1px" }}>{report.level}</div>
-              <div style={{ width: 48, height: 2, background: cert.bg, margin: "16px auto" }} />
+              <div style={{ width: 48, height: 2, background: "#0A0A0A", margin: "16px auto" }} />
               <p style={{ fontSize: 13, color: "#6B6B6B", lineHeight: 1.7 }}>
                 {isSampleReport
                   ? "上位15%のAI推薦適性を持つ企業として認定されました。業界内でも高い競争優位性を維持しています。"
@@ -1950,11 +1957,11 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             Next Step
           </div>
           <h3 style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: "-0.5px", margin: "0 0 12px" }}>
-            診断で終わらせない。AIに選ばれる企業へ。
+            優先順位が見えたら、次は継続改善。
           </h3>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: "0 0 28px", maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
-            診断結果はゴールではありません。Agent Ready Certificationで、
-            AI時代の第三者評価シグナルを取得できます。
+            Company ReportはWhat / Priority。Methodology HandbookはHow。
+            Agent Readiness Advisoryは、実装・計測・再評価を年間で伴走する支援です。
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <a
@@ -1966,7 +1973,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 boxShadow: "0 4px 14px rgba(6,199,85,0.35)",
               }}
             >
-              認証審査を見る →
+              年間改善支援について相談する →
             </a>
             <a
               href="https://www.coaretail.com/readiness/mtgschedule"

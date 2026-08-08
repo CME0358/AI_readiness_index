@@ -1,654 +1,197 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="/assets/ga4.js" async></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Readiness Advisory — 年間改善支援 | Agent Readiness Index</title>
+  <meta name="description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。Agent Readiness Advisory。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://readiness.coaretail.com/improve.html">
+  <meta property="og:title" content="Agent Readiness Advisory — 年間改善支援">
+  <meta property="og:description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。">
+  <meta property="og:url" content="https://readiness.coaretail.com/improve.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Readiness Index">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Agent Readiness Advisory — 年間改善支援">
+  <meta name="twitter:description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Ready Certification｜第三者認証・評価審査</title>
-<meta name="description" content="ARI診断後の公式認証プログラム。100項目監査、Bronze〜Platinumグレード、認定書付与、四半期維持監査。">
-<link rel="canonical" href="https://readiness.coaretail.com/improve.html">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://readiness.coaretail.com/improve.html">
-<meta property="og:title" content="Agent Ready Certification｜第三者認証">
-<meta property="og:description" content="ARI診断後の公式認証。100項目監査とBronze〜Platinumグレードで、AI時代の信頼シグナルを取得。">
-<meta property="og:site_name" content="Agent Readiness">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Agent Ready Certification — 第三者評価・認証審査">
-<meta name="twitter:description" content="ARI Methodologyに基づく100項目監査。Bronze〜Platinumの認証グレードと継続審査。">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Agent Readiness Advisory",
+    "description": "Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援",
+    "provider": {
       "@type": "Organization",
-      "@id": "https://www.coaretail.com/#organization",
-      "name": "合同会社コア・リテール",
-      "alternateName": ["Coa Retail", "CoaRetail G.K."],
+      "name": "Coa Retail",
       "url": "https://www.coaretail.com"
     },
-    {
-      "@type": "WebSite",
-      "@id": "https://readiness.coaretail.com/#website",
-      "url": "https://readiness.coaretail.com/",
-      "name": "Agent Readiness",
-      "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "inLanguage": "ja"
-    },
-    {
-      "@type": "Service",
-      "@id": "https://readiness.coaretail.com/improve.html#service",
-      "name": "Agent Ready Certification",
-      "description": "Agent Readiness Index™ Methodologyに基づく第三者認証審査。100項目評価・グレード確定（Bronze〜Platinum）・認定書付与・四半期維持監査を含む継続プログラム。",
-      "provider": { "@id": "https://www.coaretail.com/#organization" },
-      "serviceType": "AI検索最適化・GEO Search Protocol",
-      "areaServed": "JP",
-      "url": "https://readiness.coaretail.com/improve.html"
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://readiness.coaretail.com/improve.html#webpage",
-      "url": "https://readiness.coaretail.com/improve.html",
-      "name": "Agent Ready Certification",
-      "description": "Agent Readiness診断後の公式認証審査。第三者評価によりARIグレードを付与し、AI時代の信頼シグナルとして活用できる認定プログラム。",
-      "isPartOf": { "@id": "https://readiness.coaretail.com/#website" },
-      "about": { "@id": "https://readiness.coaretail.com/improve.html#service" },
-      "publisher": { "@id": "https://www.coaretail.com/#organization" },
-      "dateModified": "2026-07-05",
-      "inLanguage": "ja"
-    }
-  ]
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/hub-animations.css">
-<link rel="stylesheet" href="assets/localgeo-dark.css">
-<style>
-.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
-.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
-.nav-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 4px; }
-.cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 0; }
-.cert-tier { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; text-align: center; background: var(--bg-elevated); }
-.cert-tier strong { display: block; font-size: 14px; margin-bottom: 4px; color: var(--text); }
-.cert-tier span { font-size: 11px; color: var(--text-muted); }
-@media (max-width: 1100px) {
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex; flex-direction: column; position: absolute;
-    top: var(--nav-h); left: 0; right: 0;
-    background: var(--bg); border-bottom: 1px solid var(--border);
-    padding: 20px 24px; gap: 16px; align-items: flex-start;
+    "url": "https://readiness.coaretail.com/improve.html"
   }
-  .nav-toggle { display: block; }
-  .nav { position: relative; }
-  .cert-grid { grid-template-columns: repeat(2, 1fr); }
-}
-</style>
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: #0A0A0A; background: #FAFAFA; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .nav { background: #fff; border-bottom: 1px solid #E5E5E5; padding: 16px 0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 15px; font-weight: 700; color: #0A0A0A; text-decoration: none; }
+    .nav-logo span { color: #6B6B6B; font-weight: 400; }
+    .nav-back { font-size: 13px; color: #6B6B6B; text-decoration: none; }
+    .nav-back:hover { color: #0A0A0A; }
+    .hero { padding: 64px 0 48px; text-align: center; }
+    .hero-badge { display: inline-block; background: #F0FDF4; color: #16A34A; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 0.02em; }
+    .hero h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .hero p { font-size: 17px; color: #6B6B6B; max-width: 560px; margin: 0 auto 32px; }
+    .hero-cta { display: inline-block; background: #0A0A0A; color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background 0.2s; }
+    .hero-cta:hover { background: #333; }
+    .section { padding: 48px 0; border-top: 1px solid #E5E5E5; }
+    .section-label { font-size: 12px; font-weight: 600; color: #9B9B9B; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .section h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.01em; }
+    .section p { font-size: 15px; color: #6B6B6B; margin-bottom: 16px; }
+    .ladder { display: grid; gap: 12px; margin-top: 20px; }
+    .ladder-step { background: #fff; border: 1px solid #E5E5E5; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+    .ladder-num { font-size: 11px; font-weight: 700; color: #9B9B9B; min-width: 24px; }
+    .ladder-title { font-size: 14px; font-weight: 700; color: #0A0A0A; }
+    .ladder-desc { font-size: 13px; color: #6B6B6B; margin-top: 2px; }
+    .ladder-role { font-size: 11px; color: #16A34A; font-weight: 600; margin-top: 4px; }
+    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    @media (max-width: 560px) { .scope-grid { grid-template-columns: 1fr; } }
+    .scope-item { background: #fff; border: 1px solid #E5E5E5; border-radius: 10px; padding: 16px; font-size: 14px; color: #0A0A0A; font-weight: 500; }
+    .audience-list { list-style: none; margin-top: 16px; }
+    .audience-list li { font-size: 15px; color: #6B6B6B; padding: 8px 0; border-bottom: 1px solid #F0F0F0; display: flex; align-items: center; gap: 10px; }
+    .audience-list li::before { content: "→"; color: #16A34A; font-weight: 700; flex-shrink: 0; }
+    .pricing-box { background: #fff; border: 1px solid #E5E5E5; border-radius: 16px; padding: 32px; text-align: center; margin-top: 24px; }
+    .pricing-label { font-size: 13px; color: #6B6B6B; margin-bottom: 8px; }
+    .pricing-value { font-size: 24px; font-weight: 800; color: #0A0A0A; margin-bottom: 8px; }
+    .pricing-note { font-size: 13px; color: #9B9B9B; margin-bottom: 24px; }
+    .cta-btn { display: inline-block; background: #0A0A0A; color: #fff; text-decoration: none; padding: 14px 40px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background 0.2s; }
+    .cta-btn:hover { background: #333; }
+    .cta-note { font-size: 12px; color: #9B9B9B; margin-top: 12px; }
+    .footer { background: #0A0A0A; color: #9B9B9B; padding: 32px 0; margin-top: 48px; text-align: center; font-size: 13px; }
+    .footer a { color: #6B6B6B; text-decoration: none; }
+    .footer a:hover { color: #fff; }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header class="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
-    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-    <ul class="nav-links">
-      <li><a href="/framework/">Framework</a></li>
-      <li><a href="/research/">Research</a></li>
-      <li><a href="/whitepaper/">Whitepaper</a></li>
-      <li><a href="/evidence/">Evidence</a></li>
-      <li><a href="/news/">News</a></li>
-      <li><a href="/insights/">Insights</a></li>
-      <li><a href="/methodology.html">Methodology</a></li>
-      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
-    </ul>
-  </div>
-</header>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">Agent Readiness <span>Index</span></a>
+      <a href="/report/" class="nav-back">← レポートに戻る</a>
+    </div>
+  </nav>
 
-<!-- ① あなたの診断結果を分析しました -->
-<section class="analysis-hero" id="step1">
-  <div class="grid-bg" aria-hidden="true"></div>
-  <div class="glow-orb" aria-hidden="true"></div>
-  <div class="section-deco section-deco-blue" style="top:-80px;right:-60px;" aria-hidden="true"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="section-header center reveal">
-      <div class="section-label">Diagnosis Analysis</div>
-      <h2>あなたの診断結果を分析しました</h2>
-      <p class="lead"><span id="s1-company">御社</span>のAgent Readiness診断レポートに基づき、AIが御社をどう認識しているか、どこで機会を逃しているかを整理しました。<a href="framework/" style="color:inherit">Framework</a>（評価基準）→ <a href="report/" style="color:inherit">Index</a>（診断）→ Improve（改善提案）の導線でご案内します。</p>
-    </div>
-    <div class="score-visual-wrap reveal" id="score-visual">
-      <div class="score-scan" aria-hidden="true"></div>
-      <svg class="score-ring-svg" viewBox="0 0 200 200" aria-hidden="true">
-        <defs>
-          <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#e53e3e"/>
-            <stop offset="50%" stop-color="#3b72ff"/>
-            <stop offset="100%" stop-color="#00a870"/>
-          </linearGradient>
-        </defs>
-        <circle class="score-ring-bg" cx="100" cy="100" r="80"/>
-        <circle class="score-ring-fill" id="score-ring-fill" cx="100" cy="100" r="80"/>
-      </svg>
-      <div class="score-visual-center">
-        <p style="font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Score</p>
-        <div class="analysis-score-lg"><span id="fv-current-score">42</span><span class="unit"> /100</span></div>
-      </div>
-    </div>
-    <div class="glass reveal" style="max-width:560px;margin:0 auto;padding:24px 32px;text-align:center;">
-      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;">診断スコアは、AIが御社を<strong style="color:var(--text);">理解・比較・推薦・実行</strong>できる準備度を示す指標です。</p>
-      <div style="display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;">
-        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">4軸</div><div style="font-size:11px;color:var(--text-muted);">評価項目</div></div>
-        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">4社</div><div style="font-size:11px;color:var(--text-muted);">AI検証</div></div>
-        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:var(--accent-blue);">100</div><div style="font-size:11px;color:var(--text-muted);">満点</div></div>
-      </div>
+  <div class="hero">
+    <div class="container">
+      <div class="hero-badge">Agent Readiness Advisory</div>
+      <h1>Company Reportの改善優先順位を<br>継続的に実行・計測・再評価</h1>
+      <p>Company Reportで明らかになった What / Priority を、Methodology Handbook の How と組み合わせ、Execute / Improve / Review を年間伴走で支援します。</p>
+        <a href="https://www.coaretail.com/readiness/mtgschedule" class="hero-cta" target="_blank" rel="noopener">年間改善支援について相談する</a>
     </div>
   </div>
-</section>
-<div class="flow-connector reveal">↓</div>
 
-<!-- ② 点数が伸びなかった理由 -->
-<section class="section section-alt" id="step2">
-  <div class="section-deco section-deco-green" style="bottom:-40px;left:-80px;" aria-hidden="true"></div>
-  <div class="container" style="position:relative;">
-    <div class="section-header center reveal">
-      <div class="section-label">Gap Analysis</div>
-      <h2>点数が伸びなかった理由</h2>
-      <p class="lead">SEOで見つかっても、AIが正確に理解・比較できなければスコアは伸びません。診断で検出された構造的な課題は次のとおりです。</p>
-    </div>
-    <div class="section-graphic reveal gap-diagram" id="gap-diagram" aria-hidden="true">
-      <svg viewBox="0 0 560 160" fill="none">
-        <line x1="140" y1="80" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
-        <line x1="420" y1="80" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
-        <line x1="280" y1="30" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
-        <line x1="280" y1="130" x2="280" y2="80" stroke="#e53e3e" stroke-width="2" stroke-dasharray="6 4" opacity="0.5"/>
-        <circle class="gap-node" cx="80" cy="80" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
-        <text x="80" y="84" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Entity</text>
-        <circle class="gap-node" cx="480" cy="80" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
-        <text x="480" y="84" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Schema</text>
-        <circle class="gap-node" cx="280" cy="30" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
-        <text x="280" y="34" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">FAQ</text>
-        <circle class="gap-node" cx="280" cy="130" r="36" fill="rgba(229,62,62,0.08)" stroke="#e53e3e" stroke-width="1.5"/>
-        <text x="280" y="134" text-anchor="middle" fill="#e53e3e" font-size="11" font-weight="600">Citation</text>
-        <circle cx="280" cy="80" r="28" fill="rgba(59,114,255,0.1)" stroke="#3b72ff" stroke-width="2"/>
-        <text x="280" y="76" text-anchor="middle" fill="#3b72ff" font-size="10" font-weight="700">SCORE</text>
-        <text x="280" y="90" text-anchor="middle" fill="#e53e3e" font-size="14" font-weight="800" id="gap-score-label">42</text>
-      </svg>
-    </div>
-    <div class="card-grid-4 anim-group reveal">
-      <div class="info-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <span class="info-card-num">01</span>
-        <h4>Entity情報が不足</h4>
-        <p>企業・サービス・拠点がAIに一意に識別できず、事業内容の把握精度が下がっています。</p>
-      </div>
-      <div class="info-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/><path d="M18 17l2 2 4-4"/></svg></div>
-        <span class="info-card-num">02</span>
-        <h4>構造化データ未整備</h4>
-        <p>Schema.org / JSON-LDが不足し、AIクローラーが情報を正確に読み取れていません。</p>
-      </div>
-      <div class="info-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <span class="info-card-num">03</span>
-        <h4>FAQ・コンテンツの設計不足</h4>
-        <p>AIが参照するQ&Aや比較に必要な差分情報が、公式サイト上で言語化されていません。</p>
-      </div>
-      <div class="info-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-        <span class="info-card-num">04</span>
-        <h4>Citation・権威性の弱さ</h4>
-        <p>推薦の根拠となる引用元・メディア露出・口コミ導線が不足しています。</p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="flow-connector reveal">↓</div>
-
-<!-- ③ AIではこう見えています -->
-<section class="section" id="step3">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">AI Perception</div>
-      <h2>AIではこう見えています</h2>
-      <p class="lead">ChatGPT・Gemini・Claude・Perplexityが御社について、現時点でどう回答するか。これが実際のAI推薦の出発点です。</p>
-    </div>
-    <div class="ai-chat-mock reveal" id="ai-chat">
-      <div class="ai-chat-header">
-        <div class="ai-chat-avatar">AI</div>
-        <div>
-          <div class="ai-chat-title">AI検索アシスタント</div>
-          <div class="ai-chat-sub">4大AIの認識を統合</div>
-        </div>
-      </div>
-      <div class="ai-chat-body">
-        <div class="ai-logos">
-          <div class="ai-logo-item">
-            <img src="assets/ai-logos/chatgpt.svg" alt="ChatGPT" width="36" height="36" loading="lazy">
-            <span>ChatGPT</span>
-          </div>
-          <div class="ai-logo-item">
-            <img src="assets/ai-logos/gemini.svg" alt="Gemini" width="36" height="36" loading="lazy">
-            <span>Gemini</span>
-          </div>
-          <div class="ai-logo-item">
-            <img src="assets/ai-logos/claude.svg" alt="Claude" width="36" height="36" loading="lazy">
-            <span>Claude</span>
-          </div>
-          <div class="ai-logo-item">
-            <img src="assets/ai-logos/perplexity.png" alt="Perplexity" width="36" height="36" loading="lazy">
-            <span>Perplexity</span>
+  <div class="section">
+    <div class="container">
+      <div class="section-label">Product Ladder</div>
+      <h2>Agent Readiness 商品体系</h2>
+      <p>診断から改善実行まで、段階的に価値を積み上げる設計です。認証制度は含みません。</p>
+      <div class="ladder">
+        <div class="ladder-step">
+          <div class="ladder-num">01</div>
+          <div>
+            <div class="ladder-title">Free Diagnosis</div>
+            <div class="ladder-desc">無料診断 — 現状把握の入口</div>
           </div>
         </div>
-        <div class="compare-card before" style="border:none;background:transparent;padding:0;">
-          <div class="compare-tag">現在のAI認識</div>
-          <div class="compare-bubble typing" id="ai-bubble-before">
-            <strong>AI</strong>
-            <span id="ai-typed-text"></span><span class="ai-typing-dots" id="ai-dots"><span></span><span></span><span></span></span>
+        <div class="ladder-step">
+          <div class="ladder-num">02</div>
+          <div>
+            <div class="ladder-title">Agent Readiness Company Report — ¥29,800</div>
+            <div class="ladder-desc">Personalized Decision Report + Research Edition 2026（Benchmark Evidence 同梱）</div>
+            <div class="ladder-role">Role: What / Priority</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ladder-num">03</div>
+          <div>
+            <div class="ladder-title">Methodology Handbook</div>
+            <div class="ladder-desc">改善手法・実装ガイド</div>
+            <div class="ladder-role">Role: How</div>
+          </div>
+        </div>
+        <div class="ladder-step" style="border-color:#16A34A;background:#F0FDF4;">
+          <div class="ladder-num">04</div>
+          <div>
+            <div class="ladder-title">Agent Readiness Advisory</div>
+            <div class="ladder-desc">年間伴走支援 — 継続的な実装・計測・再評価</div>
+            <div class="ladder-role">Role: Execute / Improve / Review continuously</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<div class="flow-connector reveal">↓</div>
 
-<!-- ④ この状態だと起こること -->
-<section class="section section-alt" id="step4">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Risk</div>
-      <h2>この状態だと起こること</h2>
-      <p class="lead">見つかることと、選ばれることは別の問題です。現状のままでは、次の機会損失が続きます。</p>
-    </div>
-    <div class="section-graphic reveal" style="max-width:400px;" aria-hidden="true">
-      <div class="risk-funnel">
-        <div class="risk-funnel-layer">AI検索で発見される</div>
-        <div class="risk-funnel-layer">比較候補に入る</div>
-        <div class="risk-funnel-layer">推薦される</div>
-        <div class="risk-funnel-layer">選ばれる ✕</div>
-      </div>
-    </div>
-    <div class="card-grid-4 anim-group reveal">
-      <div class="info-card risk-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="22" y2="11"/></svg></div>
-        <span class="info-card-num">01</span>
-        <h4>推薦候補に入りにくい</h4>
-        <p>比較に入っても、推薦の根拠がなければ選ばれません。</p>
-      </div>
-      <div class="info-card risk-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
-        <span class="info-card-num">02</span>
-        <h4>比較時に優位性を説明できない</h4>
-        <p>競合との差分がAIに伝わらず、強みが言語化されていません。</p>
-      </div>
-      <div class="info-card risk-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <span class="info-card-num">03</span>
-        <h4>AI経由の流入機会を逃す</h4>
-        <p>AI検索・AIエージェント経由の新規接点に乗れない状態が続きます。</p>
-      </div>
-      <div class="info-card risk-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
-        <span class="info-card-num">04</span>
-        <h4>実行まで完結しない</h4>
-        <p>選ばれても予約・問い合わせ導線の接続性が弱く、機会が消えます。</p>
+  <div class="section">
+    <div class="container">
+      <div class="section-label">Scope</div>
+      <h2>Advisory で支援する領域</h2>
+      <p>過剰な成果保証は行いません。以下の領域を、優先順位に沿って継続支援します。</p>
+      <div class="scope-grid">
+        <div class="scope-item">Periodic ARI reassessment</div>
+        <div class="scope-item">AI visibility monitoring</div>
+        <div class="scope-item">Authority improvement</div>
+        <div class="scope-item">Actionability improvement</div>
+        <div class="scope-item">Website / structured data review</div>
+        <div class="scope-item">AI-readable information design</div>
+        <div class="scope-item">Booking / inquiry path review</div>
+        <div class="scope-item">Monthly priorities</div>
+        <div class="scope-item">Quarterly roadmap</div>
+        <div class="scope-item">Implementation review</div>
       </div>
     </div>
   </div>
-</section>
-<div class="flow-connector reveal">↓</div>
 
-<!-- ⑤ 改善するとここまで変わる -->
-<section class="section" id="step5">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Outcome</div>
-      <h2>改善するとここまで変わる</h2>
-      <p class="lead">Agent Ready Certificationの審査・改善施策を経た場合の目標スコアと、AI推薦文の変化です。</p>
-    </div>
-    <div class="score-improve-row reveal" id="score-improve">
-      <div class="score-improve-box">
-        <div class="score-improve-val current" id="s5-current-score">42</div>
-        <div class="score-improve-label">現在のスコア</div>
-      </div>
-      <div class="score-improve-arrow">→</div>
-      <div class="score-improve-box">
-        <div class="score-improve-val target" id="fv-target-score">78</div>
-        <div class="score-improve-label">改善後（目標）</div>
-      </div>
-    </div>
-    <div class="score-bar-wrap reveal" id="score-bar-wrap">
-      <div class="score-bar-track">
-        <div class="score-bar-fill" id="score-bar-fill"></div>
-      </div>
-      <div class="score-bar-labels"><span>0</span><span>目標スコア</span><span>100</span></div>
-    </div>
-    <div class="compare-grid anim-group reveal" style="margin-top:40px;">
-      <div class="compare-card after anim-item" style="grid-column:1/-1;max-width:720px;margin:0 auto;width:100%;">
-        <div class="compare-tag">✦ 改善後のAI認識</div>
-        <div class="compare-bubble" id="ai-bubble-after">
-          <strong>AI</strong>
-          <span id="ai-after-text"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="flow-connector reveal">↓</div>
-
-<!-- ⑥ Agent Ready Certification -->
-<section class="section section-alt" id="step6">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Certification</div>
-      <h2>Agent Ready Certification</h2>
-      <p class="lead">診断で見えたギャップを、第三者評価基準に沿って審査・認定する公式プログラムです。PDFではなく、<strong>基準に基づく認証</strong>を取得します。</p>
-    </div>
-    <div class="flow-timeline reveal" id="flow-timeline">
-      <div class="flow flow-program">
-        <div class="flow-timeline-line" aria-hidden="true"><div class="flow-timeline-progress"></div></div>
-        <span class="flow-step active">診断レポート</span>
-        <span class="flow-step">100項目監査</span>
-        <span class="flow-step">グレード確定</span>
-        <span class="flow-step">認定・ロゴ付与</span>
-        <span class="flow-step active">継続監査</span>
-      </div>
-    </div>
-    <div class="card-grid-3 anim-group reveal">
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <span class="info-card-num">01</span>
-        <h4>100項目詳細監査</h4>
-        <p>Discovery・Recommendation・Actionの3軸に基づき、Methodology Handbook準拠で評価します。</p>
-      </div>
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <span class="info-card-num">02</span>
-        <h4>ARIグレード認定</h4>
-        <p>Bronze / Silver / Gold / Platinumの4段階で認定。サイト・営業資料・メディアで信頼シグナルとして活用できます。</p>
-      </div>
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <span class="info-card-num">03</span>
-        <h4>4大AI検証・継続監査</h4>
-        <p>ChatGPT・Gemini・Claude・Perplexityでの認識状況を定点観測。四半期ごとにスコアを更新し、グレードを維持します。</p>
-      </div>
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></div>
-        <span class="info-card-num">04</span>
-        <h4>Entity・Schema整備</h4>
-        <p>認証基準に沿ってEntity設計・Citation設計・Schema.org / JSON-LDを実装支援します。</p>
-      </div>
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <span class="info-card-num">05</span>
-        <h4>FAQ・コンテンツ最適化</h4>
-        <p>AIが参照するQ&Aと比較情報を構造化。推薦の根拠となるデータを整備します。</p>
-      </div>
-      <div class="info-card program-card anim-item">
-        <div class="info-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <span class="info-card-num">06</span>
-        <h4>月次レポート・隔月MTG</h4>
-        <p>月次Agent ReadinessレポートとZoom隔月次MTG（20分）で、認証維持に向けた改善を伴走します。</p>
-      </div>
-    </div>
-    <p class="note reveal" style="text-align:center;margin-top:20px;font-size:13px;color:var(--text-muted);">認証審査の詳細基準は <a href="methodology.html" style="color:var(--text-secondary);">Methodology Handbook</a> に準拠します。</p>
-  </div>
-</section>
-<div class="flow-connector reveal">↓</div>
-
-<!-- ⑦ 料金 -->
-<section class="section price-section" id="step7">
-  <div class="container">
-    <div class="section-header center reveal">
-      <div class="section-label">Pricing</div>
-      <h2>認証審査料金</h2>
-      <p class="lead">Agent Ready Certificationは継続審査型の第三者評価プログラムです。審査・レポート・維持監査まで全て込みです。</p>
-    </div>
-
-    <div class="price-card reveal" id="price-card">
-      <div style="text-align:center;">
-        <h3 class="price-card-title">Agent Ready Certification</h3>
-        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">継続審査・100項目監査・認定書・月次レポート</p>
-      </div>
-
-      <div class="price-options">
-        <div class="price-option">
-          <p class="price-option-label">月払い</p>
-          <div class="price-amount">
-            <span class="price-currency">¥</span>
-            <span class="price-value">60,000</span>
-          </div>
-          <p class="price-per">/ 月額（税別） · 12ヶ月契約</p>
-        </div>
-        <div class="price-option featured">
-          <span class="price-discount-badge">約17%OFF</span>
-          <p class="price-option-label">年払い</p>
-          <div class="price-amount">
-            <span class="price-currency">¥</span>
-            <span class="price-value">600,000</span>
-          </div>
-          <p class="price-per">/ 年額（税別） · 一括請求</p>
-          <p class="price-discount-note">月払い12ヶ月分（¥720,000）比 · 2ヶ月分お得</p>
-        </div>
-      </div>
-
-      <div class="price-divider"></div>
-
-      <ul class="price-features">
-        <li><span>✓</span>100項目詳細監査・グレード確定</li>
-        <li><span>✓</span>ARI認定書・ロゴ付与・ランキング掲載</li>
-        <li><span>✓</span>Entity設計・Citation設計・Schema整備</li>
-        <li><span>✓</span>AI向けコンテンツ・FAQ構造化</li>
-        <li><span>✓</span>4大AI検証（ChatGPT / Gemini / Claude / Perplexity）</li>
-        <li><span>✓</span>月次Agent Readinessレポート</li>
-        <li><span>✓</span>四半期維持監査・スコア更新</li>
-        <li><span>✓</span>Zoom隔月次MTG（20分）・専任担当者</li>
+  <div class="section">
+    <div class="container">
+      <div class="section-label">Audience</div>
+      <h2>こんな方に</h2>
+      <ul class="audience-list">
+        <li>マーケティング責任者 — AI検索・推薦対応を経営課題として推進したい</li>
+        <li>経営者 — Company Reportの改善優先順位を実行に移したい</li>
+        <li>デジタル / AI transformation リード — 継続的な計測と再評価が必要</li>
+        <li>AI search / recommendation 対応を進める企業</li>
       </ul>
+    </div>
+  </div>
 
-      <div class="cert-grid">
-        <div class="cert-tier"><strong>ARI Bronze</strong><span>スコア 40〜59</span></div>
-        <div class="cert-tier"><strong>ARI Silver</strong><span>スコア 60〜74</span></div>
-        <div class="cert-tier"><strong>ARI Gold</strong><span>スコア 75〜89</span></div>
-        <div class="cert-tier"><strong>ARI Platinum</strong><span>スコア 90+</span></div>
-      </div>
-
-      <div class="price-note" style="margin-top:24px;">
-        <p>※ 審査基準は Agent Readiness Methodology Handbook に準拠します。</p>
-        <p>認証申請のご相談は、下記の無料相談からお申し込みください。</p>
+  <div class="section">
+    <div class="container">
+      <div class="section-label">Pricing</div>
+      <h2>料金</h2>
+      <div class="pricing-box">
+        <div class="pricing-label">Agent Readiness Advisory</div>
+        <div class="pricing-value">TBD / Consultation</div>
+        <div class="pricing-note">貴社の状況・スコープに応じて個別にお見積りします。30分のオンライン相談から始められます。</div>
+        <a href="https://www.coaretail.com/readiness/mtgschedule" class="cta-btn" target="_blank" rel="noopener">年間改善支援について相談する</a>
+        <div class="cta-note">合同会社コア・リテール / Agent Readiness Index</div>
       </div>
     </div>
   </div>
-</section>
-<div class="flow-connector reveal">↓</div>
 
-<!-- ⑧ 無料相談 -->
-<section class="final-cta" id="step8">
-  <div class="final-cta-glow" aria-hidden="true"></div>
-  <div class="final-cta-inner reveal reveal-scale">
-    <div class="final-cta-graphic" aria-hidden="true">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Coa Retail — Agent Readiness Index</p>
+      <p style="margin-top:8px;"><a href="/">トップ</a> · <a href="/report/">診断レポート</a> · <a href="/research/">Research Edition</a></p>
     </div>
-    <div class="section-label" style="text-align: center;">Certification Inquiry</div>
-    <h2>認証審査の無料相談</h2>
-    <div class="final-cta-body">
-      <p>診断結果はゴールではありません。</p>
-      <p>30分の無料相談で、御社の認証グレード目標と審査の進め方をご説明します。</p>
-      <p><strong>審査 → 認定 → 維持監査</strong>のサイクルで、<br>AI時代の第三者評価シグナルを取得できます。</p>
-    </div>
-    <a href="https://www.coaretail.com/readiness/mtgschedule" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">認証審査の相談を予約する →</a>
-  </div>
-</section>
+  </footer>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand">Agent Readiness Research Hub</div>
-        <div class="footer-sub">by Coa Retail</div>
-      </div>
-      <div class="footer-links">
-        <a href="/">トップ</a>
-        <a href="/framework/">Framework</a>
-        <a href="/research/">Research</a>
-        <a href="/whitepaper/">Whitepaper</a>
-        <a href="/evidence/">Evidence</a>
-        <a href="/news/">News</a>
-        <a href="/insights/">Insights</a>
-        <a href="/methodology.html">Methodology</a>
-        <a href="/dental.html">Benchmarks</a>
-        <a href="/report/">診断レポート</a>
-        <a href="/improve.html#partners">パートナー</a>
-        <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
-      </div>
-    </div>
-    <div class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a>. All rights reserved.</div>
-  </div>
-</footer>
-
-<script>
-const AI_BEFORE = '「情報が不足しているため、具体的な推薦はできません。公式サイトの構造化データやFAQの整備が必要です。」';
-const AI_AFTER = '「御社は業界内で高いAgent Readinessを持ち、構造化された情報と権威ある引用元に基づき、比較候補として推薦できます。」';
-
-// リザルトページの診断スコアを localStorage から引用
-(function applyReportScores() {
-  const FALLBACK = { overallScore: 42, targetScore: 78 };
-  let data = null;
-  try { data = JSON.parse(localStorage.getItem("ari_report_summary") || "null"); } catch { data = null; }
-  const score = data?.overallScore ?? FALLBACK.overallScore;
-  const target = data?.targetScore ?? FALLBACK.targetScore;
-  window.__ariScores = { score, target };
-
-  const els = {
-    current: document.getElementById("fv-current-score"),
-    target: document.getElementById("fv-target-score"),
-    s5: document.getElementById("s5-current-score"),
-    company: document.getElementById("s1-company"),
-    gapLabel: document.getElementById("gap-score-label"),
-    barFill: document.getElementById("score-bar-fill"),
-    ring: document.getElementById("score-ring-fill"),
-  };
-  if (els.current) els.current.textContent = score;
-  if (els.target) els.target.textContent = target;
-  if (els.s5) els.s5.textContent = score;
-  if (els.company && data?.company) els.company.textContent = data.company;
-  if (els.gapLabel) els.gapLabel.textContent = score;
-  if (els.barFill) els.barFill.style.setProperty('--bar-target', target + '%');
-  if (els.ring) {
-    const circ = 2 * Math.PI * 80;
-    const offset = circ - (score / 100) * circ;
-    els.ring.style.setProperty('--ring-offset', offset);
-    els.ring.style.strokeDasharray = circ;
-    els.ring.style.strokeDashoffset = circ;
-  }
-})();
-
-function animateCount(el, to, duration = 1200) {
-  if (!el) return;
-  const from = 0;
-  const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(from + (to - from) * eased);
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-function typeText(el, text, speed = 28) {
-  if (!el) return;
-  let i = 0;
-  el.textContent = '';
-  function step() {
-    if (i < text.length) {
-      el.textContent += text[i++];
-      setTimeout(step, speed);
-    } else {
-      const dots = document.getElementById('ai-dots');
-      if (dots) dots.style.display = 'none';
-      const bubble = document.getElementById('ai-bubble-before');
-      if (bubble) bubble.classList.remove('typing');
-    }
-  }
-  step();
-}
-
-const fired = new Set();
-
-const sectionAnimators = {
-  'score-visual': (el) => {
-    if (fired.has('score-visual')) return;
-    fired.add('score-visual');
-    el.classList.add('scanning');
-    const ring = document.getElementById('score-ring-fill');
-    const scoreEl = document.getElementById('fv-current-score');
-    if (ring) ring.classList.add('animated');
-    const s = window.__ariScores?.score ?? 42;
-    if (scoreEl) { scoreEl.textContent = '0'; animateCount(scoreEl, s); }
-  },
-  'gap-diagram': (el) => { if (!fired.has('gap-diagram')) fired.add('gap-diagram'); el.classList.add('visible'); },
-  'ai-chat': (el) => {
-    if (fired.has('ai-chat')) return;
-    fired.add('ai-chat');
-    el.classList.add('visible');
-    typeText(document.getElementById('ai-typed-text'), AI_BEFORE);
-  },
-  'score-improve': () => {
-    if (fired.has('score-improve')) return;
-    fired.add('score-improve');
-    const s = window.__ariScores?.score ?? 42;
-    const t = window.__ariScores?.target ?? 78;
-    const cur = document.getElementById('s5-current-score');
-    const tgt = document.getElementById('fv-target-score');
-    if (cur) { cur.textContent = '0'; animateCount(cur, s, 800); }
-    if (tgt) { tgt.textContent = '0'; setTimeout(() => animateCount(tgt, t, 1000), 400); }
-  },
-  'score-bar-wrap': () => {
-    if (fired.has('score-bar')) return;
-    fired.add('score-bar');
-    const fill = document.getElementById('score-bar-fill');
-    if (fill) fill.classList.add('animated');
-  },
-  'ai-bubble-after': () => {
-    if (fired.has('ai-after')) return;
-    fired.add('ai-after');
-    typeText(document.getElementById('ai-after-text'), AI_AFTER, 22);
-  },
-  'flow-timeline': (el) => { if (!fired.has('flow')) { fired.add('flow'); el.classList.add('visible'); } },
-  'price-card': (el) => { if (!fired.has('price')) { fired.add('price'); el.classList.add('features-visible'); } },
-};
-
-window.__ariSectionAnimators = sectionAnimators;
-
-// §5 after bubble: observe parent anim-group
-const afterGroup = document.querySelector('#step5 .anim-group');
-if (afterGroup) {
-  const afterObs = new IntersectionObserver((entries) => {
-    if (entries[0]?.isIntersecting) {
-      sectionAnimators['ai-bubble-after']();
-      afterObs.disconnect();
-    }
-  }, { threshold: 0.3 });
-  afterObs.observe(afterGroup);
-}
-
-const nav = document.querySelector('.nav');
-if (nav) {
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 24);
-  }, { passive: true });
-}
-</script>
-<script src="assets/hub-animations.js"></script>
 </body>
 </html>
