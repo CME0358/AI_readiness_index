@@ -3,6 +3,7 @@
  *
  * draft → editorial_review → editorial_hold | ready_for_schedule → scheduled → published
  */
+import { isProtectedInternalLinkSlug } from './insights-related-links.mjs';
 
 export const EDITORIAL_STATUSES = {
   HOLD: 'editorial_hold',
@@ -16,6 +17,7 @@ export const INITIAL_SLUG = 'ai-search-shift';
 
 /** @returns {boolean} Web publish eligible */
 export function isPublishEligible(article, { forceSlug = null } = {}) {
+  if (isProtectedInternalLinkSlug(article.slug)) return false;
   if (article.status === EDITORIAL_STATUSES.HOLD) return false;
   if (forceSlug) {
     return article.slug === forceSlug && article.status === EDITORIAL_STATUSES.SCHEDULED && !!article.publishAt;

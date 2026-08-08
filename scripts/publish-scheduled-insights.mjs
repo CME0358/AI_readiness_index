@@ -16,6 +16,7 @@ import { extractDueArticles } from './lib/editorial-status.mjs';
 import { prepareScheduledArticle } from './lib/prepare-scheduled-article.mjs';
 import { isWeekday } from './lib/business-days.mjs';
 import { publishedUrlsFromSlugs, submitIndexNow } from './lib/indexnow-client.mjs';
+import { isProtectedInternalLinkSlug } from './lib/insights-related-links.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -149,6 +150,12 @@ const ordered = [...due].sort(
 const published = [];
 
 for (const article of ordered) {
+  if (isProtectedInternalLinkSlug(article.slug)) {
+    console.error('TMVU-05 BLOCKED: Protected ABIS article cannot be published:', article.slug);
+    console.error('Reason: PROTECTED_ABIS_PREPUBLICATION');
+    process.exit(1);
+  }
+
   const src = path.join(ROOT, 'insights/_scheduled', article.slug);
   const dest = path.join(ROOT, 'insights', article.slug);
   const srcIndex = path.join(src, 'index.html');
@@ -160,7 +167,12 @@ for (const article of ordered) {
 
   const prepared = prepareScheduledArticle(article.slug, { strict: true });
   if (!prepared.ok) {
-    console.error('Article quality gate failed:', article.slug, prepared);
+    console.error('TMVU-05 publish gate failed:', article.slug, prepared.error || 'unknown');
+    if (prepared.blockers?.length) {
+      for (const b of prepared.blockers) console.error(`  - ${b.code}: ${b.message}`);
+    } else if (prepared.message) {
+      console.error(`  - ${prepared.message}`);
+    }
     process.exit(1);
   }
   if (prepared.changed) {

@@ -16,6 +16,7 @@ import {
   isProtectedInternalLinkSlug,
   loadSchedule,
 } from './insights-related-links.mjs';
+import { runPrepublishEditorialGate } from './prepublish-editorial-gate.mjs';
 
 /**
  * @param {string} slug
@@ -94,6 +95,27 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
           issues,
         };
       }
+    }
+
+    const schedule = loadSchedule();
+    const entry = schedule.articles.find((a) => a.slug === slug);
+    const editorialGate = runPrepublishEditorialGate(slug, {
+      html,
+      scheduleEntry: entry,
+      schedule,
+    });
+    if (editorialGate.status === 'BLOCKED') {
+      return {
+        slug,
+        ok: false,
+        error: 'editorial_gate',
+        message: editorialGate.blockers.map((b) => `${b.code}: ${b.message}`).join('; '),
+        blockers: editorialGate.blockers,
+        observations: editorialGate.observations,
+        changed,
+        removed,
+        issues,
+      };
     }
   }
 
