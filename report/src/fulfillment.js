@@ -1,0 +1,194 @@
+/**
+ * RMVU-03 — Client-side paid fulfillment (persistence, verification, entitlements).
+ */
+
+import {
+  PRODUCTS,
+  RESEARCH_EDITION,
+  resolveCompanyReportPaymentLink,
+} from '../../scripts/lib/product-catalog.mjs';
+import {
+  STORAGE_KEYS,
+  createPurchaseState,
+  createReportCache,
+  sanitizePurchaseForStorage,
+  isExpired,
+  hasActivePurchase,
+  grantBrowserEntitlements,
+  buildLegacyPurchaseState,
+  mergePurchaseEntitlements,
+} from '../../scripts/lib/fulfillment-state.mjs';
+import {
+  trackReportCheckoutStart,
+  trackReportFormComplete,
+  trackPurchaseVerified,
+  trackReportResultView,
+  trackResearchEntitlementOpen,
+  trackHandbookUpgradeClick,
+} from './analytics.js';
+
+export {
+  STORAGE_KEYS,
+  RESEARCH_EDITION,
+  PRODUCTS,
+  hasActivePurchase,
+  isExpired,
+};
+
+export function loadPurchaseState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.purchase);
+    if (!raw) return null;
+    const state = JSON.parse(raw);
+    if (isExpired(state)) {
+      localStorage.removeItem(STORAGE_KEYS.purchase);
+      return null;
+    }
+    return state;
+  } catch {
+    return null;
+  }
+}
+
+export function savePurchaseState(state) {
+  if (!state) return;
+  try {
+    localStorage.setItem(STORAGE_KEYS.purchase, JSON.stringify(sanitizePurchaseForStorage(state)));
+  } catch { /* noop */ }
+}
+
+export function loadReportCache() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.reportCache);
+    if (!raw) return null;
+    const cache = JSON.parse(raw);
+    if (isExpired(cache)) {
+      localStorage.removeItem(STORAGE_KEYS.reportCache);
+      return null;
+    }
+    return cache;
+  } catch {
+    return null;
+  }
+}
+
+export function saveReportCache(report, form) {
+  if (!report) return;
+  try {
+    localStorage.setItem(
+      STORAGE_KEYS.reportCache,
+      JSON.stringify(createReportCache({ report, form })),
+    );
+  } catch { /* noop */ }
+}
+
+export function clearReportCache() {
+  try { localStorage.removeItem(STORAGE_KEYS.reportCache); } catch { /* noop */ }
+}
+
+export function resolveCheckoutUrl() {
+  return resolveCompanyReportPaymentLink({ allowLegacy: true });
+}
+
+export function applyEntitlementsToBrowser(state) {
+  if (!state?.entitlements) return [];
+  return grantBrowserEntitlements(state.entitlements, state.sessionId, {
+    sessionStorage: typeof sessionStorage !== 'undefined' ? sessionStorage : null,
+  });
+}
+
+export async function verifyPurchaseSession(sessionId, productHint = 'company_report') {
+  if (!sessionId) return { ok: false, reason: 'missing_session' };
+
+  try {
+    const res = await fetch('/api/verify-purchase', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, productHint }),
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (res.status === 503 && data.legacyCompatible) {
+      return { ok: false, reason: 'verification_unconfigured', legacyCompatible: true };
+    }
+    if (!res.ok) {
+      return { ok: false, reason: data.error || 'verification_failed', detail: data };
+    }
+
+    savePurchaseState(data.purchase);
+    applyEntitlementsToBrowser(data.purchase);
+    trackPurchaseVerified({
+      product_id: data.product?.id,
+      verified: true,
+      verification_method: 'stripe_api',
+    });
+
+    return { ok: true, purchase: data.purchase, product: data.product, verified: true };
+  } catch (e) {
+    return { ok: false, reason: 'network_error', message: e?.message };
+  }
+}
+
+/** Idempotent purchase grant — merges with existing entitlement within TTL. */
+export function grantLegacyCompanyReportPurchase() {
+  const incoming = buildLegacyPurchaseState(PRODUCTS.companyReportLegacy.id);
+  const existing = loadPurchaseState();
+  const merged = mergePurchaseEntitlements(existing, incoming);
+  savePurchaseState(merged);
+  applyEntitlementsToBrowser(merged);
+  trackPurchaseVerified({
+    product_id: merged.productId,
+    verified: false,
+    verification_method: 'legacy_query',
+  });
+  return merged;
+}
+
+export function grantVerifiedPurchase(purchase) {
+  const existing = loadPurchaseState();
+  const merged = mergePurchaseEntitlements(existing, purchase);
+  savePurchaseState(merged);
+  applyEntitlementsToBrowser(merged);
+  return merged;
+}
+
+export function openResearchEdition(purchaseState) {
+  applyEntitlementsToBrowser(
+    purchaseState || loadPurchaseState() || { entitlements: { researchEdition: true } },
+  );
+  trackResearchEntitlementOpen({
+    verified: purchaseState?.verified ?? false,
+  });
+  window.open(RESEARCH_EDITION.thanksPath, '_blank', 'noopener');
+}
+
+export function openHandbookUpgrade() {
+  const upgrade = PRODUCTS.handbookUpgrade;
+  trackHandbookUpgradeClick({ product_id: upgrade.id });
+  window.open(upgrade.paymentLink, '_blank', 'noopener');
+}
+
+export function onReportFormComplete() {
+  trackReportFormComplete();
+}
+
+export function onReportCheckoutStart(checkout) {
+  trackReportCheckoutStart({
+    checkout_source: checkout?.source || 'unknown',
+    bundle_link_required: !!checkout?.bundleLinkRequired,
+  });
+}
+
+export function onReportResultView(purchaseState) {
+  trackReportResultView({
+    verified: purchaseState?.verified ?? false,
+    has_research: !!purchaseState?.entitlements?.researchEdition,
+  });
+}
+
+export function tryRestorePaidSession() {
+  const purchase = loadPurchaseState();
+  const cache = loadReportCache();
+  if (!hasActivePurchase(purchase) || !cache?.report) return null;
+  return { purchase, cache };
+}

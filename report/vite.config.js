@@ -51,8 +51,19 @@ function devApiPlugin() {
     name: "dev-api",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url === "/api/analyze") {
+        const url = req.url?.split("?")[0] ?? "";
+        if (url === "/api/analyze") {
           import("../api/analyze.js")
+            .then((mod) => mod.default(req, res))
+            .catch((e) => {
+              res.statusCode = 500;
+              res.setHeader("Content-Type", "application/json");
+              res.end(JSON.stringify({ error: e.message }));
+            });
+          return;
+        }
+        if (url === "/api/verify-purchase") {
+          import("../api/verify-purchase.js")
             .then((mod) => mod.default(req, res))
             .catch((e) => {
               res.statusCode = 500;
@@ -74,6 +85,7 @@ export default defineConfig(({ mode }) => {
   for (const k of [
     "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "PERPLEXITY_API_KEY",
     "AIRTABLE_API_KEY", "AIRTABLE_BASE_ID", "AIRTABLE_TABLE_NAME",
+    "STRIPE_SECRET_KEY", "COMPANY_REPORT_BUNDLE_PAYMENT_URL",
   ]) {
     if (env[k]) process.env[k] = env[k];
   }

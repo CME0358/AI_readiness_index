@@ -1,5 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { trackReportStartOnce } from "./analytics.js";
+import {
+  STORAGE_KEYS,
+  resolveCheckoutUrl,
+  verifyPurchaseSession,
+  grantLegacyCompanyReportPurchase,
+  grantVerifiedPurchase,
+  savePurchaseState,
+  saveReportCache,
+  loadPurchaseState,
+  hasActivePurchase,
+  tryRestorePaidSession,
+  onReportFormComplete,
+  onReportCheckoutStart,
+  onReportResultView,
+  openResearchEdition,
+  openHandbookUpgrade,
+  PRODUCTS,
+} from "./fulfillment.js";
 
 // ─── DUMMY DATA ───────────────────────────────────────────────────────────────
 const DUMMY_REPORT = {
@@ -1228,13 +1246,22 @@ const ANALYSIS_STEPS = [
   { id: "report",     label: "レポートを生成中…",           fn: null },
 ];
 
-function AnalyzingPage({ onComplete, form, isPaidFlow = false }) {
+function AnalyzingPage({ onComplete, form, isPaidFlow = false, retryKey = 0, onRetry }) {
   const [currentStep, setCurrentStep]   = useState(0);
   const [completedSteps, setCompleted]  = useState([]);
   const [progress, setProgress]         = useState(0);
   const [error, setError]               = useState(null);
   const [apiMode, setApiMode]           = useState("checking");
   const ranRef = useRef(false);
+
+  useEffect(() => {
+    ranRef.current = false;
+    setError(null);
+    setCurrentStep(0);
+    setCompleted([]);
+    setProgress(0);
+    setApiMode("checking");
+  }, [retryKey]);
 
   useEffect(() => {
     if (ranRef.current) return;
@@ -1293,7 +1320,7 @@ function AnalyzingPage({ onComplete, form, isPaidFlow = false }) {
 
     run();
     return () => clearInterval(stepTimer);
-  }, []);
+  }, [retryKey, isPaidFlow, form, onComplete]);
 
   return (
     <div style={{ minHeight: "100vh", background: "#0A0A0A", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
@@ -1314,7 +1341,24 @@ function AnalyzingPage({ onComplete, form, isPaidFlow = false }) {
 
         {error && (
           <div style={{ background: "#2A0A0A", border: "1px solid #DC2626", borderRadius: 10, padding: "16px 20px", marginBottom: 24, textAlign: "left" }}>
-            <div style={{ fontSize: 13, color: "#FCA5A5" }}>{error}</div>
+            <div style={{ fontSize: 13, color: "#FCA5A5", marginBottom: isPaidFlow ? 12 : 0 }}>{error}</div>
+            {isPaidFlow && (
+              <p style={{ fontSize: 12, color: "#FECACA", margin: "0 0 12px", lineHeight: 1.6 }}>
+                お支払いは記録されています。解析のみ再試行できます（追加決済は不要です）。
+              </p>
+            )}
+            {isPaidFlow && (
+              <button
+                type="button"
+                onClick={() => onRetry?.()}
+                style={{
+                  background: "#C9A84C", color: "#0A0A0A", border: "none",
+                  padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer",
+                }}
+              >
+                解析を再試行
+              </button>
+            )}
           </div>
         )}
 
@@ -1445,7 +1489,7 @@ function NavSeekBar({ targetRef }) {
 }
 
 // ─── REPORT PAGE ──────────────────────────────────────────────────────────────
-function ReportPage({ report, form, reportMode = "demo" }) {
+function ReportPage({ report, form, reportMode = "demo", purchaseState = null }) {
   const [activeSection, setActiveSection] = useState("overview");
   const [printing, setPrinting] = useState(false);
   const scoreRef = useRef(null);
@@ -1464,7 +1508,9 @@ function ReportPage({ report, form, reportMode = "demo" }) {
   const animScore = useCountUp(report.overallScore, 2000, scoreVisible);
   const certLevel = typeof report.certification === "string" ? report.certification : report.certification?.level;
   const cert = CERT_COLORS[certLevel] || CERT_COLORS.Bronze;
+  const isPaidReport = reportMode === "paid";
   const isSampleReport = reportMode === "sample";
+  const showFulfillment = isPaidReport && purchaseState?.entitlements?.companyReport;
   const showRankMetrics = !!(report.rank && report.deviation != null);
   const showKnowledge = Array.isArray(report.knowledgeCoverage) && report.knowledgeCoverage.length > 0;
   const showAuthority = Array.isArray(report.authority) && report.authority.length > 0;
@@ -1528,7 +1574,7 @@ function ReportPage({ report, form, reportMode = "demo" }) {
           </div>
           {/* PDF保存ボタンは常に右端固定で表示 */}
           <button onClick={() => setPrinting(true)} style={{ flexShrink: 0, background: "#0A0A0A", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap" }}>
-            PDF保存
+            印刷 / PDF保存
           </button>
           <a href="/improve.html" className="no-print" style={{ flexShrink: 0, background: "#06C755", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none" }}>
             認証審査 →
@@ -1537,6 +1583,46 @@ function ReportPage({ report, form, reportMode = "demo" }) {
         {/* ナビ横スクロール用シークバー */}
         <NavSeekBar targetRef={navScrollRef} />
       </div>
+
+      {showFulfillment && (
+        <div className="no-print" style={{ background: "#F0FDF4", borderBottom: "1px solid #BBF7D0", padding: "20px 40px" }}>
+          <div style={{ maxWidth: 860, margin: "0 auto" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#166534", letterSpacing: 1, marginBottom: 8 }}>
+              {purchaseState?.verified ? "PURCHASE VERIFIED" : "PURCHASE RECORDED"}
+            </div>
+            <p style={{ fontSize: 13, color: "#166534", margin: "0 0 16px", lineHeight: 1.6 }}>
+              Company Report と Research Edition へのアクセスが有効です（このブラウザ・72時間）。
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              <button
+                type="button"
+                onClick={() => setPrinting(true)}
+                style={{ background: "#0A0A0A", color: "#fff", border: "none", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer" }}
+              >
+                PDFとして保存
+              </button>
+              {purchaseState?.entitlements?.researchEdition && (
+                <button
+                  type="button"
+                  onClick={() => openResearchEdition(purchaseState)}
+                  style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
+                >
+                  Research Editionを開く
+                </button>
+              )}
+              {!purchaseState?.entitlements?.methodologyHandbook && (
+                <button
+                  type="button"
+                  onClick={() => openHandbookUpgrade()}
+                  style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
+                >
+                  Methodology Handbookへアップグレード（既購入者向け ¥69,000）
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ① Overall Score */}
       <section id="overview" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }} ref={scoreRef}>
@@ -1965,12 +2051,8 @@ function saveReportSummary(report) {
   } catch { /* noop */ }
 }
 
-// ─── STRIPE ───────────────────────────────────────────────────────────────────
-// Stripeで発行した Checkout / Payment Link の決済URL（例: https://buy.stripe.com/xxxxxxxx）。
-// ここに設定すると「決済に進む」で実決済へリダイレクトする。
-// 空文字のままなら決済をスキップしてそのまま解析へ進む（開発・デモ用フォールバック）。
-const STRIPE_CHECKOUT_URL = "https://buy.stripe.com/9B600kecb8iBdMTb5hcMM0g";
-const PENDING_FORM_KEY = "ari_pending_form";
+// ─── STRIPE / FULFILLMENT ─────────────────────────────────────────────────────
+const PENDING_FORM_KEY = STORAGE_KEYS.pendingForm;
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 export default function App() {
@@ -1980,21 +2062,39 @@ export default function App() {
   const [reportData, setReport]   = useState(null);
   const [isPaidFlow, setIsPaidFlow] = useState(false);
   const [reportMode, setReportMode] = useState("demo"); // demo | paid | sample
+  const [purchaseState, setPurchaseState] = useState(() => loadPurchaseState());
+  const [analysisRetryKey, setAnalysisRetryKey] = useState(0);
+  const returnHandledRef = useRef(false);
 
   // リザルト表示時に improve.html へ渡すスコアを localStorage に保存
   useEffect(() => {
     if (reportData) saveReportSummary(reportData);
   }, [reportData]);
 
+  // 同一ブラウザ内 — 購入済みレポートの復元（URL return より後順位）
+  useEffect(() => {
+    if (returnHandledRef.current) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("report") === "demo") return;
+    if (params.get("paid") || params.get("session_id") || params.get("canceled")) return;
+
+    const restored = tryRestorePaidSession();
+    if (restored) {
+      setPurchaseState(restored.purchase);
+      setFormData(restored.cache.form);
+      setReport(restored.cache.report);
+      setIsPaidFlow(true);
+      setReportMode("paid");
+      setStage("report");
+    }
+  }, []);
+
   // Stripe決済からの戻り（success_url / cancel_url）を処理する。
-  //   success_url 例: https://readiness.coaretail.com/report/?paid=1
-  //   cancel_url  例: https://readiness.coaretail.com/report/?canceled=1
-  // フォーム内容は決済前に localStorage に退避し、リダイレクトを跨いで復元する。
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    // 開発・プレビュー用: /report/?report=demo でリザルト画面を即表示
     if (params.get("report") === "demo") {
+      returnHandledRef.current = true;
       window.history.replaceState({}, "", window.location.pathname);
       setFormData({
         company: DUMMY_REPORT.company,
@@ -2010,58 +2110,107 @@ export default function App() {
       return;
     }
 
-    const paid = params.get("paid") === "1" || !!params.get("session_id");
+    const sessionId = params.get("session_id");
+    const paid = params.get("paid") === "1" || !!sessionId;
     const canceled = params.get("canceled") === "1";
     if (!paid && !canceled) return;
+
+    returnHandledRef.current = true;
 
     let saved = null;
     try { saved = JSON.parse(localStorage.getItem(PENDING_FORM_KEY) || "null"); } catch { saved = null; }
 
-    // クエリを除去し、リロード時の二重処理を防ぐ（base配下のパスは維持）
     window.history.replaceState({}, "", window.location.pathname);
 
-    if (paid) {
-      setIsPaidFlow(true);
-      setReportMode("paid");
-      if (saved) { setFormData(saved); setStage("analyzing"); }
-      else { setStage("form"); }   // フォーム情報が無ければ再入力へ
-    } else if (canceled) {
+    if (canceled) {
       if (saved) setFormData(saved);
       setStage("payment");
+      return;
     }
+
+    (async () => {
+      let purchase = null;
+      if (sessionId) {
+        const verified = await verifyPurchaseSession(sessionId, "company_report");
+        if (verified.ok) {
+          purchase = grantVerifiedPurchase(verified.purchase);
+        } else {
+          purchase = grantLegacyCompanyReportPurchase();
+          purchase.sessionId = sessionId;
+          purchase.verificationMethod = verified.reason === "verification_unconfigured"
+            ? "session_id_unverified"
+            : "session_id_verify_failed";
+          savePurchaseState(purchase);
+        }
+      } else {
+        purchase = grantLegacyCompanyReportPurchase();
+      }
+
+      setPurchaseState(purchase);
+      setIsPaidFlow(true);
+      setReportMode("paid");
+
+      if (saved) {
+        setFormData(saved);
+        setStage("analyzing");
+      } else {
+        setStage("form");
+      }
+    })();
   }, []);
 
   const handleStart       = () => {
     trackReportStartOnce();
     setStage("form");
   };
-  const handleFormSubmit  = (data) => { setFormData(data); setStage("payment"); };
-
-  const handlePay = () => {
-    // 決済前にフォーム内容を保存（Stripeリダイレクトを跨いで復元するため）
-    try { localStorage.setItem(PENDING_FORM_KEY, JSON.stringify(formData)); } catch { /* noop */ }
-    if (STRIPE_CHECKOUT_URL) {
-      window.location.href = STRIPE_CHECKOUT_URL;   // Stripe Checkout / Payment Link へ
-    } else {
-      setStage("analyzing");   // 未設定時はモック（従来動作）
-    }
+  const handleFormSubmit  = (data) => {
+    onReportFormComplete();
+    setFormData(data);
+    setStage("payment");
   };
 
-  // AnalyzingPage が解析完了したらレポートデータを受け取る
-  // APIキーあり → buildReport が返す実データ
-  // APIキーなし → DUMMY_REPORT（company/url/industryは上書き済み）
+  const handlePay = () => {
+    try { localStorage.setItem(PENDING_FORM_KEY, JSON.stringify(formData)); } catch { /* noop */ }
+    const checkout = resolveCheckoutUrl();
+    onReportCheckoutStart(checkout);
+    if (!checkout.url) {
+      alert("決済リンクが未設定です。Bundle Payment Link の設定が必要です（NEW_PAYMENT_LINK_REQUIRED）。");
+      return;
+    }
+    window.location.href = checkout.url;
+  };
+
   const handleAnalysisComplete = (report) => {
     try { localStorage.removeItem(PENDING_FORM_KEY); } catch { /* noop */ }
     saveReportSummary(report);
+    saveReportCache(report, formData);
     setReport(report);
-    if (isPaidFlow) setReportMode("paid");
+    if (isPaidFlow) {
+      setReportMode("paid");
+      onReportResultView(purchaseState || loadPurchaseState());
+    }
     setStage("report");
   };
 
   if (stage === "landing")   return <LandingPage onStart={handleStart} />;
   if (stage === "form")      return <FormPage onSubmit={handleFormSubmit} onClose={() => setStage("landing")} />;
   if (stage === "payment")   return <PaymentPage form={formData} onPay={handlePay} onBack={() => setStage("form")} onClose={() => setStage("landing")} />;
-  if (stage === "analyzing") return <AnalyzingPage onComplete={handleAnalysisComplete} form={formData} isPaidFlow={isPaidFlow} />;
-  if (stage === "report")    return <ReportPage report={reportData || DUMMY_REPORT} form={formData} reportMode={reportMode} />;
+  if (stage === "analyzing") return (
+    <AnalyzingPage
+      onComplete={handleAnalysisComplete}
+      form={formData}
+      isPaidFlow={isPaidFlow}
+      retryKey={analysisRetryKey}
+      onRetry={() => setAnalysisRetryKey((k) => k + 1)}
+    />
+  );
+  if (stage === "report") return (
+    <ReportPage
+      report={reportData || DUMMY_REPORT}
+      form={formData}
+      reportMode={reportMode}
+      purchaseState={purchaseState}
+    />
+  );
   return null;
 }

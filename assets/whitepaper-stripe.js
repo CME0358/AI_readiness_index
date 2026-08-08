@@ -30,4 +30,11 @@ window.WHITEPAPER_STRIPE = {
     priceLabel: "¥98,000（税別）",
     storageKey: "wp_handbook_paid",
   },
+  handbookUpgrade: {
+    paymentLink: "https://buy.stripe.com/00waEY6JJ0Q9bELgpBcMM0j",
+    productName: "Agent Readiness Methodology Handbook 2026 (Upgrade)",
+    edition: "Methodology Handbook Upgrade",
+    priceLabel: "¥69,000（税別）",
+    upgradeForExistingCompanyReport: true,
+  },
 };

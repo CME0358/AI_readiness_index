@@ -39,7 +39,7 @@ test('T01 paid live analysis never silently uses DEMO (missing keys)', () => {
 
 test('T02 demo route can use DEMO safely', () => {
   const reportSrc = fs.readFileSync(path.join(ROOT, 'report/src/agent-readiness-report.jsx'), 'utf8');
-  assert.match(reportSrc, /report=demo/);
+  assert.match(reportSrc, /params\.get\("report"\)/);
   assert.match(reportSrc, /SAMPLE \/ DEMO/);
   const demo = buildReport(mockForm, [], mockSite, mockFiles, { productMode: 'demo' });
   assert.ok(demo?.overallScore);
@@ -91,9 +91,16 @@ test('T08 Research canonical payment link consistency', () => {
   assert.match(researchHtml, /dRmdRa1ppgP7107ddpcMM0k/);
 });
 
+test('T08 Research canonical payment link consistency', () => {
+  const stripeJs = fs.readFileSync(path.join(ROOT, 'assets/whitepaper-stripe.js'), 'utf8');
+  assert.match(stripeJs, new RegExp(STRIPE_LINKS.researchCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  const researchHtml = fs.readFileSync(path.join(ROOT, 'research/index.html'), 'utf8');
+  assert.match(researchHtml, /dRmdRa1ppgP7107ddpcMM0k/);
+});
+
 test('T09 legacy links preserved', () => {
-  const reportSrc = fs.readFileSync(path.join(ROOT, 'report/src/agent-readiness-report.jsx'), 'utf8');
-  assert.match(reportSrc, /9B600kecb8iBdMTb5hcMM0g/);
+  const catalogSrc = fs.readFileSync(path.join(ROOT, 'scripts/lib/product-catalog.mjs'), 'utf8');
+  assert.match(catalogSrc, /9B600kecb8iBdMTb5hcMM0g/);
   const stripeJs = fs.readFileSync(path.join(ROOT, 'assets/whitepaper-stripe.js'), 'utf8');
   assert.match(stripeJs, /5kQ7sM6JJ0Q99wDehtcMM0i/);
 });

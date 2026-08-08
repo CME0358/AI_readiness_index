@@ -1,13 +1,16 @@
 /**
  * RMVU-02 — Paid product data integrity helpers.
- * Shared between /api/analyze and integrity tests.
+ * Stripe links: see scripts/lib/product-catalog.mjs (canonical registry).
  */
 
+import { PRODUCTS } from './product-catalog.mjs';
+
 export const STRIPE_LINKS = {
-  diagnosis: 'https://buy.stripe.com/9B600kecb8iBdMTb5hcMM0g',
-  researchCanonical: 'https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k',
-  researchInconsistent: 'https://buy.stripe.com/00waEY6JJ0Q9bELgpBcMM0j',
-  handbookCanonical: 'https://buy.stripe.com/5kQ7sM6JJ0Q99wDehtcMM0i',
+  diagnosis: PRODUCTS.companyReportLegacy.paymentLink,
+  researchCanonical: PRODUCTS.researchEdition.paymentLink,
+  researchInconsistent: PRODUCTS.handbookUpgrade.paymentLink,
+  handbookCanonical: PRODUCTS.handbookFull.paymentLink,
+  handbookUpgrade: PRODUCTS.handbookUpgrade.paymentLink,
 };
 
 export const PROTECTED_ABIS_SLUGS = [
