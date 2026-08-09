@@ -73,10 +73,10 @@ const JOURNEY_ORDER = ['visibility', 'aiSearch', 'authority', 'actionability', '
 
 /** Explicit overrides — filtered by availability at runtime. */
 export const RELATED_INSIGHTS_OVERRIDES = {
-  'llms-txt': ['schema', 'files'],
+  'llms-txt': ['schema', 'blind', 'files'],
   schema: ['llms-txt', 'files'],
   files: ['llms-txt', 'schema'],
-  grounds: ['llms-txt', 'schema'],
+  grounds: ['blind', 'llms-txt', 'schema'],
   blind: ['vis', 'checklist'],
   vis: ['blind', 'checklist'],
   checklist: ['blind', 'vis'],
@@ -87,7 +87,7 @@ export const RELATED_INSIGHTS_OVERRIDES = {
   pay: ['book', 'price'],
   price: ['act', 'pay'],
   act: ['price', 'book'],
-  'ai-search-shift': ['recommendation-logic', 'citation-vs-action'],
+  'ai-search-shift': ['blind', 'citation-vs-action', 'recommendation-logic'],
   'recommendation-logic': ['citation-vs-action', 'grounds', 'reviews'],
   'ari-vs-geo-seo': ['ai-search-shift', 'recommendation-logic'],
   'cloudflare-aeo': ['ai-search-shift', 'recommendation-logic', 'ari-vs-geo-seo'],
