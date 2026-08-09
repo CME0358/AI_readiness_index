@@ -1,5 +1,5 @@
 # Agent Readiness
-> AI時代の企業評価基準を定義する Research Hub
+> AIが企業・サービスを発見・理解・比較・推薦し、行動につなげられる状態を評価する Research Hub
 
 ## Core
 - [Agent Readiness](https://readiness.coaretail.com/): 概念

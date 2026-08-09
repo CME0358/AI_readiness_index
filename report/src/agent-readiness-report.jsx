@@ -635,13 +635,13 @@ const SITE_FOOTER_LINKS = [
 function LandingPage({ onStart }) {
   const [legal, setLegal] = useState(null);
   const features = [
-    { title: "AI認識スコア", desc: "ChatGPT・Gemini・Claude・Perplexityが御社をどう認識しているかを数値化" },
-    { title: "23項目評価", desc: "技術・コンテンツ・予約導線・権威性を網羅した業界最詳細な診断" },
-    { title: "競合比較分析", desc: "同業他社・業界平均との差を可視化し、今すぐ打つべき手を特定" },
-    { title: "改善ロードマップ", desc: "ROI順に整理された優先アクションリストで、明日から動ける具体策を提示" },
+    { title: "AI Recognition", desc: "ChatGPT・Gemini・Claude・Perplexityが御社をどう認識しているかを数値化" },
+    { title: "Comparison & Recommendation", desc: "比較候補として扱える情報と、AIが推薦理由を形成できる状態を評価" },
+    { title: "Actionability", desc: "推薦後に予約・問い合わせ・購入などの行動につながる導線を確認" },
+    { title: "Improvement Priority", desc: "ROI順に整理された優先アクションで、次に直すべき順序を明確化" },
   ];
   const faqs = [
-    { q: "何が分かるレポートですか？", a: "AIに会社情報が正確に認識されているか、AIから推薦されやすい状態にあるか、AIエージェントが予約できる状態にあるかを23項目で診断します。" },
+    { q: "何が分かるレポートですか？", a: "自社がAIにどう認識され、どこで比較・推薦・行動（予約・問い合わせ等）につながっていないかを把握し、改善優先順位を明確にする Decision Product です。技術シグナル（構造化データ等）はその一部として確認します。" },
     { q: "どのくらいで結果が届きますか？", a: "URLを入力してから約3〜5分で診断レポートが生成されます。" },
     { q: "何を準備すればいいですか？", a: "会社名、公式サイトのURL、業種だけあればOKです。" },
     { q: "レポートはPDFで保存できますか？", a: "はい。診断結果ページからワンクリックでPDFとしてダウンロードできます。" },
@@ -675,8 +675,11 @@ function LandingPage({ onStart }) {
           AIに見つかる時代から、<br />
           <span style={{ color: "#0A0A0A" }}>AIに選ばれる時代へ</span>
         </h1>
-        <p className="hero-anim d3" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px", fontWeight: 400 }}>
-          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、ChatGPT・Gemini・Claude・Perplexityが御社をどう認識し、どれだけ推薦しているかを診断指標として数値化します。
+        <p className="hero-anim d3" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 24px", fontWeight: 400 }}>
+          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、自社がAIにどう認識され、どこで比較・推薦・行動につながっていないかを可視化します。
+        </p>
+        <p className="hero-anim d3" style={{ fontSize: 15, color: "#525252", lineHeight: 1.75, maxWidth: 600, margin: "0 auto 40px", fontWeight: 400 }}>
+          Agent Readiness Index（ARI）は、AIが企業・サービスを発見・理解・比較・推薦し、予約・問い合わせ・購入などの行動につなげられる状態かを評価する指標です。
         </p>
         <div className="hero-anim d4">
         <button onClick={onStart} style={{
@@ -720,7 +723,10 @@ function LandingPage({ onStart }) {
         <Reveal>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>特徴</span>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>役員会に提出できるレベルの<br />診断レポート</h2>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>経営判断に使える<br />Decision Report</h2>
+          <p style={{ fontSize: 16, color: "#6B6B6B", maxWidth: 560, margin: "16px auto 0", lineHeight: 1.7 }}>
+            自社のAI Recognition・Comparison Readiness・Recommendation Readiness・Actionabilityを把握し、次に直すべき Improvement Priority を明確にします。
+          </p>
         </div>
         </Reveal>
         <Reveal delay={0.08}>
@@ -949,7 +955,7 @@ const LEGAL_DOCS = {
         "ユーザーが本サービスの申込みフォームで「同意」を選択し、または本サービスを利用した時点で、本規約に同意したものとみなします。",
       ] },
       { h: "第2条（サービス内容）", body: [
-        "本サービスは、ユーザーが入力した企業情報および公式サイトを対象に、主要な生成AI・AI検索（ChatGPT、Gemini、Claude、Perplexity 等）における認識・推薦状況や、サイトの技術的最適化状況を解析し、スコア・改善提案を含む診断レポートを生成・提供するものです。",
+        "本サービスは、ユーザーが入力した企業情報および公式サイトを対象に、主要な生成AI・AI検索（ChatGPT、Gemini、Claude、Perplexity 等）における認識・比較・推薦・行動接続の準備度を評価し、改善優先順位を含む診断レポート（Company Report）を生成・提供するものです。サイトの技術的整備状況は、Actionability評価の一部として確認します。",
         "本サービスが提供するスコア、順位、偏差値その他の数値は、解析時点の情報に基づく推計値であり、特定の検索結果・AI出力・集客・売上その他の成果を保証するものではありません。",
         "本サービスは現在ベータ版として提供されており、機能・仕様・料金は予告なく変更される場合があります。",
       ] },
@@ -1795,8 +1801,9 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
       </section>
 
       <section id="technical" className="report-section">
-        <div className="report-eyebrow">Interpretation</div>
-        <h2 className="report-h2">技術的実装状況</h2>
+        <div className="report-eyebrow">Actionability</div>
+        <h2 className="report-h2">実行につながる技術シグナル</h2>
+        <p className="report-lead">robots.txt・LLMs.txt・Schema等は、AIが発見・理解・行動接続できる状態を支えるシグナルです。ARI全体をTechnical Scannerと定義するものではありません。</p>
         <div className="report-metric-grid">
           {report.technical.map((item, i) => (
             <div key={item.item} className="report-metric-card">
