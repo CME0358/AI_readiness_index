@@ -81,11 +81,12 @@ function devApiPlugin() {
 export default defineConfig(({ mode }) => {
   // .env / .env.local からサーバー専用キーを読み込み、dev の /api ハンドラへ渡す。
   // VITE_ プレフィックスではないため、クライアントバンドルには露出しない。
+  // VITE_COMPANY_REPORT_BUNDLE_PAYMENT_URL は公開 Payment Link — Vite が client へ自動注入。
   const env = loadEnv(mode, process.cwd(), "");
   for (const k of [
     "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "PERPLEXITY_API_KEY",
     "AIRTABLE_API_KEY", "AIRTABLE_BASE_ID", "AIRTABLE_TABLE_NAME",
-    "STRIPE_SECRET_KEY", "COMPANY_REPORT_BUNDLE_PAYMENT_URL",
+    "STRIPE_SECRET_KEY",
   ]) {
     if (env[k]) process.env[k] = env[k];
   }

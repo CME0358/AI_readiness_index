@@ -87,7 +87,13 @@ export function clearReportCache() {
 }
 
 export function resolveCheckoutUrl() {
-  return resolveCompanyReportPaymentLink({ allowLegacy: true });
+  const bundlePaymentUrl = String(
+    import.meta.env.VITE_COMPANY_REPORT_BUNDLE_PAYMENT_URL || '',
+  ).trim();
+  return resolveCompanyReportPaymentLink({
+    env: { COMPANY_REPORT_BUNDLE_PAYMENT_URL: bundlePaymentUrl },
+    allowLegacy: false,
+  });
 }
 
 export function applyEntitlementsToBrowser(state) {

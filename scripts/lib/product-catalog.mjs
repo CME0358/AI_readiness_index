@@ -43,7 +43,7 @@ export const PRODUCTS = {
     name: 'Agent Readiness Company Report (Bundle)',
     priceExTax: 29_800,
     priceTaxIncl: STRIPE_AMOUNT_TAX_INCL.companyReport,
-    /** Set via env COMPANY_REPORT_BUNDLE_PAYMENT_URL when Stripe Dashboard link exists. */
+    /** Client: VITE_COMPANY_REPORT_BUNDLE_PAYMENT_URL (build-time). Server/tests: COMPANY_REPORT_BUNDLE_PAYMENT_URL. */
     paymentLink: null,
     fulfillmentState: FULFILLMENT_STATES.PAID_COMPANY_REPORT,
     entitlements: {
@@ -120,9 +120,13 @@ export const HANDBOOK = {
   storageKey: 'wp_handbook_paid',
 };
 
-/** Bundle payment URL from env (server) or null until Dashboard link is created. */
+/** Bundle payment URL from env (server / tests) or null until configured. */
 export function resolveBundlePaymentLink(env = process.env) {
-  const url = (env.COMPANY_REPORT_BUNDLE_PAYMENT_URL || '').trim();
+  const url = (
+    env.COMPANY_REPORT_BUNDLE_PAYMENT_URL
+    || env.VITE_COMPANY_REPORT_BUNDLE_PAYMENT_URL
+    || ''
+  ).trim();
   return url || null;
 }
 
