@@ -17,6 +17,7 @@ import {
   getBufferConfig,
 } from './lib/buffer-client.mjs';
 import { verifyArticleUrl } from './lib/url-verify.mjs';
+import { waitForArticleProduction } from './lib/wait-production-url.mjs';
 import { CHANNEL_KEYS } from './lib/social-channels.mjs';
 import {
   readJsonFile,
@@ -83,22 +84,12 @@ async function main() {
   );
 
   if (waitDeploy && !dryRun) {
-    const deadline = Date.now() + 90_000;
-    let live = false;
-    while (Date.now() < deadline) {
-      const check = await verifyArticleUrl(article.slug);
-      if (check.ok) {
-        live = true;
-        console.log('Article URL live:', check.url);
-        break;
-      }
-      console.log('Waiting for deploy...', check.reason || 'not ready');
-      await new Promise((r) => setTimeout(r, 10_000));
-    }
-    if (!live) {
+    const prod = await waitForArticleProduction(article.slug, { verifyFn: verifyArticleUrl });
+    if (!prod.ok) {
       console.error('Article URL not live after wait — aborting Buffer transfer');
       process.exit(1);
     }
+    console.log('Article URL live:', prod.url);
   }
 
   const { updated, results, exitCode, reason } = await processArticleChannels({

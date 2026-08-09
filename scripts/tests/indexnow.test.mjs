@@ -284,3 +284,133 @@ test('full-site inventory excludes cloudflare-aeo and protected slugs', async ()
   assert.ok(!inventory.eligible.some((u) => u.includes('abis-intro')));
   assert.ok(!inventory.eligible.some((u) => u.includes('three-pillars-ops')));
 });
+
+test('scheduled publisher defers IndexNow to post-deploy step', () => {
+  const src = fs.readFileSync(path.join(ROOT, 'scripts/publish-scheduled-insights.mjs'), 'utf8');
+  assert.doesNotMatch(src, /submitIndexNow/);
+  assert.doesNotMatch(src, /notifyIndexNow/);
+  assert.match(src, /deferred to post-deploy step/);
+});
+
+test('post-deploy IndexNow blocks production 404', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const calls = [];
+  const result = await submitPostDeployIndexNow(['blind'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({ ok: false, url: insightPublishUrl('blind'), reason: 'HTTP 404' }),
+    fetchImpl: (...args) => {
+      calls.push(args);
+      throw new Error('IndexNow fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'deferred');
+  assert.equal(result.submitted, 0);
+  assert.equal(calls.length, 0);
+  assert.equal(result.deferred[0].reason, '404');
+});
+
+test('post-deploy IndexNow blocks production 500', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const result = await submitPostDeployIndexNow(['blind'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({ ok: false, url: insightPublishUrl('blind'), reason: 'HTTP 500' }),
+    fetchImpl: () => {
+      throw new Error('IndexNow fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'deferred');
+  assert.equal(result.deferred[0].reason, '500');
+});
+
+test('post-deploy IndexNow allows production 200 for published slug', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const calls = [];
+  const result = await submitPostDeployIndexNow(['blind'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({
+      ok: true,
+      url: insightPublishUrl('blind'),
+      status: 200,
+      checks: { ok: true },
+    }),
+    fetchImpl: mockFetch(200, { calls }),
+  });
+  assert.equal(result.status, 'success');
+  assert.equal(result.submitted, 1);
+  assert.equal(calls.length, 1);
+});
+
+test('post-deploy deploy timeout defers without rollback signal', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const { PRODUCTION_DEPLOY_POLL_MS } = await import('../lib/wait-production-url.mjs');
+  const result = await submitPostDeployIndexNow(['blind'], {
+    skipWait: false,
+    deadlineMs: PRODUCTION_DEPLOY_POLL_MS,
+    pollMs: 1,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({ ok: false, url: insightPublishUrl('blind'), reason: 'HTTP 404' }),
+    fetchImpl: () => {
+      throw new Error('IndexNow fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'deferred');
+  assert.equal(result.graceful, true);
+  assert.equal(result.submitted, 0);
+});
+
+test('post-deploy IndexNow API failure leaves graceful publication path', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const result = await submitPostDeployIndexNow(['blind'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({
+      ok: true,
+      url: insightPublishUrl('blind'),
+      status: 200,
+      checks: { ok: true },
+    }),
+    fetchImpl: async () => ({ status: 503, async text() { return ''; } }),
+  });
+  assert.equal(result.status, 'remote_error');
+  assert.equal(result.graceful, true);
+  assert.equal(result.submitted, 0);
+});
+
+test('post-deploy blocks future cloudflare-aeo before publication', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const result = await submitPostDeployIndexNow(['cloudflare-aeo'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({
+      ok: true,
+      url: insightPublishUrl('cloudflare-aeo'),
+      status: 200,
+    }),
+    fetchImpl: () => {
+      throw new Error('IndexNow fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'blocked');
+  assert.equal(result.blocked[0].reason, 'future_publishAt');
+});
+
+test('post-deploy blocks protected ABIS slugs', async () => {
+  const { submitPostDeployIndexNow } = await import('../lib/indexnow-post-deploy.mjs');
+  const result = await submitPostDeployIndexNow(['abis-intro'], {
+    skipWait: true,
+    key: DUMMY_KEY,
+    verifyFn: async () => ({
+      ok: true,
+      url: insightPublishUrl('abis-intro'),
+      status: 200,
+    }),
+    fetchImpl: () => {
+      throw new Error('IndexNow fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'blocked');
+  assert.equal(result.blocked[0].reason, 'protected');
+});

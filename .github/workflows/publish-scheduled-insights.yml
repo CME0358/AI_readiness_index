@@ -47,7 +47,6 @@ jobs:
         env:
           FORCE_SLUG: ${{ github.event.inputs.force_slug }}
           NOW: ${{ github.event.inputs.now }}
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -euo pipefail
           if [ -n "${NOW:-}" ] && [[ ! "${NOW}" =~ T ]]; then
@@ -60,16 +59,40 @@ jobs:
           "${CMD[@]}" | tee /tmp/publish.log
           if grep -q 'UPDATED=1' /tmp/publish.log; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            SLUG=$(grep '^Published:' /tmp/publish.log | sed 's/Published: //' | awk -F, '{print $1}' | xargs)
-            echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
+            SLUGS=$(grep '^Published:' /tmp/publish.log | sed 's/Published: //' | xargs)
+            echo "slugs=${SLUGS}" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "slug=" >> "$GITHUB_OUTPUT"
+            echo "slugs=" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Commit and push (Web publish)
+        if: steps.publish.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "$(cat <<'EOF'
+          Publish scheduled Insights
+
+          Web publish, index/sitemap/llms, schedule state.
+          EOF
+          )" \
+            insights/ sitemap.xml llms.txt insights/_scheduled/schedule.json
+
+      - name: Post-deploy IndexNow
+        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.slugs != ''
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          set -euo pipefail
+          SLUGS="${{ steps.publish.outputs.slugs }}"
+          SLUGS="${SLUGS// /,}"
+          node scripts/submit-indexnow-post-deploy.mjs --slugs "$SLUGS"
 
       - name: Queue Buffer posts (after Web deploy)
         id: buffer
-        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.slug != ''
+        if: steps.publish.outputs.changed == 'true' && steps.publish.outputs.slugs != ''
         env:
           BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
           BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
@@ -79,8 +102,9 @@ jobs:
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
         run: |
           set -euo pipefail
+          FIRST_SLUG=$(echo "${{ steps.publish.outputs.slugs }}" | awk '{print $1}')
           node scripts/queue-daily-buffer-posts.mjs \
-            --force-slug "${{ steps.publish.outputs.slug }}" \
+            --force-slug "$FIRST_SLUG" \
             --wait-deploy \
             --channels linkedin,facebook,x \
             | tee /tmp/queue-buffer.log
@@ -90,16 +114,16 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit and push (single atomic commit)
-        if: steps.publish.outputs.changed == 'true' || steps.buffer.outputs.changed == 'true'
+      - name: Commit and push (Buffer queue)
+        if: steps.buffer.outputs.changed == 'true'
         run: |
           set -euo pipefail
           chmod +x scripts/lib/gha-git-push.sh
           scripts/lib/gha-git-push.sh \
             "$(cat <<'EOF'
-          Publish scheduled Insights (+ Buffer queue)
+          Update Buffer queue after scheduled Insights publish
 
-          Single commit: Web publish, index/sitemap/llms, buffer + linkedin queue state.
+          Automated buffer + linkedin queue state.
           EOF
           )" \
-            insights/ sitemap.xml llms.txt
+            insights/_social/
