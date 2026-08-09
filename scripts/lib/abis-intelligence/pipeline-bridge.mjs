@@ -12,6 +12,14 @@ import {
 } from './storage.mjs';
 import { writeAbisReview } from './review-generator.mjs';
 import { notifyAbisImpact, sanitizeLogMessage } from './slack-notifier.mjs';
+import {
+  loadNotificationState,
+  saveNotificationState,
+  evaluateNotificationDedup,
+  recordNotificationState,
+} from './notification-state.mjs';
+import { reconcileImpactQueue } from './impact-queue-reconcile.mjs';
+import { isFixtureEvent, ITEM_ORIGIN } from '../editorial-intelligence/item-origin.mjs';
 
 export function generateAbisDailyBriefSection(impacts = []) {
   const critical = filterImpactsBySeverity(impacts, ABIS_SEVERITY.CRITICAL);
@@ -78,41 +86,75 @@ export function writePrivateDailyBrief(abisSection, { editorialBriefPath = null 
 }
 
 /**
- * Evaluate ABIS impact for all normalized events (private path).
- * Does not mutate repository assets. Slack failures are non-fatal.
+ * Evaluate ABIS impact for normalized production events (private path).
+ * Slack dedup via notification-state.json; fixture events never notify.
  */
 export async function processAbisImpactWatch(events, options = {}) {
   const {
     dryRun = true,
     notify = false,
+    allowFixtures = false,
     ariStatusByEventId = new Map(),
   } = options;
 
   const impacts = [];
   const notifications = [];
   let queue = loadImpactQueue();
+  let notificationState = loadNotificationState();
 
   for (const event of events) {
+    if (isFixtureEvent(event) && !allowFixtures) continue;
+
     const impact = scoreAbisImpact(event);
     const ariStatus = ariStatusByEventId.get(event.event_id) || event.status || 'DETECTED';
 
     const reviewPath = writeAbisReview(event, impact, { ari_article_status: ariStatus });
 
-    let notificationResult = { would_notify: false, notification_status: 'SKIPPED' };
-    try {
-      notificationResult = await notifyAbisImpact(impact, {
-        dryRun,
-        notify,
-        title: event.title,
-        ari_article_status: ariStatus,
-        announcement_excerpt: event.excerpt,
-      });
-    } catch (err) {
+    const dedup = evaluateNotificationDedup(impact, notificationState, { event });
+    let notificationResult = {
+      would_notify: dedup.send,
+      notification_status: dedup.send ? 'PENDING' : 'SKIPPED',
+      dedup_reason: dedup.reason,
+    };
+
+    if (dedup.send) {
+      try {
+        notificationResult = {
+          ...notificationResult,
+          ...(await notifyAbisImpact(impact, {
+            dryRun,
+            notify,
+            title: event.title,
+            ari_article_status: ariStatus,
+            announcement_excerpt: event.excerpt,
+          })),
+          dedup_reason: dedup.reason,
+        };
+      } catch (err) {
+        notificationResult = {
+          would_notify: true,
+          notification_status: 'FAILED',
+          error: sanitizeLogMessage(err?.message || String(err)),
+          dedup_reason: dedup.reason,
+        };
+      }
+    } else {
       notificationResult = {
-        would_notify: impact.severity === ABIS_SEVERITY.CRITICAL || impact.severity === ABIS_SEVERITY.HIGH,
-        notification_status: 'FAILED',
-        error: sanitizeLogMessage(err?.message || String(err)),
+        would_notify: false,
+        notification_status: 'SKIPPED',
+        dedup_reason: dedup.reason,
       };
+    }
+
+    if (notificationResult.notification_status === 'SENT' || notificationResult.sent) {
+      notificationState = recordNotificationState(notificationState, impact, notificationResult, {
+        fingerprint: dedup.fingerprint,
+      });
+    } else if (notificationResult.notification_status === 'FAILED') {
+      notificationState = recordNotificationState(notificationState, impact, {
+        ...notificationResult,
+        sent: false,
+      }, { fingerprint: dedup.fingerprint });
     }
 
     impacts.push({
@@ -122,6 +164,7 @@ export async function processAbisImpactWatch(events, options = {}) {
       review_path: reviewPath,
       would_notify: notificationResult.would_notify,
       notification_status: notificationResult.notification_status,
+      dedup_reason: notificationResult.dedup_reason,
     });
 
     notifications.push({ event_id: event.event_id, ...notificationResult });
@@ -132,13 +175,18 @@ export async function processAbisImpactWatch(events, options = {}) {
       would_notify: notificationResult.would_notify,
       notification_status: notificationResult.notification_status,
       review_path: reviewPath,
+      origin: event.origin || ITEM_ORIGIN.LIVE,
     });
   }
+
+  const reconciled = reconcileImpactQueue(queue, { events, currentImpacts: impacts });
+  queue = reconciled.queue;
 
   const store = loadAbisEvents();
   store.impacts = impacts;
   saveAbisEvents(store);
   saveImpactQueue(queue);
+  saveNotificationState(notificationState);
 
   const abisBriefSection = generateAbisDailyBriefSection(impacts);
 
@@ -147,6 +195,7 @@ export async function processAbisImpactWatch(events, options = {}) {
     notifications,
     queue,
     abisBriefSection,
+    impactQueueReconciled: reconciled.removed.length,
     critical: filterImpactsBySeverity(impacts, ABIS_SEVERITY.CRITICAL),
     high: filterImpactsBySeverity(impacts, ABIS_SEVERITY.HIGH),
     watch: filterImpactsBySeverity(impacts, ABIS_SEVERITY.WATCH),

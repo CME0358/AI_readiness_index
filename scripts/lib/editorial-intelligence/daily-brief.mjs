@@ -1,4 +1,9 @@
 import { PRIORITY_BANDS } from './constants.mjs';
+import { QUEUE_LIFECYCLE } from './queue-reconcile.mjs';
+
+function activeEntries(entries = []) {
+  return entries.filter((e) => !e.lifecycle || e.lifecycle === QUEUE_LIFECYCLE.ACTIVE);
+}
 
 export function generateDailyBrief({
   alerts = [],
@@ -10,9 +15,10 @@ export function generateDailyBrief({
   slot = {},
   dryRun = true,
 } = {}) {
-  const p0 = queue.entries.filter((e) => e.priority === PRIORITY_BANDS.P0);
-  const p1 = queue.entries.filter((e) => e.priority === PRIORITY_BANDS.P1);
-  const p2 = queue.entries.filter((e) => e.priority === PRIORITY_BANDS.P2);
+  const active = activeEntries(queue.entries);
+  const p0 = active.filter((e) => e.priority === PRIORITY_BANDS.P0);
+  const p1 = active.filter((e) => e.priority === PRIORITY_BANDS.P1);
+  const p2 = active.filter((e) => e.priority === PRIORITY_BANDS.P2);
   const refresh = processed.filter((e) => e.article_type === 'EXISTING_ARTICLE_REFRESH');
 
   const lines = [

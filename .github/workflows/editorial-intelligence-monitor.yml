@@ -32,6 +32,19 @@ jobs:
         with:
           node-version: '20'
 
+      # RMVU-05F: best-effort state restore (not durable DB; contents:read preserved)
+      - name: Restore intelligence runtime state
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            crucial_data/editorial/intelligence/events.json
+            crucial_data/editorial/intelligence/queue.json
+            crucial_data/editorial/intelligence/sources.json
+            crucial_data/abis-intelligence
+          key: editorial-intelligence-state-v1
+          restore-keys: |
+            editorial-intelligence-state-v1
+
       - name: Run Editorial Intelligence pipeline
         env:
           ABIS_SLACK_WEBHOOK_URL: ${{ secrets.ABIS_SLACK_WEBHOOK_URL }}
@@ -53,3 +66,14 @@ jobs:
           echo "Running: ${CMD[*]}"
           "${CMD[@]}"
           echo "Editorial Intelligence monitor complete (no auto-publish, no IndexNow)"
+
+      - name: Save intelligence runtime state
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            crucial_data/editorial/intelligence/events.json
+            crucial_data/editorial/intelligence/queue.json
+            crucial_data/editorial/intelligence/sources.json
+            crucial_data/abis-intelligence
+          key: editorial-intelligence-state-v1

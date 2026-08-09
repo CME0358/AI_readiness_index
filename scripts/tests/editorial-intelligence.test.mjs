@@ -8,7 +8,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadSourcesRegistry, listEnabledSources, updateSourceHealth } from '../lib/editorial-intelligence/sources.mjs';
-import { parseFeedItems, loadBackfillFixtures } from '../lib/editorial-intelligence/fetcher.mjs';
+import {
+  parseFeedItems,
+  loadBackfillFixtures,
+  fetchFeedIncremental,
+  fetchSourceItems,
+  parseAnthropicNewsListing,
+  DEFAULT_MAX_FEED_BYTES,
+  SOURCE_FETCH_PROFILES,
+} from '../lib/editorial-intelligence/fetcher.mjs';
 import { dedupeItemsToEvents, countDuplicateMerges, buildEventId } from '../lib/editorial-intelligence/dedupe.mjs';
 import {
   scoreEvent,
@@ -45,6 +53,24 @@ import {
 } from '../lib/abis-intelligence/slack-message-ja.mjs';
 import { ABIS_INTELLIGENCE_PATHS, PUBLIC_SURFACE_PATHS } from '../lib/abis-intelligence/paths.mjs';
 import { ABIS_SEVERITY, PATENT_FLAGS } from '../lib/abis-intelligence/constants.mjs';
+import {
+  isFixtureItem,
+  isFixtureEvent,
+  ITEM_ORIGIN,
+  tagFixtureItems,
+  productionEvents,
+} from '../lib/editorial-intelligence/item-origin.mjs';
+import { reconcileEditorialQueue, QUEUE_LIFECYCLE } from '../lib/editorial-intelligence/queue-reconcile.mjs';
+import { reconcileImpactQueue } from '../lib/abis-intelligence/impact-queue-reconcile.mjs';
+import {
+  evaluateNotificationDedup,
+  buildNotificationFingerprint,
+} from '../lib/abis-intelligence/notification-state.mjs';
+import {
+  classifyRunnerPersistence,
+  workflowUsesStateCache,
+  PERSISTENCE_CLASS,
+} from '../lib/editorial-intelligence/persistence-audit.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
@@ -462,7 +488,7 @@ test('RMVU-05D T40 Slack failure does not stop pipeline', async () => {
   const prev = process.env.ABIS_SLACK_WEBHOOK_URL;
   process.env.ABIS_SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/INVALID/TEST/URL';
   const events = [abisSampleEvent({ event_id: 'slack-fail-1' })];
-  const result = await processAbisImpactWatch(events, { dryRun: false, notify: true });
+  const result = await processAbisImpactWatch(events, { dryRun: false, notify: true, allowFixtures: true });
   assert.ok(result.impacts.length === 1);
   if (prev) process.env.ABIS_SLACK_WEBHOOK_URL = prev;
   else delete process.env.ABIS_SLACK_WEBHOOK_URL;
@@ -735,4 +761,228 @@ test('RMVU-05D T71 intelligence:monitor script uses live + abis-notify', () => {
   const pkg = JSON.parse(read('package.json'));
   assert.match(pkg.scripts['intelligence:monitor'], /--live/);
   assert.match(pkg.scripts['intelligence:monitor'], /--abis-notify/);
+});
+
+// --- RMVU-05F Operational Hardening (T72–T90) ---
+
+test('RMVU-05F T72 OpenAI official source returns items via incremental fetch', async () => {
+  const reg = loadSourcesRegistry();
+  const openai = reg.sources.find((s) => s.source_id === 'openai-blog');
+  assert.ok(openai);
+  const result = await fetchSourceItems(openai);
+  assert.equal(result.ok, true, result.error || 'fetch failed');
+  assert.ok(result.items.length >= 1, 'expected at least 1 OpenAI item');
+  assert.ok(result.items[0].title);
+  assert.ok(result.items[0].url);
+  assert.match(result.items[0].url, /^https:\/\/openai\.com\//);
+  assert.equal(result.items[0].origin, ITEM_ORIGIN.LIVE);
+});
+
+test('RMVU-05F T73 OpenAI source-specific size handling is safe', async () => {
+  assert.ok(SOURCE_FETCH_PROFILES['openai-blog'].maxFeedBytes <= 800_000);
+  assert.ok(DEFAULT_MAX_FEED_BYTES <= 500_000);
+  const result = await fetchFeedIncremental('https://openai.com/news/rss.xml', {
+    maxItems: 5,
+    maxFeedBytes: SOURCE_FETCH_PROFILES['openai-blog'].maxFeedBytes,
+  });
+  assert.equal(result.ok, true, result.error);
+  assert.ok(result.truncated, 'should truncate large feed');
+  assert.ok(result.text.length < SOURCE_FETCH_PROFILES['openai-blog'].maxFeedBytes);
+});
+
+test('RMVU-05F T74 Anthropic official source returns items', async () => {
+  const reg = loadSourcesRegistry();
+  const anthropic = reg.sources.find((s) => s.source_id === 'anthropic-news');
+  assert.ok(anthropic);
+  assert.equal(anthropic.fetch_mode, 'html_listing');
+  const result = await fetchSourceItems(anthropic);
+  assert.equal(result.ok, true, result.error || 'fetch failed');
+  assert.ok(result.items.length >= 1);
+  assert.ok(result.items[0].title);
+  assert.match(result.items[0].url, /^https:\/\/www\.anthropic\.com\/news\//);
+});
+
+test('RMVU-05F T75 Anthropic parser uses official domain only', () => {
+  const html = '<a href="/news/claude-opus-5" class="PublicationList-module"><span class="PublicationList-module__title">Test</span><time>Aug 1, 2026</time></a>';
+  const items = parseAnthropicNewsListing(html, {
+    company: 'Anthropic',
+    sourceId: 'anthropic-news',
+    sourceType: 'official_blog',
+    sourceLevel: 'A',
+  });
+  assert.ok(items[0].url.startsWith('https://www.anthropic.com/'));
+  assert.doesNotMatch(items[0].url, /techcrunch|feedburner|medium\.com/i);
+});
+
+test('RMVU-05F T76 fixture events excluded from production queue', () => {
+  const fixtures = loadBackfillFixtures(INTELLIGENCE_PATHS.fixtures);
+  assert.ok(fixtures.every((f) => f.origin === ITEM_ORIGIN.FIXTURE));
+  const events = dedupeItemsToEvents(fixtures);
+  const queue = {
+    entries: events.map((e) => ({
+      event_id: e.event_id,
+      company: e.company,
+      title: e.title,
+      priority: 'P1',
+      score: 75,
+      origin: ITEM_ORIGIN.FIXTURE,
+    })),
+  };
+  const { queue: cleaned, removed } = reconcileEditorialQueue(queue, { events });
+  assert.ok(removed.length >= 1);
+  assert.equal(cleaned.entries.length, 0);
+});
+
+test('RMVU-05F T77 fixture ABIS excluded from active impact queue', () => {
+  const ev = sampleEvent({
+    url: 'https://openai.com/news/example-agent-commerce/',
+    primary_source: { item_id: 'backfill-x', origin: ITEM_ORIGIN.FIXTURE, url: 'https://openai.com/news/example-agent-commerce/' },
+  });
+  const queue = {
+    entries: [{
+      event_id: ev.event_id,
+      company: 'OpenAI',
+      severity: ABIS_SEVERITY.HIGH,
+      abis_impact_score: 70,
+      origin: ITEM_ORIGIN.FIXTURE,
+    }],
+  };
+  const { removed } = reconcileImpactQueue(queue, { events: [ev], currentImpacts: [] });
+  assert.ok(removed.length >= 1);
+});
+
+test('RMVU-05F T78 queue live P1 count matches active production events', async () => {
+  const result = await runIntelligencePipeline({ dryRun: true, backfill: false, now: new Date('2026-08-09T12:00:00.000Z') });
+  const liveP1Events = productionEvents(result.allEvents).filter((e) => e.priority === PRIORITY_BANDS.P1).length;
+  const activeP1Queue = result.queue.entries.filter(
+    (e) => e.priority === PRIORITY_BANDS.P1 && e.lifecycle === QUEUE_LIFECYCLE.ACTIVE,
+  ).length;
+  assert.equal(activeP1Queue, liveP1Events, 'active P1 queue should match live P1 events');
+});
+
+test('RMVU-05F T79 same HIGH event does not resend', () => {
+  const impact = { event_id: 'e1', severity: ABIS_SEVERITY.HIGH, abis_impact_score: 72, dimension_scores: {}, affected_areas: ['Binding'] };
+  const fp = buildNotificationFingerprint(impact);
+  const state = {
+    notifications: {
+      e1: {
+        event_id: 'e1',
+        notification_status: 'SENT',
+        notification_severity: ABIS_SEVERITY.HIGH,
+        notification_fingerprint: fp,
+      },
+    },
+  };
+  const d = evaluateNotificationDedup(impact, state);
+  assert.equal(d.send, false);
+  assert.equal(d.reason, 'DUPLICATE_BLOCKED');
+});
+
+test('RMVU-05F T80 HIGH → CRITICAL resends', () => {
+  const state = {
+    notifications: {
+      e1: {
+        notification_status: 'SENT',
+        notification_severity: ABIS_SEVERITY.HIGH,
+        notification_fingerprint: 'old-fp',
+      },
+    },
+  };
+  const critical = { event_id: 'e1', severity: ABIS_SEVERITY.CRITICAL, abis_impact_score: 88, dimension_scores: {}, affected_areas: ['Binding'] };
+  const d = evaluateNotificationDedup(critical, state);
+  assert.equal(d.send, true);
+  assert.equal(d.reason, 'SEVERITY_ESCALATION');
+});
+
+test('RMVU-05F T81 WATCH → HIGH sends', () => {
+  const state = {
+    notifications: {
+      e1: { notification_status: 'SKIPPED', notification_severity: ABIS_SEVERITY.WATCH, notification_fingerprint: 'w1' },
+    },
+  };
+  const high = { event_id: 'e1', severity: ABIS_SEVERITY.HIGH, abis_impact_score: 68, dimension_scores: {}, affected_areas: [] };
+  const d = evaluateNotificationDedup(high, state);
+  assert.equal(d.send, true);
+});
+
+test('RMVU-05F T82 failed notification retry allowed', () => {
+  const state = {
+    notifications: {
+      e1: { notification_status: 'FAILED', notification_severity: ABIS_SEVERITY.HIGH, notification_fingerprint: 'fp1' },
+    },
+  };
+  const impact = { event_id: 'e1', severity: ABIS_SEVERITY.HIGH, abis_impact_score: 68, dimension_scores: {}, affected_areas: [] };
+  const d = evaluateNotificationDedup(impact, state);
+  assert.equal(d.send, true);
+  assert.equal(d.reason, 'RETRY_AFTER_FAILURE');
+});
+
+test('RMVU-05F T83 fixture HIGH never sends', () => {
+  const ev = sampleEvent({
+    url: 'https://openai.com/news/example-test/',
+    primary_source: { origin: ITEM_ORIGIN.FIXTURE, item_id: 'backfill-test' },
+  });
+  const impact = scoreAbisImpact(ev);
+  const d = evaluateNotificationDedup({ ...impact, severity: ABIS_SEVERITY.HIGH }, {}, { event: ev });
+  assert.equal(d.send, false);
+  assert.equal(d.reason, 'FIXTURE_NEVER_SEND');
+});
+
+test('RMVU-05F T84 notification secret remains hidden', () => {
+  process.env.ABIS_SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/SECRET/TOKEN';
+  const msg = formatSlackMessageJa(jaImpact({ severity: ABIS_SEVERITY.HIGH }));
+  assert.doesNotMatch(msg, /hooks\.slack\.com\/services\/SECRET/);
+  delete process.env.ABIS_SLACK_WEBHOOK_URL;
+});
+
+test('RMVU-05F T85 queue pruning keeps valid real historical event as STALE', () => {
+  const realEntry = {
+    event_id: 'real-hist-1',
+    company: 'Cloudflare',
+    title: 'Historical real announcement',
+    priority: 'P2',
+    score: 60,
+    origin: ITEM_ORIGIN.LIVE,
+    source_url: 'https://blog.cloudflare.com/real-post',
+    lifecycle: QUEUE_LIFECYCLE.ACTIVE,
+  };
+  const queue = { entries: [realEntry] };
+  const events = [{ event_id: 'other-live', company: 'Google', url: 'https://blog.google/new', primary_source: { origin: ITEM_ORIGIN.LIVE } }];
+  const { queue: cleaned } = reconcileEditorialQueue(queue, { events, processedEventIds: new Set(['other-live']) });
+  const kept = cleaned.entries.find((e) => e.event_id === 'real-hist-1');
+  assert.ok(kept);
+  assert.equal(kept.lifecycle, QUEUE_LIFECYCLE.STALE);
+});
+
+test('RMVU-05F T86 source health constants unchanged', () => {
+  assert.equal(SOURCE_HEALTH.HEALTHY, 'HEALTHY');
+  assert.equal(SOURCE_HEALTH.DEGRADED, 'DEGRADED');
+  assert.equal(SOURCE_HEALTH.FAILED, 'FAILED');
+});
+
+test('RMVU-05F T87 no automatic article publish in pipeline', () => {
+  const src = read('scripts/lib/editorial-intelligence/pipeline.mjs');
+  assert.doesNotMatch(src, /publish-scheduled-insights|submit-indexnow|autoPublish/i);
+  assert.match(src, /scheduleMutation:\s*false/);
+});
+
+test('RMVU-05F T88 ABIS public separation preserved', () => {
+  assert.doesNotMatch(read('scripts/lib/editorial-intelligence/draft-generator.mjs'), /abis-intelligence/);
+  for (const p of Object.values(PUBLIC_SURFACE_PATHS)) {
+    assert.ok(p);
+  }
+});
+
+test('RMVU-05F T89 GHA persistence uses cache for crucial_data', () => {
+  const wf = read('.github/workflows/editorial-intelligence-monitor.yml');
+  assert.ok(workflowUsesStateCache(wf));
+  const partial = classifyRunnerPersistence({ ghaCacheEnabled: true });
+  assert.equal(partial.class, PERSISTENCE_CLASS.PARTIAL);
+  assert.equal(partial.durable_cross_run_dedup, false);
+});
+
+test('RMVU-05F T90 ephemeral runner without cache is not durable', () => {
+  const ep = classifyRunnerPersistence({ ghaCacheEnabled: false });
+  assert.equal(ep.class, PERSISTENCE_CLASS.EPHEMERAL);
+  assert.equal(ep.durable_cross_run_dedup, false);
 });

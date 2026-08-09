@@ -56,6 +56,9 @@ Options:
   console.log(`Items: ${result.rawCount} · Events: ${result.eventCount} · Duplicates merged: ${result.duplicates}`);
   console.log(`Processed: ${result.processed.length} · Ignored: ${result.ignored.length} · Blocked: ${result.blocked.length}`);
   console.log(`P0: ${result.p0.length} · P1: ${result.p1.length} · P2: ${result.p2.length}`);
+  if (result.liveP1) {
+    console.log(`Live active P1: ${result.liveP1.length} · Queue pruned: ${result.queueReconciled ?? 0}`);
+  }
   console.log(`Daily brief: ${INTELLIGENCE_PATHS.dailyBrief}`);
   console.log(`Schedule mutation: ${result.scheduleMutation ? 'YES' : 'NO'}`);
   if (result.abisWatch) {

@@ -9,13 +9,17 @@
       "source_type": "official_blog",
       "url": "https://blog.cloudflare.com/",
       "feed_url": "https://blog.cloudflare.com/rss/",
+      "fetch_mode": "rss",
       "priority": "A",
       "polling_enabled": true,
-      "last_checked_at": null,
-      "last_seen_item": null,
+      "last_checked_at": "2026-08-09T06:03:13.490Z",
+      "last_seen_item": "https://blog.cloudflare.com/good-and-bad-agentic-behaviors",
       "health_status": "HEALTHY",
       "consecutive_failures": 0,
-      "notes": "Primary official blog RSS"
+      "notes": "Primary official blog RSS",
+      "last_failure_at": null,
+      "last_error": null,
+      "latest_item_date": "2026-08-07T13:01:00.000Z"
     },
     {
       "source_id": "microsoft-blog",
@@ -24,13 +28,17 @@
       "source_type": "official_blog",
       "url": "https://blogs.microsoft.com/",
       "feed_url": "https://blogs.microsoft.com/feed/",
+      "fetch_mode": "rss",
       "priority": "A",
       "polling_enabled": true,
-      "last_checked_at": null,
-      "last_seen_item": null,
+      "last_checked_at": "2026-08-09T06:03:13.722Z",
+      "last_seen_item": "https://blogs.microsoft.com/blog/2026/07/28/looking-back-on-microsofts-fy26-from-ai-experimentation-to-frontier-transformation",
       "health_status": "HEALTHY",
       "consecutive_failures": 0,
-      "notes": "Official Microsoft blog feed"
+      "notes": "Official Microsoft blog feed",
+      "last_failure_at": null,
+      "last_error": null,
+      "latest_item_date": "2026-07-28T16:00:10.000Z"
     },
     {
       "source_id": "google-blog",
@@ -39,13 +47,17 @@
       "source_type": "official_blog",
       "url": "https://blog.google/",
       "feed_url": "https://blog.google/rss/",
+      "fetch_mode": "rss",
       "priority": "A",
       "polling_enabled": true,
-      "last_checked_at": null,
-      "last_seen_item": null,
+      "last_checked_at": "2026-08-09T06:03:14.103Z",
+      "last_seen_item": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-builders",
       "health_status": "HEALTHY",
       "consecutive_failures": 0,
-      "notes": "Official Google blog RSS"
+      "notes": "Official Google blog RSS",
+      "last_failure_at": null,
+      "last_error": null,
+      "latest_item_date": "2026-08-07T14:00:00.000Z"
     },
     {
       "source_id": "openai-blog",
@@ -54,13 +66,18 @@
       "source_type": "official_blog",
       "url": "https://openai.com/news/",
       "feed_url": "https://openai.com/news/rss.xml",
+      "fetch_mode": "rss_incremental",
+      "max_feed_bytes": 800000,
       "priority": "A",
       "polling_enabled": true,
-      "last_checked_at": null,
-      "last_seen_item": null,
+      "last_checked_at": "2026-08-09T06:03:14.203Z",
+      "last_seen_item": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities",
       "health_status": "HEALTHY",
       "consecutive_failures": 0,
-      "notes": "Official OpenAI news RSS"
+      "notes": "Official OpenAI news RSS — incremental parse (feed >500KB)",
+      "last_failure_at": null,
+      "last_error": null,
+      "latest_item_date": "2026-08-07T15:20:00.000Z"
     },
     {
       "source_id": "anthropic-news",
@@ -68,14 +85,18 @@
       "source_name": "Anthropic News",
       "source_type": "official_blog",
       "url": "https://www.anthropic.com/news",
-      "feed_url": "https://www.anthropic.com/news/rss.xml",
+      "listing_url": "https://www.anthropic.com/news",
+      "fetch_mode": "html_listing",
       "priority": "A",
       "polling_enabled": true,
-      "last_checked_at": null,
-      "last_seen_item": null,
+      "last_checked_at": "2026-08-09T06:03:14.763Z",
+      "last_seen_item": "https://www.anthropic.com/news/claude-opus-5",
       "health_status": "HEALTHY",
       "consecutive_failures": 0,
-      "notes": "Official Anthropic news (feed URL may require parser updates)"
+      "notes": "Official Anthropic newsroom HTML listing (RSS unavailable)",
+      "last_failure_at": null,
+      "last_error": null,
+      "latest_item_date": "2026-07-23T15:00:00.000Z"
     }
   ]
 }

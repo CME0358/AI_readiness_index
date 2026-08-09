@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import { INTELLIGENCE_PATHS } from './paths.mjs';
 import { PRIORITY_BANDS, EVENT_STATUSES } from './constants.mjs';
 import { isProtectedInternalLinkSlug } from '../insights-related-links.mjs';
+import { ITEM_ORIGIN } from './item-origin.mjs';
+import { QUEUE_LIFECYCLE } from './queue-reconcile.mjs';
 
 const PRIORITY_ORDER = {
   [PRIORITY_BANDS.P0]: 0,
@@ -54,6 +56,9 @@ export function upsertQueueEntry(queue, candidate) {
     slug_proposal: candidate.slug_proposal,
     draft_path: candidate.draft_path,
     detected_at: candidate.detected_at,
+    origin: candidate.primary_source?.origin || candidate.origin || ITEM_ORIGIN.LIVE,
+    lifecycle: QUEUE_LIFECYCLE.ACTIVE,
+    source_url: candidate.url || candidate.primary_source?.url || null,
   });
   entries.sort((a, b) => {
     const pa = PRIORITY_ORDER[a.priority] ?? 99;

@@ -9,6 +9,7 @@ export const ABIS_INTELLIGENCE_PATHS = {
   dir: ABIS_INTELLIGENCE_DIR,
   events: path.join(ABIS_INTELLIGENCE_DIR, 'events.json'),
   impactQueue: path.join(ABIS_INTELLIGENCE_DIR, 'impact-queue.json'),
+  notificationState: path.join(ABIS_INTELLIGENCE_DIR, 'notification-state.json'),
   reviewsDir: path.join(ABIS_INTELLIGENCE_DIR, 'reviews'),
   internalDailyBrief: path.join(ABIS_INTELLIGENCE_DIR, 'internal-daily-brief.md'),
 };

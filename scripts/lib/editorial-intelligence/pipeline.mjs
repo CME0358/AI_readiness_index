@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { INTELLIGENCE_PATHS, ROOT } from './paths.mjs';
 import { loadSourcesRegistry, saveSourcesRegistry, listEnabledSources, updateSourceHealth } from './sources.mjs';
-import { fetchFeed, parseFeedItems, loadBackfillFixtures } from './fetcher.mjs';
+import { fetchSourceItems, loadBackfillFixtures } from './fetcher.mjs';
 import { dedupeItemsToEvents, countDuplicateMerges } from './dedupe.mjs';
 import {
   scoreEvent,
@@ -27,6 +27,8 @@ import { blockIfAbis } from './abis-guard.mjs';
 import { SOURCE_LEVEL, EVENT_STATUSES, SCORE_THRESHOLDS, PRIORITY_BANDS } from './constants.mjs';
 import { PATHS } from '../insights-v2-paths.mjs';
 import { generateDailyBrief } from './daily-brief.mjs';
+import { reconcileEditorialQueue } from './queue-reconcile.mjs';
+import { ITEM_ORIGIN, productionEvents } from './item-origin.mjs';
 import { processAbisImpactWatch, writePrivateDailyBrief } from '../abis-intelligence/pipeline-bridge.mjs';
 
 export async function fetchAllSources({ useBackfill = false, dryRun = true } = {}) {
@@ -41,21 +43,14 @@ export async function fetchAllSources({ useBackfill = false, dryRun = true } = {
 
   const errors = [];
   for (const source of listEnabledSources(registry)) {
-    const feedUrl = source.feed_url || source.url;
-    if (!feedUrl) continue;
-    const result = await fetchFeed(feedUrl);
     const idx = registry.sources.findIndex((s) => s.source_id === source.source_id);
+    const result = await fetchSourceItems(source);
     if (!result.ok) {
       errors.push({ source_id: source.source_id, error: result.error });
       registry.sources[idx] = updateSourceHealth(source, { success: false, error: result.error });
       continue;
     }
-    const items = parseFeedItems(result.text, {
-      company: source.company,
-      sourceId: source.source_id,
-      sourceType: source.source_type,
-      sourceLevel: source.priority === 'A' ? 'A' : 'B',
-    });
+    const items = result.items || [];
     allItems.push(...items);
     const latest = items[0]?.published_date || null;
     registry.sources[idx] = updateSourceHealth(source, {
@@ -63,6 +58,7 @@ export async function fetchAllSources({ useBackfill = false, dryRun = true } = {
       latestItemDate: latest,
     });
     if (items[0]) registry.sources[idx].last_seen_item = items[0].item_id;
+    if (result.mode) registry.sources[idx].fetch_mode = result.mode;
   }
   if (!dryRun) saveSourcesRegistry(registry);
   return { registry, items: allItems, errors };
@@ -162,12 +158,23 @@ export function processPipeline({
   }
 
   let queue = loadQueue();
+  const processedIds = new Set();
   for (const ev of processed) {
     queue = upsertQueueEntry(queue, ev);
+    processedIds.add(ev.event_id);
   }
 
+  const reconciled = reconcileEditorialQueue(queue, {
+    events,
+    processedEventIds: processedIds,
+  });
+  queue = reconciled.queue;
+
   const eventStore = loadEvents();
-  eventStore.events = [...events];
+  eventStore.events = events.map((ev) => ({
+    ...ev,
+    origin: ev.primary_source?.origin || ev.origin || ITEM_ORIGIN.LIVE,
+  }));
 
   saveEvents(eventStore);
   saveQueue(queue);
@@ -200,6 +207,8 @@ export function processPipeline({
     p0: filterQueueByPriority(queue, PRIORITY_BANDS.P0),
     p1: filterQueueByPriority(queue, PRIORITY_BANDS.P1),
     p2: filterQueueByPriority(queue, PRIORITY_BANDS.P2),
+    liveP1: filterQueueByPriority(queue, PRIORITY_BANDS.P1).filter((e) => e.lifecycle === 'ACTIVE'),
+    queueReconciled: reconciled.removed.length,
     dryRun,
     scheduleMutation: false,
   };
@@ -215,11 +224,15 @@ export async function runIntelligencePipeline(options = {}) {
     (useBackfill ? new Date('2026-08-09T12:00:00.000Z') : new Date());
   const pipelineResult = processPipeline({ items: fetchResult.items, dryRun, now });
 
-  const abisWatch = await processAbisImpactWatch(pipelineResult.allEvents, {
-    dryRun,
-    notify: abisNotify,
-    ariStatusByEventId: pipelineResult.ariStatusByEventId,
-  });
+  const abisWatch = await processAbisImpactWatch(
+    useBackfill ? pipelineResult.allEvents : productionEvents(pipelineResult.allEvents),
+    {
+      dryRun,
+      notify: abisNotify,
+      allowFixtures: useBackfill,
+      ariStatusByEventId: pipelineResult.ariStatusByEventId,
+    },
+  );
 
   writePrivateDailyBrief(abisWatch.abisBriefSection, {
     editorialBriefPath: INTELLIGENCE_PATHS.dailyBrief,

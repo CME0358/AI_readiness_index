@@ -50,6 +50,7 @@ export function upsertImpactEntry(queue, impact, meta = {}) {
     notification_status: meta.notification_status || 'SKIPPED',
     review_path: meta.review_path || null,
     scored_at: impact.scored_at,
+    origin: meta.origin || null,
   });
   entries.sort((a, b) => {
     const sa = SEVERITY_ORDER[a.severity] ?? 99;
