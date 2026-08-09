@@ -131,7 +131,8 @@ test('T06 Advisory card is visually primary', () => {
   const src = improveSrc();
   assert.match(src, /pricing-card--primary/);
   assert.match(src, /plan-badge--recommended/);
-  assert.match(src, /plan-cta--primary/);
+  assert.match(src, /design-system\.css/);
+  assert.doesNotMatch(src, /plan-cta--primary/);
 });
 
 test('T07 improve.html conversion copy includes Recommended For and fit messages', () => {
@@ -146,7 +147,10 @@ test('T07 improve.html conversion copy includes Recommended For and fit messages
 test('T08 improve.html CTA destinations unchanged', () => {
   const src = improveSrc();
   const matches = src.match(/https:\/\/www\.coaretail\.com\/readiness\/mtgschedule/g) || [];
-  assert.ok(matches.length >= 4, 'hero, 3 card CTAs, and shared CTA should link to mtgschedule');
+  assert.ok(matches.length >= 5, 'hero, 3 card CTAs, and shared CTA should link to mtgschedule');
+  assert.match(src, /hero-cta/);
+  assert.match(src, /cta-btn/);
+  assert.match(src, /plan-cta/);
   assert.match(src, /Agent Readiness Advisoryについて相談する/);
   assert.match(src, /このプランについて相談する/);
   assert.match(src, /設計支援について相談する/);
