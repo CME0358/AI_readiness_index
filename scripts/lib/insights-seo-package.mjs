@@ -1,5 +1,5 @@
 /**
- * TMVU-01B — Canonical SEO metadata for 26 scheduled Insight slugs.
+ * TMVU-01B — Canonical SEO metadata for scheduled Insight slugs (incl. current-event drafts).
  * Single source of truth for title, meta, OG, Twitter, H1, lead, breadcrumb, JSON-LD.
  */
 
@@ -217,6 +217,14 @@ export const SCHEDULED_SEO_PACKAGES = {
     meta: '相互作用の記述不足が実行失敗の温床。ABIS視点から企業のReadinessギャップを診断する実務視点——新興フレームワークとしての位置づけを踏まえ、Agent Readinessとの接点も解説します。',
     lead: 'ABIS視点で見ると、相互作用の記述不足が実行失敗の温床になる。Agent Readinessの評価に加え、約束と実行の構造が言語化されているか——Readinessギャップ診断の実務視点を本記事で整理する。',
     breadcrumb: 'ABISギャップ',
+  },
+  'cloudflare-aeo': {
+    intent: 'B',
+    primarySearchIntent: 'Cloudflare AEO AI検索',
+    h1: 'Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか',
+    meta: 'Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。',
+    lead: 'Cloudflareの提言は、検索順位だけでなくAIが企業を理解・比較・推薦できる状態を整える重要性を示しています。robots.txtや構造化データ等の技術対応だけでは完結しません。企業情報の一貫性、比較可能性、推薦根拠、行動導線まで含めて見る必要があります。',
+    breadcrumb: 'Cloudflare AEO',
   },
 };
 

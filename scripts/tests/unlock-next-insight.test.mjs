@@ -8,7 +8,10 @@ import {
 import {
   resolvePublishYmd,
   findNextHoldArticle,
+  findScheduledOnDate,
+  resolveNextAvailablePublishYmd,
 } from '../lib/unlock-next-insight.mjs';
+import { EDITORIAL_STATUSES } from '../lib/editorial-status.mjs';
 
 test('nextPublishDayAfterUnlock: Aug 4 unlock → Aug 5 publish', () => {
   assert.equal(nextPublishDayAfterUnlock('2026-08-04'), '2026-08-05');
@@ -41,4 +44,18 @@ test('findNextHoldArticle returns recommendation-logic after ai-search-shift pub
     ],
   };
   assert.equal(findNextHoldArticle(schedule).slug, 'recommendation-logic');
+});
+
+test('resolveNextAvailablePublishYmd skips occupied current-event slot', () => {
+  const schedule = {
+    articles: [
+      {
+        slug: 'cloudflare-aeo',
+        status: EDITORIAL_STATUSES.SCHEDULED,
+        publishAt: '2026-08-11T10:00:00+09:00',
+      },
+    ],
+  };
+  assert.ok(findScheduledOnDate(schedule, '2026-08-11'));
+  assert.equal(resolveNextAvailablePublishYmd(schedule, '2026-08-11'), '2026-08-12');
 });

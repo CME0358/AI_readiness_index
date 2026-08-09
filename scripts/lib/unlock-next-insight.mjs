@@ -32,6 +32,23 @@ export function findScheduledArticle(schedule) {
   );
 }
 
+/** Any scheduled article (v2 or current-event) occupying a publish day. */
+export function findScheduledOnDate(schedule, ymd) {
+  return schedule.articles.find(
+    (a) => a.status === EDITORIAL_STATUSES.SCHEDULED && a.publishAt?.slice(0, 10) === ymd
+  );
+}
+
+/** Next weekday YMD on or after startYmd with no scheduled occupant. */
+export function resolveNextAvailablePublishYmd(schedule, startYmd, maxAttempts = 14) {
+  let ymd = startYmd;
+  for (let i = 0; i < maxAttempts; i++) {
+    if (!findScheduledOnDate(schedule, ymd)) return ymd;
+    ymd = nextPublishDayAfterUnlock(ymd);
+  }
+  return ymd;
+}
+
 export function resolvePublishYmd({ now = new Date(), publishDate = null } = {}) {
   if (publishDate) return publishDate;
   return nextPublishDayAfterUnlock(toJstDateString(now));
@@ -81,7 +98,10 @@ export function unlockNextInsight({
   dryRun = false,
 } = {}) {
   const schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
-  const publishYmd = resolvePublishYmd({ now, publishDate });
+  let publishYmd = resolvePublishYmd({ now, publishDate });
+  if (findScheduledOnDate(schedule, publishYmd)) {
+    publishYmd = resolveNextAvailablePublishYmd(schedule, publishYmd);
+  }
   const times = articleTimesForPublishDay(publishYmd);
 
   const existing = findScheduledArticle(schedule);

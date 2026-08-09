@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+<script src="/assets/ga4.js" async></script>
+<script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか | Agent Readiness Insights</title>
+<meta name="description" content="Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/cloudflare-aeo/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか">
+<meta property="og:description" content="Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/cloudflare-aeo/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか">
+<meta name="twitter:description" content="Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか",
+  "description": "Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。",
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/cloudflare-aeo/",
+  "inLanguage": "ja",
+  "articleSection": "Current Event"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.source-block { margin: 32px 0; padding: 20px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); font-size: 15px; }
+.source-block h2 { font-size: 1rem; margin: 0 0 8px; color: var(--text); }
+.source-block p { margin: 0; font-size: 14px; color: var(--text-secondary); }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Cloudflare AEO</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-08-09">2026.08.09</time>
+        <span class="article-tag">Current Event</span>
+      </p>
+      <h1>Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか</h1>
+      <p class="lead">Cloudflareの提言は、検索順位だけでなくAIが企業を理解・比較・推薦できる状態を整える重要性を示しています。robots.txtや構造化データ等の技術対応だけでは完結しません。企業情報の一貫性、比較可能性、推薦根拠、行動導線まで含めて見る必要があります。</p>
+    </div>
+  </header>
+
+  <article class="article-body container" data-article-slug="cloudflare-aeo" data-article-title="Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか" data-editorial-type="current-event">
+    <div class="article-container">
+      <h2>何が起きたか</h2>
+      <p>2026年8月6日、Cloudflareは公式ブログで、Agent Readiness ダッシュボードへの統合と <strong>Answer Engine Optimization（AEO）</strong> 向けの可視化機能を紹介しました。テーマは「From ranking to recommended」——検索順位の時代から、AIアシスタントやエージェントに推薦される時代への移行です。</p>
+      <p>Cloudflareは、HTMLページリクエストの半数未満が人間由来になり、エージェント向けトラフィックが増えていると述べています。従来のクリック数やページビューだけでは、AIがサイトをどう読み、どう引用しているかが見えにくい——という問題意識が背景にあります。</p>
+
+      <h2>なぜ「ranking → recommended」が重要なのか</h2>
+      <p>従来の検索最適化は、検索結果ページで<strong>見つかり、クリックされる</strong>ことに焦点が当たっていました。AI検索やアシスタント経由の発見では、ユーザーが一覧を自分で比較する前に、エージェントが候補を理解し、比較し、推薦する場面が増えます。</p>
+      <h3>検索とAI推薦の違い</h3>
+      <ul>
+        <li><strong>検索</strong>：結果一覧に載る（順位・クリック）</li>
+        <li><strong>AI</strong>：候補として理解される → 比較される → 推薦される →（場合によっては）行動につながる</li>
+      </ul>
+      <p>Cloudflareが強調するのは、後者の連鎖——特に「推薦される」段階——です。これは<a href="/insights/ai-search-shift/">AI検索が変える比較の意味</a>や<a href="/insights/recommendation-logic/">推薦の組み立て方</a>で整理してきた論点と接続します。順位だけを追っても、推薦のロジックまではカバーできません。</p>
+
+      <h2>Cloudflareが示しているポイント</h2>
+      <p>以下はCloudflare公式ブログに基づく要点です。ARIの解釈と混同しないよう、事実として整理します。</p>
+      <ul>
+        <li><strong>Agent Readiness Diagnostics</strong>：エージェントがサイトを読む方法（robots.txt、sitemap、HTTPヘッダー、Markdown版、ツール用メタデータ等）でサイトをスキャンし、pass / fail / neutral と根拠を返す。</li>
+        <li><strong>AEOタブ</strong>：カテゴリ内の質問でAIアシスタント（Anthropic Claude、OpenAI GPT）が自社を推薦するかをプローブする。検索順位のような単一指標ではない。</li>
+        <li><strong>AI Operator Activity</strong>：OpenAIやGoogleなど、主要オペレーター由来のクロール・リファラルトラフィックを可視化する。</li>
+        <li><strong>カテゴリベンチマーク</strong>：サイトから業界・カテゴリを推定し、横断的なベンチマークと比較する。</li>
+        <li><strong>early access</strong>：AEO Visibility はダッシュボードからリクエストする形（一般提供の範囲は公式情報に依存）。</li>
+      </ul>
+
+      <h2>ARIではどう読むか</h2>
+      <p>Cloudflareは、エージェントのアクセシビリティ（読み取り可能性）、オペレーター由来トラフィックの可視化、カテゴリ内での推薦可視性（AEO）まで、計測と改善の射程を広げています。競合比較ではなく、インフラ事業者としての役割分担です。</p>
+      <p>Agent Readiness（ARI）は、同じ現象を<strong>Business / Recommendation Readiness</strong>として読みます——DiscoveryからActionまでを横断し、「企業としてどこを改善すべきか」を判断する視点です。フレームワークは次の五段階で整理できます。</p>
+      <ul>
+        <li><strong>Discovery</strong>：AIやエージェントに見つけられ、読めるか。DiagnosticsやOperator Activityはここに効く。</li>
+        <li><strong>Understanding</strong>：一つの企業として理解されるか。名称・所在地・提供内容の一貫性が鍵。</li>
+        <li><strong>Comparison</strong>：カテゴリ内で比較可能な属性があるか。料金・条件・営業時間など。</li>
+        <li><strong>Recommendation</strong>：推薦理由を形成できる根拠があるか。AEOプローブが測るのは主にこの層。</li>
+        <li><strong>Action</strong>：推薦の先に予約・問い合わせ・購入へ進めるか。</li>
+      </ul>
+      <p>Cloudflareの「ranking → recommended」は、DiscoveryとRecommendationの間に<strong>Understanding / Comparison</strong>があることを暗に示しています。技術的な読み取り可能性だけでは、推薦まで到達しない——というのがARIの読み方です。<a href="/framework/">Framework</a>で三柱（Visibility・Authority・Actionability）との対応も確認できます。</p>
+
+      <h2>企業が今確認すべきこと</h2>
+      <ul>
+        <li>AIやエージェントから、公式の企業情報が見つかるか</li>
+        <li>サイト・地図・FAQ・外部掲載で、会社情報が一貫しているか</li>
+        <li>比較に必要な事実（料金、条件、エリア、提供内容）がページ上で完結しているか</li>
+        <li>推薦理由を形成できる根拠（実績、資格、レビュー、第三者情報）があるか</li>
+        <li>推薦後に予約・問い合わせ・購入へ進める導線があるか</li>
+      </ul>
+      <p>CloudflareのDiagnosticsやAEOは、主にDiscoveryからRecommendation層の可視化と点検に効きます。一方、一貫性や比較情報、行動導線はダッシュボードだけでは自動修正されません——ここがARIが補完する領域です。</p>
+
+      <h2>技術対応だけでは足りない理由</h2>
+      <p>robots.txt、sitemap、構造化データ、llms.txt、API、MCP——これらはAIにとって重要な<strong>シグナル</strong>です。<a href="/insights/files/">3ファイルの役割</a>や<a href="/insights/grounds/">推薦の根拠</a>で述べてきたように、入口の整備は必要です。</p>
+      <p>ただし、シグナルが揃っても、内容が矛盾していればUnderstandingは失敗します。比較属性が欠けていればComparisonは止まります。推薦のあと実行できなければActionは完結しません。Cloudflare自身も、エージェントを「コアユーザーベース」として扱い、見つけやすく・読みやすく・信頼できるサイトが推薦されやすい——と述べており、技術とコンテンツ・信頼の両方を示唆しています。</p>
+
+      <h2>今すぐ対応するべきか</h2>
+      <h3>NOW（優先して確認）</h3>
+      <ul>
+        <li>企業情報の一貫性（名称・所在地・提供内容）</li>
+        <li>比較に使われる基本属性の明示</li>
+        <li>予約・問い合わせ・購入の行動導線</li>
+      </ul>
+      <h3>NEXT（計画的に整備）</h3>
+      <ul>
+        <li>machine readability（Markdown版、構造化データ、FAQ設計）</li>
+        <li>AI Operator / クロール状況の可視化（Cloudflare利用時はダッシュボード、それ以外はログ分析）</li>
+        <li>カテゴリ内の代表質問に対する推薦状況の定点観測</li>
+      </ul>
+      <h3>WATCH（動向を追う）</h3>
+      <ul>
+        <li>AEO Visibility の一般提供範囲とプローブ仕様の更新</li>
+        <li>エージェント向けツールインターフェース（API / MCP）の業界標準化</li>
+      </ul>
+      <p>Cloudflareの記事は「SEO終了」ではなく、計測対象と最適化の重心が移る——という論旨です。ARIも同様に、SEOを否定するのではなく、推薦と実行まで含めた設計が必要だと読みます。<a href="/insights/why-ari/">なぜAgent Readinessが基準になるか</a>も参照してください。</p>
+
+      <h2>ARI Researchとの接続</h2>
+      <p>Research Hubでは、複数AI・複数業種での推薦と引用の実態を定点観測しています。CloudflareのAEOがプローブする「カテゴリ内推薦」と、ARI Researchの「代表質問への回答」は、観測単位は異なれど、Recommendation層の可視化という点で方向性が近いです。</p>
+      <p>数字やランキングを記事に無理に載せる必要はありません。自社の業種・地域・提供内容に合わせ、<a href="/research/">Research</a>や<a href="/evidence/">Evidence Library</a>の方法論を参照しながら、定点観測を設計する——それがARI流の読み方です。</p>
+
+      <h2>自社にとって何を意味するか</h2>
+      <p>Cloudflareの提言が自社にどこまで関係するかは、現在どの段階で止まっているかによって変わります。Discoveryで止まっているのか、Comparisonで脱落しているのか、RecommendationはあるがActionで失敗しているのか——止まりどころが違えば、優先すべき施策も変わります。</p>
+      <p>一般的なAI検索対策のチェックリストをなぞるだけでは、自社のボトルネックは特定できません。<a href="/insights/ari-vs-geo-seo/">SEO・GEO・Agent Readinessの役割分担</a>を踏まえ、段階ごとにKPIを分けて見ることが出発点になります。</p>
+
+      <section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/ai-search-shift/">AI検索で「比較」はどう変わる？順位以外の評価軸</a>
+        </li>
+        <li>
+          <a href="/insights/recommendation-logic/">AIの「おすすめ」はどう組み立てられる？</a>
+        </li>
+        </ul>
+      </section>
+
+      <div class="article-cta">
+        <h2>自社の改善優先順位を確認する</h2>
+        <p>一般的なAI検索対策ではなく、自社の場合どこから直すべきか——Discovery・Understanding・Comparison・Recommendation・Actionのどこで止まっているかを確認できます。</p>
+        <a href="/report/" class="btn btn-navy" data-ga-insight-cta="report">自社の改善優先順位を確認する</a>
+        <a href="/framework/" class="btn btn-secondary" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+      </div>
+
+      <section class="source-block">
+        <h2>Primary Source</h2>
+        <p>Cloudflare公式ブログ（2026-08-06）：<a href="https://blog.cloudflare.com/aeo" target="_blank" rel="noopener">From ranking to recommended: get your site ready to thrive in the age of AI agents</a></p>
+        <p style="margin-top:8px;">本記事公開日：2026-08-09（ARI Editorial Intelligence）</p>
+      </section>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-08-09</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+</body>
+</html>
