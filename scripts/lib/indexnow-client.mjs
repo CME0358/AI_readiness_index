@@ -2,6 +2,7 @@
  * IndexNow client — notification layer only (does not gate publish).
  * @see https://www.indexnow.org/documentation
  */
+import { assertIndexNowSubmissionSafe } from './indexnow-eligibility.mjs';
 
 export const INDEXNOW_HOST = 'readiness.coaretail.com';
 export const INDEXNOW_BASE = `https://${INDEXNOW_HOST}`;
@@ -140,7 +141,7 @@ export function classifyIndexNowResponse(status) {
 
 /**
  * @param {string[]} urls
- * @param {{ dryRun?: boolean, fetchImpl?: typeof fetch, key?: string, retryOn5xx?: boolean }} [options]
+ * @param {{ dryRun?: boolean, fetchImpl?: typeof fetch, key?: string, retryOn5xx?: boolean, enforceEligibility?: boolean, root?: string, now?: Date }} [options]
  */
 export async function submitIndexNow(urls, options = {}) {
   const {
@@ -148,6 +149,9 @@ export async function submitIndexNow(urls, options = {}) {
     fetchImpl = globalThis.fetch,
     key = process.env.INDEXNOW_KEY,
     retryOn5xx = true,
+    enforceEligibility = false,
+    root,
+    now = new Date(),
   } = options;
 
   const { valid, rejected } = normalizeIndexNowUrls(urls);
@@ -164,6 +168,24 @@ export async function submitIndexNow(urls, options = {}) {
 
   if (!valid.length) {
     return { status: 'skipped', reason: 'no valid URLs', submitted: 0, valid, rejected };
+  }
+
+  if (enforceEligibility) {
+    const safety = assertIndexNowSubmissionSafe(valid, { root, now });
+    if (!safety.ok) {
+      console.warn(`IndexNow: BLOCKED — ${safety.message}`);
+      for (const item of safety.excluded) {
+        console.warn(`  - ${item.url} (${item.reason}: ${item.detail})`);
+      }
+      return {
+        status: 'blocked',
+        reason: safety.message,
+        submitted: 0,
+        valid: safety.eligible,
+        rejected: safety.excluded.map((e) => ({ url: e.url, reason: `${e.reason}: ${e.detail}` })),
+        excluded: safety.excluded,
+      };
+    }
   }
 
   const keyCheck = validateIndexNowKey(key);

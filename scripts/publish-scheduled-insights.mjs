@@ -135,7 +135,7 @@ function updateInsightsLastmod(sitemap, ymd) {
 async function notifyIndexNow(slugs) {
   if (!slugs.length) return;
   const urls = publishedUrlsFromSlugs(slugs);
-  await submitIndexNow(urls, { dryRun });
+  await submitIndexNow(urls, { dryRun, enforceEligibility: true });
 }
 
 let indexHtml = fs.readFileSync(INDEX_PATH, 'utf8');

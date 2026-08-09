@@ -226,3 +226,61 @@ test('403 does not retry', async () => {
   assert.equal(attempts, 1);
   assert.equal(result.status, 'key_verification_failed');
 });
+
+test('eligibility gate blocks future scheduled cloudflare-aeo', async () => {
+  const result = await submitIndexNow([insightPublishUrl('cloudflare-aeo')], {
+    key: DUMMY_KEY,
+    enforceEligibility: true,
+    fetchImpl: () => {
+      throw new Error('fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'blocked');
+  assert.equal(result.submitted, 0);
+});
+
+test('eligibility gate blocks protected ABIS slugs', async () => {
+  const result = await submitIndexNow([insightPublishUrl('abis-intro')], {
+    key: DUMMY_KEY,
+    enforceEligibility: true,
+    fetchImpl: () => {
+      throw new Error('fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'blocked');
+});
+
+test('eligibility gate blocks editorial_hold slugs', async () => {
+  const result = await submitIndexNow([insightPublishUrl('ari-vs-geo-seo')], {
+    key: DUMMY_KEY,
+    enforceEligibility: true,
+    fetchImpl: () => {
+      throw new Error('fetch should not run');
+    },
+  });
+  assert.equal(result.status, 'blocked');
+});
+
+test('eligibility allows published insight with live HTML', async () => {
+  const calls = [];
+  const result = await submitIndexNow([insightPublishUrl('blind')], {
+    key: DUMMY_KEY,
+    enforceEligibility: true,
+    fetchImpl: mockFetch(200, { calls }),
+  });
+  assert.equal(result.status, 'success');
+  assert.equal(result.submitted, 1);
+});
+
+test('full-site inventory excludes cloudflare-aeo and protected slugs', async () => {
+  const { collectIndexNowEligibleUrls, classifyIndexNowCandidate } = await import(
+    '../lib/indexnow-eligibility.mjs'
+  );
+  const inventory = collectIndexNowEligibleUrls({ root: ROOT, now: new Date() });
+  const cf = classifyIndexNowCandidate(insightPublishUrl('cloudflare-aeo'), { root: ROOT });
+  assert.equal(cf.eligible, false);
+  assert.equal(cf.reason, 'future_publishAt');
+  assert.ok(!inventory.eligible.some((u) => u.includes('cloudflare-aeo')));
+  assert.ok(!inventory.eligible.some((u) => u.includes('abis-intro')));
+  assert.ok(!inventory.eligible.some((u) => u.includes('three-pillars-ops')));
+});
