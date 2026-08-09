@@ -142,13 +142,29 @@ test('T07 improve.html conversion copy uses comparison card structure', () => {
   assert.match(src, /含まれる内容/);
   assert.match(src, /こんな企業におすすめ/);
   assert.match(src, /plan-meta-row/);
+  assert.match(src, /plan-role-main/);
+  assert.match(src, /plan-role-sub/);
+  assert.match(src, /伴走・改善判断/);
+  assert.match(src, /設計・仕様化/);
+  assert.match(src, /実装・運用支援/);
   assert.match(src, /Decide \/ Review/);
   assert.match(src, /Design \/ Specify/);
   assert.match(src, /Execute \/ Operate/);
+  assert.match(src, /支援範囲に応じて個別見積り/);
+  assert.match(src, /実装範囲に応じて個別見積り/);
   assert.match(src, /社内で実装はできるが、何から進めるべきか整理したい/);
   assert.match(src, /やるべき方向性は見えているが、具体的な設計に落とせていない/);
   assert.match(src, /社内リソースだけでは改善実行が進みにくい/);
   assert.doesNotMatch(src, /plan-fit/);
+  assert.doesNotMatch(src, /scope-based/);
+});
+
+test('T07b improve.html pricing cards have desktop hover feedback', () => {
+  const src = improveSrc();
+  assert.match(src, /@media \(hover: hover\) and \(pointer: fine\)/);
+  assert.match(src, /\.pricing-card:hover/);
+  assert.match(src, /translateY\(-2px\)/);
+  assert.match(src, /0 8px 24px rgba\(0, 0, 0, 0\.05\)/);
 });
 
 test('T08 improve.html CTA destinations unchanged', () => {
