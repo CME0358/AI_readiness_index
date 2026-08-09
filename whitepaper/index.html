@@ -63,7 +63,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: -
 .btn-navy { background: #0D1B3E; color: #FFFFFF; }
 .btn-navy:hover { background: #162040; transform: translateY(-1px); }
 .report-library-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px;
 }
 .report-card {
   display: flex; flex-direction: column; align-items: flex-start;
@@ -71,12 +71,48 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: -
   padding: 28px 24px; background: var(--bg);
   transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
 }
+.report-card--primary {
+  border-color: rgba(27, 86, 176, 0.28);
+  background: linear-gradient(180deg, rgba(27, 86, 176, 0.04), var(--bg));
+}
+a.report-card--primary:hover { border-color: rgba(27, 86, 176, 0.4); }
 a.report-card { text-decoration: none; color: inherit; }
 a.report-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
 a.report-card,
 a.report-card:hover,
 a.report-card * { text-decoration: none; }
-.report-card-soon { opacity: 0.72; cursor: default; }
+.report-card-primary-badge {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  color: #1B56B0; background: rgba(27, 86, 176, 0.1); border: 1px solid rgba(27, 86, 176, 0.18);
+  border-radius: 999px; padding: 4px 10px; margin-bottom: 12px;
+}
+.report-included-evidence {
+  width: 100%; margin: 0 0 16px; padding: 14px 14px 12px;
+  border: 1px solid var(--border); border-radius: 10px; background: var(--bg-elevated);
+}
+.report-included-evidence-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted);
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.report-included-evidence-title {
+  font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.45;
+}
+.report-included-evidence-desc {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin: 0;
+}
+.report-included-list {
+  width: 100%; margin: 0 0 16px; padding: 0; list-style: none;
+}
+.report-included-list li {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.55;
+  padding-left: 14px; position: relative; margin-bottom: 6px;
+}
+.report-included-list li::before {
+  content: "·"; position: absolute; left: 0; color: var(--text-muted); font-weight: 700;
+}
+.report-price-tax {
+  display: block; font-size: 12px; font-weight: 400; color: var(--text-muted); margin-top: 4px;
+}
 .report-icon { font-size: 2rem; line-height: 1; margin-bottom: 16px; }
 .report-card h2 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
 .report-subtitle { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.55; margin-bottom: 12px; }
@@ -112,6 +148,7 @@ a.report-card * { text-decoration: none; }
 .footer-links a:hover { color: var(--text); }
 .footer-copy { font-size: 13px; color: var(--text-muted); text-align: center; }
 @media (max-width: 1100px) {
+  .report-library-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; position: absolute;
@@ -171,60 +208,61 @@ a.report-card * { text-decoration: none; }
 
   <section class="section">
     <div class="container">
-      <div class="report-library-grid">
+      <div class="report-library-grid" data-whitepaper-products="3">
         <a class="report-card" href="./2026/free/" data-item-name="Agent Readiness Report 2026 FREE" data-price="0">
           <span class="report-icon" aria-hidden="true">📘</span>
           <h2>Agent Readiness Report 2026</h2>
+          <p class="report-subtitle">Market / General Understanding</p>
           <p class="report-tier">市場教育版。5業種・231件の観測データとAI推薦格差の証拠。</p>
           <dl class="report-meta">
-            <div><dt>対象者</dt><dd>まず状況を知りたい方</dd></div>
+            <div><dt>対象者</dt><dd>まず市場全体を知りたい方</dd></div>
             <div><dt>得られるもの</dt><dd>5業種・231件の観測データから見える、AI推薦格差の全体像</dd></div>
             <div><dt>収録内容</dt><dd>業種別AI推薦格差ランキング／Discovery・Recommendation・Actionの3層評価モデル／今すぐ確認すべき3つのチェック項目</dd></div>
             <div><dt>使い方</dt><dd>社内共有・情報収集</dd></div>
           </dl>
-          <span class="report-badge">まずは無料で全体傾向を把握 → 自社診断は Company Report へ</span>
+          <span class="report-badge">市場全体を知る → 自社の場合は Company Report へ</span>
           <span class="report-price report-price-free">FREE</span>
           <span class="btn btn-primary btn-navy">無料レポートを入手する</span>
         </a>
-        <a class="report-card" href="/report/" data-item-name="Agent Readiness Company Report" data-price="29800">
+        <a class="report-card report-card--primary" href="/report/" data-item-name="Agent Readiness Company Report" data-price="29800">
+          <span class="report-card-primary-badge">Research Edition 2026 Included</span>
           <span class="report-icon" aria-hidden="true">📊</span>
           <h2>Agent Readiness Company Report</h2>
           <p class="report-subtitle">Personalized Decision Report — What / Priority</p>
-          <p class="report-desc">自社URLを診断し、改善優先順位を意思決定レポートとして提示。<br>Research Edition 2026（Benchmark Evidence）を同梱。</p>
+          <p class="report-desc">自社URLを分析し、AIにどう理解・比較・推薦されているか、どこを改善すべきかを優先順位付きで提示。</p>
+          <ul class="report-included-list" aria-label="Company Report に含まれるもの">
+            <li>Personalized Company Report</li>
+            <li>AI Recognition / Recommendation analysis</li>
+            <li>改善優先順位 TOP3</li>
+            <li>Action Roadmap</li>
+            <li>Research Edition 2026</li>
+          </ul>
+          <div class="report-included-evidence">
+            <div class="report-included-evidence-label">Research / Benchmark Evidence</div>
+            <div class="report-included-evidence-title">Research Edition 2026 included</div>
+            <p class="report-included-evidence-desc">5業種・231件の観測データからAI推薦格差を確認できる Research / Benchmark Evidence。Company Reportの個社分析を市場全体のデータと比較するための資料として同梱。</p>
+          </div>
           <dl class="report-meta">
             <div><dt>対象者</dt><dd>自社のAI対応度を<strong>経営判断</strong>に使いたい方</dd></div>
-            <div><dt>得られるもの</dt><dd>Personalized Decision Report + Research Edition 2026 同梱</dd></div>
-            <div><dt>同梱</dt><dd>Research / Benchmark Evidence</dd></div>
+            <div><dt>役割</dt><dd>What / Priority — 何を直すべきか</dd></div>
           </dl>
-          <span class="report-badge">主力商品 — Research Edition 2026 Included</span>
-          <span class="report-price">¥29,800</span>
-          <span class="btn btn-primary">診断レポートを入手する(¥29,800)</span>
+          <span class="report-price">¥29,800<span class="report-price-tax">（税別） · ¥32,780（税込）</span></span>
+          <span class="btn btn-primary">自社の改善優先順位を確認する</span>
         </a>
-        <div class="report-card report-card-soon" data-item-name="Research Edition 2026 Included">
-          <span class="report-icon" aria-hidden="true">📕</span>
-          <h2>Research Edition 2026</h2>
-          <p class="report-subtitle">Market Research / Benchmark / Evidence</p>
-          <p class="report-desc"><strong>Agent Readiness Company Report に同梱</strong>。新規の単体購入導線は提供していません。</p>
-          <dl class="report-meta">
-            <div><dt>位置づけ</dt><dd>Included Research Evidence</dd></div>
-            <div><dt>入手</dt><dd>Company Report 購入後に同梱ダウンロード</dd></div>
-          </dl>
-          <span class="report-badge">Included with Agent Readiness Company Report</span>
-          <a class="btn btn-primary" href="/report/" style="text-decoration:none;">Company Reportを見る</a>
-        </div>
         <a class="report-card" href="https://buy.stripe.com/5kQ7sM6JJ0Q99wDehtcMM0i" data-item-name="Methodology Handbook" data-price="98000">
           <span class="report-icon" aria-hidden="true">📙</span>
           <h2>Methodology Handbook</h2>
-          <p class="report-subtitle">読むレポートから、使えるマニュアルへ。</p>
-          <p class="report-desc">Research Editionが"現状把握"なら、これは"実行手順"です。<br>DRA評価基準・現場で使えるPlaybook・Readiness Level基準を1冊に収録。</p>
+          <p class="report-subtitle">Implementation Method — How</p>
+          <p class="report-desc">Company Reportが"What / Priority"なら、Handbookは"How / Implementation Method"。DRA評価基準・現場で使えるPlaybook・Readiness Level基準を1冊に収録。</p>
           <dl class="report-meta">
             <div><dt>対象者</dt><dd>施策に<strong>そのまま落とし込みたい</strong>実務・代理店担当者</dd></div>
             <div><dt>得られるもの</dt><dd>DRA評価基準・実行Playbook・Readiness Level基準</dd></div>
+            <div><dt>役割</dt><dd>How — 実行手順・実装方法</dd></div>
             <div><dt>使い方</dt><dd>明日から現場で使う実装マニュアル</dd></div>
           </dl>
-          <span class="report-badge">コンサル・代理店の実務利用を想定／Research Edition購入者は差額のみで追加可</span>
-          <span class="report-price">¥98,000</span>
-          <span class="btn btn-primary">Handbookを入手する(¥98,000)</span>
+          <span class="report-badge">Research Edition 購入者は差額 ¥69,000（税別）で追加可</span>
+          <span class="report-price">¥98,000<span class="report-price-tax">（税別）</span></span>
+          <span class="btn btn-primary">Handbookを入手する</span>
         </a>
       </div>
     </div>
