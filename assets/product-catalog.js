@@ -37,6 +37,8 @@ window.PRODUCT_CATALOG = {
   },
   research: {
     thanksPath: "/whitepaper/2026/research/thanks.html",
+    bundleDownloadPath: "/whitepaper/2026/research/download.html",
+    legacyCheckoutPath: "/whitepaper/2026/research/checkout.html",
     readPath: "/whitepaper/2026/research/index.html",
     pdfPath: "/whitepaper/2026/research/assets/ARI_Research_Report_2026.pdf",
     storageKey: "wp_research_paid",

@@ -1613,7 +1613,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                   onClick={() => openResearchEdition(purchaseState)}
                   style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
                 >
-                  調査データ・Benchmarkを見る
+                  Research Edition 2026をダウンロード
                 </button>
               )}
               {!purchaseState?.entitlements?.methodologyHandbook && (

@@ -105,8 +105,12 @@ export const PRODUCTS = {
 
 export const RESEARCH_EDITION = {
   pdfPath: '/whitepaper/2026/research/assets/ARI_Research_Report_2026.pdf',
+  /** Legacy standalone Stripe success page — do not use for Company Report bundle. */
   thanksPath: '/whitepaper/2026/research/thanks.html',
+  /** Company Report bundle entitlement download (localStorage source of truth). */
+  bundleDownloadPath: '/whitepaper/2026/research/download.html',
   readPath: '/whitepaper/2026/research/index.html',
+  legacyCheckoutPath: '/whitepaper/2026/research/checkout.html',
   storageKey: 'wp_research_paid',
 };
 

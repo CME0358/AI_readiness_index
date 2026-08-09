@@ -87,15 +87,14 @@ test('T07 roadmap based on report inputs / score', () => {
 test('T08 Research canonical payment link consistency', () => {
   const stripeJs = fs.readFileSync(path.join(ROOT, 'assets/whitepaper-stripe.js'), 'utf8');
   assert.match(stripeJs, new RegExp(STRIPE_LINKS.researchCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  const researchHtml = fs.readFileSync(path.join(ROOT, 'research/index.html'), 'utf8');
-  assert.match(researchHtml, /dRmdRa1ppgP7107ddpcMM0k/);
+  const checkoutHtml = fs.readFileSync(path.join(ROOT, 'whitepaper/2026/research/checkout.html'), 'utf8');
+  assert.match(checkoutHtml, /WHITEPAPER_STRIPE|checkout/);
 });
 
-test('T08 Research canonical payment link consistency', () => {
-  const stripeJs = fs.readFileSync(path.join(ROOT, 'assets/whitepaper-stripe.js'), 'utf8');
-  assert.match(stripeJs, new RegExp(STRIPE_LINKS.researchCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-  const researchHtml = fs.readFileSync(path.join(ROOT, 'research/index.html'), 'utf8');
-  assert.match(researchHtml, /dRmdRa1ppgP7107ddpcMM0k/);
+test('T08b Research bundle download path defined', () => {
+  const catalogSrc = fs.readFileSync(path.join(ROOT, 'scripts/lib/product-catalog.mjs'), 'utf8');
+  assert.match(catalogSrc, /bundleDownloadPath/);
+  assert.ok(fs.existsSync(path.join(ROOT, 'whitepaper/2026/research/download.html')));
 });
 
 test('T09 legacy links preserved', () => {

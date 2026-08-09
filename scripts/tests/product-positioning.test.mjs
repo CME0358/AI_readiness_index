@@ -43,14 +43,14 @@ test('T03 Readiness Level display preserved', () => {
 test('T04 Research entitlement preserved', () => {
   const src = reportSrc();
   assert.match(src, /openResearchEdition/);
-  assert.match(src, /調査データ|Research Edition|Benchmark/);
+  assert.match(src, /Research Edition 2026をダウンロード/);
 });
 
 test('T05 Legacy Research standalone link preserved', () => {
   const stripeJs = fs.readFileSync(path.join(ROOT, 'assets/whitepaper-stripe.js'), 'utf8');
   assert.match(stripeJs, /dRmdRa1ppgP7107ddpcMM0k/);
-  const researchHtml = fs.readFileSync(path.join(ROOT, 'research/index.html'), 'utf8');
-  assert.match(researchHtml, /dRmdRa1ppgP7107ddpcMM0k/);
+  const checkoutHtml = fs.readFileSync(path.join(ROOT, 'whitepaper/2026/research/checkout.html'), 'utf8');
+  assert.match(checkoutHtml, /whitepaper-stripe\.js/);
 });
 
 test('T06 Advisory CTA on improve.html', () => {
@@ -90,9 +90,9 @@ test('Research hub positions Company Report as primary product', () => {
   const researchHtml = fs.readFileSync(path.join(ROOT, 'research/index.html'), 'utf8');
   const whitepaperHtml = fs.readFileSync(path.join(ROOT, 'whitepaper/index.html'), 'utf8');
   assert.match(researchHtml, /Agent Readiness Company Report/);
-  assert.match(researchHtml, /Research Edition 2026 Included|同梱/);
+  assert.match(researchHtml, /Included with Agent Readiness Company Report/);
   assert.match(whitepaperHtml, /Agent Readiness Company Report/);
-  assert.match(researchHtml, /Legacy standalone/);
+  assert.doesNotMatch(researchHtml, /buy\.stripe\.com\/dRmdRa1ppgP7107ddpcMM0k/);
 });
 
 test('improve.html does not publish fixed Advisory monthly price', () => {

@@ -18,6 +18,18 @@
   if (!hasAccess) {
     try { hasAccess = !!sessionStorage.getItem(cfg.storageKey); } catch (e) { /* noop */ }
   }
+  if (!hasAccess) {
+    try {
+      var purchaseRaw = localStorage.getItem("ari_purchase_state");
+      if (purchaseRaw) {
+        var purchase = JSON.parse(purchaseRaw);
+        if (purchase && purchase.expiresAt && Date.now() <= purchase.expiresAt
+            && purchase.entitlements && purchase.entitlements.researchEdition) {
+          hasAccess = true;
+        }
+      }
+    } catch (e) { /* noop */ }
+  }
 
   if (sessionId || params.get("paid") || canceled) {
     window.history.replaceState({}, "", window.location.pathname);

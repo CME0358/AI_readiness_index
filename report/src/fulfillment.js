@@ -153,13 +153,16 @@ export function grantVerifiedPurchase(purchase) {
 }
 
 export function openResearchEdition(purchaseState) {
-  applyEntitlementsToBrowser(
-    purchaseState || loadPurchaseState() || { entitlements: { researchEdition: true } },
-  );
+  const state = purchaseState || loadPurchaseState();
+  if (!state?.entitlements?.researchEdition) {
+    return { ok: false, reason: 'missing_entitlement' };
+  }
   trackResearchEntitlementOpen({
-    verified: purchaseState?.verified ?? false,
+    verified: state?.verified ?? false,
+    source: 'company_report_bundle',
   });
-  window.open(RESEARCH_EDITION.thanksPath, '_blank', 'noopener');
+  window.open(RESEARCH_EDITION.bundleDownloadPath, '_blank', 'noopener');
+  return { ok: true, path: RESEARCH_EDITION.bundleDownloadPath };
 }
 
 export function openHandbookUpgrade() {
