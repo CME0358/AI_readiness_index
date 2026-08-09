@@ -78,22 +78,28 @@ test('T09 advisory block includes 12ヶ月契約', () => {
   assert.match(reportSrc(), /12ヶ月契約/);
 });
 
-test('T10 advisory CTA routes to mtgschedule', () => {
+test('T10 footer Advisory primary CTA routes to improve.html', () => {
+  const src = reportSrc();
+  assert.match(src, /年間改善支援の内容・料金を見る/);
+  assert.match(src, /report-advisory-cta[\s\S]*href=\{IMPROVE_URL\}[\s\S]*年間改善支援の内容・料金を見る/);
+  assert.doesNotMatch(src, /report-advisory-secondary/);
+});
+
+test('T11 report contains no direct mtgschedule URL', () => {
   const src = reportSrc();
   const tokens = reportTokens();
-  assert.match(src, /年間改善支援について相談する/);
-  assert.match(tokens, /readiness\/mtgschedule/);
-  assert.match(src, /MTG_SCHEDULE_URL/);
+  assert.doesNotMatch(src, /mtgschedule/);
+  assert.doesNotMatch(tokens, /mtgschedule/);
 });
 
-test('T11 /improve.html secondary link works', () => {
-  const src = reportSrc();
-  assert.match(src, /支援内容・料金を見る/);
-  assert.match(src, /report-advisory-secondary/);
-  assert.match(src, /href=\{IMPROVE_URL\}[\s\S]*支援内容・料金を見る/);
+test('T12 improve.html preserves mtgschedule Advisory CTA', () => {
+  const improve = fs.readFileSync(path.join(ROOT, 'improve.html'), 'utf8');
+  assert.match(improve, /readiness\/mtgschedule/);
+  assert.match(improve, /Agent Readiness Advisoryについて相談する/);
+  assert.match(improve, /¥198,000/);
 });
 
-test('T12 RMVU-02 integrity preserved', () => {
+test('T13 RMVU-02 integrity preserved', () => {
   const paid = buildReport(mockForm, mockAI, mockSite, mockFiles, { productMode: 'paid' });
   assert.equal(paid.competitors, undefined);
   assert.equal(paid.rank, undefined);
@@ -102,7 +108,7 @@ test('T12 RMVU-02 integrity preserved', () => {
   assert.match(analyzeSrc, /live_analysis_unavailable/);
 });
 
-test('T13 RMVU-03 fulfillment preserved', () => {
+test('T14 RMVU-03 fulfillment preserved', () => {
   const src = reportSrc();
   assert.match(src, /openResearchEdition/);
   assert.match(src, /Research Edition 2026をダウンロード/);
@@ -110,14 +116,14 @@ test('T13 RMVU-03 fulfillment preserved', () => {
   assert.match(src, /saveReportCache/);
 });
 
-test('T14 no certification', () => {
+test('T15 no certification', () => {
   const src = reportSrc();
   assert.doesNotMatch(src, /Certified/);
   assert.doesNotMatch(src, /認証審査/);
   assert.doesNotMatch(src, /Agent Ready Certification/);
 });
 
-test('T15 no ABIS exposure', () => {
+test('T16 no ABIS exposure', () => {
   const src = reportSrc();
   for (const slug of PROTECTED_ABIS_SLUGS) {
     assert.doesNotMatch(src, new RegExp(slug));

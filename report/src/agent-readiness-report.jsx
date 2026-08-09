@@ -3,7 +3,6 @@ import { trackReportStartOnce } from "./analytics.js";
 import {
   scoreInterpretation,
   mapProposalToPriority,
-  MTG_SCHEDULE_URL,
   IMPROVE_URL,
   SCORE_BAR_VARIANTS,
 } from "./report-tokens.js";
@@ -1916,16 +1915,8 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             月額 ¥198,000〜（税別）<br />
             12ヶ月契約
           </p>
-          <a
-            href={MTG_SCHEDULE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="report-btn-primary report-btn-advisory"
-          >
-            年間改善支援について相談する
-          </a>
-          <a href={IMPROVE_URL} className="report-advisory-secondary">
-            支援内容・料金を見る
+          <a href={IMPROVE_URL} className="report-btn-primary report-btn-advisory">
+            年間改善支援の内容・料金を見る
           </a>
         </div>
       </section>
