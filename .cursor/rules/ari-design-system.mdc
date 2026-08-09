@@ -1,0 +1,51 @@
+---
+description: Agent Readiness public UI design system — read design.md before any visual change
+globs:
+  - 10_Projects/Agent Readiness/**/*.html
+  - 10_Projects/Agent Readiness/report/**/*
+  - 10_Projects/Agent Readiness/assets/**/*.css
+alwaysApply: false
+---
+
+# ARI Design System (Public UI)
+
+Before modifying any public-facing UI on `readiness.coaretail.com`:
+
+## Required
+
+1. **Read** `design.md` at the Agent Readiness repository root.
+2. **Prefer tokens** from `assets/design-system.css` over new hex/spacing values.
+3. **Reuse hub patterns**: section-label → H2 → lead, `.btn-primary`, 1120px container, 1px borders.
+4. **One primary CTA** per section — secondary actions use outline/text styles.
+5. **Check responsive + a11y** (§15–17 in design.md): tap targets, heading order, contrast, mobile stack.
+
+## Business guards (never violate in UI work)
+
+- Do not change Advisory pricing, contract terms, or CTA URL unless explicit product task.
+- No certification / Certified / 認証審査 visuals.
+- No ABIS exposure in public pages.
+- No outcome guarantees or unsupported ROI claims.
+- Do not touch protected ABIS Insights slugs or TMVU publish pipelines in design tasks.
+
+## Deviations
+
+If a one-off style is unavoidable, document:
+
+- What deviated
+- Why
+- Whether it should become a token
+
+## Incremental adoption
+
+Do **not** mass-migrate all pages to `design-system.css` in a design-only task. Link the CSS file only on pages you are already editing.
+
+## Reference pages
+
+| Pattern | Reference |
+| --- | --- |
+| Hub shell / nav | `index.html`, `framework/index.html` |
+| Long-form reading | `insights/article-template.html` |
+| Pricing comparison | `improve.html` (structure); tokens from design-system.css |
+| Report metrics | `report/src/agent-readiness-report.jsx` |
+
+Spec: `design.md` · Tokens: `assets/design-system.css`
