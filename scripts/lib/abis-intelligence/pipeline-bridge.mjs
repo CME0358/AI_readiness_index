@@ -105,6 +105,7 @@ export async function processAbisImpactWatch(events, options = {}) {
         notify,
         title: event.title,
         ari_article_status: ariStatus,
+        announcement_excerpt: event.excerpt,
       });
     } catch (err) {
       notificationResult = {

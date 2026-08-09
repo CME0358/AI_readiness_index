@@ -73,4 +73,4 @@ export const ABIS_BLOCK_TERMS = [
   'abis-readiness-gap',
 ];
 
-export const DEFAULT_POLLING_HOURS = 2;
+export const DEFAULT_POLLING_HOURS = 12;

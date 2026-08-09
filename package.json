@@ -44,6 +44,7 @@
     "intelligence:queue": "node scripts/intelligence-run.mjs --queue",
     "intelligence:draft": "node scripts/intelligence-run.mjs --backfill",
     "intelligence:run": "node scripts/intelligence-run.mjs",
+    "intelligence:monitor": "node scripts/intelligence-run.mjs --live --abis-notify",
     "intelligence:dry-run": "node scripts/intelligence-run.mjs --dry-run --backfill"
   }
 }

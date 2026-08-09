@@ -1,0 +1,55 @@
+name: Editorial Intelligence Monitor (12h)
+
+on:
+  schedule:
+    # Every 12 hours (UTC). RMVU-05D monitoring cadence.
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run — no registry persist / no Slack (true/false)'
+        required: false
+        default: 'false'
+      abis_notify:
+        description: 'Slack notify for HIGH/CRITICAL only (true/false)'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-intelligence-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Editorial Intelligence pipeline
+        env:
+          ABIS_SLACK_WEBHOOK_URL: ${{ secrets.ABIS_SLACK_WEBHOOK_URL }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
+          ABIS_NOTIFY_INPUT: ${{ github.event.inputs.abis_notify }}
+        run: |
+          set -euo pipefail
+          CMD=(node scripts/intelligence-run.mjs)
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            CMD+=(--live --abis-notify)
+          elif [ "${DRY_RUN_INPUT:-false}" = "true" ]; then
+            echo "Manual dry-run — no --live, no Slack"
+          else
+            CMD+=(--live)
+            if [ "${ABIS_NOTIFY_INPUT:-true}" = "true" ]; then
+              CMD+=(--abis-notify)
+            fi
+          fi
+          echo "Running: ${CMD[*]}"
+          "${CMD[@]}"
+          echo "Editorial Intelligence monitor complete (no auto-publish, no IndexNow)"

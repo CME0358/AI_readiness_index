@@ -24,7 +24,7 @@ import { proposeScheduleChange, getNextAvailableSlot } from '../lib/editorial-in
 import { processPipeline, runIntelligencePipeline } from '../lib/editorial-intelligence/pipeline.mjs';
 import { loadQueue, upsertQueueEntry } from '../lib/editorial-intelligence/storage.mjs';
 import { INTELLIGENCE_PATHS, ROOT } from '../lib/editorial-intelligence/paths.mjs';
-import { EVENT_STATUSES, PRIORITY_BANDS, SCORE_THRESHOLDS, SOURCE_HEALTH } from '../lib/editorial-intelligence/constants.mjs';
+import { EVENT_STATUSES, PRIORITY_BANDS, SCORE_THRESHOLDS, SOURCE_HEALTH, DEFAULT_POLLING_HOURS } from '../lib/editorial-intelligence/constants.mjs';
 import { PROTECTED_ABIS_SLUGS } from '../lib/product-integrity.mjs';
 import { PATHS } from '../lib/insights-v2-paths.mjs';
 import { EDITORIAL_STATUSES } from '../lib/editorial-status.mjs';
@@ -35,6 +35,14 @@ import {
   shouldNotify,
   sanitizeLogMessage,
 } from '../lib/abis-intelligence/slack-notifier.mjs';
+import {
+  formatSlackMessageJa,
+  buildReasoningSummaryJa,
+  buildDryRunSampleMessage,
+  formatAffectedAreaJa,
+  formatRecommendedActionJa,
+  formatConfidenceJa,
+} from '../lib/abis-intelligence/slack-message-ja.mjs';
 import { ABIS_INTELLIGENCE_PATHS, PUBLIC_SURFACE_PATHS } from '../lib/abis-intelligence/paths.mjs';
 import { ABIS_SEVERITY, PATENT_FLAGS } from '../lib/abis-intelligence/constants.mjs';
 
@@ -534,4 +542,197 @@ test('RMVU-05D T47b public editorial brief excludes ABIS section', () => {
     const brief = fs.readFileSync(PUBLIC_SURFACE_PATHS.editorialBrief, 'utf8');
     assert.doesNotMatch(brief, /ABIS Impact Watch \(PRIVATE/i);
   }
+});
+
+// --- ABIS Slack Japanese UX (T48–T62) ---
+
+function jaImpact(overrides = {}) {
+  return {
+    event_id: 'ja-test',
+    company: 'Cloudflare',
+    source_url: 'https://blog.cloudflare.com/example/',
+    source_date: '2026-08-08T09:00:00.000Z',
+    abis_impact_score: 78,
+    severity: 'HIGH',
+    affected_areas: ['Binding', 'Technology Profiles', 'Reference Examples', 'Runtime Demonstrator'],
+    semantic_impact: 8,
+    authority_impact: 14,
+    interaction_execution_impact: 16,
+    evidence_outcome_impact: 5,
+    binding_ecosystem_impact: 9,
+    standardization_patent_relevance: 4,
+    binding_only_change: false,
+    patent_flags: [],
+    recommended_action: 'REVIEW',
+    confidence: 'MEDIUM',
+    title: 'Cloudflare Agent Commerce wallet update',
+    ...overrides,
+  };
+}
+
+test('RMVU-05D T48 Slack notification default language = Japanese', () => {
+  const msg = formatSlackMessageJa(jaImpact(), { title: 'Test announcement' });
+  assert.match(msg, /【要確認】/);
+  assert.match(msg, /【発信元】/);
+  assert.match(msg, /【一次情報】/);
+  assert.doesNotMatch(msg, /^Why It Matters:/m);
+});
+
+test('RMVU-05D T49 HIGH header Japanese', () => {
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.match(msg, /⚠️ ABIS影響監視 — HIGH \/ 78/);
+});
+
+test('RMVU-05D T50 CRITICAL header Japanese', () => {
+  const msg = formatSlackMessageJa(jaImpact({ severity: 'CRITICAL', abis_impact_score: 90 }));
+  assert.match(msg, /🚨 ABIS影響監視 — CRITICAL \/ 90/);
+});
+
+test('RMVU-05D T51 要確認 is first content block', () => {
+  const msg = formatSlackMessageJa(jaImpact());
+  const afterHeader = msg.split('\n').slice(2).join('\n');
+  assert.match(afterHeader, /^【要確認】/m);
+});
+
+test('RMVU-05D T52 affected areas mapped to Japanese labels', () => {
+  assert.match(formatAffectedAreaJa('Foundation'), /基盤モデル/);
+  assert.match(formatAffectedAreaJa('Binding'), /接続実現/);
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.match(msg, /Technology Profile/);
+  assert.match(msg, /Reference Example/);
+});
+
+test('RMVU-05D T53 recommended action mapped to Japanese', () => {
+  assert.match(formatRecommendedActionJa('REVIEW'), /レビュー推奨/);
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.match(msg, /【推奨アクション】[\s\S]*レビュー推奨（REVIEW）/);
+});
+
+test('RMVU-05D T54 confidence mapped to Japanese', () => {
+  assert.match(formatConfidenceJa('MEDIUM'), /中（MEDIUM）/);
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.match(msg, /中（MEDIUM）/);
+});
+
+test('RMVU-05D T55 binding-only event does not imply semantic invalidation', () => {
+  const impact = jaImpact({
+    binding_only_change: true,
+    binding_ecosystem_impact: 8,
+    semantic_impact: 4,
+    authority_impact: 2,
+    interaction_execution_impact: 0,
+    affected_areas: ['Binding', 'Technology Profiles'],
+  });
+  const msg = buildReasoningSummaryJa(impact);
+  assert.match(msg, /意味層|semantic core/i);
+  assert.doesNotMatch(msg, /無効化|invalidate/i);
+});
+
+test('RMVU-05D T56 patent relevance remains review-only language', () => {
+  const msg = formatSlackMessageJa(jaImpact({
+    standardization_patent_relevance: 8,
+    patent_flags: ['POTENTIAL_OVERLAP_REVIEW', 'HUMAN_REVIEW_RECOMMENDED'],
+  }));
+  assert.match(msg, /【標準化・特許観点】/);
+  assert.match(msg, /要レビュー|人による確認/);
+  assert.doesNotMatch(msg, /特許侵害|FTO|特許性|抵触/);
+});
+
+test('RMVU-05D T57 source URL preserved', () => {
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.match(msg, /https:\/\/blog\.cloudflare\.com\/example\//);
+});
+
+test('RMVU-05D T58 webhook secret absent from rendered message', () => {
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.doesNotMatch(msg, /hooks\.slack\.com\/services/);
+  process.env.ABIS_SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/SECRET/TOKEN/VALUE';
+  const preview = formatSlackMessageJa(jaImpact());
+  assert.doesNotMatch(preview, /hooks\.slack\.com/);
+  delete process.env.ABIS_SLACK_WEBHOOK_URL;
+});
+
+test('RMVU-05D T59 WATCH still does not notify', async () => {
+  const impact = jaImpact({ severity: 'WATCH', abis_impact_score: 55, recommended_action: 'MONITOR' });
+  const r = await notifyAbisImpact(impact, { dryRun: false, notify: true });
+  assert.equal(r.would_notify, false);
+  assert.equal(r.notification_status, 'SKIPPED');
+});
+
+test('RMVU-05D T60 LOG_ONLY still does not notify', async () => {
+  const impact = jaImpact({ severity: 'LOG_ONLY', abis_impact_score: 20, recommended_action: 'NO_ACTION' });
+  const r = await notifyAbisImpact(impact, { dryRun: false, notify: true });
+  assert.equal(r.would_notify, false);
+});
+
+test('RMVU-05D T61 ARI public draft unaffected', () => {
+  const draftSrc = read('scripts/lib/editorial-intelligence/draft-generator.mjs');
+  assert.doesNotMatch(draftSrc, /slack-message-ja|formatSlackMessageJa/);
+});
+
+test('RMVU-05D T62 ABIS private/public separation preserved', () => {
+  const msg = formatSlackMessageJa(jaImpact());
+  assert.doesNotMatch(msg, /abis-intelligence\/reviews/);
+  assert.doesNotMatch(read('scripts/lib/editorial-intelligence/draft-generator.mjs'), /abis-intelligence/);
+});
+
+test('RMVU-05D T62b dry-run Cloudflare sample preview', () => {
+  const preview = buildDryRunSampleMessage();
+  assert.match(preview, /Cloudflare/);
+  assert.match(preview, /ABIS影響監視 — HIGH \/ 78/);
+  assert.match(preview, /レビュー推奨（REVIEW）/);
+});
+
+// --- RMVU-05D 12-hour monitoring cadence (T63–T71) ---
+
+test('RMVU-05D T63 DEFAULT_POLLING_HOURS = 12', () => {
+  assert.equal(DEFAULT_POLLING_HOURS, 12);
+});
+
+test('RMVU-05D T64 sources.json polling_default_hours = 12', () => {
+  const reg = loadSourcesRegistry();
+  assert.equal(reg.polling_default_hours, 12);
+});
+
+test('RMVU-05D T65 no per-source 2h polling override in registry', () => {
+  const reg = loadSourcesRegistry();
+  for (const s of reg.sources) {
+    assert.notEqual(s.polling_hours, 2, `${s.source_id} has explicit 2h override`);
+    assert.notEqual(s.polling_interval_hours, 2, `${s.source_id} has explicit 2h interval`);
+  }
+});
+
+test('RMVU-05D T66 GitHub Actions workflow cron is 12h', () => {
+  const wf = read('.github/workflows/editorial-intelligence-monitor.yml');
+  assert.match(wf, /cron:\s*['"]0 \*\/12 \* \* \*['"]/);
+});
+
+test('RMVU-05D T67 workflow_dispatch enabled', () => {
+  const wf = read('.github/workflows/editorial-intelligence-monitor.yml');
+  assert.match(wf, /workflow_dispatch:/);
+});
+
+test('RMVU-05D T68 workflow uses ABIS_SLACK_WEBHOOK_URL secret without logging', () => {
+  const wf = read('.github/workflows/editorial-intelligence-monitor.yml');
+  assert.match(wf, /secrets\.ABIS_SLACK_WEBHOOK_URL/);
+  assert.doesNotMatch(wf, /echo.*ABIS_SLACK/);
+});
+
+test('RMVU-05D T69 workflow no auto publish or IndexNow', () => {
+  const wf = read('.github/workflows/editorial-intelligence-monitor.yml');
+  assert.doesNotMatch(wf, /publish-scheduled-insights|submit-indexnow|npm run publish:insights/i);
+  assert.match(wf, /intelligence-run\.mjs/);
+});
+
+test('RMVU-05D T70 HIGH/CRITICAL Slack rule unchanged', () => {
+  assert.equal(shouldNotify({ severity: ABIS_SEVERITY.HIGH }), true);
+  assert.equal(shouldNotify({ severity: ABIS_SEVERITY.CRITICAL }), true);
+  assert.equal(shouldNotify({ severity: ABIS_SEVERITY.WATCH }), false);
+  assert.equal(shouldNotify({ severity: ABIS_SEVERITY.LOG_ONLY }), false);
+});
+
+test('RMVU-05D T71 intelligence:monitor script uses live + abis-notify', () => {
+  const pkg = JSON.parse(read('package.json'));
+  assert.match(pkg.scripts['intelligence:monitor'], /--live/);
+  assert.match(pkg.scripts['intelligence:monitor'], /--abis-notify/);
 });

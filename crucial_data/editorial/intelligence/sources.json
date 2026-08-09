@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "polling_default_hours": 2,
+  "polling_default_hours": 12,
   "sources": [
     {
       "source_id": "cloudflare-blog",
