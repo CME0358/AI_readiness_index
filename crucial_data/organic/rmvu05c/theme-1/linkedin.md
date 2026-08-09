@@ -44,11 +44,8 @@ Googleはページをインデックスします。
 
 重要なのは、全部やることではなく、**自社がどの段階で止まっているか** を先に特定することです。
 
-完全版の整理とチェックリスト:
+完全版の整理とチェックリストはこちら:
 https://readiness.coaretail.com/insights/blind/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=rmvu05c&utm_content=blind
-
-自社の改善優先順位を確認する:
-https://readiness.coaretail.com/report/?utm_source=linkedin&utm_medium=organic_social&utm_campaign=rmvu05c&utm_content=blind
 
 #AgentReadiness #AI検索 #GEO
 
@@ -56,6 +53,6 @@ https://readiness.coaretail.com/report/?utm_source=linkedin&utm_medium=organic_s
 
 ## Notes
 
-- CTAは1つ（Company Report）。Canonical Insightは本文内リンク。
+- External CTAは1つ（Canonical Insightのみ）。Company Reportは blind 側 primary CTA 経由。
 - ハッシュタグは最小限（3件）。
 - 公開前に代表質問の具体例を自社業種向けに1行追加可。

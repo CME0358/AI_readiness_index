@@ -53,7 +53,7 @@ Agent Readiness Research Hubの正本InsightsをSource of Truthとし、Google D
 | --- | --- | --- |
 | 5 AI × 100問 | 主要AI5社への質問設計・7原則 | `/research/` |
 | 5業種231件 | 歯科・美容・フィットネス・不動産・士業 / 25クエリ / 231件 | `/evidence/` `/whitepaper/` |
-| 業種格差 | 不動産97.8% vs 士業15.6%（約5.5倍） | Whitepaper 2026 |
+| 業種格差 | 不動産97.8%に対し士業15.6%（大きな業種差） | Whitepaper 2026 |
 | DRA | Discovery / Recommendation / Action Readiness | `/framework/` |
 | Dental benchmark | `/dental.html` | 歯科業界ベンチマーク |
 | Methodology | 調査方法・100問設計 | `/methodology.html` |

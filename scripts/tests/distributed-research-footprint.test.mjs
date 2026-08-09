@@ -48,6 +48,11 @@ function readDraft(theme, file) {
   return fs.readFileSync(path.join(DRAFT_ROOT, theme, file), 'utf8');
 }
 
+function bodyAfterFrontmatter(content) {
+  const end = content.indexOf('\n---\n', 4);
+  return end === -1 ? content : content.slice(end + 5);
+}
+
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {};
@@ -100,11 +105,16 @@ test('RMVU-05C T04 each asset has first-party source/evidence', () => {
 
 test('RMVU-05C T05 Company Report links only where contextually appropriate', () => {
   const drafts = allDrafts();
-  // Theme 1 & 2 (money-adjacent): all formats should bridge to report
-  for (const theme of ['theme-1', 'theme-2']) {
-    for (const d of drafts.filter((x) => x.theme === theme)) {
-      assert.match(d.content, /readiness\.coaretail\.com\/report/, d.path);
-    }
+  // Theme 1: GDOC + PDF bridge to report; LinkedIn uses canonical-only funnel
+  for (const file of ['google-doc.md', 'pdf-brief.md']) {
+    const d = drafts.find((x) => x.theme === 'theme-1' && x.file === file);
+    assert.match(d.content, /readiness\.coaretail\.com\/report/, d.path);
+  }
+  const t1LinkedIn = drafts.find((d) => d.theme === 'theme-1' && d.file === 'linkedin.md');
+  assert.doesNotMatch(bodyAfterFrontmatter(t1LinkedIn.content), /readiness\.coaretail\.com\/report/);
+  // Theme 2 (money-adjacent): all formats should bridge to report
+  for (const d of drafts.filter((x) => x.theme === 'theme-2')) {
+    assert.match(d.content, /readiness\.coaretail\.com\/report/, d.path);
   }
   // Theme 3 google-doc and pdf have contextual bridge; linkedin uses research only
   const t3LinkedIn = drafts.find((d) => d.theme === 'theme-3' && d.file === 'linkedin.md');
@@ -145,9 +155,7 @@ test('RMVU-05C T08 no protected slugs in draft links', () => {
 });
 
 test('RMVU-05C T09 no fake Research metrics', () => {
-  const allowedNumbers = ['100', '231', '5.5', '97.8', '15.6', '5'];
   for (const draft of allDrafts()) {
-    // Must not invent large round stats not in repo
     assert.doesNotMatch(draft.content, /当社調査では、\d{4,}件/);
     assert.doesNotMatch(draft.content, /\d{2,}%改善/);
     if (draft.content.includes('231')) {
@@ -201,4 +209,25 @@ test('RMVU-05C drafts not exposed in public_build', () => {
   const pkg = fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8');
   assert.match(pkg, /rm -rf public_build\/crucial_data/);
   assert.ok(!fs.existsSync(path.join(ROOT, 'public_build/crucial_data/organic/rmvu05c')));
+});
+
+test('RMVU-05C T15 Theme 1 assets do not contain incorrect 5.5倍', () => {
+  for (const file of ['google-doc.md', 'linkedin.md', 'pdf-brief.md']) {
+    const content = readDraft('theme-1', file);
+    assert.doesNotMatch(content, /5\.5倍/);
+    assert.doesNotMatch(content, /約5\.5/);
+  }
+  const registry = fs.readFileSync(REGISTRY, 'utf8');
+  assert.doesNotMatch(registry, /5\.5倍/);
+});
+
+test('RMVU-05C T16 LinkedIn Theme 1 canonical-only external conversion path', () => {
+  const content = readDraft('theme-1', 'linkedin.md');
+  const postSection = content.split('## Post copy')[1]?.split('---')[0] || content;
+  const externalLinks = [...postSection.matchAll(/https:\/\/readiness\.coaretail\.com[^\s)]+/g)].map((m) => m[0]);
+  assert.equal(externalLinks.length, 1, `expected 1 external link, got ${externalLinks.length}`);
+  assert.match(externalLinks[0], /\/insights\/blind\//);
+  assert.match(externalLinks[0], /utm_source=linkedin/);
+  assert.doesNotMatch(content, /utm_source=linkedin[^\n]*\/report/);
+  assert.match(content, /完全版の整理とチェックリストはこちら/);
 });
