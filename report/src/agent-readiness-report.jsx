@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { trackReportStartOnce } from "./analytics.js";
-import { scoreInterpretation, mapProposalToPriority, MTG_SCHEDULE_URL } from "./report-tokens.js";
+import {
+  scoreInterpretation,
+  mapProposalToPriority,
+  MTG_SCHEDULE_URL,
+  IMPROVE_URL,
+  SCORE_BAR_VARIANTS,
+} from "./report-tokens.js";
 import {
   STORAGE_KEYS,
   resolveCheckoutUrl,
@@ -196,21 +202,27 @@ function Reveal({ children, delay = 0, className = "", style = {} }) {
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
 function StatusBadge({ status }) {
-  const map = { pass: ["#F0FDF4", "#16A34A", "✓ Pass"], partial: ["#FFFBEB", "#CA8A04", "△ Partial"], fail: ["#FEF2F2", "#DC2626", "✗ Fail"] };
-  const [bg, color, label] = map[status] || map.fail;
-  return <span style={{ background: bg, color, border: `1px solid ${color}20`, borderRadius: 4, padding: "2px 8px", fontSize: 11, fontWeight: 600 }}>{label}</span>;
+  const map = {
+    pass: ["report-status-badge--success", "✓ Pass"],
+    partial: ["report-status-badge--attention", "△ Partial"],
+    fail: ["report-status-badge--danger", "✗ Fail"],
+  };
+  const [className, label] = map[status] || map.fail;
+  return <span className={`report-status-badge ${className}`}>{label}</span>;
 }
 
-function ScoreBar({ score, color = "#0A0A0A", delay = 0 }) {
+function ScoreBar({ score, variant = SCORE_BAR_VARIANTS.accent, delay = 0 }) {
   const ref = useRef(null);
   const visible = useIntersection(ref);
   return (
-    <div ref={ref} style={{ height: 4, background: "#F0F0F0", borderRadius: 2, overflow: "hidden" }}>
-      <div style={{
-        height: "100%", background: color, borderRadius: 2,
-        width: visible ? `${score}%` : "0%",
-        transition: `width 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
-      }} />
+    <div ref={ref} className="report-score-bar">
+      <div
+        className={`report-score-bar__fill report-score-bar__fill--${variant}`}
+        style={{
+          width: visible ? `${score}%` : "0%",
+          transition: `width 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        }}
+      />
     </div>
   );
 }
@@ -239,9 +251,9 @@ function RadarChart({ data }) {
         ))}
         <polygon
           points={dataPolygon}
-          fill="#0A0A0A"
-          fillOpacity={visible ? 0.12 : 0}
-          stroke="#0A0A0A"
+          fill="var(--color-accent)"
+          fillOpacity={visible ? 0.14 : 0}
+          stroke="var(--color-accent)"
           strokeWidth={2}
           strokeOpacity={visible ? 1 : 0}
           style={{ transition: "fill-opacity 1s ease, stroke-opacity 1s ease" }}
@@ -1489,7 +1501,7 @@ function NavSeekBar({ targetRef }) {
     <div className="no-print" style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--container-gutter) 6px" }}>
       <div onPointerDown={onPointerDown} style={{ position: "relative", height: 8, display: "flex", alignItems: "center", cursor: "pointer", touchAction: "none" }}>
         <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#EDEDED", borderRadius: 2 }} />
-        <div style={{ position: "absolute", height: 3, borderRadius: 2, background: "#0A0A0A", width: `${thumbPct}%`, left: `${leftPct}%`, transition: draggingRef.current ? "none" : "left 0.1s linear" }} />
+        <div style={{ position: "absolute", height: 3, borderRadius: 2, background: "var(--color-accent)", width: `${thumbPct}%`, left: `${leftPct}%`, transition: draggingRef.current ? "none" : "left 0.1s linear" }} />
       </div>
     </div>
   );
@@ -1579,9 +1591,14 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
               </button>
             ))}
           </div>
-          <button type="button" onClick={() => setPrinting(true)} className="report-btn-primary">
-            PDF保存
-          </button>
+          <div className="report-header-actions">
+            <button type="button" onClick={() => setPrinting(true)} className="report-btn-secondary">
+              PDF保存
+            </button>
+            <a href={IMPROVE_URL} className="report-btn-primary">
+              改善支援を見る
+            </a>
+          </div>
         </div>
         <NavSeekBar targetRef={navScrollRef} />
       </div>
@@ -1671,21 +1688,21 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             <div key={ai.ai} className="report-panel report-panel--plain">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-4)" }}>
                 <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{ai.ai}</h3>
-                <span style={{
-                  fontSize: 11, padding: "3px 10px", borderRadius: 100,
-                  background: ai.bookable ? "var(--color-success-soft)" : "var(--color-surface-subtle)",
-                  color: ai.bookable ? "var(--color-success)" : "var(--color-text-muted)", fontWeight: 600,
-                }}>
+                <span className={`report-status-tag ${ai.bookable ? "report-status-tag--positive" : "report-status-tag--attention"}`}>
                   {ai.bookable ? "予約可能" : "要対応"}
                 </span>
               </div>
-              {[["認識率", ai.recognition], ["推薦率", ai.recommendation], ["引用率", ai.citation]].map(([label, val], j) => (
+              {[
+                ["認識率", ai.recognition, SCORE_BAR_VARIANTS.accent],
+                ["推薦率", ai.recommendation, SCORE_BAR_VARIANTS.accentMid],
+                ["引用率", ai.citation, SCORE_BAR_VARIANTS.accentMuted],
+              ].map(([label, val, barVariant], j) => (
                 <div key={label} style={{ marginBottom: 12 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                     <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>{label}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>{val}%</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)" }}>{val}%</span>
                   </div>
-                  <ScoreBar score={val} delay={i * 0.1 + j * 0.05} />
+                  <ScoreBar score={val} variant={barVariant} delay={i * 0.1 + j * 0.05} />
                 </div>
               ))}
             </div>
@@ -1888,20 +1905,28 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
         </div>
 
         <div className="report-advisory-cta no-print">
-          <h3>改善優先順位は分かった。継続的な実装・計測・再評価まで必要な場合</h3>
+          <div className="report-eyebrow">NEXT STEP</div>
+          <h3>改善優先順位を、実行に移す必要がある場合</h3>
           <p>
-            Company ReportはWhat / Priority。Methodology HandbookはHow。
-            Agent Readiness Advisoryは、実装・計測・再評価を年間で伴走する支援です。
+            Company Reportで明らかになった優先課題をもとに、
+            実装・計測・再評価まで継続的に支援します。
           </p>
-          <a href={MTG_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="report-btn-primary">
-            Agent Readiness Advisoryについて相談する
+          <p className="report-advisory-product">Agent Readiness Advisory</p>
+          <p className="report-advisory-price">
+            月額 ¥198,000〜（税別）<br />
+            12ヶ月契約
+          </p>
+          <a
+            href={MTG_SCHEDULE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="report-btn-primary report-btn-advisory"
+          >
+            年間改善支援について相談する
           </a>
-          <p className="report-advisory-price">月額 ¥198,000〜（税別）／12ヶ月契約</p>
-          <p style={{ marginTop: "var(--space-4)", fontSize: "var(--text-xs)" }}>
-            <a href="/improve.html" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
-              商品比較・支援プラン詳細（improve.html）
-            </a>
-          </p>
+          <a href={IMPROVE_URL} className="report-advisory-secondary">
+            支援内容・料金を見る
+          </a>
         </div>
       </section>
 
