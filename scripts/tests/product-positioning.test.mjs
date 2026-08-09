@@ -131,17 +131,24 @@ test('T06 Advisory card is visually primary', () => {
   const src = improveSrc();
   assert.match(src, /pricing-card--primary/);
   assert.match(src, /plan-badge--recommended/);
+  assert.match(src, /plan-cta--primary/);
   assert.match(src, /design-system\.css/);
-  assert.doesNotMatch(src, /plan-cta--primary/);
+  assert.match(src, /color-accent-soft/);
 });
 
-test('T07 improve.html conversion copy includes Recommended For and fit messages', () => {
+test('T07 improve.html conversion copy uses comparison card structure', () => {
   const src = improveSrc();
+  assert.match(src, /pricing-comparison-hint/);
+  assert.match(src, /含まれる内容/);
   assert.match(src, /こんな企業におすすめ/);
-  assert.match(src, /plan-fit/);
-  assert.match(src, /戦略と優先順位を外部視点で整えながら/);
-  assert.match(src, /「どう実装するか」まで外部知見を入れたい企業向け/);
-  assert.match(src, /改善を実行まで進めたい企業向け/);
+  assert.match(src, /plan-meta-row/);
+  assert.match(src, /Decide \/ Review/);
+  assert.match(src, /Design \/ Specify/);
+  assert.match(src, /Execute \/ Operate/);
+  assert.match(src, /社内で実装はできるが、何から進めるべきか整理したい/);
+  assert.match(src, /やるべき方向性は見えているが、具体的な設計に落とせていない/);
+  assert.match(src, /社内リソースだけでは改善実行が進みにくい/);
+  assert.doesNotMatch(src, /plan-fit/);
 });
 
 test('T08 improve.html CTA destinations unchanged', () => {

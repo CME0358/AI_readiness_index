@@ -283,19 +283,27 @@
 
     /* Pricing */
     .pricing-lead {
-      max-width: 640px;
+      max-width: var(--container-reading);
       font-size: var(--text-small);
       color: var(--color-text-secondary);
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-3);
       line-height: var(--leading-relaxed);
     }
 
+    .pricing-comparison-hint {
+      max-width: var(--container-reading);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+      line-height: var(--leading-normal);
+    }
+
     .pricing-note-inline {
-      font-size: var(--text-small);
-      color: var(--color-text-secondary);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
       margin-bottom: var(--space-6);
-      line-height: var(--leading-relaxed);
-      max-width: 720px;
+      line-height: var(--leading-normal);
+      max-width: var(--container-reading);
     }
 
     .pricing-grid {
@@ -309,7 +317,7 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: var(--space-5);
+      padding: var(--space-6) var(--space-5);
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -317,7 +325,7 @@
 
     .pricing-card--primary {
       border: 2px solid var(--color-accent);
-      background: var(--color-surface);
+      background: var(--color-accent-soft);
     }
 
     .plan-badge {
@@ -331,32 +339,46 @@
       border: 1px solid var(--color-accent);
       color: var(--color-accent);
       background: var(--color-surface);
+      align-self: flex-start;
     }
 
-    .plan-label {
-      font-size: var(--text-eyebrow);
-      font-weight: 600;
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-2);
+    .plan-badge--recommended {
+      background: var(--color-surface);
     }
 
-    .plan-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-1);
-      letter-spacing: -0.01em;
+    .pricing-card--primary .plan-badge--recommended {
+      background: var(--color-surface);
     }
 
     .plan-role {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-text-muted);
-      margin-bottom: var(--space-4);
-      letter-spacing: 0.04em;
+      margin-bottom: var(--space-2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .pricing-card--primary .plan-role { color: var(--color-accent); }
+
+    .plan-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+      line-height: var(--leading-snug);
+    }
+
+    .plan-price-block {
+      padding: var(--space-4) 0 var(--space-3);
+      margin-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .pricing-card--primary .plan-price-block {
+      border-bottom-color: rgba(27, 86, 176, 0.18);
+    }
 
     .plan-price {
       font-size: var(--text-price);
@@ -371,31 +393,56 @@
       font-size: var(--text-xs);
       font-weight: 600;
       color: var(--color-text-secondary);
+    }
+
+    .plan-meta {
       margin-bottom: var(--space-4);
     }
 
-    .plan-headline {
-      font-size: var(--text-small);
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-3);
-      line-height: var(--leading-snug);
-    }
-
-    .plan-desc {
-      font-size: var(--text-xs);
-      color: var(--color-text-secondary);
-      margin-bottom: var(--space-4);
+    .plan-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-3);
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 11px;
       line-height: var(--leading-normal);
     }
 
-    .plan-section-title {
-      font-size: var(--text-eyebrow);
+    .plan-meta-row:last-child { border-bottom: none; }
+
+    .plan-meta-label {
       font-weight: 700;
-      color: var(--color-text-primary);
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+
+    .plan-meta-value {
+      color: var(--color-text-secondary);
+      text-align: right;
+    }
+
+    .plan-value {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-normal);
+      margin-bottom: var(--space-4);
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 0 0 var(--space-4);
+    }
+
+    .plan-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-muted);
       margin-bottom: var(--space-2);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
     }
 
     .plan-list {
@@ -407,7 +454,7 @@
     .plan-list li {
       font-size: var(--text-xs);
       color: var(--color-text-secondary);
-      padding: var(--space-1) 0 var(--space-1) var(--space-4);
+      padding: 3px 0 3px var(--space-4);
       position: relative;
       line-height: var(--leading-normal);
     }
@@ -420,21 +467,14 @@
       font-weight: 700;
     }
 
-    .plan-fit {
-      font-size: var(--text-xs);
-      color: var(--color-text-secondary);
-      background: var(--color-surface-subtle);
-      border-radius: var(--radius-sm);
-      padding: var(--space-3);
-      margin-bottom: var(--space-4);
-      line-height: var(--leading-normal);
-      flex-grow: 1;
+    .plan-list--fit {
+      margin-bottom: var(--space-5);
     }
 
     .plan-pricing-note {
       font-size: var(--text-eyebrow);
       color: var(--color-text-muted);
-      margin-bottom: var(--space-4);
+      margin: calc(var(--space-2) * -1) 0 var(--space-4);
       line-height: var(--leading-normal);
     }
 
@@ -462,31 +502,55 @@
       border-color: var(--color-text-muted);
     }
 
+    .plan-cta--primary {
+      background: var(--color-cta);
+      color: var(--color-cta-text);
+      border-color: transparent;
+    }
+
+    .plan-cta--primary:hover {
+      background: var(--color-cta-hover);
+      border-color: transparent;
+    }
+
     .pricing-shared-cta {
-      margin-top: var(--space-7);
-      padding: var(--space-6);
+      margin-top: var(--space-6);
+      padding: var(--space-5) var(--space-4);
       background: var(--color-surface-subtle);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-md);
       text-align: center;
     }
 
     .pricing-shared-cta h3 {
-      font-size: 18px;
+      font-size: var(--text-small);
       font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-3);
-      line-height: var(--leading-snug);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      line-height: var(--leading-normal);
     }
 
     .pricing-shared-cta p {
-      font-size: var(--text-small);
-      color: var(--color-text-secondary);
-      margin-bottom: var(--space-5);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
       line-height: var(--leading-normal);
-      max-width: 560px;
+      max-width: 520px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .pricing-shared-cta .cta-btn {
+      min-height: 44px;
+      padding: 12px 28px;
+      font-size: var(--text-small);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-strong);
+    }
+
+    .pricing-shared-cta .cta-btn:hover {
+      background: var(--color-surface-muted);
     }
 
     .cta-btn {
@@ -702,97 +766,124 @@
     <div class="container">
       <div class="section-label">Support Options</div>
       <h2 id="pricing-heading">支援範囲に合わせて選べる3つのプラン</h2>
-      <p class="pricing-lead">Company Reportで課題を把握した後、「優先順位の伴走」から「実装支援」まで、必要な支援範囲に応じて選択できます。</p>
-      <p class="pricing-note-inline">すべて個別状況を確認した上で正式にお見積りします。問い合わせ数最大化ではなく、予算感の合う企業からの相談獲得を目的に、支援範囲ごとの目安を明示しています。成果保証は行いません。</p>
+      <p class="pricing-lead">Company Reportで課題を把握した後、優先順位の伴走から、実装支援まで、必要な支援範囲に応じて選択できます。</p>
+      <p class="pricing-comparison-hint">まずは Advisory を基準に、必要に応じて Design / Implementation へ拡張する構成です。</p>
+      <p class="pricing-note-inline">すべて個別状況を確認した上で正式にお見積りします。成果保証は行いません。</p>
 
       <div class="pricing-grid" data-pricing-cards="3">
 
         <article class="pricing-card pricing-card--primary" data-plan="advisory">
           <span class="plan-badge plan-badge--recommended">おすすめ</span>
-          <div class="plan-label">基本伴走プラン</div>
-          <h3 class="plan-name">Agent Readiness Advisory</h3>
           <div class="plan-role">Decide / Review</div>
-          <div class="plan-price">月額 ¥198,000〜（税別）</div>
-          <div class="plan-contract">12ヶ月契約</div>
-          <p class="plan-headline">「何を直すか」を迷わず、改善を継続する。</p>
-          <p class="plan-desc">Company Reportで明らかになった改善優先順位をもとに、AI検索・推薦環境の変化を継続的に確認しながら、次に取り組む施策を定期的に更新します。</p>
-          <div class="plan-section-title">こんな企業におすすめ</div>
+          <h3 class="plan-name">Agent Readiness Advisory</h3>
+          <div class="plan-price-block">
+            <div class="plan-price">月額 ¥198,000〜（税別）</div>
+            <div class="plan-contract">12ヶ月契約</div>
+          </div>
+          <div class="plan-meta">
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">契約</span>
+              <span class="plan-meta-value">12ヶ月契約</span>
+            </div>
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">主な役割</span>
+              <span class="plan-meta-value">優先順位の継続伴走</span>
+            </div>
+          </div>
+          <p class="plan-value">Company Reportで明らかになった改善優先順位をもとに、継続的に見直し・実行判断・再評価を行う伴走支援です。</p>
+          <div class="plan-divider"></div>
+          <div class="plan-section-title">含まれる内容</div>
           <ul class="plan-list">
-            <li>社内で実装はできるが、何から進めるべきか判断に迷う</li>
-            <li>AI検索・推薦対応を単発ではなく継続改善したい</li>
-            <li>経営・マーケ・デジタル部門で優先順位を共有したい</li>
-          </ul>
-          <div class="plan-section-title">Included</div>
-          <ul class="plan-list">
-            <li>Agent Readiness定期レビュー</li>
-            <li>Company Reportを基にした改善優先順位更新</li>
+            <li>定期レビュー</li>
+            <li>改善優先順位の更新</li>
             <li>AI認識 / 推薦状況の継続確認</li>
-            <li>定期的な再評価</li>
-            <li>月次改善方針</li>
+            <li>再評価と次アクション整理</li>
             <li>四半期ロードマップ更新</li>
           </ul>
-          <p class="plan-fit">戦略と優先順位を外部視点で整えながら、実装は社内で進めたい企業向け。</p>
-          <a href="https://www.coaretail.com/readiness/mtgschedule" class="plan-cta" target="_blank" rel="noopener">このプランについて相談する</a>
+          <div class="plan-section-title">こんな企業におすすめ</div>
+          <ul class="plan-list plan-list--fit">
+            <li>社内で実装はできるが、何から進めるべきか整理したい</li>
+            <li>AI検索・推薦対応を単発ではなく継続的に改善したい</li>
+          </ul>
+          <a href="https://www.coaretail.com/readiness/mtgschedule" class="plan-cta plan-cta--primary" target="_blank" rel="noopener">このプランについて相談する</a>
         </article>
 
         <article class="pricing-card" data-plan="implementation-design">
-          <div class="plan-label">設計・レビュー強化</div>
-          <h3 class="plan-name">Implementation Design</h3>
           <div class="plan-role">Design / Specify</div>
-          <div class="plan-price">月額 ¥250,000〜¥300,000程度（税別）</div>
-          <p class="plan-headline">改善方針を、実装できる仕様まで落とし込む。</p>
-          <p class="plan-desc">Advisoryの継続支援に加え、Webサイト・情報設計・導線・構造化データなどを、実装担当者が動ける粒度まで具体化します。</p>
-          <div class="plan-section-title">こんな企業におすすめ</div>
+          <h3 class="plan-name">Implementation Design</h3>
+          <div class="plan-price-block">
+            <div class="plan-price">月額 ¥250,000〜¥300,000程度（税別）</div>
+            <div class="plan-contract">scope-based</div>
+          </div>
+          <div class="plan-meta">
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">契約</span>
+              <span class="plan-meta-value">scope-based</span>
+            </div>
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">主な役割</span>
+              <span class="plan-meta-value">設計・仕様化</span>
+            </div>
+          </div>
+          <p class="plan-value">改善方針を、具体的な仕様・構造・実装要件に落とし込むための設計支援です。</p>
+          <div class="plan-divider"></div>
+          <div class="plan-section-title">含まれる内容</div>
           <ul class="plan-list">
-            <li>改善すべき方向は分かっているが、具体的な設計に落とせない</li>
-            <li>Web制作会社や開発チームへの指示内容を整理したい</li>
-            <li>AI検索対応を既存サイトや業務導線へ組み込みたい</li>
-          </ul>
-          <div class="plan-section-title">Included</div>
-          <ul class="plan-list">
-            <li>Advisoryの全支援</li>
-            <li>具体的な施策設計</li>
-            <li>Website改善仕様</li>
-            <li>structured data / information architectureレビュー</li>
-            <li>AI-readable information design</li>
+            <li>改善施策の設計</li>
+            <li>Web / 情報設計レビュー</li>
+            <li>構造化データ / IA 整理</li>
             <li>予約 / 問い合わせ導線設計</li>
-            <li>実装内容レビュー</li>
+            <li>実装レビュー</li>
           </ul>
-          <p class="plan-fit">「何をするか」だけでなく、「どう実装するか」まで外部知見を入れたい企業向け。</p>
+          <div class="plan-section-title">こんな企業におすすめ</div>
+          <ul class="plan-list plan-list--fit">
+            <li>やるべき方向性は見えているが、具体的な設計に落とせていない</li>
+            <li>社内 / 外部制作チームに渡す仕様を整理したい</li>
+          </ul>
           <a href="https://www.coaretail.com/readiness/mtgschedule" class="plan-cta" target="_blank" rel="noopener">設計支援について相談する</a>
         </article>
 
         <article class="pricing-card" data-plan="managed-implementation">
-          <div class="plan-label">実装・運用支援</div>
-          <h3 class="plan-name">Managed Implementation</h3>
           <div class="plan-role">Execute / Operate</div>
-          <div class="plan-price">月額 ¥300,000〜（税別）</div>
-          <p class="plan-headline">設計だけで終わらせず、改善実行まで進める。</p>
-          <p class="plan-desc">AdvisoryとImplementation Designに加え、実装作業や継続運用まで支援します。社内リソースが不足している場合でも、改善施策を実行フェーズへ進められる体制を設計します。</p>
-          <div class="plan-section-title">こんな企業におすすめ</div>
+          <h3 class="plan-name">Managed Implementation</h3>
+          <div class="plan-price-block">
+            <div class="plan-price">月額 ¥300,000〜（税別）</div>
+            <div class="plan-contract">scope-based</div>
+          </div>
+          <div class="plan-meta">
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">契約</span>
+              <span class="plan-meta-value">scope-based</span>
+            </div>
+            <div class="plan-meta-row">
+              <span class="plan-meta-label">主な役割</span>
+              <span class="plan-meta-value">実装・運用支援</span>
+            </div>
+          </div>
+          <p class="plan-value">設計だけで終わらせず、改善施策の実装・運用まで含めて継続支援するプランです。</p>
+          <div class="plan-divider"></div>
+          <div class="plan-section-title">含まれる内容</div>
           <ul class="plan-list">
-            <li>改善施策を進めたいが社内の実装工数が不足している</li>
-            <li>Web / AI検索対応を外部チームと一緒に進めたい</li>
-            <li>戦略・設計・実装を分断せずに進めたい</li>
-          </ul>
-          <div class="plan-section-title">Included</div>
-          <ul class="plan-list">
-            <li>Advisory</li>
-            <li>Implementation Design</li>
-            <li>実装作業</li>
+            <li>改善施策の実行支援</li>
+            <li>実装 / 更新対応</li>
             <li>継続運用</li>
-            <li>改善実行支援</li>
+            <li>実装後レビュー</li>
+            <li>改善サイクル運用</li>
           </ul>
           <p class="plan-pricing-note">実装範囲・対象サイト数・システム連携内容により個別見積り。</p>
-          <p class="plan-fit">社内の実装リソースを補完しながら、改善を実行まで進めたい企業向け。</p>
+          <div class="plan-section-title">こんな企業におすすめ</div>
+          <ul class="plan-list plan-list--fit">
+            <li>社内リソースだけでは改善実行が進みにくい</li>
+            <li>戦略だけでなく、実装まで含めて進めたい</li>
+          </ul>
           <a href="https://www.coaretail.com/readiness/mtgschedule" class="plan-cta" target="_blank" rel="noopener">実装支援について相談する</a>
         </article>
 
       </div>
 
       <div class="pricing-shared-cta">
-        <h3>どの支援範囲が合うか分からない場合も、<br>現在の体制を確認した上でご提案します。</h3>
-        <p>Company Reportの結果や現在の実装体制をもとに、必要以上の支援範囲を前提にせず、適切なプランをご案内します。</p>
+        <h3>どの支援範囲が合うか分からない場合も、現在の体制を確認した上でご提案します。</h3>
+        <p>Company Reportの結果や実装体制をもとに、必要以上の支援範囲を前提にせずご案内します。</p>
         <a href="https://www.coaretail.com/readiness/mtgschedule" class="cta-btn" target="_blank" rel="noopener">Agent Readiness Advisoryについて相談する</a>
         <p class="cta-note">30分のオンライン相談から開始</p>
       </div>
