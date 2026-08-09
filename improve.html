@@ -324,8 +324,9 @@
     }
 
     .pricing-card--primary {
-      border: 2px solid var(--color-accent);
-      background: var(--color-accent-soft);
+      border: 2px solid rgba(27, 86, 176, 0.38);
+      background: var(--color-surface);
+      box-shadow: 0 1px 0 rgba(27, 86, 176, 0.05);
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -339,15 +340,15 @@
 
       .pricing-card:hover {
         transform: translateY(-2px);
-        border-color: var(--color-border-strong);
-        background: var(--color-surface-subtle);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        border-color: rgba(54, 69, 79, 0.22);
+        background: rgba(27, 86, 176, 0.025);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
       }
 
       .pricing-card--primary:hover {
         border-color: var(--color-accent);
-        background: rgba(27, 86, 176, 0.07);
-        box-shadow: 0 8px 24px rgba(27, 86, 176, 0.08);
+        background: var(--color-accent-soft);
+        box-shadow: 0 8px 24px rgba(27, 86, 176, 0.1);
       }
     }
 
@@ -366,11 +367,11 @@
     }
 
     .plan-badge--recommended {
-      background: var(--color-surface);
-    }
-
-    .pricing-card--primary .plan-badge--recommended {
-      background: var(--color-surface);
+      background: rgba(27, 86, 176, 0.12);
+      color: var(--color-accent);
+      border-color: rgba(27, 86, 176, 0.42);
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     .plan-role {
@@ -538,8 +539,8 @@
     }
 
     .plan-cta:hover {
-      background: var(--color-surface-subtle);
-      border-color: var(--color-text-muted);
+      background: rgba(27, 86, 176, 0.04);
+      border-color: rgba(27, 86, 176, 0.28);
     }
 
     .plan-cta:focus-visible {
@@ -549,12 +550,13 @@
 
     @media (hover: hover) and (pointer: fine) {
       .pricing-card:hover .plan-cta:not(.plan-cta--primary) {
-        border-color: rgba(27, 86, 176, 0.35);
-        background: var(--color-accent-soft);
+        border-color: rgba(27, 86, 176, 0.38);
+        background: rgba(27, 86, 176, 0.06);
       }
 
-      .pricing-card:hover .plan-cta--primary {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      .pricing-card--primary:hover .plan-cta--primary {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+        transform: translateY(-1px);
       }
     }
 

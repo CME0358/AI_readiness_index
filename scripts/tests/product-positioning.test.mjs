@@ -133,7 +133,15 @@ test('T06 Advisory card is visually primary', () => {
   assert.match(src, /plan-badge--recommended/);
   assert.match(src, /plan-cta--primary/);
   assert.match(src, /design-system\.css/);
-  assert.match(src, /color-accent-soft/);
+  assert.match(src, /\.pricing-card--primary \{[\s\S]*?background: var\(--color-surface\)/);
+  assert.match(src, /\.pricing-card--primary:hover[\s\S]*?background: var\(--color-accent-soft\)/);
+});
+
+test('T06b improve.html primary card default and hover visual states', () => {
+  const src = improveSrc();
+  assert.match(src, /\.plan-badge--recommended \{[\s\S]*?background: rgba\(27, 86, 176, 0\.12\)/);
+  assert.match(src, /\.pricing-card--primary:hover \{[\s\S]*?background: var\(--color-accent-soft\)/);
+  assert.match(src, /\.pricing-card:hover \{[\s\S]*?background: rgba\(27, 86, 176, 0\.025\)/);
 });
 
 test('T07 improve.html conversion copy uses comparison card structure', () => {
@@ -164,7 +172,7 @@ test('T07b improve.html pricing cards have desktop hover feedback', () => {
   assert.match(src, /@media \(hover: hover\) and \(pointer: fine\)/);
   assert.match(src, /\.pricing-card:hover/);
   assert.match(src, /translateY\(-2px\)/);
-  assert.match(src, /0 8px 24px rgba\(0, 0, 0, 0\.05\)/);
+  assert.match(src, /0 6px 20px rgba\(0, 0, 0, 0\.04\)/);
 });
 
 test('T08 improve.html CTA destinations unchanged', () => {
