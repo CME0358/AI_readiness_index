@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { trackReportStartOnce } from "./analytics.js";
+import { scoreInterpretation, mapProposalToPriority, MTG_SCHEDULE_URL } from "./report-tokens.js";
 import {
   STORAGE_KEYS,
   resolveCheckoutUrl,
@@ -1485,7 +1486,7 @@ function NavSeekBar({ targetRef }) {
   const leftPct = m.ratio * (100 - thumbPct);
 
   return (
-    <div className="no-print" style={{ maxWidth: 860, margin: "0 auto", padding: "0 40px 6px" }}>
+    <div className="no-print" style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--container-gutter) 6px" }}>
       <div onPointerDown={onPointerDown} style={{ position: "relative", height: 8, display: "flex", alignItems: "center", cursor: "pointer", touchAction: "none" }}>
         <div style={{ position: "absolute", left: 0, right: 0, height: 3, background: "#EDEDED", borderRadius: 2 }} />
         <div style={{ position: "absolute", height: 3, borderRadius: 2, background: "#0A0A0A", width: `${thumbPct}%`, left: `${leftPct}%`, transition: draggingRef.current ? "none" : "left 0.1s linear" }} />
@@ -1496,12 +1497,10 @@ function NavSeekBar({ targetRef }) {
 
 // ─── REPORT PAGE ──────────────────────────────────────────────────────────────
 function ReportPage({ report, form, reportMode = "demo", purchaseState = null }) {
-  const [activeSection, setActiveSection] = useState("overview");
   const [printing, setPrinting] = useState(false);
   const scoreRef = useRef(null);
   const navScrollRef = useRef(null);
 
-  // printing=true で全チャートを強制表示 → DOM反映後に印刷ダイアログを開く
   useEffect(() => {
     if (!printing) return;
     const id = requestAnimationFrame(() => {
@@ -1510,10 +1509,9 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
     });
     return () => cancelAnimationFrame(id);
   }, [printing]);
+
   const scoreVisible = useIntersection(scoreRef);
   const animScore = useCountUp(report.overallScore, 2000, scoreVisible);
-  const certLevel = typeof report.certification === "string" ? report.certification : report.certification?.level;
-  const cert = CERT_COLORS[certLevel] || CERT_COLORS.Bronze;
   const isPaidReport = reportMode === "paid";
   const isSampleReport = reportMode === "sample";
   const showFulfillment = isPaidReport && purchaseState?.entitlements?.companyReport;
@@ -1521,18 +1519,23 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
   const showKnowledge = Array.isArray(report.knowledgeCoverage) && report.knowledgeCoverage.length > 0;
   const showAuthority = Array.isArray(report.authority) && report.authority.length > 0;
   const showCompetitors = Array.isArray(report.competitors) && report.competitors.length > 0;
+  const companyName = form?.company || report.company;
+  const reportUrl = form?.url || report.url;
+
   const sections = [
     { id: "overview", label: "総合スコア" },
-    { id: "summary", label: "エグゼクティブ" },
-    { id: "breakdown", label: "スコア詳細" },
     { id: "ai", label: "AI認識" },
+    { id: "summary", label: "解釈" },
+    { id: "breakdown", label: "カテゴリ" },
     ...(showKnowledge ? [{ id: "knowledge", label: "情報カバレッジ" }] : []),
     ...(showAuthority ? [{ id: "authority", label: "権威性" }] : []),
     { id: "booking", label: "予約導線" },
     { id: "technical", label: "技術" },
     ...(showCompetitors ? [{ id: "competitors", label: "競合比較" }] : []),
-    { id: "proposals", label: "改善点提案" },
-    { id: "roadmap", label: "改善ロードマップ" },
+    { id: "priority", label: "優先TOP3" },
+    { id: "proposals", label: "改善提案" },
+    { id: "roadmap", label: "ロードマップ" },
+    { id: "decision", label: "Decision" },
   ];
 
   const improvementProposals = (report.improvementProposals?.length >= 5)
@@ -1541,87 +1544,68 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
       ? report.improvementProposals
       : (report.roadmap || []).slice(0, 5).map((item) => ({
           title: item.action,
-          description: `${form?.company || report.company}において「${item.action}」は改善幅${item.impact}・ROI ${item.roi}と試算されています。優先度${item.priority}の施策として、AI推薦率の向上に寄与します。`,
+          description: `${companyName}において「${item.action}」は改善幅${item.impact}・ROI ${item.roi}と試算されています。優先度${item.priority}の施策として、AI推薦率の向上に寄与します。`,
         })));
+
+  const priorityTop3 = improvementProposals.slice(0, 3).map((item, i) =>
+    mapProposalToPriority(item, i, report.roadmap),
+  );
+  const remainingProposals = improvementProposals.slice(3);
+  const scoreNote = scoreInterpretation(report, isSampleReport);
+  const firstPriority = priorityTop3[0];
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const sectionStyle = { maxWidth: 860, margin: "0 auto", padding: "80px 40px" };
-  const headingStyle = { fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 };
-  const h2Style = { fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.8px", marginBottom: 32 };
-  const cardStyle = { background: "#F8F8F8", borderRadius: 10, padding: "24px 28px" };
+  const cardStyle = { background: "var(--color-surface-subtle)", borderRadius: "var(--radius-md)", padding: "var(--space-5)" };
 
   return (
     <PrintContext.Provider value={printing}>
-    <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", background: "#fff" }}>
+    <div className="report-shell">
       {isSampleReport && (
-        <div style={{ background: "#FFFBEB", borderBottom: "1px solid #FDE68A", padding: "10px 40px", textAlign: "center" }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#92400E", letterSpacing: 1 }}>
-            SAMPLE / DEMO — ILLUSTRATIVE DATA（サンプル表示。実購入レポートとはデータソースが異なります）
-          </span>
+        <div className="report-sample-banner">
+          <span>SAMPLE / DEMO — ILLUSTRATIVE DATA（サンプル表示。実購入レポートとはデータソースが異なります）</span>
         </div>
       )}
-      {/* Sticky Nav */}
-      <div style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #E8E8E8" }}>
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center", gap: 12, height: 52 }}>
-          {/* 横スクロールするのはセクションナビのみ */}
-          <div ref={navScrollRef} className="nav-scroll" style={{ display: "flex", alignItems: "center", gap: 4, overflowX: "auto", flex: 1, minWidth: 0, scrollbarWidth: "none", msOverflowStyle: "none" }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#0A0A0A", whiteSpace: "nowrap", marginRight: 16 }}>
-              {form?.company || report.company}
-            </span>
-            {sections.map(s => (
-              <button key={s.id} onClick={() => scrollTo(s.id)} style={{
-                background: "none", border: "none", padding: "6px 12px", borderRadius: 6, fontSize: 12,
-                color: "#6B6B6B", cursor: "pointer", whiteSpace: "nowrap", fontWeight: 500,
-              }}>{s.label}</button>
+
+      <div className="report-sticky-nav no-print">
+        <div className="report-sticky-nav__inner">
+          <div ref={navScrollRef} className="report-nav-scroll">
+            <span className="report-nav-company">{companyName}</span>
+            {sections.map((s) => (
+              <button key={s.id} type="button" onClick={() => scrollTo(s.id)} className="report-nav-btn">
+                {s.label}
+              </button>
             ))}
           </div>
-          {/* PDF保存ボタンは常に右端固定で表示 */}
-          <button onClick={() => setPrinting(true)} style={{ flexShrink: 0, background: "#0A0A0A", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap" }}>
-            印刷 / PDF保存
+          <button type="button" onClick={() => setPrinting(true)} className="report-btn-primary">
+            PDF保存
           </button>
-          <a href="/improve.html" className="no-print" style={{ flexShrink: 0, background: "#06C755", color: "#fff", border: "none", padding: "6px 16px", borderRadius: 6, fontSize: 12, cursor: "pointer", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none" }}>
-            年間改善支援 →
-          </a>
         </div>
-        {/* ナビ横スクロール用シークバー */}
         <NavSeekBar targetRef={navScrollRef} />
       </div>
 
       {showFulfillment && (
-        <div className="no-print" style={{ background: "#F0FDF4", borderBottom: "1px solid #BBF7D0", padding: "20px 40px" }}>
-          <div style={{ maxWidth: 860, margin: "0 auto" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#166534", letterSpacing: 1, marginBottom: 8 }}>
-              {purchaseState?.verified ? "PURCHASE VERIFIED" : "PURCHASE RECORDED"}
+        <div className="report-fulfillment no-print">
+          <div className="report-fulfillment__inner">
+            <div className="report-fulfillment__label">
+              {purchaseState?.verified ? "Purchase verified" : "Purchase recorded"}
             </div>
-            <p style={{ fontSize: 13, color: "#166534", margin: "0 0 16px", lineHeight: 1.6 }}>
+            <p className="report-fulfillment__copy">
               Personalized Company Report と Research Edition 2026（Benchmark Evidence）へのアクセスが有効です（このブラウザ・72時間）。
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              <button
-                type="button"
-                onClick={() => setPrinting(true)}
-                style={{ background: "#0A0A0A", color: "#fff", border: "none", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer" }}
-              >
+            <div className="report-fulfillment__actions">
+              <button type="button" onClick={() => setPrinting(true)} className="report-btn-primary">
                 PDFとして保存
               </button>
               {purchaseState?.entitlements?.researchEdition && (
-                <button
-                  type="button"
-                  onClick={() => openResearchEdition(purchaseState)}
-                  style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
-                >
+                <button type="button" onClick={() => openResearchEdition(purchaseState)} className="report-btn-secondary">
                   Research Edition 2026をダウンロード
                 </button>
               )}
               {!purchaseState?.entitlements?.methodologyHandbook && (
-                <button
-                  type="button"
-                  onClick={() => openHandbookUpgrade()}
-                  style={{ background: "#fff", color: "#0A0A0A", border: "1px solid #BBF7D0", padding: "10px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}
-                >
+                <button type="button" onClick={() => openHandbookUpgrade()} className="report-btn-secondary report-btn-upgrade">
                   Methodology Handbookへアップグレード（既購入者向け ¥69,000）
                 </button>
               )}
@@ -1630,123 +1614,67 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
         </div>
       )}
 
-      {/* ① Overall Score */}
-      <section id="overview" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }} ref={scoreRef}>
-        <div style={headingStyle}>Agent Readiness Report</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+      {/* Evidence anchor — Overall Score */}
+      <section id="overview" className="report-section report-section--emphasis" ref={scoreRef}>
+        <div className="report-eyebrow">Agent Readiness Company Report</div>
+        <div className="report-header-meta">
+          <div><strong>Company:</strong> {companyName}</div>
+          {reportUrl && <div><strong>URL:</strong> {reportUrl}</div>}
+          {report.analyzedAt && <div><strong>Generated:</strong> {report.analyzedAt}</div>}
+          <div><strong>Readiness Level:</strong> {report.level}</div>
+        </div>
+
+        <div className="report-score-grid">
           <div>
-            <div style={{ fontSize: 96, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-6px", lineHeight: 1 }}>
-              {animScore}
-            </div>
-            <div style={{ fontSize: 16, color: "#9B9B9B", marginBottom: 16 }}>/100点</div>
-            <div style={{ ...cardStyle, marginBottom: showRankMetrics ? 16 : 24, padding: "16px 20px" }}>
-              <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4, letterSpacing: 1 }}>Readiness Level</div>
-              <div style={{ fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{report.level}</div>
-            </div>
-            {showRankMetrics ? (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {[
-                ["全国順位", `${report.rank.national.toLocaleString()}位`],
-                ["東京都順位", `${report.rank.tokyo}位`],
-                ["業界順位", `${report.rank.industry}位`],
-                ["偏差値", report.deviation],
-              ].map(([l, v]) => (
-                <div key={l} style={cardStyle}>
-                  <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4 }}>{l}</div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{v}</div>
-                </div>
-              ))}
-            </div>
-            ) : (
-            <div style={{ ...cardStyle, marginBottom: 8 }}>
-              <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4 }}>Readiness Level</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{report.level}</div>
-              <div style={{ fontSize: 12, color: "#6B6B6B", marginTop: 8, lineHeight: 1.6 }}>
-                自社サイト解析と主要AIクエリに基づくARIスコアです。母集団順位・偏差値は含みません。
+            <div className="report-score-value">{animScore}</div>
+            <div className="report-score-denom">/ 100</div>
+            <span className="report-level-chip">Readiness Level — {report.level}</span>
+            <p className="report-score-interpretation">{scoreNote}</p>
+            {showRankMetrics && (
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)", marginTop: "var(--space-5)" }}>
+                {[
+                  ["全国順位", `${report.rank.national.toLocaleString()}位`],
+                  ["東京都順位", `${report.rank.tokyo}位`],
+                  ["業界順位", `${report.rank.industry}位`],
+                  ["偏差値", report.deviation],
+                ].map(([l, v]) => (
+                  <div key={l} className="report-panel report-panel--plain">
+                    <div style={{ fontSize: 11, color: "var(--color-text-muted)", marginBottom: 4 }}>{l}</div>
+                    <div style={{ fontSize: 20, fontWeight: 700 }}>{v}</div>
+                  </div>
+                ))}
               </div>
-            </div>
             )}
           </div>
           <div>
-            <div style={{ ...cardStyle, textAlign: "center", padding: "32px" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 16 }}>Agent Readiness Level</div>
-              <div style={{ fontSize: 36, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-1px" }}>{report.level}</div>
-              <div style={{ width: 48, height: 2, background: "#0A0A0A", margin: "16px auto" }} />
-              <p style={{ fontSize: 13, color: "#6B6B6B", lineHeight: 1.7 }}>
-                {isSampleReport
-                  ? "上位15%のAI推薦適性を持つ企業として認定されました。業界内でも高い競争優位性を維持しています。"
-                  : `${report.level}レベルの評価です。カテゴリ別スコアと改善ロードマップを確認してください。`}
-              </p>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginTop: 16 }}>
-              {["Beginner", "Standard", "Advanced", "Expert", "Leader"].map((l, i) => (
-                <div key={l} style={{
-                  padding: "8px", borderRadius: 6, textAlign: "center", fontSize: 11,
-                  background: l === report.level ? "#0A0A0A" : "#F5F5F5",
-                  color: l === report.level ? "#fff" : "#9B9B9B",
-                  fontWeight: l === report.level ? 700 : 400,
-                }}>
-                  {l}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div style={{ marginTop: 16, padding: "12px 20px", background: "#F8F8F8", borderRadius: 8, display: "flex", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 12, color: "#9B9B9B" }}>診断日時</span>
-          <span style={{ fontSize: 12, color: "#3A3A3A" }}>{report.analyzedAt}</span>
-        </div>
-      </section>
-
-      {/* ② Executive Summary */}
-      <section id="summary" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>02 / Executive Summary</div>
-        <h2 style={h2Style}>AIが見た御社評価</h2>
-        <div style={{ ...cardStyle, background: "#F8F8F8" }}>
-          <p style={{ fontSize: 15, color: "#2A2A2A", lineHeight: 1.9, whiteSpace: "pre-line", margin: 0 }}>
-            {report.executiveSummary}
-          </p>
-        </div>
-      </section>
-
-      {/* ③ Score Breakdown */}
-      <section id="breakdown" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>03 / Score Breakdown</div>
-        <h2 style={h2Style}>23項目スコア詳細</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "start" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {report.scoreBreakdown.map((cat, idx) => (
-              <div key={cat.category} style={{ ...cardStyle }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "#0A0A0A" }}>{cat.category}</div>
-                    <div style={{ fontSize: 11, color: "#9B9B9B" }}>重み {cat.weight}%</div>
-                  </div>
-                  <div style={{ fontSize: 24, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{cat.score}</div>
-                </div>
-                <ScoreBar score={cat.score} delay={idx * 0.08} />
-              </div>
-            ))}
-          </div>
-          <div>
             <RadarChart data={report.scoreBreakdown} />
+            <div className="report-provenance">
+              <span>{isSampleReport ? "Illustrative data" : "Live AI observation"}</span>
+              <span>Site-derived</span>
+              <span>ARI score</span>
+              {isPaidReport && <span>Research benchmark included</span>}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ④ AI Recognition */}
-      <section id="ai" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>04 / AI Recognition</div>
-        <h2 style={h2Style}>主要AI認識分析</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+      {/* Evidence — AI Recognition */}
+      <section id="ai" className="report-section">
+        <div className="report-eyebrow">Evidence</div>
+        <h2 className="report-h2">AIから現在どう認識されているか</h2>
+        <p className="report-lead">
+          複数AI環境で、企業・サービス・提供価値がどのように認識されているかを確認します。
+          {isSampleReport ? " 本セクションはサンプルデータです。" : " 有料レポートはライブ観測結果です。"}
+        </p>
+        <div className="report-ai-grid">
           {report.aiRecognition.map((ai, i) => (
-            <div key={ai.ai} style={{ ...cardStyle, border: "1px solid #F0F0F0" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: "#0A0A0A" }}>{ai.ai}</h3>
+            <div key={ai.ai} className="report-panel report-panel--plain">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-4)" }}>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{ai.ai}</h3>
                 <span style={{
                   fontSize: 11, padding: "3px 10px", borderRadius: 100,
-                  background: ai.bookable ? "#F0FDF4" : "#F5F5F5",
-                  color: ai.bookable ? "#16A34A" : "#9B9B9B", fontWeight: 600,
+                  background: ai.bookable ? "var(--color-success-soft)" : "var(--color-surface-subtle)",
+                  color: ai.bookable ? "var(--color-success)" : "var(--color-text-muted)", fontWeight: 600,
                 }}>
                   {ai.bookable ? "予約可能" : "要対応"}
                 </span>
@@ -1754,8 +1682,8 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
               {[["認識率", ai.recognition], ["推薦率", ai.recommendation], ["引用率", ai.citation]].map(([label, val], j) => (
                 <div key={label} style={{ marginBottom: 12 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                    <span style={{ fontSize: 12, color: "#6B6B6B" }}>{label}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: "#0A0A0A" }}>{val}%</span>
+                    <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>{label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700 }}>{val}%</span>
                   </div>
                   <ScoreBar score={val} delay={i * 0.1 + j * 0.05} />
                 </div>
@@ -1765,140 +1693,160 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
         </div>
       </section>
 
-      {/* ⑤ Knowledge Coverage */}
+      {/* Interpretation — Executive Summary */}
+      <section id="summary" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">Executive Summary</h2>
+        <div className="report-reading">
+          <p style={{ fontSize: "var(--text-small)", color: "var(--color-text-secondary)", lineHeight: "var(--leading-relaxed)", whiteSpace: "pre-line", margin: 0 }}>
+            {report.executiveSummary}
+          </p>
+        </div>
+      </section>
+
+      {/* Category scores */}
+      <section id="breakdown" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">カテゴリ別スコア</h2>
+        <p className="report-lead">どこが強く、どこに改善余地があるかを確認します。</p>
+        <div className="report-metric-grid report-metric-grid--2x3">
+          {report.scoreBreakdown.map((cat, idx) => (
+            <div key={cat.category} className="report-metric-card">
+              <div className="report-metric-card__name">{cat.category}</div>
+              <div className="report-metric-card__score">{cat.score}</div>
+              <div className="report-metric-card__meta">重み {cat.weight}%</div>
+              <ScoreBar score={cat.score} delay={idx * 0.08} />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {showKnowledge && (
-      <section id="knowledge" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>05 / Knowledge Coverage</div>
-        <h2 style={h2Style}>AIの情報カバレッジ</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+      <section id="knowledge" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">AIの情報カバレッジ</h2>
+        <div className="report-metric-grid">
           {report.knowledgeCoverage.map((item, i) => (
-            <div key={item.item} style={{ ...cardStyle, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: "#0A0A0A" }}>{item.item}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: item.coverage >= 90 ? "#16A34A" : item.coverage >= 70 ? "#CA8A04" : "#DC2626" }}>
-                    {item.coverage}%
-                  </span>
-                </div>
-                <ScoreBar score={item.coverage} color={item.coverage >= 90 ? "#16A34A" : item.coverage >= 70 ? "#CA8A04" : "#DC2626"} delay={i * 0.05} />
+            <div key={item.item} className="report-metric-card">
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                <span className="report-metric-card__name">{item.item}</span>
+                <span style={{ fontSize: 13, fontWeight: 700 }}>{item.coverage}%</span>
               </div>
+              <ScoreBar score={item.coverage} delay={i * 0.05} />
             </div>
           ))}
         </div>
       </section>
       )}
 
-      {/* ⑥ Authority */}
       {showAuthority && (
-      <section id="authority" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>06 / Authority & Citation</div>
-        <h2 style={h2Style}>AI引用元の権威分布</h2>
-        <div style={cardStyle}>
+      <section id="authority" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">AI引用元の権威分布</h2>
+        <div className="report-panel">
           <PieChart data={report.authority} />
         </div>
       </section>
       )}
 
-      {/* ⑦ Booking Readiness */}
-      <section id="booking" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>07 / Booking Readiness</div>
-        <h2 style={h2Style}>AIエージェント予約適性</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 24 }}>
+      <section id="booking" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">予約・行動導線の準備度</h2>
+        <div className="report-metric-grid" style={{ marginBottom: "var(--space-5)" }}>
           {[
-            ["予約ページ", report.bookingReadiness.hasPage ? "✓ あり" : "✗ なし", report.bookingReadiness.hasPage],
-            ["予約フォーム", report.bookingReadiness.hasForm ? "✓ あり" : "✗ なし", report.bookingReadiness.hasForm],
-            ["モバイル対応", report.bookingReadiness.mobileOptimized ? "✓ 対応済" : "✗ 未対応", report.bookingReadiness.mobileOptimized],
+            ["予約ページ", report.bookingReadiness.hasPage ? "あり" : "なし", report.bookingReadiness.hasPage],
+            ["予約フォーム", report.bookingReadiness.hasForm ? "あり" : "なし", report.bookingReadiness.hasForm],
+            ["モバイル対応", report.bookingReadiness.mobileOptimized ? "対応済" : "未対応", report.bookingReadiness.mobileOptimized],
           ].map(([label, val, ok]) => (
-            <div key={label} style={{ ...cardStyle, textAlign: "center" }}>
-              <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 6 }}>{label}</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: ok ? "#16A34A" : "#DC2626" }}>{val}</div>
+            <div key={label} className="report-metric-card">
+              <div className="report-metric-card__meta">{label}</div>
+              <div className="report-metric-card__score" style={{ fontSize: 18, color: ok ? "var(--color-success)" : "var(--color-danger)" }}>{val}</div>
             </div>
           ))}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-          <div style={cardStyle}>
-            <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4 }}>Agent Difficulty</div>
-            <div style={{ fontSize: 28, fontWeight: 800, color: report.bookingReadiness.difficulty === "Easy" ? "#16A34A" : "#CA8A04", letterSpacing: "-0.5px" }}>
-              {report.bookingReadiness.difficulty}
-            </div>
-            <div style={{ fontSize: 12, color: "#6B6B6B", marginTop: 4 }}>予約ステップ数: {report.bookingReadiness.steps}ステップ</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+          <div className="report-panel report-panel--plain">
+            <div className="report-metric-card__meta">Agent Difficulty</div>
+            <div className="report-metric-card__score">{report.bookingReadiness.difficulty}</div>
+            <div className="report-metric-card__meta">予約ステップ数: {report.bookingReadiness.steps}ステップ</div>
           </div>
-          <div style={cardStyle}>
-            <div style={{ fontSize: 11, color: "#9B9B9B", marginBottom: 4 }}>Agent操作スコア</div>
-            <div style={{ fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.5px" }}>{report.bookingReadiness.agentScore}/100</div>
+          <div className="report-panel report-panel--plain">
+            <div className="report-metric-card__meta">Agent操作スコア</div>
+            <div className="report-metric-card__score">{report.bookingReadiness.agentScore}/100</div>
             <ScoreBar score={report.bookingReadiness.agentScore} />
           </div>
         </div>
       </section>
 
-      {/* ⑧ Technical */}
-      <section id="technical" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>08 / Technical Analysis</div>
-        <h2 style={h2Style}>技術的実装状況</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+      <section id="technical" className="report-section">
+        <div className="report-eyebrow">Interpretation</div>
+        <h2 className="report-h2">技術的実装状況</h2>
+        <div className="report-metric-grid">
           {report.technical.map((item, i) => (
-            <div key={item.item} style={{ ...cardStyle, display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#0A0A0A", fontFamily: "monospace" }}>{item.item}</span>
-                  <StatusBadge status={item.status} />
-                </div>
-                {item.score > 0 && <ScoreBar score={item.score} delay={i * 0.05} />}
+            <div key={item.item} className="report-metric-card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <span className="report-metric-card__name" style={{ fontFamily: "monospace" }}>{item.item}</span>
+                <StatusBadge status={item.status} />
               </div>
+              {item.score > 0 && <ScoreBar score={item.score} delay={i * 0.05} />}
             </div>
           ))}
         </div>
       </section>
 
-      {/* ⑨ Competitor Comparison */}
       {showCompetitors && (
-      <section id="competitors" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>09 / Competitor Comparison</div>
-        <h2 style={h2Style}>競合比較{isSampleReport ? "（サンプル）" : ""}</h2>
-        <div style={cardStyle}>
+      <section id="competitors" className="report-section">
+        <div className="report-eyebrow">Evidence</div>
+        <h2 className="report-h2">競合比較{isSampleReport ? "（サンプル）" : ""}</h2>
+        <div className="report-panel">
           <BarChart data={report.competitors} />
         </div>
       </section>
       )}
 
-      {/* ⑩ Improvement Proposals */}
-      <section id="proposals" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>10 / Improvement Proposals</div>
-        <h2 style={h2Style}>改善点提案</h2>
-        <p style={{ fontSize: 14, color: "#6B6B6B", lineHeight: 1.8, marginTop: -16, marginBottom: 28 }}>
-          4大AI・サイト技術・予約導線・競合比較の診断結果を総合し、エージェントが優先すべき改善点を5項目に整理しました。
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {improvementProposals.map((item, i) => (
-            <div key={i} style={{ ...cardStyle, border: "1px solid #F0F0F0", padding: "24px 28px" }}>
-              <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                <div style={{
-                  width: 28, height: 28, borderRadius: "50%", background: "#0A0A0A", color: "#fff",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 12, fontWeight: 800, flexShrink: 0, marginTop: 2,
-                }}>
-                  {i + 1}
-                </div>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: "#0A0A0A", marginBottom: 8, letterSpacing: "-0.3px" }}>
-                    {item.title}
-                  </div>
-                  <p style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.85, margin: 0 }}>
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            </div>
+      {/* Decision — Priority TOP3 */}
+      <section id="priority" className="report-section report-section--emphasis">
+        <div className="report-eyebrow">Decision</div>
+        <h2 className="report-h2">まず取り組むべき3項目</h2>
+        <p className="report-lead">改善優先度の高い施策から着手することで、AI認識と推薦準備度を段階的に高められます。</p>
+        <div className="report-priority-grid">
+          {priorityTop3.map((item) => (
+            <article key={item.rank} className="report-priority-card">
+              <div className="report-priority-card__rank">PRIORITY {item.rank}</div>
+              <h3>{item.title}</h3>
+              <p><strong>Why:</strong> {item.why}</p>
+              {item.impact && <p><strong>Impact:</strong> {item.impact}</p>}
+              <p><strong>Action:</strong> {item.action}</p>
+            </article>
           ))}
         </div>
       </section>
 
-      {/* ⑪ Improvement Roadmap */}
-      <section id="roadmap" style={{ ...sectionStyle, borderBottom: "1px solid #F0F0F0" }}>
-        <div style={headingStyle}>11 / Improvement Roadmap</div>
-        <h2 style={h2Style}>改善ロードマップ</h2>
+      <section id="proposals" className="report-section">
+        <div className="report-eyebrow">Decision</div>
+        <h2 className="report-h2">その他の改善提案</h2>
+        {remainingProposals.length > 0 ? (
+          <div className="report-proposal-list">
+            {remainingProposals.map((item, i) => (
+              <div key={i} className="report-proposal-item">
+                <div style={{ fontSize: "var(--text-small)", fontWeight: 700, marginBottom: 8 }}>{item.title}</div>
+                <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)", lineHeight: "var(--leading-normal)", margin: 0 }}>
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="report-lead">上位3項目以外の追加提案はありません。ロードマップで実施順序を確認してください。</p>
+        )}
+      </section>
+
+      <section id="roadmap" className="report-section">
+        <div className="report-eyebrow">Action</div>
+        <h2 className="report-h2">改善ロードマップ</h2>
+        <p className="report-lead">全部同時に進める必要はありません。NOW → NEXT → LATER の順で段階的に実施できます。</p>
         <RoadmapTimeline roadmap={report.roadmap} currentScore={report.overallScore} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)", marginTop: "var(--space-5)" }}>
           {report.roadmap.map((item, i) => (
             <RoadmapItem key={i} item={item} index={i} cardStyle={cardStyle} />
           ))}
@@ -1906,13 +1854,63 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
         <RoadmapSummaryBox currentScore={report.overallScore} roadmap={report.roadmap} />
       </section>
 
-      {/* ⑫ Appendix */}
-      <section style={{ ...sectionStyle }}>
-        <div style={headingStyle}>12 / Appendix</div>
-        <h2 style={h2Style}>評価方法・用語集</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+      <section id="decision" className="report-section">
+        <div className="report-eyebrow">Decision Summary</div>
+        <h2 className="report-h2">レポートを閉じたあとも残る判断</h2>
+        <dl className="report-decision-summary">
+          <div className="report-decision-row">
+            <dt>Current State</dt>
+            <dd>Overall {report.overallScore}/100 — Readiness Level {report.level}</dd>
+          </div>
+          <div className="report-decision-row">
+            <dt>Priority</dt>
+            <dd>{firstPriority?.title || improvementProposals[0]?.title || "改善ロードマップの最優先項目"}</dd>
+          </div>
+          <div className="report-decision-row">
+            <dt>Next Action</dt>
+            <dd>{firstPriority?.action || report.roadmap?.[0]?.effort || "上位3項目のうち1つから着手"}</dd>
+          </div>
+        </dl>
+
+        <div className="report-ladder-mini no-print">
+          <div className="report-ladder-mini__step report-ladder-mini__step--here">
+            <span>Agent Readiness Company Report</span>
+            <span>You are here</span>
+          </div>
+          <div className="report-ladder-mini__step">
+            <span>Methodology Handbook</span>
+            <span>How to implement</span>
+          </div>
+          <div className="report-ladder-mini__step">
+            <span>Agent Readiness Advisory</span>
+            <span>Continuous support</span>
+          </div>
+        </div>
+
+        <div className="report-advisory-cta no-print">
+          <h3>改善優先順位は分かった。継続的な実装・計測・再評価まで必要な場合</h3>
+          <p>
+            Company ReportはWhat / Priority。Methodology HandbookはHow。
+            Agent Readiness Advisoryは、実装・計測・再評価を年間で伴走する支援です。
+          </p>
+          <a href={MTG_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="report-btn-primary">
+            Agent Readiness Advisoryについて相談する
+          </a>
+          <p className="report-advisory-price">月額 ¥198,000〜（税別）／12ヶ月契約</p>
+          <p style={{ marginTop: "var(--space-4)", fontSize: "var(--text-xs)" }}>
+            <a href="/improve.html" style={{ color: "var(--color-accent)", textDecoration: "none" }}>
+              商品比較・支援プラン詳細（improve.html）
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section className="report-section">
+        <div className="report-eyebrow">Appendix</div>
+        <h2 className="report-h2">評価方法・用語集</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-7)" }}>
           <div>
-            <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0A0A0A", marginBottom: 16 }}>採点方法</h3>
+            <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: "var(--space-4)" }}>採点方法</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {[
                 "AI可視性（20%）：ChatGPT / Gemini / Claude / Perplexityへの実際のクエリ送信結果",
@@ -1922,12 +1920,12 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 "権威性（15%）：AI引用元の多様性・信頼性・更新頻度",
                 "競合優位（14%）：同業他社との相対比較スコア",
               ].map((item, i) => (
-                <div key={i} style={{ fontSize: 12, color: "#3A3A3A", padding: "8px 12px", background: "#F8F8F8", borderRadius: 6, lineHeight: 1.6 }}>{item}</div>
+                <div key={i} style={{ fontSize: 12, color: "var(--color-text-secondary)", padding: "8px 12px", background: "var(--color-surface-subtle)", borderRadius: "var(--radius-sm)", lineHeight: 1.6 }}>{item}</div>
               ))}
             </div>
           </div>
           <div>
-            <h3 style={{ fontSize: 15, fontWeight: 700, color: "#0A0A0A", marginBottom: 16 }}>用語集</h3>
+            <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: "var(--space-4)" }}>用語集</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {[
                 ["ARI", "Agent Readiness Index。AIエージェント時代の企業信用指数"],
@@ -1937,60 +1935,16 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 ["Agent Difficulty", "AIエージェントが予約完了するまでの難易度指標"],
                 ["Knowledge Coverage", "AIが企業情報を正確に把握できている割合"],
               ].map(([term, def]) => (
-                <div key={term} style={{ padding: "8px 12px", background: "#F8F8F8", borderRadius: 6 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#0A0A0A", fontFamily: "monospace" }}>{term}</span>
-                  <span style={{ fontSize: 12, color: "#6B6B6B" }}>：{def}</span>
+                <div key={term} style={{ padding: "8px 12px", background: "var(--color-surface-subtle)", borderRadius: "var(--radius-sm)" }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, fontFamily: "monospace" }}>{term}</span>
+                  <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>：{def}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* CTA（Web表示のみ・PDFには含めない） */}
-        <div className="no-print" style={{
-          marginTop: 48, padding: "48px 40px", borderRadius: 16,
-          background: "linear-gradient(135deg, #060d2e 0%, #0a1540 100%)",
-          textAlign: "center",
-          border: "1px solid rgba(59,114,255,0.2)",
-        }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(59,114,255,0.8)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>
-            Next Step
-          </div>
-          <h3 style={{ fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: "-0.5px", margin: "0 0 12px" }}>
-            優先順位が見えたら、次は継続改善。
-          </h3>
-          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: "0 0 28px", maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
-            Company ReportはWhat / Priority。Methodology HandbookはHow。
-            Agent Readiness Advisoryは、実装・計測・再評価を年間で伴走する支援です。
-          </p>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <a
-              href="/improve.html"
-              style={{
-                display: "inline-block", background: "#06C755", color: "#fff",
-                padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 700,
-                textDecoration: "none", letterSpacing: "-0.2px",
-                boxShadow: "0 4px 14px rgba(6,199,85,0.35)",
-              }}
-            >
-              年間改善支援について相談する →
-            </a>
-            <a
-              href="https://www.coaretail.com/readiness/mtgschedule"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-block", background: "transparent", color: "#fff",
-                padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 600,
-                textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)",
-              }}
-            >
-              無料相談を予約する
-            </a>
-          </div>
-        </div>
-
-        <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid #F0F0F0", textAlign: "center" }}>
+        <div style={{ marginTop: "var(--space-8)", paddingTop: "var(--space-6)", borderTop: "1px solid var(--color-border)", textAlign: "center" }}>
           <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
             {SITE_FOOTER_LINKS.map(link => (
               <a
@@ -1998,29 +1952,25 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 href={link.href}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
-                style={{ fontSize: 12, color: "#9B9B9B", textDecoration: "none" }}
+                style={{ fontSize: 12, color: "var(--color-text-muted)", textDecoration: "none" }}
               >
                 {link.label}
               </a>
             ))}
           </div>
-          <div style={{ fontSize: 12, color: "#9B9B9B", lineHeight: 1.8 }}>
+          <div style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.8 }}>
             本レポートは合同会社コア・リテール（Coa Retail G.K.）が提供するAgent Readiness診断サービスにより生成されました。<br />
-            レポート内のスコア・順位は診断実施時点（{report.analyzedAt}）のデータに基づきます。<br />
+            レポート内のスコアは診断実施時点（{report.analyzedAt}）のデータに基づきます。<br />
             お問い合わせ：
-            <a href="https://www.coaretail.com/contact" target="_blank" rel="noopener noreferrer" style={{ color: "#9B9B9B", textDecoration: "underline" }}>お問い合わせフォーム</a>
+            <a href="https://www.coaretail.com/contact" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>お問い合わせフォーム</a>
             {" ／ "}
-            <a href="https://www.coaretail.com" target="_blank" rel="noopener noreferrer" style={{ color: "#9B9B9B", textDecoration: "underline" }}>https://www.coaretail.com</a>
+            <a href="https://www.coaretail.com" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>https://www.coaretail.com</a>
           </div>
         </div>
       </section>
 
       <style>{`
-        .nav-scroll::-webkit-scrollbar { display: none; }
         @media print {
-          nav, .no-print { display: none !important; }
-          section { break-inside: avoid; }
-          /* 印刷時はアニメーションを止め、背景色・グラフを確実に描画する */
           * {
             transition: none !important;
             animation: none !important;

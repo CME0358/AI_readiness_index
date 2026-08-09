@@ -38,6 +38,6 @@
     "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
-    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs scripts/tests/indexnow.test.mjs scripts/tests/related-links.test.mjs scripts/tests/analytics.test.mjs scripts/tests/prepublish-gate.test.mjs scripts/tests/product-integrity.test.mjs scripts/tests/paid-fulfillment.test.mjs scripts/tests/product-positioning.test.mjs scripts/tests/product-research-fulfillment.test.mjs"
+    "test:insights:v2": "node --test scripts/tests/queue-daily-linkedin-buffer.test.mjs scripts/tests/queue-daily-buffer-posts.test.mjs scripts/tests/unlock-next-insight.test.mjs scripts/tests/indexnow.test.mjs scripts/tests/related-links.test.mjs scripts/tests/analytics.test.mjs scripts/tests/prepublish-gate.test.mjs scripts/tests/product-integrity.test.mjs scripts/tests/paid-fulfillment.test.mjs scripts/tests/product-positioning.test.mjs scripts/tests/product-research-fulfillment.test.mjs scripts/tests/product-report-design.test.mjs"
   }
 }
