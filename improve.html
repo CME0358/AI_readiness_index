@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Readiness Advisory — 年間改善支援 | Agent Readiness Index</title>
-  <meta name="description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。Agent Readiness Advisory。">
+  <meta name="description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。月額¥198,000〜（税別）・12ヶ月契約。">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://readiness.coaretail.com/improve.html">
   <meta property="og:title" content="Agent Readiness Advisory — 年間改善支援">
-  <meta property="og:description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。">
+  <meta property="og:description" content="Company Reportで明らかになった改善優先順位を、継続的に実装・計測・再評価する年間伴走支援。月額¥198,000〜（税別）・12ヶ月契約。">
   <meta property="og:url" content="https://readiness.coaretail.com/improve.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Agent Readiness Index">
@@ -49,7 +49,8 @@
     .hero { padding: 64px 0 48px; text-align: center; }
     .hero-badge { display: inline-block; background: #F0FDF4; color: #16A34A; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 0.02em; }
     .hero h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.02em; }
-    .hero p { font-size: 17px; color: #6B6B6B; max-width: 560px; margin: 0 auto 32px; }
+    .hero p { font-size: 17px; color: #6B6B6B; max-width: 560px; margin: 0 auto 12px; }
+    .hero-price { font-size: 15px; font-weight: 600; color: #0A0A0A; margin-bottom: 28px; }
     .hero-cta { display: inline-block; background: #0A0A0A; color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background 0.2s; }
     .hero-cta:hover { background: #333; }
     .section { padding: 48px 0; border-top: 1px solid #E5E5E5; }
@@ -57,21 +58,27 @@
     .section h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.01em; }
     .section p { font-size: 15px; color: #6B6B6B; margin-bottom: 16px; }
     .ladder { display: grid; gap: 12px; margin-top: 20px; }
-    .ladder-step { background: #fff; border: 1px solid #E5E5E5; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
-    .ladder-num { font-size: 11px; font-weight: 700; color: #9B9B9B; min-width: 24px; }
+    .ladder-step { background: #fff; border: 1px solid #E5E5E5; border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 16px; }
+    .ladder-num { font-size: 11px; font-weight: 700; color: #9B9B9B; min-width: 24px; padding-top: 2px; }
     .ladder-title { font-size: 14px; font-weight: 700; color: #0A0A0A; }
     .ladder-desc { font-size: 13px; color: #6B6B6B; margin-top: 2px; }
     .ladder-role { font-size: 11px; color: #16A34A; font-weight: 600; margin-top: 4px; }
-    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-    @media (max-width: 560px) { .scope-grid { grid-template-columns: 1fr; } }
-    .scope-item { background: #fff; border: 1px solid #E5E5E5; border-radius: 10px; padding: 16px; font-size: 14px; color: #0A0A0A; font-weight: 500; }
     .audience-list { list-style: none; margin-top: 16px; }
     .audience-list li { font-size: 15px; color: #6B6B6B; padding: 8px 0; border-bottom: 1px solid #F0F0F0; display: flex; align-items: center; gap: 10px; }
     .audience-list li::before { content: "→"; color: #16A34A; font-weight: 700; flex-shrink: 0; }
-    .pricing-box { background: #fff; border: 1px solid #E5E5E5; border-radius: 16px; padding: 32px; text-align: center; margin-top: 24px; }
+    .pricing-box { background: #fff; border: 1px solid #E5E5E5; border-radius: 16px; padding: 32px; text-align: center; margin-top: 8px; }
+    .pricing-box-primary { border-color: #16A34A; background: #F0FDF4; }
     .pricing-label { font-size: 13px; color: #6B6B6B; margin-bottom: 8px; }
-    .pricing-value { font-size: 24px; font-weight: 800; color: #0A0A0A; margin-bottom: 8px; }
-    .pricing-note { font-size: 13px; color: #9B9B9B; margin-bottom: 24px; }
+    .pricing-value { font-size: clamp(22px, 4vw, 28px); font-weight: 800; color: #0A0A0A; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .pricing-contract { font-size: 14px; font-weight: 600; color: #16A34A; margin-bottom: 12px; }
+    .pricing-note { font-size: 14px; color: #6B6B6B; margin-bottom: 24px; line-height: 1.7; }
+    .pricing-tiers { display: grid; gap: 16px; margin-top: 24px; text-align: left; }
+    .pricing-tier { background: #fff; border: 1px solid #E5E5E5; border-radius: 12px; padding: 20px 22px; }
+    .pricing-tier h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .pricing-tier .tier-price { font-size: 14px; font-weight: 700; color: #0A0A0A; margin-bottom: 12px; }
+    .pricing-tier ul { margin: 0; padding-left: 1.1em; color: #6B6B6B; font-size: 14px; }
+    .pricing-tier li { margin-bottom: 6px; }
+    .qualification { font-size: 14px; color: #525252; background: #fff; border: 1px solid #E5E5E5; border-radius: 10px; padding: 16px 18px; margin-top: 20px; line-height: 1.7; }
     .cta-btn { display: inline-block; background: #0A0A0A; color: #fff; text-decoration: none; padding: 14px 40px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: background 0.2s; }
     .cta-btn:hover { background: #333; }
     .cta-note { font-size: 12px; color: #9B9B9B; margin-top: 12px; }
@@ -94,7 +101,8 @@
       <div class="hero-badge">Agent Readiness Advisory</div>
       <h1>Company Reportの改善優先順位を<br>継続的に実行・計測・再評価</h1>
       <p>Company Reportで明らかになった What / Priority を、Methodology Handbook の How と組み合わせ、Execute / Improve / Review を年間伴走で支援します。</p>
-        <a href="https://www.coaretail.com/readiness/mtgschedule" class="hero-cta" target="_blank" rel="noopener">年間改善支援について相談する</a>
+      <p class="hero-price">月額 ¥198,000〜（税別） · 12ヶ月契約</p>
+      <a href="https://www.coaretail.com/readiness/mtgschedule" class="hero-cta" target="_blank" rel="noopener">Agent Readiness Advisoryについて相談する</a>
     </div>
   </div>
 
@@ -130,31 +138,25 @@
         <div class="ladder-step" style="border-color:#16A34A;background:#F0FDF4;">
           <div class="ladder-num">04</div>
           <div>
-            <div class="ladder-title">Agent Readiness Advisory</div>
-            <div class="ladder-desc">年間伴走支援 — 継続的な実装・計測・再評価</div>
+            <div class="ladder-title">Agent Readiness Advisory — 月額 ¥198,000〜（税別）</div>
+            <div class="ladder-desc">年間伴走支援 · 12ヶ月契約 — 継続的な実装・計測・再評価</div>
             <div class="ladder-role">Role: Execute / Improve / Review continuously</div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="container">
-      <div class="section-label">Scope</div>
-      <h2>Advisory で支援する領域</h2>
-      <p>過剰な成果保証は行いません。以下の領域を、優先順位に沿って継続支援します。</p>
-      <div class="scope-grid">
-        <div class="scope-item">Periodic ARI reassessment</div>
-        <div class="scope-item">AI visibility monitoring</div>
-        <div class="scope-item">Authority improvement</div>
-        <div class="scope-item">Actionability improvement</div>
-        <div class="scope-item">Website / structured data review</div>
-        <div class="scope-item">AI-readable information design</div>
-        <div class="scope-item">Booking / inquiry path review</div>
-        <div class="scope-item">Monthly priorities</div>
-        <div class="scope-item">Quarterly roadmap</div>
-        <div class="scope-item">Implementation review</div>
+        <div class="ladder-step">
+          <div class="ladder-num">05</div>
+          <div>
+            <div class="ladder-title">Implementation Design — 月額 ¥250,000〜¥300,000目安（税別）</div>
+            <div class="ladder-desc">施策設計・実装レビューまで含む支援範囲</div>
+          </div>
+        </div>
+        <div class="ladder-step">
+          <div class="ladder-num">06</div>
+          <div>
+            <div class="ladder-title">Managed Implementation — 月額 ¥300,000〜（税別）</div>
+            <div class="ladder-desc">実装作業・継続運用を含む支援（実装範囲により個別見積り）</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -176,13 +178,57 @@
     <div class="container">
       <div class="section-label">Pricing</div>
       <h2>料金</h2>
-      <div class="pricing-box">
-        <div class="pricing-label">Agent Readiness Advisory</div>
-        <div class="pricing-value">TBD / Consultation</div>
-        <div class="pricing-note">貴社の状況・スコープに応じて個別にお見積りします。30分のオンライン相談から始められます。</div>
-        <a href="https://www.coaretail.com/readiness/mtgschedule" class="cta-btn" target="_blank" rel="noopener">年間改善支援について相談する</a>
+      <p>問い合わせ数最大化ではなく、予算感の合う企業からの相談獲得を目的に、支援範囲ごとの目安を明示しています。成果保証は行いません。</p>
+
+      <div class="pricing-box pricing-box-primary">
+        <div class="pricing-label">Base — Agent Readiness Advisory</div>
+        <div class="pricing-value">月額 ¥198,000〜（税別）</div>
+        <div class="pricing-contract">12ヶ月契約</div>
+        <a href="https://www.coaretail.com/readiness/mtgschedule" class="cta-btn" target="_blank" rel="noopener">Agent Readiness Advisoryについて相談する</a>
         <div class="cta-note">合同会社コア・リテール / Agent Readiness Index</div>
       </div>
+
+      <div class="pricing-tiers">
+        <div class="pricing-tier">
+          <h3>1. Advisory</h3>
+          <div class="tier-price">月額 ¥198,000〜（税別） · 12ヶ月契約</div>
+          <ul>
+            <li>Agent Readiness定期レビュー</li>
+            <li>Company Reportを基にした改善優先順位更新</li>
+            <li>AI認識 / 推薦状況の継続確認</li>
+            <li>定期的な再評価</li>
+            <li>月次改善方針</li>
+            <li>四半期ロードマップ更新</li>
+          </ul>
+        </div>
+        <div class="pricing-tier">
+          <h3>2. Implementation Design</h3>
+          <div class="tier-price">月額 ¥250,000〜¥300,000程度（税別）</div>
+          <p style="font-size:13px;color:#6B6B6B;margin:0 0 10px;">Advisoryに加え、実装レビュー・施策設計まで含む場合の目安です。</p>
+          <ul>
+            <li>具体的な施策設計</li>
+            <li>Website改善仕様</li>
+            <li>structured data / information architectureレビュー</li>
+            <li>AI-readable information design</li>
+            <li>予約 / 問い合わせ導線設計</li>
+            <li>実装内容レビュー</li>
+          </ul>
+        </div>
+        <div class="pricing-tier">
+          <h3>3. Managed Implementation</h3>
+          <div class="tier-price">月額 ¥300,000〜（税別）</div>
+          <ul>
+            <li>Advisory</li>
+            <li>Implementation Design</li>
+            <li>実装作業</li>
+            <li>継続運用</li>
+            <li>改善実行支援</li>
+          </ul>
+          <p style="font-size:13px;color:#6B6B6B;margin:10px 0 0;">実装範囲によって個別見積り。</p>
+        </div>
+      </div>
+
+      <p class="qualification">支援範囲・対象サイト数・実装内容により個別にお見積りします。まずは30分のオンライン相談から、貴社に合った支援レベルをご提案します。</p>
     </div>
   </div>
 

@@ -95,8 +95,17 @@ test('Research hub positions Company Report as primary product', () => {
   assert.doesNotMatch(researchHtml, /buy\.stripe\.com\/dRmdRa1ppgP7107ddpcMM0k/);
 });
 
-test('improve.html does not publish fixed Advisory monthly price', () => {
+test('improve.html publishes canonical Advisory pricing', () => {
   const src = improveSrc();
+  assert.doesNotMatch(src, /TBD/);
+  assert.doesNotMatch(src, /Consultation/);
   assert.doesNotMatch(src, /¥60,000/);
-  assert.doesNotMatch(src, /600,000/);
+  assert.match(src, /¥198,000/);
+  assert.match(src, /12ヶ月契約/);
+  assert.match(src, /250,000/);
+  assert.match(src, /300,000/);
+  assert.match(src, /readiness\/mtgschedule/);
+  assert.doesNotMatch(src, /Agent Ready Certification/);
+  assert.doesNotMatch(src, /認証審査/);
+  assert.doesNotMatch(src, /Certified/);
 });
