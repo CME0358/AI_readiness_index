@@ -109,3 +109,64 @@ test('improve.html publishes canonical Advisory pricing', () => {
   assert.doesNotMatch(src, /認証審査/);
   assert.doesNotMatch(src, /Certified/);
 });
+
+test('T01 improve.html has 3 pricing cards', () => {
+  const src = improveSrc();
+  assert.match(src, /data-pricing-cards="3"/);
+  assert.match(src, /data-plan="advisory"/);
+  assert.match(src, /data-plan="implementation-design"/);
+  assert.match(src, /data-plan="managed-implementation"/);
+  assert.match(src, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+});
+
+test('T02–T05 improve.html canonical tier prices', () => {
+  const src = improveSrc();
+  assert.match(src, /月額 ¥198,000〜（税別）/);
+  assert.match(src, /12ヶ月契約/);
+  assert.match(src, /月額 ¥250,000〜¥300,000程度（税別）/);
+  assert.match(src, /月額 ¥300,000〜（税別）/);
+});
+
+test('T06 Advisory card is visually primary', () => {
+  const src = improveSrc();
+  assert.match(src, /pricing-card--primary/);
+  assert.match(src, /plan-badge--recommended/);
+  assert.match(src, /plan-cta--primary/);
+});
+
+test('T07 improve.html conversion copy includes Recommended For and fit messages', () => {
+  const src = improveSrc();
+  assert.match(src, /こんな企業におすすめ/);
+  assert.match(src, /plan-fit/);
+  assert.match(src, /戦略と優先順位を外部視点で整えながら/);
+  assert.match(src, /「どう実装するか」まで外部知見を入れたい企業向け/);
+  assert.match(src, /改善を実行まで進めたい企業向け/);
+});
+
+test('T08 improve.html CTA destinations unchanged', () => {
+  const src = improveSrc();
+  const matches = src.match(/https:\/\/www\.coaretail\.com\/readiness\/mtgschedule/g) || [];
+  assert.ok(matches.length >= 4, 'hero, 3 card CTAs, and shared CTA should link to mtgschedule');
+  assert.match(src, /Agent Readiness Advisoryについて相談する/);
+  assert.match(src, /このプランについて相談する/);
+  assert.match(src, /設計支援について相談する/);
+  assert.match(src, /実装支援について相談する/);
+});
+
+test('T09–T10 improve.html has no certification or ABIS exposure', () => {
+  const src = improveSrc();
+  assert.doesNotMatch(src, /Agent Ready Certification/);
+  assert.doesNotMatch(src, /認証審査/);
+  assert.doesNotMatch(src, /Certified/);
+  for (const slug of PROTECTED_ABIS_SLUGS) {
+    assert.doesNotMatch(src, new RegExp(slug));
+  }
+});
+
+test('T11–T13 RMVU and TMVU preserved after improve.html refinement', () => {
+  assert.match(reportSrc(), /improve\.html/);
+  assert.match(reportSrc(), /openResearchEdition/);
+  assert.ok(fs.existsSync(path.join(ROOT, 'scripts/tmvu-05-validate.mjs')));
+  const pkg = fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8');
+  assert.match(pkg, /validate:insights:prepublish/);
+});
