@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "polling_default_hours": 2,
+  "sources": [
+    {
+      "source_id": "cloudflare-blog",
+      "company": "Cloudflare",
+      "source_name": "Cloudflare Blog",
+      "source_type": "official_blog",
+      "url": "https://blog.cloudflare.com/",
+      "feed_url": "https://blog.cloudflare.com/rss/",
+      "priority": "A",
+      "polling_enabled": true,
+      "last_checked_at": null,
+      "last_seen_item": null,
+      "health_status": "HEALTHY",
+      "consecutive_failures": 0,
+      "notes": "Primary official blog RSS"
+    },
+    {
+      "source_id": "microsoft-blog",
+      "company": "Microsoft",
+      "source_name": "Microsoft Blog",
+      "source_type": "official_blog",
+      "url": "https://blogs.microsoft.com/",
+      "feed_url": "https://blogs.microsoft.com/feed/",
+      "priority": "A",
+      "polling_enabled": true,
+      "last_checked_at": null,
+      "last_seen_item": null,
+      "health_status": "HEALTHY",
+      "consecutive_failures": 0,
+      "notes": "Official Microsoft blog feed"
+    },
+    {
+      "source_id": "google-blog",
+      "company": "Google",
+      "source_name": "Google Blog",
+      "source_type": "official_blog",
+      "url": "https://blog.google/",
+      "feed_url": "https://blog.google/rss/",
+      "priority": "A",
+      "polling_enabled": true,
+      "last_checked_at": null,
+      "last_seen_item": null,
+      "health_status": "HEALTHY",
+      "consecutive_failures": 0,
+      "notes": "Official Google blog RSS"
+    },
+    {
+      "source_id": "openai-blog",
+      "company": "OpenAI",
+      "source_name": "OpenAI News",
+      "source_type": "official_blog",
+      "url": "https://openai.com/news/",
+      "feed_url": "https://openai.com/news/rss.xml",
+      "priority": "A",
+      "polling_enabled": true,
+      "last_checked_at": null,
+      "last_seen_item": null,
+      "health_status": "HEALTHY",
+      "consecutive_failures": 0,
+      "notes": "Official OpenAI news RSS"
+    },
+    {
+      "source_id": "anthropic-news",
+      "company": "Anthropic",
+      "source_name": "Anthropic News",
+      "source_type": "official_blog",
+      "url": "https://www.anthropic.com/news",
+      "feed_url": "https://www.anthropic.com/news/rss.xml",
+      "priority": "A",
+      "polling_enabled": true,
+      "last_checked_at": null,
+      "last_seen_item": null,
+      "health_status": "HEALTHY",
+      "consecutive_failures": 0,
+      "notes": "Official Anthropic news (feed URL may require parser updates)"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "item_id": "backfill-cloudflare-ai-search-001",
+    "company": "Cloudflare",
+    "source_id": "cloudflare-blog",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "Cloudflare announces AI Crawl and discovery controls for enterprise sites",
+    "url": "https://blog.cloudflare.com/example-ai-crawl-discovery-controls/",
+    "published_date": "2026-08-08T09:00:00.000Z",
+    "excerpt": "Cloudflare describes new controls for how AI systems discover and access published web content, with implications for visibility and bot management.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  },
+  {
+    "item_id": "backfill-microsoft-copilot-search-001",
+    "company": "Microsoft",
+    "source_id": "microsoft-blog",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "Microsoft Copilot search updates for business discovery and entity cards",
+    "url": "https://blogs.microsoft.com/example-copilot-search-entity/",
+    "published_date": "2026-08-08T14:00:00.000Z",
+    "excerpt": "Microsoft outlines Copilot search changes affecting how business entities appear in AI-assisted discovery experiences.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  },
+  {
+    "item_id": "backfill-google-ai-overviews-001",
+    "company": "Google",
+    "source_id": "google-blog",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "Google AI Overviews expand merchant and local business discovery signals",
+    "url": "https://blog.google/example-ai-overviews-local-discovery/",
+    "published_date": "2026-08-07T10:00:00.000Z",
+    "excerpt": "Google shares updates to AI Overviews affecting local business discovery, structured business facts, and answer presentation.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  },
+  {
+    "item_id": "backfill-openai-chatgpt-search-001",
+    "company": "OpenAI",
+    "source_id": "openai-blog",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "OpenAI introduces ChatGPT search improvements for brand and product discovery",
+    "url": "https://openai.com/news/example-chatgpt-search-brands/",
+    "published_date": "2026-08-08T18:00:00.000Z",
+    "excerpt": "OpenAI describes search updates that affect how brands and products are surfaced and cited in ChatGPT responses.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  },
+  {
+    "item_id": "backfill-anthropic-claude-api-001",
+    "company": "Anthropic",
+    "source_id": "anthropic-news",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "Anthropic Claude API adds structured business context for agent workflows",
+    "url": "https://www.anthropic.com/news/example-claude-api-business-context/",
+    "published_date": "2026-08-06T12:00:00.000Z",
+    "excerpt": "Anthropic announces API capabilities for structured business context, relevant to agent handoff and actionability design.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  },
+  {
+    "item_id": "backfill-google-ai-overviews-dup-x",
+    "company": "Google",
+    "source_id": "google-x",
+    "source_type": "official_x",
+    "source_level": "C",
+    "title": "Google AI Overviews expand merchant and local business discovery signals",
+    "url": "https://blog.google/example-ai-overviews-local-discovery/",
+    "published_date": "2026-08-07T10:30:00.000Z",
+    "excerpt": "Cross-post of Google AI Overviews update.",
+    "fetched_at": "2026-08-09T03:05:00.000Z"
+  },
+  {
+    "item_id": "backfill-low-relevance-001",
+    "company": "Microsoft",
+    "source_id": "microsoft-blog",
+    "source_type": "official_blog",
+    "source_level": "A",
+    "title": "Microsoft quarterly earnings call scheduled",
+    "url": "https://blogs.microsoft.com/example-earnings-call/",
+    "published_date": "2026-07-01T10:00:00.000Z",
+    "excerpt": "Routine investor relations announcement with no direct AI readiness product impact.",
+    "fetched_at": "2026-08-09T03:00:00.000Z"
+  }
+]
