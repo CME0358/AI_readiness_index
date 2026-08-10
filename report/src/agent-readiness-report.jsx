@@ -1092,6 +1092,24 @@ function HandbookUpgradeModal({ onClose, onCheckout }) {
     "Research Edition 全文収録",
     "決済完了後、PDFを即時ダウンロード",
   ];
+  const metaRows = [
+    {
+      label: "対象者",
+      value: <>施策に<strong>そのまま落とし込みたい</strong>実務・代理店担当者</>,
+    },
+    {
+      label: "得られるもの",
+      value: "DRA評価基準・実行Playbook・Readiness Level基準",
+    },
+    {
+      label: "役割",
+      value: "How — 実行手順・実装方法",
+    },
+    {
+      label: "使い方",
+      value: "明日から現場で使う実装マニュアル",
+    },
+  ];
 
   return (
     <div
@@ -1100,7 +1118,7 @@ function HandbookUpgradeModal({ onClose, onCheckout }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{ position: "relative", background: "#fff", borderRadius: 16, padding: "40px 40px 48px", maxWidth: 640, width: "100%", margin: "40px 0", boxShadow: "0 12px 64px rgba(0,0,0,0.25)" }}
+        style={{ position: "relative", background: "#fff", borderRadius: 16, padding: "40px 40px 48px", maxWidth: 680, width: "100%", margin: "40px 0", boxShadow: "0 12px 64px rgba(0,0,0,0.25)" }}
       >
         <button onClick={onClose} aria-label="閉じる" style={{
           position: "absolute", top: 16, right: 16, width: 36, height: 36,
@@ -1112,19 +1130,48 @@ function HandbookUpgradeModal({ onClose, onCheckout }) {
         <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 10 }}>
           Methodology Handbook Upgrade
         </div>
-        <h1 style={{ fontSize: 26, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.6px", marginBottom: 12 }}>
+        <h1 style={{ fontSize: 26, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.6px", marginBottom: 8 }}>
           Agent Readiness Methodology Handbook 2026
         </h1>
+        <p style={{ fontSize: 13, fontWeight: 700, color: "#6B6B6B", marginBottom: 16 }}>
+          Implementation Method — How
+        </p>
         <p style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 24 }}>
-          Company Report 購入者向けアップグレード。DRA評価基準・Playbook・Readiness Level 基準を収録した実装マニュアルです。
+          Company Report が &quot;What / Priority&quot; なら、Handbook は &quot;How / Implementation Method&quot;。
+          DRA評価基準・現場で使える Playbook・Readiness Level 基準を1冊に収録した実装マニュアルです。
           Company Report で把握した改善優先順位を、どう測り・どう直すかの標準に接続できます。
         </p>
 
-        <ul style={{ margin: "0 0 28px", paddingLeft: 20 }}>
+        <div style={{ borderTop: "1px solid #F0F0F0", borderBottom: "1px solid #F0F0F0", padding: "20px 0", marginBottom: 24 }}>
+          {metaRows.map((row) => (
+            <div
+              key={row.label}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "96px 1fr",
+                gap: 16,
+                alignItems: "start",
+                marginBottom: row.label === "使い方" ? 0 : 14,
+              }}
+            >
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B" }}>{row.label}</div>
+              <div style={{ fontSize: 13.5, color: "#3A3A3A", lineHeight: 1.8 }}>{row.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 12 }}>
+          収録内容
+        </div>
+        <ul style={{ margin: "0 0 24px", paddingLeft: 20 }}>
           {features.map((item) => (
             <li key={item} style={{ fontSize: 13.5, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 6 }}>{item}</li>
           ))}
         </ul>
+
+        <div style={{ background: "#FFFBEB", border: "1px solid #FDE68A", borderRadius: 10, padding: "12px 16px", marginBottom: 20, fontSize: 13, color: "#92400E", lineHeight: 1.7 }}>
+          Company Report 購入者は差額 ¥69,000（税別）で追加できます。
+        </div>
 
         <div style={{ background: "#F8F8F8", borderRadius: 12, padding: "20px 24px", marginBottom: 24, border: "1px solid #F0F0F0" }}>
           <div style={{ fontSize: 12, color: "#9B9B9B", marginBottom: 6 }}>既購入者向けアップグレード価格</div>
