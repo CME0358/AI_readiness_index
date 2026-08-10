@@ -1098,7 +1098,7 @@ function ResearchEditionModal({ onClose, onDownload }) {
   const metaRows = [
     {
       label: "位置づけ",
-      value: "Company Report 同梱の Research / Benchmark Evidence",
+      value: "Company Report 同梱の ARI Research Report 2026（Benchmark Evidence）",
     },
     {
       label: "内容",
@@ -1134,7 +1134,7 @@ function ResearchEditionModal({ onClose, onDownload }) {
           Included with Company Report
         </div>
         <h1 style={{ fontSize: 26, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.6px", marginBottom: 8 }}>
-          Research Edition 2026
+          ARI Research Report 2026
         </h1>
         <p style={{ fontSize: 13, fontWeight: 700, color: "#6B6B6B", marginBottom: 16 }}>
           Market Research / Benchmark / Evidence
@@ -1185,7 +1185,7 @@ function ResearchEditionModal({ onClose, onDownload }) {
             textAlign: "center", textDecoration: "none", boxSizing: "border-box",
           }}
         >
-          Research Edition 2026（PDF）をダウンロード
+          ARI Research Report 2026（PDF）をダウンロード
         </a>
 
         <a
@@ -1220,7 +1220,7 @@ function HandbookUpgradeModal({ onClose, onCheckout }) {
     "DRAモデル・3軸×4要素の評価基準",
     "3フェーズ改善ロードマップ（Playbook）",
     "Readiness Level 基準（Beginner〜Leader）",
-    "Research Edition 全文収録",
+    "ARI Research Report 2026 全文収録",
     "決済完了後、PDFを即時ダウンロード",
   ];
   const metaRows = [
@@ -1457,7 +1457,7 @@ function PaymentPage({ form, onPay, onBack, onClose }) {
             <span style={{ fontSize: 14, color: "#0A0A0A" }}>¥29,800</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span style={{ fontSize: 14, color: "#6B6B6B" }}>同梱: Research Edition 2026（Benchmark Evidence）</span>
+            <span style={{ fontSize: 14, color: "#6B6B6B" }}>同梱: ARI Research Report 2026（Benchmark Evidence）</span>
             <span style={{ fontSize: 14, color: "#16A34A" }}>Included</span>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
@@ -1841,7 +1841,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
               {purchaseState?.verified ? "Purchase verified" : "Purchase recorded"}
             </div>
             <p className="report-fulfillment__copy">
-              Personalized Company Report と Research Edition 2026（Benchmark Evidence）へのアクセスが有効です（このブラウザ・72時間）。
+              Personalized Company Report と ARI Research Report 2026（Benchmark Evidence）へのアクセスが有効です（このブラウザ・72時間）。
             </p>
             <div className="report-fulfillment__actions">
               <button type="button" onClick={() => setPrinting(true)} className="report-btn-primary">
@@ -1849,7 +1849,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
               </button>
               {purchaseState?.entitlements?.researchEdition && (
                 <button type="button" onClick={() => setShowResearchModal(true)} className="report-btn-secondary">
-                  Research Edition 2026をダウンロード
+                  ARI Research Report 2026をダウンロード
                 </button>
               )}
               {!purchaseState?.entitlements?.methodologyHandbook && (

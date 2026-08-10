@@ -123,7 +123,7 @@ test('RMVU-04F T15 Research fulfillment preserved', () => {
   assert.equal(RESEARCH_EDITION.bundleDownloadPath, '/whitepaper/2026/research/download.html');
   const reportJsx = read('report/src/agent-readiness-report.jsx');
   assert.match(reportJsx, /openResearchEdition/);
-  assert.match(reportJsx, /Research Edition 2026/);
+  assert.match(reportJsx, /ARI Research Report 2026/);
 });
 
 test('RMVU-04F legacy TBD removed from public whitepaper surfaces', () => {

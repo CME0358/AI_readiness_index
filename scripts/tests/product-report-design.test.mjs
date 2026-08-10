@@ -111,7 +111,7 @@ test('T13 RMVU-02 integrity preserved', () => {
 test('T14 RMVU-03 fulfillment preserved', () => {
   const src = reportSrc();
   assert.match(src, /openResearchEdition/);
-  assert.match(src, /Research Edition 2026をダウンロード/);
+  assert.match(src, /ARI Research Report 2026をダウンロード/);
   assert.match(src, /verifyPurchaseSession/);
   assert.match(src, /saveReportCache/);
 });

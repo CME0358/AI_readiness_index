@@ -147,5 +147,5 @@ test('resolveResearchEntitlement prefers Company Report localStorage', () => {
 
 test('RESEARCH_EDITION bundleDownloadPath is canonical for Company Report flow', () => {
   assert.equal(RESEARCH_EDITION.bundleDownloadPath, '/whitepaper/2026/research/download.html');
-  assert.match(reportSrc(), /Research Edition 2026をダウンロード/);
+  assert.match(reportSrc(), /ARI Research Report 2026をダウンロード/);
 });

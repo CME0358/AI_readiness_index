@@ -43,7 +43,7 @@ test('T03 Readiness Level display preserved', () => {
 test('T04 Research entitlement preserved', () => {
   const src = reportSrc();
   assert.match(src, /openResearchEdition/);
-  assert.match(src, /Research Edition 2026をダウンロード/);
+  assert.match(src, /ARI Research Report 2026をダウンロード/);
 });
 
 test('T05 Legacy Research standalone link preserved', () => {
