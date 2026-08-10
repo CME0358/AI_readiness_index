@@ -82,13 +82,13 @@
       "linkedinPublishAt": "2026-08-10T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/three-pillars-ops/",
       "contentFile": "insights/_social/linkedin/posts/three-pillars-ops.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a792b4fab7f19abefc2e234",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-07T07:19:48.057Z"
+      "updatedAt": "2026-08-10T01:37:19.544Z"
     },
     {
       "id": "ARI-LI-006",

@@ -209,7 +209,7 @@
     {
       "slug": "three-pillars-ops",
       "articleUrl": "https://readiness.coaretail.com/insights/three-pillars-ops/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-10T10:00:00+09:00",
       "bufferTransferAt": "2026-08-10T10:30:00+09:00",
       "channels": {
@@ -217,41 +217,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/three-pillars-ops.md",
           "publishAt": "2026-08-10T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a792b4fab7f19abefc2e234",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-10T01:37:18.583Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T07:19:48.074Z"
+          "updatedAt": "2026-08-10T01:37:18.583Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/three-pillars-ops.md",
           "publishAt": "2026-08-10T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a792b4fa614dc17d284eea6",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-10T01:37:18.583Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T07:19:48.074Z"
+          "updatedAt": "2026-08-10T01:37:18.583Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/three-pillars-ops.md",
           "publishAt": "2026-08-10T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a792b4f19a4ae545ed0d200",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-10T01:37:18.583Z",
           "lastError": null,
-          "updatedAt": "2026-08-07T07:19:48.074Z"
+          "updatedAt": "2026-08-10T01:37:18.583Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-07T07:19:48.057Z",
+      "updatedAt": "2026-08-10T01:37:18.583Z",
       "unlockedAt": "2026-08-07T07:19:48.057Z"
     },
     {
