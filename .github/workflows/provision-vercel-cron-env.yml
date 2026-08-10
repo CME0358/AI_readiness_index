@@ -38,5 +38,5 @@ jobs:
             exit 1
           fi
           export VERCEL_PROJECT="${VERCEL_PROJECT:-ai-readiness-index}"
-          export VERCEL_TEAM_ID="${VERCEL_TEAM_ID:-coaretail}"
+          export VERCEL_TEAM_ID="${VERCEL_TEAM_ID:-team_bca3GA1UtAZfnPhpeoaqH6Vs}"
           node scripts/setup-vercel-publish-cron-env.mjs
