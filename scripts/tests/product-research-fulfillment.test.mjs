@@ -34,7 +34,7 @@ test('T01 Company Report purchase includes Research entitlement', () => {
 
 test('T02 Company Report Research CTA does NOT open legacy checkout or thanks', () => {
   const src = fulfillmentSrc();
-  assert.match(src, /bundleDownloadPath/);
+  assert.match(src, /pdfPath/);
   assert.doesNotMatch(src, /thanksPath/);
   assert.doesNotMatch(src, /checkout\.html/);
 });
@@ -44,7 +44,7 @@ test('T03 Company Report Research CTA does NOT require second payment', () => {
   const fn = src.match(/export function openResearchEdition[\s\S]*?(?=export function|$)/)?.[0] || '';
   assert.doesNotMatch(fn, /buy\.stripe/);
   assert.doesNotMatch(fn, /thanksPath/);
-  assert.match(fn, /bundleDownloadPath/);
+  assert.match(fn, /pdfPath/);
 });
 
 test('T04 bundle download page does NOT show legacy unpaid payment failure copy', () => {

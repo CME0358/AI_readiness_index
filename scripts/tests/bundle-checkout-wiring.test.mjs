@@ -104,7 +104,7 @@ test('RMVU-04E T08 Research entitlement preserved', () => {
   assert.ok(PRODUCTS.companyReportBundle.entitlements.researchEdition);
   assert.equal(RESEARCH_EDITION.bundleDownloadPath, '/whitepaper/2026/research/download.html');
   assert.match(fulfillmentSrc(), /openResearchEdition/);
-  assert.match(fulfillmentSrc(), /bundleDownloadPath/);
+  assert.match(fulfillmentSrc(), /pdfPath/);
 });
 
 test('RMVU-04E T09 success URL / session_id flow preserved', () => {

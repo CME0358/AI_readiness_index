@@ -83,7 +83,7 @@ test('RMVU-04G T09 Research entitlement preserved', () => {
   assert.equal(RESEARCH_EDITION.bundleDownloadPath, '/whitepaper/2026/research/download.html');
   const fulfillment = read('report/src/fulfillment.js');
   assert.match(fulfillment, /researchEdition/);
-  assert.match(fulfillment, /bundleDownloadPath/);
+  assert.match(fulfillment, /pdfPath/);
 });
 
 test('RMVU-04G T10 Company Report Bundle preserved', () => {

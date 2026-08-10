@@ -23,6 +23,7 @@ import {
   openResearchEdition,
   openHandbookUpgrade,
   PRODUCTS,
+  RESEARCH_EDITION,
 } from "./fulfillment.js";
 
 // ─── DUMMY DATA ───────────────────────────────────────────────────────────────
@@ -1083,6 +1084,131 @@ function LegalModal({ doc, onClose }) {
   );
 }
 
+function ResearchEditionModal({ onClose, onDownload }) {
+  const features = [
+    "5業種・231件の観測データ",
+    "ChatGPT / Gemini / Claude / Perplexity の4AIクロス検証",
+    "業種別考察と Evidence パッケージ",
+    "Company Report の個社分析を市場データと比較する Benchmark 資料",
+    "PDF 即時ダウンロード（Company Report 同梱 entitlement）",
+  ];
+  const metaRows = [
+    {
+      label: "位置づけ",
+      value: "Company Report 同梱の Research / Benchmark Evidence",
+    },
+    {
+      label: "内容",
+      value: "231件の観測データ・4AIクロス検証・業種別考察",
+    },
+    {
+      label: "対象者",
+      value: <>調査根拠と自社スコアを<strong>セットで把握したい</strong>経営・マーケ担当者</>,
+    },
+    {
+      label: "使い方",
+      value: "Company Report の改善判断を、市場全体の Benchmark と照合する資料",
+    },
+  ];
+
+  return (
+    <div
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, background: "rgba(10,10,10,0.55)", zIndex: 1000, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: 24, overflowY: "auto" }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{ position: "relative", background: "#fff", borderRadius: 16, padding: "40px 40px 48px", maxWidth: 680, width: "100%", margin: "40px 0", boxShadow: "0 12px 64px rgba(0,0,0,0.25)" }}
+      >
+        <button onClick={onClose} aria-label="閉じる" style={{
+          position: "absolute", top: 16, right: 16, width: 36, height: 36,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: "#F5F5F5", border: "none", borderRadius: 8,
+          fontSize: 18, lineHeight: 1, color: "#6B6B6B", cursor: "pointer",
+        }}>✕</button>
+
+        <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 10 }}>
+          Included with Company Report
+        </div>
+        <h1 style={{ fontSize: 26, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.6px", marginBottom: 8 }}>
+          Research Edition 2026
+        </h1>
+        <p style={{ fontSize: 13, fontWeight: 700, color: "#6B6B6B", marginBottom: 16 }}>
+          Market Research / Benchmark / Evidence
+        </p>
+        <p style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 24 }}>
+          調査データ・Benchmark・業種観察の Evidence パッケージです。
+          Agent Readiness Company Report に同梱されており、個社レポートの判断を市場全体の観測データと接続できます。
+        </p>
+
+        <div style={{ borderTop: "1px solid #F0F0F0", borderBottom: "1px solid #F0F0F0", padding: "20px 0", marginBottom: 24 }}>
+          {metaRows.map((row, index) => (
+            <div
+              key={row.label}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "96px 1fr",
+                gap: 16,
+                alignItems: "start",
+                marginBottom: index === metaRows.length - 1 ? 0 : 14,
+              }}
+            >
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B" }}>{row.label}</div>
+              <div style={{ fontSize: 13.5, color: "#3A3A3A", lineHeight: 1.8 }}>{row.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 12 }}>
+          収録内容
+        </div>
+        <ul style={{ margin: "0 0 24px", paddingLeft: 20 }}>
+          {features.map((item) => (
+            <li key={item} style={{ fontSize: 13.5, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 6 }}>{item}</li>
+          ))}
+        </ul>
+
+        <div style={{ background: "#ECFDF5", border: "1px solid #A7F3D0", borderRadius: 10, padding: "12px 16px", marginBottom: 24, fontSize: 13, color: "#065F46", lineHeight: 1.7 }}>
+          Company Report 購入 entitlement により追加決済なしでダウンロードできます（このブラウザ・72時間）。
+        </div>
+
+        <button
+          type="button"
+          onClick={onDownload}
+          style={{
+            width: "100%", background: "#0A0A0A", color: "#fff", border: "none",
+            padding: "14px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer",
+          }}
+        >
+          Research Edition 2026（PDF）をダウンロード
+        </button>
+
+        <a
+          href={RESEARCH_EDITION.readPath}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "block", marginTop: 12, textAlign: "center", fontSize: 13, color: "#6B6B6B", textDecoration: "underline",
+          }}
+        >
+          オンライン版を読む
+        </a>
+
+        <button
+          type="button"
+          onClick={onClose}
+          style={{
+            marginTop: 20, width: "100%", background: "transparent", color: "#6B6B6B", border: "1px solid #E5E5E5",
+            padding: "12px", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          閉じる
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function HandbookUpgradeModal({ onClose, onCheckout }) {
   const upgrade = PRODUCTS.handbookUpgrade;
   const features = [
@@ -1614,6 +1740,7 @@ function NavSeekBar({ targetRef }) {
 function ReportPage({ report, form, reportMode = "demo", purchaseState = null }) {
   const [printing, setPrinting] = useState(false);
   const [showHandbookModal, setShowHandbookModal] = useState(false);
+  const [showResearchModal, setShowResearchModal] = useState(false);
   const scoreRef = useRef(null);
   const navScrollRef = useRef(null);
 
@@ -1719,7 +1846,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 PDFとして保存
               </button>
               {purchaseState?.entitlements?.researchEdition && (
-                <button type="button" onClick={() => openResearchEdition(purchaseState)} className="report-btn-secondary">
+                <button type="button" onClick={() => setShowResearchModal(true)} className="report-btn-secondary">
                   Research Edition 2026をダウンロード
                 </button>
               )}
@@ -2078,6 +2205,16 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
           </div>
         </div>
       </section>
+
+      {showResearchModal && (
+        <ResearchEditionModal
+          onClose={() => setShowResearchModal(false)}
+          onDownload={() => {
+            openResearchEdition(purchaseState);
+            setShowResearchModal(false);
+          }}
+        />
+      )}
 
       {showHandbookModal && (
         <HandbookUpgradeModal
