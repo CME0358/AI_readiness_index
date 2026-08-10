@@ -1821,9 +1821,6 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             ))}
           </div>
           <div className="report-header-actions">
-            <button type="button" onClick={() => setPrinting(true)} className="report-btn-secondary">
-              PDF保存
-            </button>
             <a href={IMPROVE_URL} className="report-btn-primary">
               改善支援を見る
             </a>
@@ -1843,7 +1840,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
             </p>
             <div className="report-fulfillment__actions">
               <button type="button" onClick={() => setPrinting(true)} className="report-btn-primary">
-                PDFとして保存
+                表示結果をPDFとして保存
               </button>
               {purchaseState?.entitlements?.researchEdition && (
                 <button type="button" onClick={() => setShowResearchModal(true)} className="report-btn-secondary">

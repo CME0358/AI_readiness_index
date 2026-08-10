@@ -52,10 +52,10 @@ test('T04 success green only semantic', () => {
   assert.doesNotMatch(reportSrc(), /ScoreBar score=\{item\.coverage\} color=/);
 });
 
-test('T05 header has PDF action', () => {
+test('T05 fulfillment banner has PDF save action', () => {
   const src = reportSrc();
-  assert.match(src, /report-header-actions/);
-  assert.match(src, /PDF保存/);
+  assert.match(src, /report-fulfillment__actions/);
+  assert.match(src, /表示結果をPDFとして保存/);
   assert.match(src, /setPrinting\(true\)/);
 });
 
