@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
+import VideoCarousel from "./VideoCarousel.jsx";
 import { trackReportStartOnce } from "./analytics.js";
 import {
   scoreInterpretation,
@@ -709,6 +710,8 @@ function LandingPage({ onStart }) {
         </div>
         </Reveal>
       </section>
+
+      <VideoCarousel />
 
       {/* Sample Preview */}
       <section style={{ background: "#F8F8F8", padding: "80px 40px" }}>
