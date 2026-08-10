@@ -229,8 +229,8 @@
     },
     {
       "slug": "ari-vs-geo-seo",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-12T10:00:00+09:00",
+      "status": "scheduled",
       "title": "SEO・GEO・ARIの役割分担を整理する",
       "cardSummary": "検索→引用→実行と段階が異なり、役割分担で設計すべき。why-ariの基準論ではなく3手法の役割分担表",
       "llmsLabel": "SEO・GEO・ARIの役割分担を整理する",
@@ -240,7 +240,8 @@
       "seoTitle": "SEO・GEO・Agent Readinessの違いとは？AI検索対策を比較",
       "metaDescription": "SEO・GEO・Agent Readinessは段階が異なる。検索流入・AI回答での引用・予約や購入の実行完了まで、3手法の役割分担とAI検索対策の設計優先順位をAgent Readinessの視点で比較解説します。",
       "searchIntentClass": "A",
-      "primarySearchIntent": "SEO GEO Agent Readiness 違い 比較"
+      "primarySearchIntent": "SEO GEO Agent Readiness 違い 比較",
+      "unlockedAt": "2026-08-10T07:46:01.152Z"
     },
     {
       "slug": "readiness-baseline",
