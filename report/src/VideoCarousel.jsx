@@ -138,6 +138,7 @@ export default function VideoCarousel() {
             AI検索・推薦・予約など、Agent Readiness が実際のユーザー体験に
             どう影響するのかを短い動画で紹介します。
           </p>
+          <p className="video-carousel-section__hint">クリックで音声が流れます</p>
         </div>
 
         <div
