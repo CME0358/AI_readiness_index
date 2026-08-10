@@ -41,6 +41,7 @@ window.PRODUCT_CATALOG = {
     legacyCheckoutPath: "/whitepaper/2026/research/checkout.html",
     readPath: "/whitepaper/2026/research/index.html",
     pdfPath: "/whitepaper/2026/research/assets/ARI_Research_Report_2026.pdf",
+    pdfDownloadName: "ARI_Research_Report_2026.pdf",
     storageKey: "wp_research_paid",
   },
 };

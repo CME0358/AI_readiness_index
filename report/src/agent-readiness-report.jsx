@@ -1175,16 +1175,18 @@ function ResearchEditionModal({ onClose, onDownload }) {
           Company Report 購入 entitlement により追加決済なしでダウンロードできます（このブラウザ・72時間）。
         </div>
 
-        <button
-          type="button"
+        <a
+          href={RESEARCH_EDITION.pdfPath}
+          download={RESEARCH_EDITION.pdfDownloadName}
           onClick={onDownload}
           style={{
-            width: "100%", background: "#0A0A0A", color: "#fff", border: "none",
+            display: "block", width: "100%", background: "#0A0A0A", color: "#fff", border: "none",
             padding: "14px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer",
+            textAlign: "center", textDecoration: "none", boxSizing: "border-box",
           }}
         >
           Research Edition 2026（PDF）をダウンロード
-        </button>
+        </a>
 
         <a
           href={RESEARCH_EDITION.readPath}

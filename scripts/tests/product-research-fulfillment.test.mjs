@@ -44,7 +44,14 @@ test('T03 Company Report Research CTA does NOT require second payment', () => {
   const fn = src.match(/export function openResearchEdition[\s\S]*?(?=export function|$)/)?.[0] || '';
   assert.doesNotMatch(fn, /buy\.stripe/);
   assert.doesNotMatch(fn, /thanksPath/);
+  assert.doesNotMatch(fn, /bundleDownloadPath/);
   assert.match(fn, /pdfPath/);
+});
+
+test('T03b Research modal links directly to bundled PDF asset', () => {
+  const src = reportSrc();
+  assert.match(src, /href=\{RESEARCH_EDITION\.pdfPath\}/);
+  assert.match(src, /download=\{RESEARCH_EDITION\.pdfDownloadName\}/);
 });
 
 test('T04 bundle download page does NOT show legacy unpaid payment failure copy', () => {

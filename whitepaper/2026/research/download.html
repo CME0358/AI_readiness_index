@@ -115,7 +115,7 @@
         }
         if (pdfBtn) {
           pdfBtn.href = cfg.PDF_PATH;
-          pdfBtn.setAttribute("download", "Agent Readiness Research Report 2026.pdf");
+          pdfBtn.setAttribute("download", cfg.PDF_DOWNLOAD_NAME || "ARI_Research_Report_2026.pdf");
         }
         if (readBtn) readBtn.href = cfg.READ_PATH;
       } else {

@@ -167,13 +167,6 @@ export function openResearchEdition(purchaseState) {
     verified: state?.verified ?? false,
     source: 'company_report_bundle',
   });
-  const link = document.createElement('a');
-  link.href = RESEARCH_EDITION.pdfPath;
-  link.download = 'Agent Readiness Research Report 2026.pdf';
-  link.rel = 'noopener';
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
   return { ok: true, path: RESEARCH_EDITION.pdfPath };
 }
 

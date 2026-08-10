@@ -5,6 +5,7 @@
   var PURCHASE_KEY = "ari_purchase_state";
   var LEGACY_KEY = "wp_research_paid";
   var PDF_PATH = "/whitepaper/2026/research/assets/ARI_Research_Report_2026.pdf";
+  var PDF_DOWNLOAD_NAME = "ARI_Research_Report_2026.pdf";
   var READ_PATH = "/whitepaper/2026/research/index.html";
   var DOWNLOAD_PAGE = "/whitepaper/2026/research/download.html";
   var THANKS_PATH = "/whitepaper/2026/research/thanks.html";
@@ -40,6 +41,7 @@
     PURCHASE_KEY: PURCHASE_KEY,
     LEGACY_KEY: LEGACY_KEY,
     PDF_PATH: PDF_PATH,
+    PDF_DOWNLOAD_NAME: PDF_DOWNLOAD_NAME,
     READ_PATH: READ_PATH,
     DOWNLOAD_PAGE: DOWNLOAD_PAGE,
     BUNDLE_DOWNLOAD: BUNDLE_DOWNLOAD,

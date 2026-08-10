@@ -105,6 +105,7 @@ export const PRODUCTS = {
 
 export const RESEARCH_EDITION = {
   pdfPath: '/whitepaper/2026/research/assets/ARI_Research_Report_2026.pdf',
+  pdfDownloadName: 'ARI_Research_Report_2026.pdf',
   /** Legacy standalone Stripe success page — do not use for Company Report bundle. */
   thanksPath: '/whitepaper/2026/research/thanks.html',
   /** Company Report bundle entitlement download (localStorage source of truth). */

@@ -13,7 +13,7 @@ window.WHITEPAPER_STRIPE = {
   research: {
     paymentLink: "https://buy.stripe.com/dRmdRa1ppgP7107ddpcMM0k",
     pdfUrl: "assets/ARI_Research_Report_2026.pdf",
-    downloadName: "Agent Readiness Research Report 2026.pdf",
+    downloadName: "ARI_Research_Report_2026.pdf",
     readUrl: "./index.html",
     productName: "Agent Readiness Research Report 2026",
     edition: "Research Edition",
