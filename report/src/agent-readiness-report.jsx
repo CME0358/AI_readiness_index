@@ -1083,6 +1083,89 @@ function LegalModal({ doc, onClose }) {
   );
 }
 
+function HandbookUpgradeModal({ onClose, onCheckout }) {
+  const upgrade = PRODUCTS.handbookUpgrade;
+  const features = [
+    "DRAモデル・3軸×4要素の評価基準",
+    "3フェーズ改善ロードマップ（Playbook）",
+    "Readiness Level 基準（Beginner〜Leader）",
+    "Research Edition 全文収録",
+    "決済完了後、PDFを即時ダウンロード",
+  ];
+
+  return (
+    <div
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, background: "rgba(10,10,10,0.55)", zIndex: 1000, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: 24, overflowY: "auto" }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{ position: "relative", background: "#fff", borderRadius: 16, padding: "40px 40px 48px", maxWidth: 640, width: "100%", margin: "40px 0", boxShadow: "0 12px 64px rgba(0,0,0,0.25)" }}
+      >
+        <button onClick={onClose} aria-label="閉じる" style={{
+          position: "absolute", top: 16, right: 16, width: 36, height: 36,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: "#F5F5F5", border: "none", borderRadius: 8,
+          fontSize: 18, lineHeight: 1, color: "#6B6B6B", cursor: "pointer",
+        }}>✕</button>
+
+        <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 10 }}>
+          Methodology Handbook Upgrade
+        </div>
+        <h1 style={{ fontSize: 26, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.6px", marginBottom: 12 }}>
+          Agent Readiness Methodology Handbook 2026
+        </h1>
+        <p style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 24 }}>
+          Company Report 購入者向けアップグレード。DRA評価基準・Playbook・Readiness Level 基準を収録した実装マニュアルです。
+          Company Report で把握した改善優先順位を、どう測り・どう直すかの標準に接続できます。
+        </p>
+
+        <ul style={{ margin: "0 0 28px", paddingLeft: 20 }}>
+          {features.map((item) => (
+            <li key={item} style={{ fontSize: 13.5, color: "#3A3A3A", lineHeight: 1.9, marginBottom: 6 }}>{item}</li>
+          ))}
+        </ul>
+
+        <div style={{ background: "#F8F8F8", borderRadius: 12, padding: "20px 24px", marginBottom: 24, border: "1px solid #F0F0F0" }}>
+          <div style={{ fontSize: 12, color: "#9B9B9B", marginBottom: 6 }}>既購入者向けアップグレード価格</div>
+          <div style={{ fontSize: 32, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-1px" }}>
+            ¥{upgrade.priceExTax.toLocaleString("ja-JP")}
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#6B6B6B", marginLeft: 8 }}>（税別）</span>
+          </div>
+          <div style={{ fontSize: 13, color: "#6B6B6B", marginTop: 4 }}>
+            税込 ¥{upgrade.priceTaxIncl.toLocaleString("ja-JP")}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={onCheckout}
+          style={{
+            width: "100%", background: "#0A0A0A", color: "#fff", border: "none",
+            padding: "14px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer",
+          }}
+        >
+          Stripeで決済する
+        </button>
+        <p style={{ textAlign: "center", fontSize: 12, color: "#9B9B9B", marginTop: 12, marginBottom: 0 }}>
+          🔒 Stripe決済・SSL暗号化済み
+        </p>
+
+        <button
+          type="button"
+          onClick={onClose}
+          style={{
+            marginTop: 20, width: "100%", background: "transparent", color: "#6B6B6B", border: "1px solid #E5E5E5",
+            padding: "12px", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          閉じる
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function FormPage({ onSubmit, onClose }) {
   const industries = ["小売・EC", "飲食・フード", "美容・ヘルスケア", "不動産", "教育・スクール", "医療・歯科", "宿泊・ホテル", "フィットネス", "その他"];
   const [form, setForm] = useState({ company: "", url: "", industry: "", email: "", agree: false });
@@ -1483,6 +1566,7 @@ function NavSeekBar({ targetRef }) {
 // ─── REPORT PAGE ──────────────────────────────────────────────────────────────
 function ReportPage({ report, form, reportMode = "demo", purchaseState = null }) {
   const [printing, setPrinting] = useState(false);
+  const [showHandbookModal, setShowHandbookModal] = useState(false);
   const scoreRef = useRef(null);
   const navScrollRef = useRef(null);
 
@@ -1593,7 +1677,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 </button>
               )}
               {!purchaseState?.entitlements?.methodologyHandbook && (
-                <button type="button" onClick={() => openHandbookUpgrade()} className="report-btn-secondary report-btn-upgrade">
+                <button type="button" onClick={() => setShowHandbookModal(true)} className="report-btn-secondary report-btn-upgrade">
                   Methodology Handbookへアップグレード（既購入者向け ¥69,000）
                 </button>
               )}
@@ -1947,6 +2031,13 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
           </div>
         </div>
       </section>
+
+      {showHandbookModal && (
+        <HandbookUpgradeModal
+          onClose={() => setShowHandbookModal(false)}
+          onCheckout={() => openHandbookUpgrade()}
+        />
+      )}
 
       <style>{`
         @media print {

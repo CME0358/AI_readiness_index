@@ -174,7 +174,7 @@ export function openResearchEdition(purchaseState) {
 export function openHandbookUpgrade() {
   const upgrade = PRODUCTS.handbookUpgrade;
   trackHandbookUpgradeClick({ product_id: upgrade.id });
-  window.open(upgrade.paymentLink, '_blank', 'noopener');
+  window.location.href = upgrade.paymentLink;
 }
 
 export function onReportFormComplete() {
