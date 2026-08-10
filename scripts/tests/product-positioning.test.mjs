@@ -158,8 +158,8 @@ test('T07 improve.html conversion copy uses comparison card structure', () => {
   assert.match(src, /Decide \/ Review/);
   assert.match(src, /Design \/ Specify/);
   assert.match(src, /Execute \/ Operate/);
-  assert.match(src, /支援範囲に応じて個別見積り/);
-  assert.match(src, /実装範囲に応じて個別見積り/);
+  assert.equal((src.match(/<div class="plan-contract">12ヶ月契約<\/div>/g) || []).length, 3);
+  assert.equal((src.match(/<span class="plan-meta-value">12ヶ月契約<\/span>/g) || []).length, 3);
   assert.match(src, /社内で実装はできるが、何から進めるべきか整理したい/);
   assert.match(src, /やるべき方向性は見えているが、具体的な設計に落とせていない/);
   assert.match(src, /社内リソースだけでは改善実行が進みにくい/);
