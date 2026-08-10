@@ -27,12 +27,21 @@
 
 ## 仕組み
 
-1. `.github/workflows/publish-scheduled-insights.yml` が毎日 **01:00 UTC（= 10:00 JST）** に実行
-2. `scripts/publish-scheduled-insights.mjs` が期限到来記事を `insights/{slug}/` へ移動
-3. `insights/index.html` / `sitemap.xml` / `llms.txt` を更新して commit & push
-4. Vercel が push を検知して本番デプロイ
-5. `public_build` には `_scheduled` を含めない（`package.json` の `build:all`）
-6. 土日は `publishAt` が無いため何も公開されない（平日のみスケジュール）
+1. **Primary:** Vercel Cron が平日 **01:00 UTC（= 10:00 JST）** に `/api/cron/publish-insights` を実行 → GitHub `workflow_dispatch` で公開ワークフロー起動（通常 1–2 分以内）
+2. **Fallback:** `.github/workflows/publish-scheduled-insights.yml` の GHA schedule（13:00 / 14:30 JST 頃）— Vercel dispatch 失敗時の救済
+3. `scripts/publish-scheduled-insights.mjs` が期限到来記事を `insights/{slug}/` へ移動
+4. `insights/index.html` / `sitemap.xml` / `llms.txt` を更新して commit & push
+5. Vercel が push を検知して本番デプロイ → 同一ワークフロー内で Buffer キュー投入（10:30 JST 想定）
+6. `public_build` には `_scheduled` を含めない（`package.json` の `build:all`）
+7. 土日は `publishAt` が無いため何も公開されない（平日のみスケジュール）
+
+### Vercel 環境変数（10:00 JST 厳守に必須）
+
+| 変数 | 用途 |
+| --- | --- |
+| `CRON_SECRET` | Vercel Cron 認証（`Authorization: Bearer …`） |
+| `GITHUB_DISPATCH_TOKEN` | GitHub PAT（`repo` + `workflow` / `actions:write`） |
+| `GITHUB_REPOSITORY` | 省略可。既定 `CME0358/AI_readiness_index` |
 
 ## 手動実行
 
