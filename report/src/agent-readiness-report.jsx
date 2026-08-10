@@ -38,7 +38,7 @@ const DUMMY_REPORT = {
   level: "Leader",
   executiveSummary: `株式会社サンプル商事は、AIエージェント時代における企業情報の可視性・推薦性において、業界上位15%に位置する「Leader」レベルの評価を獲得しました。
 
-公式サイトの構造化データ実装率は業界平均の2.3倍であり、ChatGPT・Gemini・Claudeの全主要AIプラットフォームにおいて企業情報が正確に認識・引用されています。特に予約・問い合わせフローのデジタル化が進んでいる点が高評価の要因です。
+公式サイトの構造化データ実装が進んでおり、ChatGPT・Gemini・Claudeの主要AIプラットフォームにおいて企業情報が認識・引用されやすい状態です。特に予約・問い合わせフローのデジタル化が進んでいる点が高評価の要因です。
 
 一方、FAQ Schemaの未実装と、Google Business Profileの情報更新頻度の低さが課題として検出されました。これらを改善することで、スコアが最大+11ポイント向上し、AI推薦率が現状比で約23%改善すると試算されます。`,
   scoreBreakdown: [
@@ -47,7 +47,7 @@ const DUMMY_REPORT = {
     { category: "予約・導線", score: 91, weight: 17, items: ["予約ページ存在", "フォーム最適化", "Agent操作性", "完了率推定"] },
     { category: "ナレッジカバレッジ", score: 75, weight: 16, items: ["営業情報完全性", "料金情報", "FAQ充実度", "口コミ管理"] },
     { category: "権威・引用元", score: 83, weight: 15, items: ["被引用数", "引用元多様性", "メディア掲載", "PR配信"] },
-    { category: "競合比較優位", score: 77, weight: 14, items: ["推薦率差異", "情報鮮度", "レビュースコア", "応答速度"] },
+    { category: "推薦・比較準備度", score: 77, weight: 14, items: ["推薦理由の明確性", "情報鮮度", "比較候補としての情報整備", "応答速度"] },
   ],
   aiRecognition: [
     { ai: "ChatGPT", recognition: 94, recommendation: 88, citation: 71, bookable: true },
@@ -89,12 +89,6 @@ const DUMMY_REPORT = {
     { item: "OpenGraph", status: "pass", score: 98 },
     { item: "Canonical URL", status: "pass", score: 100 },
     { item: "FAQ Schema", status: "fail", score: 0 },
-  ],
-  competitors: [
-    { name: "自社", score: 82 },
-    { name: "競合A社", score: 74 },
-    { name: "競合B社", score: 68 },
-    { name: "業界平均", score: 61 },
   ],
   roadmap: [
     { action: "LLMs.txtの実装", impact: "+4", priority: "High", effort: "低（1時間）", roi: "★★★★★" },
@@ -302,32 +296,6 @@ function PieChart({ data }) {
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function BarChart({ data }) {
-  const ref = useRef(null);
-  const visible = useIntersection(ref);
-  const max = Math.max(...data.map(d => d.score));
-  return (
-    <div ref={ref} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {data.map((d, i) => (
-        <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ width: 80, fontSize: 12, color: "#3A3A3A", textAlign: "right", flexShrink: 0 }}>{d.name}</span>
-          <div style={{ flex: 1, height: 28, background: "#F5F5F5", borderRadius: 4, overflow: "hidden" }}>
-            <div style={{
-              height: "100%", borderRadius: 4,
-              background: d.name === "自社" ? "#0A0A0A" : "#C0C0C0",
-              width: visible ? `${(d.score / max) * 100}%` : "0%",
-              transition: `width 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s`,
-              display: "flex", alignItems: "center", paddingLeft: 10,
-            }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: d.name === "自社" ? "#fff" : "#555", whiteSpace: "nowrap" }}>{d.score}</span>
-            </div>
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
@@ -761,8 +729,7 @@ function LandingPage({ onStart }) {
                   Readiness Level: Leader
                 </div>
                 <div style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.8 }}>
-                  全国 847位 ／ 東京都 203位<br />
-                  業界 47位 ／ 偏差値 68.4<br />
+                  Readiness Level: Leader<br />
                   <strong>Agent Readiness Level: Leader</strong>
                 </div>
               </div>
@@ -820,18 +787,19 @@ function LandingPage({ onStart }) {
 
           </div>
 
-          {/* 競合比較 */}
+          {/* Company Reportで確認できる内容 */}
           <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "28px", marginTop: 24, textAlign: "left" }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>競合比較</div>
-            {DUMMY_REPORT.competitors.map(c => (
-              <div key={c.name} style={{ marginBottom: 12 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 4 }}>
-                  <span style={{ fontWeight: c.name === "自社" ? 700 : 400, color: c.name === "自社" ? "#0A0A0A" : "#6B6B6B" }}>{c.name}</span>
-                  <span style={{ fontWeight: 700, color: "#0A0A0A" }}>{c.score}</span>
-                </div>
-                <div style={{ height: 8, background: "#F0F0F0", borderRadius: 100 }}>
-                  <div style={{ height: "100%", width: `${c.score}%`, background: c.name === "自社" ? "#C9A84C" : "#D8D8D8", borderRadius: 100 }} />
-                </div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>Company Reportで確認できる内容</div>
+            {[
+              "自社のAgent Readinessスコア",
+              "AIからどのように認識されているか",
+              "現在地の評価",
+              "改善優先順位",
+              "改善アクションの整理",
+            ].map((item) => (
+              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10, fontSize: 14, color: "#3A3A3A", lineHeight: 1.6 }}>
+                <span style={{ color: "#C9A84C", fontWeight: 700 }}>✓</span>
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -852,7 +820,7 @@ function LandingPage({ onStart }) {
           <div style={{ fontSize: 56, fontWeight: 900, letterSpacing: "-2px" }}>¥29,800<span style={{ fontSize: 16, fontWeight: 700, color: "#C9A84C", marginLeft: 10 }}>ベータ版</span></div>
           <div style={{ fontSize: 13, color: "#9B9B9B", marginBottom: 32 }}>税別・1社1回</div>
           <ul style={{ textAlign: "left", listStyle: "none", padding: 0, margin: "0 0 32px", display: "flex", flexDirection: "column", gap: 12 }}>
-            {["12セクション / 23項目の詳細レポート", "23項目スコアリング", "4大AI認識分析", "競合比較レポート", "改善ロードマップ付き", "PDFダウンロード対応"].map(item => (
+            {["12セクション / 23項目の詳細レポート", "23項目スコアリング", "4大AI認識分析", "改善優先順位の整理", "改善ロードマップ付き", "PDFダウンロード対応"].map(item => (
               <li key={item} style={{ fontSize: 14, display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ color: "#C9A84C" }}>✓</span>{item}
               </li>
@@ -1535,7 +1503,6 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
   const showRankMetrics = !!(report.rank && report.deviation != null);
   const showKnowledge = Array.isArray(report.knowledgeCoverage) && report.knowledgeCoverage.length > 0;
   const showAuthority = Array.isArray(report.authority) && report.authority.length > 0;
-  const showCompetitors = Array.isArray(report.competitors) && report.competitors.length > 0;
   const companyName = form?.company || report.company;
   const reportUrl = form?.url || report.url;
 
@@ -1548,7 +1515,6 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
     ...(showAuthority ? [{ id: "authority", label: "権威性" }] : []),
     { id: "booking", label: "予約導線" },
     { id: "technical", label: "技術" },
-    ...(showCompetitors ? [{ id: "competitors", label: "競合比較" }] : []),
     { id: "priority", label: "優先TOP3" },
     { id: "proposals", label: "改善提案" },
     { id: "roadmap", label: "ロードマップ" },
@@ -1817,16 +1783,6 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
         </div>
       </section>
 
-      {showCompetitors && (
-      <section id="competitors" className="report-section">
-        <div className="report-eyebrow">Evidence</div>
-        <h2 className="report-h2">競合比較{isSampleReport ? "（サンプル）" : ""}</h2>
-        <div className="report-panel">
-          <BarChart data={report.competitors} />
-        </div>
-      </section>
-      )}
-
       {/* Decision — Priority TOP3 */}
       <section id="priority" className="report-section report-section--emphasis">
         <div className="report-eyebrow">Decision</div>
@@ -1941,7 +1897,7 @@ function ReportPage({ report, form, reportMode = "demo", purchaseState = null })
                 "予約導線（17%）：予約ページの存在・AIエージェント操作性・完了率推定",
                 "ナレッジ（16%）：AIが取得できる情報の網羅度・正確性",
                 "権威性（15%）：AI引用元の多様性・信頼性・更新頻度",
-                "競合優位（14%）：同業他社との相対比較スコア",
+                "推薦・比較準備度（14%）：AIが比較候補として扱える情報整備度",
               ].map((item, i) => (
                 <div key={i} style={{ fontSize: 12, color: "var(--color-text-secondary)", padding: "8px 12px", background: "var(--color-surface-subtle)", borderRadius: "var(--radius-sm)", lineHeight: 1.6 }}>{item}</div>
               ))}

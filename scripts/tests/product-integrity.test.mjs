@@ -39,16 +39,17 @@ test('T01 paid live analysis never silently uses DEMO (missing keys)', () => {
 
 test('T02 demo route can use DEMO safely', () => {
   const reportSrc = fs.readFileSync(path.join(ROOT, 'report/src/agent-readiness-report.jsx'), 'utf8');
-  assert.match(reportSrc, /params\.get\("report"\)/);
+  assert.doesNotMatch(reportSrc, /競合比較レポート/);
+  assert.doesNotMatch(reportSrc, /競合A社/);
   assert.match(reportSrc, /SAMPLE \/ DEMO/);
   const demo = buildReport(mockForm, [], mockSite, mockFiles, { productMode: 'demo' });
   assert.ok(demo?.overallScore);
   assert.ok(hasPopulationRankFields(demo));
 });
 
-test('T03 random competitor scores not shown as real paid analysis', () => {
+test('T03 competitor benchmark bars not emitted in report payload', () => {
   const liveDemo = buildReport(mockForm, mockAI, mockSite, mockFiles, { productMode: 'demo' });
-  assert.ok(hasRandomCompetitorNames(liveDemo.competitors));
+  assert.equal(liveDemo.competitors, undefined);
   const paid = buildReport(mockForm, mockAI, mockSite, mockFiles, { productMode: 'paid' });
   assert.equal(paid.competitors, undefined);
   assert.equal(hasRandomCompetitorNames(paid.competitors), false);

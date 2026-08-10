@@ -43,7 +43,7 @@ const DUMMY_REPORT = {
     { category: "予約・導線", score: 91, weight: 17, items: ["予約ページ存在", "フォーム最適化", "Agent操作性", "完了率推定"] },
     { category: "ナレッジカバレッジ", score: 75, weight: 16, items: ["営業情報完全性", "料金情報", "FAQ充実度", "口コミ管理"] },
     { category: "権威・引用元", score: 83, weight: 15, items: ["被引用数", "引用元多様性", "メディア掲載", "PR配信"] },
-    { category: "競合比較優位", score: 77, weight: 14, items: ["推薦率差異", "情報鮮度", "レビュースコア", "応答速度"] },
+    { category: "推薦・比較準備度", score: 77, weight: 14, items: ["推薦理由の明確性", "情報鮮度", "比較候補としての情報整備", "応答速度"] },
   ],
   aiRecognition: [
     { ai: "ChatGPT", recognition: 94, recommendation: 88, citation: 71, bookable: true },
@@ -85,12 +85,6 @@ const DUMMY_REPORT = {
     { item: "OpenGraph", status: "pass", score: 98 },
     { item: "Canonical URL", status: "pass", score: 100 },
     { item: "FAQ Schema", status: "fail", score: 0 },
-  ],
-  competitors: [
-    { name: "自社", score: 82 },
-    { name: "競合A社", score: 74 },
-    { name: "競合B社", score: 68 },
-    { name: "業界平均", score: 61 },
   ],
   roadmap: [
     { action: "LLMs.txtの実装", impact: "+4", priority: "High", effort: "低（1時間）", roi: "★★★★★" },
@@ -337,7 +331,7 @@ function buildImprovementProposals(form, { roadmap, siteData, specialFiles, vali
   if (avgRecommendation < 70) {
     pool.push({
       title: "AI推薦コンテキストの整備",
-      description: `平均推薦率${avgRecommendation}%と、${industry}業界の競合比較で推薦されにくい状態です。強み・差別化・実績を構造化データとFAQで明示し、AIの推薦根拠を強化します。`,
+      description: `平均推薦率${avgRecommendation}%と、AIが比較候補として推薦しにくい状態です。強み・差別化・実績を構造化データとFAQで明示し、AIの推薦根拠を強化します。`,
       rank: 22,
     });
   }
@@ -483,7 +477,7 @@ ${roadmap.length > 0 ? `特に「${roadmap[0].action}」などの施策を優先
       { category: "予約・導線",     score: round(bookingScore),    weight: 17, items: ["予約ページ存在", "フォーム最適化", "Agent操作性", "完了率推定"] },
       { category: "ナレッジカバレッジ", score: round(knowledgeScore), weight: 16, items: ["営業情報完全性", "料金情報", "FAQ充実度", "口コミ管理"] },
       { category: "権威・引用元",   score: round(authorityScore),  weight: 15, items: ["被引用数", "引用元多様性", "メディア掲載", "PR配信"] },
-      { category: "競合比較優位",   score: round(competitorScore), weight: 14, items: ["推薦率差異", "情報鮮度", "レビュースコア", "応答速度"] },
+      { category: "推薦・比較準備度",   score: round(competitorScore), weight: 14, items: ["推薦理由の明確性", "情報鮮度", "比較候補としての情報整備", "応答速度"] },
     ],
     aiRecognition,
     knowledgeCoverage: DUMMY_REPORT.knowledgeCoverage,
@@ -497,12 +491,6 @@ ${roadmap.length > 0 ? `特に「${roadmap[0].action}」などの施策を優先
       agentScore:      round(bookingScore),
     },
     technical: techItems,
-    competitors: [
-      { name: "自社",    score: overallScore },
-      { name: "競合A社", score: Math.max(30, overallScore - Math.floor(Math.random() * 15 + 5)) },
-      { name: "競合B社", score: Math.max(25, overallScore - Math.floor(Math.random() * 20 + 8)) },
-      { name: "業界平均", score: Math.max(20, overallScore - Math.floor(Math.random() * 25 + 12)) },
-    ],
     roadmap,
     improvementProposals: buildImprovementProposals(form, {
       roadmap, siteData, specialFiles, validAI, avgRecognition, avgRecommendation, avgCitation, bookingScore,
