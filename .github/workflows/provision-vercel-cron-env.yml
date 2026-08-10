@@ -1,0 +1,42 @@
+name: Provision Vercel cron env (one-shot)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Upsert Vercel Production env for 10:00 JST cron
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GITHUB_DISPATCH_TOKEN: ${{ secrets.INSIGHTS_GH_DISPATCH_TOKEN }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          VERCEL_PROJECT: ${{ vars.VERCEL_PROJECT }}
+          VERCEL_TEAM_ID: ${{ vars.VERCEL_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "Missing GitHub Secret: VERCEL_TOKEN"
+            exit 1
+          fi
+          if [ -z "${GITHUB_DISPATCH_TOKEN:-}" ]; then
+            echo "Missing GitHub Secret: GITHUB_DISPATCH_TOKEN"
+            exit 1
+          fi
+          if [ -z "${CRON_SECRET:-}" ]; then
+            echo "Missing GitHub Secret: CRON_SECRET"
+            exit 1
+          fi
+          export VERCEL_PROJECT="${VERCEL_PROJECT:-ai-readiness-index}"
+          export VERCEL_TEAM_ID="${VERCEL_TEAM_ID:-team_bca3GA1UtAZfnPhpeoaqH6Vs}"
+          node scripts/setup-vercel-publish-cron-env.mjs
