@@ -1,52 +1,50 @@
 /**
  * Report landing — vertical scene videos (9:16).
  *
- * Set `src` for MP4, or `embedUrl` for TikTok / iframe embed.
- * `href` opens the source page in a new tab when the card is clicked.
+ * Set `src` for MP4/MOV, or `embedUrl` for TikTok / iframe embed.
+ * Files live in report/public/scene-videos/ → /report/scene-videos/ at runtime.
  */
-function tiktokEmbed(videoId) {
-  return `https://www.tiktok.com/embed/v2/${videoId}`;
-}
+const SCENE_BASE = "/report/scene-videos";
 
 export const REPORT_SCENE_VIDEOS = [
   {
     id: "01",
     title: "AI検索で見つかる",
-    src: "",
-    embedUrl: tiktokEmbed("7646962366919265543"),
+    src: `${SCENE_BASE}/scene-01-ai-search.mp4`,
+    embedUrl: "",
     poster: "",
-    href: "https://www.tiktok.com/@coaretail/video/7646962366919265543",
+    href: "",
   },
   {
     id: "02",
     title: "比較候補に入る",
-    src: "",
-    embedUrl: tiktokEmbed("7646292578912046344"),
+    src: `${SCENE_BASE}/scene-02-compare.mov`,
+    embedUrl: "",
     poster: "",
-    href: "https://www.tiktok.com/@coaretail/video/7646292578912046344",
+    href: "",
   },
   {
     id: "03",
     title: "推薦される",
-    src: "",
-    embedUrl: tiktokEmbed("7645235826061839623"),
+    src: `${SCENE_BASE}/scene-03-recommend.mov`,
+    embedUrl: "",
     poster: "",
-    href: "https://www.tiktok.com/@coaretail/video/7645235826061839623",
+    href: "",
   },
   {
     id: "04",
     title: "予約・問い合わせ",
-    src: "",
-    embedUrl: tiktokEmbed("7645235530610789639"),
+    src: `${SCENE_BASE}/scene-04-booking.mov`,
+    embedUrl: "",
     poster: "",
-    href: "https://www.tiktok.com/@coaretail/video/7645235530610789639",
+    href: "",
   },
   {
     id: "05",
     title: "行動までつながる",
-    src: "",
-    embedUrl: tiktokEmbed("7645235102615653640"),
+    src: `${SCENE_BASE}/scene-05-action.mov`,
+    embedUrl: "",
     poster: "",
-    href: "https://www.tiktok.com/@coaretail/video/7645235102615653640",
+    href: "",
   },
 ];
