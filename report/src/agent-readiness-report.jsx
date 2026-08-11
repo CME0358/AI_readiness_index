@@ -641,9 +641,9 @@ function LandingPage({ onStart }) {
           <div className="hero-eyebrow-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#DC2626", flexShrink: 0 }} />
           <span className="hero-eyebrow-text" style={{ fontSize: 15, color: "#DC2626", fontWeight: 700 }}>9割の企業が、まだ気づいていません。</span>
         </div>
-        <h1 className="hero-anim d2" style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 24 }}>
-          なぜ、検索で見つかる会社が<br className="hero-h1-br" />
-          AIには「選ばれない」のか？
+        <h1 className="hero-h1 hero-anim d2" style={{ fontWeight: 800, color: "#0A0A0A", lineHeight: 1.1, marginBottom: 24 }}>
+          <span className="hero-h1-line">なぜ、検索で見つかる会社が</span>
+          <span className="hero-h1-line">AIには「選ばれない」のか？</span>
         </h1>
         <p className="hero-strong-statement hero-anim d3" style={{ fontSize: "clamp(20px, 2.8vw, 24px)", fontWeight: 700, color: "#1A1A1A", lineHeight: 1.45, maxWidth: 620, margin: "0 auto 24px", letterSpacing: "-0.4px" }}>
           検索で上位に出ることと、<br className="hero-statement-br" />
