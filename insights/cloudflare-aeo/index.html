@@ -158,12 +158,10 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
   </header>
 
   <article class="article-body container" data-article-slug="cloudflare-aeo" data-article-title="Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか" data-editorial-type="current-event">
-    <div class="article-container">
-      <h2>何が起きたか</h2>
+    <div class="article-container"><h2>何が起きたか</h2>
       <p>2026年8月6日、Cloudflareは公式ブログで、Agent Readiness ダッシュボードへの統合と <strong>Answer Engine Optimization（AEO）</strong> 向けの可視化機能を紹介しました。テーマは「From ranking to recommended」——検索順位の時代から、AIアシスタントやエージェントに推薦される時代への移行です。</p>
       <p>Cloudflareは、HTMLページリクエストの半数未満が人間由来になり、エージェント向けトラフィックが増えていると述べています。従来のクリック数やページビューだけでは、AIがサイトをどう読み、どう引用しているかが見えにくい——という問題意識が背景にあります。</p>
-
-      <h2>なぜ「ranking → recommended」が重要なのか</h2>
+<h2>なぜ「ranking → recommended」が重要なのか</h2>
       <p>従来の検索最適化は、検索結果ページで<strong>見つかり、クリックされる</strong>ことに焦点が当たっていました。AI検索やアシスタント経由の発見では、ユーザーが一覧を自分で比較する前に、エージェントが候補を理解し、比較し、推薦する場面が増えます。</p>
       <h3>検索とAI推薦の違い</h3>
       <ul>
@@ -171,8 +169,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
         <li><strong>AI</strong>：候補として理解される → 比較される → 推薦される →（場合によっては）行動につながる</li>
       </ul>
       <p>Cloudflareが強調するのは、後者の連鎖——特に「推薦される」段階——です。これは<a href="/insights/ai-search-shift/">AI検索が変える比較の意味</a>や<a href="/insights/recommendation-logic/">推薦の組み立て方</a>で整理してきた論点と接続します。順位だけを追っても、推薦のロジックまではカバーできません。</p>
-
-      <h2>Cloudflareが示しているポイント</h2>
+<h2>Cloudflareが示しているポイント</h2>
       <p>以下はCloudflare公式ブログに基づく要点です。ARIの解釈と混同しないよう、事実として整理します。</p>
       <ul>
         <li><strong>Agent Readiness Diagnostics</strong>：エージェントがサイトを読む方法（robots.txt、sitemap、HTTPヘッダー、Markdown版、ツール用メタデータ等）でサイトをスキャンし、pass / fail / neutral と根拠を返す。</li>
@@ -181,8 +178,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
         <li><strong>カテゴリベンチマーク</strong>：サイトから業界・カテゴリを推定し、横断的なベンチマークと比較する。</li>
         <li><strong>early access</strong>：AEO Visibility はダッシュボードからリクエストする形（一般提供の範囲は公式情報に依存）。</li>
       </ul>
-
-      <h2>ARIではどう読むか</h2>
+<h2>ARIではどう読むか</h2>
       <p>Cloudflareは、エージェントのアクセシビリティ（読み取り可能性）、オペレーター由来トラフィックの可視化、カテゴリ内での推薦可視性（AEO）まで、計測と改善の射程を広げています。競合比較ではなく、インフラ事業者としての役割分担です。</p>
       <p>Agent Readiness（ARI）は、同じ現象を<strong>Business / Recommendation Readiness</strong>として読みます——DiscoveryからActionまでを横断し、「企業としてどこを改善すべきか」を判断する視点です。フレームワークは次の五段階で整理できます。</p>
       <ul>
@@ -193,8 +189,7 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
         <li><strong>Action</strong>：推薦の先に予約・問い合わせ・購入へ進めるか。</li>
       </ul>
       <p>Cloudflareの「ranking → recommended」は、DiscoveryとRecommendationの間に<strong>Understanding / Comparison</strong>があることを暗に示しています。技術的な読み取り可能性だけでは、推薦まで到達しない——というのがARIの読み方です。<a href="/framework/">Framework</a>で三柱（Visibility・Authority・Actionability）との対応も確認できます。</p>
-
-      <h2>企業が今確認すべきこと</h2>
+<h2>企業が今確認すべきこと</h2>
       <ul>
         <li>AIやエージェントから、公式の企業情報が見つかるか</li>
         <li>サイト・地図・FAQ・外部掲載で、会社情報が一貫しているか</li>
@@ -203,12 +198,10 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
         <li>推薦後に予約・問い合わせ・購入へ進める導線があるか</li>
       </ul>
       <p>CloudflareのDiagnosticsやAEOは、主にDiscoveryからRecommendation層の可視化と点検に効きます。一方、一貫性や比較情報、行動導線はダッシュボードだけでは自動修正されません——ここがARIが補完する領域です。</p>
-
-      <h2>技術対応だけでは足りない理由</h2>
+<h2>技術対応だけでは足りない理由</h2>
       <p>robots.txt、sitemap、構造化データ、llms.txt、API、MCP——これらはAIにとって重要な<strong>シグナル</strong>です。<a href="/insights/files/">3ファイルの役割</a>や<a href="/insights/grounds/">推薦の根拠</a>で述べてきたように、入口の整備は必要です。</p>
       <p>ただし、シグナルが揃っても、内容が矛盾していればUnderstandingは失敗します。比較属性が欠けていればComparisonは止まります。推薦のあと実行できなければActionは完結しません。Cloudflare自身も、エージェントを「コアユーザーベース」として扱い、見つけやすく・読みやすく・信頼できるサイトが推薦されやすい——と述べており、技術とコンテンツ・信頼の両方を示唆しています。</p>
-
-      <h2>今すぐ対応するべきか</h2>
+<h2>今すぐ対応するべきか</h2>
       <h3>NOW（優先して確認）</h3>
       <ul>
         <li>企業情報の一貫性（名称・所在地・提供内容）</li>
@@ -227,15 +220,21 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
         <li>エージェント向けツールインターフェース（API / MCP）の業界標準化</li>
       </ul>
       <p>Cloudflareの記事は「SEO終了」ではなく、計測対象と最適化の重心が移る——という論旨です。ARIも同様に、SEOを否定するのではなく、推薦と実行まで含めた設計が必要だと読みます。<a href="/insights/why-ari/">なぜAgent Readinessが基準になるか</a>も参照してください。</p>
-
-      <h2>ARI Researchとの接続</h2>
+<h2>ARI Researchとの接続</h2>
       <p>Research Hubでは、複数AI・複数業種での推薦と引用の実態を定点観測しています。CloudflareのAEOがプローブする「カテゴリ内推薦」と、ARI Researchの「代表質問への回答」は、観測単位は異なれど、Recommendation層の可視化という点で方向性が近いです。</p>
       <p>数字やランキングを記事に無理に載せる必要はありません。自社の業種・地域・提供内容に合わせ、<a href="/research/">Research</a>や<a href="/evidence/">Evidence Library</a>の方法論を参照しながら、定点観測を設計する——それがARI流の読み方です。</p>
-
-      <h2>自社にとって何を意味するか</h2>
+<h2>自社にとって何を意味するか</h2>
       <p>Cloudflareの提言が自社にどこまで関係するかは、現在どの段階で止まっているかによって変わります。Discoveryで止まっているのか、Comparisonで脱落しているのか、RecommendationはあるがActionで失敗しているのか——止まりどころが違えば、優先すべき施策も変わります。</p>
       <p>一般的なAI検索対策のチェックリストをなぞるだけでは、自社のボトルネックは特定できません。<a href="/insights/ari-vs-geo-seo/">SEO・GEO・Agent Readinessの役割分担</a>を踏まえ、段階ごとにKPIを分けて見ることが出発点になります。</p>
-
+<h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/ai-search-shift/">AI検索で「比較」はどう変わる？順位以外の評価軸</a>
+        </li>
+        <li>
+          <a href="/insights/recommendation-logic/">AIの「おすすめ」はどう組み立てられる？</a>
+        </li>
+        </ul>
       <section class="related-insights">
         <h2>関連Insights</h2>
         <ul>

@@ -211,7 +211,7 @@
     {
       "slug": "cloudflare-aeo",
       "publishAt": "2026-08-11T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Cloudflareが「順位」から「AI推薦」へ：企業サイトは何を変えるべきか",
       "cardSummary": "Cloudflareが示したranking→recommendedを、検索順位中心の発想からAI推薦のための企業情報設計へ——Agent Readinessの視点で読み解く。",
       "llmsLabel": "Cloudflare AEO — ranking→recommended",
@@ -225,7 +225,8 @@
       "metaDescription": "Cloudflareが提唱するAEOと「ranking→recommended」とは何か。検索順位中心の発想からAIに推薦されるための企業情報設計へ、Agent Readinessの視点で解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "Cloudflare AEO AI検索",
-      "freshnessClass": "time_sensitive"
+      "freshnessClass": "time_sensitive",
+      "publishedAt": "2026-08-11T01:00:00.000Z"
     },
     {
       "slug": "ari-vs-geo-seo",
