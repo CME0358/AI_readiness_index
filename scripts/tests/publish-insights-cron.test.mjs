@@ -95,13 +95,12 @@ test('vercel.json defines weekday publish cron', () => {
   assert.equal(cron.schedule, '0 1 * * 1-5');
 });
 
-test('publish workflow uses GHA schedule as fallback only', () => {
+test('publish workflow includes 01:00 UTC weekday cron as primary GHA publish', () => {
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
   const wf = fs.readFileSync(
     path.join(root, '.github/workflows/publish-scheduled-insights.yml'),
     'utf8'
   );
-  assert.doesNotMatch(wf, /cron: '0 1 \* \* 1-5'/);
-  assert.match(wf, /Vercel Cron/);
+  assert.match(wf, /cron: '0 1 \* \* 1-5'/);
   assert.match(wf, /cron: '0 4 \* \* 1-5'/);
 });

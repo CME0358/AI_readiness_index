@@ -2,8 +2,9 @@ name: Publish scheduled Insights
 
 on:
   schedule:
-    # Fallback only — primary trigger is Vercel Cron → /api/cron/publish-insights (01:00 UTC = 10:00 JST).
-    # GHA schedule often runs 2–4h late; kept as safety net if Vercel dispatch fails.
+    # Primary: 01:00 UTC = 10:00 JST — direct publish (Vercel Cron dispatch is best-effort).
+    - cron: '0 1 * * 1-5'
+    # Fallback if 01:00 run missed or publishAt drifted.
     - cron: '0 4 * * 1-5'
     - cron: '30 5 * * 1-5'
   workflow_dispatch:

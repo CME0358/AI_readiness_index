@@ -54,6 +54,15 @@ export function resolvePublishYmd({ now = new Date(), publishDate = null } = {})
   return nextPublishDayAfterUnlock(toJstDateString(now));
 }
 
+/** Earliest scheduled article across all series (v2, current-event, etc.). */
+export function findEarliestScheduledArticle(schedule) {
+  return (
+    schedule.articles
+      .filter((a) => a.status === EDITORIAL_STATUSES.SCHEDULED && a.publishAt)
+      .sort((a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime())[0] || null
+  );
+}
+
 export function buildChannelEntries(slug, times) {
   const channels = {};
   const map = { linkedin: times.linkedin, facebook: times.facebook, x: times.x };
@@ -73,19 +82,29 @@ export function buildChannelEntries(slug, times) {
   return channels;
 }
 
-export function upsertPlannedCard(html, article) {
-  let out = html.replace(/\s*<article class="insight-card planned"[\s\S]*?<\/article>\s*/g, '');
+export function buildPlannedCardHtml(article) {
   const ymd = article.publishAt.slice(0, 10);
   const dot = ymd.replace(/-/g, '.');
-  const card = `      <article class="insight-card planned" data-scheduled-slug="${article.slug}">
+  const tag =
+    article.series === 'current-event' || article.editorialType === 'current_event'
+      ? 'Current Event'
+      : '公開予定';
+  return `      <article class="insight-card planned" data-scheduled-slug="${article.slug}">
         <div class="insight-meta">
           <time datetime="${ymd}">${dot} 10:00</time>
-          <span class="insight-tag soon">公開予定</span>
+          <span class="insight-tag soon">${tag}</span>
         </div>
         <h3>${article.title}</h3>
         <p>${article.cardSummary || ''}</p>
       </article>
 `;
+}
+
+/** Replace planned card with the earliest scheduled article (preserves current-event priority). */
+export function upsertPlannedCard(html, article, schedule = null) {
+  const display = schedule ? findEarliestScheduledArticle(schedule) || article : article;
+  let out = html.replace(/\s*<article class="insight-card planned"[\s\S]*?<\/article>\s*/g, '');
+  const card = buildPlannedCardHtml(display);
   return out.replace('<!-- INSIGHTS_CARDS_START -->', `<!-- INSIGHTS_CARDS_START -->\n${card}`);
 }
 
@@ -173,7 +192,7 @@ export function unlockNextInsight({
   }
 
   let html = fs.readFileSync(PATHS.insightsIndex, 'utf8');
-  html = upsertPlannedCard(html, next);
+  html = upsertPlannedCard(html, next, schedule);
 
   fs.writeFileSync(PATHS.schedule, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
   fs.writeFileSync(PATHS.linkedinQueue, JSON.stringify(linkedinQueue, null, 2) + '\n', 'utf8');

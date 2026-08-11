@@ -10,6 +10,7 @@ import {
   findNextHoldArticle,
   findScheduledOnDate,
   resolveNextAvailablePublishYmd,
+  upsertPlannedCard,
 } from '../lib/unlock-next-insight.mjs';
 import { EDITORIAL_STATUSES } from '../lib/editorial-status.mjs';
 
@@ -44,6 +45,34 @@ test('findNextHoldArticle returns recommendation-logic after ai-search-shift pub
     ],
   };
   assert.equal(findNextHoldArticle(schedule).slug, 'recommendation-logic');
+});
+
+test('upsertPlannedCard keeps earlier current-event when unlocking later v2 slot', () => {
+  const html = '<!-- INSIGHTS_CARDS_START -->\n<a class="insight-card">published</a>';
+  const schedule = {
+    articles: [
+      {
+        slug: 'cloudflare-aeo',
+        status: EDITORIAL_STATUSES.SCHEDULED,
+        publishAt: '2026-08-11T10:00:00+09:00',
+        series: 'current-event',
+        title: 'Cloudflare AEO',
+        cardSummary: 'current event summary',
+      },
+      {
+        slug: 'ari-vs-geo-seo',
+        status: EDITORIAL_STATUSES.SCHEDULED,
+        publishAt: '2026-08-12T10:00:00+09:00',
+        series: 'v2',
+        title: 'SEO GEO ARI',
+        cardSummary: 'evergreen summary',
+      },
+    ],
+  };
+  const out = upsertPlannedCard(html, schedule.articles[1], schedule);
+  assert.match(out, /data-scheduled-slug="cloudflare-aeo"/);
+  assert.doesNotMatch(out, /data-scheduled-slug="ari-vs-geo-seo"/);
+  assert.match(out, /Current Event/);
 });
 
 test('resolveNextAvailablePublishYmd skips occupied current-event slot', () => {

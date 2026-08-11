@@ -17,6 +17,7 @@ import {
 import { toJstDateString } from './lib/business-days.mjs';
 import { detectHtmlQualityIssues } from './lib/article-quality.mjs';
 import { getScheduledSeoPackage, validateInsightSeo } from './lib/insights-seo-package.mjs';
+import { findEarliestScheduledArticle } from './lib/unlock-next-insight.mjs';
 
 const jsonOut = process.argv.includes('--json');
 const results = { pass: [], review: [], fail: [], blocking: [], nonBlocking: [] };
@@ -231,9 +232,7 @@ function validateQueue() {
 
 function validateIndexPlannedCards() {
   const schedule = readJson(PATHS.schedule);
-  const scheduled = schedule.articles.find(
-    (a) => a.series === 'v2' && a.status === EDITORIAL_STATUSES.SCHEDULED
-  );
+  const scheduled = findEarliestScheduledArticle(schedule);
   const holdSlugs = schedule.articles.filter((a) => a.status === EDITORIAL_STATUSES.HOLD).map((a) => a.slug);
   const html = fs.readFileSync(PATHS.insightsIndex, 'utf8');
 
