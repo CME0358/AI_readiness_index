@@ -98,7 +98,34 @@
       "publishAt": "2026-08-10T12:00:00+09:00",
       "dueAtUtc": "2026-08-10T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-11T03:36:49.656Z",
+      "slug": "cloudflare-aeo",
+      "channel": "facebook",
+      "bufferUpdateId": "6a7a98d5422ece0cfe4c6f0a",
+      "publishAt": "2026-08-11T13:15:00+09:00",
+      "dueAtUtc": "2026-08-11T04:15:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-11T03:36:49.656Z",
+      "slug": "cloudflare-aeo",
+      "channel": "x",
+      "bufferUpdateId": "6a7a98d62d829047647e9b7e",
+      "publishAt": "2026-08-11T13:30:00+09:00",
+      "dueAtUtc": "2026-08-11T04:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-11T03:37:10.676Z",
+      "slug": "cloudflare-aeo",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a7a98eb2d829047647e9c33",
+      "publishAt": "2026-08-11T13:15:00+09:00",
+      "dueAtUtc": "2026-08-11T04:15:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-10T01:37:19.542Z"
+  "updatedAt": "2026-08-11T03:37:13.961Z"
 }

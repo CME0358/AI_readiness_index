@@ -18,6 +18,7 @@ import { toJstDateString } from './lib/business-days.mjs';
 import { detectHtmlQualityIssues } from './lib/article-quality.mjs';
 import { getScheduledSeoPackage, validateInsightSeo } from './lib/insights-seo-package.mjs';
 import { findEarliestScheduledArticle } from './lib/unlock-next-insight.mjs';
+import { expectedSocialQueuePostCount } from './lib/enroll-social-on-publish.mjs';
 
 const jsonOut = process.argv.includes('--json');
 const results = { pass: [], review: [], fail: [], blocking: [], nonBlocking: [] };
@@ -172,9 +173,13 @@ function validateSchedule() {
 }
 
 function validateQueue() {
+  const schedule = readJson(PATHS.schedule);
+  const expectedPosts = expectedSocialQueuePostCount(schedule);
   const queue = readJson(PATHS.linkedinQueue);
   if (queue.policy.postsPerTransfer !== 1) add('fail', 'queue', 'postsPerTransfer must be 1');
-  if (queue.posts.length !== 30) add('fail', 'queue', `Expected 30 queue posts, got ${queue.posts.length}`);
+  if (queue.posts.length !== expectedPosts) {
+    add('fail', 'queue', `Expected ${expectedPosts} queue posts, got ${queue.posts.length}`);
+  }
 
   const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
@@ -183,7 +188,7 @@ function validateQueue() {
   if (scheduled.length !== 1) {
     add('fail', 'gate', `Expected 1 scheduled LinkedIn post, got ${scheduled.length}`);
   }
-  const expectedHold = 30 - scheduled.length - queued.length;
+  const expectedHold = expectedPosts - scheduled.length - queued.length;
   if (hold.length !== expectedHold) {
     add('fail', 'gate', `Expected ${expectedHold} editorial_hold LinkedIn posts, got ${hold.length} (buffer_queued=${queued.length})`);
   }
@@ -262,9 +267,13 @@ function validateBufferQueue() {
     return;
   }
 
+  const schedule = readJson(PATHS.schedule);
+  const expectedPosts = expectedSocialQueuePostCount(schedule);
   const queue = readJson(PATHS.bufferQueue);
   if (queue.policy.postsPerTransfer !== 1) add('fail', 'buffer-queue', 'postsPerTransfer must be 1');
-  if (queue.posts.length !== 30) add('fail', 'buffer-queue', `Expected 30 buffer posts, got ${queue.posts.length}`);
+  if (queue.posts.length !== expectedPosts) {
+    add('fail', 'buffer-queue', `Expected ${expectedPosts} buffer posts, got ${queue.posts.length}`);
+  }
 
   const scheduled = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.SCHEDULED);
   const hold = queue.posts.filter((p) => p.status === EDITORIAL_STATUSES.HOLD);
@@ -277,7 +286,7 @@ function validateBufferQueue() {
   if (partial.length > 1) {
     add('fail', 'buffer-queue', `Expected at most 1 partially_queued post, got ${partial.length}`);
   }
-  const expectedHold = 30 - scheduled.length - partial.length - queued.length;
+  const expectedHold = expectedPosts - scheduled.length - partial.length - queued.length;
   if (hold.length !== expectedHold) {
     add('fail', 'buffer-queue', `Expected ${expectedHold} editorial_hold buffer posts, got ${hold.length} (partial=${partial.length} queued=${queued.length})`);
   }

@@ -91,6 +91,23 @@
       "updatedAt": "2026-08-10T01:37:19.544Z"
     },
     {
+      "id": "ARI-LI-CE-cloudflare-aeo",
+      "slug": "cloudflare-aeo",
+      "articlePublishAt": "2026-08-11T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-11T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-11T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/cloudflare-aeo/",
+      "contentFile": "insights/_social/linkedin/posts/cloudflare-aeo.md",
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a7a98eb2d829047647e9c33",
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-11T03:36:48.887Z",
+      "updatedAt": "2026-08-11T03:37:13.974Z",
+      "series": "current-event"
+    },
+    {
       "id": "ARI-LI-006",
       "slug": "ari-vs-geo-seo",
       "articlePublishAt": "2026-08-12T10:00:00+09:00",

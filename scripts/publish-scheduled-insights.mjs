@@ -16,6 +16,7 @@ import { extractDueArticles } from './lib/editorial-status.mjs';
 import { prepareScheduledArticle } from './lib/prepare-scheduled-article.mjs';
 import { isWeekday } from './lib/business-days.mjs';
 import { isProtectedInternalLinkSlug } from './lib/insights-related-links.mjs';
+import { enrollSocialOnPublish } from './lib/enroll-social-on-publish.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -211,6 +212,14 @@ for (const article of ordered) {
   if (entry) {
     entry.status = 'published';
     entry.publishedAt = now.toISOString();
+    if (!dryRun) {
+      const social = enrollSocialOnPublish(entry);
+      if (social.enrolled) {
+        console.log(`Enrolled social queues: ${entry.slug}`);
+      } else if (social.reason === 'missing_social_content_files') {
+        console.warn(`Social not enrolled (missing post files): ${entry.slug}`);
+      }
+    }
   }
   published.push(article.slug);
 }
