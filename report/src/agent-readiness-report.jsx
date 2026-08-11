@@ -639,19 +639,20 @@ function LandingPage({ onStart }) {
       <section style={{ maxWidth: 820, margin: "0 auto", padding: "120px 40px 100px", textAlign: "center" }}>
         <div className="hero-anim d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "6px 16px", marginBottom: 40 }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A" }} />
-          <span style={{ fontSize: 12, color: "#3A3A3A", fontWeight: 500 }}>2026年上半期 業界レポート公開中</span>
+          <span style={{ fontSize: 12, color: "#3A3A3A", fontWeight: 500 }}>9割の企業が、まだ気づいていません。</span>
         </div>
-        <h1 className="hero-anim d2" style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 28 }}>
-          AIに見つかる時代から、<br />
-          <span style={{ color: "#0A0A0A" }}>AIに選ばれる時代へ</span>
+        <h1 className="hero-anim d2" style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 24 }}>
+          なぜ、検索で見つかる会社が<br className="hero-h1-br" />
+          AIには「選ばれない」のか？
         </h1>
-        <p className="hero-anim d3" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 24px", fontWeight: 400 }}>
-          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、自社がAIにどう認識され、どこで比較・推薦・行動につながっていないかを可視化します。
+        <p className="hero-strong-statement hero-anim d3" style={{ fontSize: "clamp(20px, 2.8vw, 24px)", fontWeight: 700, color: "#1A1A1A", lineHeight: 1.45, maxWidth: 620, margin: "0 auto 24px", letterSpacing: "-0.4px" }}>
+          検索で上位に出ることと、<br className="hero-statement-br" />
+          AIに選ばれることは別です。
         </p>
-        <p className="hero-anim d3" style={{ fontSize: 15, color: "#525252", lineHeight: 1.75, maxWidth: 600, margin: "0 auto 40px", fontWeight: 400 }}>
-          Agent Readiness Index（ARI）は、AIが企業・サービスを発見・理解・比較・推薦し、予約・問い合わせ・購入などの行動につなげられる状態かを評価する指標です。
+        <p className="hero-anim d4" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 40px", fontWeight: 400 }}>
+          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、自社がAIにどう認識され、どこで比較・推薦・行動から外れているのかを可視化します。
         </p>
-        <div className="hero-anim d4">
+        <div className="hero-anim d5">
         <button onClick={onStart} style={{
           background: "#0A0A0A", color: "#fff", border: "none",
           padding: "16px 40px", borderRadius: 12, fontSize: 16, fontWeight: 700,
@@ -661,12 +662,12 @@ function LandingPage({ onStart }) {
         }}
           onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 8px 32px rgba(0,0,0,0.2)"; }}
           onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 24px rgba(0,0,0,0.15)"; }}>
-          Agent Readiness Reportを作成する →
+          AIに選ばれない理由を分析する →
         </button>
         <p style={{ marginTop: 16, fontSize: 13, color: "#9B9B9B" }}>
           所要時間：約3分 ・ 診断料金：<span style={{ textDecoration: "line-through" }}>¥49,800（税別）</span>
           <br />
-          <span style={{ color: "#C9A84C", fontWeight: 700 }}>ベータ版：¥29,800（税別）</span>
+          <span style={{ color: "#C9A84C", fontWeight: 700 }}>ベータ版：¥29,800（税込）</span>
         </p>
         </div>
 
