@@ -637,9 +637,9 @@ function LandingPage({ onStart }) {
 
       {/* Hero */}
       <section style={{ maxWidth: 820, margin: "0 auto", padding: "120px 40px 100px", textAlign: "center" }}>
-        <div className="hero-anim d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "6px 16px", marginBottom: 40 }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#16A34A" }} />
-          <span style={{ fontSize: 12, color: "#3A3A3A", fontWeight: 500 }}>9割の企業が、まだ気づいていません。</span>
+        <div className="hero-eyebrow hero-anim d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "8px 18px", marginBottom: 40 }}>
+          <div className="hero-eyebrow-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#DC2626", flexShrink: 0 }} />
+          <span className="hero-eyebrow-text" style={{ fontSize: 15, color: "#DC2626", fontWeight: 700 }}>9割の企業が、まだ気づいていません。</span>
         </div>
         <h1 className="hero-anim d2" style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 800, color: "#0A0A0A", letterSpacing: "-2px", lineHeight: 1.1, marginBottom: 24 }}>
           なぜ、検索で見つかる会社が<br className="hero-h1-br" />

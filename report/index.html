@@ -20,6 +20,16 @@
       .hero-h1-br,
       .hero-statement-br { display: inline; }
     }
+    @keyframes heroEyebrowBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero-eyebrow {
+      animation: heroEyebrowBlink 1.4s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow { animation: none; }
+    }
   </style>
   <link rel="stylesheet" href="/assets/design-system.css">
   <link rel="stylesheet" href="../assets/hub-animations.css">
