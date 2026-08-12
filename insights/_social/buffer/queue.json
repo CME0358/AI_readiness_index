@@ -353,49 +353,50 @@
     {
       "slug": "readiness-baseline",
       "articleUrl": "https://readiness.coaretail.com/insights/readiness-baseline/",
-      "status": "editorial_hold",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
+      "status": "scheduled",
+      "articlePublishAt": "2026-08-13T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-13T10:30:00+09:00",
       "channels": {
         "linkedin": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/readiness-baseline.md",
-          "publishAt": null,
+          "publishAt": "2026-08-13T11:30:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
+          "updatedAt": "2026-08-12T07:28:10.840Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/readiness-baseline.md",
-          "publishAt": null,
+          "publishAt": "2026-08-13T11:45:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
+          "updatedAt": "2026-08-12T07:28:10.840Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/readiness-baseline.md",
-          "publishAt": null,
+          "publishAt": "2026-08-13T12:00:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
+          "updatedAt": "2026-08-12T07:28:10.840Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T02:52:21.443Z"
+      "updatedAt": "2026-08-12T07:28:10.809Z",
+      "unlockedAt": "2026-08-12T07:28:10.809Z"
     },
     {
       "slug": "entity-consistency",

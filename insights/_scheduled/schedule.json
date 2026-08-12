@@ -247,8 +247,8 @@
     },
     {
       "slug": "readiness-baseline",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-13T10:00:00+09:00",
+      "status": "scheduled",
       "title": "「準備できている」の最低ライン",
       "cardSummary": "発見・理解・信頼・実行の各段階に最低条件がある。チェックリスト項目ではなく「最低ライン」の判断基準",
       "llmsLabel": "「準備できている」の最低ライン",
@@ -256,7 +256,8 @@
       "seoTitle": "Agent Readinessの最低ラインとは？準備度の判断基準",
       "metaDescription": "「準備できている」の判断基準——発見・理解・信頼・実行の各段階に最低条件がある。チェックリストの項目数ではなく、Agent Readinessの最低ラインを判断する基準と、段階ごとの止まりどころを解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "Agent Readiness 最低ライン 判断基準"
+      "primarySearchIntent": "Agent Readiness 最低ライン 判断基準",
+      "unlockedAt": "2026-08-12T07:28:10.809Z"
     },
     {
       "slug": "entity-consistency",
