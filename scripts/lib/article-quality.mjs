@@ -1,6 +1,7 @@
 /**
  * Detect and remove v5 batch boilerplate duplication in Insight article HTML.
  */
+import { countRelatedInsightsBlocks, stripRelatedInsightsBlocks } from './insights-related-links.mjs';
 
 export const BOILERPLATE_TAIL =
   '定点観測と更新ログの運用が、Readiness改善の出発点になります。';
@@ -15,8 +16,6 @@ export const BOILERPLATE_H2_TITLES = new Set([
   '段階別の整備ポイント',
   '推薦プロセスの自己診断',
 ]);
-
-const KEEP_AFTER_SUMMARY = new Set(['関連するInsights', '関連する Insight', '関連Insights']);
 
 const BLOCK_RE =
   /(\s*<h2>([^<]*)<\/h2>(?:\s*<h3>[^<]*<\/h3>|\s*<p>[\s\S]*?<\/p>|\s*<ul>[\s\S]*?<\/ul>|\s*<blockquote>[\s\S]*?<\/blockquote>)*)+/g;
@@ -51,6 +50,16 @@ export function detectHtmlQualityIssues(html, { slug } = {}) {
     }
   }
 
+  const related = countRelatedInsightsBlocks(html);
+  if (related.sections > 1 || related.bare > 0) {
+    issues.push({
+      code: 'duplicate_related_insights',
+      sections: related.sections,
+      bare: related.bare,
+      h2: related.h2,
+    });
+  }
+
   return issues;
 }
 
@@ -65,6 +74,21 @@ function escapeRegExp(s) {
 export function sanitizeArticleBodyHtml(bodyHtml, { slug } = {}) {
   let html = bodyHtml;
   const removed = [];
+
+  const relatedCounts = countRelatedInsightsBlocks(html);
+  if (relatedCounts.sections > 1 || relatedCounts.bare > 0) {
+    html = stripRelatedInsightsBlocks(html);
+    removed.push('related_insights_blocks');
+  }
+
+  /** @type {string[]} */
+  const preservedRelated = [];
+  const preserveRelatedRe =
+    /\s*(?:<section class="related-insights">[\s\S]*?<\/section>|<h2>関連(?:する\s*)?Insights?<\/h2>\s*<ul>[\s\S]*?<\/ul>)\n?/gi;
+  html = html.replace(preserveRelatedRe, (block) => {
+    preservedRelated.push(block.trim());
+    return '\n';
+  });
 
   const tailRe = new RegExp(`\\s*<p>${escapeRegExp(BOILERPLATE_TAIL)}</p>\\n?`, 'g');
   const tailBefore = (html.match(tailRe) || []).length;
@@ -126,8 +150,8 @@ export function sanitizeArticleBodyHtml(bodyHtml, { slug } = {}) {
       continue;
     }
 
-    if (summarySeen && !KEEP_AFTER_SUMMARY.has(sec.title)) {
-      // Post-summary sections before CTA are usually v5 batch padding unless whitelisted.
+    if (summarySeen) {
+      // Post-summary sections before CTA are v5 batch padding; related links are re-injected at prepare time.
       removed.push(`post_summary:${sec.title}`);
       continue;
     }
@@ -135,7 +159,7 @@ export function sanitizeArticleBodyHtml(bodyHtml, { slug } = {}) {
     kept.push(sec.block);
   }
 
-  const rebuilt = `${preamble.trimEnd()}${kept.length ? `\n${kept.join('\n')}\n` : ''}${tailPart}`;
+  const rebuilt = `${preamble.trimEnd()}${kept.length ? `\n${kept.join('\n')}\n` : ''}${preservedRelated.length ? `\n${preservedRelated.join('\n')}\n` : ''}${tailPart}`;
   const changed = removed.length > 0 || rebuilt !== bodyHtml;
   return { html: rebuilt, changed, removed };
 }

@@ -403,7 +403,35 @@ export function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+const RELATED_H2_TITLE_RE = '関連(?:する\\s*)?Insights?';
 const RELATED_SECTION_RE = /\s*<section class="related-insights">[\s\S]*?<\/section>\n?/g;
+const RELATED_BARE_BLOCK_RE = new RegExp(
+  `\\s*<h2>${RELATED_H2_TITLE_RE}<\\/h2>\\s*<ul>[\\s\\S]*?<\\/ul>\\n?`,
+  'gi',
+);
+const ORPHAN_RELATED_SECTION_RE =
+  /\s*<section class="related-insights">\s*(?:<\/section>\s*)?(?=\s*<div class="article-cta">)/g;
+
+/**
+ * Remove all related-insights blocks (section wrapper and legacy bare h2+ul duplicates).
+ * @param {string} html
+ */
+export function stripRelatedInsightsBlocks(html) {
+  let out = html.replace(RELATED_SECTION_RE, '');
+  out = out.replace(RELATED_BARE_BLOCK_RE, '');
+  out = out.replace(ORPHAN_RELATED_SECTION_RE, '');
+  return out;
+}
+
+export function countRelatedInsightsBlocks(html) {
+  const sections = (html.match(/<section class="related-insights">/g) || []).length;
+  const h2 = (html.match(new RegExp(`<h2>${RELATED_H2_TITLE_RE}<\\/h2>`, 'gi')) || []).length;
+  const withoutSections = html.replace(RELATED_SECTION_RE, '');
+  const bare = (
+    withoutSections.match(new RegExp(`<h2>${RELATED_H2_TITLE_RE}<\\/h2>`, 'gi')) || []
+  ).length;
+  return { sections, h2, bare, total: sections + bare };
+}
 
 export function ensureRelatedInsightsCss(html) {
   if (html.includes('.related-insights')) return html;
@@ -431,7 +459,16 @@ export function applyInternalLinksToHtml(html, slug, context = {}) {
 
   const related = selectRelatedInsights(slug, context);
   const sectionHtml = buildRelatedInsightsSectionHtml(related);
-  let out = ensureRelatedInsightsCss(html.replace(RELATED_SECTION_RE, ''));
+  const counts = countRelatedInsightsBlocks(html);
+  const existing = extractRelatedInsightLinks(html);
+  const sameLinks =
+    related.length === existing.length &&
+    related.every((r, i) => existing[i]?.slug === r.slug);
+  if (sameLinks && counts.sections === 1 && counts.bare === 0 && sectionHtml) {
+    return { html, changed: false, related };
+  }
+
+  let out = ensureRelatedInsightsCss(stripRelatedInsightsBlocks(html));
 
   if (sectionHtml) {
     out = out.replace(marker, `${sectionHtml}\n\n      ${marker}`);

@@ -10,6 +10,8 @@ import {
   validateInternalLinks,
   applyInternalLinksToHtml,
   buildRelatedInsightsSectionHtml,
+  stripRelatedInsightsBlocks,
+  countRelatedInsightsBlocks,
 } from '../lib/insights-related-links.mjs';
 
 test('protected ABIS slugs are excluded from candidates', () => {
@@ -73,4 +75,28 @@ test('validateInternalLinks catches self and protected targets', () => {
   const badSelf = `<section class="related-insights"><ul><li><a href="/insights/act/">x</a></ul></section><div class="article-cta"><a href="/framework/"></a><a href="/research/"></a><a href="/report/"></a></div>`;
   const errs = validateInternalLinks(badSelf, 'act', { mode: 'published' });
   assert.ok(errs.some((e) => e.includes('self-link') || e.includes('unavailable')));
+});
+
+test('stripRelatedInsightsBlocks removes section and legacy bare h2+ul duplicates', () => {
+  const html = `<p>Body</p>
+<h2>関連Insights</h2><ul><li><a href="/insights/a/">A</a></li></ul>
+<h2>関連Insights</h2><ul><li><a href="/insights/a/">A</a></li></ul>
+<section class="related-insights"><h2>関連Insights</h2><ul><li><a href="/insights/a/">A</a></li></ul></section>
+<div class="article-cta"></div>`;
+  const out = stripRelatedInsightsBlocks(html);
+  assert.equal(countRelatedInsightsBlocks(out).total, 0);
+});
+
+test('applyInternalLinksToHtml is idempotent and leaves a single related section', () => {
+  const html = `<div class="article-container"><p>Body</p>
+<h2>関連Insights</h2><ul><li><a href="/insights/schema/">Schema</a></li></ul>
+<h2>関連Insights</h2><ul><li><a href="/insights/schema/">Schema</a></li></ul>
+<div class="article-cta"><a href="/framework/">Framework</a><a href="/research/">Research</a><a href="/report/">ARI</a></div></div>`;
+  const first = applyInternalLinksToHtml(html, 'llms-txt', { mode: 'published' });
+  const second = applyInternalLinksToHtml(first.html, 'llms-txt', { mode: 'published' });
+  const counts = countRelatedInsightsBlocks(second.html);
+  assert.equal(counts.sections, 1);
+  assert.equal(counts.bare, 0);
+  assert.ok(first.changed);
+  assert.equal(second.changed, false);
 });
