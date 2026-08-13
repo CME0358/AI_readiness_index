@@ -131,13 +131,13 @@
       "linkedinPublishAt": "2026-08-13T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/readiness-baseline/",
       "contentFile": "insights/_social/linkedin/posts/readiness-baseline.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a7d1d18e37a269a258d2752",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-12T07:28:10.809Z"
+      "updatedAt": "2026-08-13T01:25:45.056Z"
     },
     {
       "id": "ARI-LI-008",

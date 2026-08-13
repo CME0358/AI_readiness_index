@@ -152,7 +152,34 @@
       "publishAt": "2026-08-12T12:00:00+09:00",
       "dueAtUtc": "2026-08-12T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-13T01:25:43.811Z",
+      "slug": "readiness-baseline",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a7d1d18e37a269a258d2752",
+      "publishAt": "2026-08-13T11:30:00+09:00",
+      "dueAtUtc": "2026-08-13T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-13T01:25:43.811Z",
+      "slug": "readiness-baseline",
+      "channel": "facebook",
+      "bufferUpdateId": "6a7d1d18f1e3a603752a3765",
+      "publishAt": "2026-08-13T11:45:00+09:00",
+      "dueAtUtc": "2026-08-13T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-13T01:25:43.811Z",
+      "slug": "readiness-baseline",
+      "channel": "x",
+      "bufferUpdateId": "6a7d1d18132b3127a831a3e9",
+      "publishAt": "2026-08-13T12:00:00+09:00",
+      "dueAtUtc": "2026-08-13T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-12T01:02:38.764Z"
+  "updatedAt": "2026-08-13T01:25:45.055Z"
 }

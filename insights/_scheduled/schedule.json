@@ -260,7 +260,9 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "Agent Readiness 最低ライン 判断基準",
       "unlockedAt": "2026-08-12T07:28:10.809Z",
-      "publishedAt": "2026-08-13T01:23:41.363Z"
+      "publishedAt": "2026-08-13T01:23:41.363Z",
+      "productionVerifiedAt": "2026-08-13T01:25:44.221Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "entity-consistency",

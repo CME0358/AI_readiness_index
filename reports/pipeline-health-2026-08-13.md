@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-13
 
-> Reconciliation run: 2026-08-13T01:23:41.363Z
+> Reconciliation run: 2026-08-13T01:25:43.811Z
 
 ## TODAY
 
-slug: files
+slug: readiness-baseline
 
 ## WEB
 scheduled: 10:00
@@ -12,9 +12,14 @@ published: true
 productionVerified: true
 
 ## BUFFER
-(no buffer entry)
+linkedin: queued
+facebook: queued
+x: queued
 
 ## PIPELINE
-status: RECOVERING
-publish: readiness-baseline
+status: COMPLETE
 verify: ok (1 attempts)
+buffer actions:
+- linkedin: queued
+- facebook: queued
+- x: queued
