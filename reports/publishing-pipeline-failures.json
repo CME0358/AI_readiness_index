@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T05:23:08.513Z",
+  "updatedAt": "2026-08-13T05:27:32.934Z",
   "failures": {},
   "lastSuccess": {
-    "slug": "cloudflare-aeo",
+    "slug": "three-pillars-ops",
     "stage": "published_verified",
-    "at": "2026-08-13T05:23:08.513Z"
+    "at": "2026-08-13T05:27:32.934Z"
   }
 }

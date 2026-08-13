@@ -208,7 +208,9 @@
       "metaDescription": "Visibility・Authority・Actionabilityを部門横断で運用する方法。定義の理解から情報オーナーシップ・更新ルールまで、Agent Readinessを現場に落とす設計を解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "三柱フレームワークの運用設計",
-      "publishedAt": "2026-08-10T01:36:54.746Z"
+      "publishedAt": "2026-08-10T01:36:54.746Z",
+      "productionVerifiedAt": "2026-08-13T05:27:32.933Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "cloudflare-aeo",
