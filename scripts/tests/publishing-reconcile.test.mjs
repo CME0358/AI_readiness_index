@@ -386,6 +386,14 @@ test('verification pending when published without productionVerifiedAt', () => {
   assert.equal(listVerificationPending([article]).length, 1);
 });
 
+test('listVerificationPending prefers most recently published article', () => {
+  const pending = listVerificationPending([
+    { slug: 'legacy', status: EDITORIAL_STATUSES.PUBLISHED, publishedAt: '2026-07-13T04:31:54.440Z' },
+    { slug: 'today', status: EDITORIAL_STATUSES.PUBLISHED, publishedAt: '2026-08-13T01:23:41.363Z' },
+  ]);
+  assert.equal(pending[0].slug, 'today');
+});
+
 test('bumpBufferTimesForArticle bumps past channel publishAt', () => {
   const post = {
     channels: {

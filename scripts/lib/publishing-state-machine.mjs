@@ -128,9 +128,15 @@ export function listPublishDueArticles(articles, now = new Date()) {
 }
 
 export function listVerificationPending(articles) {
-  return articles.filter(
-    (a) =>
-      (a.status === EDITORIAL_STATUSES.PUBLISHED || isArticlePublishedOnDisk(a.slug)) &&
-      !isProductionVerified(a)
-  );
+  return articles
+    .filter(
+      (a) =>
+        (a.status === EDITORIAL_STATUSES.PUBLISHED || isArticlePublishedOnDisk(a.slug)) &&
+        !isProductionVerified(a)
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt || b.publishAt || 0).getTime() -
+        new Date(a.publishedAt || a.publishAt || 0).getTime()
+    );
 }

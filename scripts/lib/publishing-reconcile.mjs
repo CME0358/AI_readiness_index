@@ -187,9 +187,12 @@ export async function reconcilePublishingPipeline({
   const schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
   const queue = readJsonFile(PATHS.bufferQueue, { posts: [] });
 
-  // Determine focus slug: force > publish_due > verification pending > buffer eligible
+  const newlyPublished = summary.publish?.published || [];
+
+  // Determine focus slug: force > just-published > publish_due > verification pending (newest) > buffer eligible
   let focusSlug =
     forceSlug ||
+    newlyPublished[newlyPublished.length - 1] ||
     listPublishDueArticles(schedule.articles, now)[0]?.slug ||
     listVerificationPending(schedule.articles)[0]?.slug ||
     null;
