@@ -272,8 +272,8 @@
     },
     {
       "slug": "entity-consistency",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-14T10:00:00+09:00",
+      "status": "scheduled",
       "title": "企業情報の一貫性がAIの理解を決める",
       "cardSummary": "エンティティ解決の失敗はVisibility/Authority両方を損なう。矛盾の結果論ではなくエンティティ一貫性の設計",
       "llmsLabel": "企業情報の一貫性がAIの理解を決める",
@@ -281,7 +281,8 @@
       "seoTitle": "企業情報の一貫性がAI理解を左右する理由",
       "metaDescription": "名称・所在地・提供内容が場所ごとに異なるとAIのエンティティ解決が失敗する。VisibilityとAuthorityを同時に損なう一貫性設計をAgent Readinessの視点で解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "企業情報 一貫性 AI エンティティ"
+      "primarySearchIntent": "企業情報 一貫性 AI エンティティ",
+      "unlockedAt": "2026-08-13T07:38:12.779Z"
     },
     {
       "slug": "faq-for-agents",
