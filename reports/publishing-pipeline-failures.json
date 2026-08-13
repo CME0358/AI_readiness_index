@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T01:25:45.057Z",
+  "updatedAt": "2026-08-13T03:42:27.862Z",
   "failures": {},
   "lastSuccess": {
-    "slug": "readiness-baseline",
-    "stage": "buffer_queued",
-    "at": "2026-08-13T01:25:45.057Z"
+    "slug": "ari-vs-geo-seo",
+    "stage": "published_verified",
+    "at": "2026-08-13T03:42:27.862Z"
   }
 }

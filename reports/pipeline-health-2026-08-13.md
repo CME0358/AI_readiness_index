@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-13
 
-> Reconciliation run: 2026-08-13T01:25:43.811Z
+> Reconciliation run: 2026-08-13T03:42:27.463Z
 
 ## TODAY
 
-slug: readiness-baseline
+slug: ari-vs-geo-seo
 
 ## WEB
 scheduled: 10:00
@@ -20,6 +20,6 @@ x: queued
 status: COMPLETE
 verify: ok (1 attempts)
 buffer actions:
-- linkedin: queued
-- facebook: queued
-- x: queued
+- linkedin: skip (already_queued)
+- facebook: skip (already_queued)
+- x: skip (already_queued)
