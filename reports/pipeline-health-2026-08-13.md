@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-13
 
-> Reconciliation run: 2026-08-13T03:42:27.463Z
+> Reconciliation run: 2026-08-13T05:23:08.048Z
 
 ## TODAY
 
-slug: ari-vs-geo-seo
+slug: cloudflare-aeo
 
 ## WEB
 scheduled: 10:00

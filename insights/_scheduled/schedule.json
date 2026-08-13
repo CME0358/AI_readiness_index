@@ -228,7 +228,9 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "Cloudflare AEO AI検索",
       "freshnessClass": "time_sensitive",
-      "publishedAt": "2026-08-11T01:00:00.000Z"
+      "publishedAt": "2026-08-11T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-13T05:23:08.512Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "ari-vs-geo-seo",

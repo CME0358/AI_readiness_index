@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T03:42:27.862Z",
+  "updatedAt": "2026-08-13T05:23:08.513Z",
   "failures": {},
   "lastSuccess": {
-    "slug": "ari-vs-geo-seo",
+    "slug": "cloudflare-aeo",
     "stage": "published_verified",
-    "at": "2026-08-13T03:42:27.862Z"
+    "at": "2026-08-13T05:23:08.513Z"
   }
 }
