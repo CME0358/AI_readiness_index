@@ -95,12 +95,22 @@ test('vercel.json defines weekday publish cron', () => {
   assert.equal(cron.schedule, '0 1 * * 1-5');
 });
 
-test('publish workflow includes 01:00 UTC weekday cron as primary GHA publish', () => {
+test('reconcile workflow includes primary weekday publish crons', () => {
+  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+  const wf = fs.readFileSync(
+    path.join(root, '.github/workflows/reconcile-publishing-pipeline.yml'),
+    'utf8'
+  );
+  assert.match(wf, /cron: '0,15,30,45 1-3 \* \* 1-5'/);
+  assert.match(wf, /cron: '0 4 \* \* 1-5'/);
+});
+
+test('deprecated publish workflow retained as fallback', () => {
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
   const wf = fs.readFileSync(
     path.join(root, '.github/workflows/publish-scheduled-insights.yml'),
     'utf8'
   );
-  assert.match(wf, /cron: '0 1 \* \* 1-5'/);
+  assert.match(wf, /deprecated fallback/);
   assert.match(wf, /cron: '0 4 \* \* 1-5'/);
 });

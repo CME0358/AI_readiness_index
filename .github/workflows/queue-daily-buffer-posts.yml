@@ -1,4 +1,4 @@
-name: Queue daily Buffer posts (multi-channel)
+name: Queue daily Buffer posts (deprecated fallback)
 
 on:
   schedule:

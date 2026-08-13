@@ -1,10 +1,13 @@
-name: Publish scheduled Insights
+# DEPRECATED — use reconcile-publishing-pipeline.yml (primary operational worker).
+# Kept as manual fallback / emergency publish-only dispatch.
+#
+# Publish scheduled Insights
+
+name: Publish scheduled Insights (deprecated fallback)
 
 on:
   schedule:
-    # Primary: 01:00 UTC = 10:00 JST — direct publish (Vercel Cron dispatch is best-effort).
-    - cron: '0 1 * * 1-5'
-    # Fallback if 01:00 run missed or publishAt drifted.
+    # Fallback crons — primary path is reconcile-publishing-pipeline.yml
     - cron: '0 4 * * 1-5'
     - cron: '30 5 * * 1-5'
   workflow_dispatch:

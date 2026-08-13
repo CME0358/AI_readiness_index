@@ -1,0 +1,93 @@
+name: Reconcile publishing pipeline
+
+on:
+  schedule:
+    # Weekdays 10:00–12:45 JST (01:00–03:45 UTC) every 15 min
+    - cron: '0,15,30,45 1-3 * * 1-5'
+    # Weekday 13:00 JST (04:00 UTC)
+    - cron: '0 4 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      force_slug:
+        description: 'Optional: focus one slug'
+        required: false
+        default: ''
+      now:
+        description: 'Optional: simulate now (full ISO8601 JST offset)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (true/false)'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconcile-publishing-pipeline
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Prepare scheduled HTML (quality gate)
+        run: node scripts/prepare-scheduled-article.mjs --scheduled
+
+      - name: Reconcile publish → verify → buffer
+        id: reconcile
+        env:
+          FORCE_SLUG: ${{ github.event.inputs.force_slug }}
+          NOW: ${{ github.event.inputs.now }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
+          BUFFER_CHANNEL_ID_LINKEDIN: ${{ secrets.BUFFER_CHANNEL_ID_LINKEDIN }}
+          BUFFER_CHANNEL_ID_FACEBOOK: ${{ secrets.BUFFER_CHANNEL_ID_FACEBOOK }}
+          BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
+          BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+        run: |
+          set -euo pipefail
+          if [ -n "${NOW:-}" ] && [[ ! "${NOW}" =~ T ]]; then
+            echo "NOW must be full ISO8601 (e.g. 2026-08-13T10:30:00+09:00)"
+            exit 1
+          fi
+          CMD=(node scripts/reconcile-publishing-pipeline.mjs)
+          if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
+          if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
+          if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
+          "${CMD[@]}" | tee /tmp/reconcile.log
+          if grep -q 'UPDATED=1' /tmp/reconcile.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+          SLUG=$(grep '^ACTIVE_SLUG=' /tmp/reconcile.log | tail -1 | cut -d= -f2-)
+          echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push reconciliation state
+        if: steps.reconcile.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "$(cat <<'EOF'
+          Reconcile publishing pipeline (publish/verify/buffer)
+
+          Automated operational recovery worker.
+          EOF
+          )" \
+            insights/ sitemap.xml llms.txt insights/_scheduled/ insights/_social/ reports/
+
+      - name: Post-deploy IndexNow
+        if: steps.reconcile.outputs.changed == 'true' && steps.reconcile.outputs.slug != ''
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          set -euo pipefail
+          node scripts/submit-indexnow-post-deploy.mjs --slugs "${{ steps.reconcile.outputs.slug }}"

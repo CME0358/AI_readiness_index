@@ -6,10 +6,12 @@
  * Usage:
  *   node scripts/queue-daily-buffer-posts.mjs
  *   node scripts/queue-daily-buffer-posts.mjs --dry-run
+ *   node scripts/queue-daily-buffer-posts.mjs --verified-only
  *   node scripts/queue-daily-buffer-posts.mjs --channels facebook,x
  *   node scripts/queue-daily-buffer-posts.mjs --force-slug ai-search-shift --channels facebook,x
  *   node scripts/queue-daily-buffer-posts.mjs --now 2026-08-04T12:00:00+09:00
  */
+import fs from 'node:fs';
 import { PATHS } from './lib/insights-v2-paths.mjs';
 import { toJstDateString, isWeekday } from './lib/business-days.mjs';
 import {
@@ -22,12 +24,14 @@ import { CHANNEL_KEYS } from './lib/social-channels.mjs';
 import {
   readJsonFile,
   pickTodayArticle,
+  pickBufferEligibleArticle,
   processArticleChannels,
   parseChannelsArg,
 } from './lib/buffer-dispatcher.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const waitDeploy = process.argv.includes('--wait-deploy');
+const verifiedOnly = process.argv.includes('--verified-only');
 const forceSlug = (() => {
   const i = process.argv.indexOf('--force-slug');
   return i >= 0 ? process.argv[i + 1] : null;
@@ -67,7 +71,16 @@ async function main() {
     process.exit(1);
   }
 
-  const pick = pickTodayArticle(queue, todayYmd, { forceSlug, now });
+  const pick = verifiedOnly
+    ? (() => {
+        const schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
+        const article = pickBufferEligibleArticle(queue, { forceSlug, schedule });
+        if (forceSlug && !article) {
+          return { error: `No verified buffer-eligible article for ${forceSlug}`, exitCode: 1 };
+        }
+        return { article };
+      })()
+    : pickTodayArticle(queue, todayYmd, { forceSlug, now });
   if (pick.error) {
     console.error(pick.error);
     process.exit(pick.exitCode);

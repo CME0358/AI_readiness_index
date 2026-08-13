@@ -96,6 +96,43 @@ export function isChannelEligible(channel, { requestedChannels }) {
   return transferable.has(channel.status);
 }
 
+/**
+ * Verification-based Buffer pick — no fixed transfer-day clock dependency.
+ * Eligible when slug is production-verified (schedule) and has pending channels.
+ *
+ * @param {object} queue buffer queue.json
+ * @param {{ forceSlug?: string|null, schedule?: object|null }} opts
+ */
+export function pickBufferEligibleArticle(queue, { forceSlug = null, schedule = null } = {}) {
+  if (!queue?.posts?.length) return null;
+
+  const verifiedSlugs = new Set(
+    (schedule?.articles || [])
+      .filter((a) => a.productionVerifiedAt)
+      .map((a) => a.slug)
+  );
+
+  const candidates = queue.posts.filter((p) => {
+    if (forceSlug) return p.slug === forceSlug;
+    if (p.status === EDITORIAL_STATUSES.HOLD) return false;
+    if (!verifiedSlugs.has(p.slug)) return false;
+
+    const pending = CHANNEL_KEYS.some((ch) => {
+      const c = p.channels?.[ch];
+      return c && isChannelEligible(c, { requestedChannels: CHANNEL_KEYS });
+    });
+    return pending;
+  });
+
+  if (!candidates.length) return null;
+
+  return candidates.sort((a, b) => {
+    const ta = a.articlePublishAt ? new Date(a.articlePublishAt).getTime() : 0;
+    const tb = b.articlePublishAt ? new Date(b.articlePublishAt).getTime() : 0;
+    return ta - tb;
+  })[0];
+}
+
 export function pickTodayArticle(queue, todayYmd, { forceSlug = null, now = new Date() } = {}) {
   if (forceSlug) {
     const forced = queue.posts.find((p) => p.slug === forceSlug);
