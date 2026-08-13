@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [「準備できている」の最低ライン](https://readiness.coaretail.com/insights/readiness-baseline/): Insights Column（2026-08-13）
 - [SEO・GEO・ARIの役割分担を整理する](https://readiness.coaretail.com/insights/ari-vs-geo-seo/): Insights Column（2026-08-12）
 - [Cloudflare AEO — ranking→recommended](https://readiness.coaretail.com/insights/cloudflare-aeo/): Insights Column（2026-08-11）
 - [Visibility・Authority・Actionabilityを運用に落と](https://readiness.coaretail.com/insights/three-pillars-ops/): Insights Column（2026-08-10）

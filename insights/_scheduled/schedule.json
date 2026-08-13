@@ -13,7 +13,9 @@
       "title": "robots.txt・sitemap.xml・llms.txtの違い──AIは何を見ているのか",
       "cardSummary": "「AI対応ならllms.txtだけで十分」は誤解。3ファイルの役割の違いと、AIが企業全体を見ている理由を整理する。",
       "llmsLabel": "robots / sitemap / llms.txtの違い",
-      "publishedAt": "2026-07-13T04:31:54.440Z"
+      "publishedAt": "2026-07-13T04:31:54.440Z",
+      "productionVerifiedAt": "2026-08-13T01:23:41.683Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "schema",
@@ -248,7 +250,7 @@
     {
       "slug": "readiness-baseline",
       "publishAt": "2026-08-13T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "「準備できている」の最低ライン",
       "cardSummary": "発見・理解・信頼・実行の各段階に最低条件がある。チェックリスト項目ではなく「最低ライン」の判断基準",
       "llmsLabel": "「準備できている」の最低ライン",
@@ -257,7 +259,8 @@
       "metaDescription": "「準備できている」の判断基準——発見・理解・信頼・実行の各段階に最低条件がある。チェックリストの項目数ではなく、Agent Readinessの最低ラインを判断する基準と、段階ごとの止まりどころを解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "Agent Readiness 最低ライン 判断基準",
-      "unlockedAt": "2026-08-12T07:28:10.809Z"
+      "unlockedAt": "2026-08-12T07:28:10.809Z",
+      "publishedAt": "2026-08-13T01:23:41.363Z"
     },
     {
       "slug": "entity-consistency",
