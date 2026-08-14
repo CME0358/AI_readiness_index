@@ -182,7 +182,9 @@
       "llmsLabel": "引用されることと実行されることの差",
       "series": "v2",
       "unlockedAt": "2026-08-05T08:39:53.807Z",
-      "publishedAt": "2026-08-06T01:00:00.000Z"
+      "publishedAt": "2026-08-06T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-14T05:15:26.169Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "competitor-blind-spot",

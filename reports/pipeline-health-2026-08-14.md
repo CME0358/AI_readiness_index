@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-14
 
-> Reconciliation run: 2026-08-14T03:24:48.565Z
+> Reconciliation run: 2026-08-14T05:15:25.726Z
 
 ## TODAY
 
-slug: competitor-blind-spot
+slug: citation-vs-action
 
 ## WEB
 scheduled: 10:00
