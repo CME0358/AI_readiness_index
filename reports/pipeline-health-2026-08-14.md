@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-14
 
-> Reconciliation run: 2026-08-14T05:15:25.726Z
+> Reconciliation run: 2026-08-14T05:24:52.253Z
 
 ## TODAY
 
-slug: citation-vs-action
+slug: recommendation-logic
 
 ## WEB
 scheduled: 10:00
