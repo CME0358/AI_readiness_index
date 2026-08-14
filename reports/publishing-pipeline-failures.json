@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T01:39:02.846Z",
+  "updatedAt": "2026-08-14T03:24:48.979Z",
   "failures": {},
   "lastSuccess": {
-    "slug": "entity-consistency",
+    "slug": "competitor-blind-spot",
     "stage": "published_verified",
-    "at": "2026-08-14T01:39:02.846Z"
+    "at": "2026-08-14T03:24:48.979Z"
   }
 }

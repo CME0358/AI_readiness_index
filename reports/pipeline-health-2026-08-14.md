@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-14
 
-> Reconciliation run: 2026-08-14T01:39:02.383Z
+> Reconciliation run: 2026-08-14T03:24:48.565Z
 
 ## TODAY
 
-slug: entity-consistency
+slug: competitor-blind-spot
 
 ## WEB
 scheduled: 10:00
