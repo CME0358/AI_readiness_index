@@ -147,13 +147,13 @@
       "linkedinPublishAt": "2026-08-14T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/entity-consistency/",
       "contentFile": "insights/_social/linkedin/posts/entity-consistency.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a7e71850ccba845dfeb943c",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-13T07:38:12.779Z"
+      "updatedAt": "2026-08-14T01:38:14.307Z"
     },
     {
       "id": "ARI-LI-009",
