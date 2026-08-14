@@ -283,7 +283,9 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "企業情報 一貫性 AI エンティティ",
       "unlockedAt": "2026-08-13T07:38:12.779Z",
-      "publishedAt": "2026-08-14T01:37:49.309Z"
+      "publishedAt": "2026-08-14T01:37:49.309Z",
+      "productionVerifiedAt": "2026-08-14T01:39:02.845Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "faq-for-agents",

@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-13T05:27:32.934Z",
+  "updatedAt": "2026-08-14T01:39:02.846Z",
   "failures": {},
   "lastSuccess": {
-    "slug": "three-pillars-ops",
+    "slug": "entity-consistency",
     "stage": "published_verified",
-    "at": "2026-08-13T05:27:32.934Z"
+    "at": "2026-08-14T01:39:02.846Z"
   }
 }
