@@ -58,8 +58,9 @@ async function main() {
   if (summary.updated) console.log('UPDATED=1');
   else console.log('UPDATED=0');
 
-  const failed = summary.publish?.errors?.length || summary.verify?.some((v) => !v.ok);
-  process.exit(failed && !dryRun ? 1 : 0);
+  // Publish errors are fatal; verify failures are retryable on the next cron after git push + deploy.
+  const publishFailed = summary.publish?.errors?.length;
+  process.exit(publishFailed && !dryRun ? 1 : 0);
 }
 
 main().catch((err) => {
