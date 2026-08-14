@@ -602,126 +602,149 @@ const SITE_FOOTER_LINKS = [
   { href: "https://www.coaretail.com", label: "Coa Retail", external: true },
 ];
 
+function CtaBtn({ onClick, variant = "ink", children }) {
+  return (
+    <button type="button" className={`lp-cta lp-cta--${variant}`} onClick={onClick}>
+      {children}
+      <span className="lp-cta__icon" aria-hidden="true">→</span>
+    </button>
+  );
+}
+
 function LandingPage({ onStart }) {
   const [legal, setLegal] = useState(null);
-  const features = [
-    { title: "AI Recognition", desc: "ChatGPT・Gemini・Claude・Perplexityが御社をどう認識しているかを数値化" },
-    { title: "Comparison & Recommendation", desc: "比較候補として扱える情報と、AIが推薦理由を形成できる状態を評価" },
-    { title: "Actionability", desc: "推薦後に予約・問い合わせ・購入などの行動につながる導線を確認" },
-    { title: "Improvement Priority", desc: "ROI順に整理された優先アクションで、次に直すべき順序を明確化" },
-  ];
   const faqs = [
-    { q: "何が分かるレポートですか？", a: "自社がAIにどう認識され、どこで比較・推薦・行動（予約・問い合わせ等）につながっていないかを把握し、改善優先順位を明確にする Decision Product です。技術シグナル（構造化データ等）はその一部として確認します。" },
-    { q: "どのくらいで結果が届きますか？", a: "URLを入力してから約3〜5分で診断レポートが生成されます。" },
-    { q: "何を準備すればいいですか？", a: "会社名、公式サイトのURL、業種だけあればOKです。" },
-    { q: "レポートはPDFで保存できますか？", a: "はい。診断結果ページからワンクリックでPDFとしてダウンロードできます。" },
-    { q: "AIはどのように推薦率を測定しますか？", a: "主要AIへの実際のクエリ送信、構造化データ解析、引用元分析など複数の手法を組み合わせて測定します。" },
+    { q: "広告やSEOは続けています。それでも必要ですか？", a: "必要です。広告とSEOは人が検索したあとに効きます。いま増えているのは、検索せずAIに聞く行動です。レポートは、その経路で御社が比較・推薦・問い合わせまで届くかを確認します。" },
+    { q: "何が分かるレポートですか？", a: "ChatGPT・Gemini・Claude・Perplexityが御社をどう認識しているか、比較候補に入るか、推薦理由を作れるか、予約や問い合わせまでつながるかを23項目で評価し、直す順番を示します。" },
+    { q: "業種は限定されますか？", a: "限定しません。小売、飲食、美容、不動産、教育、医療、宿泊など、集客導線があるサービス全般が対象です。会社名、公式サイトURL、業種があれば診断できます。" },
+    { q: "どのくらいで結果が届きますか？", a: "入力から約3分で診断レポートが生成されます。結果ページからPDFをダウンロードできます。" },
+    { q: "¥29,800で何が手元に残りますか？", a: "ARI診断レポート本体、23項目スコア、4大AIの認識分析、改善優先順位、改善ロードマップ、PDF、および同梱のARI Research Report 2026です。" },
+    { q: "成果は保証されますか？", a: "スコアや改善提案は解析時点の推計です。特定の検索順位、AI出力、集客件数、売上を保証するものではありません。" },
   ];
 
   return (
-    <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", background: "#FFFFFF", minHeight: "100vh" }}>
-      {/* Nav */}
-      <nav style={{ borderBottom: "1px solid #E8E8E8", padding: "0 40px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", zIndex: 100 }}>
-        <a href="/" style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.3px", textDecoration: "none" }}>
-          Agent Readiness <span style={{ color: "#9B9B9B", fontWeight: 400 }}>Index™</span>
+    <div className="lp">
+      <nav className="lp-nav" aria-label="サイト">
+        <a href="/" className="lp-nav__brand">
+          Agent Readiness <span>Index™</span>
         </a>
-        <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
-          {SITE_NAV_LINKS.map(link => (
-            <a key={link.href} href={link.href} style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}>{link.label}</a>
+        <div className="lp-nav__links">
+          {SITE_NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href}>{link.label}</a>
           ))}
-          <button onClick={onStart} style={{ background: "#0A0A0A", color: "#fff", border: "none", padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-            診断レポート →
-          </button>
         </div>
+        <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
       </nav>
 
-      {/* Hero */}
-      <section style={{ maxWidth: 820, margin: "0 auto", padding: "120px 40px 100px", textAlign: "center" }}>
-        <div className="hero-eyebrow hero-anim d1" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#F5F5F5", border: "1px solid #E5E5E5", borderRadius: 100, padding: "8px 18px", marginBottom: 40 }}>
-          <div className="hero-eyebrow-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#DC2626", flexShrink: 0 }} />
-          <span className="hero-eyebrow-text" style={{ fontSize: 15, color: "#DC2626", fontWeight: 700 }}>9割の企業が、まだ気づいていません。</span>
+      <section className="lp-hero">
+        <div>
+          <h1>集客の入口が、検索からAIに移っています</h1>
+          <p className="lp-hero__sub">
+            広告費を足しても伸びないとき、原因はクリエイティブではなく、AIが御社を候補に上げていないことです。公式サイトURLから、推薦されない理由と直す順をレポートにします。
+          </p>
+          <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
+          <p className="lp-hero__meta">約3分で診断完了 ・ PDFダウンロード ・ 1社1回</p>
         </div>
-        <h1 className="hero-h1 hero-anim d2" style={{ fontWeight: 800, color: "#0A0A0A", lineHeight: 1.1, marginBottom: 24 }}>
-          <span className="hero-h1-line">なぜ、検索で見つかる会社が</span>
-          <span className="hero-h1-line">AIには「選ばれない」のか？</span>
-        </h1>
-        <p className="hero-strong-statement hero-anim d3" style={{ fontSize: "clamp(20px, 2.8vw, 24px)", fontWeight: 700, color: "#1A1A1A", lineHeight: 1.45, maxWidth: 620, margin: "0 auto 24px", letterSpacing: "-0.4px" }}>
-          検索で上位に出ることと、<br className="hero-statement-br" />
-          AIに選ばれることは別です。
-        </p>
-        <p className="hero-anim d4" style={{ fontSize: 18, color: "#6B6B6B", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 40px", fontWeight: 400 }}>
-          <a href="/framework/" style={{ color: "#0A0A0A", fontWeight: 500 }}>Agent Readiness Framework</a>に基づき、自社がAIにどう認識され、どこで比較・推薦・行動から外れているのかを可視化します。
-        </p>
-        <div className="hero-anim d5">
-        <button onClick={onStart} style={{
-          background: "#0A0A0A", color: "#fff", border: "none",
-          padding: "16px 40px", borderRadius: 12, fontSize: 16, fontWeight: 700,
-          cursor: "pointer", letterSpacing: "-0.3px",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
-          transition: "transform 0.15s ease, box-shadow 0.15s ease",
-        }}
-          onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 8px 32px rgba(0,0,0,0.2)"; }}
-          onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 24px rgba(0,0,0,0.15)"; }}>
-          AIに選ばれない理由を分析する →
-        </button>
-        <p style={{ marginTop: 16, fontSize: 13, color: "#9B9B9B" }}>
-          所要時間：約3分 ・ 診断料金：<span style={{ textDecoration: "line-through" }}>¥49,800（税別）</span>
-          <br />
-          <span style={{ color: "#C9A84C", fontWeight: 700 }}>ベータ版：¥29,800（税込）</span>
-        </p>
+        <div className="lp-offer">
+          <div className="lp-offer__inner">
+            <div className="lp-offer__kicker">ARI診断 + レポートダウンロード</div>
+            <div className="lp-offer__price">¥29,800<small>税別</small></div>
+            <div className="lp-offer__was">通常 ¥49,800</div>
+            <ul>
+              {["12セクション / 23項目の診断レポート", "ChatGPT・Gemini・Claude・Perplexityの認識分析", "改善優先順位とロードマップ", "PDFダウンロード", "ARI Research Report 2026 同梱"].map((item) => (
+                <li key={item}><span>✓</span>{item}</li>
+              ))}
+            </ul>
+            <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
+          </div>
         </div>
-
-        {/* メディア掲載カルーセル（index.html より移植） */}
-        <Reveal delay={0.1}>
-        <MediaCoverage />
-        </Reveal>
-
-        {/* Stats */}
-        <Reveal delay={0.15}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#E8E8E8", border: "1px solid #E8E8E8", borderRadius: 12, marginTop: 80, overflow: "hidden" }}>
-          {[["最大5.5倍", "業種間AI推薦率格差"], ["23項目", "評価チェックポイント"], ["3分", "レポート生成時間"]].map(([n, l]) => (
-            <div key={l} style={{ background: "#fff", padding: "32px 24px", textAlign: "center" }}>
-              <div style={{ fontSize: 32, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px" }}>{n}</div>
-              <div style={{ fontSize: 12, color: "#9B9B9B", marginTop: 4 }}>{l}</div>
-            </div>
-          ))}
-        </div>
-        </Reveal>
       </section>
 
-      {/* Features */}
-      <section id="features" style={{ maxWidth: 960, margin: "0 auto", padding: "80px 40px" }}>
-        <Reveal>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>特徴</span>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>経営判断に使える<br />Decision Report</h2>
-          <p style={{ fontSize: 16, color: "#6B6B6B", maxWidth: 560, margin: "16px auto 0", lineHeight: 1.7 }}>
-            自社のAI Recognition・Comparison Readiness・Recommendation Readiness・Actionabilityを把握し、次に直すべき Improvement Priority を明確にします。
-          </p>
-        </div>
-        </Reveal>
+      <div className="lp-strip">
+        <MediaCoverage />
         <Reveal delay={0.08}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, background: "#E8E8E8", borderRadius: 12, overflow: "hidden" }}>
-          {features.map((f) => (
-            <div key={f.title} style={{ background: "#fff", padding: "40px 36px" }}>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: "#0A0A0A", marginBottom: 10, letterSpacing: "-0.3px" }}>{f.title}</h3>
-              <p style={{ fontSize: 14, color: "#6B6B6B", lineHeight: 1.7 }}>{f.desc}</p>
+          <div className="lp-stats" style={{ marginTop: 36 }}>
+            <div className="lp-stats__item">
+              <div className="lp-stats__n">最大5.5倍</div>
+              <div className="lp-stats__l">業種間AI推薦率格差</div>
             </div>
-          ))}
-        </div>
+            <div className="lp-stats__rule" />
+            <div className="lp-stats__item">
+              <div className="lp-stats__n">23項目</div>
+              <div className="lp-stats__l">評価チェックポイント</div>
+            </div>
+            <div className="lp-stats__rule" />
+            <div className="lp-stats__item">
+              <div className="lp-stats__n">約3分</div>
+              <div className="lp-stats__l">レポート生成時間</div>
+            </div>
+          </div>
         </Reveal>
+      </div>
+
+      <section className="lp-section" id="problem">
+        <h2>集客が止まっている会社で、いま起きていること</h2>
+        <p className="lp-section__lead">
+          見込み客は「どこがよいか」を人に聞かなくなっています。AIに聞いて、比較して、そのまま予約や問い合わせに進みます。そこに載っていない会社は、広告を増やしても候補に入りません。
+        </p>
+        <div className="lp-pains">
+          <article>
+            <strong>認知</strong>
+            <div>
+              <h3>検索では見つかる。AIでは名前が出ない</h3>
+              <p>Googleで上位でも、ChatGPTやGeminiの回答に御社が入らなければ、比較の土俵に立てません。</p>
+            </div>
+          </article>
+          <article>
+            <strong>比較</strong>
+            <div>
+              <h3>候補に入っても、選ぶ理由が書けない</h3>
+              <p>料金、対象、実績、予約方法がAIに読めないと、推薦文は競合のほうに流れます。</p>
+            </div>
+          </article>
+          <article>
+            <strong>行動</strong>
+            <div>
+              <h3>推薦されても、予約まで届かない</h3>
+              <p>問い合わせフォームや予約導線が弱いと、AI経由の関心は途中で切れます。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="lp-section" id="features">
+        <h2>経営が次に打つ手を決めるための診断です</h2>
+        <p className="lp-section__lead">
+          <a href="/framework/" style={{ color: "#0d1b3e", fontWeight: 600 }}>Agent Readiness Framework</a>
+          に基づき、認識・比較・推薦・行動のどこで落ちているかを数値化します。
+        </p>
+        <div className="lp-stack">
+          <div className="lp-stack__hero">
+            <h3>直す順番が分かる</h3>
+            <p>23項目のスコアから、影響の大きい改善を上から並べます。全部直す必要はありません。先に効く3つが分かります。</p>
+          </div>
+          <div className="lp-stack__side">
+            <div className="lp-stack__cell">
+              <h3>4大AIの認識差</h3>
+              <p>同じ会社でも、モデルごとに認識と推薦の強さが違います。その差を並べます。</p>
+            </div>
+            <div className="lp-stack__cell">
+              <h3>予約・問い合わせまで</h3>
+              <p>推薦のあと、実際に行動できる導線があるかを Actionability として確認します。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <VideoCarousel />
 
-      {/* Sample Preview */}
-      <section style={{ background: "#F8F8F8", padding: "80px 40px" }}>
+      <section style={{ padding: "80px 24px" }}>
         <Reveal>
-        <div style={{ maxWidth: 960, margin: "0 auto", textAlign: "center" }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>サンプル</span>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 12 }}>こんなレポートが届きます</h2>
-          <div style={{ display: "inline-block", background: "#FFFBEB", border: "1px solid #FDE68A", color: "#92400E", fontSize: 11, fontWeight: 700, padding: "6px 14px", borderRadius: 100, marginBottom: 36, letterSpacing: 0.5 }}>
-            ILLUSTRATIVE DATA — 正式購入レポートとはデータソースが異なります
+        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.8px", margin: "0 0 12px" }}>届くレポートの中身</h2>
+          <p style={{ color: "#5b6578", margin: "0 0 28px", maxWidth: "58ch", lineHeight: 1.7 }}>入力した公式サイトを対象に、スコア、AI認識、改善ロードマップを1本にまとめます。</p>
+          <div style={{ display: "inline-block", background: "#FFFBEB", border: "1px solid #FDE68A", color: "#92400E", fontSize: 11, fontWeight: 700, padding: "6px 14px", borderRadius: 100, marginBottom: 24 }}>
+            サンプルデータ。正式購入レポートとはデータソースが異なります
           </div>
           <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "48px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap" }}>
@@ -814,70 +837,88 @@ function LandingPage({ onStart }) {
         </Reveal>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" style={{ maxWidth: 640, margin: "0 auto", padding: "80px 40px", textAlign: "center" }}>
-        <Reveal>
-        <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>料金</span>
-        <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12, marginBottom: 40 }}>シンプルな1プラン</h2>
-        <div style={{ background: "#0A0A0A", borderRadius: 16, padding: "48px", color: "#fff" }}>
-          <div style={{ fontSize: 13, color: "#9B9B9B", marginBottom: 8 }}>Agent Readiness Report</div>
-          <div style={{ fontSize: 18, color: "#9B9B9B", textDecoration: "line-through", marginBottom: 4 }}>¥49,800</div>
-          <div style={{ fontSize: 56, fontWeight: 900, letterSpacing: "-2px" }}>¥29,800<span style={{ fontSize: 16, fontWeight: 700, color: "#C9A84C", marginLeft: 10 }}>ベータ版</span></div>
-          <div style={{ fontSize: 13, color: "#9B9B9B", marginBottom: 32 }}>税別・1社1回</div>
-          <ul style={{ textAlign: "left", listStyle: "none", padding: 0, margin: "0 0 32px", display: "flex", flexDirection: "column", gap: 12 }}>
-            {["12セクション / 23項目の詳細レポート", "23項目スコアリング", "4大AI認識分析", "改善優先順位の整理", "改善ロードマップ付き", "PDFダウンロード対応"].map(item => (
-              <li key={item} style={{ fontSize: 14, display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ color: "#C9A84C" }}>✓</span>{item}
-              </li>
-            ))}
-          </ul>
-          <button onClick={onStart} style={{ background: "#fff", color: "#0A0A0A", border: "none", padding: "14px 32px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", width: "100%" }}>
-            今すぐ診断を始める →
-          </button>
+      <section className="lp-section" id="how">
+        <h2>会社名とURLを入れて、レポートを受け取る</h2>
+        <p className="lp-section__lead">準備は公式サイトだけです。診断後にPDFをダウンロードできます。</p>
+        <div className="lp-steps">
+          <article>
+            <div className="lp-steps__n">1</div>
+            <h3>入力する</h3>
+            <p>会社名、公式サイトURL、業種、メールアドレスを入れます。</p>
+          </article>
+          <article>
+            <div className="lp-steps__n">2</div>
+            <h3>決済する</h3>
+            <p>¥29,800（税別）。Stripeで支払い、同じ流れで診断が始まります。</p>
+          </article>
+          <article>
+            <div className="lp-steps__n">3</div>
+            <h3>読む</h3>
+            <p>約3分でレポート生成。改善の優先順を確認し、PDFを保存します。</p>
+          </article>
         </div>
-        </Reveal>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" style={{ maxWidth: 640, margin: "0 auto", padding: "40px 40px 120px" }}>
-        <Reveal>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase" }}>FAQ</span>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-1px", marginTop: 12 }}>よくある質問</h2>
+      <section className="lp-section" id="pricing">
+        <h2>ARI診断とレポートダウンロード</h2>
+        <p className="lp-section__lead">プランは1つです。診断本体とPDF、調査レポート同梱。</p>
+        <div className="lp-offer" style={{ maxWidth: 520 }}>
+          <div className="lp-offer__inner">
+            <div className="lp-offer__kicker">1社1回</div>
+            <div className="lp-offer__price">¥29,800<small>税別</small></div>
+            <div className="lp-offer__was">通常 ¥49,800</div>
+            <ul>
+              {["12セクション / 23項目の詳細レポート", "4大AI認識分析", "改善優先順位とロードマップ", "PDFダウンロード", "ARI Research Report 2026 同梱"].map((item) => (
+                <li key={item}><span>✓</span>{item}</li>
+              ))}
+            </ul>
+            <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
+          </div>
         </div>
-        </Reveal>
-        <Reveal delay={0.08}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 1, background: "#E8E8E8", borderRadius: 12, overflow: "hidden" }}>
+      </section>
+
+      <section className="lp-section" id="faq">
+        <h2>よくある質問</h2>
+        <div className="lp-faq">
           {faqs.map((f) => (
-            <div key={f.q} style={{ background: "#fff", padding: "24px 28px" }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "#0A0A0A", marginBottom: 8 }}>{f.q}</div>
-              <div style={{ fontSize: 13, color: "#6B6B6B", lineHeight: 1.7 }}>{f.a}</div>
-            </div>
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
           ))}
         </div>
-        </Reveal>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid #E8E8E8", padding: "32px 40px", textAlign: "center" }}>
-        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
-          {SITE_FOOTER_LINKS.map(link => (
+      <div className="lp-strip">
+        <div className="lp-final">
+          <div className="lp-final__inner">
+            <div>
+              <h2>AIに聞かれたとき、御社は候補に入っていますか</h2>
+              <p>¥29,800（税別）・約3分・PDFダウンロード</p>
+            </div>
+            <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
+          </div>
+        </div>
+      </div>
+
+      <footer className="lp-footer">
+        <div className="lp-footer__links">
+          {SITE_FOOTER_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              style={{ fontSize: 13, color: "#6B6B6B", textDecoration: "none" }}
             >
               {link.label}
             </a>
           ))}
         </div>
-        <div style={{ display: "flex", gap: 24, justifyContent: "center", marginBottom: 14 }}>
-          <button type="button" onClick={() => setLegal("terms")} style={{ background: "none", border: "none", padding: 0, fontSize: 13, color: "#6B6B6B", textDecoration: "underline", cursor: "pointer" }}>利用規約</button>
-          <button type="button" onClick={() => setLegal("privacy")} style={{ background: "none", border: "none", padding: 0, fontSize: 13, color: "#6B6B6B", textDecoration: "underline", cursor: "pointer" }}>プライバシーポリシー</button>
+        <div className="lp-footer__links">
+          <button type="button" onClick={() => setLegal("terms")}>利用規約</button>
+          <button type="button" onClick={() => setLegal("privacy")}>プライバシーポリシー</button>
         </div>
-        <div style={{ fontSize: 12, color: "#9B9B9B" }}>© 2026 合同会社コア・リテール（Coa Retail G.K.） All rights reserved.</div>
+        <div style={{ fontSize: 12, color: "#8a93a6" }}>© 2026 合同会社コア・リテール（Coa Retail G.K.） All rights reserved.</div>
       </footer>
       <LegalModal doc={legal} onClose={() => setLegal(null)} />
     </div>
@@ -1382,8 +1423,8 @@ function FormPage({ onSubmit, onClose }) {
         )}
         <div style={{ marginBottom: 40 }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: "#9B9B9B", letterSpacing: 2, textTransform: "uppercase", marginBottom: 12 }}>診断フォーム</div>
-          <h1 style={{ fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.8px", margin: 0 }}>御社のAgent Readinessを診断</h1>
-          <p style={{ fontSize: 13, color: "#9B9B9B", marginTop: 8 }}>4項目を入力するだけで、約3分でレポートが生成されます。</p>
+          <h1 style={{ fontSize: 28, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.8px", margin: 0 }}>ARI診断レポートを入手する</h1>
+          <p style={{ fontSize: 13, color: "#9B9B9B", marginTop: 8 }}>会社名と公式サイトURLを入力。約3分でレポートを生成し、PDFをダウンロードできます。</p>
         </div>
         <Field label="会社名" name="company" placeholder="株式会社サンプル" form={form} setForm={setForm} errors={errors} />
         <Field label="公式サイトURL" name="url" placeholder="https://example.com" form={form} setForm={setForm} errors={errors} />
@@ -1406,7 +1447,7 @@ function FormPage({ onSubmit, onClose }) {
           padding: "14px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer",
           marginBottom: 12,
         }}>
-          決済に進む → ¥29,800（税別）
+          レポートを入手する（¥29,800 税別）
         </button>
         <p style={{ textAlign: "center", fontSize: 12, color: "#9B9B9B" }}>🔒 Stripe決済・SSL暗号化済み</p>
       </div>
