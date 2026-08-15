@@ -157,19 +157,19 @@
     },
     {
       "id": "ARI-LI-009",
-      "slug": "faq-for-agents",
+      "slug": "search-departure-ai",
       "articlePublishAt": "2026-08-17T10:00:00+09:00",
       "bufferTransferAt": "2026-08-17T10:30:00+09:00",
       "linkedinPublishAt": "2026-08-17T11:30:00+09:00",
-      "articleUrl": "https://readiness.coaretail.com/insights/faq-for-agents/",
-      "contentFile": "insights/_social/linkedin/posts/faq-for-agents.md",
+      "articleUrl": "https://readiness.coaretail.com/insights/search-departure-ai/",
+      "contentFile": "insights/_social/linkedin/posts/search-departure-ai.md",
       "status": "scheduled",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-14T07:27:42.323Z"
+      "updatedAt": "2026-08-15T06:00:00.000Z"
     },
     {
       "id": "ARI-LI-010",

@@ -294,9 +294,29 @@
       "verificationAttemptCount": 1
     },
     {
-      "slug": "faq-for-agents",
+      "slug": "search-departure-ai",
       "publishAt": "2026-08-17T10:00:00+09:00",
       "status": "scheduled",
+      "title": "20代の約5割が検索を使わない——調べものの入口がAIに移る",
+      "cardSummary": "ナイル調査で20代48%が検索離れ。調べものの入口がAIに移るとVisibility・Authority・Actionabilityの前提が変わる——Agent Readinessの視点で読み解く。",
+      "llmsLabel": "検索離れとAI完結——20代48%の調査",
+      "series": "current-event",
+      "editorialType": "current_event",
+      "priority": "P1",
+      "editorialReviewedAt": "2026-08-15T15:00:00+09:00",
+      "sourceAnnouncementDate": "2026-05-21",
+      "displacedEvergreen": "faq-for-agents",
+      "seoTitle": "20代48%が検索を使わない？調べもののAI移行と企業のVisibility",
+      "metaDescription": "ナイル調査で20代の48%が調べもので検索エンジンを使わないと回答。調べものの入口がAIに移るとVisibility・Authority・Actionabilityの前提が変わる——Agent Readinessの視点で読み解きます。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "検索離れ 生成AI 20代 調査",
+      "freshnessClass": "time_sensitive",
+      "unlockedAt": "2026-08-14T07:27:42.323Z"
+    },
+    {
+      "slug": "faq-for-agents",
+      "publishAt": null,
+      "status": "editorial_hold",
       "title": "AI向けFAQ設計の基本",
       "cardSummary": "人間向けFAQとAIが参照できるFAQは要件が異なる。Authorityの一般論ではなくFAQ設計実務",
       "llmsLabel": "AI向けFAQ設計の基本",
@@ -305,7 +325,8 @@
       "metaDescription": "人間向けFAQとAIが参照できるFAQは要件が異なる。質問の構造化・回答の明確さ・更新ルールなど、AI検索対策として効くFAQ設計の基本と、Agent ReadinessのAuthority・Visibilityへの効き方を解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "FAQ AI検索対策 設計",
-      "unlockedAt": "2026-08-14T07:27:42.323Z"
+      "priorityDeferredBy": "search-departure-ai",
+      "expectedSlotAfter": "2026-08-17"
     },
     {
       "slug": "org-schema-basics",

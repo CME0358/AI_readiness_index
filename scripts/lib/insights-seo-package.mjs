@@ -226,6 +226,14 @@ export const SCHEDULED_SEO_PACKAGES = {
     lead: 'Cloudflareの提言は、検索順位だけでなくAIが企業を理解・比較・推薦できる状態を整える重要性を示しています。robots.txtや構造化データ等の技術対応だけでは完結しません。企業情報の一貫性、比較可能性、推薦根拠、行動導線まで含めて見る必要があります。',
     breadcrumb: 'Cloudflare AEO',
   },
+  'search-departure-ai': {
+    intent: 'B',
+    primarySearchIntent: '検索離れ 生成AI 20代 調査',
+    h1: '20代48%が検索を使わない？調べもののAI移行と企業のVisibility',
+    meta: 'ナイル調査で20代の48%が調べもので検索エンジンを使わないと回答。調べものの入口がAIに移るとVisibility・Authority・Actionabilityの前提が変わる——Agent Readinessの視点で読み解きます。',
+    lead: '調べものの入口が検索結果一覧から生成AIの回答へ移ると、企業が「見つけてもらう」ための前提が変わる。20代の約5割が検索エンジンを使わないという調査結果を、Visibility・Authority・Actionabilityの三柱で読み解く。',
+    breadcrumb: '検索離れ',
+  },
 };
 
 /**
