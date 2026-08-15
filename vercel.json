@@ -20,6 +20,12 @@
       "permanent": true
     }
   ],
+  "rewrites": [
+    {
+      "source": "/report/p/:path*",
+      "destination": "/report/index.html"
+    }
+  ],
   "functions": {
     "api/**/*.js": {
       "maxDuration": 60

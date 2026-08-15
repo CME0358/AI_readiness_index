@@ -72,6 +72,17 @@ function devApiPlugin() {
             });
           return;
         }
+        const previewMatch = url.match(/^\/api\/preview\/([^/?#]+)/);
+        if (previewMatch) {
+          import("../api/preview/[token].js")
+            .then((mod) => mod.default(req, res))
+            .catch((e) => {
+              res.statusCode = 500;
+              res.setHeader("Content-Type", "application/json");
+              res.end(JSON.stringify({ error: e.message }));
+            });
+          return;
+        }
         next();
       });
     },
@@ -87,6 +98,8 @@ export default defineConfig(({ mode }) => {
     "OPENAI_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "PERPLEXITY_API_KEY",
     "AIRTABLE_API_KEY", "AIRTABLE_BASE_ID", "AIRTABLE_TABLE_NAME",
     "STRIPE_SECRET_KEY",
+    "PREVIEW_STORE_BACKEND", "PREVIEW_STORE_ALLOW_FILESYSTEM", "PREVIEW_STORE_KEY_PREFIX",
+    "PREVIEW_STORE_TTL_SECONDS", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN",
   ]) {
     if (env[k]) process.env[k] = env[k];
   }

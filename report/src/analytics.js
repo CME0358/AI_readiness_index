@@ -54,3 +54,37 @@ export function trackResearchEntitlementOpen(params = {}) {
 export function trackHandbookUpgradeClick(params = {}) {
   trackGaEvent('handbook_upgrade_click', { source: 'ari_report', ...params });
 }
+
+/** Preview funnel — opaque token landing (/report/p/{token}) */
+export async function hashPreviewToken(token) {
+  if (!token || typeof token !== 'string') return 'none';
+  if (typeof crypto !== 'undefined' && crypto.subtle) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+    return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 8);
+  }
+  return 'unavailable';
+}
+
+export function trackPreviewVisit(params = {}) {
+  trackGaEvent('preview_visit', {
+    source: 'ari_report',
+    page_path: window.location.pathname || '/report/p/',
+    ...params,
+  });
+}
+
+export function trackPreviewEngaged(params = {}) {
+  trackGaEvent('preview_engaged', { source: 'ari_report', ...params });
+}
+
+export function trackPreviewVideoImpression(params = {}) {
+  trackGaEvent('preview_video_impression', { source: 'ari_report', ...params });
+}
+
+export function trackPreviewVideoPlay(params = {}) {
+  trackGaEvent('preview_video_play', { source: 'ari_report', ...params });
+}
+
+export function trackPreviewVideoComplete(params = {}) {
+  trackGaEvent('preview_video_complete', { source: 'ari_report', ...params });
+}

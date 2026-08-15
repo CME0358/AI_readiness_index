@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import VideoCarousel from "./VideoCarousel.jsx";
 import { trackReportStartOnce } from "./analytics.js";
+import { readPreviewPrefillFromSession } from "./preview-prefill.js";
 import {
   scoreInterpretation,
   mapProposalToPriority,
@@ -1392,9 +1393,15 @@ function HandbookUpgradeModal({ onClose, onCheckout }) {
   );
 }
 
-function FormPage({ onSubmit, onClose }) {
+function FormPage({ onSubmit, onClose, initialForm = null }) {
   const industries = ["小売・EC", "飲食・フード", "美容・ヘルスケア", "不動産", "教育・スクール", "医療・歯科", "宿泊・ホテル", "フィットネス", "その他"];
-  const [form, setForm] = useState({ company: "", url: "", industry: "", email: "", agree: false });
+  const [form, setForm] = useState(() => ({
+    company: initialForm?.company || "",
+    url: initialForm?.url || "",
+    industry: initialForm?.industry || "",
+    email: initialForm?.email || "",
+    agree: false,
+  }));
   const [errors, setErrors] = useState({});
   const [legal, setLegal] = useState(null);
 
@@ -2325,7 +2332,20 @@ export default function App() {
   const [reportMode, setReportMode] = useState("demo"); // demo | paid | sample
   const [purchaseState, setPurchaseState] = useState(() => loadPurchaseState());
   const [analysisRetryKey, setAnalysisRetryKey] = useState(0);
+  const [formPrefill, setFormPrefill] = useState(null);
   const returnHandledRef = useRef(false);
+
+  // Preview funnel → form prefill（sessionStorage、query param は使わない）
+  useEffect(() => {
+    const prefill = readPreviewPrefillFromSession(
+      typeof sessionStorage !== "undefined" ? sessionStorage : null,
+    );
+    if (prefill) {
+      setFormPrefill(prefill);
+      setStage("form");
+      trackReportStartOnce();
+    }
+  }, []);
 
   // リザルト表示時に improve.html へ渡すスコアを localStorage に保存
   useEffect(() => {
@@ -2454,7 +2474,7 @@ export default function App() {
   };
 
   if (stage === "landing")   return <LandingPage onStart={handleStart} />;
-  if (stage === "form")      return <FormPage onSubmit={handleFormSubmit} onClose={() => setStage("landing")} />;
+  if (stage === "form")      return <FormPage onSubmit={handleFormSubmit} onClose={() => setStage("landing")} initialForm={formPrefill} />;
   if (stage === "payment")   return <PaymentPage form={formData} onPay={handlePay} onBack={() => setStage("form")} onClose={() => setStage("landing")} />;
   if (stage === "analyzing") return (
     <AnalyzingPage
