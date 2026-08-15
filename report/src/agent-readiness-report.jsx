@@ -509,6 +509,7 @@ function RoadmapSummaryBox({ currentScore, roadmap }) {
 // ─── MEDIA COVERAGE CAROUSEL（掲載媒体・index.html より移植） ─────────────────
 // base（本番:"/report/"）配下で配信されるため、import.meta.env.BASE_URL を前置する。
 const MEDIA_BASE = import.meta.env.BASE_URL;
+const HERO_IMAGE = `${MEDIA_BASE}assets/hero-search-comparison.png`;
 const MEDIA_LOGOS = [
   { src: `${MEDIA_BASE}assets/media-logos/04-toyokeizai.svg`, name: "東洋経済オンライン" },
   { src: `${MEDIA_BASE}assets/media-logos/12-president.svg`, name: "PRESIDENT Online" },
@@ -624,41 +625,46 @@ function LandingPage({ onStart }) {
 
   return (
     <div className="lp">
-      <nav className="lp-nav" aria-label="サイト">
-        <a href="/" className="lp-nav__brand">
-          Agent Readiness <span>Index™</span>
-        </a>
-        <div className="lp-nav__links">
-          {SITE_NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href}>{link.label}</a>
-          ))}
-        </div>
-        <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
-      </nav>
-
-      <section className="lp-hero">
-        <div>
-          <h1>集客の入口が、検索からAIに移っています</h1>
-          <p className="lp-hero__sub">
-            広告費を足しても伸びないとき、原因はクリエイティブではなく、AIが御社を候補に上げていないことです。公式サイトURLから、推薦されない理由と直す順をレポートにします。
-          </p>
-          <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
-          <p className="lp-hero__meta">約3分で診断完了 ・ PDFダウンロード ・ 1社1回</p>
-        </div>
-        <div className="lp-offer">
-          <div className="lp-offer__inner">
-            <div className="lp-offer__kicker">ARI診断 + レポートダウンロード</div>
-            <div className="lp-offer__price">¥29,800<small>税別</small></div>
-            <div className="lp-offer__was">通常 ¥49,800</div>
-            <ul>
-              {["12セクション / 23項目の診断レポート", "ChatGPT・Gemini・Claude・Perplexityの認識分析", "改善優先順位とロードマップ", "PDFダウンロード", "ARI Research Report 2026 同梱"].map((item) => (
-                <li key={item}><span>✓</span>{item}</li>
-              ))}
-            </ul>
-            <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
+      <div className="lp-fv" style={{ "--lp-hero-bg": `url(${HERO_IMAGE})` }}>
+        <nav className="lp-nav" aria-label="サイト">
+          <a href="/" className="lp-nav__brand">
+            Agent Readiness <span>Index™</span>
+          </a>
+          <div className="lp-nav__links">
+            {SITE_NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href}>{link.label}</a>
+            ))}
           </div>
-        </div>
-      </section>
+          <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
+        </nav>
+
+        <section className="lp-hero">
+          <div className="lp-hero__visual">
+            <img
+              src={HERO_IMAGE}
+              alt="AI検索結果の比較：ARI対策前は競合のみ表示、対策後は御社が第1推薦になる例"
+              width={960}
+              height={540}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <div className="lp-hero__content">
+            <h1>集客の入口が、検索からAIに移っています</h1>
+            <p className="lp-hero__sub">
+              広告費を足しても伸びないとき、原因はクリエイティブではなく、AIが御社を候補に上げていないことです。公式サイトURLから、推薦されない理由と直す順をレポートにします。
+            </p>
+            <div className="lp-hero__cta-row">
+              <CtaBtn onClick={onStart}>レポートを入手する</CtaBtn>
+              <p className="lp-hero__price">
+                <strong>¥29,800</strong><small>税別</small>
+                <span className="lp-hero__price-was">通常 ¥49,800</span>
+              </p>
+            </div>
+            <p className="lp-hero__meta">約3分で診断完了 ・ PDFダウンロード ・ 1社1回</p>
+          </div>
+        </section>
+      </div>
 
       <div className="lp-strip">
         <MediaCoverage />
@@ -893,7 +899,7 @@ function LandingPage({ onStart }) {
         <div className="lp-final">
           <div className="lp-final__inner">
             <div>
-              <h2>AIに聞かれたとき、御社は候補に入っていますか</h2>
+              <h2>AIに尋ねたとき、御社は候補に入っていますか</h2>
               <p>¥29,800（税別）・約3分・PDFダウンロード</p>
             </div>
             <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
