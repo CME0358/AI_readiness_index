@@ -150,7 +150,9 @@
       "title": "なぜAgent Readinessが企業評価の新しい基準になるのか──検索から実行へ",
       "cardSummary": "検索順位だけでは測れない。Visibility・Authority・Actionabilityが揃った企業だけが新しい評価基準を満たす。",
       "llmsLabel": "なぜAgent Readinessが新しい基準か",
-      "publishedAt": "2026-08-03T04:31:20.433Z"
+      "publishedAt": "2026-08-03T04:31:20.433Z",
+      "productionVerifiedAt": "2026-08-17T04:21:04.285Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "ai-search-shift",
