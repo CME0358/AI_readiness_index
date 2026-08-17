@@ -312,7 +312,9 @@
       "primarySearchIntent": "検索離れ 生成AI 20代 調査",
       "freshnessClass": "time_sensitive",
       "unlockedAt": "2026-08-14T07:27:42.323Z",
-      "publishedAt": "2026-08-17T01:00:00.000Z"
+      "publishedAt": "2026-08-17T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-17T02:20:26.173Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "faq-for-agents",

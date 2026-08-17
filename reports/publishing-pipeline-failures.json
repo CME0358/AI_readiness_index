@@ -1,10 +1,20 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T05:24:52.733Z",
-  "failures": {},
+  "updatedAt": "2026-08-17T02:20:26.803Z",
+  "failures": {
+    "search-departure-ai": {
+      "slug": "search-departure-ai",
+      "stage": "buffer",
+      "attemptedAt": "2026-08-17T02:20:26.802Z",
+      "failureReason": "buffer_partial_or_failed",
+      "retryable": true,
+      "attemptCount": 1,
+      "lastSuccessStage": "published_verified"
+    }
+  },
   "lastSuccess": {
-    "slug": "recommendation-logic",
+    "slug": "search-departure-ai",
     "stage": "published_verified",
-    "at": "2026-08-14T05:24:52.733Z"
+    "at": "2026-08-17T02:20:26.173Z"
   }
 }
