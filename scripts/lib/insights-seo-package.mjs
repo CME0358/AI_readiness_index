@@ -234,6 +234,14 @@ export const SCHEDULED_SEO_PACKAGES = {
     lead: '調べものの入口が検索結果一覧から生成AIの回答へ移ると、企業が「見つけてもらう」ための前提が変わる。20代の約5割が検索エンジンを使わないという調査結果を、Visibility・Authority・Actionabilityの三柱で読み解く。',
     breadcrumb: '検索離れ',
   },
+  'iab-ai-visibility': {
+    intent: 'B',
+    primarySearchIntent: 'IAB AI Visibility 計測 指標',
+    h1: 'IAB「Measuring Visibility in the AI Era」をどう読むか——AI可視性を事業判断につなぐ',
+    meta: 'IABのAI可視性計測フレームワークを解説。Presence・Prominence・Portrayal・Persuasionの4Pと、Directional／Decision-Gradeの違いをAgent Readinessの視点で整理します。',
+    lead: 'IAB「Measuring Visibility in the AI Era」は、AI回答でブランドが「出たか」だけでなく、目立ち方・文脈・行動への影響までを分けて測る出発点です。ただし単発のスコアを事業成果とみなさず、測定条件と限界を開示し、改善判断へ接続する必要があります。',
+    breadcrumb: 'IAB AI Visibility計測',
+  },
 };
 
 /**

@@ -319,6 +319,25 @@
       "verificationAttemptCount": 1
     },
     {
+      "slug": "iab-ai-visibility",
+      "publishAt": "2026-08-18T10:00:00+09:00",
+      "status": "scheduled",
+      "title": "IABのAI可視性計測を事業判断につなぐ",
+      "cardSummary": "IABの4Pと測定品質区分を、単発スコアではなく改善判断へつなぐための実務フレームとして読み解く。",
+      "llmsLabel": "IABのAI Visibility計測フレーム",
+      "series": "current-event",
+      "editorialType": "current_event",
+      "priority": "P1",
+      "editorialReviewedAt": "2026-08-17T15:00:00+09:00",
+      "sourceAnnouncementDate": "2026-08-03",
+      "displacedEvergreen": "faq-for-agents",
+      "seoTitle": "IAB「Measuring Visibility in the AI Era」をどう読むか——AI可視性を事業判断につなぐ",
+      "metaDescription": "IABのAI可視性計測フレームワークを解説。Presence・Prominence・Portrayal・Persuasionの4Pと、Directional／Decision-Gradeの違いをAgent Readinessの視点で整理します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "IAB AI Visibility 計測 指標",
+      "freshnessClass": "time_sensitive"
+    },
+    {
       "slug": "faq-for-agents",
       "publishAt": null,
       "status": "editorial_hold",
@@ -330,8 +349,8 @@
       "metaDescription": "人間向けFAQとAIが参照できるFAQは要件が異なる。質問の構造化・回答の明確さ・更新ルールなど、AI検索対策として効くFAQ設計の基本と、Agent ReadinessのAuthority・Visibilityへの効き方を解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "FAQ AI検索対策 設計",
-      "priorityDeferredBy": "search-departure-ai",
-      "expectedSlotAfter": "2026-08-17"
+      "priorityDeferredBy": "iab-ai-visibility",
+      "expectedSlotAfter": "2026-08-18"
     },
     {
       "slug": "org-schema-basics",

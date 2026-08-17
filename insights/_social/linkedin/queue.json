@@ -506,6 +506,23 @@
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
       "updatedAt": "2026-08-04T00:02:50.111Z"
+    },
+    {
+      "id": "ARI-LI-CE-iab-ai-visibility",
+      "slug": "iab-ai-visibility",
+      "articlePublishAt": "2026-08-18T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-18T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-18T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/iab-ai-visibility/",
+      "contentFile": "insights/_social/linkedin/posts/iab-ai-visibility.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-17T06:00:00.000Z",
+      "updatedAt": "2026-08-17T06:00:00.000Z",
+      "series": "current-event"
     }
   ]
 }

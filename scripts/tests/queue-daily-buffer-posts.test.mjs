@@ -315,9 +315,9 @@ test('getChannelId prefers per-channel env names', () => {
   process.env = orig;
 });
 
-test('buffer queue has 31 posts (30 v2 + current-event extras)', () => {
+test('buffer queue has 32 posts (30 v2 + current-event extras)', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
-  assert.equal(q.posts.length, 31);
+  assert.equal(q.posts.length, 32);
   assert.equal(q.policy.postsPerTransfer, 1);
 });
 
