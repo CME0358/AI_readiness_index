@@ -296,7 +296,7 @@
     {
       "slug": "search-departure-ai",
       "publishAt": "2026-08-17T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "20代の約5割が検索を使わない——調べものの入口がAIに移る",
       "cardSummary": "ナイル調査で20代48%が検索離れ。調べものの入口がAIに移るとVisibility・Authority・Actionabilityの前提が変わる——Agent Readinessの視点で読み解く。",
       "llmsLabel": "検索離れとAI完結——20代48%の調査",
@@ -311,7 +311,8 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "検索離れ 生成AI 20代 調査",
       "freshnessClass": "time_sensitive",
-      "unlockedAt": "2026-08-14T07:27:42.323Z"
+      "unlockedAt": "2026-08-14T07:27:42.323Z",
+      "publishedAt": "2026-08-17T01:00:00.000Z"
     },
     {
       "slug": "faq-for-agents",

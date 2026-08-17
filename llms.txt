@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [検索離れとAI完結——20代48%の調査](https://readiness.coaretail.com/insights/search-departure-ai/): Insights Column（2026-08-17）
 - [企業情報の一貫性がAIの理解を決める](https://readiness.coaretail.com/insights/entity-consistency/): Insights Column（2026-08-14）
 - [「準備できている」の最低ライン](https://readiness.coaretail.com/insights/readiness-baseline/): Insights Column（2026-08-13）
 - [SEO・GEO・ARIの役割分担を整理する](https://readiness.coaretail.com/insights/ari-vs-geo-seo/): Insights Column（2026-08-12）
