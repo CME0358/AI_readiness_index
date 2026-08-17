@@ -343,8 +343,8 @@
     },
     {
       "slug": "faq-for-agents",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-19T10:00:00+09:00",
+      "status": "scheduled",
       "title": "AI向けFAQ設計の基本",
       "cardSummary": "人間向けFAQとAIが参照できるFAQは要件が異なる。Authorityの一般論ではなくFAQ設計実務",
       "llmsLabel": "AI向けFAQ設計の基本",
@@ -354,7 +354,8 @@
       "searchIntentClass": "A",
       "primarySearchIntent": "FAQ AI検索対策 設計",
       "priorityDeferredBy": "iab-ai-visibility",
-      "expectedSlotAfter": "2026-08-18"
+      "expectedSlotAfter": "2026-08-18",
+      "unlockedAt": "2026-08-17T06:59:43.189Z"
     },
     {
       "slug": "org-schema-basics",
