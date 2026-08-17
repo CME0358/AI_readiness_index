@@ -46,7 +46,7 @@ test('dispatchGitHubWorkflow posts workflow_dispatch', async () => {
   });
 
   assert.equal(result.ok, true);
-  assert.match(captured.url, /publish-scheduled-insights\.yml\/dispatches$/);
+  assert.match(captured.url, /reconcile-publishing-pipeline\.yml\/dispatches$/);
   assert.equal(JSON.parse(captured.init.body).inputs.now, '2026-08-10T10:00:00+09:00');
 });
 
@@ -92,7 +92,7 @@ test('vercel.json defines weekday publish cron', () => {
   const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
   const cron = vercel.crons?.find((c) => c.path === '/api/cron/publish-insights');
   assert.ok(cron, 'publish-insights cron missing');
-  assert.equal(cron.schedule, '0 1 * * 1-5');
+  assert.equal(cron.schedule, '0 0 * * 1-5');
 });
 
 test('reconcile workflow includes primary weekday publish crons', () => {
@@ -112,5 +112,6 @@ test('deprecated publish workflow retained as fallback', () => {
     'utf8'
   );
   assert.match(wf, /deprecated fallback/);
-  assert.match(wf, /cron: '0 4 \* \* 1-5'/);
+  assert.doesNotMatch(wf, /schedule:/);
+  assert.match(wf, /workflow_dispatch:/);
 });

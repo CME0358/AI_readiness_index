@@ -168,6 +168,7 @@ export async function reconcilePublishingPipeline({
     summary.publish = publishResult;
     if (publishResult.updated) summary.updated = true;
     if (publishResult.errors?.length) {
+      summary.updated = true;
       for (const err of publishResult.errors) {
         const slug = err.split(':')[1] || 'unknown';
         recordPipelineFailure(
@@ -229,6 +230,7 @@ export async function reconcilePublishingPipeline({
         summary.updated = true;
         clearPipelineFailure(focusSlug, { dryRun, lastSuccessStage: 'published_verified' });
       } else {
+        summary.updated = true;
         recordPipelineFailure(
           {
             slug: focusSlug,

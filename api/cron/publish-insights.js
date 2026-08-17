@@ -2,7 +2,8 @@
  * /api/cron/publish-insights
  *
  * Primary trigger for weekday 10:00 JST Insights publish (+ chained Buffer queue).
- * Invoked by Vercel Cron at 01:00 UTC. GitHub Actions schedule remains fallback only.
+ * Invoked during Vercel Hobby's 00:00 UTC precision window; the dispatched
+ * workflow waits until 10:00 JST before mutating publication state.
  *
  * Required Vercel env:
  *   CRON_SECRET — Vercel sends Authorization: Bearer <CRON_SECRET>

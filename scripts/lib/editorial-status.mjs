@@ -48,3 +48,21 @@ export function extractDueArticles(articles, now, forceSlug = null) {
     return new Date(a.publishAt).getTime() <= now.getTime();
   });
 }
+
+/**
+ * Select exactly one article. Prefer the article assigned to the current JST
+ * date, then recover the oldest overdue article. Input order is irrelevant.
+ */
+export function selectNextDueArticle(articles, now, forceSlug = null) {
+  const due = extractDueArticles(articles, now, forceSlug);
+  if (forceSlug) return due[0] || null;
+
+  const today = now.toLocaleDateString('en-CA', { timeZone: 'Asia/Tokyo' });
+  return [...due].sort((a, b) => {
+    const aToday = a.publishAt?.slice(0, 10) === today ? 0 : 1;
+    const bToday = b.publishAt?.slice(0, 10) === today ? 0 : 1;
+    if (aToday !== bToday) return aToday - bToday;
+    const byTime = new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime();
+    return byTime || String(a.slug).localeCompare(String(b.slug));
+  })[0] || null;
+}

@@ -1,10 +1,10 @@
 /**
- * Trigger GitHub Actions workflow_dispatch from Vercel Cron (10:00 JST strict publish).
+ * Trigger the GitHub Actions reconciler from Vercel Cron.
  */
 import { isWeekday } from './business-days.mjs';
 
 export const DEFAULT_REPO = 'CME0358/AI_readiness_index';
-export const PUBLISH_WORKFLOW_FILE = 'publish-scheduled-insights.yml';
+export const PUBLISH_WORKFLOW_FILE = 'reconcile-publishing-pipeline.yml';
 
 export function parseGitHubRepo(repo = process.env.GITHUB_REPOSITORY || DEFAULT_REPO) {
   const [owner, name] = String(repo || '').split('/');

@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { PATHS, ROOT } from './insights-v2-paths.mjs';
-import { extractDueArticles } from './editorial-status.mjs';
+import { selectNextDueArticle } from './editorial-status.mjs';
 import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
 import { isWeekday } from './business-days.mjs';
 import { isProtectedInternalLinkSlug } from './insights-related-links.mjs';
@@ -124,7 +124,8 @@ export function publishDueArticles({
   }
 
   const schedule = JSON.parse(fs.readFileSync(SCHEDULE_PATH, 'utf8'));
-  const due = extractDueArticles(schedule.articles, now, forceSlug);
+  const selected = selectNextDueArticle(schedule.articles, now, forceSlug);
+  const due = selected ? [selected] : [];
 
   if (!due.length) {
     return result;
@@ -139,10 +140,16 @@ export function publishDueArticles({
   );
 
   for (const article of ordered) {
+    const entry = schedule.articles.find((a) => a.slug === article.slug);
+    if (entry && !dryRun) {
+      entry.publishAttemptedAt = now.toISOString();
+      entry.publishAttemptCount = (entry.publishAttemptCount || 0) + 1;
+      delete entry.lastPublishFailure;
+      result.updated = true;
+    }
     const dest = articleDestPath(article.slug);
 
     if (isArticlePublishedOnDisk(article.slug)) {
-      const entry = schedule.articles.find((a) => a.slug === article.slug);
       if (entry && entry.status !== EDITORIAL_STATUSES.PUBLISHED) {
         entry.status = EDITORIAL_STATUSES.PUBLISHED;
         entry.publishedAt = entry.publishedAt || now.toISOString();
@@ -154,6 +161,7 @@ export function publishDueArticles({
 
     if (isProtectedInternalLinkSlug(article.slug)) {
       result.errors.push(`PROTECTED_ABIS:${article.slug}`);
+      if (entry && !dryRun) entry.lastPublishFailure = 'PROTECTED_ABIS';
       continue;
     }
 
@@ -162,12 +170,14 @@ export function publishDueArticles({
 
     if (!fs.existsSync(srcIndex)) {
       result.errors.push(`missing_scheduled_html:${article.slug}`);
+      if (entry && !dryRun) entry.lastPublishFailure = 'missing_scheduled_html';
       continue;
     }
 
     const prepared = prepareScheduledArticle(article.slug, { strict: true });
     if (!prepared.ok) {
       result.errors.push(`quality_gate:${article.slug}`);
+      if (entry && !dryRun) entry.lastPublishFailure = 'quality_gate';
       continue;
     }
 
@@ -192,10 +202,10 @@ export function publishDueArticles({
       llms = insertAfterMarker(llms, '# INSIGHTS_LLMS_START', llmsLine(article));
     }
 
-    const entry = schedule.articles.find((a) => a.slug === article.slug);
     if (entry) {
       entry.status = EDITORIAL_STATUSES.PUBLISHED;
       entry.publishedAt = now.toISOString();
+      delete entry.lastPublishFailure;
       if (!dryRun) {
         const social = enrollSocialOnPublish(entry);
         if (social.enrolled) {

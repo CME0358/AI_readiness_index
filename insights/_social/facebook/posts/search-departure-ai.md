@@ -8,4 +8,4 @@ https://readiness.coaretail.com/insights/search-departure-ai/
 
 #AgentReadiness #AI検索
 
-Agent Readinessの視点で、情報設計を見直すヒントに。
+Agent Readinessの視点で、情報設計と顧客接点を見直す具体的なヒントとしてご覧ください。

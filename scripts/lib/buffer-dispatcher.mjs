@@ -262,6 +262,9 @@ export async function processArticleChannels({
       channel.status = CHANNEL_STATUSES.MANUAL;
       channel.lastError = `Missing env ${channel.channelIdEnv}`;
       channel.lastAttemptAt = now.toISOString();
+      channel.attempts = (channel.attempts || 0) + 1;
+      anyFailed = true;
+      anyUpdated = true;
       results.push({ channel: ch, action: 'skip', reason: 'missing_credentials' });
       continue;
     }

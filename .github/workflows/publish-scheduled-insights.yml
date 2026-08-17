@@ -6,10 +6,6 @@
 name: Publish scheduled Insights (deprecated fallback)
 
 on:
-  schedule:
-    # Fallback crons — primary path is reconcile-publishing-pipeline.yml
-    - cron: '0 4 * * 1-5'
-    - cron: '30 5 * * 1-5'
   workflow_dispatch:
     inputs:
       force_slug:

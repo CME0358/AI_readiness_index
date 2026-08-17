@@ -43,6 +43,8 @@ export function getChannelId(channelKey, cfg = getBufferConfig()) {
   if (!envName) return '';
   const specific = process.env[envName]?.trim();
   if (specific) return specific;
+  const configured = cfg.channelIds?.[channelKey]?.trim();
+  if (configured) return configured;
   if (channelKey === 'linkedin' && cfg.channelId) return cfg.channelId;
   return '';
 }

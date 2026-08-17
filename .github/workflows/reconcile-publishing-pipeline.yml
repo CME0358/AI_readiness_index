@@ -40,11 +40,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Prepare scheduled HTML (quality gate)
-        run: node scripts/prepare-scheduled-article.mjs --scheduled
+      - name: Wait for the authoritative publish instant
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.now != ''
+        env:
+          NOW: ${{ github.event.inputs.now }}
+        run: node scripts/wait-for-publish-time.mjs "$NOW"
 
-      - name: Reconcile publish → verify → buffer
-        id: reconcile
+      - name: Reconcile publication state
+        id: publish
         env:
           FORCE_SLUG: ${{ github.event.inputs.force_slug }}
           NOW: ${{ github.event.inputs.now }}
@@ -61,33 +64,71 @@ jobs:
             echo "NOW must be full ISO8601 (e.g. 2026-08-13T10:30:00+09:00)"
             exit 1
           fi
-          CMD=(node scripts/reconcile-publishing-pipeline.mjs)
+          CMD=(node scripts/reconcile-publishing-pipeline.mjs --skip-verify --skip-buffer)
           if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
           if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
           if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
-          "${CMD[@]}" | tee /tmp/reconcile.log
-          if grep -q 'UPDATED=1' /tmp/reconcile.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
-          SLUG=$(grep '^ACTIVE_SLUG=' /tmp/reconcile.log | tail -1 | cut -d= -f2-)
+          set +e
+          "${CMD[@]}" | tee /tmp/reconcile-publish.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          set -e
+          if grep -q 'UPDATED=1' /tmp/reconcile-publish.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+          SLUG=$(grep '^ACTIVE_SLUG=' /tmp/reconcile-publish.log | tail -1 | cut -d= -f2-)
           echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
+          echo "exit_code=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
 
-      - name: Commit and push reconciliation state
-        if: steps.reconcile.outputs.changed == 'true'
+      - name: Commit and push authoritative Web state
+        if: steps.publish.outputs.changed == 'true'
         run: |
           set -euo pipefail
           chmod +x scripts/lib/gha-git-push.sh
           scripts/lib/gha-git-push.sh \
             "$(cat <<'EOF'
-          Reconcile publishing pipeline (publish/verify/buffer)
+          Reconcile Insights publication state
 
-          Automated operational recovery worker.
+          Persist publish attempt and Web source before production verification.
           EOF
           )" \
             insights/ sitemap.xml llms.txt insights/_scheduled/ insights/_social/ reports/
 
+      - name: Stop after persisted publication failure
+        if: steps.publish.outputs.exit_code != '0'
+        run: exit 1
+
+      - name: Verify production and resume Buffer handoff
+        id: delivery
+        if: steps.publish.outputs.slug != ''
+        env:
+          SLUG: ${{ steps.publish.outputs.slug }}
+          NOW: ${{ github.event.inputs.now }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
+          BUFFER_CHANNEL_ID_LINKEDIN: ${{ secrets.BUFFER_CHANNEL_ID_LINKEDIN }}
+          BUFFER_CHANNEL_ID_FACEBOOK: ${{ secrets.BUFFER_CHANNEL_ID_FACEBOOK }}
+          BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
+          BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+        run: |
+          set -euo pipefail
+          CMD=(node scripts/reconcile-publishing-pipeline.mjs --skip-publish --force-slug "$SLUG")
+          if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
+          if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
+          "${CMD[@]}" | tee /tmp/reconcile-delivery.log
+          if grep -q 'UPDATED=1' /tmp/reconcile-delivery.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Commit and push verified delivery state
+        if: steps.delivery.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          chmod +x scripts/lib/gha-git-push.sh
+          scripts/lib/gha-git-push.sh \
+            "Verify Insight production and reconcile Buffer handoff" \
+            insights/_scheduled/schedule.json insights/_social/ reports/
+
       - name: Post-deploy IndexNow
-        if: steps.reconcile.outputs.changed == 'true' && steps.reconcile.outputs.slug != ''
+        if: steps.delivery.outputs.changed == 'true' && steps.publish.outputs.slug != ''
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -euo pipefail
-          node scripts/submit-indexnow-post-deploy.mjs --slugs "${{ steps.reconcile.outputs.slug }}"
+          node scripts/submit-indexnow-post-deploy.mjs --slugs "${{ steps.publish.outputs.slug }}"

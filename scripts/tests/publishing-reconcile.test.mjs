@@ -416,6 +416,8 @@ test('reconcile workflow file exists with weekday crons', () => {
   assert.match(wf, /reconcile-publishing-pipeline/);
   assert.match(wf, /cron: '0,15,30,45 1-3 \* \* 1-5'/);
   assert.match(wf, /cron: '0 4 \* \* 1-5'/);
+  assert.match(wf, /--skip-verify --skip-buffer/);
+  assert.match(wf, /--skip-publish --force-slug/);
 });
 
 test('forensic audit report exists', () => {

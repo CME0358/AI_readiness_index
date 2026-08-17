@@ -1,9 +1,6 @@
 name: Queue daily Buffer posts (deprecated fallback)
 
 on:
-  schedule:
-    # Fallback: 04:00 UTC ≈ 13:00 JST weekdays (publish cron 遅延 + 手動公開漏れの救済)
-    - cron: '0 4 * * 1-5'
   workflow_dispatch:
     inputs:
       force_slug:
