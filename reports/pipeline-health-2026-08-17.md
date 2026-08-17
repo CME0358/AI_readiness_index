@@ -1,25 +1,19 @@
 # Pipeline Health — 2026-08-17
 
-> Reconciliation run: 2026-08-17T03:27:48.789Z
+> Reconciliation run: 2026-08-17T04:31:30.657Z
 
 ## TODAY
 
-slug: ai-search-shift
+slug: pay
 
 ## WEB
-scheduled: 11:00
+scheduled: 10:00
 published: true
 productionVerified: true
 
 ## BUFFER
-linkedin: queued
-facebook: queued
-x: queued
+(no buffer entry)
 
 ## PIPELINE
-status: COMPLETE
+status: RECOVERING
 verify: ok (1 attempts)
-buffer actions:
-- linkedin: skip (already_queued)
-- facebook: skip (already_queued)
-- x: skip (already_queued)
