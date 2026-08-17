@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-17T04:21:04.286Z",
+  "updatedAt": "2026-08-17T04:31:30.999Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "why-ari",
+    "slug": "pay",
     "stage": "published_verified",
-    "at": "2026-08-17T04:21:04.286Z"
+    "at": "2026-08-17T04:31:30.999Z"
   }
 }

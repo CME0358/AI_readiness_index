@@ -141,7 +141,9 @@
       "title": "AIが決済できる会社、できない会社──Agent Commerce時代の新しい競争力",
       "cardSummary": "予約の次は決済。最後まで取引を完了できる企業がAgent Commerce時代の競争力を持つ。",
       "llmsLabel": "AIが決済できる会社",
-      "publishedAt": "2026-07-31T04:23:15.859Z"
+      "publishedAt": "2026-07-31T04:23:15.859Z",
+      "productionVerifiedAt": "2026-08-17T04:31:30.998Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "why-ari",

@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-17
 
-> Reconciliation run: 2026-08-17T04:21:03.859Z
+> Reconciliation run: 2026-08-17T04:31:30.657Z
 
 ## TODAY
 
-slug: why-ari
+slug: pay
 
 ## WEB
 scheduled: 10:00
