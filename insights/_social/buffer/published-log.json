@@ -206,7 +206,16 @@
       "publishAt": "2026-08-14T12:00:00+09:00",
       "dueAtUtc": "2026-08-14T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-17T02:32:03.584Z",
+      "slug": "search-departure-ai",
+      "channel": "facebook",
+      "bufferUpdateId": "6a8272a526a2d675a670244b",
+      "publishAt": "2026-08-17T12:15:00+09:00",
+      "dueAtUtc": "2026-08-17T03:15:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-14T01:38:14.306Z"
+  "updatedAt": "2026-08-17T02:32:05.868Z"
 }

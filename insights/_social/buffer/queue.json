@@ -449,7 +449,7 @@
     {
       "slug": "search-departure-ai",
       "articleUrl": "https://readiness.coaretail.com/insights/search-departure-ai/",
-      "status": "partially_queued",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-17T10:00:00+09:00",
       "bufferTransferAt": "2026-08-17T10:30:00+09:00",
       "channels": {
@@ -467,13 +467,13 @@
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/search-departure-ai.md",
-          "publishAt": "2026-08-17T12:00:00+09:00",
-          "status": "buffer_transfer_failed",
-          "bufferUpdateId": null,
-          "attempts": 1,
-          "lastAttemptAt": "2026-08-17T02:20:25.600Z",
-          "lastError": "length 284 outside 300-650",
-          "updatedAt": "2026-08-17T02:20:25.600Z"
+          "publishAt": "2026-08-17T12:15:00+09:00",
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8272a526a2d675a670244b",
+          "attempts": 2,
+          "lastAttemptAt": "2026-08-17T02:32:03.584Z",
+          "lastError": null,
+          "updatedAt": "2026-08-17T02:32:03.584Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
@@ -491,7 +491,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-15T06:00:00.000Z",
-      "updatedAt": "2026-08-17T02:20:25.600Z",
+      "updatedAt": "2026-08-17T02:32:03.584Z",
       "unlockedAt": "2026-08-14T07:27:42.323Z"
     },
     {
