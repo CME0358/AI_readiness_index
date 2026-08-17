@@ -160,7 +160,9 @@
       "cardSummary": "比較は順位ではなく、理解・根拠・実行可能性の総合判断になる。Framework概論ではなく「比較行為」の変化に焦点",
       "llmsLabel": "AI検索が変える「比較」の意味",
       "series": "v2",
-      "publishedAt": "2026-08-04T02:18:13.806Z"
+      "publishedAt": "2026-08-04T02:18:13.806Z",
+      "productionVerifiedAt": "2026-08-17T03:27:49.335Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "recommendation-logic",
