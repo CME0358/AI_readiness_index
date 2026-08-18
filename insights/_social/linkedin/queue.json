@@ -515,13 +515,13 @@
       "linkedinPublishAt": "2026-08-18T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/iab-ai-visibility/",
       "contentFile": "insights/_social/linkedin/posts/iab-ai-visibility.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a83aeb22485bd5f3ffe9f93",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-17T06:00:00.000Z",
-      "updatedAt": "2026-08-17T06:00:00.000Z",
+      "updatedAt": "2026-08-18T01:00:35.445Z",
       "series": "current-event"
     }
   ]

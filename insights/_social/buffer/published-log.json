@@ -215,7 +215,34 @@
       "publishAt": "2026-08-17T12:15:00+09:00",
       "dueAtUtc": "2026-08-17T03:15:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-18T01:00:00.000Z",
+      "slug": "iab-ai-visibility",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a83aeb22485bd5f3ffe9f93",
+      "publishAt": "2026-08-18T11:30:00+09:00",
+      "dueAtUtc": "2026-08-18T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-18T01:00:00.000Z",
+      "slug": "iab-ai-visibility",
+      "channel": "facebook",
+      "bufferUpdateId": "6a83aeb2a6afcff0dbc02154",
+      "publishAt": "2026-08-18T11:45:00+09:00",
+      "dueAtUtc": "2026-08-18T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-18T01:00:00.000Z",
+      "slug": "iab-ai-visibility",
+      "channel": "x",
+      "bufferUpdateId": "6a83aeb32485bd5f3ffe9fb9",
+      "publishAt": "2026-08-18T12:00:00+09:00",
+      "dueAtUtc": "2026-08-18T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-17T02:32:05.868Z"
+  "updatedAt": "2026-08-18T01:00:35.443Z"
 }

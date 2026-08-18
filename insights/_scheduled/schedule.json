@@ -342,7 +342,9 @@
       "freshnessClass": "time_sensitive",
       "publishAttemptedAt": "2026-08-18T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-08-18T01:00:00.000Z"
+      "publishedAt": "2026-08-18T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-18T01:00:34.097Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "faq-for-agents",
