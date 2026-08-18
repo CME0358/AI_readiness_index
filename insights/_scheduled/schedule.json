@@ -132,7 +132,9 @@
       "title": "AIが予約できる会社、できない会社──Actionabilityは「実行」から始まる",
       "cardSummary": "紹介できても予約できなければ仕事は止まる。Actionabilityは実行導線から始まる。",
       "llmsLabel": "AIが予約できる会社",
-      "publishedAt": "2026-07-30T03:57:42.612Z"
+      "publishedAt": "2026-07-30T03:57:42.612Z",
+      "productionVerifiedAt": "2026-08-18T02:16:37.511Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "pay",

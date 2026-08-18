@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-18T01:00:35.446Z",
+  "updatedAt": "2026-08-18T02:16:37.512Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "iab-ai-visibility",
-    "stage": "buffer_queued",
-    "at": "2026-08-18T01:00:35.446Z"
+    "slug": "book",
+    "stage": "published_verified",
+    "at": "2026-08-18T02:16:37.512Z"
   }
 }
