@@ -114,7 +114,9 @@
       "title": "AIは価格をどう理解しているのか──「料金が書いてある」だけでは比較できない理由",
       "cardSummary": "料金ページがあるだけでは比較できない。条件・単位・例外が機械に伝わって初めてActionabilityになる。",
       "llmsLabel": "AIは価格をどう理解するか",
-      "publishedAt": "2026-07-28T04:11:19.567Z"
+      "publishedAt": "2026-07-28T04:11:19.567Z",
+      "productionVerifiedAt": "2026-08-18T04:08:31.304Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "reviews",
