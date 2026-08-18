@@ -17,6 +17,7 @@ import {
   loadSchedule,
 } from './insights-related-links.mjs';
 import { runPrepublishEditorialGate } from './prepublish-editorial-gate.mjs';
+import { assertCanonicalInsightPresentation } from './insights-presentation.mjs';
 
 /**
  * @param {string} slug
@@ -56,6 +57,7 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
   if (strict) {
     try {
       assertPublishQuality(html, { slug });
+      assertCanonicalInsightPresentation(html, { slug });
     } catch (err) {
       return { slug, ok: false, error: 'quality_gate', message: err.message, changed, removed, issues };
     }
