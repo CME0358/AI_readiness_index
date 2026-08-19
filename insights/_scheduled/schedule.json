@@ -78,7 +78,9 @@
       "title": "Authorityとは何か──AIは企業を何で信頼するのか",
       "cardSummary": "見つけてもらえただけでは推薦されない。AIが安心して紹介できる信頼の根拠＝Authorityを解説する。",
       "llmsLabel": "Authorityとは何か",
-      "publishedAt": "2026-07-22T04:17:29.279Z"
+      "publishedAt": "2026-07-22T04:17:29.279Z",
+      "productionVerifiedAt": "2026-08-19T04:08:30.716Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "trust",
