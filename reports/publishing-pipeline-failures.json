@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-19T04:08:30.716Z",
+  "updatedAt": "2026-08-19T04:26:40.314Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "auth",
+    "slug": "checklist",
     "stage": "published_verified",
-    "at": "2026-08-19T04:08:30.716Z"
+    "at": "2026-08-19T04:26:40.314Z"
   }
 }

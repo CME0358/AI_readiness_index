@@ -69,7 +69,9 @@
       "title": "AIに見つけてもらう企業は何が違うのか──Visibilityを高める実践チェックリスト",
       "cardSummary": "見つけてもらえる企業の共通点と、Visibilityを高める実践チェックリスト。",
       "llmsLabel": "Visibility実践チェックリスト",
-      "publishedAt": "2026-07-21T04:16:03.961Z"
+      "publishedAt": "2026-07-21T04:16:03.961Z",
+      "productionVerifiedAt": "2026-08-19T04:26:40.313Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "auth",
