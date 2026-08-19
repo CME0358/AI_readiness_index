@@ -385,8 +385,8 @@
     },
     {
       "slug": "org-schema-basics",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-20T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Organizationスキーマの実務的役割",
       "cardSummary": "企業エンティティの公式定義として機能する。schema vs llms.txt 比較ではなくOrganization型の実",
       "llmsLabel": "Organizationスキーマの実務的役割",
@@ -394,7 +394,8 @@
       "seoTitle": "Organization Schemaとは？AI検索で企業情報を正しく伝える方法",
       "metaDescription": "Organizationスキーマは企業エンティティの公式定義として機能する。Schema.orgのOrganization型の実務的役割と、AI検索で企業情報を正しく伝える設計を解説します。",
       "searchIntentClass": "A",
-      "primarySearchIntent": "Organization Schema 企業情報 構造化"
+      "primarySearchIntent": "Organization Schema 企業情報 構造化",
+      "unlockedAt": "2026-08-19T06:48:02.369Z"
     },
     {
       "slug": "semantic-web-ai",
