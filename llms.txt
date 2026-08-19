@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [AI向けFAQ設計の基本](https://readiness.coaretail.com/insights/faq-for-agents/): Insights Column（2026-08-19）
 - [IABのAI Visibility計測フレーム](https://readiness.coaretail.com/insights/iab-ai-visibility/): Insights Column（2026-08-18）
 - [検索離れとAI完結——20代48%の調査](https://readiness.coaretail.com/insights/search-departure-ai/): Insights Column（2026-08-17）
 - [企業情報の一貫性がAIの理解を決める](https://readiness.coaretail.com/insights/entity-consistency/): Insights Column（2026-08-14）

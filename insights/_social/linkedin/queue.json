@@ -523,6 +523,23 @@
       "createdAt": "2026-08-17T06:00:00.000Z",
       "updatedAt": "2026-08-18T01:00:35.445Z",
       "series": "current-event"
+    },
+    {
+      "id": "ARI-LI-CE-faq-for-agents",
+      "slug": "faq-for-agents",
+      "articlePublishAt": "2026-08-19T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-19T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-19T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/faq-for-agents/",
+      "contentFile": "insights/_social/linkedin/posts/faq-for-agents.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-19T01:00:00.165Z",
+      "updatedAt": "2026-08-19T01:00:00.165Z",
+      "series": "v2"
     }
   ]
 }
