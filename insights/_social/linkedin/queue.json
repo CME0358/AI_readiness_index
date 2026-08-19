@@ -532,13 +532,13 @@
       "linkedinPublishAt": "2026-08-19T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/faq-for-agents/",
       "contentFile": "insights/_social/linkedin/posts/faq-for-agents.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a8500315284c02bafec15b4",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-19T01:00:00.165Z",
-      "updatedAt": "2026-08-19T01:00:00.165Z",
+      "updatedAt": "2026-08-19T01:00:34.788Z",
       "series": "v2"
     }
   ]

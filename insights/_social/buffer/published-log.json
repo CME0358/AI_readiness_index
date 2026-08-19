@@ -242,7 +242,34 @@
       "publishAt": "2026-08-18T12:00:00+09:00",
       "dueAtUtc": "2026-08-18T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-19T01:00:00.000Z",
+      "slug": "faq-for-agents",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a8500315284c02bafec15b4",
+      "publishAt": "2026-08-19T11:30:00+09:00",
+      "dueAtUtc": "2026-08-19T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-19T01:00:00.000Z",
+      "slug": "faq-for-agents",
+      "channel": "facebook",
+      "bufferUpdateId": "6a85003252d75a5c9375c0a9",
+      "publishAt": "2026-08-19T11:45:00+09:00",
+      "dueAtUtc": "2026-08-19T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-19T01:00:00.000Z",
+      "slug": "faq-for-agents",
+      "channel": "x",
+      "bufferUpdateId": "6a8500324f1c1259e7c53dbc",
+      "publishAt": "2026-08-19T12:00:00+09:00",
+      "dueAtUtc": "2026-08-19T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-18T01:00:35.443Z"
+  "updatedAt": "2026-08-19T01:00:34.787Z"
 }
