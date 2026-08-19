@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-19
 
-> Reconciliation run: 2026-08-19T02:18:53.858Z
+> Reconciliation run: 2026-08-19T03:25:33.043Z
 
 ## TODAY
 
-slug: wrong
+slug: trust
 
 ## WEB
 scheduled: 10:00
