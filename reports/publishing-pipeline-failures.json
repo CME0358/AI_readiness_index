@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-19T01:00:34.789Z",
+  "updatedAt": "2026-08-19T02:18:54.145Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "faq-for-agents",
-    "stage": "buffer_queued",
-    "at": "2026-08-19T01:00:34.789Z"
+    "slug": "wrong",
+    "stage": "published_verified",
+    "at": "2026-08-19T02:18:54.145Z"
   }
 }

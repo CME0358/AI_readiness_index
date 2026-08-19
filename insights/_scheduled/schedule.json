@@ -96,7 +96,9 @@
       "title": "AIは間違った情報をどう扱うのか──Authorityを失う企業の共通点",
       "cardSummary": "矛盾した情報は紹介を避ける理由になる。Authorityを失う企業の共通パターンを読み解く。",
       "llmsLabel": "Authorityを失う企業の共通点",
-      "publishedAt": "2026-07-24T04:15:38.181Z"
+      "publishedAt": "2026-07-24T04:15:38.181Z",
+      "productionVerifiedAt": "2026-08-19T02:18:54.144Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "act",
