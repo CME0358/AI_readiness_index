@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-20T04:08:24.470Z",
+  "updatedAt": "2026-08-20T04:26:40.018Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "exec",
+    "slug": "grounds",
     "stage": "published_verified",
-    "at": "2026-08-20T04:08:24.470Z"
+    "at": "2026-08-20T04:26:40.018Z"
   }
 }
