@@ -107,9 +107,9 @@ export function syncInsightPublicationDate(html, publishAt) {
 
 /**
  * @param {string} root
- * @param {{ dryRun?: boolean, slugs?: string[]|null, log?: (entry: object) => void }} [opts]
+ * @param {{ dryRun?: boolean, slugs?: string[]|null }} [opts]
  */
-export function syncPublishedInsightDatesFromListing(root, { dryRun = false, slugs = null, log = null } = {}) {
+export function syncPublishedInsightDatesFromListing(root, { dryRun = false, slugs = null } = {}) {
   const indexPath = path.join(root, 'insights/index.html');
   const indexHtml = fs.readFileSync(indexPath, 'utf8');
   const listingDates = parseListingInsightDates(indexHtml);
@@ -147,14 +147,6 @@ export function syncPublishedInsightDatesFromListing(root, { dryRun = false, slu
     }
 
     result.synced.push({ slug, from: articleYmd, to: listingYmd });
-    log?.({
-      hypothesisId: 'H1',
-      slug,
-      listingYmd,
-      articleYmdBefore: articleYmd,
-      articleYmdAfter: listingYmd,
-      changed: true,
-    });
   }
 
   return result;
