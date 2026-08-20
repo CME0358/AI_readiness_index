@@ -42,7 +42,9 @@
       "title": "検索から実行へ──Agent Readinessという新しい考え方",
       "cardSummary": "SEOもGEOも重要だが、その先にあるのは実行。Visibility・Authority・Actionabilityで企業の競争力を定義する。",
       "llmsLabel": "検索から実行へ（Agent Readiness）",
-      "publishedAt": "2026-07-16T04:09:38.032Z"
+      "publishedAt": "2026-07-16T04:09:38.032Z",
+      "productionVerifiedAt": "2026-08-20T04:08:24.469Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "vis",
