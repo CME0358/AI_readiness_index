@@ -179,13 +179,13 @@
       "linkedinPublishAt": "2026-08-20T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/org-schema-basics/",
       "contentFile": "insights/_social/linkedin/posts/org-schema-basics.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a8651b2e5065537ab4b9247",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-19T06:48:02.369Z"
+      "updatedAt": "2026-08-20T01:00:35.153Z"
     },
     {
       "id": "ARI-LI-011",

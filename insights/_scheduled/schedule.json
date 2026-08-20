@@ -398,7 +398,9 @@
       "unlockedAt": "2026-08-19T06:48:02.369Z",
       "publishAttemptedAt": "2026-08-20T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-08-20T01:00:00.000Z"
+      "publishedAt": "2026-08-20T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-20T01:00:33.639Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "semantic-web-ai",
