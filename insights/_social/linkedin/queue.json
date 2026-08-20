@@ -190,18 +190,18 @@
     {
       "id": "ARI-LI-011",
       "slug": "semantic-web-ai",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "linkedinPublishAt": null,
+      "articlePublishAt": "2026-08-21T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-21T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-21T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/semantic-web-ai/",
       "contentFile": "insights/_social/linkedin/posts/semantic-web-ai.md",
-      "status": "editorial_hold",
+      "status": "scheduled",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-08-20T06:50:42.863Z"
     },
     {
       "id": "ARI-LI-012",

@@ -412,8 +412,8 @@
     },
     {
       "slug": "semantic-web-ai",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-21T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Web上の意味構造とAIの読み取り",
       "cardSummary": "見出し・ラベル・構造化データが意味の骨格になる。ファイル比較ではなく意味構造の読み取り",
       "llmsLabel": "Web上の意味構造とAIの読み取り",
@@ -421,7 +421,8 @@
       "seoTitle": "セマンティックWebとは？生成AI・AI検索との関係を解説",
       "metaDescription": "セマンティックWebの意味構造——見出し・ラベル・構造化データ——がAIの読み取りの骨格になる。生成AI・AI検索との関係と、Agent Readinessの情報設計への示唆を解説します。",
       "searchIntentClass": "A",
-      "primarySearchIntent": "セマンティックWeb AI 意味構造"
+      "primarySearchIntent": "セマンティックWeb AI 意味構造",
+      "unlockedAt": "2026-08-20T06:50:42.863Z"
     },
     {
       "slug": "hiring-readiness",
