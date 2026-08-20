@@ -18,6 +18,7 @@ import {
 } from './insights-related-links.mjs';
 import { runPrepublishEditorialGate } from './prepublish-editorial-gate.mjs';
 import { assertCanonicalInsightPresentation } from './insights-presentation.mjs';
+import { syncInsightPublicationDate } from './insights-publication-date.mjs';
 
 /**
  * @param {string} slug
@@ -32,9 +33,18 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
   const before = fs.readFileSync(filePath, 'utf8');
   let { html, changed, removed, issues } = sanitizeArticleHtmlFile(before, { slug });
 
+  const schedule = loadSchedule();
+  const entry = schedule.articles.find((a) => a.slug === slug);
+
+  if (entry?.publishAt) {
+    const dateSync = syncInsightPublicationDate(html, entry.publishAt);
+    if (dateSync.changed) {
+      html = dateSync.html;
+      changed = true;
+    }
+  }
+
   if (!isProtectedInternalLinkSlug(slug)) {
-    const schedule = loadSchedule();
-    const entry = schedule.articles.find((a) => a.slug === slug);
     const linkResult = applyInternalLinksToHtml(html, slug, {
       mode: 'scheduled',
       publishAt: entry?.publishAt || null,
@@ -79,8 +89,6 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
 
     if (!isProtectedInternalLinkSlug(slug)) {
       try {
-        const schedule = loadSchedule();
-        const entry = schedule.articles.find((a) => a.slug === slug);
         assertInternalLinks(html, slug, {
           mode: 'scheduled',
           publishAt: entry?.publishAt || null,
@@ -99,8 +107,6 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
       }
     }
 
-    const schedule = loadSchedule();
-    const entry = schedule.articles.find((a) => a.slug === slug);
     const editorialGate = runPrepublishEditorialGate(slug, {
       html,
       scheduleEntry: entry,
