@@ -1,5 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
+const YMD_RE = /^\d{4}-\d{2}-\d{2}$/;
+
 function toJstDateParts(iso) {
   if (!iso) return null;
+
+  if (YMD_RE.test(iso)) {
+    const [y, m, day] = iso.split('-');
+    return { ymd: iso, dot: `${y}.${m}.${day}` };
+  }
 
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
@@ -23,17 +33,35 @@ function toJstDateParts(iso) {
   };
 }
 
-export function syncInsightPublicationDate(html, publishAt) {
-  const parts = toJstDateParts(publishAt);
+/** Parse canonical listing dates from insights/index.html cards. */
+export function parseListingInsightDates(indexHtml) {
+  const dates = new Map();
+  const re = /data-insight-slug="([^"]+)"[\s\S]*?<time datetime="(\d{4}-\d{2}-\d{2})"/g;
+  let match;
+  while ((match = re.exec(indexHtml))) {
+    dates.set(match[1], match[2]);
+  }
+  return dates;
+}
+
+export function extractInsightPublicationDate(html) {
+  const jsonLd = html.match(/"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
+  if (jsonLd) return jsonLd[1];
+  const time = html.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"/);
+  return time?.[1] || null;
+}
+
+export function syncInsightPublicationDateToYmd(html, ymd) {
+  const parts = toJstDateParts(ymd);
   if (!parts) {
     return {
       html,
       changed: false,
-      reason: 'missing_or_invalid_publishAt',
+      reason: 'missing_or_invalid_ymd',
     };
   }
 
-  const { ymd, dot } = parts;
+  const { dot } = parts;
   let next = html;
 
   next = next.replace(
@@ -47,8 +75,8 @@ export function syncInsightPublicationDate(html, publishAt) {
   );
 
   next = next.replace(
-    /(<time\b[^>]*datetime=")\d{4}-\d{2}-\d{2}("[^>]*>)\d{4}\.\d{2}\.\d{2}(<\/time>)/,
-    `$1${ymd}$2${dot}$3`
+    /(<p class="article-meta">\s*)<time\b[\s\S]*?<\/time>/,
+    `$1<time datetime="${ymd}">${dot}</time>`
   );
 
   next = next.replace(
@@ -62,4 +90,72 @@ export function syncInsightPublicationDate(html, publishAt) {
     ymd,
     dot,
   };
+}
+
+export function syncInsightPublicationDate(html, publishAt) {
+  const parts = toJstDateParts(publishAt);
+  if (!parts) {
+    return {
+      html,
+      changed: false,
+      reason: 'missing_or_invalid_publishAt',
+    };
+  }
+
+  return syncInsightPublicationDateToYmd(html, parts.ymd);
+}
+
+/**
+ * @param {string} root
+ * @param {{ dryRun?: boolean, slugs?: string[]|null, log?: (entry: object) => void }} [opts]
+ */
+export function syncPublishedInsightDatesFromListing(root, { dryRun = false, slugs = null, log = null } = {}) {
+  const indexPath = path.join(root, 'insights/index.html');
+  const indexHtml = fs.readFileSync(indexPath, 'utf8');
+  const listingDates = parseListingInsightDates(indexHtml);
+
+  const result = {
+    synced: [],
+    skipped: [],
+    missing: [],
+    mismatchesBefore: [],
+  };
+
+  for (const [slug, listingYmd] of listingDates.entries()) {
+    if (slugs && !slugs.includes(slug)) continue;
+
+    const articlePath = path.join(root, 'insights', slug, 'index.html');
+    if (!fs.existsSync(articlePath)) {
+      result.missing.push(slug);
+      continue;
+    }
+
+    const before = fs.readFileSync(articlePath, 'utf8');
+    const articleYmd = extractInsightPublicationDate(before);
+    if (articleYmd !== listingYmd) {
+      result.mismatchesBefore.push({ slug, listingYmd, articleYmd });
+    }
+
+    const synced = syncInsightPublicationDateToYmd(before, listingYmd);
+    if (!synced.changed) {
+      result.skipped.push(slug);
+      continue;
+    }
+
+    if (!dryRun) {
+      fs.writeFileSync(articlePath, synced.html, 'utf8');
+    }
+
+    result.synced.push({ slug, from: articleYmd, to: listingYmd });
+    log?.({
+      hypothesisId: 'H1',
+      slug,
+      listingYmd,
+      articleYmdBefore: articleYmd,
+      articleYmdAfter: listingYmd,
+      changed: true,
+    });
+  }
+
+  return result;
 }

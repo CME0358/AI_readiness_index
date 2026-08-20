@@ -12,6 +12,8 @@
     "publish:insights": "node scripts/publish-scheduled-insights.mjs",
     "publish:insights:dry": "node scripts/publish-scheduled-insights.mjs --dry-run",
     "sync:v1-published": "node scripts/sync-v1-published-state.mjs",
+    "sync:insight-dates": "node scripts/sync-published-insight-dates.mjs",
+    "sync:insight-dates:dry": "node scripts/sync-published-insight-dates.mjs --dry-run",
     "reschedule:v2": "node scripts/reschedule-v2-publication.mjs",
     "sync:linkedin:git": "node scripts/sync-linkedin-posts-to-git.mjs",
     "apply:production-gate": "node scripts/apply-initial-production-gate.mjs",

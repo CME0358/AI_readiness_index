@@ -30,7 +30,10 @@ test('standalone article markup is rejected before publication', () => {
   assert.ok(missing.includes('footer'));
 });
 
-import { syncInsightPublicationDate } from '../lib/insights-publication-date.mjs';
+import {
+  syncInsightPublicationDate,
+  syncInsightPublicationDateToYmd,
+} from '../lib/insights-publication-date.mjs';
 
 test('publication date sync replaces stale generated date with actual publishAt', () => {
   const html = `
@@ -56,4 +59,19 @@ test('publication date sync replaces stale generated date with actual publishAt'
   assert.match(result.html, /"dateModified": "2026-08-20"/);
   assert.match(result.html, /datetime="2026-08-20">2026\.08\.20<\/time>/);
   assert.match(result.html, /Last Updated 2026-08-20/);
+});
+
+test('publication date sync repairs corrupted article-meta time tags', () => {
+  const html = `
+  <script type="application/ld+json">
+  {"datePublished":"2026-08-20","dateModified":"2026-08-20"}
+  </script>
+  <p class="article-meta">
+    <time datetime="2026-08-20">2026.08.17</time>
+  </p>
+  `;
+
+  const result = syncInsightPublicationDateToYmd(html, '2026-08-20');
+  assert.equal(result.changed, true);
+  assert.match(result.html, /<time datetime="2026-08-20">2026\.08\.20<\/time>/);
 });
