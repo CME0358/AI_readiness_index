@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [Organizationスキーマの実務的役割](https://readiness.coaretail.com/insights/org-schema-basics/): Insights Column（2026-08-20）
 - [AI向けFAQ設計の基本](https://readiness.coaretail.com/insights/faq-for-agents/): Insights Column（2026-08-19）
 - [IABのAI Visibility計測フレーム](https://readiness.coaretail.com/insights/iab-ai-visibility/): Insights Column（2026-08-18）
 - [検索離れとAI完結——20代48%の調査](https://readiness.coaretail.com/insights/search-departure-ai/): Insights Column（2026-08-17）
