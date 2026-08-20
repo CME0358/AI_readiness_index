@@ -24,6 +24,10 @@
     {
       "source": "/report/p/:path*",
       "destination": "/report/index.html"
+    },
+    {
+      "source": "/report/partner-preview/:path*",
+      "destination": "/report/index.html"
     }
   ],
   "functions": {

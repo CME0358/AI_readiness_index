@@ -6,30 +6,9 @@ import {
 } from "./analytics.js";
 import PreviewIndustryVideo from "./PreviewIndustryVideo.jsx";
 import { sanitizePreviewPrefill } from "./preview-prefill.js";
+import { CheckBadge } from "./preview-shared.jsx";
 import { resolvePreviewVideo, normalizePreviewVideoSegment } from "./video-carousel-data.js";
-
-const STATUS_LABEL = {
-  pass: { text: "確認済", color: "#16A34A", bg: "#ECFDF5" },
-  warn: { text: "要確認", color: "#D97706", bg: "#FFFBEB" },
-  unknown: { text: "未確認", color: "#6B7280", bg: "#F3F4F6" },
-};
-
-function CheckBadge({ status }) {
-  const meta = STATUS_LABEL[status] || STATUS_LABEL.unknown;
-  return (
-    <span style={{
-      display: "inline-block",
-      fontSize: 11,
-      fontWeight: 700,
-      color: meta.color,
-      background: meta.bg,
-      padding: "3px 8px",
-      borderRadius: 999,
-    }}>
-      {meta.text}
-    </span>
-  );
-}
+import { parsePreviewToken } from "./partner-preview-routing.js";
 
 export default function PreviewPage({ token }) {
   const [data, setData] = useState(null);
@@ -194,7 +173,4 @@ export default function PreviewPage({ token }) {
   );
 }
 
-export function parsePreviewToken(pathname = "") {
-  const match = pathname.match(/\/report\/p\/([^/?#]+)/) || pathname.match(/\/p\/([^/?#]+)/);
-  return match?.[1] ? decodeURIComponent(match[1]) : null;
-}
+export { parsePreviewToken };
