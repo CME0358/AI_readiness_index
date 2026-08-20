@@ -26,7 +26,11 @@
       "destination": "/report/index.html"
     },
     {
-      "source": "/report/partner-preview/:path*",
+      "source": "/report/partner-preview",
+      "destination": "/report/index.html"
+    },
+    {
+      "source": "/report/partner-preview/",
       "destination": "/report/index.html"
     }
   ],

@@ -13,7 +13,7 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 test('partner preview route registered in vercel.json', () => {
   const vercel = read('vercel.json');
-  assert.match(vercel, /\/report\/partner-preview\/:path\*/);
+  assert.match(vercel, /\/report\/partner-preview/);
   assert.match(vercel, /\/report\/index\.html/);
 });
 
