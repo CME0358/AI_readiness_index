@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-20T01:00:35.154Z",
+  "updatedAt": "2026-08-20T02:17:59.848Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "org-schema-basics",
-    "stage": "buffer_queued",
-    "at": "2026-08-20T01:00:35.154Z"
+    "slug": "blind",
+    "stage": "published_verified",
+    "at": "2026-08-20T02:17:59.848Z"
   }
 }

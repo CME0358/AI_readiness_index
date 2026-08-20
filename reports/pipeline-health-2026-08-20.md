@@ -1,10 +1,10 @@
 # Pipeline Health — 2026-08-20
 
-> Reconciliation run: 2026-08-20T01:00:00.000Z
+> Reconciliation run: 2026-08-20T02:17:59.446Z
 
 ## TODAY
 
-slug: org-schema-basics
+slug: blind
 
 ## WEB
 scheduled: 10:00
@@ -12,14 +12,8 @@ published: true
 productionVerified: true
 
 ## BUFFER
-linkedin: queued
-facebook: queued
-x: queued
+(no buffer entry)
 
 ## PIPELINE
-status: COMPLETE
-verify: ok (2 attempts)
-buffer actions:
-- linkedin: queued
-- facebook: queued
-- x: queued
+status: RECOVERING
+verify: ok (1 attempts)

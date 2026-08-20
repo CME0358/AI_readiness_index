@@ -60,7 +60,9 @@
       "title": "なぜAIはあなたの会社を知らないのか──Visibilityを阻害する5つの原因",
       "cardSummary": "サイトがあるのにAIに出てこない。Visibilityを阻害する設計上の原因を5つに整理する。",
       "llmsLabel": "Visibilityを阻害する5つの原因",
-      "publishedAt": "2026-07-20T04:36:12.638Z"
+      "publishedAt": "2026-07-20T04:36:12.638Z",
+      "productionVerifiedAt": "2026-08-20T02:17:59.847Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "checklist",
