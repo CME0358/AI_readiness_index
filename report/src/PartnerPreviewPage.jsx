@@ -290,7 +290,7 @@ export default function PartnerPreviewPage() {
             </a>
           </div>
           <p className="partner-cta__note">
-            完全版レポートは ¥29,800（税別）。クライアント展開の相談は30分のオンライン面談から開始できます。
+            有料レポートは¥29,800（税別）。クライアント展開の相談は30分のオンライン面談から開始できます。
           </p>
         </section>
       </div>
