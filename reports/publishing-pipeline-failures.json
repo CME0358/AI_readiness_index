@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-21T01:00:33.723Z",
+  "updatedAt": "2026-08-21T02:23:56.125Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "semantic-web-ai",
-    "stage": "buffer_queued",
-    "at": "2026-08-21T01:00:33.723Z"
+    "slug": "schema",
+    "stage": "published_verified",
+    "at": "2026-08-21T02:23:56.125Z"
   }
 }
