@@ -73,7 +73,12 @@ jobs:
           EXIT_CODE=${PIPESTATUS[0]}
           set -e
           if grep -q 'UPDATED=1' /tmp/reconcile-publish.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
-          SLUG=$(grep '^ACTIVE_SLUG=' /tmp/reconcile-publish.log | tail -1 | cut -d= -f2-)
+          SLUG="$(
+            grep '^ACTIVE_SLUG=' /tmp/reconcile-publish.log \
+              | tail -1 \
+              | cut -d= -f2- \
+              || true
+          )"
           echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
           echo "exit_code=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
 
