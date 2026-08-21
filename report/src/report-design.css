@@ -647,6 +647,10 @@
   transition: transform 0.45s var(--lp-ease), background 0.45s var(--lp-ease);
 }
 
+a.lp-cta {
+  text-decoration: none;
+}
+
 .lp-cta:active { transform: scale(0.98); }
 
 .lp-cta--ink {
@@ -1034,6 +1038,10 @@
   border-radius: 28px;
   background: rgba(13, 27, 62, 0.04);
   border: 1px solid rgba(13, 27, 62, 0.08);
+}
+
+.lp-strip .lp-final + .lp-final {
+  margin-top: 16px;
 }
 .lp-final__inner {
   background: var(--lp-ink);

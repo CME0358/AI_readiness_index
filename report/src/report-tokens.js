@@ -1,5 +1,6 @@
 /** Shared design tokens for Report SPA — mirrors assets/design-system.css */
 export const IMPROVE_URL = "/improve.html";
+export const MTG_SCHEDULE_URL = "https://www.coaretail.com/readiness/mtgschedule";
 
 /** Score bar fill variants — accent family only (no black fills) */
 export const SCORE_BAR_VARIANTS = {

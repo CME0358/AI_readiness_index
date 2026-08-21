@@ -6,6 +6,7 @@ import {
   scoreInterpretation,
   mapProposalToPriority,
   IMPROVE_URL,
+  MTG_SCHEDULE_URL,
   SCORE_BAR_VARIANTS,
 } from "./report-tokens.js";
 import {
@@ -613,6 +614,20 @@ function CtaBtn({ onClick, variant = "ink", children }) {
   );
 }
 
+function CtaLink({ href, variant = "ink", external = false, children }) {
+  return (
+    <a
+      href={href}
+      className={`lp-cta lp-cta--${variant}`}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
+      {children}
+      <span className="lp-cta__icon" aria-hidden="true">→</span>
+    </a>
+  );
+}
+
 function LandingPage({ onStart }) {
   const [legal, setLegal] = useState(null);
   const faqs = [
@@ -904,6 +919,17 @@ function LandingPage({ onStart }) {
               <p>¥29,800（税別）・約3分・PDFダウンロード</p>
             </div>
             <CtaBtn onClick={onStart} variant="gold">レポートを入手する</CtaBtn>
+          </div>
+        </div>
+        <div className="lp-final lp-final--consult">
+          <div className="lp-final__inner">
+            <div>
+              <h2>レポート結果を、どこから着手すべきか迷っていませんか</h2>
+              <p>30分のオンライン相談・無料</p>
+            </div>
+            <CtaLink href={MTG_SCHEDULE_URL} variant="gold" external>
+              無料相談を予約する
+            </CtaLink>
           </div>
         </div>
       </div>

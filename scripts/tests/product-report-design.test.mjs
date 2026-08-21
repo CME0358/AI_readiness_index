@@ -85,11 +85,13 @@ test('T10 footer Advisory primary CTA routes to improve.html', () => {
   assert.doesNotMatch(src, /report-advisory-secondary/);
 });
 
-test('T11 report contains no direct mtgschedule URL', () => {
+test('T11 report landing includes free consultation CTA to mtgschedule', () => {
   const src = reportSrc();
   const tokens = reportTokens();
-  assert.doesNotMatch(src, /mtgschedule/);
-  assert.doesNotMatch(tokens, /mtgschedule/);
+  assert.match(tokens, /MTG_SCHEDULE_URL = "https:\/\/www\.coaretail\.com\/readiness\/mtgschedule"/);
+  assert.match(src, /lp-final--consult/);
+  assert.match(src, /無料相談を予約する/);
+  assert.match(src, /href=\{MTG_SCHEDULE_URL\}/);
 });
 
 test('T12 improve.html preserves mtgschedule Advisory CTA', () => {
