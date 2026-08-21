@@ -545,7 +545,7 @@
     {
       "slug": "semantic-web-ai",
       "articleUrl": "https://readiness.coaretail.com/insights/semantic-web-ai/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-21T10:00:00+09:00",
       "bufferTransferAt": "2026-08-21T10:30:00+09:00",
       "channels": {
@@ -553,41 +553,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/semantic-web-ai.md",
           "publishAt": "2026-08-21T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a87a3312c87911adc71ca46",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-21T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-20T06:50:42.897Z"
+          "updatedAt": "2026-08-21T01:00:00.000Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/semantic-web-ai.md",
           "publishAt": "2026-08-21T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a87a3313120534163c091a4",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-21T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-20T06:50:42.897Z"
+          "updatedAt": "2026-08-21T01:00:00.000Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/semantic-web-ai.md",
           "publishAt": "2026-08-21T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a87a3313120534163c091c8",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-21T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-20T06:50:42.897Z"
+          "updatedAt": "2026-08-21T01:00:00.000Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-20T06:50:42.863Z",
+      "updatedAt": "2026-08-21T01:00:00.000Z",
       "unlockedAt": "2026-08-20T06:50:42.863Z"
     },
     {
