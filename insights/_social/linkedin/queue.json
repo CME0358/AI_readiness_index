@@ -206,18 +206,18 @@
     {
       "id": "ARI-LI-012",
       "slug": "hiring-readiness",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "linkedinPublishAt": null,
+      "articlePublishAt": "2026-08-24T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-24T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-24T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/hiring-readiness/",
       "contentFile": "insights/_social/linkedin/posts/hiring-readiness.md",
-      "status": "editorial_hold",
+      "status": "scheduled",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-08-21T06:51:30.399Z"
     },
     {
       "id": "ARI-LI-013",
