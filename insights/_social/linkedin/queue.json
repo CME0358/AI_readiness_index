@@ -222,18 +222,18 @@
     {
       "id": "ARI-LI-013",
       "slug": "availability-signals",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "linkedinPublishAt": null,
+      "articlePublishAt": "2026-08-25T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-25T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-25T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/availability-signals/",
       "contentFile": "insights/_social/linkedin/posts/availability-signals.md",
-      "status": "editorial_hold",
+      "status": "scheduled",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-08-24T07:02:48.400Z"
     },
     {
       "id": "ARI-LI-014",
