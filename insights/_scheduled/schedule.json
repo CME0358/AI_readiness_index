@@ -434,7 +434,7 @@
     {
       "slug": "hiring-readiness",
       "publishAt": "2026-08-24T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "求人情報をAIが比較できる状態",
       "cardSummary": "職種・条件・勤務地・選考フローの構造化が必要。予約/決済ではなく採用ドメインのActionability",
       "llmsLabel": "求人情報をAIが比較できる状態",
@@ -443,7 +443,10 @@
       "metaDescription": "職種・条件・勤務地・選考フローが構造化されていないとAIは求人を比較できない。採用ドメインにおけるAgent Readiness——Actionabilityの設計と、求人比較の前提条件を解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "求人情報 AI 比較 構造化",
-      "unlockedAt": "2026-08-21T06:51:30.399Z"
+      "unlockedAt": "2026-08-21T06:51:30.399Z",
+      "publishAttemptedAt": "2026-08-24T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-08-24T01:00:00.000Z"
     },
     {
       "slug": "availability-signals",
