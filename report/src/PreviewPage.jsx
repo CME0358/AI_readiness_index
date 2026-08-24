@@ -9,6 +9,7 @@ import { sanitizePreviewPrefill } from "./preview-prefill.js";
 import { CheckBadge } from "./preview-shared.jsx";
 import { resolvePreviewVideo, normalizePreviewVideoSegment } from "./video-carousel-data.js";
 import { parsePreviewToken } from "./partner-preview-routing.js";
+import { resolvePublicPreviewCta } from "./preview-cta-contract.js";
 
 export default function PreviewPage({ token }) {
   const [data, setData] = useState(null);
@@ -47,7 +48,8 @@ export default function PreviewPage({ token }) {
   }, [token]);
 
   const handleEngage = () => {
-    if (!data) return;
+    const cta = resolvePublicPreviewCta(data);
+    if (!data || !cta) return;
     if (!engagedRef.current) {
       engagedRef.current = true;
       trackPreviewEngaged({
@@ -65,7 +67,7 @@ export default function PreviewPage({ token }) {
         preview_token: token,
       })));
     } catch { /* noop */ }
-    window.location.href = "/report/";
+    window.location.assign(cta.trackingUrl);
   };
 
   if (loading) {
@@ -95,6 +97,7 @@ export default function PreviewPage({ token }) {
   const checkItems = summary.check_items || [];
   const videoSegment = normalizePreviewVideoSegment(data.video_segment);
   const previewVideo = resolvePreviewVideo(videoSegment);
+  const cta = resolvePublicPreviewCta(data);
 
   return (
     <div style={{ minHeight: "100vh", background: "#F8F8F8", padding: "48px 24px" }}>
@@ -158,12 +161,13 @@ export default function PreviewPage({ token }) {
         <button
           type="button"
           onClick={handleEngage}
+          disabled={!cta}
           style={{
-            width: "100%", background: "#0A0A0A", color: "#fff", border: "none",
-            padding: "16px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer",
+            width: "100%", background: cta ? "#0A0A0A" : "#9CA3AF", color: "#fff", border: "none",
+            padding: "16px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: cta ? "pointer" : "not-allowed",
           }}
         >
-          完全版レポートを入手する
+          {cta ? "詳しいご案内を確認する" : "ご案内リンクを利用できません"}
         </button>
         <p style={{ textAlign: "center", fontSize: 12, color: "#9B9B9B", marginTop: 12 }}>
           会社名・URL・業種は次の画面で自動入力されます

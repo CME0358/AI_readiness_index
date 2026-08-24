@@ -3,6 +3,7 @@
  */
 
 import { normalizeVideoSegment } from './video-segment.mjs';
+import { resolvePublicPreviewCta } from '../../report/src/preview-cta-contract.js';
 
 export const SNAPSHOT_TTL_SECONDS = 90 * 24 * 60 * 60;
 export const TOKEN_PATTERN = /^[A-Za-z0-9_-]+$/;
@@ -20,6 +21,7 @@ export function isExpiredSnapshot(snapshot) {
 
 export function publicSnapshotView(snapshot) {
   const preview = snapshot?.preview || {};
+  const cta = resolvePublicPreviewCta(snapshot);
   return {
     token: snapshot?.token,
     company_name: snapshot?.company_name,
@@ -33,6 +35,12 @@ export function publicSnapshotView(snapshot) {
     video_segment: normalizeVideoSegment(snapshot?.video_segment),
     observations: preview.observations || [],
     check_summary: preview.check_summary || {},
+    cta_available: Boolean(cta),
+    route_id: cta?.routeId || null,
+    buyer_type: cta?.buyerType || null,
+    cta_destination: cta?.destination || null,
+    cta_tracking_url: cta?.trackingUrl || null,
+    routing_policy_version: cta?.routingPolicyVersion || null,
   };
 }
 
