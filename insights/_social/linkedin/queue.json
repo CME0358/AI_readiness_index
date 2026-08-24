@@ -211,13 +211,13 @@
       "linkedinPublishAt": "2026-08-24T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/hiring-readiness/",
       "contentFile": "insights/_social/linkedin/posts/hiring-readiness.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a8b97b17b646aa28b0275ca",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-21T06:51:30.399Z"
+      "updatedAt": "2026-08-24T01:00:34.671Z"
     },
     {
       "id": "ARI-LI-013",

@@ -323,7 +323,34 @@
       "publishAt": "2026-08-21T12:00:00+09:00",
       "dueAtUtc": "2026-08-21T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-24T01:00:00.000Z",
+      "slug": "hiring-readiness",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a8b97b17b646aa28b0275ca",
+      "publishAt": "2026-08-24T11:30:00+09:00",
+      "dueAtUtc": "2026-08-24T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-24T01:00:00.000Z",
+      "slug": "hiring-readiness",
+      "channel": "facebook",
+      "bufferUpdateId": "6a8b97b2f2c8b859602619a0",
+      "publishAt": "2026-08-24T11:45:00+09:00",
+      "dueAtUtc": "2026-08-24T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-24T01:00:00.000Z",
+      "slug": "hiring-readiness",
+      "channel": "x",
+      "bufferUpdateId": "6a8b97b253c54dc08764001b",
+      "publishAt": "2026-08-24T12:00:00+09:00",
+      "dueAtUtc": "2026-08-24T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-21T01:00:33.720Z"
+  "updatedAt": "2026-08-24T01:00:34.669Z"
 }
