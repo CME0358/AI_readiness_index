@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-24T01:00:34.672Z",
+  "updatedAt": "2026-08-25T01:00:35.341Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "hiring-readiness",
+    "slug": "availability-signals",
     "stage": "buffer_queued",
-    "at": "2026-08-24T01:00:34.672Z"
+    "at": "2026-08-25T01:00:35.341Z"
   }
 }
