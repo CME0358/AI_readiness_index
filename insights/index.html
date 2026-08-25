@@ -148,6 +148,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   .nav { position: relative; }
 }
 @media (max-width: 768px) {
+  .insights-grid { grid-template-columns: minmax(0, 1fr); }
     background: var(--bg); border-bottom: 1px solid var(--border);
     padding: 20px 24px; gap: 16px; align-items: flex-start;
   }
@@ -208,7 +209,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
       <h2>記事一覧</h2>
     </div>
 
-    <div class="insights-grid reveal" id="insights-list">
+    <div class="insights-grid" id="insights-list">
 <!-- INSIGHTS_CARDS_START -->
       <a class="insight-card" href="/insights/availability-signals/" data-insight-slug="availability-signals">
         <img class="insight-card-thumb" src="/assets/insights/availability-signals/hero.webp" alt="" loading="lazy" width="1672" height="941">
@@ -541,7 +542,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
         <p>「AI対応ならllms.txtだけで十分」は誤解。3ファイルの役割の違いと、AIが企業全体を見ている理由を整理する。</p>
         <span class="read-more">続きを読む →</span>
       </a>
-      <a class="insight-card" href="/insights/llms-txt/">
+      <a class="insight-card" href="/insights/llms-txt/" data-insight-slug="llms-txt">
         <img class="insight-card-thumb" src="/assets/insights/llms-txt/hero.webp" alt="" loading="lazy" width="1672" height="941">
         <div class="insight-meta">
           <time datetime="2026-07-10">2026.07.10</time>
@@ -551,7 +552,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
         <p>「設置すればAIに引用される」は本当か。llms.txtは入口の一つに過ぎず、本当に重要なのはAIが理解し・比較し・行動できる状態——Agent Readinessの視点で整理する。</p>
         <span class="read-more">続きを読む →</span>
       </a>
-      <a class="insight-card" href="/insights/http-402/">
+      <a class="insight-card" href="/insights/http-402/" data-insight-slug="http-402">
         <img class="insight-card-thumb" src="/assets/insights/http-402/hero.webp" alt="" loading="lazy" width="1672" height="941">
         <div class="insight-meta">
           <time datetime="2026-07-09">2026.07.09</time>
@@ -561,7 +562,7 @@ h3 { font-size: 1.0625rem; margin-bottom: 8px; }
         <p>HTTP 402とx402が示すAI決済の未来。予約から決済までAIが自律完結する時代に、企業が備えるべきAgent Readiness（Action）の視点を整理する。</p>
         <span class="read-more">続きを読む →</span>
       </a>
-      <a class="insight-card" href="/insights/zentoshin/">
+      <a class="insight-card" href="/insights/zentoshin/" data-insight-slug="zentoshin">
         <img class="insight-card-thumb" src="/assets/insights/zentoshin/hero.webp" alt="" loading="lazy" width="1672" height="941">
         <div class="insight-meta">
           <time datetime="2026-07-08">2026.07.08</time>
