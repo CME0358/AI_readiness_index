@@ -18,6 +18,7 @@ import { createBufferPost, getBufferConfig } from './buffer-client.mjs';
 import { verifyArticleUrl } from './url-verify.mjs';
 import { publishDueArticles } from './publish-scheduled-insights-core.mjs';
 import { verifyProductionWithBoundedRetry } from './publish-verification.mjs';
+import { verifyProductionSocialAssets } from './insights-social-media.mjs';
 import {
   OPERATIONAL_STATES,
   deriveScheduleOperationalState,
@@ -258,6 +259,7 @@ export async function reconcilePublishingPipeline({
         dryRun,
         requestedChannels: channels,
         verifyArticleUrl: verifyFn,
+        verifyProduction: (slug) => verifyProductionSocialAssets(slug, { verifyArticle: verifyFn }),
         createBufferPost: createPost,
         getConfig,
         paths: {

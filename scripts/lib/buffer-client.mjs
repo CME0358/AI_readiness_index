@@ -105,14 +105,14 @@ export async function bufferGraphql(accessToken, query, variables, { timeoutMs =
 }
 
 /** Build GraphQL CreatePostInput with per-channel metadata (Buffer schema). */
-export function buildCreatePostInput({ channelKey, channelId, text, dueAtUtc }) {
+export function buildCreatePostInput({ channelKey, channelId, text, dueAtUtc, mediaUrl = null }) {
   const input = {
     channelId,
     text,
     schedulingType: 'automatic',
     saveToDraft: false,
     mode: dueAtUtc ? 'customScheduled' : 'addToQueue',
-    assets: [],
+    assets: mediaUrl ? [{ image: { url: mediaUrl } }] : [],
   };
   if (dueAtUtc) input.dueAt = dueAtUtc;
 
@@ -139,6 +139,7 @@ export async function createBufferPost({
   accessToken,
   text,
   dueAt,
+  mediaUrl = null,
   dryRun = false,
 }) {
   if (dryRun) {
@@ -159,7 +160,7 @@ export async function createBufferPost({
     }
   }
 
-  const input = buildCreatePostInput({ channelKey, channelId, text, dueAtUtc });
+  const input = buildCreatePostInput({ channelKey, channelId, text, dueAtUtc, mediaUrl });
 
   const data = await bufferGraphql(accessToken, CREATE_POST_MUTATION, { input });
   if (data.errors?.length) {

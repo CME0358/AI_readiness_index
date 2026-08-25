@@ -113,7 +113,7 @@ export function pickBufferEligibleArticle(queue, { forceSlug = null, schedule = 
   );
 
   const candidates = queue.posts.filter((p) => {
-    if (forceSlug) return p.slug === forceSlug;
+    if (forceSlug && p.slug !== forceSlug) return false;
     if (p.status === EDITORIAL_STATUSES.HOLD) return false;
     if (!verifiedSlugs.has(p.slug)) return false;
 
@@ -198,10 +198,13 @@ export async function processArticleChannels({
   createBufferPost,
   getConfig,
   paths,
+  verifyProduction = null,
 }) {
   validateChannelKeys(requestedChannels);
 
-  const verify = await verifyArticleUrl(article.slug);
+  const verify = verifyProduction
+    ? await verifyProduction(article.slug)
+    : await verifyArticleUrl(article.slug);
   if (!verify.ok) {
     if (!dryRun) {
       article.status = 'article_url_unavailable';
@@ -222,9 +225,15 @@ export async function processArticleChannels({
       }, { dryRun });
       writeJsonFile(paths.queue, queue, { dryRun });
     }
-    return { updated: !dryRun, results: [], exitCode: dryRun ? 0 : 1, reason: 'url_unavailable' };
+    return {
+      updated: !dryRun,
+      results: [],
+      exitCode: dryRun ? 0 : 1,
+      reason: verifyProduction ? (verify.reason || 'production_not_verified') : 'url_unavailable',
+    };
   }
 
+  const mediaUrl = verify.mediaUrl || null;
   const cfg = getConfig();
   const results = [];
   let anyUpdated = false;
@@ -302,6 +311,7 @@ export async function processArticleChannels({
       accessToken: cfg.accessToken,
       text,
       dueAt: publishAt,
+      mediaUrl,
       dryRun,
     });
 
@@ -357,6 +367,8 @@ export async function processArticleChannels({
       postId,
       publishAt,
       dueAtUtc,
+      mediaUrl,
+      mediaStatus: verify.mediaStatus || (mediaUrl ? 'canonical_hero_verified' : 'text_only'),
     });
   }
 

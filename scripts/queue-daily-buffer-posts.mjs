@@ -6,7 +6,7 @@
  * Usage:
  *   node scripts/queue-daily-buffer-posts.mjs
  *   node scripts/queue-daily-buffer-posts.mjs --dry-run
- *   node scripts/queue-daily-buffer-posts.mjs --verified-only
+ *   node scripts/queue-daily-buffer-posts.mjs --verified-only (compatibility flag; verification is always required)
  *   node scripts/queue-daily-buffer-posts.mjs --channels facebook,x
  *   node scripts/queue-daily-buffer-posts.mjs --force-slug ai-search-shift --channels facebook,x
  *   node scripts/queue-daily-buffer-posts.mjs --now 2026-08-04T12:00:00+09:00
@@ -19,6 +19,7 @@ import {
   getBufferConfig,
 } from './lib/buffer-client.mjs';
 import { verifyArticleUrl } from './lib/url-verify.mjs';
+import { verifyProductionSocialAssets, resolveCanonicalHero } from './lib/insights-social-media.mjs';
 import { waitForArticleProduction } from './lib/wait-production-url.mjs';
 import { CHANNEL_KEYS } from './lib/social-channels.mjs';
 import {
@@ -31,7 +32,9 @@ import {
 
 const dryRun = process.argv.includes('--dry-run');
 const waitDeploy = process.argv.includes('--wait-deploy');
-const verifiedOnly = process.argv.includes('--verified-only');
+// Production verification is a hard handoff gate. Keep the legacy flag
+// accepted for compatibility, but never permit an unverified transfer.
+const verifiedOnly = true;
 const forceSlug = (() => {
   const i = process.argv.indexOf('--force-slug');
   return i >= 0 ? process.argv[i + 1] : null;
@@ -112,6 +115,7 @@ async function main() {
     dryRun,
     requestedChannels,
     verifyArticleUrl,
+    verifyProduction: (slug) => verifyProductionSocialAssets(slug, { verifyArticle: verifyArticleUrl }),
     createBufferPost,
     getConfig: getBufferConfig,
     paths: {
@@ -120,6 +124,20 @@ async function main() {
       failedLog: PATHS.bufferFailedLog,
     },
   });
+
+  if (dryRun) {
+    const source = resolveCanonicalHero(article.slug);
+    console.log('ARTICLE:', article.slug);
+    console.log('HERO SOURCE:', source.publicUrl);
+    console.log('PRODUCTION VERIFIED:', results.length ? results[0].mediaStatus !== 'text_only' || source.available === false : 'blocked');
+    console.log('DERIVATIVE REQUIRED:', 'NO');
+    console.log('DERIVATIVE PATH:', 'NONE');
+    for (const ch of requestedChannels) {
+      const result = results.find((r) => r.channel === ch);
+      console.log(`${ch.toUpperCase()} ACTION:`, result?.action || 'skip');
+    }
+    console.log('CLEANUP ACTION:', 'NONE (canonical URL used; no temporary derivative)');
+  }
 
   for (const r of results) {
     const extra = [r.publishAt, r.dueAtUtc].filter(Boolean).join(' → ');

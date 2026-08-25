@@ -92,6 +92,12 @@ test('Buffer is blocked before production verification', () => {
   assert.equal(isProductionVerified(schedule.articles[0]), false);
 });
 
+test('force-slug does not bypass production verification', () => {
+  const queue = { posts: [bufferPost()] };
+  const schedule = { articles: [{ ...today, status: 'published' }] };
+  assert.equal(pickBufferEligibleArticle(queue, { forceSlug: 'today', schedule }), null);
+});
+
 test('Buffer is eligible after production verification', () => {
   const queue = { posts: [bufferPost()] };
   const schedule = {

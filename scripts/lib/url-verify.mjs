@@ -27,7 +27,7 @@ export async function verifyArticleUrl(slug, { timeoutMs = DEFAULT_TIMEOUT_MS } 
         lastError = checks.reason;
         continue;
       }
-      return { ok: true, url, status: res.status, checks };
+      return { ok: true, url, status: res.status, checks, html };
     } catch (err) {
       lastError = err.name === 'AbortError' ? 'timeout' : String(err.message || err);
     } finally {

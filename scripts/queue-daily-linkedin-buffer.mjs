@@ -18,7 +18,9 @@ import {
   isRateLimitError,
 } from './lib/buffer-client.mjs';
 import { verifyArticleUrl } from './lib/url-verify.mjs';
+import { verifyProductionSocialAssets } from './lib/insights-social-media.mjs';
 import { EDITORIAL_STATUSES, isBufferEligible } from './lib/editorial-status.mjs';
+import { isProductionVerified } from './lib/publishing-state-machine.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const forceSlug = (() => {
@@ -122,8 +124,16 @@ async function main() {
 
   console.log(`${dryRun ? '[dry-run] ' : ''}Processing ${post.id} (${post.slug})`);
 
+  const schedule = readJson(PATHS.schedule, { articles: [] });
+  const scheduleEntry = schedule.articles.find((article) => article.slug === post.slug);
+  if (!isProductionVerified(scheduleEntry)) {
+    console.warn('Production verification gate is not satisfied — Buffer handoff blocked.');
+    console.log('SOCIAL_MEDIA_BLOCKED_PRODUCTION_NOT_VERIFIED');
+    process.exit(dryRun ? 0 : 1);
+  }
+
   // Verify article URL
-  const verify = await verifyArticleUrl(post.slug);
+  const verify = await verifyProductionSocialAssets(post.slug, { verifyArticle: verifyArticleUrl });
   if (!verify.ok) {
     console.warn('URL verify failed:', verify.reason);
     if (!dryRun) {
@@ -178,6 +188,7 @@ async function main() {
     channelId: cfg.channelId,
     accessToken: cfg.accessToken,
     text,
+    mediaUrl: verify.mediaUrl || null,
     dueAt: post.linkedinPublishAt,
     dryRun,
   });
