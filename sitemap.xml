@@ -56,11 +56,17 @@
   </url>
   <url>
     <loc>https://readiness.coaretail.com/insights/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
 <!-- INSIGHTS_URLS_START -->
+  <url>
+    <loc>https://readiness.coaretail.com/insights/availability-signals/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://readiness.coaretail.com/insights/hiring-readiness/</loc>
     <lastmod>2026-08-24</lastmod>

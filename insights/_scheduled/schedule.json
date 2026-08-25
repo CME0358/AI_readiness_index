@@ -453,7 +453,7 @@
     {
       "slug": "availability-signals",
       "publishAt": "2026-08-25T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "空きと営業時間を機械に伝える",
       "cardSummary": "静的表記だけでなく更新可能なシグナル設計が必要。予約可否の一般論ではなく空きシグナル設計",
       "llmsLabel": "空きと営業時間を機械に伝える",
@@ -462,7 +462,10 @@
       "metaDescription": "静的な営業時間表記だけではAIは空きを判断できない。更新可能な空き・営業時間シグナルの設計と、予約Actionabilityを高める方法を、Agent Readinessの実行レイヤーの視点から解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "空き状況 営業時間 機械可読 シグナル",
-      "unlockedAt": "2026-08-24T07:02:48.400Z"
+      "unlockedAt": "2026-08-24T07:02:48.400Z",
+      "publishAttemptedAt": "2026-08-25T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-08-25T01:00:00.000Z"
     },
     {
       "slug": "purchase-path-design",
