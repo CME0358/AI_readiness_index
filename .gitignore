@@ -3,6 +3,13 @@ node_modules/
 public_build/
 .vercel/
 
+# ARI Insights temporary image generations and Social derivatives
+assets/insights/**/*.png
+assets/insights/**/social.*
+assets/insights/**/visual-*
+assets/insights/**/generation-*
+assets/insights/**/original-*
+
 # 内部調査データ（Web非公開・Git管理外）
 crucial_data/
 
