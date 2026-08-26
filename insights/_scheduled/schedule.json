@@ -472,7 +472,7 @@
     {
       "slug": "purchase-path-design",
       "publishAt": "2026-08-26T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "購買導線をAIが辿れる設計",
       "cardSummary": "商品理解・在庫・価格・決済の各段階が連続している必要。決済単体ではなく購買導線全体",
       "llmsLabel": "購買導線をAIが辿れる設計",
@@ -481,7 +481,10 @@
       "metaDescription": "商品理解・在庫・価格・決済の各段階が途切れるとAIは購買を完結できない。決済単体ではなく、購買導線全体の連続性とAgent Readiness設計の観点から、AIが辿れる購買導線を解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "購買導線 AI 決済 設計",
-      "unlockedAt": "2026-08-25T06:52:19.926Z"
+      "unlockedAt": "2026-08-25T06:52:19.926Z",
+      "publishAttemptedAt": "2026-08-26T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-08-26T01:00:00.000Z"
     },
     {
       "slug": "policy-clarity",
