@@ -3,7 +3,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { PATHS } from './insights-v2-paths.mjs';
+import { PATHS, ROOT } from './insights-v2-paths.mjs';
 import {
   sanitizeArticleHtmlFile,
   detectHtmlQualityIssues,
@@ -18,6 +18,7 @@ import {
 } from './insights-related-links.mjs';
 import { runPrepublishEditorialGate } from './prepublish-editorial-gate.mjs';
 import { assertCanonicalInsightPresentation } from './insights-presentation.mjs';
+import { validateOptionalHeroPresentation } from './insights-presentation.mjs';
 import { syncInsightPublicationDate } from './insights-publication-date.mjs';
 
 /**
@@ -68,6 +69,12 @@ export function prepareScheduledArticle(slug, { strict = true, htmlPath = null }
     try {
       assertPublishQuality(html, { slug });
       assertCanonicalInsightPresentation(html, { slug });
+      const heroGate = validateOptionalHeroPresentation(html, {
+        slug,
+        heroExists: fs.existsSync(path.join(ROOT, 'assets/insights', slug, 'hero.webp')),
+        heroCssExists: fs.existsSync(path.join(ROOT, 'assets/insights/hero.css')),
+      });
+      if (!heroGate.ok) throw new Error(`${slug}: ${heroGate.errors.join(', ')}`);
     } catch (err) {
       return { slug, ok: false, error: 'quality_gate', message: err.message, changed, removed, issues };
     }
