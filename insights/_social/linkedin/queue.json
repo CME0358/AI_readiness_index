@@ -254,18 +254,18 @@
     {
       "id": "ARI-LI-015",
       "slug": "policy-clarity",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "linkedinPublishAt": null,
+      "articlePublishAt": "2026-08-27T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-27T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-27T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/policy-clarity/",
       "contentFile": "insights/_social/linkedin/posts/policy-clarity.md",
-      "status": "editorial_hold",
+      "status": "scheduled",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-08-26T06:53:26.625Z"
     },
     {
       "id": "ARI-LI-016",

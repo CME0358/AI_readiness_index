@@ -490,8 +490,8 @@
     },
     {
       "slug": "policy-clarity",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-27T10:00:00+09:00",
+      "status": "scheduled",
       "title": "規約・返金・キャンセルの明確さ",
       "cardSummary": "条件の曖昧さはAIの実行判断を止める。信頼の一般論ではなく規約の機械可読性",
       "llmsLabel": "規約・返金・キャンセルの明確さ",
@@ -499,7 +499,8 @@
       "seoTitle": "返金・キャンセル規約の明確さがAI実行に与える影響",
       "metaDescription": "返金・キャンセル条件の曖昧さはAIの実行判断を止める。規約の機械可読性とActionabilityへの影響を、Agent Readinessの視点から解説し、返金・キャンセル規約の明確さが実行に与える影響を整理します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "返金 キャンセル 規約 AI 実行"
+      "primarySearchIntent": "返金 キャンセル 規約 AI 実行",
+      "unlockedAt": "2026-08-26T06:53:26.625Z"
     },
     {
       "slug": "agent-handoff",
