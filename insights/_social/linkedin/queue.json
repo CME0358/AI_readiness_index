@@ -243,13 +243,13 @@
       "linkedinPublishAt": "2026-08-26T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/purchase-path-design/",
       "contentFile": "insights/_social/linkedin/posts/purchase-path-design.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a8e3ab02ca57a6bca537cc7",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-25T06:52:19.926Z"
+      "updatedAt": "2026-08-26T01:00:33.719Z"
     },
     {
       "id": "ARI-LI-015",

@@ -484,7 +484,9 @@
       "unlockedAt": "2026-08-25T06:52:19.926Z",
       "publishAttemptedAt": "2026-08-26T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-08-26T01:00:00.000Z"
+      "publishedAt": "2026-08-26T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-26T01:00:32.628Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "policy-clarity",

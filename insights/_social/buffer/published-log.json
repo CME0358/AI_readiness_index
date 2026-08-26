@@ -377,7 +377,34 @@
       "publishAt": "2026-08-25T12:00:00+09:00",
       "dueAtUtc": "2026-08-25T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-26T01:00:00.000Z",
+      "slug": "purchase-path-design",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a8e3ab02ca57a6bca537cc7",
+      "publishAt": "2026-08-26T11:30:00+09:00",
+      "dueAtUtc": "2026-08-26T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-26T01:00:00.000Z",
+      "slug": "purchase-path-design",
+      "channel": "facebook",
+      "bufferUpdateId": "6a8e3ab191e55bedf03cc400",
+      "publishAt": "2026-08-26T11:45:00+09:00",
+      "dueAtUtc": "2026-08-26T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-26T01:00:00.000Z",
+      "slug": "purchase-path-design",
+      "channel": "x",
+      "bufferUpdateId": "6a8e3ab191274a8dd44f9a05",
+      "publishAt": "2026-08-26T12:00:00+09:00",
+      "dueAtUtc": "2026-08-26T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-25T01:00:35.339Z"
+  "updatedAt": "2026-08-26T01:00:33.717Z"
 }

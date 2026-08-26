@@ -689,7 +689,7 @@
     {
       "slug": "purchase-path-design",
       "articleUrl": "https://readiness.coaretail.com/insights/purchase-path-design/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-26T10:00:00+09:00",
       "bufferTransferAt": "2026-08-26T10:30:00+09:00",
       "channels": {
@@ -697,41 +697,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/purchase-path-design.md",
           "publishAt": "2026-08-26T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8e3ab02ca57a6bca537cc7",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-26T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-25T06:52:19.953Z"
+          "updatedAt": "2026-08-26T01:00:00.000Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/purchase-path-design.md",
           "publishAt": "2026-08-26T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8e3ab191e55bedf03cc400",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-26T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-25T06:52:19.953Z"
+          "updatedAt": "2026-08-26T01:00:00.000Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/purchase-path-design.md",
           "publishAt": "2026-08-26T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8e3ab191274a8dd44f9a05",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-26T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-25T06:52:19.953Z"
+          "updatedAt": "2026-08-26T01:00:00.000Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-25T06:52:19.926Z",
+      "updatedAt": "2026-08-26T01:00:00.000Z",
       "unlockedAt": "2026-08-25T06:52:19.926Z"
     },
     {
