@@ -6,6 +6,7 @@ const FUNNEL_EVENTS = Object.freeze({
   CTA_CLICK: 'cta_click',
   LEAD_CAPTURE_START: 'lead_capture_start',
   LEAD_CREATED: 'lead_created',
+  WHITEPAPER_DOWNLOAD: 'whitepaper_download',
   REPORT_START: 'report_start',
   REPORT_FORM_COMPLETE: 'report_form_complete',
   REPORT_CHECKOUT_START: 'report_checkout_start',

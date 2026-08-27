@@ -1267,6 +1267,25 @@
   .divider { border: none; border-top: 1px solid #E2E8F0; margin: 18px 0; }
   ul { padding-left: 16px; }
   ul li { margin-bottom: 5px; font-size: 9pt; line-height: 1.6; }
+
+  .lead-capture { background: var(--navy); color: white; padding: 56px 24px; }
+  .lead-capture-inner { max-width: 760px; margin: 0 auto; }
+  .lead-capture-eyebrow { color: var(--teal-light); font-size: 8pt; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 12px; }
+  .lead-capture h2 { font-size: 22pt; margin-bottom: 12px; }
+  .lead-capture-copy { color: rgba(255,255,255,.75); margin-bottom: 28px; }
+  .lead-capture-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .lead-capture label { display: flex; flex-direction: column; gap: 6px; font-size: 9pt; color: rgba(255,255,255,.9); }
+  .lead-capture input, .lead-capture select { width: 100%; border: 1px solid rgba(255,255,255,.3); border-radius: 4px; background: white; color: var(--text-dark); padding: 11px 12px; font: inherit; }
+  .lead-capture-consent { flex-direction: row !important; align-items: flex-start; margin: 20px 0; font-size: 8pt !important; }
+  .lead-capture-consent input { width: auto; margin-top: 4px; }
+  .lead-capture a { color: var(--teal-light); }
+  .lead-capture button, .lead-capture-download { display: inline-block; border: 0; border-radius: 4px; background: var(--teal); color: var(--navy) !important; padding: 13px 20px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+  .lead-capture button:disabled { opacity: .6; cursor: wait; }
+  .lead-capture-error { color: #ffb4b4; margin-top: 12px; }
+  .lead-capture-success { color: white; font-size: 15pt; margin-bottom: 16px; }
+  .lead-capture-next { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; font-size: 9pt; }
+  .lead-capture-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  @media (max-width: 640px) { .lead-capture-grid { grid-template-columns: 1fr; } .lead-capture h2 { font-size: 18pt; } }
 </style>
 </head>
 <body><!-- ==================== PAGE 1: COVER ==================== -->
@@ -1755,6 +1774,33 @@
   <div class="page-num">10</div>
   <div class="page-brand">Agent Readiness Report 2026 — Coa Retail G.K.</div>
 </div>
+<!-- ==================== LEAD CAPTURE: FREE WHITEPAPER ==================== -->
+<section class="lead-capture" aria-labelledby="lead-capture-title" data-cta-id="whitepaper_free_2026" data-cta-type="LEARN">
+  <div class="lead-capture-inner">
+    <div class="lead-capture-eyebrow">Download</div>
+    <h2 id="lead-capture-title">無料版レポートを保存する</h2>
+    <p class="lead-capture-copy">会社情報を入力すると、既存のAgent Readiness Report 2026（無料版）をダウンロードできます。</p>
+    <form data-whitepaper-lead-form novalidate>
+      <div class="lead-capture-grid">
+        <label>会社名 <span aria-hidden="true">*</span><input name="company" type="text" autocomplete="organization" required maxlength="200"></label>
+        <label>公式サイトURL <span aria-hidden="true">*</span><input name="domain" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required></label>
+        <label>メールアドレス <span aria-hidden="true">*</span><input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label>役割（任意）<select name="role">
+          <option value="UNKNOWN">選択してください</option><option value="EXECUTIVE">経営・役員</option><option value="MARKETING">マーケティング</option><option value="WEB">Web担当</option><option value="DX">DX・IT</option><option value="BUSINESS_DEVELOPMENT">事業開発</option><option value="ENGINEERING">エンジニアリング</option><option value="SALES">営業</option><option value="OTHER">その他</option>
+        </select></label>
+      </div>
+      <label class="lead-capture-honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+      <label class="lead-capture-consent"><input name="consent" type="checkbox" required> <span>利用規約・プライバシーポリシー（<a href="/report/" target="_blank" rel="noopener">Reportページ掲載</a>）に同意します。</span></label>
+      <button type="submit">無料版レポートをダウンロード</button>
+      <p class="lead-capture-error" data-whitepaper-lead-error hidden role="alert"></p>
+    </form>
+    <div data-whitepaper-lead-success hidden>
+      <p class="lead-capture-success">資料請求ありがとうございました。</p>
+      <a class="lead-capture-download" data-whitepaper-download href="./index.html" download="Agent_Readiness_Report_2026_Free.html">無料版レポートをダウンロード</a>
+      <div class="lead-capture-next"><a href="../../../framework/">Framework</a><a href="../../../research/">Research</a><a href="../../../report/">Company Report</a></div>
+    </div>
+  </div>
+</section>
 <!-- ==================== CTA: FREE ==================== -->
 <div class="page cta-page">
   <div class="cta-top"></div>
@@ -1796,5 +1842,6 @@
   </div>
 </div>
 <script src="../../../assets/hub-animations.js"></script>
+<script src="../../../assets/whitepaper-lead-capture.js"></script>
 </body>
 </html>
