@@ -25,6 +25,20 @@
       cta_type: cta && cta.type, destination_type: route.destinationType, route_version: route.version
     };
     track(name, params);
+    if (name === 'routing_cta_click') recordConversion(route.action === 'LOCAL' ? 'DIRECT_BUYER_ROUTED' : route.action === 'REPORT' ? 'AGENT_PARTNER_ROUTED' : null, params);
+  }
+
+  function recordConversion(type, params) {
+    if (!type) return;
+    var key = type + ':' + (params && params.lead_id || Date.now());
+    var records = [];
+    try { records = JSON.parse(window.localStorage.getItem('ari_conversion_log_v1') || '[]'); } catch (_) {}
+    if (records.some(function (record) { return record.key === key; })) return;
+    var safe = { key: key, conversionType: type, value: null, currency: 'JPY', occurredAt: new Date().toISOString(), schemaVersion: '1' };
+    Object.keys(params || {}).forEach(function (field) { if (['email', 'company', 'domain', 'name', 'note'].indexOf(field) === -1) safe[field] = params[field]; });
+    records.push(safe);
+    try { window.localStorage.setItem('ari_conversion_log_v1', JSON.stringify(records.slice(-100))); } catch (_) {}
+    if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { conversion_type: type, cta_id: safe.cta_id, cta_type: safe.cta_type, segment: safe.segment, partner_type: safe.partner_type, qualification_band: safe.qualification_band, source_page: safe.page, value: null, currency: 'JPY' });
   }
 
   function renderRouting(route) {
@@ -102,6 +116,7 @@
         success.hidden = false;
         track('lead_created', { segment: result.body.segment, partner_type: result.body.partnerType, direct_buyer_type: result.body.directBuyerType });
         if (result.body.leadId) { try { window.localStorage.setItem('ari_lead_record_id', result.body.leadId); } catch (_) {} }
+        recordConversion('LEAD_CREATED', { lead_id: result.body.leadId, segment: result.body.segment, partner_type: result.body.partnerType, cta_id: CTA_ID, cta_type: 'LEARN', page: window.location.pathname });
         if (result.body.route) {
           trackRouting('routing_decision', result.body.route);
           renderRouting(result.body.route);

@@ -35,11 +35,23 @@
         if (!response.ok) throw new Error(response.body.error || 'qualification_failed');
         var qualification = response.body.qualification;
         track('partner_qualification_complete', { partner_type: qualification.partnerType, purpose: qualification.purpose, scope: qualification.scope, timeline: qualification.timeline, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction });
+        recordConversion('PARTNER_QUALIFIED', { partner_type: qualification.partnerType, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction, source_page: window.location.pathname });
         if (result) { result.textContent = qualification.recommendedAction === 'CONSULT' ? 'ありがとうございます。現在の状況を踏まえてご相談いただけます。' : 'ありがとうございます。まずはResearch Hubの資料をご覧ください。'; result.hidden = false; }
         if (button) button.disabled = true;
         var cta = document.querySelector('.hero-cta');
-        if (qualification.recommendedAction === 'CONSULT' && cta) { track('partner_consult_cta_impression'); cta.addEventListener('click', function () { track('partner_consult_cta_click'); }); }
+        if (qualification.recommendedAction === 'CONSULT' && cta) { track('partner_consult_cta_impression'); cta.addEventListener('click', function () { track('partner_consult_cta_click'); recordConversion('CONSULT_CLICK', { source_page: window.location.pathname }); }); }
       })
       .catch(function () { if (error) { error.textContent = '送信を完了できませんでした。時間をおいて、もう一度お試しください。'; error.hidden = false; } if (button) button.disabled = false; });
   });
+
+  function recordConversion(type, params) {
+    var key = type + ':' + (params && params.source_page || Date.now());
+    var records = [];
+    try { records = JSON.parse(window.localStorage.getItem('ari_conversion_log_v1') || '[]'); } catch (_) {}
+    if (records.some(function (record) { return record.key === key; })) return;
+    var safe = { key: key, conversionType: type, value: null, currency: 'JPY', occurredAt: new Date().toISOString(), schemaVersion: '1' };
+    Object.keys(params || {}).forEach(function (field) { if (['email', 'company', 'domain', 'name', 'note'].indexOf(field) === -1) safe[field] = params[field]; });
+    records.push(safe);
+    try { window.localStorage.setItem('ari_conversion_log_v1', JSON.stringify(records.slice(-100))); } catch (_) {}
+  }
 })();

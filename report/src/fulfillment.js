@@ -127,6 +127,7 @@ export async function verifyPurchaseSession(sessionId, productHint = 'company_re
       product_id: data.product?.id,
       verified: true,
       verification_method: 'stripe_api',
+      purchase_reference: data.purchase?.sessionId,
     });
 
     return { ok: true, purchase: data.purchase, product: data.product, verified: true };
