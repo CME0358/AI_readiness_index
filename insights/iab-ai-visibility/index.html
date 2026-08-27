@@ -84,6 +84,7 @@ h1 { font-size:clamp(1.75rem,4vw,2.25rem); font-weight:600; letter-spacing:-.025
 @media (max-width:1100px) { .nav-links { display:none; } .nav-links.open { display:flex; flex-direction:column; position:absolute; top:var(--nav-h); left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:20px 24px; gap:16px; align-items:flex-start; } .nav-toggle { display:block; } .nav { position:relative; } }
 @media (max-width:640px) { .measurement-map ol { grid-template-columns:1fr 1fr; } }
 </style>
+  <link rel="stylesheet" href="/assets/sitewide-cta.css">
 </head>
 <body>
 <header class="nav">
@@ -155,7 +156,13 @@ h1 { font-size:clamp(1.75rem,4vw,2.25rem); font-weight:600; letter-spacing:-.025
     <li><a href="/insights/recommendation-logic/">AIは「おすすめ」をどう組み立てるのか</a></li>
   </ul></section>
 
-  <div class="article-cta"><h2>自社の改善優先順位を確認する</h2><p>Presenceの不足なのか、説明の不正確さなのか、推薦後の実行停止なのか。自社のボトルネックを三柱で確認できます。</p><a href="/report/" class="btn btn-navy" data-ga-insight-cta="report">診断レポート</a><a href="/framework/" class="btn btn-secondary" data-ga-insight-cta="framework">Framework</a><a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research</a></div>
+        <div class="sitewide-cta" data-cta-profile="iab-ai-visibility">
+        <h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+        <a href="/whitepaper/2026/free/" class="btn btn-navy" data-funnel-cta data-cta-id="insight_iab-ai-visibility_learn_1" data-cta-type="LEARN" data-placement="end" data-source-page="/insights/iab-ai-visibility/">無料ガイドを見る</a>
+        <a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_iab-ai-visibility_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/iab-ai-visibility/">Company Reportを見る</a>
+      </div>
+<div class="article-cta"><h2>自社の改善優先順位を確認する</h2><p>Presenceの不足なのか、説明の不正確さなのか、推薦後の実行停止なのか。自社のボトルネックを三柱で確認できます。</p><a href="/report/" class="btn btn-navy" data-ga-insight-cta="report">診断レポート</a><a href="/framework/" class="btn btn-secondary" data-ga-insight-cta="framework">Framework</a><a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research</a></div>
 
   <section class="source-block"><h2>Primary Source / Evidence</h2><p>IAB, <em>Measuring Visibility in the AI Era</em>（2026-08-03）。IABのAI分野における公式方針は<a href="https://www.iab.com/organizations/artificial-intelligence/" target="_blank" rel="noopener">IAB Artificial Intelligence</a>を参照。資料の解釈確認には、公開翌日の独立論評も補助的に参照しました。</p></section>
   <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
@@ -167,5 +174,6 @@ h1 { font-size:clamp(1.75rem,4vw,2.25rem); font-weight:600; letter-spacing:-.025
   <nav class="footer-layers" aria-label="Research"><a href="/research/#principles">Principles</a><a href="/research/#updates">Updates</a><a href="/research/#citation">Citation Policy</a><a href="/research/#faq">FAQ</a></nav>
   <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
 </div></footer>
+  <script src="/assets/sitewide-cta-tracking.js" defer></script>
 </body>
 </html>

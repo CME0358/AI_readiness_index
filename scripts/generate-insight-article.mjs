@@ -17,6 +17,7 @@ import {
   loadSchedule,
   RELATED_INSIGHTS_CSS,
 } from './lib/insights-related-links.mjs';
+import { renderInsightCtaHtml } from './lib/funnel/sitewide-cta.mjs';
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(name);
@@ -210,6 +211,7 @@ ${seoPkg ? headMetadata.replace(/<meta charset="UTF-8">\n<meta name="viewport" c
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
 <style>
 :root {
   --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
@@ -258,6 +260,9 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
 .btn-navy:hover { background: #162040; color: #FFFFFF; }
 .article-cta .btn-navy,
 .article-cta .btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
 .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
 .back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
 .back-link:hover { color: var(--text); }
@@ -326,6 +331,7 @@ ${RELATED_INSIGHTS_CSS}
   <article class="article-body container" data-article-slug="${slug}" data-article-title="${escapeHtmlLocal(displayTitle)}">
     <div class="article-container">
 ${bodyHtml}
+${renderInsightCtaHtml(slug)}
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
@@ -366,6 +372,7 @@ ${ctaExtraBtn}        <a href="/report/" class="btn btn-secondary" data-ga-insig
     <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
   </div>
 </footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
 </body>
 </html>
 `;
