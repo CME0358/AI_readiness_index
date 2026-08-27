@@ -101,6 +101,7 @@
         form.hidden = true;
         success.hidden = false;
         track('lead_created', { segment: result.body.segment, partner_type: result.body.partnerType, direct_buyer_type: result.body.directBuyerType });
+        if (result.body.leadId) { try { window.localStorage.setItem('ari_lead_record_id', result.body.leadId); } catch (_) {} }
         if (result.body.route) {
           trackRouting('routing_decision', result.body.route);
           renderRouting(result.body.route);

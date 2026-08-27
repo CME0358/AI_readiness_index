@@ -60,7 +60,8 @@ async function saveLeadToAirtable(lead) {
       ...(signal ? { signal } : {}),
     });
     if (!result.ok) return { saved: false, reason: `airtable_${result.status}` };
-    return { saved: true };
+    const body = await result.json().catch(() => ({}));
+    return { saved: true, recordId: body.id || null };
   } catch (error) {
     return { saved: false, reason: error?.message || 'airtable_error' };
   }
@@ -88,7 +89,7 @@ module.exports = async function handler(req, res) {
       routeConfidenceBand: route.confidenceBand,
     });
     if (!result.saved) return response(res, 503, { error: 'lead_persistence_unavailable', reason: result.reason });
-    return response(res, 201, { ok: true, leadId: built.lead.leadId, segment: built.lead.segment, partnerType: built.lead.partnerType, directBuyerType: built.lead.directBuyerType, confidence: built.classification.confidence, route });
+    return response(res, 201, { ok: true, leadId: result.recordId || built.lead.leadId, segment: built.lead.segment, partnerType: built.lead.partnerType, directBuyerType: built.lead.directBuyerType, confidence: built.classification.confidence, route });
   } catch (error) {
     return response(res, 400, { error: error?.message === 'body_too_large' ? 'body_too_large' : 'invalid_request' });
   }
