@@ -5,6 +5,7 @@ import {
   CTA_TYPES,
   createCtaMetadata,
   mapExistingCtaLabel,
+  mapPreviewCtaType,
   mapPreviewClassification,
 } from '../lib/funnel/cta.mjs';
 import { classifyLead } from '../lib/funnel/classification.mjs';
@@ -61,6 +62,8 @@ test('existing Preview strategies map without changing their contract', () => {
     partnerType: null,
     directBuyerType: DIRECT_BUYER_TYPES.UNKNOWN,
   });
+  assert.equal(mapPreviewCtaType('AGENCY_PARTNER_V1'), CTA_TYPES.PARTNER);
+  assert.equal(mapPreviewCtaType('DIRECT_BUYER'), CTA_TYPES.LOCAL);
 });
 
 test('existing CTA labels map to canonical types', () => {

@@ -19,6 +19,9 @@ const LEGACY_EVENT_MAP = Object.freeze({
   preview_visit: FUNNEL_EVENTS.LANDING_VIEW,
   report_start: FUNNEL_EVENTS.REPORT_START,
   preview_engaged: FUNNEL_EVENTS.CTA_CLICK,
+  insight_cta_framework: FUNNEL_EVENTS.CTA_CLICK,
+  insight_cta_research: FUNNEL_EVENTS.CTA_CLICK,
+  insight_cta_report: FUNNEL_EVENTS.CTA_CLICK,
 });
 
 const SAFE_FIELDS = Object.freeze([

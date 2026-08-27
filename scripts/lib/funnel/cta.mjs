@@ -71,6 +71,12 @@ function mapPreviewClassification(previewStrategy) {
   };
 }
 
+function mapPreviewCtaType(previewStrategy) {
+  if (previewStrategy === 'DIRECT_BUYER') return CTA_TYPES.LOCAL;
+  if (previewStrategy === 'AGENCY_PARTNER_V1' || previewStrategy === 'AGENCY_PARTNER') return CTA_TYPES.PARTNER;
+  return null;
+}
+
 export {
   CTA_TYPES,
   CTA_TYPE_VALUES,
@@ -80,4 +86,5 @@ export {
   createCtaMetadata,
   mapExistingCtaLabel,
   mapPreviewClassification,
+  mapPreviewCtaType,
 };
