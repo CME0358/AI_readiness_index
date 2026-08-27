@@ -23,6 +23,11 @@ const FUNNEL_EVENTS = Object.freeze({
   PARTNER_CONSULT_CTA_IMPRESSION: 'partner_consult_cta_impression',
   PARTNER_CONSULT_CTA_CLICK: 'partner_consult_cta_click',
   CONSULT_BOOKED: 'consult_booked',
+  NURTURE_ELIGIBLE: 'nurture_eligible',
+  NURTURE_QUEUED: 'nurture_queued',
+  NURTURE_SENT: 'nurture_sent',
+  NURTURE_ENGAGED: 'nurture_engaged',
+  NURTURE_SUPPRESSED: 'nurture_suppressed',
 });
 
 const LEGACY_EVENT_MAP = Object.freeze({
@@ -35,7 +40,7 @@ const LEGACY_EVENT_MAP = Object.freeze({
 });
 
 const SAFE_FIELDS = Object.freeze([
-  'page', 'ctaId', 'ctaType', 'segment', 'partnerType', 'directBuyerType', 'purpose', 'scope', 'timeline', 'qualificationBand', 'recommendedAction', 'source', 'medium', 'campaign', 'action', 'confidenceBand', 'destinationType', 'routeVersion', 'schemaVersion',
+  'page', 'ctaId', 'ctaType', 'segment', 'partnerType', 'directBuyerType', 'purpose', 'scope', 'timeline', 'qualificationBand', 'recommendedAction', 'track', 'templateId', 'messageType', 'status', 'source', 'medium', 'campaign', 'action', 'confidenceBand', 'destinationType', 'routeVersion', 'schemaVersion',
 ]);
 
 function canonicalEventName(name) {
