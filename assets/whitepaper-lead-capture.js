@@ -6,6 +6,7 @@
   if (!form || !success) return;
 
   var ATTRIBUTION_KEY = 'ari_attribution_v1';
+  var ROUTING_KEY = 'ari_routing_decision_v1';
   var CTA_ID = 'whitepaper_free_2026';
 
   function track(name, params) {
@@ -15,6 +16,45 @@
       if (['email', 'company', 'domain', 'url', 'role', 'industry'].indexOf(key) === -1) safe[key] = params[key];
     });
     window.gtag('event', name, safe);
+  }
+
+  function trackRouting(name, route, cta) {
+    var params = {
+      segment: route.segment, partner_type: route.partnerType, direct_buyer_type: route.directBuyerType,
+      action: route.action, confidence_band: route.confidenceBand, cta_id: cta && cta.id,
+      cta_type: cta && cta.type, destination_type: route.destinationType, route_version: route.version
+    };
+    track(name, params);
+  }
+
+  function renderRouting(route) {
+    var box = success.querySelector('[data-lead-routing]');
+    var title = success.querySelector('[data-lead-routing-title]');
+    var copy = success.querySelector('[data-lead-routing-copy]');
+    var cta = success.querySelector('[data-lead-routing-cta]');
+    if (!box || !title || !copy || !cta || !route) return;
+    var recommendation = route.destinationType === 'LOCALGEO' ? {
+      title: '店舗・地域ビジネス向けの改善プランを見る',
+      copy: '地域ビジネス向けの改善プラン（¥60,000 / month）をご案内します。',
+      label: '改善プランを見る', id: 'lead_routing_direct_buyer', type: 'LOCAL'
+    } : route.destinationType === 'REPORT' ? {
+      title: 'Company Reportで自社を詳しく調べる',
+      copy: 'Company Report（¥29,800 税別）で、自社のAgent Readinessを詳しく調べられます。',
+      label: 'Company Reportを見る', id: 'lead_routing_agent_partner', type: 'REPORT'
+    } : {
+      title: 'Frameworkから理解を深める',
+      copy: 'ARIの考え方をFrameworkからご覧いただけます。',
+      label: 'Frameworkを見る', id: 'lead_routing_unknown', type: 'LEARN'
+    };
+    title.textContent = recommendation.title;
+    copy.textContent = recommendation.copy;
+    cta.textContent = recommendation.label;
+    cta.href = route.destination;
+    cta.hidden = false;
+    box.hidden = false;
+    trackRouting('routing_cta_impression', route, recommendation);
+    cta.addEventListener('click', function () { trackRouting('routing_cta_click', route, recommendation); });
+    try { window.localStorage.setItem(ROUTING_KEY, JSON.stringify(route)); } catch (_) {}
   }
 
   function attribution() {
@@ -61,6 +101,10 @@
         form.hidden = true;
         success.hidden = false;
         track('lead_created', { segment: result.body.segment, partner_type: result.body.partnerType, direct_buyer_type: result.body.directBuyerType });
+        if (result.body.route) {
+          trackRouting('routing_decision', result.body.route);
+          renderRouting(result.body.route);
+        }
       })
       .catch(function () {
         if (error) { error.textContent = '送信を完了できませんでした。時間をおいて、もう一度お試しください。'; error.hidden = false; }

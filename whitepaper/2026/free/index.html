@@ -1283,6 +1283,11 @@
   .lead-capture button:disabled { opacity: .6; cursor: wait; }
   .lead-capture-error { color: #ffb4b4; margin-top: 12px; }
   .lead-capture-success { color: white; font-size: 15pt; margin-bottom: 16px; }
+  .lead-routing { border: 1px solid rgba(72,202,228,.45); border-left: 4px solid var(--teal); padding: 20px; margin: 20px 0; }
+  .lead-routing-eyebrow { color: var(--teal-light); font-size: 8pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+  .lead-routing h3 { font-size: 13pt; margin-bottom: 8px; }
+  .lead-routing p { color: rgba(255,255,255,.78); margin-bottom: 12px; }
+  .lead-routing-cta { display: inline-block; color: var(--navy) !important; background: var(--teal-light); border-radius: 4px; padding: 9px 14px; font-weight: 700; text-decoration: none; }
   .lead-capture-next { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; font-size: 9pt; }
   .lead-capture-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
   @media (max-width: 640px) { .lead-capture-grid { grid-template-columns: 1fr; } .lead-capture h2 { font-size: 18pt; } }
@@ -1796,6 +1801,12 @@
     </form>
     <div data-whitepaper-lead-success hidden>
       <p class="lead-capture-success">資料請求ありがとうございました。</p>
+      <div class="lead-routing" data-lead-routing hidden>
+        <div class="lead-routing-eyebrow">Recommended next step</div>
+        <h3 data-lead-routing-title></h3>
+        <p data-lead-routing-copy></p>
+        <a class="lead-routing-cta" data-lead-routing-cta hidden></a>
+      </div>
       <a class="lead-capture-download" data-whitepaper-download href="./index.html" download="Agent_Readiness_Report_2026_Free.html">無料版レポートをダウンロード</a>
       <div class="lead-capture-next"><a href="../../../framework/">Framework</a><a href="../../../research/">Research</a><a href="../../../report/">Company Report</a></div>
     </div>

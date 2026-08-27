@@ -42,6 +42,11 @@ async function saveLeadToAirtable(lead) {
     'cta_type': lead.ctaType,
     'first_touch': JSON.stringify(lead.firstTouch),
     'last_touch': JSON.stringify(lead.lastTouch),
+    'route_action': lead.routeAction,
+    'route_destination': lead.routeDestination,
+    'route_version': lead.routeVersion,
+    'route_confidence': lead.routeConfidence,
+    'route_confidence_band': lead.routeConfidenceBand,
     'created_at': lead.createdAt,
     'schema_version': lead.schemaVersion,
   };
@@ -67,15 +72,23 @@ module.exports = async function handler(req, res) {
     const input = await readBody(req);
     const { buildWhitepaperLead } = await import('../scripts/lib/funnel/lead-capture.mjs');
     const { createLeadRepository } = await import('../scripts/lib/funnel/lead-repository.mjs');
+    const { resolveLeadRoute } = await import('../scripts/lib/funnel/routing.mjs');
     const built = buildWhitepaperLead(input, { now: new Date().toISOString() });
     if (!built.valid) return response(res, 400, { error: 'invalid_form', fields: built.errors });
+    const route = resolveLeadRoute(built.classification);
     const repository = createLeadRepository({
       saveLead: saveLeadToAirtable,
       updateLead: async () => ({ updated: false, reason: 'not_implemented' }),
     });
-    const result = await repository.saveLead(built.lead);
+    const result = await repository.saveLead({ ...built.lead,
+      routeAction: route.action,
+      routeDestination: route.destination,
+      routeVersion: route.version,
+      routeConfidence: route.confidence,
+      routeConfidenceBand: route.confidenceBand,
+    });
     if (!result.saved) return response(res, 503, { error: 'lead_persistence_unavailable', reason: result.reason });
-    return response(res, 201, { ok: true, leadId: built.lead.leadId, segment: built.lead.segment, partnerType: built.lead.partnerType, directBuyerType: built.lead.directBuyerType });
+    return response(res, 201, { ok: true, leadId: built.lead.leadId, segment: built.lead.segment, partnerType: built.lead.partnerType, directBuyerType: built.lead.directBuyerType, confidence: built.classification.confidence, route });
   } catch (error) {
     return response(res, 400, { error: error?.message === 'body_too_large' ? 'body_too_large' : 'invalid_request' });
   }
