@@ -3,16 +3,19 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { execFileSync } from 'node:child_process';
 import {
   CANONICAL_HERO_SIZE,
   acquireLock,
   canonicalHeroPath,
+  checkRemoteDivergence,
   configFor,
   createBriefPrompt,
   discoverCandidates,
   integrateCanonicalHero,
   isPublishedArticle,
   readQualityGate,
+  readOriginMainSha,
   releaseLock,
   runWorker,
   sortNewestFirst,
@@ -41,6 +44,41 @@ function fixture() {
 
 function cleanup(root) { fs.rmSync(root, { recursive: true, force: true }); }
 
+function gitBackedFixture() {
+  const f = fixture();
+  execFileSync('git', ['init', '-b', 'main'], { cwd: f.root, stdio: 'ignore' });
+  execFileSync('git', ['config', 'user.email', 'test@example.invalid'], { cwd: f.root });
+  execFileSync('git', ['config', 'user.name', 'Test'], { cwd: f.root });
+  execFileSync('git', ['add', '.'], { cwd: f.root });
+  execFileSync('git', ['commit', '-m', 'fixture'], { cwd: f.root, stdio: 'ignore' });
+  execFileSync('git', ['update-ref', 'refs/remotes/origin/main', 'HEAD'], { cwd: f.root });
+  f.config.logDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-visual-worker-logs-'));
+  f.config.lockPath = path.join(os.tmpdir(), `ari-visual-worker-${path.basename(f.root)}.lock`);
+  return f;
+}
+
+function originAheadFixture() {
+  const f = gitBackedFixture();
+  const base = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: f.root, encoding: 'utf8' }).trim();
+  const schedulePath = path.join(f.root, 'insights/_scheduled/schedule.json');
+  const schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+  schedule.articles.push({ slug: 'policy-clarity', status: 'published', publishedAt: '2026-08-27T01:00:00Z', title: 'Policy clarity' });
+  fs.writeFileSync(schedulePath, JSON.stringify(schedule));
+  fs.writeFileSync(path.join(f.root, 'insights/index.html'), '<a class="insight-card" href="/insights/policy-clarity/" data-insight-slug="policy-clarity"><h3>Policy clarity</h3></a>');
+  fs.mkdirSync(path.join(f.root, 'insights/policy-clarity'), { recursive: true });
+  fs.writeFileSync(path.join(f.root, 'insights/policy-clarity/index.html'), '<meta name="twitter:card" content="summary_large_image">\n</header>\n\n<article>');
+  execFileSync('git', ['add', '.'], { cwd: f.root });
+  execFileSync('git', ['commit', '-m', 'origin article'], { cwd: f.root, stdio: 'ignore' });
+  const remote = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: f.root, encoding: 'utf8' }).trim();
+  execFileSync('git', ['switch', '--detach', base], { cwd: f.root, stdio: 'ignore' });
+  execFileSync('git', ['update-ref', 'refs/remotes/origin/main', remote], { cwd: f.root });
+  return f;
+}
+
+function workerSource() {
+  return fs.readFileSync(new URL('../lib/local-visual-worker.mjs', import.meta.url), 'utf8');
+}
+
 function presentationFixture({ hero = true, css = true, heroCssLink = true } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-presentation-test-'));
   const slug = 'newest';
@@ -67,13 +105,16 @@ test('hero existing → skip', async () => {
 });
 
 test('no candidate → clean exit', async () => {
-  const { root, config } = fixture();
+  const { root, config } = gitBackedFixture();
   fs.mkdirSync(path.dirname(canonicalHeroPath(config, 'old')), { recursive: true });
   fs.mkdirSync(path.dirname(canonicalHeroPath(config, 'newest')), { recursive: true });
   fs.writeFileSync(canonicalHeroPath(config, 'old'), 'webp');
   fs.writeFileSync(canonicalHeroPath(config, 'newest'), 'webp');
+  execFileSync('git', ['add', '.'], { cwd: root });
+  execFileSync('git', ['commit', '-m', 'fixture heroes'], { cwd: root, stdio: 'ignore' });
+  execFileSync('git', ['update-ref', 'refs/remotes/origin/main', 'HEAD'], { cwd: root });
   const result = await runWorker({ root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: config });
-  assert.equal(result.finalResult, 'NO_CANDIDATE');
+  assert.equal(result.finalResult, 'NO_CANDIDATE', JSON.stringify(result));
   cleanup(root);
 });
 
@@ -368,3 +409,92 @@ test('production verification checks hero.css and canonical references', async (
   assert.equal(result.heroCss.status, 200);
   cleanup(f.root);
 });
+
+test('stable HEAD behind origin/main continues', async () => {
+  const f = originAheadFixture();
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.finalResult, 'DRY_RUN_CANDIDATE');
+  cleanup(f.root);
+});
+
+test('fresh snapshot is based on origin/main', async () => {
+  const f = originAheadFixture();
+  assert.equal(readOriginMainSha(f.root), execFileSync('git', ['rev-parse', 'refs/remotes/origin/main'], { cwd: f.root, encoding: 'utf8' }).trim());
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.slug, 'policy-clarity');
+  cleanup(f.root);
+});
+
+test('candidate visible only in origin/main is selected', async () => {
+  const f = originAheadFixture();
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.slug, 'policy-clarity');
+  cleanup(f.root);
+});
+
+test('stable filesystem staleness is irrelevant to discovery', async () => {
+  const f = originAheadFixture();
+  assert.equal(fs.existsSync(path.join(f.root, 'insights/policy-clarity/index.html')), false);
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.finalResult, 'DRY_RUN_CANDIDATE');
+  cleanup(f.root);
+});
+
+test('dirty stable workspace is a safe stop', async () => {
+  const f = gitBackedFixture();
+  fs.writeFileSync(path.join(f.root, 'dirty.txt'), 'do not touch');
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.finalResult, 'VISUAL_WORKER_REMOTE_DIVERGED');
+  cleanup(f.root);
+});
+
+test('base SHA is checked again immediately before push', () => {
+  assert.match(workerSource(), /currentOriginMain: base/);
+  assert.match(workerSource(), /base !== baseSha \|\| parent !== baseSha/);
+});
+
+test('fresh snapshot cleanup is logged on no candidate', async () => {
+  const f = gitBackedFixture();
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: false, status: 404 }), configOverrides: f.config });
+  assert.equal(result.finalResult, 'NO_CANDIDATE');
+  const log = fs.readFileSync(path.join(f.config.logDir, `${new Date().toISOString().slice(0, 10)}.jsonl`), 'utf8');
+  assert.match(log, /"stage":"WORKTREE_CLEANUP"/);
+  cleanup(f.root);
+});
+
+test('cleanup is owned by the run finally path', () => {
+  assert.match(workerSource(), /removeIsolatedWorktree\(root, workspace\)/);
+  assert.match(workerSource(), /finally \{/);
+});
+
+test('worker never hard-resets stable workspace', () => assert.doesNotMatch(workerSource(), /git', \['reset', '--hard/));
+
+test('worker never auto-merges', () => assert.doesNotMatch(workerSource(), /git', \['merge',/));
+
+test('worker never auto-rebases', () => assert.doesNotMatch(workerSource(), /git', \['rebase/));
+
+test('worker never force-pushes', () => assert.doesNotMatch(workerSource(), /git', \['push',[^\]]*'--force/));
+
+test('major execution stages are logged', () => {
+  const source = workerSource();
+  for (const stage of ['RUN_STARTED', 'FETCH_COMPLETED', 'BASE_SHA', 'WORKTREE_CREATED', 'CANDIDATE_DISCOVERY_STARTED', 'CANDIDATE_SELECTED', 'NO_CANDIDATE', 'CODEX_EXEC_STARTED', 'GENERATION_RESULT', 'QUALITY_RESULT', 'PRESENTATION_RESULT', 'COMMIT_CREATED', 'PRE_PUSH_REMOTE_CHECK', 'PUSH_RESULT', 'PRODUCTION_VERIFY_RESULT', 'WORKTREE_CLEANUP', 'FINAL_RESULT']) {
+    assert.match(source, new RegExp(stage));
+  }
+});
+
+test('policy-clarity fixture becomes a candidate', async () => {
+  const f = originAheadFixture();
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.deepEqual({ candidate: result.slug, hero: fs.existsSync(path.join(f.root, 'assets/insights/policy-clarity/hero.webp')) }, { candidate: 'policy-clarity', hero: false });
+  cleanup(f.root);
+});
+
+test('origin-ahead is not classified as true divergence', () => {
+  const f = originAheadFixture();
+  const result = checkRemoteDivergence(f.root, { fetch: false });
+  assert.equal(result.diverged, false);
+  assert.equal(result.remoteAhead, true);
+  cleanup(f.root);
+});
+
+test('push is explicitly non-force', () => assert.match(workerSource(), /\['push', 'origin', 'HEAD:main'\]/));

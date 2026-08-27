@@ -131,7 +131,13 @@ export function acquireLock(lockPath, { runId = makeRunId(), now = new Date(), s
     fs.unlinkSync(lockPath);
   }
   const lock = { pid: process.pid, startedAt: now.toISOString(), runId };
-  const fd = fs.openSync(lockPath, 'wx');
+  let fd;
+  try {
+    fd = fs.openSync(lockPath, 'wx');
+  } catch (error) {
+    if (error.code === 'EEXIST') return { acquired: false, reason: 'active', existing: readJson(lockPath) };
+    throw error;
+  }
   fs.writeFileSync(fd, JSON.stringify(lock, null, 2) + '\n');
   fs.closeSync(fd);
   return { acquired: true, lock, release: () => releaseLock(lockPath, runId) };
@@ -181,6 +187,10 @@ export function checkRemoteDivergence(root, { fetch = true } = {}) {
   const headIsAncestor = runCommand('git', ['merge-base', '--is-ancestor', 'HEAD', 'origin/main'], { cwd: root, allowFailure: true }).status === 0;
   const remoteIsAncestor = runCommand('git', ['merge-base', '--is-ancestor', 'origin/main', 'HEAD'], { cwd: root, allowFailure: true }).status === 0;
   return { diverged: !headIsAncestor && !remoteIsAncestor, remoteAhead: headIsAncestor && head !== remote, head, remote, mergeBase };
+}
+
+export function readOriginMainSha(root) {
+  return runCommand('git', ['rev-parse', 'origin/main'], { cwd: root }).stdout.trim();
 }
 
 export function createBriefPrompt({ articleHtml, canon, slug, attempt, outputDir }) {
@@ -415,14 +425,35 @@ export function runNativeGeneration(workspace, candidate, canon, attempt) {
   };
 }
 
-async function createIsolatedWorktree(root, runId) {
+export async function createIsolatedWorktree(root, runId, baseSha) {
   const workspace = fs.mkdtempSync(path.join('/private/tmp', `ari-insights-visual-${runId}-`));
-  const result = runCommand('git', ['worktree', 'add', '--detach', workspace, 'origin/main'], { cwd: root, allowFailure: true });
+  const result = runCommand('git', ['worktree', 'add', '--detach', workspace, baseSha], { cwd: root, allowFailure: true });
   if (result.status !== 0) {
     fs.rmSync(workspace, { recursive: true, force: true });
     throw new Error(`worktree_create_failed:${(result.stderr || '').trim()}`);
   }
   return workspace;
+}
+
+function createReadOnlyOriginSnapshot(root, runId, baseSha) {
+  const workspace = fs.mkdtempSync(path.join('/private/tmp', `ari-insights-visual-snapshot-${runId}-`));
+  const archive = path.join('/private/tmp', `ari-insights-visual-snapshot-${runId}.tar`);
+  try {
+    runCommand('git', ['archive', '--format=tar', '--output', archive, baseSha], { cwd: root });
+    runCommand('/usr/bin/tar', ['-xf', archive, '-C', workspace], { cwd: root });
+    return workspace;
+  } catch (error) {
+    fs.rmSync(workspace, { recursive: true, force: true });
+    throw error;
+  } finally {
+    fs.rmSync(archive, { force: true });
+  }
+}
+
+async function createExecutionWorkspace(root, runId, baseSha, { readOnly = false } = {}) {
+  return readOnly
+    ? createReadOnlyOriginSnapshot(root, runId, baseSha)
+    : await createIsolatedWorktree(root, runId, baseSha);
 }
 
 function removeIsolatedWorktree(root, workspace) {
@@ -473,8 +504,7 @@ export async function verifyProductionReferences(config, slug, { productionCheck
   return { ok: errors.length === 0, article, index, hero, heroCss, errors };
 }
 
-async function processCandidate({ root, config, candidate, runId, log, productionCheck }) {
-  const workspace = await createIsolatedWorktree(root, runId);
+async function processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha }) {
   const recoveryDir = path.join(config.logDir, 'recovery', candidate.slug, runId);
   fs.mkdirSync(recoveryDir, { recursive: true });
   try {
@@ -483,9 +513,11 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     fs.copyFileSync(sourceArticle, path.join(workspace, 'article.html'));
     let quality = null;
     for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt += 1) {
+      log({ stage: 'CODEX_EXEC_STARTED', slug: candidate.slug, attempt });
       const generation = runNativeGeneration(workspace, candidate, canon, attempt);
       quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generation.timedOut ? 'timeout' : 'codex_exec_failure' };
-      log({ slug: candidate.slug, attempt, generation: { ok: generation.ok, status: generation.status, timedOut: generation.timedOut }, quality: quality.reason || 'pass' });
+      log({ stage: 'GENERATION_RESULT', slug: candidate.slug, attempt, generation: { ok: generation.ok, status: generation.status, timedOut: generation.timedOut }, quality: quality.reason || 'pass' });
+      log({ stage: 'QUALITY_RESULT', slug: candidate.slug, attempt, ok: quality.ok, reason: quality.reason || null });
       if (!generation.ok && (generation.capabilityFailure || generation.timedOut)) {
         return { finalResult: 'VISUAL_WORKER_SKIPPED', slug: candidate.slug, reason: generation.timedOut ? 'timeout' : 'capability_or_auth_failure' };
       }
@@ -495,13 +527,13 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     const heroOutput = canonicalHeroPath(config, candidate.slug).replace(config.root, workspace);
     optimizeToWebp(quality.imagePath, heroOutput, workspace);
     integrateCanonicalHero({ ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') }, candidate.slug, { root: workspace });
-    log({ slug: candidate.slug, presentationState: 'PRESENTATION_CHECK_STARTED' });
+    log({ stage: 'PRESENTATION_CHECK_STARTED', slug: candidate.slug });
     const presentation = repairPresentationContract(
       { ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') },
       candidate.slug,
       { root: workspace },
     );
-    log({ slug: candidate.slug, presentationState: presentation.status, presentationErrors: presentation.errors || [presentation.reason].filter(Boolean) });
+    log({ stage: 'PRESENTATION_RESULT', slug: candidate.slug, presentationState: presentation.status, presentationErrors: presentation.errors || [presentation.reason].filter(Boolean) });
     if (!presentation.ok) return { finalResult: 'VISUAL_WORKER_PRESENTATION_BLOCKED', slug: candidate.slug, presentation };
     const integration = validateIntegration({ ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') }, candidate.slug, { root: workspace });
     if (!integration.ok) throw new Error(`integration_failed:${integration.errors.join(',')}`);
@@ -513,49 +545,65 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     const staged = runCommand('git', ['diff', '--cached', '--name-only'], { cwd: workspace }).stdout.trim().split('\n').filter(Boolean);
     if (staged.some((file) => !allowed.has(file))) throw new Error(`unexpected_staged_file:${staged.join(',')}`);
     runCommand('git', ['commit', '-m', `feat(insights): add hero for ${candidate.slug}`], { cwd: workspace });
+    const commitSha = runCommand('git', ['rev-parse', 'HEAD'], { cwd: workspace }).stdout.trim();
+    log({ stage: 'COMMIT_CREATED', slug: candidate.slug, commitSha, baseSha });
     runCommand('git', ['fetch', '--prune', 'origin'], { cwd: workspace });
-    const base = runCommand('git', ['rev-parse', 'origin/main'], { cwd: workspace }).stdout.trim();
+    const base = readOriginMainSha(workspace);
     const parent = runCommand('git', ['rev-parse', 'HEAD^'], { cwd: workspace }).stdout.trim();
-    if (base !== parent) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
+    log({ stage: 'PRE_PUSH_REMOTE_CHECK', slug: candidate.slug, baseSha, currentOriginMain: base, commitParent: parent });
+    if (base !== baseSha || parent !== baseSha) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
     runCommand('git', ['push', 'origin', 'HEAD:main'], { cwd: workspace });
+    log({ stage: 'PUSH_RESULT', slug: candidate.slug, ok: true, force: false });
     const production = await verifyProductionReferences(config, candidate.slug, { productionCheck });
+    log({ stage: 'PRODUCTION_VERIFY_RESULT', slug: candidate.slug, ok: production.ok, errors: production.errors });
     if (!production.ok) {
       fs.cpSync(quality.imagePath, path.join(recoveryDir, path.basename(quality.imagePath)));
       return { finalResult: 'PRODUCTION_VERIFY_FAILED', slug: candidate.slug, production, recoveryDir };
     }
     return { finalResult: 'SUCCESS', slug: candidate.slug, production };
-  } finally {
-    removeIsolatedWorktree(root, workspace);
-  }
+  } finally { /* workspace cleanup is owned by runWorker */ }
 }
 
 export async function runWorker({ root = DEFAULT_ROOT, dryRun = false, simulate = false, now = new Date(), fetch = true, productionCheck, runId = makeRunId(now), configOverrides = {} } = {}) {
   const config = configFor(root, configOverrides);
   const log = createLogger(config, runId);
+  log({ stage: 'RUN_STARTED', mode: dryRun ? 'dry-run' : simulate ? 'simulate' : 'run' });
   const lock = acquireLock(config.lockPath, { runId, now });
   if (!lock.acquired) {
-    log({ finalResult: 'VISUAL_WORKER_SKIPPED', candidateState: 'lock_active' });
+    log({ stage: 'LOCK', finalResult: 'VISUAL_WORKER_SKIPPED', candidateState: 'lock_active' });
     return { finalResult: 'VISUAL_WORKER_SKIPPED', reason: 'lock_active', runId };
   }
+  log({ stage: 'LOCK', acquired: true });
+  let workspace = null;
   try {
-    if (!dryRun && !simulate) {
-      const safety = gitStatusIsSafe(root);
-      if (!safety.safe) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED:unsafe_existing_worktree_changes');
-      const divergence = checkRemoteDivergence(root, { fetch });
-      if (divergence.diverged || divergence.remoteAhead) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
-    }
-    const discovered = await discoverCandidates(config, { productionCheck });
-    log({ candidateState: discovered.candidates.length ? 'selected' : 'none', candidates: discovered.candidates.map((a) => a.slug), reasons: discovered.reasons.slice(0, 30) });
+    const safety = gitStatusIsSafe(root);
+    if (!safety.safe) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED:unsafe_existing_worktree_changes');
+    const sync = checkRemoteDivergence(root, { fetch: !dryRun && fetch });
+    log({ stage: 'FETCH_COMPLETED', fetched: !dryRun && fetch, remoteAhead: sync.remoteAhead, diverged: sync.diverged });
+    if (sync.diverged) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
+    const baseSha = readOriginMainSha(root);
+    log({ stage: 'BASE_SHA', baseSha });
+    workspace = await createExecutionWorkspace(root, runId, baseSha, { readOnly: dryRun || simulate });
+    log({ stage: 'WORKTREE_CREATED', workspace, baseSha, readOnly: dryRun || simulate });
+    const workspaceConfig = configFor(workspace, { origin: config.origin, logDir: config.logDir, lockPath: config.lockPath, maxCandidates: config.maxCandidates });
+    log({ stage: 'CANDIDATE_DISCOVERY_STARTED' });
+    const discovered = await discoverCandidates(workspaceConfig, { productionCheck });
+    log({ stage: discovered.candidates.length ? 'CANDIDATE_SELECTED' : 'NO_CANDIDATE', candidates: discovered.candidates.map((a) => a.slug), reasons: discovered.reasons.slice(0, 30) });
     if (!discovered.candidates.length) return { finalResult: 'NO_CANDIDATE', runId, reasons: discovered.reasons };
     const candidate = discovered.candidates[0];
     if (dryRun || simulate) return { finalResult: 'DRY_RUN_CANDIDATE', runId, slug: candidate.slug, title: candidate.title };
-    const result = await processCandidate({ root, config, candidate, runId, log, productionCheck });
+    const result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha });
     log({ slug: candidate.slug, finalResult: result.finalResult });
     return { ...result, runId };
   } catch (error) {
-    log({ finalResult: error.message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED') ? 'VISUAL_WORKER_REMOTE_DIVERGED' : 'VISUAL_WORKER_SKIPPED', error: error.message });
+    log({ stage: 'ERROR', finalResult: error.message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED') ? 'VISUAL_WORKER_REMOTE_DIVERGED' : 'VISUAL_WORKER_SKIPPED', error: error.message });
     return { finalResult: error.message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED') ? 'VISUAL_WORKER_REMOTE_DIVERGED' : 'VISUAL_WORKER_SKIPPED', error: error.message, runId };
   } finally {
+    if (workspace) {
+      removeIsolatedWorktree(root, workspace);
+      log({ stage: 'WORKTREE_CLEANUP', workspace });
+    }
+    log({ stage: 'FINAL_RESULT', runId });
     lock.release();
   }
 }
