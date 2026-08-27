@@ -19,7 +19,7 @@ function response(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-const { upsertLeadToAirtable } = require('./_lib/airtable.js');
+const { upsertLeadToAirtable } = require('./_lib/airtable.cjs');
 
 async function saveLeadToAirtable(lead) { return upsertLeadToAirtable(lead); }
 
