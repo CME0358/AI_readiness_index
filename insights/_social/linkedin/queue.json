@@ -259,13 +259,13 @@
       "linkedinPublishAt": "2026-08-27T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/policy-clarity/",
       "contentFile": "insights/_social/linkedin/posts/policy-clarity.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a8f8c303cfa0a270d161b3b",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-26T06:53:26.625Z"
+      "updatedAt": "2026-08-27T01:00:33.640Z"
     },
     {
       "id": "ARI-LI-016",

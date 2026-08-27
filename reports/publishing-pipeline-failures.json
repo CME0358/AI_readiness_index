@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-26T01:00:33.719Z",
+  "updatedAt": "2026-08-27T01:00:33.641Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "purchase-path-design",
+    "slug": "policy-clarity",
     "stage": "buffer_queued",
-    "at": "2026-08-26T01:00:33.719Z"
+    "at": "2026-08-27T01:00:33.641Z"
   }
 }

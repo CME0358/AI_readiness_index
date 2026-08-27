@@ -503,7 +503,9 @@
       "unlockedAt": "2026-08-26T06:53:26.625Z",
       "publishAttemptedAt": "2026-08-27T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-08-27T01:00:00.000Z"
+      "publishedAt": "2026-08-27T01:00:00.000Z",
+      "productionVerifiedAt": "2026-08-27T01:00:32.566Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "agent-handoff",

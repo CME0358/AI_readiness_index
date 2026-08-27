@@ -737,7 +737,7 @@
     {
       "slug": "policy-clarity",
       "articleUrl": "https://readiness.coaretail.com/insights/policy-clarity/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-08-27T10:00:00+09:00",
       "bufferTransferAt": "2026-08-27T10:30:00+09:00",
       "channels": {
@@ -745,41 +745,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/policy-clarity.md",
           "publishAt": "2026-08-27T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8f8c303cfa0a270d161b3b",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-27T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-26T06:53:26.657Z"
+          "updatedAt": "2026-08-27T01:00:00.000Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/policy-clarity.md",
           "publishAt": "2026-08-27T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8f8c315e1d5ac730c4940d",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-27T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-26T06:53:26.657Z"
+          "updatedAt": "2026-08-27T01:00:00.000Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/policy-clarity.md",
           "publishAt": "2026-08-27T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a8f8c3113b8a18d11ea727d",
+          "attempts": 1,
+          "lastAttemptAt": "2026-08-27T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-08-26T06:53:26.657Z"
+          "updatedAt": "2026-08-27T01:00:00.000Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-26T06:53:26.625Z",
+      "updatedAt": "2026-08-27T01:00:00.000Z",
       "unlockedAt": "2026-08-26T06:53:26.625Z"
     },
     {
