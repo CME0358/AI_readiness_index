@@ -4,8 +4,10 @@ const PRODUCTION_ENV = Object.freeze({
   companyReportPaymentLinkId: 'COMPANY_REPORT_STRIPE_PAYMENT_LINK_ID',
   airtableApiKey: 'AIRTABLE_API_KEY',
   airtableBaseId: 'AIRTABLE_BASE_ID',
-  airtableLeadsTable: 'AIRTABLE_TABLE_NAME',
-  airtableConversionsTable: 'AIRTABLE_CONVERSIONS_TABLE_NAME',
+  airtableLeadsTable: 'INBOUND_LEADS_TABLE_NAME',
+  airtableConversionsTable: 'INBOUND_CONVERSIONS_TABLE_NAME',
+  airtableLeadsStagingTable: 'INBOUND_LEADS_STAGING_TABLE_NAME',
+  airtableConversionsStagingTable: 'INBOUND_CONVERSIONS_STAGING_TABLE_NAME',
   nurtureEnabled: 'NURTURE_ENABLED',
 });
 
@@ -17,8 +19,8 @@ function getAirtableConfig(env = process.env) {
   return {
     apiKey: env?.[PRODUCTION_ENV.airtableApiKey] || '',
     baseId: env?.[PRODUCTION_ENV.airtableBaseId] || '',
-    leadsTable: env?.[PRODUCTION_ENV.airtableLeadsTable] || 'Leads',
-    conversionsTable: env?.[PRODUCTION_ENV.airtableConversionsTable] || '',
+    leadsTable: env?.[PRODUCTION_ENV.airtableLeadsTable] || null,
+    conversionsTable: env?.[PRODUCTION_ENV.airtableConversionsTable] || null,
   };
 }
 

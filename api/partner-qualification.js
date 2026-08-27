@@ -13,7 +13,9 @@ async function saveQualificationToAirtable(qualification, input) {
   const baseId = process.env.AIRTABLE_BASE_ID;
   const recordId = String(input.leadRecordId || '').trim();
   if (!apiKey || !baseId || !recordId) return { saved: false, reason: 'manual_action_required' };
-  const table = process.env.AIRTABLE_TABLE_NAME || 'Leads';
+  const { resolveInboundAirtableTables } = await import('./_lib/airtable.cjs');
+  const tables = resolveInboundAirtableTables();
+  if (!tables.writeEnabled || !tables.leadsTable) return { saved: false, reason: tables.environment === 'unknown' ? 'unknown_environment' : 'inbound_airtable_not_configured' };
   const fields = {
     lead_id: qualification.leadId || '',
     qualification_purpose: qualification.purpose,
@@ -24,7 +26,7 @@ async function saveQualificationToAirtable(qualification, input) {
     recommended_action: qualification.recommendedAction,
     qualification_created_at: qualification.createdAt,
   };
-  const endpoint = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(table)}/${encodeURIComponent(recordId)}`;
+  const endpoint = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tables.leadsTable)}/${encodeURIComponent(recordId)}`;
   const result = await fetch(endpoint, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` }, body: JSON.stringify({ fields, typecast: true }) });
   return result.ok ? { saved: true } : { saved: false, reason: `airtable_${result.status}` };
 }

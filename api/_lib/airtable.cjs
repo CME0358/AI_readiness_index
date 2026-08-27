@@ -1,10 +1,29 @@
 function airtableConfig() {
+  const tables = resolveInboundAirtableTables();
   return {
     apiKey: process.env.AIRTABLE_API_KEY || '',
     baseId: process.env.AIRTABLE_BASE_ID || '',
-    leadsTable: process.env.AIRTABLE_TABLE_NAME || 'Leads',
-    conversionsTable: process.env.AIRTABLE_CONVERSIONS_TABLE_NAME || '',
+    leadsTable: tables.leadsTable,
+    conversionsTable: tables.conversionsTable,
+    environment: tables.environment,
+    writeEnabled: tables.writeEnabled,
   };
+}
+
+function resolveInboundAirtableTables(env = process.env) {
+  const requested = String(env?.VERCEL_ENV || env?.VERCEL_TARGET_ENV || '').trim().toLowerCase();
+  const environment = ['production', 'preview', 'development'].includes(requested) ? requested : 'unknown';
+  const leadsTable = environment === 'production'
+    ? String(env?.INBOUND_LEADS_TABLE_NAME || '').trim()
+    : environment === 'preview' || environment === 'development'
+      ? String(env?.INBOUND_LEADS_STAGING_TABLE_NAME || '').trim()
+      : '';
+  const conversionsTable = environment === 'production'
+    ? String(env?.INBOUND_CONVERSIONS_TABLE_NAME || '').trim()
+    : environment === 'preview' || environment === 'development'
+      ? String(env?.INBOUND_CONVERSIONS_STAGING_TABLE_NAME || '').trim()
+      : '';
+  return Object.freeze({ environment, leadsTable: leadsTable || null, conversionsTable: conversionsTable || null, writeEnabled: Boolean(leadsTable && conversionsTable) });
 }
 
 function formulaString(value) {
@@ -29,7 +48,7 @@ function fieldsForLead(lead) {
 
 async function airtableRequest(path, options = {}) {
   const config = airtableConfig();
-  if (!config.apiKey || !config.baseId) return { ok: false, reason: 'not_configured' };
+  if (!config.apiKey || !config.baseId || !config.writeEnabled) return { ok: false, reason: config.environment === 'unknown' ? 'unknown_environment' : 'inbound_airtable_not_configured' };
   const signal = AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined;
   try {
     const response = await fetch(`https://api.airtable.com/v0/${config.baseId}/${path}`, {
@@ -99,4 +118,4 @@ async function saveConversionToAirtable(record, dedupeKey) {
   return result.ok ? { saved: true, storageRecordId: result.body.id || null, key: dedupeKey } : { saved: false, reason: result.reason };
 }
 
-module.exports = { airtableConfig, fieldsForLead, findLeadByIdentity, upsertLeadToAirtable, findConversionByDedupeKey, saveConversionToAirtable };
+module.exports = { airtableConfig, resolveInboundAirtableTables, fieldsForLead, findLeadByIdentity, upsertLeadToAirtable, findConversionByDedupeKey, saveConversionToAirtable };
