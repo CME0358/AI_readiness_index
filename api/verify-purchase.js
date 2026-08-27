@@ -103,6 +103,15 @@ export default async function handler(req, res) {
 
     const purchase = buildVerifiedPurchaseState(session, product);
 
+    if (product.id === 'company_report_bundle' || product.id === 'company_report_legacy' || product.id === 'company_report') {
+      try {
+        const { createConversion, createConversionRepository } = await import('../scripts/lib/funnel/conversions.mjs');
+        const { saveConversionToAirtable, findConversionByDedupeKey } = await import('./_lib/airtable.cjs');
+        const repository = createConversionRepository({ saveConversion: saveConversionToAirtable, findConversion: findConversionByDedupeKey });
+        await repository.saveConversion(createConversion({ conversionType: 'REPORT_PURCHASE', leadId: String(body.leadId || ''), externalReference: session.id, segment: 'AGENT_PARTNER', sourcePage: '/report/' }));
+      } catch { /* conversion persistence failure must not revoke verified access */ }
+    }
+
     res.statusCode = 200;
     res.end(JSON.stringify({
       verified: true,

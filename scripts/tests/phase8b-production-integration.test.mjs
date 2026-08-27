@@ -20,14 +20,14 @@ test('canonical lead ids are application ids, not Airtable record ids', () => {
 });
 
 test('same email and domain can be upserted while domain-only merge is not encoded', () => {
-  const source = read('api/_lib/airtable.js');
+  const source = read('api/_lib/airtable.cjs');
   assert.match(source, /メールアドレス.*URL/);
   assert.match(source, /AND\(/);
   assert.doesNotMatch(source, /domain-only|domain only/i);
 });
 
 test('first touch is preserved by the Airtable upsert adapter', () => {
-  const source = read('api/_lib/airtable.js');
+  const source = read('api/_lib/airtable.cjs');
   assert.match(source, /delete fields\.first_touch/);
   assert.match(source, /delete fields\.created_at/);
 });
@@ -53,6 +53,9 @@ test('production conversion API does not accept client asserted report revenue',
   const source = read('api/conversion.js');
   assert.match(source, /report_purchase_requires_server_verification/);
   assert.match(source, /CONVERSION_PERSISTENCE_ENABLED/);
+  assert.match(read('api/verify-purchase.js'), /externalReference: session\.id/);
+  assert.match(read('assets/whitepaper-lead-capture.js'), /persistConversion\('LEAD_CREATED'/);
+  assert.match(read('assets/partner-qualification.js'), /persistConversion\('PARTNER_QUALIFIED'/);
 });
 
 test('qualification persists canonical lead id separately from storage record id', () => {

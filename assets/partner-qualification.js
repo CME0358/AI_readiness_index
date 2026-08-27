@@ -37,6 +37,7 @@
         var qualification = response.body.qualification;
         track('partner_qualification_complete', { partner_type: qualification.partnerType, purpose: qualification.purpose, scope: qualification.scope, timeline: qualification.timeline, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction });
         recordConversion('PARTNER_QUALIFIED', { partner_type: qualification.partnerType, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction, source_page: window.location.pathname });
+        persistConversion('PARTNER_QUALIFIED', { leadId: payload.leadId, partnerType: qualification.partnerType, qualificationBand: qualification.qualificationBand, sourcePage: window.location.pathname });
         if (result) { result.textContent = qualification.recommendedAction === 'CONSULT' ? 'ありがとうございます。現在の状況を踏まえてご相談いただけます。' : 'ありがとうございます。まずはResearch Hubの資料をご覧ください。'; result.hidden = false; }
         if (button) button.disabled = true;
         var cta = document.querySelector('.hero-cta');
@@ -44,6 +45,8 @@
       })
       .catch(function () { if (error) { error.textContent = '送信を完了できませんでした。時間をおいて、もう一度お試しください。'; error.hidden = false; } if (button) button.disabled = false; });
   });
+
+  function persistConversion(type, params) { fetch('/api/conversion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ conversionType: type }, params || {})) }).catch(function () {}); }
 
   function recordConversion(type, params) {
     var key = type + ':' + (params && params.source_page || Date.now());

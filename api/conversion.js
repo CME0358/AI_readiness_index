@@ -1,4 +1,4 @@
-const { saveConversionToAirtable, findConversionByDedupeKey } = require('./_lib/airtable.js');
+const { saveConversionToAirtable, findConversionByDedupeKey } = require('./_lib/airtable.cjs');
 
 function send(res, status, body) {
   res.statusCode = status;

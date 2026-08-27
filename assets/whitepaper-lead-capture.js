@@ -25,7 +25,11 @@
       cta_type: cta && cta.type, destination_type: route.destinationType, route_version: route.version
     };
     track(name, params);
-    if (name === 'routing_cta_click') recordConversion(route.action === 'LOCAL' ? 'DIRECT_BUYER_ROUTED' : route.action === 'REPORT' ? 'AGENT_PARTNER_ROUTED' : null, params);
+    if (name === 'routing_cta_click') {
+      var type = route.action === 'LOCAL' ? 'DIRECT_BUYER_ROUTED' : route.action === 'REPORT' ? 'AGENT_PARTNER_ROUTED' : null;
+      recordConversion(type, params);
+      persistConversion(type, params);
+    }
   }
 
   function recordConversion(type, params) {
@@ -39,6 +43,13 @@
     records.push(safe);
     try { window.localStorage.setItem('ari_conversion_log_v1', JSON.stringify(records.slice(-100))); } catch (_) {}
     if (typeof window.gtag === 'function') window.gtag('event', 'conversion', { conversion_type: type, cta_id: safe.cta_id, cta_type: safe.cta_type, segment: safe.segment, partner_type: safe.partner_type, qualification_band: safe.qualification_band, source_page: safe.page, value: null, currency: 'JPY' });
+  }
+
+  function persistConversion(type, params) {
+    if (!type) return;
+    var leadId = '';
+    try { leadId = window.localStorage.getItem('ari_lead_id') || ''; } catch (_) {}
+    fetch('/api/conversion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ conversionType: type, leadId: leadId }, params || {})) }).catch(function () {});
   }
 
   function renderRouting(route) {
@@ -118,6 +129,7 @@
         if (result.body.leadId) { try { window.localStorage.setItem('ari_lead_id', result.body.leadId); } catch (_) {} }
         if (result.body.storageRecordId) { try { window.localStorage.setItem('ari_lead_record_id', result.body.storageRecordId); } catch (_) {} }
         recordConversion('LEAD_CREATED', { lead_id: result.body.leadId, segment: result.body.segment, partner_type: result.body.partnerType, cta_id: CTA_ID, cta_type: 'LEARN', page: window.location.pathname });
+        persistConversion('LEAD_CREATED', { segment: result.body.segment, partnerType: result.body.partnerType, ctaId: CTA_ID, ctaType: 'LEARN', sourcePage: window.location.pathname });
         if (result.body.route) {
           trackRouting('routing_decision', result.body.route);
           renderRouting(result.body.route);

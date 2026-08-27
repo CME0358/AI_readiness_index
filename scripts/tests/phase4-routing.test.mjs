@@ -70,6 +70,6 @@ test('Routing metadata is passed through the server LeadRepository adapter', () 
   const source = read('api/whitepaper-lead.js');
   assert.match(source, /resolveLeadRoute/);
   assert.match(source, /routeAction: route\.action/);
-  assert.match(read('api/_lib/airtable.js'), /route_confidence_band/);
+  assert.match(read('api/_lib/airtable.cjs'), /route_confidence_band/);
   assert.match(source, /confidence: built\.classification\.confidence, route \}/);
 });
