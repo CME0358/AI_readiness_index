@@ -22,6 +22,7 @@ const FUNNEL_EVENTS = Object.freeze({
   PARTNER_QUALIFICATION_COMPLETE: 'partner_qualification_complete',
   PARTNER_CONSULT_CTA_IMPRESSION: 'partner_consult_cta_impression',
   PARTNER_CONSULT_CTA_CLICK: 'partner_consult_cta_click',
+  CONSULT_BOOKED: 'consult_booked',
 });
 
 const LEGACY_EVENT_MAP = Object.freeze({
