@@ -13,7 +13,6 @@ import {
   STORAGE_KEYS,
   resolveCheckoutUrl,
   verifyPurchaseSession,
-  grantLegacyCompanyReportPurchase,
   grantVerifiedPurchase,
   savePurchaseState,
   saveReportCache,
@@ -1580,7 +1579,7 @@ const ANALYSIS_STEPS = [
   { id: "report",     label: "レポートを生成中…",           fn: null },
 ];
 
-function AnalyzingPage({ onComplete, form, isPaidFlow = false, retryKey = 0, onRetry }) {
+function AnalyzingPage({ onComplete, form, purchaseState = null, isPaidFlow = false, retryKey = 0, onRetry }) {
   const [currentStep, setCurrentStep]   = useState(0);
   const [completedSteps, setCompleted]  = useState([]);
   const [progress, setProgress]         = useState(0);
@@ -1627,6 +1626,7 @@ function AnalyzingPage({ onComplete, form, isPaidFlow = false, retryKey = 0, onR
             industry: form?.industry || "",
             email:    form?.email    || "",
             paid:     isPaidFlow,
+            purchaseSessionId: isPaidFlow ? (purchaseState?.sessionId || "") : "",
           }),
         });
         const data = await res.json().catch(() => ({}));
@@ -2442,15 +2442,18 @@ export default function App() {
         if (verified.ok) {
           purchase = grantVerifiedPurchase(verified.purchase);
         } else {
-          purchase = grantLegacyCompanyReportPurchase();
-          purchase.sessionId = sessionId;
-          purchase.verificationMethod = verified.reason === "verification_unconfigured"
-            ? "session_id_unverified"
-            : "session_id_verify_failed";
-          savePurchaseState(purchase);
+          setPurchaseState(null);
+          setIsPaidFlow(false);
+          setReportMode("demo");
+          setStage("form");
+          return;
         }
       } else {
-        purchase = grantLegacyCompanyReportPurchase();
+        setPurchaseState(null);
+        setIsPaidFlow(false);
+        setReportMode("demo");
+        setStage("form");
+        return;
       }
 
       setPurchaseState(purchase);
@@ -2506,6 +2509,7 @@ export default function App() {
     <AnalyzingPage
       onComplete={handleAnalysisComplete}
       form={formData}
+      purchaseState={purchaseState}
       isPaidFlow={isPaidFlow}
       retryKey={analysisRetryKey}
       onRetry={() => setAnalysisRetryKey((k) => k + 1)}

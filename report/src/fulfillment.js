@@ -114,8 +114,8 @@ export async function verifyPurchaseSession(sessionId, productHint = 'company_re
     });
     const data = await res.json().catch(() => ({}));
 
-    if (res.status === 503 && data.legacyCompatible) {
-      return { ok: false, reason: 'verification_unconfigured', legacyCompatible: true };
+    if (res.status === 503 && data.error === 'verification_unconfigured') {
+      return { ok: false, reason: 'verification_unconfigured' };
     }
     if (!res.ok) {
       return { ok: false, reason: data.error || 'verification_failed', detail: data };

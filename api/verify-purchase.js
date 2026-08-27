@@ -7,6 +7,7 @@
 
 import {
   resolveProductFromStripeSession,
+  resolveCompanyReportProductFromStripeSession,
   buildVerifiedPurchaseState,
 } from '../scripts/lib/fulfillment-state.mjs';
 
@@ -60,7 +61,6 @@ export default async function handler(req, res) {
     res.end(JSON.stringify({
       error: 'verification_unconfigured',
       message: 'STRIPE_SECRET_KEY is not configured. Server-side purchase verification unavailable.',
-      legacyCompatible: true,
     }));
     return;
   }
@@ -86,7 +86,11 @@ export default async function handler(req, res) {
       return;
     }
 
-    const product = resolveProductFromStripeSession(session, productHint);
+    const product = productHint === 'company_report'
+      ? resolveCompanyReportProductFromStripeSession(session, {
+        expectedPaymentLinkId: process.env.COMPANY_REPORT_STRIPE_PAYMENT_LINK_ID,
+      })
+      : resolveProductFromStripeSession(session, productHint);
     if (!product) {
       res.statusCode = 422;
       res.end(JSON.stringify({
@@ -120,4 +124,8 @@ export default async function handler(req, res) {
   }
 }
 
-export { retrieveCheckoutSession, resolveProductFromStripeSession };
+export {
+  retrieveCheckoutSession,
+  resolveProductFromStripeSession,
+  resolveCompanyReportProductFromStripeSession,
+};

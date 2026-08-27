@@ -2,6 +2,10 @@ import {
   applyPaidProductIntegrity,
   shouldRejectPaidAnalysis,
 } from "../scripts/lib/product-integrity.mjs";
+import {
+  retrieveCheckoutSession,
+  resolveCompanyReportProductFromStripeSession,
+} from './verify-purchase.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // /api/analyze — Agent Readiness Index 解析バックエンド
@@ -607,6 +611,33 @@ export default async function handler(req, res) {
     };
     const paid = body.paid === true;
     const productMode = paid ? "paid" : "demo";
+
+    if (paid) {
+      const sessionId = String(body.purchaseSessionId || body.sessionId || '').trim();
+      const secretKey = process.env.STRIPE_SECRET_KEY;
+      if (!sessionId || !sessionId.startsWith('cs_')) {
+        res.statusCode = 403;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "paid_analysis_requires_verified_purchase", reason: "missing_session" }));
+        return;
+      }
+      if (!secretKey) {
+        res.statusCode = 503;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "paid_analysis_requires_verified_purchase", reason: "verification_unconfigured" }));
+        return;
+      }
+      const session = await retrieveCheckoutSession(sessionId, secretKey);
+      const companyReport = resolveCompanyReportProductFromStripeSession(session, {
+        expectedPaymentLinkId: process.env.COMPANY_REPORT_STRIPE_PAYMENT_LINK_ID,
+      });
+      if (!companyReport) {
+        res.statusCode = 403;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "paid_analysis_requires_verified_purchase", reason: "wrong_product_or_unverified_session" }));
+        return;
+      }
+    }
 
     const targetUrl = form.url || "https://example.com";
     const hasAnyKey = Object.values(API_KEYS).some((fn) => fn());

@@ -20,6 +20,7 @@ import {
   hasActivePurchase,
   canRetryAnalysis,
   resolveProductFromStripeSession,
+  resolveCompanyReportProductFromStripeSession,
   buildLegacyPurchaseState,
   grantBrowserEntitlements,
 } from '../lib/fulfillment-state.mjs';
@@ -27,14 +28,14 @@ import { PROTECTED_ABIS_SLUGS } from '../lib/product-integrity.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-test('T01 paid entitlement requires purchase state (not URL alone)', () => {
+test('T01 paid entitlement requires authoritative verified purchase state', () => {
   const legacy = buildLegacyPurchaseState();
   assert.equal(legacy.verified, false);
   assert.equal(legacy.verificationMethod, 'legacy_query');
-  assert.ok(hasActivePurchase(legacy));
+  assert.equal(hasActivePurchase(legacy), false);
   const reportSrc = fs.readFileSync(path.join(ROOT, 'report/src/agent-readiness-report.jsx'), 'utf8');
   assert.match(reportSrc, /verifyPurchaseSession/);
-  assert.match(reportSrc, /grantLegacyCompanyReportPurchase/);
+  assert.doesNotMatch(reportSrc, /grantLegacyCompanyReportPurchase/);
 });
 
 test('T02 paid result survives reload within TTL', () => {
@@ -57,6 +58,8 @@ test('T04 payment success + analysis failure can retry', () => {
     productId: PRODUCTS.companyReportLegacy.id,
     fulfillmentState: FULFILLMENT_STATES.PAID_COMPANY_REPORT,
     entitlements: PRODUCTS.companyReportLegacy.entitlements,
+    verified: true,
+    verificationMethod: 'stripe_api',
   });
   assert.equal(canRetryAnalysis(purchase), true);
   const src = fs.readFileSync(path.join(ROOT, 'report/src/agent-readiness-report.jsx'), 'utf8');
@@ -126,6 +129,36 @@ test('Stripe session resolves company report by amount + hint', () => {
   const session = { payment_status: 'paid', amount_total: STRIPE_AMOUNT_TAX_INCL.companyReport, id: 'cs_test_1' };
   const product = resolveProductFromStripeSession(session, 'company_report');
   assert.equal(product.id, PRODUCTS.companyReportLegacy.id);
+});
+
+test('strict Company Report resolver requires authoritative identity', () => {
+  const valid = {
+    payment_status: 'paid',
+    amount_total: STRIPE_AMOUNT_TAX_INCL.companyReport,
+    metadata: { product_sku: 'company_report' },
+  };
+  assert.equal(resolveCompanyReportProductFromStripeSession(valid)?.id, PRODUCTS.companyReportBundle.id);
+  assert.equal(resolveCompanyReportProductFromStripeSession({
+    ...valid,
+    metadata: { product_sku: 'research_edition' },
+  }), null);
+  assert.equal(resolveCompanyReportProductFromStripeSession({
+    ...valid,
+    metadata: {},
+    client_reference_id: 'research_edition',
+  }), null);
+  assert.equal(resolveCompanyReportProductFromStripeSession({
+    ...valid,
+    metadata: {},
+    payment_link: 'plink_company_report',
+  }, { expectedPaymentLinkId: 'plink_company_report' })?.id, PRODUCTS.companyReportBundle.id);
+});
+
+test('paid analyze path requires a purchase session and server verification', () => {
+  const analyzeSrc = fs.readFileSync(path.join(ROOT, 'api/analyze.js'), 'utf8');
+  assert.match(analyzeSrc, /purchaseSessionId \|\| body\.sessionId/);
+  assert.match(analyzeSrc, /retrieveCheckoutSession\(sessionId, secretKey\)/);
+  assert.match(analyzeSrc, /paid_analysis_requires_verified_purchase/);
 });
 
 test('verify-purchase endpoint exists', () => {

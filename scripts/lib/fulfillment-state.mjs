@@ -4,6 +4,7 @@
 
 import {
   PRODUCTS,
+  STRIPE_AMOUNT_TAX_INCL,
   RESEARCH_EDITION,
   HANDBOOK,
   mergeEntitlements,
@@ -110,6 +111,35 @@ export function resolveProductFromStripeSession(session, productHint) {
   return null;
 }
 
+/**
+ * Strict Company Report resolver.
+ *
+ * Amount alone is not sufficient because Research Edition currently has the
+ * same tax-inclusive amount.  A paid Company Report therefore needs an
+ * authoritative product identity from Stripe metadata/client reference or
+ * the configured Payment Link id.
+ */
+export function resolveCompanyReportProductFromStripeSession(session, options = {}) {
+  if (!session || session.payment_status !== 'paid') return null;
+  if (session.amount_total !== STRIPE_AMOUNT_TAX_INCL.companyReport) return null;
+
+  const metadata = session.metadata || {};
+  const productIdentity = String(
+    metadata.product_sku
+    || metadata.product_id
+    || session.client_reference_id
+    || '',
+  ).trim();
+  const paymentLinkId = String(options.expectedPaymentLinkId || '').trim();
+  const paymentLinkMatches = paymentLinkId && session.payment_link === paymentLinkId;
+  const identityMatches = productIdentity === 'company_report'
+    || productIdentity === PRODUCTS.companyReportLegacy.id
+    || productIdentity === PRODUCTS.companyReportBundle.id;
+
+  if (!identityMatches && !paymentLinkMatches) return null;
+  return PRODUCTS.companyReportBundle;
+}
+
 export function buildVerifiedPurchaseState(session, product) {
   return createPurchaseState({
     sessionId: session.id,
@@ -152,7 +182,12 @@ export function grantBrowserEntitlements(entitlements, sessionId, storage = {}) 
 }
 
 export function hasActivePurchase(purchaseState) {
-  return !!(purchaseState && !isExpired(purchaseState) && purchaseState.entitlements?.companyReport);
+  return !!(
+    purchaseState
+    && purchaseState.verified === true
+    && !isExpired(purchaseState)
+    && purchaseState.entitlements?.companyReport
+  );
 }
 
 export function canRetryAnalysis(purchaseState) {
