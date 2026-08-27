@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [規約・返金・キャンセルの明確さ](https://readiness.coaretail.com/insights/policy-clarity/): Insights Column（2026-08-27）
 - [購買導線をAIが辿れる設計](https://readiness.coaretail.com/insights/purchase-path-design/): Insights Column（2026-08-26）
 - [空きと営業時間を機械に伝える](https://readiness.coaretail.com/insights/availability-signals/): Insights Column（2026-08-25）
 - [求人情報をAIが比較できる状態](https://readiness.coaretail.com/insights/hiring-readiness/): Insights Column（2026-08-24）
