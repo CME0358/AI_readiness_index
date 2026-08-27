@@ -645,6 +645,21 @@
       line-height: var(--leading-relaxed);
     }
 
+    .partner-qualification { display: none; background: var(--color-surface-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: var(--space-6); margin: var(--space-7) 0; }
+    .partner-qualification.is-eligible { display: block; }
+    .partner-qualification h2 { margin-bottom: var(--space-2); }
+    .partner-qualification-intro { color: var(--color-text-secondary); margin-bottom: var(--space-5); }
+    .partner-qualification-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+    .partner-qualification label { display: flex; flex-direction: column; gap: var(--space-2); font-weight: 600; }
+    .partner-qualification select, .partner-qualification textarea { width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text-primary); padding: 10px; font: inherit; }
+    .partner-qualification textarea { min-height: 80px; resize: vertical; }
+    .partner-qualification-note { margin-top: var(--space-4); }
+    .partner-qualification-submit { margin-top: var(--space-5); }
+    .partner-qualification-result, .partner-qualification-error { margin-top: var(--space-4); }
+    .partner-qualification-result { color: var(--color-success, #2d6a4f); }
+    .partner-qualification-error { color: var(--color-danger, #b42318); }
+    @media (max-width: 640px) { .partner-qualification-grid { grid-template-columns: 1fr; } }
+
     /* Footer — Research Hub pattern */
     .research-footer {
       background: var(--color-surface-subtle);
@@ -744,6 +759,57 @@
       </div>
     </div>
   </header>
+
+  <section class="section partner-qualification" data-partner-qualification aria-labelledby="partner-qualification-heading">
+    <div class="container">
+      <div class="container-reading">
+        <div class="section-label">Partner Qualification</div>
+        <h2 id="partner-qualification-heading">貴社での活用方法をお聞かせください</h2>
+        <p class="partner-qualification-intro">Company Reportをご確認いただいた方を対象に、活用目的に合う次のステップをご案内します。レポート閲覧やResearch entitlementには影響しません。</p>
+        <form data-partner-qualification-form novalidate>
+          <div class="partner-qualification-grid">
+            <label>利用目的
+              <select name="purpose" required>
+                <option value="">選択してください</option>
+                <option value="OWN_COMPANY">自社のAI対応改善</option>
+                <option value="CLIENT_SERVICE">クライアント企業への提供</option>
+                <option value="PRODUCT_INTEGRATION">自社サービス / SaaSへの組み込み</option>
+                <option value="PARTNERSHIP">事業提携・共同展開</option>
+                <option value="RESEARCH">調査・情報収集</option>
+                <option value="OTHER">その他</option>
+              </select>
+            </label>
+            <label>導入対象
+              <select name="scope" required>
+                <option value="">選択してください</option>
+                <option value="SINGLE_COMPANY">単一企業</option>
+                <option value="MULTIPLE_CLIENTS">複数のクライアント</option>
+                <option value="PRODUCT_USERS">自社プロダクトの利用企業</option>
+                <option value="PLATFORM">プラットフォーム</option>
+                <option value="UNDECIDED">まだ決まっていない</option>
+              </select>
+            </label>
+            <label>検討時期
+              <select name="timeline" required>
+                <option value="">選択してください</option>
+                <option value="IMMEDIATE">すぐに検討したい</option>
+                <option value="WITHIN_3_MONTHS">3ヶ月以内</option>
+                <option value="WITHIN_6_MONTHS">6ヶ月以内</option>
+                <option value="FUTURE">将来的に検討</option>
+                <option value="UNDECIDED">まだ決まっていない</option>
+              </select>
+            </label>
+          </div>
+          <label class="partner-qualification-note">補足（任意）
+            <textarea name="note" maxlength="2000"></textarea>
+          </label>
+          <button class="cta-btn partner-qualification-submit" type="submit">活用方法について相談する</button>
+          <p class="partner-qualification-result" data-partner-qualification-result hidden role="status"></p>
+          <p class="partner-qualification-error" data-partner-qualification-error hidden role="alert"></p>
+        </form>
+      </div>
+    </div>
+  </section>
 
   <section class="section" aria-labelledby="ladder-heading">
     <div class="container">
@@ -980,5 +1046,6 @@
     </div>
   </footer>
 
+<script src="/assets/partner-qualification.js"></script>
 </body>
 </html>
