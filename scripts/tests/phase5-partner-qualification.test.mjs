@@ -41,7 +41,7 @@ test('improve qualification is verified-only and preserves Advisory contract', (
   assert.match(script, /company_report_bundle/);
   assert.match(api, /resolveCompanyReportProductFromStripeSession/);
   assert.match(api, /verification_unconfigured/);
-  assert.match(read('api/whitepaper-lead.js'), /recordId: body\.id/);
+  assert.match(read('api/whitepaper-lead.js'), /storageRecordId/);
   assert.match(read('assets/whitepaper-lead-capture.js'), /ari_lead_record_id/);
 });
 

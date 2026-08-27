@@ -23,7 +23,8 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     var data = new FormData(form);
-    var payload = { sessionId: purchase.sessionId, leadRecordId: '', purpose: data.get('purpose'), scope: data.get('scope'), timeline: data.get('timeline'), note: data.get('note') };
+    var payload = { sessionId: purchase.sessionId, leadId: '', leadRecordId: '', purpose: data.get('purpose'), scope: data.get('scope'), timeline: data.get('timeline'), note: data.get('note') };
+    try { payload.leadId = window.localStorage.getItem('ari_lead_id') || ''; } catch (_) {}
     try { payload.leadRecordId = window.localStorage.getItem('ari_lead_record_id') || ''; } catch (_) {}
     if (!payload.purpose || !payload.scope || !payload.timeline) { error.textContent = '利用目的・導入対象・検討時期を選択してください。'; error.hidden = false; return; }
     var button = form.querySelector('button[type="submit"]');

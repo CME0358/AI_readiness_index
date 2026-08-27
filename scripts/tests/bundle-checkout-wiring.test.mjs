@@ -111,14 +111,14 @@ test('RMVU-04E T09 success URL / session_id flow preserved', () => {
   const src = reportSrc();
   assert.match(src, /session_id/);
   assert.match(src, /verifyPurchaseSession/);
-  assert.match(src, /grantLegacyCompanyReportPurchase/);
+  assert.match(src, /grantVerifiedPurchase/);
   assert.match(src, /NEW_PAYMENT_LINK_REQUIRED/);
 });
 
 test('RMVU-04E T10 RMVU-02/03/03B preserved', () => {
   assert.match(fulfillmentSrc(), /verifyPurchaseSession/);
   assert.match(fulfillmentSrc(), /saveReportCache/);
-  assert.match(fulfillmentSrc(), /grantLegacyCompanyReportPurchase/);
+  assert.match(fulfillmentSrc(), /grantVerifiedPurchase/);
   assert.ok(fs.existsSync(path.join(ROOT, 'scripts/lib/product-integrity.mjs')));
   assert.ok(fs.existsSync(path.join(ROOT, 'assets/research-entitlement.js')));
 });

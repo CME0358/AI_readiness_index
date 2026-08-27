@@ -2,6 +2,12 @@ import { DIRECT_BUYER_TYPES, PARTNER_TYPES, SEGMENTS } from './segments.mjs';
 
 const LEAD_SCHEMA_VERSION = '1';
 
+function createCanonicalLeadId() {
+  const randomUUID = globalThis.crypto?.randomUUID;
+  if (typeof randomUUID === 'function') return `lead_${randomUUID.call(globalThis.crypto)}`;
+  return `lead_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 12)}`;
+}
+
 const emptyTouch = () => ({
   source: '',
   medium: '',
@@ -16,7 +22,7 @@ const emptyTouch = () => ({
 function createLead(input = {}) {
   const now = new Date().toISOString();
   return {
-    leadId: input.leadId ?? null,
+    leadId: input.leadId || createCanonicalLeadId(),
     company: String(input.company || ''),
     domain: String(input.domain || ''),
     email: String(input.email || ''),
@@ -34,6 +40,10 @@ function createLead(input = {}) {
     lastTouch: input.lastTouch || emptyTouch(),
     ctaId: String(input.ctaId || ''),
     ctaType: String(input.ctaType || ''),
+    consentType: input.consentType || 'SERVICE_ONLY',
+    consentVersion: String(input.consentVersion || '1'),
+    consentedAt: input.consentedAt || now,
+    consentSource: String(input.consentSource || 'WHITEPAPER'),
     createdAt: input.createdAt || now,
     updatedAt: input.updatedAt || now,
     schemaVersion: LEAD_SCHEMA_VERSION,
@@ -46,4 +56,4 @@ function validateLead(lead) {
   return { valid: missing.length === 0 && lead?.schemaVersion === LEAD_SCHEMA_VERSION, missing };
 }
 
-export { LEAD_SCHEMA_VERSION, createLead, validateLead };
+export { LEAD_SCHEMA_VERSION, createCanonicalLeadId, createLead, validateLead };

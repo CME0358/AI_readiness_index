@@ -15,6 +15,7 @@ async function saveQualificationToAirtable(qualification, input) {
   if (!apiKey || !baseId || !recordId) return { saved: false, reason: 'manual_action_required' };
   const table = process.env.AIRTABLE_TABLE_NAME || 'Leads';
   const fields = {
+    lead_id: qualification.leadId || '',
     qualification_purpose: qualification.purpose,
     qualification_scope: qualification.scope,
     qualification_timeline: qualification.timeline,
