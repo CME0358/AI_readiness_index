@@ -1,6 +1,6 @@
 # Pipeline Health — 2026-08-28
 
-> Reconciliation run: 2026-08-28T01:41:00.000Z
+> Reconciliation run: 2026-08-28T01:45:00.000Z
 
 ## TODAY
 
@@ -12,10 +12,13 @@ published: true
 productionVerified: true
 
 ## BUFFER
-linkedin: scheduled
-facebook: scheduled
-x: scheduled
+linkedin: queued
+facebook: queued
+x: queued
 
 ## PIPELINE
-status: BUFFER_PENDING
-verify: ok (1 attempt; curl production check)
+status: COMPLETE
+buffer actions:
+- linkedin: queued
+- facebook: queued
+- x: queued
