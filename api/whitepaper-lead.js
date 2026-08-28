@@ -1,3 +1,7 @@
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
 const MAX_BODY_BYTES = 20 * 1024;
 
 async function readBody(req) {
@@ -23,7 +27,7 @@ const { upsertLeadToAirtable } = require('./_lib/airtable.cjs');
 
 async function saveLeadToAirtable(lead) { return upsertLeadToAirtable(lead); }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return response(res, 405, { error: 'method_not_allowed' });
   try {
     const input = await readBody(req);

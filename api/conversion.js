@@ -1,3 +1,7 @@
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
 const { saveConversionToAirtable, findConversionByDedupeKey } = require('./_lib/airtable.cjs');
 
 function send(res, status, body) {
@@ -6,7 +10,7 @@ function send(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return send(res, 405, { error: 'method_not_allowed' });
   if (String(process.env.CONVERSION_PERSISTENCE_ENABLED || 'true').toLowerCase() === 'false') return send(res, 503, { error: 'conversion_persistence_disabled' });
   try {
