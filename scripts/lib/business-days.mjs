@@ -38,6 +38,17 @@ export function nextPublishDayAfterUnlock(unlockYmd) {
   return toJstDateString(cur);
 }
 
+/** Previous weekday YMD before startYmd. */
+export function previousBusinessDay(startYmd) {
+  const [y, m, d] = startYmd.split('-').map(Number);
+  const cur = new Date(Date.UTC(y, m - 1, d, 1, 0, 0));
+  cur.setUTCDate(cur.getUTCDate() - 1);
+  while (!isWeekday(cur)) {
+    cur.setUTCDate(cur.getUTCDate() - 1);
+  }
+  return toJstDateString(cur);
+}
+
 export function articleTimesForPublishDay(publishYmd) {
   return {
     web: isoAtJst(publishYmd, '10:00'),
