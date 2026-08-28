@@ -563,7 +563,9 @@
       "recoveredAt": "2026-08-28T01:31:36.292Z",
       "publishAttemptedAt": "2026-08-28T01:25:31.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-08-28T01:25:31.000Z"
+      "publishedAt": "2026-08-28T01:25:31.000Z",
+      "productionVerifiedAt": "2026-08-28T01:42:31.000Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "marketing-info-design",
