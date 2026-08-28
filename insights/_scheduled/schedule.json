@@ -549,8 +549,8 @@
     },
     {
       "slug": "agent-experience",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-28T10:00:00+09:00",
+      "status": "published",
       "title": "Agent Experienceとは何か",
       "cardSummary": "エージェントが目的達成する体験設計が必要。Actionability定義ではなく体験設計の視点",
       "llmsLabel": "Agent Experienceとは何か",
@@ -558,7 +558,12 @@
       "seoTitle": "Agent Experience（AX）とは？エージェント体験設計の基本",
       "metaDescription": "Agent Experience（AX）とは、AIエージェントが目的達成する体験設計。Actionabilityの定義ではなく、エージェント視点での情報設計とAgent Readinessの関係を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "Agent Experience AX 体験設計"
+      "primarySearchIntent": "Agent Experience AX 体験設計",
+      "recoveryReason": "2026-08-28 missed due to delayed unlock crossing JST date boundary",
+      "recoveredAt": "2026-08-28T01:31:36.292Z",
+      "publishAttemptedAt": "2026-08-28T01:25:31.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-08-28T01:25:31.000Z"
     },
     {
       "slug": "marketing-info-design",
