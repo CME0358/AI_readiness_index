@@ -13,19 +13,12 @@ async function saveQualificationToAirtable(qualification, input) {
   const baseId = process.env.AIRTABLE_BASE_ID;
   const recordId = String(input.leadRecordId || '').trim();
   if (!apiKey || !baseId || !recordId) return { saved: false, reason: 'manual_action_required' };
-  const { resolveInboundAirtableTables } = await import('./_lib/airtable.cjs');
+  const { resolveInboundAirtableTables, serializeInboundQualification } = await import('./_lib/airtable.cjs');
   const tables = resolveInboundAirtableTables();
   if (!tables.writeEnabled || !tables.leadsTable) return { saved: false, reason: tables.environment === 'unknown' ? 'unknown_environment' : 'inbound_airtable_not_configured' };
-  const fields = {
-    lead_id: qualification.leadId || '',
-    qualification_purpose: qualification.purpose,
-    qualification_scope: qualification.scope,
-    qualification_timeline: qualification.timeline,
-    qualification_band: qualification.qualificationBand,
-    qualification_score: qualification.qualificationScore,
-    recommended_action: qualification.recommendedAction,
-    qualification_created_at: qualification.createdAt,
-  };
+  const fields = serializeInboundQualification(qualification, tables.leadsTable);
+  if (!fields) return { saved: false, reason: 'unsupported_inbound_table' };
+  // Canonical storage keeps lead_id: qualification.leadId through the serializer.
   const endpoint = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tables.leadsTable)}/${encodeURIComponent(recordId)}`;
   const result = await fetch(endpoint, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` }, body: JSON.stringify({ fields, typecast: true }) });
   return result.ok ? { saved: true } : { saved: false, reason: `airtable_${result.status}` };
