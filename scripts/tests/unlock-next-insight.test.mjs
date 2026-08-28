@@ -7,6 +7,8 @@ import {
 } from '../lib/business-days.mjs';
 import {
   resolvePublishYmd,
+  resolveEffectiveUnlockSlot,
+  planUnlock,
   findNextHoldArticle,
   findScheduledOnDate,
   resolveNextAvailablePublishYmd,
@@ -87,4 +89,77 @@ test('resolveNextAvailablePublishYmd skips occupied current-event slot', () => {
   };
   assert.ok(findScheduledOnDate(schedule, '2026-08-11'));
   assert.equal(resolveNextAvailablePublishYmd(schedule, '2026-08-11'), '2026-08-12');
+});
+
+const incidentSlot = '2026-08-27T15:00:00+09:00';
+
+test('effective slot: on-time Thursday unlock targets Friday', () => {
+  const slot = resolveEffectiveUnlockSlot({ actualRunAt: new Date(incidentSlot) });
+  assert.equal(slot.ok, true);
+  assert.equal(slot.effectiveUnlockYmd, '2026-08-27');
+  assert.equal(resolvePublishYmd({ now: new Date(incidentSlot) }), '2026-08-28');
+});
+
+test('incident reproduction: delayed Friday 02:26 run still targets Friday', () => {
+  const actualRunAt = new Date('2026-08-28T02:26:00+09:00');
+  const slot = resolveEffectiveUnlockSlot({ actualRunAt });
+  assert.equal(slot.ok, true);
+  assert.equal(slot.effectiveUnlockYmd, '2026-08-27');
+  assert.equal(slot.latenessMinutes, 686);
+  assert.equal(resolvePublishYmd({ now: actualRunAt }), '2026-08-28');
+  assert.notEqual(resolvePublishYmd({ now: actualRunAt }), '2026-08-31');
+});
+
+test('Friday canonical unlock targets Monday', () => {
+  assert.equal(resolvePublishYmd({ now: new Date('2026-08-28T15:00:00+09:00') }), '2026-08-31');
+});
+
+function holdSchedule(extra = []) {
+  return { articles: [{ slug: 'agent-experience', series: 'v2', status: 'editorial_hold' }, ...extra] };
+}
+
+test('same unlock slot is idempotent after first article is scheduled', () => {
+  const now = new Date('2026-08-28T02:26:00+09:00');
+  const first = planUnlock({ schedule: holdSchedule(), now });
+  assert.equal(first.result, 'READY_TO_UNLOCK');
+  const second = planUnlock({
+    schedule: holdSchedule([{ slug: 'agent-experience', series: 'v2', status: 'scheduled', publishAt: '2026-08-28T10:00:00+09:00' }]),
+    now,
+  });
+  assert.equal(second.result, 'NO_OP_ALREADY_SCHEDULED');
+});
+
+test('target date already scheduled returns NO_OP_ALREADY_SCHEDULED', () => {
+  const result = planUnlock({
+    schedule: holdSchedule([{ slug: 'other', series: 'v2', status: 'scheduled', publishAt: '2026-08-28T10:00:00+09:00' }]),
+    now: new Date('2026-08-28T02:26:00+09:00'),
+  });
+  assert.equal(result.result, 'NO_OP_ALREADY_SCHEDULED');
+  assert.equal(result.slug, 'other');
+});
+
+test('target date already published returns NO_OP_ALREADY_PUBLISHED', () => {
+  const result = planUnlock({
+    schedule: holdSchedule([{ slug: 'agent-experience', series: 'v2', status: 'published', publishAt: '2026-08-28T10:00:00+09:00', publishedAt: '2026-08-28T10:25:31+09:00' }]),
+    now: new Date('2026-08-28T02:26:00+09:00'),
+  });
+  assert.equal(result.result, 'NO_OP_ALREADY_PUBLISHED');
+});
+
+test('future article remains untouched when incident target is available', () => {
+  const result = planUnlock({
+    schedule: holdSchedule([{ slug: 'agent-handoff', series: 'v2', status: 'scheduled', publishAt: '2026-08-31T10:00:00+09:00' }]),
+    now: new Date('2026-08-28T02:26:00+09:00'),
+  });
+  assert.equal(result.result, 'READY_TO_UNLOCK');
+  assert.equal(result.slug, 'agent-experience');
+});
+
+test('run beyond lateness window stops safely', () => {
+  const result = planUnlock({
+    schedule: holdSchedule(),
+    now: new Date('2026-08-28T12:00:00+09:00'),
+  });
+  assert.equal(result.result, 'UNLOCK_STALE_RUN_BLOCKED');
+  assert.equal(result.publishYmd, null);
 });

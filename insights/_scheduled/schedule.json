@@ -509,8 +509,8 @@
     },
     {
       "slug": "agent-handoff",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-31T10:00:00+09:00",
+      "status": "scheduled",
       "title": "AIエージェントと人間の引き継ぎ設計",
       "cardSummary": "引き継ぎ条件・エスカレーション・記録が設計要素。予約実行ではなく人間へのハンドオフ",
       "llmsLabel": "AIエージェントと人間の引き継ぎ設計",
@@ -518,7 +518,8 @@
       "seoTitle": "AIエージェントから人間への引き継ぎ設計",
       "metaDescription": "AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "AI 人間 引き継ぎ ハンドオフ"
+      "primarySearchIntent": "AI 人間 引き継ぎ ハンドオフ",
+      "unlockedAt": "2026-08-27T17:26:58.132Z"
     },
     {
       "slug": "mcp-business-api",
@@ -548,8 +549,8 @@
     },
     {
       "slug": "agent-experience",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-08-28T10:00:00+09:00",
+      "status": "published",
       "title": "Agent Experienceとは何か",
       "cardSummary": "エージェントが目的達成する体験設計が必要。Actionability定義ではなく体験設計の視点",
       "llmsLabel": "Agent Experienceとは何か",
@@ -557,7 +558,14 @@
       "seoTitle": "Agent Experience（AX）とは？エージェント体験設計の基本",
       "metaDescription": "Agent Experience（AX）とは、AIエージェントが目的達成する体験設計。Actionabilityの定義ではなく、エージェント視点での情報設計とAgent Readinessの関係を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "Agent Experience AX 体験設計"
+      "primarySearchIntent": "Agent Experience AX 体験設計",
+      "recoveryReason": "2026-08-28 missed due to delayed unlock crossing JST date boundary",
+      "recoveredAt": "2026-08-28T01:31:36.292Z",
+      "publishAttemptedAt": "2026-08-28T01:25:31.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-08-28T01:25:31.000Z",
+      "productionVerifiedAt": "2026-08-28T01:42:31.000Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "marketing-info-design",
