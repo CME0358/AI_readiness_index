@@ -65,6 +65,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/hub-animations.css">
+<link rel="stylesheet" href="assets/ari-fv-animation.css">
 <style>
 :root {
   --bg: #FFFFFF;
@@ -202,15 +203,9 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   box-shadow: none;
   padding: 0;
 }
-.hub-hero-visual img {
+.hub-hero-visual .ari-fv-animation {
   width: 100%;
-  max-width: 520px;
-  height: auto;
-  display: block;
-  background: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
+  max-width: 293px;
 }
 
 /* Hub cards */
@@ -350,7 +345,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .nav-cards { grid-template-columns: repeat(2, 1fr); }
   .hub-hero-inner { grid-template-columns: 1fr; gap: 28px; }
   .hub-hero-visual { order: -1; }
-  .hub-hero-visual img { max-width: 360px; }
+  .hub-hero-visual .ari-fv-animation { max-width: 263px; }
   .hub-hero { padding: 28px 0 48px; }
 }
 @media (max-width: 768px) {
@@ -360,7 +355,7 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   .section { padding: 72px 0; }
   .hub-hero { padding: 20px 0 40px; }
   .hub-hero-inner { gap: 20px; }
-  .hub-hero-visual img { max-width: 300px; }
+  .hub-hero-visual .ari-fv-animation { max-width: 238px; }
 }
 </style>
 </head>
@@ -401,14 +396,12 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
         </div>
       </div>
       <div class="hub-hero-visual hero-anim d3">
-        <img
-          src="assets/agent-readiness-hero.webp"
-          alt="Agent Readiness — Web理解から予約・実行までつなぐAI時代の企業評価"
-          width="1024"
-          height="682"
-          loading="eager"
-          fetchpriority="high"
-        >
+        <div
+          id="ari-fv-animation"
+          class="ari-fv-animation"
+          role="img"
+          aria-label="AIが企業を検索・発見・理解・比較・推薦するプロセスのデモンストレーション"
+        ></div>
       </div>
     </div>
   </div>
@@ -642,6 +635,9 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+<script src="assets/ari-fv-timeline.js" defer></script>
+<script src="assets/ari-fv-animation.js" defer></script>
 <script src="assets/hub-animations.js" defer></script>
 <script src="/assets/sitewide-cta-tracking.js" defer></script>
 </body>
