@@ -75,7 +75,8 @@ test('ARI FV left column copy unchanged', () => {
   assert.match(home, /AIに「見つかる」だけでなく/);
   assert.match(home, /Agent Readiness Research Hub/);
   assert.match(home, /Frameworkを見る/);
-  assert.match(home, /診断を申し込む/);
+  assert.match(home, /Company Report/);
+  assert.match(home, /無料ガイドを見る/);
 });
 
 test('ARI FV hero image asset only used outside homepage', () => {
@@ -106,6 +107,7 @@ test('ARI FV hero image asset only used outside homepage', () => {
   }
   walk(ROOT);
   assert.deepEqual(refs.sort(), [
+    'assets/LEGACY_BRAND_ASSETS.md',
     'video/readiness-promo-60s/hyperframes/capture/extracted/page.html'
   ]);
 });
