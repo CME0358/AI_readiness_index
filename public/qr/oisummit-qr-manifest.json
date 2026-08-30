@@ -1,0 +1,22 @@
+[
+  {
+    "id": "oisummit-general",
+    "url": "https://readiness.coaretail.com/oisummit/?utm_source=oisummit&utm_medium=qr&utm_campaign=oisummit2026&utm_content=general",
+    "svg": "public/qr/oisummit-general.svg"
+  },
+  {
+    "id": "oisummit-enterprise",
+    "url": "https://readiness.coaretail.com/oisummit/enterprise/?utm_source=oisummit&utm_medium=qr&utm_campaign=oisummit2026&utm_content=enterprise",
+    "svg": "public/qr/oisummit-enterprise.svg"
+  },
+  {
+    "id": "oisummit-public",
+    "url": "https://readiness.coaretail.com/oisummit/public/?utm_source=oisummit&utm_medium=qr&utm_campaign=oisummit2026&utm_content=public",
+    "svg": "public/qr/oisummit-public.svg"
+  },
+  {
+    "id": "oisummit-tech",
+    "url": "https://readiness.coaretail.com/oisummit/tech/?utm_source=oisummit&utm_medium=qr&utm_campaign=oisummit2026&utm_content=tech",
+    "svg": "public/qr/oisummit-tech.svg"
+  }
+]

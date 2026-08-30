@@ -1,0 +1,417 @@
+/**
+ * OISUMMIT 2026 — shared layout (extends design-system.css)
+ */
+.oisummit-page { background: var(--color-surface); color: var(--color-text-primary); }
+
+.oisummit-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.oisummit-nav-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.oisummit-nav-logo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.oisummit-nav-logo span { color: var(--color-text-muted); font-weight: 400; }
+
+.oisummit-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.oisummit-nav-links a {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.oisummit-nav-links a:hover { color: var(--color-text-primary); }
+
+.oisummit-hero {
+  padding: calc(var(--nav-height) + 56px) 0 72px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.oisummit-hero-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 5vw, 56px);
+  align-items: center;
+}
+
+.oisummit-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.oisummit-headline-en {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.oisummit-headline-ja {
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
+
+.oisummit-lead {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+
+.oisummit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.oisummit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+}
+
+.oisummit-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.oisummit-btn--primary {
+  background: var(--color-cta);
+  color: var(--color-cta-text);
+}
+
+.oisummit-btn--primary:hover { background: var(--color-cta-hover); transform: translateY(-1px); }
+
+.oisummit-btn--secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.oisummit-btn--secondary:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-subtle);
+}
+
+.oisummit-demo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.oisummit-demo-wrap .ari-fv-animation {
+  max-width: 293px;
+}
+
+.oisummit-section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.oisummit-section--alt { background: var(--color-surface-subtle); }
+
+.oisummit-section-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+}
+
+.oisummit-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.oisummit-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+
+.oisummit-body {
+  max-width: 640px;
+  color: var(--color-text-secondary);
+  line-height: 1.85;
+}
+
+.oisummit-body p + p { margin-top: 14px; }
+
+.oisummit-gap-list {
+  list-style: none;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oisummit-gap-list li {
+  padding: 16px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  font-size: 15px;
+}
+
+.oisummit-gap-list strong { color: var(--color-text-primary); }
+
+.oisummit-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+}
+
+.oisummit-flow span { color: var(--color-text-muted); font-weight: 400; }
+
+.oisummit-critical {
+  margin-top: 32px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-accent-soft);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.oisummit-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.oisummit-tab {
+  padding: 10px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+}
+
+.oisummit-tab.is-active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.oisummit-tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.oisummit-segments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.oisummit-segment-card {
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.oisummit-segment-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.oisummit-segment-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.oisummit-use-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.oisummit-use-grid li {
+  list-style: none;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.oisummit-form {
+  max-width: 640px;
+  margin-top: 32px;
+}
+
+.oisummit-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.oisummit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.oisummit-form label.full { grid-column: 1 / -1; }
+
+.oisummit-form input,
+.oisummit-form select,
+.oisummit-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  background: var(--color-surface);
+}
+
+.oisummit-form textarea { min-height: 120px; resize: vertical; }
+
+.oisummit-form-consent {
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 10px !important;
+  margin: 20px 0;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.oisummit-form-consent input { width: auto; margin-top: 3px; }
+
+.oisummit-form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.oisummit-form-error { color: var(--color-danger); margin-top: 12px; font-size: 14px; }
+
+.oisummit-form-success {
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-success-soft);
+}
+
+.oisummit-footer {
+  padding: 48px 0;
+  background: var(--color-surface-subtle);
+  border-top: 1px solid var(--color-border);
+}
+
+.oisummit-footer-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.oisummit-footer a { color: inherit; text-decoration: none; }
+.oisummit-footer a:hover { color: var(--color-text-primary); }
+
+.oisummit-showcase-layout {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 48px) var(--container-gutter) 72px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .oisummit-hero-inner { grid-template-columns: 1fr; }
+  .oisummit-demo-wrap { order: -1; }
+  .oisummit-segments { grid-template-columns: 1fr; }
+  .oisummit-form-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .oisummit-nav-links { display: none; }
+  .oisummit-section { padding: 56px 0; }
+  .oisummit-use-grid { grid-template-columns: 1fr; }
+  .oisummit-demo-wrap .ari-fv-animation { max-width: 255px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oisummit-btn:hover { transform: none; }
+  .oisummit-segment-card:hover { transform: none; }
+}

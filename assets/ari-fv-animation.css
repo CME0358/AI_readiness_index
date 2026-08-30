@@ -547,6 +547,127 @@
   .ari-fv-chat__header { padding-top: 40px; }
 }
 
+/* OISUMMIT scenario extensions */
+.ari-fv-rec__badge--critical {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-top: none;
+  padding-top: 0;
+  margin-bottom: 8px;
+}
+
+.ari-fv-rec__badge--danger { color: #DC2626; }
+
+.ari-fv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.ari-fv-tag {
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: rgba(27, 86, 176, 0.1);
+  color: var(--accent, #1B56B0);
+}
+
+.ari-fv-program-list { margin-top: 6px; }
+
+.ari-fv-program {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 9.5px;
+  line-height: 1.45;
+  color: var(--text-secondary, #52525B);
+  margin-bottom: 5px;
+}
+
+.ari-fv-program__num {
+  font-weight: 700;
+  color: var(--accent, #1B56B0);
+  flex-shrink: 0;
+}
+
+.ari-fv-req-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.ari-fv-req {
+  text-align: center;
+  padding: 6px 4px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.ari-fv-req span {
+  display: block;
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  color: var(--text-muted, #71717A);
+}
+
+.ari-fv-req strong {
+  display: block;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.ari-fv-req--warn strong { color: #CA8A04; }
+
+.ari-fv-api-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(22, 163, 74, 0.08);
+}
+
+.ari-fv-api-result__label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted, #71717A);
+}
+
+.ari-fv-api-result__status {
+  font-size: 10px;
+  font-weight: 700;
+  color: #16A34A;
+}
+
+.ari-fv-outcome { margin-top: 4px; }
+
+.ari-fv-outcome__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted, #71717A);
+  margin-bottom: 4px;
+}
+
+.ari-fv-outcome__times {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ari-fv-outcome__neq { color: #DC2626; font-size: 12px; }
+
 @media (prefers-reduced-motion: reduce) {
   .ari-fv-flow__item { transition: none; }
   .ari-fv-device__body { transform: none; }
