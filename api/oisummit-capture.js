@@ -66,6 +66,11 @@ export default async function handler(req, res) {
     return;
   }
 
+  if (req.headers?.["x-oisummit-auth-check"] === "1") {
+    json(res, 200, { authenticated: true });
+    return;
+  }
+
   const enabled = process.env.OISUMMIT_CAPTURE_WRITE_ENABLED === "true";
   const apiKey = process.env.AIRTABLE_API_KEY;
   const baseId = process.env.AIRTABLE_BASE_ID;
