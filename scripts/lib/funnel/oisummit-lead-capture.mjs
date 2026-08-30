@@ -20,11 +20,10 @@ const INTEREST_BY_SEGMENT = Object.freeze({
   ],
   tech: [
     'AI Agent Integration',
-    'Business Execution',
+    'Agent Execution',
     'PoC',
     'Joint Research',
     'Partnership',
-    'ABIS',
   ],
 });
 const ORG_TYPES = Object.freeze(['SIer', 'SaaS', 'AI Platform', 'Enterprise IT', 'Consulting', 'Other']);

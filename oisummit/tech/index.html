@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OISUMMIT 2026 — Tech / SI | Agent Readiness</title>
-  <meta name="description" content="APIが成功した。でも、業務は成功したのか？Tech / SI向けAI Agent Integration・ABIS・PoCへの入口。">
+  <meta name="description" content="APIが成功した。でも、業務は成功したのか？Tech / SI向けAgent Execution・AI Agent Integration・PoCへの入口。">
   <link rel="canonical" href="https://readiness.coaretail.com/oisummit/tech/">
   <meta name="ari:oisummit-segment" content="tech">
   <meta property="og:title" content="OISUMMIT 2026 — Tech / SI | Agent Readiness">
-  <meta property="og:description" content="APIが成功した。でも、業務は成功したのか？Tech / SI向けAI Agent Integration・ABIS・PoCへの入口。">
+  <meta property="og:description" content="APIが成功した。でも、業務は成功したのか？Tech / SI向けAgent Execution・AI Agent Integration・PoCへの入口。">
   <meta property="og:url" content="https://readiness.coaretail.com/oisummit/tech/">
   <meta property="og:type" content="website">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -41,7 +41,7 @@
           <a class="oisummit-btn oisummit-btn--secondary" data-oisummit-meeting data-segment="tech" data-oisummit-cta data-cta-type="meeting">30分オンラインMTGを予約</a>
         </div>
         <p class="oisummit-body" data-oisummit-meeting-fallback hidden>ご都合のよい時間で、下記フォームよりご相談ください。</p>
-        <p class="oisummit-flow">REQUEST <span>→</span> CONFIRM <span>→</span> EXECUTE <span>→</span> VERIFY</p>
+        <p class="oisummit-flow">依頼 <span>→</span> 確認 <span>→</span> 実行 <span>→</span> 検証</p>
       </div>
       <div class="oisummit-demo-wrap">
         <div
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="oisummit-section-inner">
-      <p class="oisummit-critical">Execution Success ≠ Business Success</p>
+      <p class="oisummit-critical">システム上の成功<span class="oisummit-critical__neq">≠</span>業務上の成功</p>
     </div>
   </section>
 
@@ -86,11 +86,14 @@
   <section class="oisummit-section" aria-labelledby="approach-heading">
     <div class="oisummit-section-inner">
       <p class="oisummit-section-label">Our Approach</p>
-      <h2 id="approach-heading">Agent Business Interaction Standard — ABIS</h2>
+      <h2 id="approach-heading">Agent Execution</h2>
+      <p class="oisummit-lead" style="margin-top:12px;margin-bottom:0">AI Agentによる業務実行を、「実行できた」で終わらせない。</p>
       <div class="oisummit-body">
-        <p>AI Agentから業務システムへの要求と、実行後に得られた業務結果を、共通の業務意味で扱うための標準構想です。</p>
-        <p class="oisummit-flow" style="margin-top:20px">BUSINESS REQUIREMENT <span>→</span> CONFIRM <span>→</span> EXECUTE <span>→</span> NATIVE RESULT <span>→</span> BUSINESS OUTCOME</p>
-        <p style="margin-top:16px">実行境界（execution boundary）を越えたあと、要求と結果が業務意味で一致しているかを検証します。Agent Readinessの評価軸と組み合わせ、Integration PoCから共同研究まで支援します。</p>
+        <p>AI Agentから業務システムへの依頼と、実行後に得られた結果を比較し、ユーザーが求めた業務結果と一致しているかを確認します。</p>
+        <p>APIやシステム処理の成功だけではなく、業務として正しく完了したかまで検証することが重要になります。</p>
+        <p class="oisummit-flow" style="margin-top:20px">業務要求 <span>→</span> 確認 <span>→</span> 実行 <span>→</span> システム実行結果 <span>→</span> 業務結果</p>
+        <p style="margin-top:16px"><strong>Agent Readiness</strong> — AIが発見・理解・推薦できる状態。<br><strong>Agent Execution</strong> — AIが要求に沿って業務を実行し、結果を確認できる状態。</p>
+        <p style="margin-top:12px">実行境界を越えたあと、要求と結果が業務意味で一致しているかを検証します。Agent Readinessの評価軸と組み合わせ、Integration PoCから共同研究まで支援します。</p>
       </div>
     </div>
   </section>
@@ -129,7 +132,7 @@
     <div class="oisummit-section-inner">
       <p class="oisummit-section-label">Contact</p>
       <h2 id="contact-heading">ご相談・お問い合わせ</h2>
-      <p class="oisummit-body">AI Agent × 業務システムのPoC・ABIS・パートナーシップについて、お気軽にご連絡ください。</p>
+      <p class="oisummit-body">AI Agent × 業務システムのPoC・Agent Execution・パートナーシップについて、お気軽にご連絡ください。</p>
 
       <form class="oisummit-form" data-oisummit-lead-form data-segment="tech" novalidate>
         <div class="oisummit-form-grid">
@@ -166,11 +169,10 @@
             <select name="interest" required>
               <option value="" disabled selected>選択してください</option>
               <option value="AI Agent Integration">AI Agent Integration</option>
-              <option value="Business Execution">Business Execution</option>
+              <option value="Agent Execution">Agent Execution</option>
               <option value="PoC">PoC</option>
               <option value="Joint Research">Joint Research</option>
               <option value="Partnership">Partnership</option>
-              <option value="ABIS">ABIS</option>
             </select>
           </label>
           <label class="full">

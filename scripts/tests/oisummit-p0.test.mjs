@@ -29,15 +29,28 @@ test('OISUMMIT pages exist with required assets', () => {
   });
 });
 
-test('Public LP does not expose ABIS brand', () => {
-  const html = fs.readFileSync(path.join(ROOT, 'oisummit/public/index.html'), 'utf8');
-  assert.doesNotMatch(html, /Agent Business Interaction Standard/i);
-  assert.doesNotMatch(html, /\bABIS\b/);
+test('All OISUMMIT pages do not expose ABIS brand', () => {
+  PAGES.forEach((rel) => {
+    const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    assert.doesNotMatch(html, /Agent Business Interaction Standard/i, rel);
+    assert.doesNotMatch(html, /\bABIS\b/, rel);
+  });
 });
 
-test('Tech LP exposes ABIS section', () => {
+test('Tech LP uses Agent Execution messaging', () => {
   const html = fs.readFileSync(path.join(ROOT, 'oisummit/tech/index.html'), 'utf8');
-  assert.match(html, /Agent Business Interaction Standard/);
+  assert.match(html, /Agent Execution/);
+  assert.match(html, /システム上の成功/);
+  assert.match(html, /業務上の成功/);
+});
+
+test('Tech demo scenario uses Japanese labels', () => {
+  const code = fs.readFileSync(path.join(ROOT, 'assets/agent-demo-scenarios.js'), 'utf8');
+  assert.match(code, /希望条件と不一致/);
+  assert.match(code, /システム処理/);
+  assert.match(code, /API 200 OK/);
+  assert.match(code, /label: '依頼'/);
+  assert.doesNotMatch(code, /OUTCOME MISMATCH/);
 });
 
 test('Agent demo scenarios cover enterprise public tech', () => {

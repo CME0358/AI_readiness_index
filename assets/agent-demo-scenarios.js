@@ -20,10 +20,10 @@
   ];
 
   var TECH_FLOW = [
-    { id: 'request', label: 'REQUEST' },
-    { id: 'confirm', label: 'CONFIRM' },
-    { id: 'execute', label: 'EXECUTE' },
-    { id: 'verify', label: 'VERIFY' }
+    { id: 'request', label: '依頼' },
+    { id: 'confirm', label: '確認' },
+    { id: 'execute', label: '実行' },
+    { id: 'verify', label: '検証' }
   ];
 
   global.AGENT_DEMO_SCENARIOS = Object.freeze({
@@ -151,11 +151,11 @@
           phase: 'request',
           render: 'html',
           html:
-            '<p class="ari-fv-ai-text">Requirement</p>' +
+            '<p class="ari-fv-ai-text">依頼内容</p>' +
             '<div class="ari-fv-req-grid">' +
-            '<div class="ari-fv-req"><span>SEP</span><strong>15</strong></div>' +
-            '<div class="ari-fv-req"><span>TIME</span><strong>19:00</strong></div>' +
-            '<div class="ari-fv-req"><span>PARTY</span><strong>4 PEOPLE</strong></div>' +
+            '<div class="ari-fv-req"><span> </span><strong>9月15日</strong></div>' +
+            '<div class="ari-fv-req"><span>時間</span><strong>19:00</strong></div>' +
+            '<div class="ari-fv-req"><span>人数</span><strong>4名</strong></div>' +
             '</div>'
         },
         {
@@ -163,19 +163,19 @@
           phase: 'confirm',
           render: 'html',
           html:
-            '<p class="ari-fv-ai-text">EXECUTE</p>' +
-            '<div class="ari-fv-api-result"><span class="ari-fv-api-result__label">API</span><span class="ari-fv-api-result__status">200 OK</span></div>'
+            '<p class="ari-fv-ai-text">実行</p>' +
+            '<div class="ari-fv-api-result"><span class="ari-fv-api-result__label">システム処理</span><span class="ari-fv-api-result__status">API 200 OK</span></div>'
         },
         {
           at: 4,
           phase: 'execute',
           render: 'html',
           html:
-            '<p class="ari-fv-ai-text">RESERVATION CONFIRMED</p>' +
+            '<p class="ari-fv-ai-text">予約確定</p>' +
             '<div class="ari-fv-req-grid">' +
-            '<div class="ari-fv-req"><span>SEP</span><strong>15</strong></div>' +
-            '<div class="ari-fv-req ari-fv-req--warn"><span>TIME</span><strong>19:30</strong></div>' +
-            '<div class="ari-fv-req"><span>PARTY</span><strong>4 PEOPLE</strong></div>' +
+            '<div class="ari-fv-req"><span> </span><strong>9月15日</strong></div>' +
+            '<div class="ari-fv-req ari-fv-req--warn"><span>時間</span><strong>19:30</strong></div>' +
+            '<div class="ari-fv-req"><span>人数</span><strong>4名</strong></div>' +
             '</div>'
         },
         {
@@ -185,9 +185,9 @@
           highlight: true,
           html:
             '<div class="ari-fv-outcome">' +
-            '<div class="ari-fv-outcome__row"><span>REQUESTED</span><span>CONFIRMED</span></div>' +
+            '<div class="ari-fv-outcome__row"><span>希望</span><span>確定</span></div>' +
             '<div class="ari-fv-outcome__times"><span>19:00</span><span class="ari-fv-outcome__neq">≠</span><span>19:30</span></div>' +
-            '<div class="ari-fv-rec__badge ari-fv-rec__badge--critical ari-fv-rec__badge--danger">OUTCOME MISMATCH</div>' +
+            '<div class="ari-fv-rec__badge ari-fv-rec__badge--critical ari-fv-rec__badge--danger">希望条件と不一致</div>' +
             '</div>'
         }
       ]

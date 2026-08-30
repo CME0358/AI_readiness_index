@@ -231,6 +231,12 @@
   letter-spacing: -0.02em;
 }
 
+.oisummit-critical__neq {
+  display: inline-block;
+  margin: 0 0.35em;
+  color: var(--color-accent);
+}
+
 .oisummit-tabs {
   display: flex;
   flex-wrap: wrap;
