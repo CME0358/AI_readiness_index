@@ -9,7 +9,7 @@ const api = fs.readFileSync(path.join(root, "api/oisummit-capture.js"), "utf8");
 
 test("capture UI contract", () => {
   for (const token of ["sagamihara","biprogy","pacific_consultants","yokohama","goodpatch","hyogo","shizuoka_city","toyama","salesforce_japan","nssol","kanagawa","eiicon","shizuoka","gifu","daido_life","nara","yamanashi","mori_building","seino_holdings","tokyo"]) assert.match(page, new RegExp(token));
-  for (const token of ["HOT","WARM","CONTACT","MISS","oisummit_capture_token_v1","oisummit_capture_queue_v1","SAVED ✓","CONFIG_REQUIRED","flushQueue","state.pending","QUEUED LOCALLY","RETRY","CAPTURE NEXT"]) assert.match(page, new RegExp(token.replace(/[✓]/g, "\\✓")));
+  for (const token of ["HOT","WARM","CONTACT","MISS","oisummit_capture_token_v1","oisummit_capture_queue_v1","SAVED ✓","CONFIG_REQUIRED","flushQueue","state.pending","QUEUED LOCALLY","RETRY","CAPTURE NEXT","その他の企業・団体を入力","ADHOC_","data-adhoc-type","data-adhoc-route","target_name_and_result_required"]) assert.match(page + api, new RegExp(token.replace(/[✓]/g, "\\✓")));
   assert.match(page, /sessionStorage/);
   assert.doesNotMatch(page, /localStorage\.(?:getItem|setItem|removeItem)\([^)]*token/i);
   assert.doesNotMatch(page, /[?&](?:token|access_token)=/i);

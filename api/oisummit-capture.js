@@ -83,9 +83,10 @@ export default async function handler(req, res) {
 
   const captureId = clean(input.capture_id, 100);
   const targetId = clean(input.target_id, 100);
+  const targetName = clean(input.target_name, 160);
   const result = clean(input.result, 20);
-  if (!captureId || !targetId || !ALLOWED.result.has(result)) {
-    json(res, 400, { error: "target_id_and_result_required" });
+  if (!captureId || !targetId || !targetName || !ALLOWED.result.has(result)) {
+    json(res, 400, { error: "target_id_target_name_and_result_required" });
     return;
   }
   if (!ALLOWED.route.has(clean(input.route, 40)) ||
@@ -100,7 +101,7 @@ export default async function handler(req, res) {
     event: "OISUMMIT_2026",
     captured_at: clean(input.captured_at, 80) || new Date().toISOString(),
     target_id: targetId,
-    target_name: clean(input.target_name, 160),
+    target_name: targetName,
     target_type: clean(input.target_type, 20),
     priority: clean(input.priority, 20),
     route: clean(input.route, 40),
