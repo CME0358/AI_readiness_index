@@ -284,6 +284,23 @@
       "updatedAt": "2026-08-31T01:00:34.455Z"
     },
     {
+      "id": "ARI-LI-FLAGSHIP-ai-agent-marketing-shift",
+      "slug": "ai-agent-marketing-shift",
+      "articlePublishAt": "2026-08-31T10:00:00+09:00",
+      "bufferTransferAt": "2026-08-31T10:30:00+09:00",
+      "linkedinPublishAt": "2026-08-31T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/ai-agent-marketing-shift/",
+      "contentFile": "insights/_social/linkedin/posts/ai-agent-marketing-shift.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-08-31T01:29:54.000Z",
+      "updatedAt": "2026-08-31T01:29:54.000Z",
+      "series": "flagship"
+    },
+    {
       "id": "ARI-LI-017",
       "slug": "mcp-business-api",
       "articlePublishAt": null,

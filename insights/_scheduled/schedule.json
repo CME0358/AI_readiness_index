@@ -508,8 +508,27 @@
       "verificationAttemptCount": 2
     },
     {
-      "slug": "agent-handoff",
+      "slug": "ai-agent-marketing-shift",
       "publishAt": "2026-08-31T10:00:00+09:00",
+      "status": "published",
+      "title": "「マーケティングが難しくなった」のではない。AIが顧客の代わりに選び始めた。",
+      "cardSummary": "AIが顧客の発見・比較・推薦を担い始めたマーケティング構造の変化を、5層モデルとAgent Readinessの視点で読み解くFlagship Insight。",
+      "llmsLabel": "AIが顧客の代わりに選び始めたマーケティング構造変化",
+      "series": "flagship",
+      "editorialType": "flagship_insight",
+      "priority": "P0",
+      "seoTitle": "「マーケティングが難しくなった」のではない。AIが顧客の代わりに選び始めた。",
+      "metaDescription": "広告やSEOだけでは説明できないマーケティング環境の変化を、AIが発見・比較・推薦を担い始めた構造から読み解く。AI時代の5層モデルとARIの必要性を解説します。",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "AI マーケティング 顧客 比較 推薦 Agent Readiness",
+      "schedulePreparedAt": "2026-08-28T00:00:00.000Z",
+      "publishedAt": "2026-08-31T01:29:54.000Z",
+      "productionVerifiedAt": null,
+      "verificationAttemptCount": 0
+    },
+    {
+      "slug": "agent-handoff",
+      "publishAt": "2026-09-01T10:00:00+09:00",
       "status": "published",
       "title": "AIエージェントと人間の引き継ぎ設計",
       "cardSummary": "引き継ぎ条件・エスカレーション・記録が設計要素。予約実行ではなく人間へのハンドオフ",
