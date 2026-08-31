@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [AIエージェントと人間の引き継ぎ設計](https://readiness.coaretail.com/insights/agent-handoff/): Insights Column（2026-08-31）
 - [Agent Experienceとは何か](https://readiness.coaretail.com/insights/agent-experience/): Insights Column（2026-08-28）
 - [規約・返金・キャンセルの明確さ](https://readiness.coaretail.com/insights/policy-clarity/): Insights Column（2026-08-27）
 - [購買導線をAIが辿れる設計](https://readiness.coaretail.com/insights/purchase-path-design/): Insights Column（2026-08-26）
