@@ -529,7 +529,7 @@
     {
       "slug": "agent-handoff",
       "publishAt": "2026-09-01T10:00:00+09:00",
-      "status": "published",
+      "status": "scheduled",
       "title": "AIエージェントと人間の引き継ぎ設計",
       "cardSummary": "引き継ぎ条件・エスカレーション・記録が設計要素。予約実行ではなく人間へのハンドオフ",
       "llmsLabel": "AIエージェントと人間の引き継ぎ設計",
@@ -538,12 +538,7 @@
       "metaDescription": "AIエージェントから人間への引き継ぎ——条件・エスカレーション・記録——が設計要素。予約実行の話ではなく、ハンドオフ設計のAgent Readiness視点と、エージェント体験を途切れさせない引き継ぎの考え方を解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "AI 人間 引き継ぎ ハンドオフ",
-      "unlockedAt": "2026-08-27T17:26:58.132Z",
-      "publishAttemptedAt": "2026-08-31T01:00:00.000Z",
-      "publishAttemptCount": 1,
-      "publishedAt": "2026-08-31T01:00:00.000Z",
-      "productionVerifiedAt": "2026-08-31T01:00:33.289Z",
-      "verificationAttemptCount": 2
+      "unlockedAt": "2026-08-27T17:26:58.132Z"
     },
     {
       "slug": "mcp-business-api",
