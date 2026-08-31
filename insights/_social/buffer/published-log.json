@@ -485,7 +485,34 @@
       "publishAt": "2026-08-31T12:00:00+09:00",
       "dueAtUtc": "2026-08-31T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:56:39.328Z",
+      "slug": "ai-agent-marketing-shift",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a94df580630d63312f96ada",
+      "publishAt": "2026-08-31T11:30:00+09:00",
+      "dueAtUtc": "2026-08-31T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:56:39.328Z",
+      "slug": "ai-agent-marketing-shift",
+      "channel": "facebook",
+      "bufferUpdateId": "6a94df5802d193e92614b4d4",
+      "publishAt": "2026-08-31T11:45:00+09:00",
+      "dueAtUtc": "2026-08-31T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:56:39.328Z",
+      "slug": "ai-agent-marketing-shift",
+      "channel": "x",
+      "bufferUpdateId": "6a94df590630d63312f96afe",
+      "publishAt": "2026-08-31T12:00:00+09:00",
+      "dueAtUtc": "2026-08-31T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-31T01:00:34.454Z"
+  "updatedAt": "2026-08-31T01:56:44.320Z"
 }
