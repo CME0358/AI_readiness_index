@@ -275,13 +275,13 @@
       "linkedinPublishAt": "2026-08-31T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/agent-handoff/",
       "contentFile": "insights/_social/linkedin/posts/agent-handoff.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a94d23189479b733db67e0b",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-27T17:26:58.132Z"
+      "updatedAt": "2026-08-31T01:00:34.455Z"
     },
     {
       "id": "ARI-LI-017",
@@ -317,13 +317,13 @@
     },
     {
       "id": "ARI-LI-019",
-    "slug": "agent-experience",
+      "slug": "agent-experience",
       "articlePublishAt": "2026-08-28T10:00:00+09:00",
       "bufferTransferAt": "2026-08-28T10:30:00+09:00",
       "linkedinPublishAt": "2026-08-28T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/agent-experience/",
       "contentFile": "insights/_social/linkedin/posts/agent-experience.md",
-    "status": "article_published",
+      "status": "article_published",
       "bufferUpdateId": null,
       "attempts": 0,
       "lastAttemptAt": null,

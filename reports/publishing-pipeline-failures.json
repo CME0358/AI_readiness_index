@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-28T01:45:02.909Z",
+  "updatedAt": "2026-08-31T01:00:34.455Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -13,8 +13,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "agent-experience",
+    "slug": "agent-handoff",
     "stage": "buffer_queued",
-    "at": "2026-08-28T01:45:02.909Z"
+    "at": "2026-08-31T01:00:34.455Z"
   }
 }

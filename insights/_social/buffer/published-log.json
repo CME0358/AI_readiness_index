@@ -458,7 +458,34 @@
       "publishAt": "2026-08-28T12:00:00+09:00",
       "dueAtUtc": "2026-08-28T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:00:00.000Z",
+      "slug": "agent-handoff",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a94d23189479b733db67e0b",
+      "publishAt": "2026-08-31T11:30:00+09:00",
+      "dueAtUtc": "2026-08-31T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:00:00.000Z",
+      "slug": "agent-handoff",
+      "channel": "facebook",
+      "bufferUpdateId": "6a94d2320d8dad2c1cbe9224",
+      "publishAt": "2026-08-31T11:45:00+09:00",
+      "dueAtUtc": "2026-08-31T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-08-31T01:00:00.000Z",
+      "slug": "agent-handoff",
+      "channel": "x",
+      "bufferUpdateId": "6a94d23289479b733db67e30",
+      "publishAt": "2026-08-31T12:00:00+09:00",
+      "dueAtUtc": "2026-08-31T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-08-28T01:45:02.907Z"
+  "updatedAt": "2026-08-31T01:00:34.454Z"
 }
