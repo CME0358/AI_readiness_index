@@ -272,7 +272,7 @@ export function readQualityGate(workspace, attempt) {
 
 export function optimizeToWebp(input, output, cwd) {
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  runCommand('/usr/local/bin/cwebp', ['-quiet', '-q', '82', input, '-o', output], { cwd });
+  runCommand('/usr/local/bin/node', ['/Users/takeshisasaki/ari-webp-tool-l5sDwJ/convert-webp.mjs', input, output], { cwd });
   if (!fs.existsSync(output) || fs.statSync(output).size === 0) throw new Error('webp_output_missing');
   return output;
 }
