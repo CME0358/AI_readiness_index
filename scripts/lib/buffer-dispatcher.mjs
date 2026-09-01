@@ -17,6 +17,7 @@ import {
   validateChannelKeys,
 } from './social-channels.mjs';
 import { resolvePublishAt, addMinutesJst, toBufferDueAt } from './social-schedule.mjs';
+import { normalizePublicationDate } from './buffer-ledger.mjs';
 import { getChannelId, isChannelConfigured } from './buffer-client.mjs';
 
 function resolveChannelPublishAt(ch, channel, article, now) {
@@ -103,19 +104,22 @@ export function isChannelEligible(channel, { requestedChannels }) {
  * @param {object} queue buffer queue.json
  * @param {{ forceSlug?: string|null, schedule?: object|null }} opts
  */
-export function pickBufferEligibleArticle(queue, { forceSlug = null, schedule = null } = {}) {
+export function pickBufferEligibleArticle(queue, { forceSlug = null, publicationDate = null, schedule = null } = {}) {
   if (!queue?.posts?.length) return null;
 
-  const verifiedSlugs = new Set(
-    (schedule?.articles || [])
-      .filter((a) => a.productionVerifiedAt)
-      .map((a) => a.slug)
-  );
+  const verifiedEntries = (schedule?.articles || [])
+    .filter((a) => a.productionVerifiedAt)
+    .map((a) => ({
+      slug: a.slug,
+      publicationDate: normalizePublicationDate({ articlePublishAt: a.publishAt }),
+    }));
 
   const candidates = queue.posts.filter((p) => {
     if (forceSlug && p.slug !== forceSlug) return false;
     if (p.status === EDITORIAL_STATUSES.HOLD) return false;
-    if (!verifiedSlugs.has(p.slug)) return false;
+    if (publicationDate && normalizePublicationDate(p) !== publicationDate) return false;
+    const pDate = normalizePublicationDate(p);
+    if (!verifiedEntries.some((a) => a.slug === p.slug && (!a.publicationDate || a.publicationDate === pDate))) return false;
 
     const pending = CHANNEL_KEYS.some((ch) => {
       const c = p.channels?.[ch];

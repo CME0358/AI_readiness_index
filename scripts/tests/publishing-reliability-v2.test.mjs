@@ -11,6 +11,8 @@ import {
   OPERATIONAL_STATES,
 } from '../lib/publishing-state-machine.mjs';
 import { pickBufferEligibleArticle } from '../lib/buffer-dispatcher.mjs';
+import { normalizePublicationDate } from '../lib/buffer-ledger.mjs';
+import { findBufferPost } from '../lib/publishing-state-machine.mjs';
 import { CHANNEL_STATUSES } from '../lib/social-channels.mjs';
 import { resolvePublishAt } from '../lib/social-schedule.mjs';
 import { millisecondsUntilPublishTarget } from '../lib/publish-window.mjs';
@@ -104,6 +106,22 @@ test('Buffer is eligible after production verification', () => {
     articles: [{ ...today, status: 'published', productionVerifiedAt: '2026-08-17T01:05:00.000Z' }],
   };
   assert.equal(pickBufferEligibleArticle(queue, { schedule }).slug, 'today');
+});
+
+test('same slug on different publication dates is represented independently', () => {
+  const oldPost = { ...bufferPost('agent-handoff'), publicationDate: '2026-08-31' };
+  const newPost = { ...bufferPost('agent-handoff'), publicationDate: '2026-09-01' };
+  const queue = { posts: [oldPost, newPost] };
+  assert.equal(findBufferPost(queue, 'agent-handoff', '2026-08-31'), oldPost);
+  assert.equal(findBufferPost(queue, 'agent-handoff', '2026-09-01'), newPost);
+  assert.equal(findBufferPost(queue, 'agent-handoff', '2026-09-02'), null);
+});
+
+test('legacy Buffer entry normalizes date from articlePublishAt', () => {
+  assert.equal(
+    normalizePublicationDate({ articlePublishAt: '2026-08-31T10:00:00+09:00' }),
+    '2026-08-31',
+  );
 });
 
 test('future article is not queued before publication verification', () => {

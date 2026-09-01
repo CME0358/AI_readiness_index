@@ -8,6 +8,7 @@ import { PATHS, ROOT } from './insights-v2-paths.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import { CHANNEL_KEYS } from './social-channels.mjs';
 import { isChannelQueued, isChannelEligible } from './buffer-dispatcher.mjs';
+import { isSameBufferLedgerEntry } from './buffer-ledger.mjs';
 
 export const OPERATIONAL_STATES = {
   EDITORIAL_HOLD: 'editorial_hold',
@@ -100,8 +101,8 @@ export function deriveBufferOperationalState(bufferPost) {
   return bufferPost.status || OPERATIONAL_STATES.BUFFER_QUEUED;
 }
 
-export function findBufferPost(queue, slug) {
-  return queue?.posts?.find((p) => p.slug === slug) || null;
+export function findBufferPost(queue, slug, publicationDate = null) {
+  return queue?.posts?.find((p) => isSameBufferLedgerEntry(p, slug, publicationDate)) || null;
 }
 
 export function getVerifiedSlugs(schedule) {

@@ -6,6 +6,7 @@ import path from 'node:path';
 import { PATHS } from './insights-v2-paths.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import { toJstDateString } from './business-days.mjs';
+import { normalizePublicationDate } from './buffer-ledger.mjs';
 import { resolvePublishAt } from './social-schedule.mjs';
 import { CHANNEL_KEYS } from './social-channels.mjs';
 import {
@@ -208,7 +209,10 @@ export async function reconcilePublishingPipeline({
   const scheduleEntry = focusSlug
     ? schedule.articles.find((a) => a.slug === focusSlug)
     : null;
-  let bufferPost = focusSlug ? findBufferPost(queue, focusSlug) : null;
+  const focusPublicationDate = scheduleEntry
+    ? normalizePublicationDate({ articlePublishAt: scheduleEntry.publishAt })
+    : null;
+  let bufferPost = focusSlug ? findBufferPost(queue, focusSlug, focusPublicationDate) : null;
 
   // B. Production verification
   if (!skipVerify && focusSlug && scheduleEntry) {
@@ -248,7 +252,7 @@ export async function reconcilePublishingPipeline({
 
   // C. Buffer reconciliation (verification-based, not fixed clock)
   if (!skipBuffer && focusSlug && scheduleEntry && isProductionVerified(scheduleEntry)) {
-    bufferPost = findBufferPost(queue, focusSlug);
+    bufferPost = findBufferPost(queue, focusSlug, focusPublicationDate);
     if (bufferPost) {
       bumpBufferTimesForArticle(bufferPost, now);
 

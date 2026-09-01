@@ -39,6 +39,10 @@ const forceSlug = (() => {
   const i = process.argv.indexOf('--force-slug');
   return i >= 0 ? process.argv[i + 1] : null;
 })();
+const publicationDate = (() => {
+  const i = process.argv.indexOf('--publication-date');
+  return i >= 0 ? process.argv[i + 1] : null;
+})();
 const nowArg = (() => {
   const i = process.argv.indexOf('--now');
   return i >= 0 ? process.argv[i + 1] : null;
@@ -77,7 +81,7 @@ async function main() {
   const pick = verifiedOnly
     ? (() => {
         const schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
-        const article = pickBufferEligibleArticle(queue, { forceSlug, schedule });
+        const article = pickBufferEligibleArticle(queue, { forceSlug, publicationDate, schedule });
         if (forceSlug && !article) {
           return { error: `No verified buffer-eligible article for ${forceSlug}`, exitCode: 1 };
         }

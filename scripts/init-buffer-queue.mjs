@@ -25,6 +25,7 @@ import {
   resolvePublishAt,
 } from './lib/social-schedule.mjs';
 import { toJstDateString } from './lib/business-days.mjs';
+import { normalizePublicationDate } from './lib/buffer-ledger.mjs';
 
 const protectLinkedInSlug = (() => {
   const i = process.argv.indexOf('--protect-linkedin');
@@ -88,6 +89,7 @@ function buildPostFromLinkedIn(liPost, scheduleArticle, { protectLinkedIn = fals
 
   return {
     slug,
+    publicationDate: normalizePublicationDate({ articlePublishAt }),
     articleUrl: liPost.articleUrl || articleUrl(slug),
     status: liPost.status,
     articlePublishAt,
@@ -124,7 +126,8 @@ function main() {
 
     // Preserve per-channel bufferUpdateId from existing queue
     if (existing) {
-      const prev = existing.posts.find((p) => p.slug === li.slug);
+      const publicationDate = normalizePublicationDate(built);
+      const prev = existing.posts.find((p) => p.slug === li.slug && normalizePublicationDate(p) === publicationDate);
       if (prev?.channels) {
         for (const ch of CHANNEL_KEYS) {
           if (prev.channels[ch]?.bufferUpdateId) {
