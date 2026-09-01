@@ -12,6 +12,7 @@ import {
   configFor,
   createBriefPrompt,
   discoverCandidates,
+  gitStatusIsSafe,
   integrateCanonicalHero,
   isPublishedArticle,
   readQualityGate,
@@ -440,11 +441,27 @@ test('stable filesystem staleness is irrelevant to discovery', async () => {
   cleanup(f.root);
 });
 
-test('dirty stable workspace is a safe stop', async () => {
+test('dirty source workspace is ignored for origin snapshot discovery', async () => {
   const f = gitBackedFixture();
-  fs.writeFileSync(path.join(f.root, 'dirty.txt'), 'do not touch');
+  fs.mkdirSync(path.join(f.root, 'insights/_scheduled'), { recursive: true });
+  fs.writeFileSync(path.join(f.root, 'insights/_scheduled/dirty.txt'), 'do not touch');
   const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
-  assert.equal(result.finalResult, 'VISUAL_WORKER_REMOTE_DIVERGED');
+  assert.equal(result.finalResult, 'DRY_RUN_CANDIDATE');
+  assert.equal(fs.readFileSync(path.join(f.root, 'insights/_scheduled/dirty.txt'), 'utf8'), 'do not touch');
+  cleanup(f.root);
+});
+
+test('worker implementation dirty is a safe stop', async () => {
+  const f = gitBackedFixture();
+  fs.mkdirSync(path.join(f.root, 'scripts/lib'), { recursive: true });
+  fs.writeFileSync(path.join(f.root, 'scripts/lib/local-visual-worker.mjs'), 'worker code');
+  execFileSync('git', ['add', 'scripts/lib/local-visual-worker.mjs'], { cwd: f.root });
+  execFileSync('git', ['commit', '-m', 'worker code fixture'], { cwd: f.root, stdio: 'ignore' });
+  fs.appendFileSync(path.join(f.root, 'scripts/lib/local-visual-worker.mjs'), '\n// dirty worker code\n');
+  assert.match(execFileSync('git', ['status', '--porcelain'], { cwd: f.root, encoding: 'utf8' }), /scripts\/lib\/local-visual-worker\.mjs/);
+  assert.deepEqual(gitStatusIsSafe(f.root).workerCodeDirty, ['scripts/lib/local-visual-worker.mjs']);
+  const result = await runWorker({ root: f.root, dryRun: true, productionCheck: async () => ({ ok: true, status: 200 }), configOverrides: f.config });
+  assert.equal(result.finalResult, 'VISUAL_WORKER_CODE_DIRTY');
   cleanup(f.root);
 });
 

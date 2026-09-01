@@ -18,6 +18,13 @@ export const MAX_GENERATION_ATTEMPTS = 3;
 export const PRODUCTION_ORIGIN = 'https://readiness.coaretail.com';
 export const DEFAULT_LOCK_PATH = '/private/tmp/ari-insights-visual-worker.lock';
 export const DEFAULT_LOG_DIR = path.join(os.homedir(), 'Library/Logs/ARIInsightsVisualWorker');
+export const WORKER_INTEGRITY_PATHS = Object.freeze([
+  'scripts/local-visual-worker.sh',
+  'scripts/run-insights-visual-worker.mjs',
+  'scripts/lib/local-visual-worker.mjs',
+  'scripts/lib/insights-presentation.mjs',
+  'launchd/com.ari.insights.visual-worker.plist',
+]);
 
 const PROTECTED_SLUGS = new Set(['_scheduled', '_social']);
 
@@ -168,15 +175,31 @@ export function runCommand(command, args, { cwd, input, env, allowFailure = fals
   return result;
 }
 
-export function gitStatusIsSafe(root, workerPaths = []) {
-  const status = runCommand('git', ['status', '--porcelain'], { cwd: root }).stdout.trim();
-  if (!status) return { safe: true, status: '' };
-  const allowed = new Set(workerPaths.map((p) => path.relative(root, p)));
-  const unsafe = status.split('\n').filter((line) => {
-    const file = line.slice(3).replace(/^"|"$/g, '');
-    return !allowed.has(file);
-  });
-  return { safe: unsafe.length === 0, status, unsafe };
+export function gitStatusIsSafe(root, workerPaths = WORKER_INTEGRITY_PATHS) {
+  const status = runCommand('git', ['status', '--porcelain'], { cwd: root }).stdout.trimEnd();
+  if (!status.trim()) return { safe: true, status: '' };
+  const allowed = new Set(workerPaths.map((p) => path.isAbsolute(p) ? path.relative(root, p) : p));
+  const dirtyFiles = status.split('\n').map((line) => line.slice(3).replace(/^"|"$/g, ''));
+  const workerCodeDirty = dirtyFiles.filter((file) => allowed.has(file));
+  return {
+    safe: workerCodeDirty.length === 0,
+    status,
+    dirtyFiles,
+    sourceWorktreeDirty: dirtyFiles.filter((file) => !allowed.has(file)),
+    workerCodeDirty,
+  };
+}
+
+function isNetworkFailure(error) {
+  return /could not resolve host|unable to access|network is unreachable|failed to connect|connection timed out|temporary failure in name resolution/i.test(String(error?.message || error));
+}
+
+function classifyWorkerFailure(error) {
+  const message = String(error?.message || '');
+  if (message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED')) return 'VISUAL_WORKER_REMOTE_DIVERGED';
+  if (message.startsWith('VISUAL_WORKER_CODE_DIRTY')) return 'VISUAL_WORKER_CODE_DIRTY';
+  if (message.startsWith('VISUAL_WORKER_NETWORK_BLOCKED')) return 'VISUAL_WORKER_NETWORK_BLOCKED';
+  return 'VISUAL_WORKER_SKIPPED';
 }
 
 export function checkRemoteDivergence(root, { fetch = true } = {}) {
@@ -577,8 +600,16 @@ export async function runWorker({ root = DEFAULT_ROOT, dryRun = false, simulate 
   let workspace = null;
   try {
     const safety = gitStatusIsSafe(root);
-    if (!safety.safe) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED:unsafe_existing_worktree_changes');
-    const sync = checkRemoteDivergence(root, { fetch: !dryRun && fetch });
+    if (safety.workerCodeDirty?.length) {
+      throw new Error(`VISUAL_WORKER_CODE_DIRTY:${safety.workerCodeDirty.join(',')}`);
+    }
+    let sync;
+    try {
+      sync = checkRemoteDivergence(root, { fetch: !dryRun && fetch });
+    } catch (error) {
+      if (isNetworkFailure(error)) throw new Error(`VISUAL_WORKER_NETWORK_BLOCKED:${error.message}`);
+      throw error;
+    }
     log({ stage: 'FETCH_COMPLETED', fetched: !dryRun && fetch, remoteAhead: sync.remoteAhead, diverged: sync.diverged });
     if (sync.diverged) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
     const baseSha = readOriginMainSha(root);
@@ -596,8 +627,9 @@ export async function runWorker({ root = DEFAULT_ROOT, dryRun = false, simulate 
     log({ slug: candidate.slug, finalResult: result.finalResult });
     return { ...result, runId };
   } catch (error) {
-    log({ stage: 'ERROR', finalResult: error.message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED') ? 'VISUAL_WORKER_REMOTE_DIVERGED' : 'VISUAL_WORKER_SKIPPED', error: error.message });
-    return { finalResult: error.message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED') ? 'VISUAL_WORKER_REMOTE_DIVERGED' : 'VISUAL_WORKER_SKIPPED', error: error.message, runId };
+    const finalResult = classifyWorkerFailure(error);
+    log({ stage: 'ERROR', finalResult, error: error.message });
+    return { finalResult, error: error.message, runId };
   } finally {
     if (workspace) {
       removeIsolatedWorktree(root, workspace);
