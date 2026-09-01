@@ -1,6 +1,6 @@
 # Pipeline Health — 2026-09-01
 
-> Reconciliation run: 2026-09-01T01:00:00.000Z
+> Reconciliation run: 2026-09-01T03:20:03.000Z
 
 ## TODAY
 
@@ -18,8 +18,7 @@ x: queued
 
 ## PIPELINE
 status: COMPLETE
-verify: ok (2 attempts)
 buffer actions:
-- linkedin: skip (already_queued)
-- facebook: skip (already_queued)
-- x: skip (already_queued)
+- linkedin: queued
+- facebook: queued
+- x: queued
