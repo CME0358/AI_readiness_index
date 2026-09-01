@@ -541,7 +541,9 @@
       "unlockedAt": "2026-08-27T17:26:58.132Z",
       "publishAttemptedAt": "2026-09-01T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-01T01:00:00.000Z"
+      "publishedAt": "2026-09-01T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-01T01:00:33.280Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "mcp-business-api",
