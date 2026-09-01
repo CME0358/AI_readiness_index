@@ -27,7 +27,7 @@ export function resolveCanonicalHero(slug, { root = ROOT } = {}) {
       available: false,
       localPath,
       publicUrl: canonicalHeroUrl(slug),
-      reason: 'hero_missing_text_only_fallback',
+      reason: 'hero_missing',
     };
   }
   return {
@@ -49,8 +49,9 @@ function hasMetaImage(html, property, url) {
 
 /**
  * Read-only production gate for visual Buffer handoff.
- * Local absence is an intentional degraded text-only path. A locally
- * canonical hero that is not live in production blocks the handoff.
+ * A canonical hero is required for the Insights Buffer handoff. This keeps
+ * a failed visual step recoverable as pending rather than silently queuing a
+ * text-only post; a later reconciliation can retry after the hero is live.
  */
 export async function verifyProductionSocialAssets(
   slug,
@@ -64,7 +65,8 @@ export async function verifyProductionSocialAssets(
 
   if (!source.available) {
     return {
-      ok: true,
+      ok: false,
+      reason: source.reason,
       mediaUrl: null,
       derivativeRequired: false,
       mediaStatus: source.reason,

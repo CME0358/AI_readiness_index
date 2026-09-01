@@ -102,9 +102,11 @@ jobs:
 
       - name: Verify production and resume Buffer handoff
         id: delivery
-        if: steps.publish.outputs.slug != ''
+        # Delivery is a reconciliation concern, not a child of today's
+        # publication. A later run must discover any verified pending
+        # handoff after a delayed Hero recovery.
+        if: steps.publish.outputs.exit_code == '0'
         env:
-          SLUG: ${{ steps.publish.outputs.slug }}
           NOW: ${{ github.event.inputs.now }}
           DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
           BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
@@ -115,7 +117,7 @@ jobs:
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
         run: |
           set -euo pipefail
-          CMD=(node scripts/reconcile-publishing-pipeline.mjs --skip-publish --force-slug "$SLUG")
+          CMD=(node scripts/reconcile-publishing-pipeline.mjs --skip-publish)
           if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
           if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
           "${CMD[@]}" | tee /tmp/reconcile-delivery.log

@@ -72,6 +72,16 @@ function mockArticle(overrides = {}) {
   };
 }
 
+test('scheduled reconciliation runs Buffer discovery independently of active publish slug', () => {
+  const workflow = fs.readFileSync(
+    path.join(process.cwd(), '.github/workflows/reconcile-publishing-pipeline.yml'),
+    'utf8',
+  );
+  assert.match(workflow, /if: steps\.publish\.outputs\.exit_code == '0'/);
+  assert.match(workflow, /CMD=\(node scripts\/reconcile-publishing-pipeline\.mjs --skip-publish\)/);
+  assert.doesNotMatch(workflow, /--skip-publish --force-slug "\$SLUG"/);
+});
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
 
@@ -417,7 +427,8 @@ test('reconcile workflow file exists with weekday crons', () => {
   assert.match(wf, /cron: '0,15,30,45 1-3 \* \* 1-5'/);
   assert.match(wf, /cron: '0 4 \* \* 1-5'/);
   assert.match(wf, /--skip-verify --skip-buffer/);
-  assert.match(wf, /--skip-publish --force-slug/);
+  assert.match(wf, /--skip-publish\)/);
+  assert.doesNotMatch(wf, /--skip-publish --force-slug/);
 });
 
 test('forensic audit report exists', () => {

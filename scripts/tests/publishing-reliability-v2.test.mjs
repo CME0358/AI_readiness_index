@@ -106,6 +106,17 @@ test('Buffer is eligible after production verification', () => {
   assert.equal(pickBufferEligibleArticle(queue, { schedule }).slug, 'today');
 });
 
+test('future article is not queued before publication verification', () => {
+  const future = {
+    ...bufferPost('future'),
+    articlePublishAt: '2026-08-18T10:00:00+09:00',
+  };
+  const schedule = {
+    articles: [{ slug: 'future', status: 'scheduled', publishAt: future.articlePublishAt }],
+  };
+  assert.equal(pickBufferEligibleArticle({ posts: [future] }, { schedule }), null);
+});
+
 test('missed 10:30 Buffer time is bumped and remains recoverable', () => {
   const late = new Date('2026-08-17T04:00:00.000Z');
   const bumped = resolvePublishAt('2026-08-17T10:30:00+09:00', late, 30);

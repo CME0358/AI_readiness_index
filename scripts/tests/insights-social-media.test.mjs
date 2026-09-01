@@ -72,12 +72,54 @@ test('hero HTTP failure blocks every channel before Buffer handoff', async () =>
   assert.equal(calls, 0);
 });
 
-test('missing local hero follows existing text-only capability fallback', async () => {
+test('missing local hero blocks handoff while retaining a retryable pending state', async () => {
   const result = await verifyProductionSocialAssets('missing-test-hero', {
     root: '/private/tmp/ari-no-such-root',
     verifyArticle: async () => ({ ok: true, status: 200 }),
   });
-  assert.equal(result.ok, true);
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'hero_missing');
   assert.equal(result.mediaUrl, null);
-  assert.equal(result.mediaStatus, 'hero_missing_text_only_fallback');
+  assert.equal(result.mediaStatus, 'hero_missing');
+});
+
+test('missing hero keeps Buffer channels retryable and makes no createPost calls', async () => {
+  const article = {
+    slug: 'pending-hero-test',
+    articleUrl: 'https://readiness.coaretail.com/insights/pending-hero-test/',
+    status: 'scheduled',
+    channels: Object.fromEntries(['linkedin', 'facebook', 'x'].map((channel) => [channel, {
+      status: CHANNEL_STATUSES.SCHEDULED,
+      bufferUpdateId: null,
+      channelIdEnv: `BUFFER_CHANNEL_ID_${channel.toUpperCase()}`,
+    }])),
+  };
+  const queue = { posts: [article] };
+  let calls = 0;
+  const result = await processArticleChannels({
+    article,
+    queue,
+    now: new Date('2026-09-01T03:00:00.000Z'),
+    dryRun: false,
+    requestedChannels: ['linkedin', 'facebook', 'x'],
+    verifyArticleUrl: async () => ({ ok: true, status: 200 }),
+    verifyProduction: async () => verifyProductionSocialAssets('missing-test-hero', {
+      root: '/private/tmp/ari-no-such-root',
+      verifyArticle: async () => ({ ok: true, status: 200 }),
+    }),
+    createBufferPost: async () => { calls += 1; return { postId: 'unexpected' }; },
+    getConfig: () => ({ accessToken: 'token', channelIds: { linkedin: 'li', facebook: 'fb', x: 'x' } }),
+    paths: {
+      queue: '/private/tmp/ari-buffer-pending-test-queue.json',
+      publishedLog: '/private/tmp/ari-buffer-pending-test-published.jsonl',
+      failedLog: '/private/tmp/ari-buffer-pending-test-failed.jsonl',
+    },
+  });
+  assert.equal(result.reason, 'hero_missing');
+  assert.equal(calls, 0);
+  assert.equal(article.status, 'article_url_unavailable');
+  assert.deepEqual(
+    Object.values(article.channels).map((channel) => channel.status),
+    [CHANNEL_STATUSES.URL_UNAVAILABLE, CHANNEL_STATUSES.URL_UNAVAILABLE, CHANNEL_STATUSES.URL_UNAVAILABLE],
+  );
 });
