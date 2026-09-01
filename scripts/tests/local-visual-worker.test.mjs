@@ -225,6 +225,19 @@ test('integration updates article, index, OG and Twitter', () => {
   cleanup(root);
 });
 
+test('integration supports standard article-header layout', () => {
+  const { root, config } = fixture();
+  fs.mkdirSync(path.join(root, 'assets/insights/newest'), { recursive: true });
+  fs.writeFileSync(canonicalHeroPath(config, 'newest'), 'webp');
+  const file = path.join(root, 'insights/newest/index.html');
+  fs.writeFileSync(file, '<meta name="twitter:card" content="summary_large_image">\n<header class="article-header"><h1>Title</h1></header>\n<article class="article-body container" data-article-slug="newest"><p>本文</p></article>\n');
+  integrateCanonicalHero(config, 'newest');
+  const html = fs.readFileSync(file, 'utf8');
+  assert.match(html, /class="insight-hero"/);
+  assert.match(html, /data-article-slug="newest"><p>本文<\/p>/);
+  cleanup(root);
+});
+
 test('temporary PNG is not part of integration contract', () => {
   const { root, config } = fixture();
   fs.mkdirSync(path.join(root, 'assets/insights/newest'), { recursive: true });

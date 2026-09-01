@@ -295,8 +295,13 @@ export function integrateCanonicalHero(config, slug, { root = config.root } = {}
     article = article.replace(marker, marker + meta);
     const hero = `\n<figure class="insight-hero"><img src="${heroPath}" alt="${slug} のInsight Hero" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}" loading="eager"></figure>\n`;
     const articleMarker = '</header>\n\n<article';
-    if (!article.includes(articleMarker)) throw new Error(`article_hero_marker_missing:${slug}`);
-    article = article.replace(articleMarker, `</header>${hero}\n<article`);
+    if (article.includes(articleMarker)) {
+      article = article.replace(articleMarker, `</header>${hero}\n<article`);
+    } else {
+      const articleStart = article.search(new RegExp(`<article\\b[^>]*data-article-slug=["']${slug}["'][^>]*>`));
+      if (articleStart < 0) throw new Error(`article_hero_marker_missing:${slug}`);
+      article = article.slice(0, articleStart) + hero.trimStart() + '\n' + article.slice(articleStart);
+    }
     fs.writeFileSync(articlePath, article, 'utf8');
   }
   let index = fs.readFileSync(indexPath, 'utf8');
