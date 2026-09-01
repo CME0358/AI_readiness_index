@@ -230,6 +230,9 @@ Save the temporary PNG as generation-${attempt}.png in this workspace.
 The image must be a premium B2B editorial 16:9 hero: white or very light neutral background, navy/blue/subtle cyan accents, strong hierarchy, generous negative space, central safe area, thumbnail-readable.
 Do not use explanatory, conceptual, data, abstract, generic AI art, photography, people, robots, brains, AI chips, dashboards, 3D objects, sculptures, or logos.
 Use only article-supported short text. Japanese text must be exact and legible.
+Keep IMAGE_TEXT deterministic: use at most one Japanese headline of 12 characters
+and one optional Japanese subline of 12 characters; do not render body copy,
+labels, paragraphs, punctuation-heavy text, or the full article title.
 After generation, save quality.json with boolean fields: TEXT_CORRECT, JAPANESE_CORRECT, NO_GARBLED_TEXT, TYPOGRAPHIC_ONLY, ARTICLE_RELEVANT, SAFE_AREA_PASS, THUMBNAIL_READABLE, VISUAL_CANON_PASS, and numeric width and height. Set a field false if it fails.
 Do not create alternate images or derivatives.
 
@@ -539,8 +542,28 @@ async function processCandidate({ root, config, candidate, runId, log, productio
       log({ stage: 'CODEX_EXEC_STARTED', slug: candidate.slug, attempt });
       const generation = runNativeGeneration(workspace, candidate, canon, attempt);
       quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generation.timedOut ? 'timeout' : 'codex_exec_failure' };
-      log({ stage: 'GENERATION_RESULT', slug: candidate.slug, attempt, generation: { ok: generation.ok, status: generation.status, timedOut: generation.timedOut }, quality: quality.reason || 'pass' });
-      log({ stage: 'QUALITY_RESULT', slug: candidate.slug, attempt, ok: quality.ok, reason: quality.reason || null });
+      log({
+        stage: 'GENERATION_RESULT',
+        slug: candidate.slug,
+        attempt,
+        generation: { ok: generation.ok, status: generation.status, timedOut: generation.timedOut },
+        quality: quality.reason || 'pass',
+        dimensions: quality.dimensions || null,
+        qualityFlags: quality.quality || null,
+      });
+      log({ stage: 'QUALITY_RESULT', slug: candidate.slug, attempt, ok: quality.ok, reason: quality.reason || null, dimensions: quality.dimensions || null, qualityFlags: quality.quality || null });
+      if (generation.ok && !quality.ok) {
+        const evidenceDir = path.join(recoveryDir, `attempt-${attempt}`);
+        fs.mkdirSync(evidenceDir, { recursive: true });
+        for (const file of [
+          `generation-${attempt}.png`,
+          'visual-brief.json',
+          'quality.json',
+        ]) {
+          const source = path.join(workspace, file);
+          if (fs.existsSync(source)) fs.copyFileSync(source, path.join(evidenceDir, file));
+        }
+      }
       if (!generation.ok && (generation.capabilityFailure || generation.timedOut)) {
         return { finalResult: 'VISUAL_WORKER_SKIPPED', slug: candidate.slug, reason: generation.timedOut ? 'timeout' : 'capability_or_auth_failure' };
       }
