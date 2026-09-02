@@ -566,8 +566,8 @@
     },
     {
       "slug": "multi-agent-compare",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-03T10:00:00+09:00",
+      "status": "scheduled",
       "title": "複数エージェントが比較するとき",
       "cardSummary": "参照情報源・実行能力・ポリシーがエージェントごとに異なる。単一AIの推薦論ではなくマルチエージェント比較",
       "llmsLabel": "複数エージェントが比較するとき",
@@ -575,7 +575,8 @@
       "seoTitle": "ChatGPT・Gemini・Google AIで企業評価は違う？AI推薦を比較",
       "metaDescription": "ChatGPT・Gemini・Google AIは参照情報源・実行能力・ポリシーが異なる。単一AIの推薦論ではなく、マルチエージェント環境での企業評価の違いを比較し、Agent Readiness設計への示唆を整理します。",
       "searchIntentClass": "A",
-      "primarySearchIntent": "ChatGPT Gemini Google AI 企業評価 比較"
+      "primarySearchIntent": "ChatGPT Gemini Google AI 企業評価 比較",
+      "unlockedAt": "2026-09-02T10:52:59.597Z"
     },
     {
       "slug": "agent-experience",
