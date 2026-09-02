@@ -548,7 +548,7 @@
     {
       "slug": "mcp-business-api",
       "publishAt": "2026-09-02T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "MCPとビジネスAPIの接点",
       "cardSummary": "MCPはエージェントが業務APIを安全に呼ぶための接続層。決済プロトコルではなくMCPのビジネス接点",
       "llmsLabel": "MCPとビジネスAPIの接点",
@@ -557,7 +557,10 @@
       "metaDescription": "MCP（Model Context Protocol）はAIエージェントが業務APIを安全に呼ぶ接続層。決済プロトコルではなく、企業システムとエージェントをつなぐ仕組みを解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "MCP AIエージェント ビジネスAPI",
-      "unlockedAt": "2026-09-01T11:18:53.091Z"
+      "unlockedAt": "2026-09-01T11:18:53.091Z",
+      "publishAttemptedAt": "2026-09-02T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-02T01:00:00.000Z"
     },
     {
       "slug": "multi-agent-compare",
