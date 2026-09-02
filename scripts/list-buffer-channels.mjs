@@ -4,20 +4,10 @@
  * Usage: node scripts/list-buffer-channels.mjs
  * Requires: BUFFER_ACCESS_TOKEN in .env or env
  */
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { bufferGraphql, getBufferConfig } from './lib/buffer-client.mjs';
+import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
-const envPath = path.join(ROOT, '.env');
-if (fs.existsSync(envPath)) {
-  for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
-    const m = line.match(/^([A-Z_]+)=(.*)$/);
-    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
-  }
-}
+loadCanonicalBufferEnv();
 
 const QUERY = `
 query AccountChannels {

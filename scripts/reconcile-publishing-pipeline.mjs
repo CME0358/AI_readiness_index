@@ -11,6 +11,7 @@
  */
 import { isWeekday } from './lib/business-days.mjs';
 import { reconcilePublishingPipeline } from './lib/publishing-reconcile.mjs';
+import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const forceSlug = (() => {
@@ -33,6 +34,7 @@ if (Number.isNaN(now.getTime())) {
 }
 
 async function main() {
+  loadCanonicalBufferEnv();
   if (!isWeekday(now) && !forceSlug) {
     console.log('Weekend — no reconciliation.', { now: now.toISOString() });
     process.exit(0);

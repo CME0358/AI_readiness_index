@@ -22,6 +22,7 @@ import { verifyArticleUrl } from './lib/url-verify.mjs';
 import { verifyProductionSocialAssets, resolveCanonicalHero } from './lib/insights-social-media.mjs';
 import { waitForArticleProduction } from './lib/wait-production-url.mjs';
 import { CHANNEL_KEYS } from './lib/social-channels.mjs';
+import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
 import {
   readJsonFile,
   pickTodayArticle,
@@ -61,6 +62,7 @@ if (Number.isNaN(now.getTime())) {
 const requestedChannels = parseChannelsArg(channelsArg);
 
 async function main() {
+  loadCanonicalBufferEnv();
   if (!isWeekday(now) && !forceSlug) {
     console.log('Weekend — no transfer.', { now: now.toISOString() });
     process.exit(0);

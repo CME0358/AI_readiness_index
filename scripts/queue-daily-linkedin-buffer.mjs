@@ -21,6 +21,7 @@ import { verifyArticleUrl } from './lib/url-verify.mjs';
 import { verifyProductionSocialAssets } from './lib/insights-social-media.mjs';
 import { EDITORIAL_STATUSES, isBufferEligible } from './lib/editorial-status.mjs';
 import { isProductionVerified } from './lib/publishing-state-machine.mjs';
+import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const forceSlug = (() => {
@@ -92,6 +93,7 @@ function pickTodayPost(queue, todayYmd) {
 }
 
 async function main() {
+  loadCanonicalBufferEnv();
   if (!isWeekday(now) && !forceSlug) {
     console.log('Weekend — no transfer.', { now: now.toISOString() });
     process.exit(0);
