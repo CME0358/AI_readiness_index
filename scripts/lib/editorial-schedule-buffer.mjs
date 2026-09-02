@@ -62,11 +62,11 @@ function isPrimaryCandidate(entry) {
   return entry?.slotType === SLOT_TYPES.DAILY_PRIMARY || Boolean(entry?.publishAt);
 }
 
-function eventFor(entry, date, sequence = 1) {
+function eventFor(entry, date, sequence = 1, { preservePublicationId = true } = {}) {
   const scheduledPublishAt = isoAtJst(date, DAILY_PRIMARY_TIME);
   return {
     ...entry,
-    publicationId: entry.publicationId || publicationIdFor(date, sequence),
+    publicationId: preservePublicationId && entry.publicationId ? entry.publicationId : publicationIdFor(date, sequence),
     slotDate: date,
     slotType: SLOT_TYPES.DAILY_PRIMARY,
     scheduledPublishAt,
@@ -107,12 +107,17 @@ function validatePlan(schedule, proposed, { slug, targetDate, slotType }) {
   if (sameEvent) errors.push('DUPLICATE_PUBLICATION_EVENT');
 
   const ids = new Set();
+  const dates = new Set();
   for (const entry of proposed) {
     if (!isPrimaryCandidate(entry)) continue;
     const date = slotDateOf(entry);
-    if (date === targetDate || !date) continue;
-    if (ids.has(entry.publicationId)) errors.push(`DUPLICATE_PUBLICATION_ID:${entry.publicationId}`);
-    ids.add(entry.publicationId);
+    if (!date) continue;
+    const publicationId = entry.publicationId || publicationIdFor(date);
+    const dateKey = `${date}::${entry.slotType || SLOT_TYPES.DAILY_PRIMARY}`;
+    if (dates.has(dateKey)) errors.push(`DUPLICATE_PRIMARY_SLOT:${date}`);
+    dates.add(dateKey);
+    if (ids.has(publicationId)) errors.push(`DUPLICATE_PUBLICATION_ID:${publicationId}`);
+    ids.add(publicationId);
   }
 
   return { errors };
@@ -144,7 +149,7 @@ export function planEmergencyInsertion(schedule, {
 
   for (const entry of proposedEntries) {
     const shiftedDate = shifts.get(entry.slug);
-    if (shiftedDate && !isPublished(entry)) Object.assign(entry, eventFor(entry, shiftedDate));
+    if (shiftedDate && !isPublished(entry)) Object.assign(entry, eventFor(entry, shiftedDate, 1, { preservePublicationId: false }));
   }
   proposedEntries.push(eventFor({ slug, status: EDITORIAL_STATUSES.SCHEDULED, publicationState: PUBLICATION_STATES.SCHEDULED }, targetDate));
   proposedEntries.sort((a, b) => {
