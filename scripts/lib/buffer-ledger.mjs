@@ -19,3 +19,14 @@ export function isSameBufferLedgerEntry(post, slug, publicationDate = null) {
   if (!post || post.slug !== slug) return false;
   return publicationDate == null || normalizePublicationDate(post) === publicationDate;
 }
+
+/** Return canonical ledger identities that occur more than once. */
+export function duplicateBufferLedgerKeys(posts = []) {
+  const counts = new Map();
+  for (const post of posts) {
+    if (!post?.slug) continue;
+    const key = `${post.slug}::${normalizePublicationDate(post) || 'MISSING_DATE'}`;
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  return [...counts.entries()].filter(([, count]) => count > 1).map(([key]) => key);
+}

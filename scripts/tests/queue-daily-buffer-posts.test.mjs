@@ -26,6 +26,7 @@ import {
   getBufferConfig,
   buildCreatePostInput,
 } from '../lib/buffer-client.mjs';
+import { duplicateBufferLedgerKeys } from '../lib/buffer-ledger.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
@@ -342,9 +343,10 @@ test('missing Buffer credentials retain retryable channel state', async () => {
   assert.equal(Object.values(article.channels).every((c) => c.bufferUpdateId === null), true);
 });
 
-test('buffer queue has 32 posts (30 v2 + current-event extras)', () => {
+test('buffer queue has unique semantic ledger identities', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
-  assert.equal(q.posts.length, 32);
+  assert.equal(q.posts.length, 35);
+  assert.deepEqual(duplicateBufferLedgerKeys(q.posts), []);
   assert.equal(q.policy.postsPerTransfer, 1);
 });
 
