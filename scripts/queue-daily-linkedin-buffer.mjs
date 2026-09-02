@@ -22,6 +22,7 @@ import { verifyProductionSocialAssets } from './lib/insights-social-media.mjs';
 import { EDITORIAL_STATUSES, isBufferEligible } from './lib/editorial-status.mjs';
 import { isProductionVerified } from './lib/publishing-state-machine.mjs';
 import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
+import { isSameBufferLedgerEntry } from './lib/buffer-ledger.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const forceSlug = (() => {
@@ -117,8 +118,8 @@ async function main() {
     process.exit(0);
   }
 
-  // Duplicate slug/url guard across queue
-  const dupBuffer = queue.posts.filter((p) => p.bufferUpdateId && p.slug === post.slug);
+  // Duplicate guard is date-aware so historical delivery cannot block today.
+  const dupBuffer = queue.posts.filter((p) => p.bufferUpdateId && isSameBufferLedgerEntry(p, post.slug, todayYmd));
   if (dupBuffer.length && post.bufferUpdateId) {
     console.log('Already has bufferUpdateId — skip.', post.slug);
     process.exit(0);
