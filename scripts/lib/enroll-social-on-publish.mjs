@@ -8,6 +8,7 @@ import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import { articleTimesForPublishDay, toJstDateString } from './business-days.mjs';
 import { buildChannelEntries } from './unlock-next-insight.mjs';
 import { CHANNEL_KEYS, CHANNEL_CONTENT_DIRS } from './social-channels.mjs';
+import { isSameBufferLedgerEntry, normalizePublicationDate } from './buffer-ledger.mjs';
 
 export const V2_SOCIAL_QUEUE_BASE = 30;
 
@@ -52,16 +53,16 @@ export function enrollSocialOnPublish(article, { dryRun = false } = {}) {
   }
 
   const linkedinQueue = JSON.parse(fs.readFileSync(PATHS.linkedinQueue, 'utf8'));
-  if (linkedinQueue.posts.some((p) => p.slug === article.slug)) {
+  const publishYmd = toJstDateString(new Date(article.publishAt));
+  if (linkedinQueue.posts.some((p) => p.slug === article.slug && normalizePublicationDate(p) === publishYmd)) {
     return { enrolled: false, reason: 'already_enrolled', slug: article.slug };
   }
 
-  const publishYmd = toJstDateString(new Date(article.publishAt));
   const times = articleTimesForPublishDay(publishYmd);
   const unlockedAt = new Date().toISOString();
 
   const liPost = {
-    id: `ARI-LI-CE-${article.slug}`,
+    id: `ARI-LI-CE-${article.slug}-${publishYmd}`,
     slug: article.slug,
     articlePublishAt: times.web,
     bufferTransferAt: times.bufferTransfer,
@@ -83,7 +84,7 @@ export function enrollSocialOnPublish(article, { dryRun = false } = {}) {
 
   if (fs.existsSync(PATHS.bufferQueue)) {
     const bufferQueue = JSON.parse(fs.readFileSync(PATHS.bufferQueue, 'utf8'));
-    if (!bufferQueue.posts.some((p) => p.slug === article.slug)) {
+    if (!bufferQueue.posts.some((p) => isSameBufferLedgerEntry(p, article.slug, publishYmd))) {
       bufferQueue.posts.splice(idx, 0, {
         slug: article.slug,
         articleUrl: articleUrl(article.slug),

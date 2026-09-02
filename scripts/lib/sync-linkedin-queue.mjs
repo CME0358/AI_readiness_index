@@ -3,6 +3,7 @@
  */
 import fs from 'node:fs';
 import { PATHS } from './insights-v2-paths.mjs';
+import { normalizePublicationDate, isSameBufferLedgerEntry } from './buffer-ledger.mjs';
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -13,15 +14,15 @@ function writeJson(p, data) {
 }
 
 /** @param {string} slug */
-export function syncLinkedInQueueFromBuffer(slug) {
+export function syncLinkedInQueueFromBuffer(slug, publicationDate = null) {
   if (!fs.existsSync(PATHS.linkedinQueue) || !fs.existsSync(PATHS.bufferQueue)) {
     return { updated: false, slug, reason: 'missing_queue_file' };
   }
 
   const bufferQueue = readJson(PATHS.bufferQueue);
   const linkedinQueue = readJson(PATHS.linkedinQueue);
-  const bufPost = bufferQueue.posts.find((p) => p.slug === slug);
-  const liPost = linkedinQueue.posts.find((p) => p.slug === slug);
+  const bufPost = bufferQueue.posts.find((p) => isSameBufferLedgerEntry(p, slug, publicationDate));
+  const liPost = linkedinQueue.posts.find((p) => p.slug === slug && (!publicationDate || normalizePublicationDate(p) === publicationDate));
   if (!bufPost || !liPost) {
     return { updated: false, slug, reason: 'missing_post' };
   }
@@ -49,5 +50,5 @@ export function syncAllLinkedInFromBuffer() {
   const bufferQueue = readJson(PATHS.bufferQueue);
   return bufferQueue.posts
     .filter((p) => p.status === 'buffer_queued')
-    .map((p) => syncLinkedInQueueFromBuffer(p.slug));
+    .map((p) => syncLinkedInQueueFromBuffer(p.slug, normalizePublicationDate(p)));
 }
