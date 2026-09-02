@@ -1,4 +1,11 @@
 {
-  "entries": [],
-  "updatedAt": null
+  "entries": [
+    {
+      "at": "2026-09-02T01:00:00.000Z",
+      "slug": "mcp-business-api",
+      "error": "hero_missing",
+      "dryRun": false
+    }
+  ],
+  "updatedAt": "2026-09-02T01:00:34.705Z"
 }

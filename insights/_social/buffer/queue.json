@@ -881,7 +881,7 @@
     {
       "slug": "mcp-business-api",
       "articleUrl": "https://readiness.coaretail.com/insights/mcp-business-api/",
-      "status": "scheduled",
+      "status": "article_url_unavailable",
       "articlePublishAt": "2026-09-02T10:00:00+09:00",
       "bufferTransferAt": "2026-09-02T10:30:00+09:00",
       "channels": {
@@ -889,41 +889,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/mcp-business-api.md",
           "publishAt": "2026-09-02T11:30:00+09:00",
-          "status": "scheduled",
+          "status": "article_url_unavailable",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
-          "lastError": null,
+          "lastError": "hero_missing",
           "updatedAt": "2026-09-01T11:18:53.131Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/mcp-business-api.md",
           "publishAt": "2026-09-02T11:45:00+09:00",
-          "status": "scheduled",
+          "status": "article_url_unavailable",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
-          "lastError": null,
+          "lastError": "hero_missing",
           "updatedAt": "2026-09-01T11:18:53.131Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/mcp-business-api.md",
           "publishAt": "2026-09-02T12:00:00+09:00",
-          "status": "scheduled",
+          "status": "article_url_unavailable",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
-          "lastError": null,
+          "lastError": "hero_missing",
           "updatedAt": "2026-09-01T11:18:53.131Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
-      "lastError": null,
+      "lastError": "hero_missing",
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-09-01T11:18:53.091Z",
+      "updatedAt": "2026-09-02T01:00:00.000Z",
       "unlockedAt": "2026-09-01T11:18:53.091Z"
     },
     {

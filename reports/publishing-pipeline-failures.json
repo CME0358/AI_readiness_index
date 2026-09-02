@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T03:20:40.544Z",
+  "updatedAt": "2026-09-02T01:00:34.706Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -10,11 +10,20 @@
       "retryable": true,
       "attemptCount": 1,
       "lastSuccessStage": "published_verified"
+    },
+    "mcp-business-api": {
+      "slug": "mcp-business-api",
+      "stage": "buffer",
+      "attemptedAt": "2026-09-02T01:00:34.706Z",
+      "failureReason": "hero_missing",
+      "retryable": true,
+      "attemptCount": 1,
+      "lastSuccessStage": "published_verified"
     }
   },
   "lastSuccess": {
-    "slug": "agent-handoff",
-    "stage": "buffer_queued",
-    "at": "2026-09-01T03:20:40.544Z"
+    "slug": "mcp-business-api",
+    "stage": "published_verified",
+    "at": "2026-09-02T01:00:34.625Z"
   }
 }

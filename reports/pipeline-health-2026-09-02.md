@@ -9,13 +9,13 @@ slug: mcp-business-api
 ## WEB
 scheduled: 10:00
 published: true
-productionVerified: false
+productionVerified: true
 
 ## BUFFER
-linkedin: scheduled
-facebook: scheduled
-x: scheduled
+linkedin: article_url_unavailable
+facebook: article_url_unavailable
+x: article_url_unavailable
 
 ## PIPELINE
 status: RECOVERING
-publish: mcp-business-api
+verify: ok (2 attempts)
