@@ -539,7 +539,34 @@
       "publishAt": "2026-09-01T13:15:00+09:00",
       "dueAtUtc": "2026-09-01T04:15:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-02T01:36:04.000Z",
+      "slug": "mcp-business-api",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a977d8cde4d2d5e52aec7ae",
+      "publishAt": "2026-09-02T11:30:00+09:00",
+      "dueAtUtc": "2026-09-02T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-02T01:36:04.000Z",
+      "slug": "mcp-business-api",
+      "channel": "facebook",
+      "bufferUpdateId": "6a977d8cdb8dee6e32505396",
+      "publishAt": "2026-09-02T11:45:00+09:00",
+      "dueAtUtc": "2026-09-02T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-02T01:36:04.000Z",
+      "slug": "mcp-business-api",
+      "channel": "x",
+      "bufferUpdateId": "6a977d8d3cf755cb52a78f3c",
+      "publishAt": "2026-09-02T12:00:00+09:00",
+      "dueAtUtc": "2026-09-02T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-01T03:20:40.542Z"
+  "updatedAt": "2026-09-02T01:36:13.488Z"
 }
