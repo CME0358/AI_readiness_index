@@ -315,6 +315,33 @@ test('getChannelId prefers per-channel env names', () => {
   process.env = orig;
 });
 
+test('missing Buffer credentials retain retryable channel state', async () => {
+  const article = mockArticle({
+    channels: Object.fromEntries(['linkedin', 'facebook', 'x'].map((ch) => [ch, {
+      channelIdEnv: `BUFFER_CHANNEL_ID_${ch === 'x' ? 'TWITTER' : ch.toUpperCase()}`,
+      contentFile: `/private/tmp/unused-${ch}.md`,
+      publishAt: '2026-09-02T11:30:00+09:00',
+      status: CHANNEL_STATUSES.SCHEDULED,
+      bufferUpdateId: null,
+    }])),
+  });
+  const result = await processArticleChannels({
+    article,
+    queue: { posts: [article] },
+    now: new Date('2026-09-02T01:00:00Z'),
+    dryRun: false,
+    requestedChannels: ['linkedin', 'facebook', 'x'],
+    verifyArticleUrl: async () => ({ ok: true }),
+    verifyProduction: async () => ({ ok: true, mediaUrl: null }),
+    createBufferPost: async () => { throw new Error('must not create'); },
+    getConfig: () => ({ accessToken: '', channelIds: {} }),
+    paths: { queue: '/private/tmp/ari-credential-q.json', publishedLog: '/private/tmp/ari-credential-p.json', failedLog: '/private/tmp/ari-credential-f.json' },
+  });
+  assert.equal(result.exitCode, 1);
+  assert.deepEqual(Object.values(article.channels).map((c) => c.status), [CHANNEL_STATUSES.SCHEDULED, CHANNEL_STATUSES.SCHEDULED, CHANNEL_STATUSES.SCHEDULED]);
+  assert.equal(Object.values(article.channels).every((c) => c.bufferUpdateId === null), true);
+});
+
 test('buffer queue has 32 posts (30 v2 + current-event extras)', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
   assert.equal(q.posts.length, 32);
