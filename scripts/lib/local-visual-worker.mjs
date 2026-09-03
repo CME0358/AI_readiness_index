@@ -575,7 +575,7 @@ async function processCandidate({ root, config, candidate, runId, log, productio
       if (quality.ok) break;
     }
     if (!quality?.ok) return { finalResult: 'VISUAL_WORKER_SKIPPED_QUALITY', slug: candidate.slug };
-    const heroOutput = canonicalHeroPath(config, candidate.slug).replace(config.root, workspace);
+    const heroOutput = path.join(workspace, 'assets', 'insights', candidate.slug, 'hero.webp');
     optimizeToWebp(quality.imagePath, heroOutput, workspace);
     integrateCanonicalHero({ ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') }, candidate.slug, { root: workspace });
     log({ stage: 'PRESENTATION_CHECK_STARTED', slug: candidate.slug });

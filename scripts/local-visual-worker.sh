@@ -10,4 +10,10 @@ export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 export ARI_VISUAL_WORKER_LOG_DIR="${ARI_VISUAL_WORKER_LOG_DIR:-$HOME/Library/Logs/ARIInsightsVisualWorker}"
 export ARI_VISUAL_WORKER_LOCK_PATH="${ARI_VISUAL_WORKER_LOCK_PATH:-/private/tmp/ari-insights-visual-worker.lock}"
 
+# Production launchd workspace must track origin/main before each run.
+# Dev invocations from other clones skip sync via ARI_VISUAL_WORKER_SYNC_SKIP=1.
+if [ -z "${ARI_VISUAL_WORKER_SYNC_SKIP:-}" ]; then
+  /bin/sh "$SCRIPT_DIR/sync-visual-worker-workspace.sh"
+fi
+
 exec /usr/bin/env node "$SCRIPT_DIR/run-insights-visual-worker.mjs" --root "$REPO_ROOT" "$@"

@@ -119,6 +119,14 @@ test('no candidate → clean exit', async () => {
   cleanup(root);
 });
 
+test('hero output path resolves when root is relative', () => {
+  const workspace = '/private/tmp/ari-visual-workspace';
+  const slug = 'multi-agent-compare';
+  const heroOutput = path.join(workspace, 'assets', 'insights', slug, 'hero.webp');
+  assert.equal(heroOutput, '/private/tmp/ari-visual-workspace/assets/insights/multi-agent-compare/hero.webp');
+  assert.doesNotMatch(heroOutput, /hero\/private\/tmp/);
+});
+
 test('published + hero missing → select', async () => {
   const { root, config } = fixture();
   const result = await discoverCandidates(config, { productionCheck: async () => ({ ok: true, status: 200 }) });
