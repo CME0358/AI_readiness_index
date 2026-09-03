@@ -605,8 +605,8 @@
     },
     {
       "slug": "marketing-info-design",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-04T10:00:00+09:00",
+      "status": "scheduled",
       "title": "マーケが担う情報設計の再定義",
       "cardSummary": "比較可能な情報設計がマーケの中核になる。運用論ではなくマーケ機能の再定義",
       "llmsLabel": "マーケが担う情報設計の再定義",
@@ -614,7 +614,8 @@
       "seoTitle": "マーケティングが担うAI時代の情報設計",
       "metaDescription": "AI時代のマーケティングは、比較可能な情報設計が中核になる。キャンペーン運用の話ではなく、Agent Readinessを支える情報設計としてのマーケ機能の再定義と、現場での役割分担を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "マーケティング 情報設計 AI時代"
+      "primarySearchIntent": "マーケティング 情報設計 AI時代",
+      "unlockedAt": "2026-09-03T10:52:33.823Z"
     },
     {
       "slug": "exec-readiness-kpi",

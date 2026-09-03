@@ -1,17 +1,17 @@
 {
-  "unlockedAt": "2026-09-02T10:52:59.597Z",
-  "slug": "multi-agent-compare",
-  "publishYmd": "2026-09-03",
+  "unlockedAt": "2026-09-03T10:52:33.823Z",
+  "slug": "marketing-info-design",
+  "publishYmd": "2026-09-04",
   "times": {
-    "web": "2026-09-03T10:00:00+09:00",
-    "bufferTransfer": "2026-09-03T10:30:00+09:00",
-    "linkedin": "2026-09-03T11:30:00+09:00",
-    "facebook": "2026-09-03T11:45:00+09:00",
-    "x": "2026-09-03T12:00:00+09:00"
+    "web": "2026-09-04T10:00:00+09:00",
+    "bufferTransfer": "2026-09-04T10:30:00+09:00",
+    "linkedin": "2026-09-04T11:30:00+09:00",
+    "facebook": "2026-09-04T11:45:00+09:00",
+    "x": "2026-09-04T12:00:00+09:00"
   },
-  "unlockDay": "2026-09-02",
-  "actualRunAt": "2026-09-02T10:52:59.597Z",
-  "effectiveUnlockAt": "2026-09-02T06:00:00.000Z",
+  "unlockDay": "2026-09-03",
+  "actualRunAt": "2026-09-03T10:52:33.823Z",
+  "effectiveUnlockAt": "2026-09-03T06:00:00.000Z",
   "latenessMinutes": 293,
   "result": "UNLOCKED"
 }
