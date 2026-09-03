@@ -26,7 +26,7 @@ import {
   getBufferConfig,
   buildCreatePostInput,
 } from '../lib/buffer-client.mjs';
-import { duplicateBufferLedgerKeys } from '../lib/buffer-ledger.mjs';
+import { duplicateBufferLedgerKeys, duplicateBufferChannelKeys, assertBufferLedgerSemanticInvariants, bufferLedgerKey } from '../lib/buffer-ledger.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../..');
@@ -345,9 +345,41 @@ test('missing Buffer credentials retain retryable channel state', async () => {
 
 test('buffer queue has unique semantic ledger identities', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
-  assert.equal(q.posts.length, 35);
-  assert.deepEqual(duplicateBufferLedgerKeys(q.posts), []);
+  const invariants = assertBufferLedgerSemanticInvariants(q.posts);
+  assert.equal(invariants.ok, true, JSON.stringify(invariants));
+  assert.ok(q.posts.length >= 1, 'ledger must contain at least one entry');
   assert.equal(q.policy.postsPerTransfer, 1);
+});
+
+test('buffer ledger tolerates N and N+1 legitimate unique entries', () => {
+  const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
+  const base = q.posts;
+  assert.deepEqual(duplicateBufferLedgerKeys(base), []);
+  assert.deepEqual(duplicateBufferChannelKeys(base), []);
+
+  const extra = {
+    slug: 'ledger-growth-fixture',
+    publicationDate: '2099-12-31',
+    status: 'scheduled',
+    articlePublishAt: '2099-12-31T10:00:00+09:00',
+    channels: {
+      linkedin: { status: CHANNEL_STATUSES.SCHEDULED, bufferUpdateId: null },
+      facebook: { status: CHANNEL_STATUSES.SCHEDULED, bufferUpdateId: null },
+      x: { status: CHANNEL_STATUSES.SCHEDULED, bufferUpdateId: null },
+    },
+  };
+  const grown = [...base, extra];
+  assert.equal(assertBufferLedgerSemanticInvariants(grown).ok, true);
+  assert.equal(bufferLedgerKey(extra), 'ledger-growth-fixture::2099-12-31');
+});
+
+test('buffer ledger rejects duplicate canonical publication identity', () => {
+  const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
+  const duplicate = { ...q.posts[0], channels: { ...q.posts[0].channels } };
+  const withDuplicate = [...q.posts, duplicate];
+  const invariants = assertBufferLedgerSemanticInvariants(withDuplicate);
+  assert.equal(invariants.ok, false);
+  assert.ok(invariants.publicationDuplicates.length >= 1);
 });
 
 test('buffer queue has at most 1 scheduled post', () => {

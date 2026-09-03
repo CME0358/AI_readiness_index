@@ -25,8 +25,39 @@ export function duplicateBufferLedgerKeys(posts = []) {
   const counts = new Map();
   for (const post of posts) {
     if (!post?.slug) continue;
-    const key = `${post.slug}::${normalizePublicationDate(post) || 'MISSING_DATE'}`;
+    const key = bufferLedgerKey(post);
+    if (!key) continue;
     counts.set(key, (counts.get(key) || 0) + 1);
   }
   return [...counts.entries()].filter(([, count]) => count > 1).map(([key]) => key);
+}
+
+/** Canonical channel identity: slug + publicationDate + channel key. */
+export function bufferChannelLedgerKey(post, channelKey) {
+  const publicationKey = bufferLedgerKey(post);
+  return publicationKey && channelKey ? `${publicationKey}::${channelKey}` : null;
+}
+
+/** Return slug+date+channel identities that occur more than once across the ledger. */
+export function duplicateBufferChannelKeys(posts = []) {
+  const counts = new Map();
+  for (const post of posts) {
+    if (!post?.slug) continue;
+    for (const channelKey of Object.keys(post.channels || {})) {
+      const key = bufferChannelLedgerKey(post, channelKey);
+      if (!key) continue;
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+  }
+  return [...counts.entries()].filter(([, count]) => count > 1).map(([key]) => key);
+}
+
+export function assertBufferLedgerSemanticInvariants(posts = []) {
+  const publicationDuplicates = duplicateBufferLedgerKeys(posts);
+  const channelDuplicates = duplicateBufferChannelKeys(posts);
+  return {
+    ok: publicationDuplicates.length === 0 && channelDuplicates.length === 0,
+    publicationDuplicates,
+    channelDuplicates,
+  };
 }

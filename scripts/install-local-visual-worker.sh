@@ -8,6 +8,7 @@ TARGET="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG_DIR="${HOME}/Library/Logs/ARIInsightsVisualWorker"
 WORKSPACE="${ARI_VISUAL_WORKER_WORKSPACE:-$HOME/ARIInsightsVisualWorker}"
 REPO_URL="${ARI_VISUAL_WORKER_REPO_URL:-https://github.com/CME0358/AI_readiness_index.git}"
+RUNTIME_MARKER=".ari-visual-worker-runtime"
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
@@ -17,6 +18,7 @@ if [ ! -d "$WORKSPACE/.git" ]; then
     exit 1
   fi
   /usr/bin/git clone "$REPO_URL" "$WORKSPACE"
+  /usr/bin/test -f "$WORKSPACE/$RUNTIME_MARKER" || echo "disposable-runtime-clone" > "$WORKSPACE/$RUNTIME_MARKER"
 else
   if [ -n "$(/usr/bin/git -C "$WORKSPACE" status --porcelain)" ]; then
     echo "VISUAL_WORKER_INSTALL_DIR_DIRTY: $WORKSPACE" >&2

@@ -1,0 +1,3 @@
+disposable-runtime-clone
+# Dedicated launchd Visual Worker workspace marker.
+# sync-visual-worker-workspace.sh refuses destructive reset without this file.
