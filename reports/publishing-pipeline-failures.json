@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T01:00:34.706Z",
+  "updatedAt": "2026-09-03T01:00:32.652Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -19,11 +19,20 @@
       "retryable": true,
       "attemptCount": 1,
       "lastSuccessStage": "published_verified"
+    },
+    "multi-agent-compare": {
+      "slug": "multi-agent-compare",
+      "stage": "buffer",
+      "attemptedAt": "2026-09-03T01:00:32.652Z",
+      "failureReason": "hero_missing",
+      "retryable": true,
+      "attemptCount": 1,
+      "lastSuccessStage": "published_verified"
     }
   },
   "lastSuccess": {
-    "slug": "mcp-business-api",
+    "slug": "multi-agent-compare",
     "stage": "published_verified",
-    "at": "2026-09-02T01:00:34.625Z"
+    "at": "2026-09-03T01:00:32.640Z"
   }
 }
