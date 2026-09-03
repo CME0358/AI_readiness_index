@@ -1634,6 +1634,54 @@
       "series": "v2"
     },
     {
+      "slug": "multi-agent-compare",
+      "articleUrl": "https://readiness.coaretail.com/insights/multi-agent-compare/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-03T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-03T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/multi-agent-compare.md",
+          "publishAt": "2026-09-03T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-03T01:00:00.105Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/multi-agent-compare.md",
+          "publishAt": "2026-09-03T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-03T01:00:00.105Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/multi-agent-compare.md",
+          "publishAt": "2026-09-03T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-03T01:00:00.105Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-03T01:00:00.104Z",
+      "updatedAt": "2026-09-03T01:00:00.104Z",
+      "series": "v2"
+    },
+    {
       "slug": "ai-agent-marketing-shift",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-agent-marketing-shift/",
       "status": "buffer_queued",

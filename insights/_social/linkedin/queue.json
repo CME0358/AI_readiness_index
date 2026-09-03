@@ -557,6 +557,23 @@
       "createdAt": "2026-08-19T01:00:00.165Z",
       "updatedAt": "2026-08-19T01:00:34.788Z",
       "series": "v2"
+    },
+    {
+      "id": "ARI-LI-CE-multi-agent-compare-2026-09-03",
+      "slug": "multi-agent-compare",
+      "articlePublishAt": "2026-09-03T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-03T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-03T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/multi-agent-compare/",
+      "contentFile": "insights/_social/linkedin/posts/multi-agent-compare.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-03T01:00:00.104Z",
+      "updatedAt": "2026-09-03T01:00:00.104Z",
+      "series": "v2"
     }
   ]
 }

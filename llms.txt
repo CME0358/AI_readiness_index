@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [複数エージェントが比較するとき](https://readiness.coaretail.com/insights/multi-agent-compare/): Insights Column（2026-09-03）
 - [MCPとビジネスAPIの接点](https://readiness.coaretail.com/insights/mcp-business-api/): Insights Column（2026-09-02）
 - [AIエージェントと人間の引き継ぎ設計](https://readiness.coaretail.com/insights/agent-handoff/): Insights Column（2026-09-01）
 - [AIが顧客の代わりに選び始めたマーケティング構造変化](https://readiness.coaretail.com/insights/ai-agent-marketing-shift/): Insights Flagship（2026-08-31）
