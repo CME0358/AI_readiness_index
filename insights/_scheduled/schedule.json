@@ -626,8 +626,8 @@
     },
     {
       "slug": "exec-readiness-kpi",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-07T10:00:00+09:00",
+      "status": "scheduled",
       "title": "経営が見るべきReadiness指標",
       "cardSummary": "順位ではなく段階別到達率と実行成功率を見る。基準論ではなく経営KPI設計",
       "llmsLabel": "経営が見るべきReadiness指標",
@@ -635,7 +635,10 @@
       "seoTitle": "経営が見るべきAgent Readiness KPI",
       "metaDescription": "検索順位ではなく段階別到達率と実行成功率——経営が見るべきAgent Readiness KPIの設計。基準論ではなく、経営ダッシュボードの指標選定と、Visibility・Authority・Actionabilityの測り方を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "Agent Readiness KPI 経営指標"
+      "primarySearchIntent": "Agent Readiness KPI 経営指標",
+      "unlockedAt": "2026-09-04T10:52:02.127Z",
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-04T10:52:02.127Z"
     },
     {
       "slug": "vendor-selection",
