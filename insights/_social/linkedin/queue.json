@@ -558,6 +558,23 @@
       "createdAt": "2026-09-03T01:00:00.104Z",
       "updatedAt": "2026-09-03T01:00:00.104Z",
       "series": "v2"
+    },
+    {
+      "id": "ARI-LI-CE-marketing-info-design-2026-09-04",
+      "slug": "marketing-info-design",
+      "articlePublishAt": "2026-09-04T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-04T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-04T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/marketing-info-design/",
+      "contentFile": "insights/_social/linkedin/posts/marketing-info-design.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-04T01:00:00.172Z",
+      "updatedAt": "2026-09-04T01:00:00.172Z",
+      "series": "v2"
     }
   ]
 }

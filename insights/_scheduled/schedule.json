@@ -606,7 +606,7 @@
     {
       "slug": "marketing-info-design",
       "publishAt": "2026-09-04T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "マーケが担う情報設計の再定義",
       "cardSummary": "比較可能な情報設計がマーケの中核になる。運用論ではなくマーケ機能の再定義",
       "llmsLabel": "マーケが担う情報設計の再定義",
@@ -617,7 +617,10 @@
       "primarySearchIntent": "マーケティング 情報設計 AI時代",
       "unlockedAt": "2026-09-03T10:52:33.823Z",
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-04T00:13:21.776Z"
+      "heroReadyAt": "2026-09-04T00:13:21.776Z",
+      "publishAttemptedAt": "2026-09-04T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-04T01:00:00.000Z"
     },
     {
       "slug": "exec-readiness-kpi",
