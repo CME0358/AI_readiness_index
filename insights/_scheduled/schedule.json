@@ -620,7 +620,9 @@
       "heroReadyAt": "2026-09-04T00:13:21.776Z",
       "publishAttemptedAt": "2026-09-04T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-04T01:00:00.000Z"
+      "publishedAt": "2026-09-04T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-04T01:06:57.053Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "exec-readiness-kpi",

@@ -593,7 +593,34 @@
       "publishAt": "2026-09-03T12:00:00+09:00",
       "dueAtUtc": "2026-09-03T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-04T01:06:53.481Z",
+      "slug": "marketing-info-design",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a9a19b23134b0c21abcc91a",
+      "publishAt": "2026-09-04T11:30:00+09:00",
+      "dueAtUtc": "2026-09-04T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-04T01:06:53.481Z",
+      "slug": "marketing-info-design",
+      "channel": "facebook",
+      "bufferUpdateId": "6a9a19b3bc2e4059f2c25c49",
+      "publishAt": "2026-09-04T11:45:00+09:00",
+      "dueAtUtc": "2026-09-04T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-04T01:06:53.481Z",
+      "slug": "marketing-info-design",
+      "channel": "x",
+      "bufferUpdateId": "6a9a19b382940622ebb1979c",
+      "publishAt": "2026-09-04T12:00:00+09:00",
+      "dueAtUtc": "2026-09-04T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-03T01:30:35.114Z"
+  "updatedAt": "2026-09-04T01:07:00.062Z"
 }
