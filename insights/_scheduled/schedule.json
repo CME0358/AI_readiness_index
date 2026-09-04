@@ -615,7 +615,9 @@
       "metaDescription": "AI時代のマーケティングは、比較可能な情報設計が中核になる。キャンペーン運用の話ではなく、Agent Readinessを支える情報設計としてのマーケ機能の再定義と、現場での役割分担を解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "マーケティング 情報設計 AI時代",
-      "unlockedAt": "2026-09-03T10:52:33.823Z"
+      "unlockedAt": "2026-09-03T10:52:33.823Z",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-04T00:13:21.776Z"
     },
     {
       "slug": "exec-readiness-kpi",
