@@ -28,10 +28,21 @@ function dateParts(iso) {
   return { ymd: `${y}-${m}-${day}`, dot: `${y}.${m}.${day}` };
 }
 
+function indexCardThumbnail(slug) {
+  const heroPath = `/assets/insights/${slug}/hero.webp`;
+  const heroFile = path.join(ROOT, 'assets/insights', slug, 'hero.webp');
+  if (!fs.existsSync(heroFile)) return '';
+  return `        <div class="insight-card-thumb">
+          <img src="${heroPath}" alt="" loading="lazy" width="1672" height="941">
+        </div>
+`;
+}
+
 function cardHtml(article) {
   const { ymd, dot } = dateParts(article.publishAt);
+  const thumb = indexCardThumbnail(article.slug);
   return `      <a class="insight-card" href="/insights/${article.slug}/" data-insight-slug="${article.slug}">
-        <div class="insight-meta">
+${thumb}        <div class="insight-meta">
           <time datetime="${ymd}">${dot}</time>
           <span class="insight-tag">Column</span>
         </div>
