@@ -9,6 +9,17 @@ import {
   repairCanonicalHeroCssLink,
   validateOptionalHeroPresentation,
 } from './insights-presentation.mjs';
+import {
+  markHeroReady,
+  markHeroPending,
+  PACKAGE_STATES,
+} from './insights-package-readiness.mjs';
+import { EDITORIAL_STATUSES } from './editorial-status.mjs';
+
+export const VISUAL_MODES = Object.freeze({
+  PRIMARY_PREPUBLISH: 'PRIMARY_PREPUBLISH',
+  RECOVERY_POSTPUBLISH: 'RECOVERY_POSTPUBLISH',
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_ROOT = path.resolve(__dirname, '../..');
@@ -21,9 +32,14 @@ export const DEFAULT_LOG_DIR = path.join(os.homedir(), 'Library/Logs/ARIInsights
 export const WORKER_INTEGRITY_PATHS = Object.freeze([
   'scripts/local-visual-worker.sh',
   'scripts/run-insights-visual-worker.mjs',
+  'scripts/run-prepublish-hero.mjs',
+  'scripts/run-prepublish-hero.sh',
+  'scripts/morning-preflight-insights.mjs',
   'scripts/lib/local-visual-worker.mjs',
   'scripts/lib/insights-presentation.mjs',
+  'scripts/lib/insights-package-readiness.mjs',
   'launchd/com.ari.insights.visual-worker.plist',
+  'launchd/com.ari.insights.prepublish-hero.plist',
 ]);
 
 const PROTECTED_SLUGS = new Set(['_scheduled', '_social']);
@@ -73,7 +89,18 @@ export function isProtectedSlug(slug) {
 }
 
 export function isPublishedArticle(article) {
-  return article?.status === 'published' && !isProtectedSlug(article.slug);
+  return article?.status === EDITORIAL_STATUSES.PUBLISHED && !isProtectedSlug(article.slug);
+}
+
+export function isScheduledPrepublishArticle(article, now = new Date()) {
+  return article?.status === EDITORIAL_STATUSES.SCHEDULED &&
+    article.publishAt &&
+    new Date(article.publishAt).getTime() > now.getTime() &&
+    !isProtectedSlug(article.slug);
+}
+
+export function scheduledArticleHtmlPath(config, slug, root = config.root) {
+  return path.join(root, 'insights/_scheduled', slug, 'index.html');
 }
 
 export function sortNewestFirst(articles) {
@@ -96,7 +123,31 @@ export async function defaultProductionCheck(url, { timeoutMs = 15000 } = {}) {
   }
 }
 
-export async function discoverCandidates(config, {
+export function discoverPrepublishCandidates(config, {
+  schedule = loadSchedule(config),
+  now = new Date(),
+} = {}) {
+  const candidates = [];
+  const reasons = [];
+  const ordered = [...(schedule.articles || [])]
+    .filter((article) => isScheduledPrepublishArticle(article, now))
+    .sort((a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime());
+  for (const article of ordered) {
+    if (fs.existsSync(canonicalHeroPath(config, article.slug))) {
+      reasons.push({ slug: article.slug, state: 'skip', reason: 'hero_exists' });
+      continue;
+    }
+    if (!fs.existsSync(scheduledArticleHtmlPath(config, article.slug))) {
+      reasons.push({ slug: article.slug, state: 'skip', reason: 'scheduled_html_missing' });
+      continue;
+    }
+    candidates.push({ ...article, visualMode: VISUAL_MODES.PRIMARY_PREPUBLISH });
+    if (candidates.length >= config.maxCandidates) break;
+  }
+  return { candidates, reasons };
+}
+
+export async function discoverRecoveryCandidates(config, {
   productionCheck = defaultProductionCheck,
   schedule = loadSchedule(config),
 } = {}) {
@@ -116,10 +167,22 @@ export async function discoverCandidates(config, {
       reasons.push({ slug: article.slug, state: 'skip', reason: 'production_not_200', production });
       continue;
     }
-    candidates.push({ ...article, production });
+    candidates.push({ ...article, visualMode: VISUAL_MODES.RECOVERY_POSTPUBLISH, production });
     if (candidates.length >= config.maxCandidates) break;
   }
   return { candidates, reasons };
+}
+
+export async function discoverCandidates(config, {
+  mode = VISUAL_MODES.RECOVERY_POSTPUBLISH,
+  productionCheck = defaultProductionCheck,
+  schedule = loadSchedule(config),
+  now = new Date(),
+} = {}) {
+  if (mode === VISUAL_MODES.PRIMARY_PREPUBLISH) {
+    return discoverPrepublishCandidates(config, { schedule, now });
+  }
+  return discoverRecoveryCandidates(config, { productionCheck, schedule });
 }
 
 export function acquireLock(lockPath, { runId = makeRunId(), now = new Date(), staleMs = 6 * 60 * 60 * 1000 } = {}) {
@@ -316,6 +379,97 @@ export function integrateCanonicalHero(config, slug, { root = config.root } = {}
     fs.writeFileSync(indexPath, index, 'utf8');
   }
   return { articlePath, indexPath, heroUrl, heroPath };
+}
+
+export function integrateScheduledCanonicalHero(config, slug, { root = config.root } = {}) {
+  const heroUrl = canonicalHeroUrl(config, slug);
+  const heroPath = `/assets/insights/${slug}/hero.webp`;
+  const articlePath = scheduledArticleHtmlPath(config, slug, root);
+  const indexPath = path.join(root, 'insights/index.html');
+  if (!fs.existsSync(articlePath)) throw new Error(`scheduled_article_missing:${slug}`);
+  let article = fs.readFileSync(articlePath, 'utf8');
+  if (!article.includes(heroUrl)) {
+    const meta = `\n${metaTag('og:image', heroUrl)}\n${metaTag('twitter:image', heroUrl)}\n`;
+    const marker = '<meta name="twitter:card" content="summary_large_image">';
+    if (!article.includes(marker)) throw new Error(`article_metadata_marker_missing:${slug}`);
+    article = article.replace(marker, marker + meta);
+    const repaired = repairCanonicalHeroCssLink(article, { heroCssExists: fs.existsSync(path.join(root, 'assets/insights/hero.css')) });
+    if (repaired.changed) article = repaired.html;
+    const hero = `\n  <figure class="insight-hero"><img src="${heroPath}" alt="${slug} のInsight Hero" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}" loading="eager"></figure>\n`;
+    const articleMarker = '  </header>\n\n  <article class="article-body container"';
+    if (article.includes(articleMarker)) {
+      article = article.replace(articleMarker, `  </header>${hero}\n  <article class="article-body container"`);
+    } else {
+      const articleStart = article.search(new RegExp(`<article\\b[^>]*data-article-slug=["']${slug}["'][^>]*>`));
+      if (articleStart < 0) throw new Error(`scheduled_article_hero_marker_missing:${slug}`);
+      article = article.slice(0, articleStart) + hero.trimStart() + '\n' + article.slice(articleStart);
+    }
+    fs.writeFileSync(articlePath, article, 'utf8');
+  }
+  let index = fs.readFileSync(indexPath, 'utf8');
+  const plannedMarker = `data-scheduled-slug="${slug}"`;
+  if (!index.includes(plannedMarker)) throw new Error(`planned_card_missing:${slug}`);
+  const cardStart = index.indexOf(`<article class="insight-card planned"`);
+  const cardEnd = index.indexOf('</article>', cardStart);
+  const card = cardStart >= 0 && cardEnd >= 0 ? index.slice(cardStart, cardEnd) : '';
+  if (!card.includes(heroPath)) {
+    const insertAt = index.indexOf('>', index.indexOf(plannedMarker)) + 1;
+    const thumbnail = `\n        <div class="insight-card-thumb">\n          <img src="${heroPath}" alt="" loading="lazy" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}">\n        </div>`;
+    index = index.slice(0, insertAt) + thumbnail + index.slice(insertAt);
+    fs.writeFileSync(indexPath, index, 'utf8');
+  }
+  return { articlePath, indexPath, heroUrl, heroPath };
+}
+
+export function validateScheduledIntegration(config, slug, { root = config.root } = {}) {
+  const hero = canonicalHeroPath(config, slug);
+  const articlePath = scheduledArticleHtmlPath(config, slug, root);
+  const indexPath = path.join(root, 'insights/index.html');
+  const errors = [];
+  if (!fs.existsSync(hero)) errors.push('hero_missing');
+  if (!fs.existsSync(articlePath)) errors.push('scheduled_article_missing');
+  if (!fs.existsSync(indexPath)) errors.push('index_missing');
+  if (!errors.length) {
+    const article = fs.readFileSync(articlePath, 'utf8');
+    const index = fs.readFileSync(indexPath, 'utf8');
+    const url = canonicalHeroUrl(config, slug);
+    const rel = `/assets/insights/${slug}/hero.webp`;
+    for (const [name, ok] of [
+      ['scheduled_article_hero', article.includes(rel)],
+      ['planned_card_thumbnail', index.includes(rel) && index.includes(`data-scheduled-slug="${slug}"`)],
+      ['og_image', article.includes(`<meta property="og:image" content="${url}">`)],
+      ['twitter_image', article.includes(`<meta name="twitter:image" content="${url}">`)],
+    ]) if (!ok) errors.push(name);
+  }
+  return { ok: errors.length === 0, errors };
+}
+
+function updateScheduleHeroReadiness(workspace, slug, state) {
+  const schedulePath = path.join(workspace, 'insights/_scheduled/schedule.json');
+  if (!fs.existsSync(schedulePath)) return;
+  const schedule = readJson(schedulePath);
+  const entry = schedule.articles.find((article) => article.slug === slug);
+  if (!entry) return;
+  if (state === PACKAGE_STATES.PACKAGE_READY) markHeroReady(entry);
+  else markHeroPending(entry);
+  fs.writeFileSync(schedulePath, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
+}
+
+function allowedWorkerPaths(candidate) {
+  const slug = candidate.slug;
+  if (candidate.visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH) {
+    return new Set([
+      `assets/insights/${slug}/hero.webp`,
+      `insights/_scheduled/${slug}/index.html`,
+      'insights/index.html',
+      'insights/_scheduled/schedule.json',
+    ]);
+  }
+  return new Set([
+    `assets/insights/${slug}/hero.webp`,
+    `insights/${slug}/index.html`,
+    'insights/index.html',
+  ]);
 }
 
 function articleBodySnapshot(html) {
@@ -538,8 +692,11 @@ export async function verifyProductionReferences(config, slug, { productionCheck
 async function processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha }) {
   const recoveryDir = path.join(config.logDir, 'recovery', candidate.slug, runId);
   fs.mkdirSync(recoveryDir, { recursive: true });
+  const prepublish = candidate.visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH;
   try {
-    const sourceArticle = path.join(workspace, 'insights', candidate.slug, 'index.html');
+    const sourceArticle = prepublish
+      ? scheduledArticleHtmlPath(config, candidate.slug, workspace)
+      : path.join(workspace, 'insights', candidate.slug, 'index.html');
     const canon = fs.readFileSync(path.join(workspace, 'ARI_INSIGHTS_VISUAL_CANON.md'), 'utf8');
     fs.copyFileSync(sourceArticle, path.join(workspace, 'article.html'));
     let quality = null;
@@ -577,34 +734,47 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     if (!quality?.ok) return { finalResult: 'VISUAL_WORKER_SKIPPED_QUALITY', slug: candidate.slug };
     const heroOutput = path.join(workspace, 'assets', 'insights', candidate.slug, 'hero.webp');
     optimizeToWebp(quality.imagePath, heroOutput, workspace);
-    integrateCanonicalHero({ ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') }, candidate.slug, { root: workspace });
-    log({ stage: 'PRESENTATION_CHECK_STARTED', slug: candidate.slug });
-    const presentation = repairPresentationContract(
-      { ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') },
-      candidate.slug,
-      { root: workspace },
-    );
+    const workspaceConfig = { ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') };
+    if (prepublish) {
+      integrateScheduledCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
+      updateScheduleHeroReadiness(workspace, candidate.slug, PACKAGE_STATES.PACKAGE_READY);
+    } else {
+      integrateCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
+    }
+    log({ stage: 'PRESENTATION_CHECK_STARTED', slug: candidate.slug, visualMode: candidate.visualMode });
+    const presentation = prepublish
+      ? { ok: true, status: 'SCHEDULED_PRESENTATION_VALID' }
+      : repairPresentationContract(workspaceConfig, candidate.slug, { root: workspace });
     log({ stage: 'PRESENTATION_RESULT', slug: candidate.slug, presentationState: presentation.status, presentationErrors: presentation.errors || [presentation.reason].filter(Boolean) });
     if (!presentation.ok) return { finalResult: 'VISUAL_WORKER_PRESENTATION_BLOCKED', slug: candidate.slug, presentation };
-    const integration = validateIntegration({ ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') }, candidate.slug, { root: workspace });
+    const integration = prepublish
+      ? validateScheduledIntegration(workspaceConfig, candidate.slug, { root: workspace })
+      : validateIntegration(workspaceConfig, candidate.slug, { root: workspace });
     if (!integration.ok) throw new Error(`integration_failed:${integration.errors.join(',')}`);
     const diff = runCommand('git', ['diff', '--name-only'], { cwd: workspace }).stdout.trim().split('\n').filter(Boolean);
-    const allowed = new Set([`assets/insights/${candidate.slug}/hero.webp`, `insights/${candidate.slug}/index.html`, 'insights/index.html']);
+    const allowed = allowedWorkerPaths(candidate);
     if (diff.some((file) => !allowed.has(file))) throw new Error(`unexpected_worker_diff:${diff.join(',')}`);
     runCommand('git', ['diff', '--check'], { cwd: workspace });
     runCommand('git', ['add', '--', ...[...allowed]], { cwd: workspace });
     const staged = runCommand('git', ['diff', '--cached', '--name-only'], { cwd: workspace }).stdout.trim().split('\n').filter(Boolean);
     if (staged.some((file) => !allowed.has(file))) throw new Error(`unexpected_staged_file:${staged.join(',')}`);
-    runCommand('git', ['commit', '-m', `feat(insights): add hero for ${candidate.slug}`], { cwd: workspace });
+    const commitMessage = prepublish
+      ? `feat(insights): add pre-publish hero for ${candidate.slug}`
+      : `feat(insights): add hero for ${candidate.slug}`;
+    runCommand('git', ['commit', '-m', commitMessage], { cwd: workspace });
     const commitSha = runCommand('git', ['rev-parse', 'HEAD'], { cwd: workspace }).stdout.trim();
-    log({ stage: 'COMMIT_CREATED', slug: candidate.slug, commitSha, baseSha });
+    log({ stage: 'COMMIT_CREATED', slug: candidate.slug, commitSha, baseSha, visualMode: candidate.visualMode });
     runCommand('git', ['fetch', '--prune', 'origin'], { cwd: workspace });
     const base = readOriginMainSha(workspace);
     const parent = runCommand('git', ['rev-parse', 'HEAD^'], { cwd: workspace }).stdout.trim();
     log({ stage: 'PRE_PUSH_REMOTE_CHECK', slug: candidate.slug, baseSha, currentOriginMain: base, commitParent: parent });
     if (base !== baseSha || parent !== baseSha) throw new Error('VISUAL_WORKER_REMOTE_DIVERGED');
     runCommand('git', ['push', 'origin', 'HEAD:main'], { cwd: workspace });
-    log({ stage: 'PUSH_RESULT', slug: candidate.slug, ok: true, force: false });
+    log({ stage: 'PUSH_RESULT', slug: candidate.slug, ok: true, force: false, visualMode: candidate.visualMode });
+    if (prepublish) {
+      log({ stage: 'SCHEDULED_PACKAGE_VERIFY_RESULT', slug: candidate.slug, ok: true, integration });
+      return { finalResult: 'SUCCESS', slug: candidate.slug, visualMode: candidate.visualMode, integration };
+    }
     const production = await verifyProductionReferences(config, candidate.slug, { productionCheck });
     log({ stage: 'PRODUCTION_VERIFY_RESULT', slug: candidate.slug, ok: production.ok, errors: production.errors });
     if (!production.ok) {
@@ -615,10 +785,20 @@ async function processCandidate({ root, config, candidate, runId, log, productio
   } finally { /* workspace cleanup is owned by runWorker */ }
 }
 
-export async function runWorker({ root = DEFAULT_ROOT, dryRun = false, simulate = false, now = new Date(), fetch = true, productionCheck, runId = makeRunId(now), configOverrides = {} } = {}) {
+export async function runWorker({
+  root = DEFAULT_ROOT,
+  dryRun = false,
+  simulate = false,
+  now = new Date(),
+  fetch = true,
+  productionCheck,
+  runId = makeRunId(now),
+  configOverrides = {},
+  visualMode = VISUAL_MODES.RECOVERY_POSTPUBLISH,
+} = {}) {
   const config = configFor(root, configOverrides);
   const log = createLogger(config, runId);
-  log({ stage: 'RUN_STARTED', mode: dryRun ? 'dry-run' : simulate ? 'simulate' : 'run' });
+  log({ stage: 'RUN_STARTED', mode: dryRun ? 'dry-run' : simulate ? 'simulate' : 'run', visualMode });
   const lock = acquireLock(config.lockPath, { runId, now });
   if (!lock.acquired) {
     log({ stage: 'LOCK', finalResult: 'VISUAL_WORKER_SKIPPED', candidateState: 'lock_active' });
@@ -645,10 +825,18 @@ export async function runWorker({ root = DEFAULT_ROOT, dryRun = false, simulate 
     workspace = await createExecutionWorkspace(root, runId, baseSha, { readOnly: dryRun || simulate });
     log({ stage: 'WORKTREE_CREATED', workspace, baseSha, readOnly: dryRun || simulate });
     const workspaceConfig = configFor(workspace, { origin: config.origin, logDir: config.logDir, lockPath: config.lockPath, maxCandidates: config.maxCandidates });
-    log({ stage: 'CANDIDATE_DISCOVERY_STARTED' });
-    const discovered = await discoverCandidates(workspaceConfig, { productionCheck });
-    log({ stage: discovered.candidates.length ? 'CANDIDATE_SELECTED' : 'NO_CANDIDATE', candidates: discovered.candidates.map((a) => a.slug), reasons: discovered.reasons.slice(0, 30) });
-    if (!discovered.candidates.length) return { finalResult: 'NO_CANDIDATE', runId, reasons: discovered.reasons };
+    log({ stage: 'CANDIDATE_DISCOVERY_STARTED', visualMode });
+    const discovered = await discoverCandidates(workspaceConfig, { mode: visualMode, productionCheck, now });
+    log({
+      stage: discovered.candidates.length ? 'CANDIDATE_SELECTED' : 'NO_CANDIDATE',
+      visualMode,
+      candidates: discovered.candidates.map((a) => a.slug),
+      reasons: discovered.reasons.slice(0, 30),
+    });
+    if (!discovered.candidates.length) {
+      const finalResult = visualMode === VISUAL_MODES.RECOVERY_POSTPUBLISH ? 'NO_CANDIDATE' : 'NO_PREPUBLISH_CANDIDATE';
+      return { finalResult, runId, reasons: discovered.reasons, visualMode };
+    }
     const candidate = discovered.candidates[0];
     if (dryRun || simulate) return { finalResult: 'DRY_RUN_CANDIDATE', runId, slug: candidate.slug, title: candidate.title };
     const result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha });

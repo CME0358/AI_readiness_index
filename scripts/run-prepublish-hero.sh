@@ -8,12 +8,6 @@ export HOME="${HOME:-$(/usr/bin/dscl . -read /Users/$(/usr/bin/id -un) NFSHomeDi
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 export ARI_VISUAL_WORKER_LOG_DIR="${ARI_VISUAL_WORKER_LOG_DIR:-$HOME/Library/Logs/ARIInsightsVisualWorker}"
-export ARI_VISUAL_WORKER_LOCK_PATH="${ARI_VISUAL_WORKER_LOCK_PATH:-/private/tmp/ari-insights-visual-worker.lock}"
+export ARI_VISUAL_WORKER_LOCK_PATH="${ARI_VISUAL_WORKER_LOCK_PATH:-/private/tmp/ari-insights-prepublish-hero.lock}"
 
-# Production launchd workspace must track origin/main before each run.
-# Dev invocations from other clones skip sync via ARI_VISUAL_WORKER_SYNC_SKIP=1.
-if [ -z "${ARI_VISUAL_WORKER_SYNC_SKIP:-}" ]; then
-  /bin/sh "$SCRIPT_DIR/sync-visual-worker-workspace.sh"
-fi
-
-exec /usr/bin/env node "$SCRIPT_DIR/run-insights-visual-worker.mjs" --root "$REPO_ROOT" --mode recovery "$@"
+exec /usr/bin/env node "$SCRIPT_DIR/run-prepublish-hero.mjs" --root "$REPO_ROOT" "$@"

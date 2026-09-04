@@ -18,6 +18,7 @@ import {
   articleTimesForPublishDay,
 } from './business-days.mjs';
 import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
+import { markHeroPending } from './insights-package-readiness.mjs';
 import { isSameBufferLedgerEntry, normalizePublicationDate } from './buffer-ledger.mjs';
 
 export const UNLOCK_TIME_JST = '15:00';
@@ -225,6 +226,7 @@ export function unlockNextInsight({
   next.status = EDITORIAL_STATUSES.SCHEDULED;
   next.publishAt = times.web;
   next.unlockedAt = unlockedAt;
+  markHeroPending(next, { now });
 
   const linkedinQueue = JSON.parse(fs.readFileSync(PATHS.linkedinQueue, 'utf8'));
   const liPost = linkedinQueue.posts.find((p) => p.slug === next.slug && normalizePublicationDate(p) === publishYmd);
