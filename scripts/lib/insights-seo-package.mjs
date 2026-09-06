@@ -146,6 +146,14 @@ export const SCHEDULED_SEO_PACKAGES = {
     lead: '経営が見るべきKPIは検索順位ではない。発見・理解・信頼・実行の段階別到達率と実行成功率——Agent Readinessを測る経営指標の設計が必要になる。経営ダッシュボードの指標選定を本記事で整理する。',
     breadcrumb: '経営KPI',
   },
+  'ai-search-52-percent': {
+    intent: 'B',
+    primarySearchIntent: '生成AI 検索 利用率 企業対策',
+    h1: '生成AI検索52.3%。「第二の検索プラットフォーム」で企業が測るべきもの',
+    meta: 'サイバーエージェントGEOラボ調査で生成AI検索利用率が52.3%に。検索エンジンに次ぐ第二プラットフォームとして、企業がVisibility・Authority・Actionabilityで測るべき変化をARI視点で整理します。',
+    lead: '生成AIの検索利用率が52.3%に達した——検索エンジンに次ぐ「第二の検索プラットフォーム」が現実になった。重要なのは利用率そのものではなく、比較・検討・推薦のプロセスがAI側へ移り始めていること。企業が測るべき観測軸を整理する。',
+    breadcrumb: '生成AI検索52.3%',
+  },
   'vendor-selection': {
     intent: 'B',
     primarySearchIntent: '予約SaaS 選定 Agent Readiness',

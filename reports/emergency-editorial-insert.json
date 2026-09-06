@@ -1,0 +1,27 @@
+{
+  "appliedAt": "2026-09-06T07:01:22.605Z",
+  "slug": "ai-search-52-percent",
+  "targetDate": "2026-09-07",
+  "displaced": [
+    {
+      "slug": "exec-readiness-kpi",
+      "from": "2026-09-07",
+      "to": "2026-09-08"
+    }
+  ],
+  "bufferImpact": [
+    {
+      "slug": "exec-readiness-kpi",
+      "publicationDate": "2026-09-07",
+      "state": "NOT_QUEUED",
+      "bufferReplanRequired": false
+    }
+  ],
+  "heroImpact": [
+    {
+      "slug": "exec-readiness-kpi",
+      "action": "REUSE_IF_PRESENT"
+    }
+  ],
+  "packageReadiness": "HERO_PENDING"
+}

@@ -351,9 +351,9 @@
     {
       "id": "ARI-LI-021",
       "slug": "exec-readiness-kpi",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "linkedinPublishAt": null,
+      "articlePublishAt": "2026-09-08T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-08T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-08T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/exec-readiness-kpi/",
       "contentFile": "insights/_social/linkedin/posts/exec-readiness-kpi.md",
       "status": "editorial_hold",
@@ -362,7 +362,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T00:02:50.111Z"
+      "updatedAt": "2026-09-06T07:01:22.605Z"
     },
     {
       "id": "ARI-LI-022",
@@ -575,6 +575,23 @@
       "createdAt": "2026-09-04T01:00:00.172Z",
       "updatedAt": "2026-09-04T01:00:00.172Z",
       "series": "v2"
+    },
+    {
+      "id": "ARI-LI-BREAK-ai-search-52-percent",
+      "slug": "ai-search-52-percent",
+      "articlePublishAt": "2026-09-07T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-07T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-07T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/ai-search-52-percent/",
+      "contentFile": "insights/_social/linkedin/posts/ai-search-52-percent.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-06T07:01:22.605Z",
+      "updatedAt": "2026-09-06T07:01:22.605Z",
+      "series": "current-event"
     }
   ]
 }

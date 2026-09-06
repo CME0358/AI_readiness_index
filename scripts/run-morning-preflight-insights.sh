@@ -8,9 +8,8 @@ export HOME="${HOME:-$(/usr/bin/dscl . -read /Users/$(/usr/bin/id -un) NFSHomeDi
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 export ARI_VISUAL_WORKER_LOG_DIR="${ARI_VISUAL_WORKER_LOG_DIR:-$HOME/Library/Logs/ARIInsightsVisualWorker}"
-export ARI_VISUAL_WORKER_LOCK_PATH="${ARI_VISUAL_WORKER_LOCK_PATH:-/private/tmp/ari-insights-prepublish-hero.lock}"
+export ARI_PREPUBLISH_ROLE="MORNING_PREFLIGHT"
 
-# Production launchd workspace must track origin/main before each run.
 if [ -z "${ARI_VISUAL_WORKER_SYNC_SKIP:-}" ]; then
   /bin/sh "$SCRIPT_DIR/sync-visual-worker-workspace.sh"
 fi

@@ -3,7 +3,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { PATHS, articleUrl } from './insights-v2-paths.mjs';
+import { PATHS, articleUrl, ROOT } from './insights-v2-paths.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import {
   CHANNEL_KEYS,
@@ -19,6 +19,7 @@ import {
 } from './business-days.mjs';
 import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
 import { markHeroPending } from './insights-package-readiness.mjs';
+import { triggerImmediatePrepublishHero } from './trigger-immediate-prepublish-hero.mjs';
 import { isSameBufferLedgerEntry, normalizePublicationDate } from './buffer-ledger.mjs';
 
 export const UNLOCK_TIME_JST = '15:00';
@@ -274,5 +275,7 @@ export function unlockNextInsight({
     'utf8'
   );
 
-  return { ...plan, updated: true, slug: next.slug, publishYmd, times, prepared, result: 'UNLOCKED' };
+  const heroTrigger = triggerImmediatePrepublishHero({ root: ROOT });
+
+  return { ...plan, updated: true, slug: next.slug, publishYmd, times, prepared, result: 'UNLOCKED', heroTrigger };
 }
