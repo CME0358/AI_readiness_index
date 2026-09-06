@@ -156,6 +156,17 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 .btn-accent { background: var(--accent); color: #fff; }
 .btn-accent:hover { background: #164a96; transform: translateY(-1px); }
 .btn-lg { padding: 16px 32px; font-size: 16px; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* Hero */
 .hub-hero {
@@ -184,6 +195,46 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 }
 .hub-hero .lead { margin-bottom: 40px; max-width: 680px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Homepage public Check */
+.company-check-card {
+  max-width: 640px;
+  padding: 28px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+}
+.company-check-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.company-check-form input {
+  flex: 1 1 240px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+}
+.company-check-form .btn { flex: 0 0 auto; }
+.company-check-note { margin-top: 12px; font-size: 13px; color: var(--text-muted); max-width: 54ch; }
+.company-check-status { margin-top: 12px; font-size: 14px; color: var(--text-secondary); }
+.company-check-error { margin-top: 12px; font-size: 14px; color: #b42318; }
+.company-check-result { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.company-check-host { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; word-break: break-all; }
+.company-check-findings { margin: 0 0 16px; padding-left: 20px; color: var(--text); line-height: 1.7; }
+.company-check-findings li + li { margin-top: 8px; }
+.company-check-explain { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; max-width: 54ch; }
+.company-check-next { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 768px) {
+  .company-check-form { flex-direction: column; }
+  .company-check-form .btn { width: 100%; }
+}
 .hub-hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -402,6 +453,52 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
           role="img"
           aria-label="AIが企業を検索・発見・理解・比較・推薦するプロセスのデモンストレーション"
         ></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-sm" id="company-check" data-public-check>
+  <div class="container">
+    <p class="section-label">Check</p>
+    <h2>あなたの会社は、<br>AIからどう見えている？</h2>
+    <p class="lead">公式サイトのURLから、公開ページ上の手がかりを無料で簡易確認します。点数や有料レポートの詳細は出しません。結果はすぐに表示されます。</p>
+    <div class="company-check-card">
+      <form class="company-check-form" data-public-check-form>
+        <label class="visually-hidden" for="company-check-url">公式サイトURL</label>
+        <input
+          id="company-check-url"
+          name="url"
+          type="text"
+          inputmode="url"
+          autocomplete="url"
+          placeholder="example.com"
+          data-public-check-input
+          aria-describedby="company-check-note"
+        >
+        <button
+          type="submit"
+          class="btn btn-accent"
+          data-public-check-submit
+          data-funnel-cta
+          data-cta-id="homepage_check_submit"
+          data-cta-type="CHECK"
+          data-placement="homepage_check"
+          data-source-page="/"
+        >無料で確認する</button>
+      </form>
+      <p class="company-check-note" id="company-check-note">メールアドレスは不要です。これは簡易確認であり、Company Report（¥29,800・税別）の代替ではありません。確認できない場合は<a href="framework/">Framework</a>または<a href="whitepaper/2026/free/">無料ガイド</a>をご覧ください。</p>
+      <p class="company-check-status" data-public-check-status role="status"></p>
+      <p class="company-check-error" data-public-check-error hidden role="alert"></p>
+      <div class="company-check-result" data-public-check-result hidden>
+        <p class="company-check-host">確認したドメイン：<span data-public-check-host></span></p>
+        <ul class="company-check-findings" data-public-check-findings></ul>
+        <p class="company-check-explain">公開ページから読み取った手がかりであり、断定ではありません。詳細な診断は Company Report（¥29,800・税別）です。店舗の集客改善は Local GEO（月額60,000円）で、Advisory（¥198,000〜）とは別です。</p>
+        <div class="company-check-next">
+          <a href="/report/" class="btn btn-primary" data-funnel-cta data-cta-id="homepage_check_report" data-cta-type="REPORT" data-placement="homepage_check_result" data-source-page="/">詳しい原因と改善優先順位を確認する</a>
+          <a href="https://localgeo.coaretail.com/?utm_source=ari_preview&utm_medium=outbound&utm_campaign=direct_buyer&utm_content=homepage_check" class="btn btn-secondary" data-funnel-cta data-cta-id="homepage_check_local" data-cta-type="LOCAL" data-placement="homepage_check_result" data-source-page="/">店舗・クリニックの集客改善を任せたい</a>
+          <a href="whitepaper/2026/free/" class="btn btn-secondary" data-funnel-cta data-cta-id="homepage_check_learn" data-cta-type="LEARN" data-placement="homepage_check_result" data-source-page="/">無料ガイドを見る</a>
+        </div>
       </div>
     </div>
   </div>
@@ -640,5 +737,6 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 <script src="assets/ari-fv-animation.js" defer></script>
 <script src="assets/hub-animations.js" defer></script>
 <script src="/assets/sitewide-cta-tracking.js" defer></script>
+<script src="/assets/homepage-public-check.js" defer></script>
 </body>
 </html>

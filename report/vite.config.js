@@ -52,6 +52,16 @@ function devApiPlugin() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const url = req.url?.split("?")[0] ?? "";
+        if (url === "/api/public-check") {
+          import("../api/public-check.js")
+            .then((mod) => mod.default(req, res))
+            .catch((e) => {
+              res.statusCode = 500;
+              res.setHeader("Content-Type", "application/json");
+              res.end(JSON.stringify({ error: e.message }));
+            });
+          return;
+        }
         if (url === "/api/analyze") {
           import("../api/analyze.js")
             .then((mod) => mod.default(req, res))
