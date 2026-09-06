@@ -643,8 +643,8 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "生成AI 検索 利用率 企業対策",
       "unlockedAt": "2026-09-06T07:01:22.605Z",
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-06T07:01:22.605Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-06T07:03:54.410Z"
     },
     {
       "slug": "exec-readiness-kpi",
