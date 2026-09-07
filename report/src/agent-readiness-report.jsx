@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import VideoCarousel from "./VideoCarousel.jsx";
-import { trackReportStartOnce } from "./analytics.js";
+import { trackReportStartOnce, trackReportProofImpression, trackLocalCtaClick } from "./analytics.js";
 import { readPreviewPrefillFromSession } from "./preview-prefill.js";
 import {
   scoreInterpretation,
@@ -613,13 +613,14 @@ function CtaBtn({ onClick, variant = "ink", children }) {
   );
 }
 
-function CtaLink({ href, variant = "ink", external = false, children }) {
+function CtaLink({ href, variant = "ink", external = false, onClick, children }) {
   return (
     <a
       href={href}
       className={`lp-cta lp-cta--${variant}`}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
+      onClick={onClick}
     >
       {children}
       <span className="lp-cta__icon" aria-hidden="true">→</span>
@@ -629,6 +630,29 @@ function CtaLink({ href, variant = "ink", external = false, children }) {
 
 function LandingPage({ onStart }) {
   const [legal, setLegal] = useState(null);
+  const proofRef = useRef(null);
+  const proofTrackedRef = useRef(false);
+
+  useEffect(() => {
+    const track = () => {
+      if (proofTrackedRef.current) return;
+      proofTrackedRef.current = true;
+      trackReportProofImpression({ proof_version: "9c" });
+    };
+    const element = proofRef.current;
+    if (!element || typeof IntersectionObserver !== "function") {
+      track();
+      return undefined;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        track();
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   const faqs = [
     { q: "広告やSEOは続けています。それでも必要ですか？", a: "必要です。広告とSEOは人が検索したあとに効きます。いま増えているのは、検索せずAIに聞く行動です。レポートは、その経路で御社が比較・推薦・問い合わせまで届くかを確認します。" },
     { q: "何が分かるレポートですか？", a: "ChatGPT・Gemini・Claude・Perplexityが御社をどう認識しているか、比較候補に入るか、推薦理由を作れるか、予約や問い合わせまでつながるかを23項目で評価し、直す順番を示します。" },
@@ -759,101 +783,57 @@ function LandingPage({ onStart }) {
 
       <VideoCarousel />
 
-      <section style={{ padding: "80px 24px" }}>
+      <section ref={proofRef} className="lp-proof" id="proof">
         <Reveal>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <h2 style={{ fontSize: 32, fontWeight: 800, letterSpacing: "-0.8px", margin: "0 0 12px" }}>届くレポートの中身</h2>
-          <p style={{ color: "#5b6578", margin: "0 0 28px", maxWidth: "58ch", lineHeight: 1.7 }}>入力した公式サイトを対象に、スコア、AI認識、改善ロードマップを1本にまとめます。</p>
-          <div style={{ display: "inline-block", background: "#FFFBEB", border: "1px solid #FDE68A", color: "#92400E", fontSize: 11, fontWeight: 700, padding: "6px 14px", borderRadius: 100, marginBottom: 24 }}>
-            サンプルデータ。正式購入レポートとはデータソースが異なります
+        <div className="lp-proof__inner">
+          <div className="lp-proof__heading">
+            <div className="lp-proof__eyebrow">Representative Example</div>
+            <h2>¥29,800で分かること</h2>
+            <p>スコアを見るためのレポートではありません。AIが何を理解でき、どこで比較・推薦につまずき、何から直すべきかを判断するためのレポートです。</p>
           </div>
-          <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "48px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 32, flexWrap: "wrap" }}>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: 72, fontWeight: 900, color: "#0A0A0A", letterSpacing: "-4px", lineHeight: 1 }}>82</div>
-                <div style={{ fontSize: 12, color: "#9B9B9B", marginTop: 4 }}>/100点</div>
+          <div className="lp-proof__notice">
+            以下はレポート構成を説明するための代表例です。実際の分析結果は対象企業・サイトによって異なります。
+          </div>
+          <div className="lp-proof__grid">
+            <article className="lp-proof-card">
+              <div className="lp-proof-card__label">OBSERVATION</div>
+              <h3>何が見えているか</h3>
+              <p>公式サイトや公開情報から、AIが理解するための手がかりを整理します。</p>
+              <div className="lp-proof-card__subhead">WHAT AI CAN SEE</div>
+              <ul>
+                <li>会社・店舗の基本情報</li>
+                <li>サービス・提供内容</li>
+                <li>所在地・連絡先の手がかり</li>
+              </ul>
+            </article>
+            <article className="lp-proof-card">
+              <div className="lp-proof-card__label">GAP</div>
+              <h3>何が不足しているか</h3>
+              <p>比較に必要な料金、対象、選ばれる理由など、判断材料の不足箇所を切り分けます。</p>
+              <div className="lp-proof-card__subhead">WHY IT MATTERS</div>
+              <p>見つけられても比較・推薦の根拠が足りなければ、候補に残りにくくなります。</p>
+            </article>
+            <article className="lp-proof-card lp-proof-card--priority">
+              <div className="lp-proof-card__label">PRIORITY / NEXT ACTION</div>
+              <h3>何から直すべきか</h3>
+              <p>影響度と着手順を整理し、最初に対応する課題を判断できる形にします。</p>
+              <div className="lp-proof-card__actions">
+                <span>HIGH</span> 比較情報を明確にする
+                <span>MEDIUM</span> サービス範囲を整理する
+                <span>LOW</span> 予約・問い合わせ導線を整える
               </div>
-              <div style={{ textAlign: "left" }}>
-                <div style={{ display: "inline-block", background: "#F5F5F5", color: "#0A0A0A", padding: "6px 20px", borderRadius: 100, fontSize: 13, fontWeight: 700, marginBottom: 12 }}>
-                  Readiness Level: Leader
-                </div>
-                <div style={{ fontSize: 14, color: "#3A3A3A", lineHeight: 1.8 }}>
-                  Readiness Level: Leader<br />
-                  <strong>Agent Readiness Level: Leader</strong>
-                </div>
-              </div>
-            </div>
+            </article>
           </div>
-
-          {/* 追加プレビュー：実レポートからの抜粋 */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 24, textAlign: "left" }}>
-
-            {/* スコア内訳 */}
-            <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "28px" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>スコア内訳（6カテゴリ）</div>
-              {DUMMY_REPORT.scoreBreakdown.map(c => (
-                <div key={c.category} style={{ marginBottom: 12 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "#3A3A3A", marginBottom: 4 }}>
-                    <span>{c.category}</span><span style={{ fontWeight: 700 }}>{c.score}</span>
-                  </div>
-                  <div style={{ height: 6, background: "#F0F0F0", borderRadius: 100 }}>
-                    <div style={{ height: "100%", width: `${c.score}%`, background: "#C9A84C", borderRadius: 100 }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* AI認識 */}
-            <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "28px" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>主要AIの認識・推薦</div>
-              {DUMMY_REPORT.aiRecognition.map(ai => (
-                <div key={ai.ai} style={{ marginBottom: 14 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "#3A3A3A", marginBottom: 4 }}>
-                    <span style={{ fontWeight: 700 }}>{ai.ai}</span>
-                    <span style={{ color: "#9B9B9B" }}>認識 {ai.recognition}% ・ 推薦 {ai.recommendation}%</span>
-                  </div>
-                  <div style={{ height: 6, background: "#F0F0F0", borderRadius: 100 }}>
-                    <div style={{ height: "100%", width: `${ai.recognition}%`, background: "#0A0A0A", borderRadius: 100 }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* 改善ロードマップ */}
-            <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "28px" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>改善ロードマップ（抜粋）</div>
-              {DUMMY_REPORT.roadmap.slice(0, 4).map((r, i) => (
-                <div key={r.action} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderBottom: i < 3 ? "1px solid #F0F0F0" : "none" }}>
-                  <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#0A0A0A", color: "#fff", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "#0A0A0A" }}>{r.action}</div>
-                    <div style={{ fontSize: 11, color: "#9B9B9B" }}>{r.priority} ・ {r.effort}</div>
-                  </div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: "#C9A84C" }}>{r.impact}</div>
-                </div>
-              ))}
-            </div>
-
+          <div className="lp-proof__decision">
+            <strong>レポートを読んだあとに決められること</strong>
+            <span>いま直すべき課題は何か。自社で対応するか、専門支援に任せるか。</span>
           </div>
-
-          {/* Company Reportで確認できる内容 */}
-          <div style={{ background: "#fff", border: "1px solid #E5E5E5", borderRadius: 16, padding: "28px", marginTop: 24, textAlign: "left" }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#9B9B9B", letterSpacing: 1, marginBottom: 16 }}>Company Reportで確認できる内容</div>
-            {[
-              "自社のAgent Readinessスコア",
-              "AIからどのように認識されているか",
-              "現在地の評価",
-              "改善優先順位",
-              "改善アクションの整理",
-            ].map((item) => (
-              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10, fontSize: 14, color: "#3A3A3A", lineHeight: 1.6 }}>
-                <span style={{ color: "#C9A84C", fontWeight: 700 }}>✓</span>
-                <span>{item}</span>
-              </div>
-            ))}
+          <div className="lp-proof__footer">
+            <p>有料レポートでは、対象サイトに合わせた23項目の分析と改善優先順位を確認できます。</p>
+            <CtaLink href="https://localgeo.coaretail.com/?utm_source=ari_report&utm_medium=outbound&utm_campaign=direct_buyer&utm_content=report_proof" variant="outline" external onClick={() => trackLocalCtaClick({ placement: "report_proof" })}>
+              店舗・クリニックの集客改善を任せたい（月額60,000円）
+            </CtaLink>
           </div>
-
-          <p style={{ fontSize: 12, color: "#9B9B9B", marginTop: 24 }}>※ 実際のレポートは全12セクション・23項目の詳細分析が含まれます</p>
         </div>
         </Reveal>
       </section>
@@ -926,7 +906,7 @@ function LandingPage({ onStart }) {
               <h2>レポート結果を、どこから着手すべきか迷っていませんか</h2>
               <p>30分のオンライン相談・無料</p>
             </div>
-            <CtaLink href={MTG_SCHEDULE_URL} variant="gold" external>
+            <CtaLink href={MTG_SCHEDULE_URL} variant="outline" external>
               無料相談を予約する
             </CtaLink>
           </div>
