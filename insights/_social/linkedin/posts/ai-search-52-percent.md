@@ -6,6 +6,8 @@
 
 詳細はInsightsで解説しています。
 
+この変化を一時的な話題として扱うのではなく、企業の情報設計と計測の前提を見直すタイミングです。AIに正しく理解され、比較の根拠として選ばれ、次の行動までつながる状態を継続的に確認する必要があります。
+
 https://readiness.coaretail.com/insights/ai-search-52-percent/
 
 #AgentReadiness #AISearch #GEO

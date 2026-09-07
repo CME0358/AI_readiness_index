@@ -57,6 +57,17 @@ export function isBufferConfigured(cfg = getBufferConfig()) {
   return Boolean(cfg.accessToken && (cfg.channelId || cfg.channelIds.linkedin));
 }
 
+export function validateBufferConfiguration(cfg = getBufferConfig()) {
+  return {
+    accessToken: cfg.accessToken ? 'PRESENT' : 'INVALID',
+    organizationId: cfg.organizationId ? 'PRESENT' : 'INVALID',
+    channels: Object.fromEntries(['linkedin', 'facebook', 'x'].map((channel) => [
+      channel,
+      getChannelId(channel, cfg) ? 'PRESENT' : 'INVALID',
+    ])),
+  };
+}
+
 export function isRateLimitError(message) {
   if (!message) return false;
   const e = message.toUpperCase();
@@ -102,6 +113,39 @@ export async function bufferGraphql(accessToken, query, variables, { timeoutMs =
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Read-only Buffer search used before retrying an ambiguous CREATE. */
+export async function findCanonicalBufferPost({
+  accessToken,
+  organizationId,
+  channelId,
+  text,
+  articleUrl,
+  publishAt,
+}) {
+  if (!accessToken || !organizationId || !channelId) {
+    throw new Error('Buffer remote reconciliation requires token, organization, and channel configuration');
+  }
+  const query = `query GetCanonicalPosts {
+    posts(first: 100, input: {
+      organizationId: ${JSON.stringify(organizationId)}
+      filter: { channelIds: [${JSON.stringify(channelId)}] }
+    }) {
+      edges { node { id text status dueAt channelId createdAt assets { source } } }
+    }
+  }`;
+  const data = await bufferGraphql(accessToken, query, {});
+  if (data.errors?.length) throw new Error(JSON.stringify(data.errors));
+  const posts = (data.data?.posts?.edges || []).map((edge) => edge.node).filter(Boolean);
+  const dueDay = publishAt ? new Date(publishAt).toISOString().slice(0, 10) : null;
+  return posts.find((post) => {
+    if (post.channelId !== channelId) return false;
+    const sameText = post.text === text;
+    const sameArticle = articleUrl && post.text?.includes(articleUrl);
+    const sameDay = !dueDay || !post.dueAt || new Date(post.dueAt).toISOString().slice(0, 10) === dueDay;
+    return sameDay && (sameText || sameArticle);
+  }) || null;
 }
 
 /** Build GraphQL CreatePostInput with per-channel metadata (Buffer schema). */

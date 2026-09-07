@@ -122,6 +122,7 @@ jobs:
           if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
           "${CMD[@]}" | tee /tmp/reconcile-delivery.log
           if grep -q 'UPDATED=1' /tmp/reconcile-delivery.log; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+          if grep -q 'BUFFER_DELIVERY_COMPLETE=TRUE' /tmp/reconcile-delivery.log; then echo "buffer_complete=true" >> "$GITHUB_OUTPUT"; else echo "buffer_complete=false" >> "$GITHUB_OUTPUT"; fi
 
       - name: Commit and push verified delivery state
         if: steps.delivery.outputs.changed == 'true'
@@ -131,6 +132,10 @@ jobs:
           scripts/lib/gha-git-push.sh \
             "Verify Insight production and reconcile Buffer handoff" \
             insights/_scheduled/schedule.json insights/_social/ reports/
+
+      - name: Fail incomplete Buffer delivery after persisting channel state
+        if: steps.delivery.outputs.changed == 'true' && steps.delivery.outputs.buffer_complete == 'false'
+        run: exit 1
 
       - name: Post-deploy IndexNow
         if: steps.delivery.outputs.changed == 'true' && steps.publish.outputs.slug != ''
