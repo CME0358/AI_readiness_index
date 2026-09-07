@@ -712,6 +712,27 @@
       "primarySearchIntent": "ABIS Readiness ギャップ 診断"
     },
     {
+      "slug": "competitors-visible-company-missing",
+      "publishAt": "2026-09-15T10:00:00+09:00",
+      "status": "scheduled",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260915-DAILY-001",
+      "slotDate": "2026-09-15",
+      "slotType": "DAILY_PRIMARY",
+      "scheduledPublishAt": "2026-09-15T10:00:00+09:00",
+      "title": "AI検索では競合が出るのに、自社が出てこない理由",
+      "cardSummary": "競合は推薦されるのに自社が見つからないとき、まず確認したい情報の一貫性・比較材料・行動導線を整理します。",
+      "llmsLabel": "競合は出るのに自社が出ない理由",
+      "editorialIntent": "PROBLEM_AWARE",
+      "editorialType": "problem_aware",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "AI検索 競合 自社 出てこない",
+      "ctaProfile": {
+        "primary": "CHECK",
+        "secondary": "REPORT"
+      }
+    },
+    {
       "slug": "consent-data-design",
       "publishAt": null,
       "status": "editorial_hold",
@@ -739,8 +760,13 @@
     },
     {
       "slug": "execution-readiness",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-16T10:00:00+09:00",
+      "status": "scheduled",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260916-DAILY-001",
+      "slotDate": "2026-09-16",
+      "slotType": "DAILY_PRIMARY",
+      "scheduledPublishAt": "2026-09-16T10:00:00+09:00",
       "title": "Execution Readinessの実務",
       "cardSummary": "実行前チェックリストと障害ログが改善を加速。Actionability定義ではなく実行改善サイクル",
       "llmsLabel": "Execution Readinessの実務",
@@ -749,6 +775,31 @@
       "metaDescription": "AIエージェントが予約・購入を完結できるサイトの条件——実行前チェックリストと障害ログ。Actionabilityの定義ではなく、Execution Readinessの実務改善サイクルを解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "AI 予約 購入 サイト 条件"
+    },
+    {
+      "slug": "html-observation-check-limits",
+      "publishAt": "2026-09-17T10:00:00+09:00",
+      "status": "scheduled",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260917-DAILY-001",
+      "slotDate": "2026-09-17",
+      "slotType": "DAILY_PRIMARY",
+      "scheduledPublishAt": "2026-09-17T10:00:00+09:00",
+      "title": "サイトのHTMLだけでAI対応状況をどこまで確認できるか",
+      "cardSummary": "公開HTMLから確認できる基本情報・比較材料・行動導線の観測範囲と、AIの推薦結果までは断定できない限界を整理します。",
+      "llmsLabel": "HTML観測で分かること・分からないこと",
+      "editorialIntent": "EVIDENCE",
+      "editorialType": "measured_observation",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "サイト HTML AI 読み取り 確認",
+      "sourceMetadata": {
+        "type": "repository observation",
+        "path": "scripts/tests/phase9b-public-check.test.mjs"
+      },
+      "ctaProfile": {
+        "primary": "CHECK",
+        "secondary": "REPORT"
+      }
     },
     {
       "slug": "interaction-contract",
@@ -762,6 +813,54 @@
       "metaDescription": "ビジネスとの約束——提供条件・SLA・制約——を明文化し構造化する設計。規約の明確さを超えた、Business Interactionの起点となる約束設計と、Agent Readinessの実行レイヤーへの効き方を解説します。",
       "searchIntentClass": "C",
       "primarySearchIntent": "ビジネス 約束 機械可読 設計"
+    },
+    {
+      "slug": "openai-product-discovery-agentic-commerce",
+      "publishAt": "2026-09-14T10:00:00+09:00",
+      "status": "scheduled",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260914-DAILY-001",
+      "slotDate": "2026-09-14",
+      "slotType": "DAILY_PRIMARY",
+      "scheduledPublishAt": "2026-09-14T10:00:00+09:00",
+      "title": "ChatGPTの商品探索が変える、AIに比較される情報の整え方",
+      "cardSummary": "OpenAIが発表した商品探索機能を起点に、何が変わったか、事業者が今確認できる情報は何かを整理します。",
+      "llmsLabel": "ChatGPTの商品探索と事業者の確認項目",
+      "editorialIntent": "NEWS",
+      "editorialType": "current_event",
+      "series": "current-event",
+      "searchIntentClass": "B",
+      "primarySearchIntent": "ChatGPT 商品探索 Agentic Commerce 事業者",
+      "sourceMetadata": {
+        "type": "official announcement",
+        "url": "https://openai.com/index/powering-product-discovery-in-chatgpt/",
+        "date": "2026-03-24"
+      },
+      "ctaProfile": {
+        "primary": "LEARN",
+        "secondary": "CHECK"
+      }
+    },
+    {
+      "slug": "seo-meo-ai-recommendation-gap",
+      "publishAt": "2026-09-18T10:00:00+09:00",
+      "status": "scheduled",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260918-DAILY-001",
+      "slotDate": "2026-09-18",
+      "slotType": "DAILY_PRIMARY",
+      "scheduledPublishAt": "2026-09-18T10:00:00+09:00",
+      "title": "SEOやMEOをしているのに、AI検索で推薦されない理由",
+      "cardSummary": "SEOやMEOの成果を否定せず、AIが理解・比較・行動につなげるために追加で確認したい項目を整理します。",
+      "llmsLabel": "SEO・MEOの先にあるAI検索の確認項目",
+      "editorialIntent": "PROBLEM_AWARE",
+      "editorialType": "problem_aware",
+      "searchIntentClass": "A",
+      "primarySearchIntent": "SEO MEO AI検索 推薦されない",
+      "ctaProfile": {
+        "primary": "CHECK",
+        "secondary": "LOCAL"
+      }
     },
     {
       "slug": "standards-landscape",
@@ -788,61 +887,6 @@
       "metaDescription": "予約SaaS選定は機能表ではなく、AIが接続・実行できるかで判断する。Agent Readinessの視点から、SaaS選定基準と実行可能性——空き確認から予約完了まで——を解説します。",
       "searchIntentClass": "B",
       "primarySearchIntent": "予約SaaS 選定 Agent Readiness"
-    },
-    {
-      "slug": "competitors-visible-company-missing",
-      "publishAt": null,
-      "status": "editorial_hold",
-      "title": "AI検索では競合が出るのに、自社が出てこない理由",
-      "cardSummary": "競合は推薦されるのに自社が見つからないとき、まず確認したい情報の一貫性・比較材料・行動導線を整理します。",
-      "llmsLabel": "競合は出るのに自社が出ない理由",
-      "editorialIntent": "PROBLEM_AWARE",
-      "editorialType": "problem_aware",
-      "searchIntentClass": "A",
-      "primarySearchIntent": "AI検索 競合 自社 出てこない",
-      "ctaProfile": { "primary": "CHECK", "secondary": "REPORT" }
-    },
-    {
-      "slug": "seo-meo-ai-recommendation-gap",
-      "publishAt": null,
-      "status": "editorial_hold",
-      "title": "SEOやMEOをしているのに、AI検索で推薦されない理由",
-      "cardSummary": "SEOやMEOの成果を否定せず、AIが理解・比較・行動につなげるために追加で確認したい項目を整理します。",
-      "llmsLabel": "SEO・MEOの先にあるAI検索の確認項目",
-      "editorialIntent": "PROBLEM_AWARE",
-      "editorialType": "problem_aware",
-      "searchIntentClass": "A",
-      "primarySearchIntent": "SEO MEO AI検索 推薦されない",
-      "ctaProfile": { "primary": "CHECK", "secondary": "LOCAL" }
-    },
-    {
-      "slug": "html-observation-check-limits",
-      "publishAt": null,
-      "status": "editorial_hold",
-      "title": "サイトのHTMLだけでAI対応状況をどこまで確認できるか",
-      "cardSummary": "公開HTMLから確認できる基本情報・比較材料・行動導線の観測範囲と、AIの推薦結果までは断定できない限界を整理します。",
-      "llmsLabel": "HTML観測で分かること・分からないこと",
-      "editorialIntent": "EVIDENCE",
-      "editorialType": "measured_observation",
-      "searchIntentClass": "B",
-      "primarySearchIntent": "サイト HTML AI 読み取り 確認",
-      "sourceMetadata": { "type": "repository observation", "path": "scripts/tests/phase9b-public-check.test.mjs" },
-      "ctaProfile": { "primary": "CHECK", "secondary": "REPORT" }
-    },
-    {
-      "slug": "openai-product-discovery-agentic-commerce",
-      "publishAt": null,
-      "status": "editorial_hold",
-      "title": "ChatGPTの商品探索が変える、AIに比較される情報の整え方",
-      "cardSummary": "OpenAIが発表した商品探索機能を起点に、何が変わったか、事業者が今確認できる情報は何かを整理します。",
-      "llmsLabel": "ChatGPTの商品探索と事業者の確認項目",
-      "editorialIntent": "NEWS",
-      "editorialType": "current_event",
-      "series": "current-event",
-      "searchIntentClass": "B",
-      "primarySearchIntent": "ChatGPT 商品探索 Agentic Commerce 事業者",
-      "sourceMetadata": { "type": "official announcement", "url": "https://openai.com/index/powering-product-discovery-in-chatgpt/", "date": "2026-03-24" },
-      "ctaProfile": { "primary": "LEARN", "secondary": "CHECK" }
     }
   ]
 }

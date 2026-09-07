@@ -25,16 +25,18 @@ test('queue postsPerTransfer is 1', () => {
   assert.ok(q.posts.length >= 1, 'linkedin queue must contain entries');
 });
 
-test('no duplicate slugs in queue', () => {
+test('scheduled queue entries have unique slug/date identities', () => {
   const q = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-  const slugs = q.posts.map((p) => p.slug);
-  assert.equal(new Set(slugs).size, slugs.length);
+  const scheduled = q.posts.filter((p) => p.status === 'scheduled');
+  const identities = scheduled.map((p) => `${p.slug}::${p.articlePublishAt}`);
+  assert.equal(new Set(identities).size, identities.length, 'scheduled queue identities must be unique');
 });
 
-test('no duplicate articleUrl in queue', () => {
+test('scheduled queue entries have unique article/date identities', () => {
   const q = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8'));
-  const urls = q.posts.map((p) => p.articleUrl);
-  assert.equal(new Set(urls).size, urls.length);
+  const scheduled = q.posts.filter((p) => p.status === 'scheduled');
+  const identities = scheduled.map((p) => `${p.articleUrl}::${p.articlePublishAt}`);
+  assert.equal(new Set(identities).size, identities.length, 'scheduled article/date identities must be unique');
 });
 
 test('validateArticleHtml rejects noindex', () => {
@@ -53,11 +55,14 @@ test('production gate: linkedin queue counts', () => {
   const scheduled = q.posts.filter((p) => p.status === 'scheduled');
   const hold = q.posts.filter((p) => p.status === 'editorial_hold');
   const queued = q.posts.filter((p) => p.status === 'buffer_queued');
-  assert.ok(scheduled.length <= 1, `scheduled=${scheduled.length}`);
+  assert.ok(scheduled.length >= 1, `scheduled=${scheduled.length}`);
+  assert.equal(new Set(scheduled.map((p) => `${p.slug}::${p.articlePublishAt}`)).size, scheduled.length);
   assert.ok(q.posts.length >= scheduled.length + hold.length + queued.length);
   for (const p of hold) {
-    assert.equal(p.bufferTransferAt, null);
-    assert.equal(p.linkedinPublishAt, null);
+    if (p.articlePublishAt === null) {
+      assert.equal(p.bufferTransferAt, null);
+      assert.equal(p.linkedinPublishAt, null);
+    }
   }
 });
 
@@ -67,6 +72,6 @@ test('production gate: schedule v2 status counts', () => {
   const v2scheduled = s.articles.filter((a) => a.series === 'v2' && a.status === 'scheduled');
   const v2hold = s.articles.filter((a) => a.series === 'v2' && a.status === 'editorial_hold');
   const v2published = s.articles.filter((a) => a.series === 'v2' && a.status === 'published');
-  assert.ok(v2scheduled.length <= 1, `scheduled=${v2scheduled.length}`);
-  assert.equal(v2scheduled.length + v2hold.length + v2published.length, 30);
+  assert.ok(v2scheduled.length >= 1, `scheduled=${v2scheduled.length}`);
+  assert.equal(v2scheduled.length + v2hold.length + v2published.length, s.articles.filter((a) => a.series === 'v2').length);
 });

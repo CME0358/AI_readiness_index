@@ -18,7 +18,7 @@ function readArticle(slug) {
   return fs.readFileSync(path.join(root, 'insights/_scheduled', slug, 'index.html'), 'utf8');
 }
 
-test('Phase 9F launch inventory reaches 3/1/1 without publishing drafts', () => {
+test('Phase 9G launch inventory reaches 3/1/1 with scheduled, unpublished drafts', () => {
   const eligible = schedule.articles.filter((article) => ['scheduled', 'editorial_hold', 'ready_for_schedule'].includes(article.status));
   const counts = Object.fromEntries(['PROBLEM_AWARE', 'EVIDENCE', 'NEWS'].map((intent) => [intent, 0]));
   for (const article of eligible) {
@@ -26,8 +26,11 @@ test('Phase 9F launch inventory reaches 3/1/1 without publishing drafts', () => 
     if (counts[intent] !== undefined) counts[intent] += 1;
   }
   assert.deepEqual(counts, { PROBLEM_AWARE: 3, EVIDENCE: 1, NEWS: 1 });
-  for (const [slug] of launch) assert.equal(bySlug.get(slug).status, 'editorial_hold');
-  for (const [slug] of launch) assert.equal(bySlug.get(slug).publishAt, null);
+  for (const [slug] of launch) {
+    assert.equal(bySlug.get(slug).status, 'scheduled');
+    assert.match(bySlug.get(slug).publishAt, /^2026-09-1[4-8]T10:00:00\+09:00$/);
+  }
+  assert.equal(bySlug.get('execution-readiness').status, 'scheduled');
 });
 
 test('Phase 9F drafts have unique canonical URLs and intent metadata', () => {
@@ -62,7 +65,7 @@ test('evidence and news claims include source discipline', () => {
   assert.match(readArticle(news.slug), /openai\.com\/index\/powering-product-discovery-in-chatgpt/);
 });
 
-test('new social assets are channel-specific and not queued', () => {
+test('activated social assets are channel-specific and scheduled, not sent', () => {
   for (const [slug] of launch) {
     const x = fs.readFileSync(path.join(root, 'insights/_social/x/posts', `${slug}.md`), 'utf8');
     const linkedin = fs.readFileSync(path.join(root, 'insights/_social/linkedin/posts', `${slug}.md`), 'utf8');
@@ -72,5 +75,10 @@ test('new social assets are channel-specific and not queued', () => {
     assert.match(x + linkedin + facebook, new RegExp(`/insights/${slug}/`));
   }
   const queue = JSON.parse(fs.readFileSync(path.join(root, 'insights/_social/buffer/queue.json'), 'utf8'));
-  for (const [slug] of launch) assert.equal(queue.posts.some((post) => post.slug === slug), false);
+  for (const [slug] of launch) {
+    const posts = queue.posts.filter((post) => post.slug === slug);
+    assert.equal(posts.length, 1);
+    assert.equal(posts[0].status, 'scheduled');
+    assert.equal(posts[0].bufferUpdateId ?? null, null);
+  }
 });

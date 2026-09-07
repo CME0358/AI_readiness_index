@@ -1303,53 +1303,6 @@
       "updatedAt": "2026-08-04T02:52:21.443Z"
     },
     {
-      "slug": "execution-readiness",
-      "articleUrl": "https://readiness.coaretail.com/insights/execution-readiness/",
-      "status": "editorial_hold",
-      "articlePublishAt": null,
-      "bufferTransferAt": null,
-      "channels": {
-        "linkedin": {
-          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
-          "contentFile": "insights/_social/linkedin/posts/execution-readiness.md",
-          "publishAt": null,
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
-          "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
-        },
-        "facebook": {
-          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
-          "contentFile": "insights/_social/facebook/posts/execution-readiness.md",
-          "publishAt": null,
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
-          "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
-        },
-        "x": {
-          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
-          "contentFile": "insights/_social/x/posts/execution-readiness.md",
-          "publishAt": null,
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
-          "lastError": null,
-          "updatedAt": "2026-08-04T02:52:21.443Z"
-        }
-      },
-      "attempts": 0,
-      "lastAttemptAt": null,
-      "lastError": null,
-      "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-08-04T02:52:21.443Z"
-    },
-    {
       "slug": "abis-intro",
       "articleUrl": "https://readiness.coaretail.com/insights/abis-intro/",
       "status": "editorial_hold",
@@ -1728,6 +1681,246 @@
       "createdAt": "2026-09-03T01:00:00.104Z",
       "updatedAt": "2026-09-03T01:30:28.939Z",
       "series": "v2"
+    },
+    {
+      "slug": "openai-product-discovery-agentic-commerce",
+      "articleUrl": "https://readiness.coaretail.com/insights/openai-product-discovery-agentic-commerce/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-14T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-14T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/openai-product-discovery-agentic-commerce.md",
+          "publishAt": "2026-09-14T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.505Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/openai-product-discovery-agentic-commerce.md",
+          "publishAt": "2026-09-14T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.505Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/openai-product-discovery-agentic-commerce.md",
+          "publishAt": "2026-09-14T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.505Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-07T03:33:35.502Z",
+      "updatedAt": "2026-09-07T03:33:35.502Z",
+      "series": "current-event"
+    },
+    {
+      "slug": "competitors-visible-company-missing",
+      "articleUrl": "https://readiness.coaretail.com/insights/competitors-visible-company-missing/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-15T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-15T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/competitors-visible-company-missing.md",
+          "publishAt": "2026-09-15T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.794Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/competitors-visible-company-missing.md",
+          "publishAt": "2026-09-15T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.794Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/competitors-visible-company-missing.md",
+          "publishAt": "2026-09-15T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:35.794Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-07T03:33:35.790Z",
+      "updatedAt": "2026-09-07T03:33:35.790Z",
+      "series": "current-event"
+    },
+    {
+      "slug": "execution-readiness",
+      "articleUrl": "https://readiness.coaretail.com/insights/execution-readiness/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-16T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-16T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/execution-readiness.md",
+          "publishAt": "2026-09-16T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.092Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/execution-readiness.md",
+          "publishAt": "2026-09-16T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.092Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/execution-readiness.md",
+          "publishAt": "2026-09-16T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.092Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-07T03:33:36.087Z",
+      "updatedAt": "2026-09-07T03:33:36.087Z",
+      "series": "current-event"
+    },
+    {
+      "slug": "html-observation-check-limits",
+      "articleUrl": "https://readiness.coaretail.com/insights/html-observation-check-limits/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-17T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-17T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/html-observation-check-limits.md",
+          "publishAt": "2026-09-17T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.373Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/html-observation-check-limits.md",
+          "publishAt": "2026-09-17T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.373Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/html-observation-check-limits.md",
+          "publishAt": "2026-09-17T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.373Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-07T03:33:36.371Z",
+      "updatedAt": "2026-09-07T03:33:36.371Z",
+      "series": "current-event"
+    },
+    {
+      "slug": "seo-meo-ai-recommendation-gap",
+      "articleUrl": "https://readiness.coaretail.com/insights/seo-meo-ai-recommendation-gap/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-18T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-18T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/seo-meo-ai-recommendation-gap.md",
+          "publishAt": "2026-09-18T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.649Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/seo-meo-ai-recommendation-gap.md",
+          "publishAt": "2026-09-18T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.649Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/seo-meo-ai-recommendation-gap.md",
+          "publishAt": "2026-09-18T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-07T03:33:36.649Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-07T03:33:36.646Z",
+      "updatedAt": "2026-09-07T03:33:36.646Z",
+      "series": "current-event"
     },
     {
       "slug": "ai-agent-marketing-shift",

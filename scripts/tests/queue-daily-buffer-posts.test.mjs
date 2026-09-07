@@ -382,10 +382,11 @@ test('buffer ledger rejects duplicate canonical publication identity', () => {
   assert.ok(invariants.publicationDuplicates.length >= 1);
 });
 
-test('buffer queue has at most 1 scheduled post', () => {
+test('buffer queue allows multiple future scheduled posts with unique ledger identities', () => {
   const q = JSON.parse(fs.readFileSync(BUFFER_QUEUE, 'utf8'));
   const scheduled = q.posts.filter((p) => p.status === 'scheduled');
-  assert.ok(scheduled.length <= 1, `expected <=1 scheduled, got ${scheduled.length}`);
+  assert.ok(scheduled.length >= 1, 'expected at least one scheduled post');
+  assert.equal(new Set(scheduled.map((p) => bufferLedgerKey(p))).size, scheduled.length);
 });
 
 test('facebook and x content files exist for all scheduled slugs', () => {
