@@ -22,6 +22,10 @@
   ],
   "rewrites": [
     {
+      "source": "/go/:short_id",
+      "destination": "/api/go/:short_id"
+    },
+    {
       "source": "/report/p/:path*",
       "destination": "/report/index.html"
     },

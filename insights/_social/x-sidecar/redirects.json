@@ -1,0 +1,14 @@
+{
+  "sidecar_version": "1.0",
+  "ownership": "ari_x_traffic_sidecar_v1",
+  "redirects": [
+    {
+      "short_id": "x260907d",
+      "destination": "https://readiness.coaretail.com/insights/readiness-baseline/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=260907_1500",
+      "article_slug": "readiness-baseline",
+      "date": "2026-09-07",
+      "slot": "15:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
+    }
+  ]
+}
