@@ -152,6 +152,7 @@ export async function reconcilePublishingPipeline({
   skipVerify = false,
   skipBuffer = false,
   fastVerify = false,
+  findExistingBufferPost = null,
 } = {}) {
   const todayYmd = toJstDateString(now);
   const summary = {
@@ -271,6 +272,7 @@ export async function reconcilePublishingPipeline({
           publishedLog: PATHS.bufferPublishedLog,
           failedLog: PATHS.bufferFailedLog,
         },
+        findExistingBufferPost,
       });
 
       summary.buffer = bufferResult;

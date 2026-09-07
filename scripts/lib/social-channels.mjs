@@ -45,6 +45,7 @@ export const CHANNEL_STATUSES = {
   SKIPPED: 'skipped',
   MANUAL: 'manual_review',
   URL_UNAVAILABLE: 'article_url_unavailable',
+  RECONCILE_REQUIRED: 'reconcile_required',
 };
 
 /** Sentinel — LinkedIn already registered in Buffer before multi-channel migration */

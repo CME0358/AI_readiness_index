@@ -93,6 +93,7 @@ export function isChannelEligible(channel, { requestedChannels }) {
     CHANNEL_STATUSES.READY,
     CHANNEL_STATUSES.URL_UNAVAILABLE,
     CHANNEL_STATUSES.FAILED,
+    CHANNEL_STATUSES.RECONCILE_REQUIRED,
   ]);
   return transferable.has(channel.status);
 }
@@ -188,6 +189,14 @@ export function countPendingChannels(article, requestedChannels) {
   }).length;
 }
 
+/** A delivery is complete only when every required channel is independently queued. */
+export function isBufferDeliveryComplete(article, requestedChannels = CHANNEL_KEYS) {
+  return requestedChannels.every((ch) => {
+    const channel = article?.channels?.[ch];
+    return channel && isChannelQueued(channel);
+  });
+}
+
 /**
  * Process one article across channels. Mutates article in place unless dryRun.
  * @returns {Promise<{updated: boolean, results: object[], exitCode: number}>}
@@ -203,6 +212,7 @@ export async function processArticleChannels({
   getConfig,
   paths,
   verifyProduction = null,
+  findExistingBufferPost = null,
 }) {
   validateChannelKeys(requestedChannels);
 
@@ -308,15 +318,57 @@ export async function processArticleChannels({
     const publishAt = resolveChannelPublishAt(ch, channel, article, now);
     const channelId = getChannelId(ch, cfg);
 
-    const { postId, error, rejected, dueAtUtc } = await createBufferPost({
-      channelKey: ch,
-      channelId,
-      accessToken: cfg.accessToken,
-      text,
-      dueAt: publishAt,
-      mediaUrl,
-      dryRun,
-    });
+    // Remote-first reconciliation closes the CREATE-success/local-write-failure
+    // window. The callback is read-only and must return an exact channel match.
+    if (findExistingBufferPost && !dryRun) {
+      let existing;
+      try {
+        existing = await findExistingBufferPost({
+          slug: article.slug,
+          publicationDate: normalizePublicationDate(article),
+          channel: ch,
+          channelId,
+          publishAt,
+          articleUrl: article.articleUrl,
+          text,
+        });
+      } catch (err) {
+        channel.status = CHANNEL_STATUSES.RECONCILE_REQUIRED;
+        channel.lastError = `remote_reconciliation_failed: ${String(err?.message || err)}`;
+        channel.lastAttemptAt = now.toISOString();
+        channel.attempts = (channel.attempts || 0) + 1;
+        anyFailed = true;
+        anyUpdated = true;
+        results.push({ channel: ch, action: 'reconcile_required', error: channel.lastError });
+        continue;
+      }
+      if (existing?.id) {
+        channel.bufferUpdateId = existing.id;
+        channel.status = CHANNEL_STATUSES.QUEUED;
+        channel.lastError = null;
+        channel.lastAttemptAt = now.toISOString();
+        channel.updatedAt = now.toISOString();
+        anyUpdated = true;
+        results.push({ channel: ch, action: 'reconciled_existing', postId: existing.id });
+        continue;
+      }
+    }
+
+    let createResult;
+    try {
+      createResult = await createBufferPost({
+        channelKey: ch,
+        channelId,
+        accessToken: cfg.accessToken,
+        text,
+        dueAt: publishAt,
+        mediaUrl,
+        dryRun,
+      });
+    } catch (err) {
+      createResult = { postId: null, error: String(err?.message || err), rejected: false };
+    }
+    const { postId, error, rejected, dueAtUtc } = createResult;
 
     channel.lastAttemptAt = now.toISOString();
     channel.attempts = (channel.attempts || 0) + 1;
@@ -402,6 +454,7 @@ export async function processArticleChannels({
     updated: anyUpdated,
     results,
     exitCode: anyFailed && !dryRun ? 1 : 0,
+    deliveryComplete: isBufferDeliveryComplete(article, CHANNEL_KEYS),
   };
 }
 

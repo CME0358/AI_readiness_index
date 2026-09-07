@@ -12,6 +12,7 @@
 import { isWeekday } from './lib/business-days.mjs';
 import { reconcilePublishingPipeline } from './lib/publishing-reconcile.mjs';
 import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
+import { findCanonicalBufferPost, getBufferConfig, getChannelId, validateBufferConfiguration } from './lib/buffer-client.mjs';
 
 const dryRun = process.argv.includes('--dry-run');
 const forceSlug = (() => {
@@ -35,6 +36,13 @@ if (Number.isNaN(now.getTime())) {
 
 async function main() {
   loadCanonicalBufferEnv();
+  const bufferConfig = getBufferConfig();
+  const configStatus = validateBufferConfiguration(bufferConfig);
+  console.log(`BUFFER_ACCESS_TOKEN=${configStatus.accessToken}`);
+  console.log(`BUFFER_ORGANIZATION_ID=${configStatus.organizationId}`);
+  for (const channel of ['linkedin', 'facebook', 'x']) {
+    console.log(`BUFFER_CHANNEL_${channel.toUpperCase()}=${configStatus.channels[channel]}`);
+  }
   if (!isWeekday(now) && !forceSlug) {
     console.log('Weekend — no reconciliation.', { now: now.toISOString() });
     process.exit(0);
@@ -48,6 +56,14 @@ async function main() {
     skipVerify,
     skipBuffer,
     fastVerify,
+    findExistingBufferPost: async ({ channel, text, articleUrl, publishAt }) => findCanonicalBufferPost({
+      accessToken: bufferConfig.accessToken,
+      organizationId: bufferConfig.organizationId,
+      channelId: getChannelId(channel, bufferConfig),
+      text,
+      articleUrl,
+      publishAt,
+    }),
   });
 
   console.log(JSON.stringify(summary, null, 2));
@@ -60,7 +76,15 @@ async function main() {
   if (summary.updated) console.log('UPDATED=1');
   else console.log('UPDATED=0');
 
-  // Publish errors are fatal; verify failures are retryable on the next cron after git push + deploy.
+  if (summary.buffer && !summary.buffer.deliveryComplete && !dryRun) {
+    console.error('BUFFER_DELIVERY_COMPLETE=FALSE');
+    process.exit(1);
+  }
+  if (summary.buffer?.deliveryComplete) console.log('BUFFER_DELIVERY_COMPLETE=TRUE');
+  else if (summary.buffer) console.log('BUFFER_DELIVERY_COMPLETE=FALSE');
+
+  // Publish errors and incomplete Buffer delivery are fatal after state persistence;
+  // successful sibling channels remain recorded for the next reconciliation.
   const publishFailed = summary.publish?.errors?.length;
   process.exit(publishFailed && !dryRun ? 1 : 0);
 }
