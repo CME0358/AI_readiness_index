@@ -1,0 +1,30 @@
+name: Buffer future queue audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+      BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+      BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
+      BUFFER_CHANNEL_ID_LINKEDIN: ${{ secrets.BUFFER_CHANNEL_ID_LINKEDIN }}
+      BUFFER_CHANNEL_ID_FACEBOOK: ${{ secrets.BUFFER_CHANNEL_ID_FACEBOOK }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enumerate future Buffer posts read-only
+        run: node scripts/audit-buffer-future-queue.mjs
+      - name: Upload sanitized audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: buffer-future-queue-audit
+          path: artifacts/buffer-future-queue-audit.json
+          if-no-files-found: error
