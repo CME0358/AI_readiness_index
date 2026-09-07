@@ -2,5 +2,37 @@
   "sidecar_version": "1.0",
   "timezone": "Asia/Tokyo",
   "ownership": "ari_x_traffic_sidecar_v1",
-  "posts": []
+  "posts": [
+    {
+      "sidecar_post_id": "ari-x-2026-09-07-1500",
+      "sidecar_version": "1.0",
+      "date": "2026-09-07",
+      "slot": "15:00",
+      "article_slug": "readiness-baseline",
+      "article_title": "Agent Readinessの最低ラインとは？準備度の判断基準",
+      "article_url": "https://readiness.coaretail.com/insights/readiness-baseline/",
+      "content_angle": "DISCOVERY",
+      "generated_text": "AIに見つかるだけでは、Agent Readinessとは言えない。\n\n発見・理解・信頼・実行の各段階で、欠けると止まる条件を確認する。準備度は項目数ではなく、意思決定が進む設計で測る。\n\nhttps://readiness.coaretail.com/go/x260907d\n#AgentReadiness #AI",
+      "short_id": "x260907d",
+      "short_url": "https://readiness.coaretail.com/go/x260907d",
+      "destination_url": "https://readiness.coaretail.com/insights/readiness-baseline/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=260907_1500",
+      "utm_source": "x",
+      "utm_medium": "organic",
+      "utm_campaign": "ari_x_traffic",
+      "utm_content": "260907_1500",
+      "hero_url": "https://readiness.coaretail.com/assets/insights/readiness-baseline/hero.webp",
+      "scheduled_at": "2026-09-07T15:00:00+09:00",
+      "published_at": null,
+      "buffer_post_id": "6a9e3ba2bb888c3551d6c46d",
+      "x_post_id": null,
+      "x_post_url": null,
+      "state": "SCHEDULED",
+      "remote_state": "SCHEDULED",
+      "ownership": "ari_x_traffic_sidecar_v1",
+      "error_code": null,
+      "error_message": null,
+      "created_at": "2026-09-07T04:20:55Z",
+      "updated_at": "2026-09-07T04:20:55Z"
+    }
+  ]
 }
