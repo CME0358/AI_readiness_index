@@ -584,13 +584,13 @@
       "linkedinPublishAt": "2026-09-07T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-search-52-percent/",
       "contentFile": "insights/_social/linkedin/posts/ai-search-52-percent.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6a9e18b4ac9fd950eab84913",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-06T07:01:22.605Z",
-      "updatedAt": "2026-09-06T07:01:22.605Z",
+      "updatedAt": "2026-09-07T01:51:49.163Z",
       "series": "current-event"
     }
   ]

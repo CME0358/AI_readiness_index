@@ -629,7 +629,25 @@
       "publishAt": "2026-09-07T12:00:00+09:00",
       "dueAtUtc": "2026-09-07T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-07T01:51:34.000Z",
+      "slug": "ai-search-52-percent",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a9e18b4ac9fd950eab84913",
+      "publishAt": "2026-09-07T11:30:00+09:00",
+      "dueAtUtc": "2026-09-07T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-07T01:51:34.000Z",
+      "slug": "ai-search-52-percent",
+      "channel": "facebook",
+      "bufferUpdateId": "6a9e18b5c3f65d238efcc49b",
+      "publishAt": "2026-09-07T11:45:00+09:00",
+      "dueAtUtc": "2026-09-07T02:45:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-07T01:00:34.278Z"
+  "updatedAt": "2026-09-07T01:51:49.162Z"
 }

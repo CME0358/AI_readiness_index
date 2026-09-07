@@ -1,6 +1,6 @@
 # Pipeline Health — 2026-09-07
 
-> Reconciliation run: 2026-09-07T01:00:00.000Z
+> Reconciliation run: 2026-09-07T01:51:34.000Z
 
 ## TODAY
 
@@ -12,14 +12,13 @@ published: true
 productionVerified: true
 
 ## BUFFER
-linkedin: buffer_transfer_failed
-facebook: buffer_transfer_failed
+linkedin: queued
+facebook: queued
 x: queued
 
 ## PIPELINE
-status: RECOVERING
-verify: ok (2 attempts)
+status: COMPLETE
 buffer actions:
-- linkedin: error
-- facebook: error
-- x: queued
+- linkedin: queued
+- facebook: queued
+- x: skip (already_queued)
