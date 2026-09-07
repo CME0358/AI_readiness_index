@@ -39,6 +39,8 @@
     "queue:buffer": "node scripts/queue-daily-buffer-posts.mjs",
     "queue:buffer:dry": "node scripts/queue-daily-buffer-posts.mjs --dry-run",
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
+    "x-sidecar:dry": "ARI_X_TRAFFIC_ENABLED=false ARI_X_TRAFFIC_DRY_RUN=true node scripts/x-traffic-sidecar/run.mjs --dry-run",
+    "x-sidecar:run": "node scripts/x-traffic-sidecar/run.mjs",
     "reconcile:publishing": "node scripts/reconcile-publishing-pipeline.mjs",
     "reconcile:publishing:dry": "node scripts/reconcile-publishing-pipeline.mjs --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
