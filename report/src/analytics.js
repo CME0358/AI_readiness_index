@@ -55,6 +55,14 @@ export function trackReportCheckoutStart(params = {}) {
   trackGaEvent('report_checkout_start', { source: 'ari_report', ...params });
 }
 
+export function trackReportProofImpression(params = {}) {
+  trackGaEvent('report_proof_impression', { source: 'ari_report', ...params });
+}
+
+export function trackLocalCtaClick(params = {}) {
+  trackGaEvent('local_cta_click', { source: 'ari_report', cta_type: 'LOCAL', ...params });
+}
+
 export function trackPurchaseVerified(params = {}) {
   const { purchase_reference, ...analyticsParams } = params;
   trackGaEvent('purchase_verified', { source: 'ari_report', ...analyticsParams });

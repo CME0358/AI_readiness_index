@@ -7,16 +7,18 @@
  */
 import { applyEmergencyEditorialInsert } from './lib/apply-emergency-editorial-insert.mjs';
 import { getScheduledSeoPackage } from './lib/insights-seo-package.mjs';
+import { normalizeEditorialIntent } from './lib/editorial-intent.mjs';
 
 const args = process.argv.slice(2);
 const value = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
 const slug = value('--slug');
 const targetDate = value('--date');
+const editorialIntent = normalizeEditorialIntent(value('--editorial-intent'));
 const dryRun = args.includes('--dry-run');
 const triggerHero = !args.includes('--no-hero-trigger');
 
 if (!slug || !targetDate) {
-  console.error('Usage: node scripts/apply-emergency-editorial-insert.mjs --slug SLUG --date YYYY-MM-DD [--dry-run] [--no-hero-trigger]');
+  console.error('Usage: node scripts/apply-emergency-editorial-insert.mjs --slug SLUG --date YYYY-MM-DD [--editorial-intent INTENT] [--dry-run] [--no-hero-trigger]');
   process.exit(1);
 }
 
@@ -31,6 +33,7 @@ const scheduleMetadata = {
   metaDescription: seo?.meta || '',
   searchIntentClass: seo?.intent || 'B',
   primarySearchIntent: seo?.primarySearchIntent || '',
+  ...(editorialIntent ? { editorialIntent } : {}),
 };
 
 const result = applyEmergencyEditorialInsert({

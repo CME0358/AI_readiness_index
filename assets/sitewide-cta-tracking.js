@@ -8,7 +8,7 @@
       campaign: (query.get('utm_campaign') || '').slice(0, 200), content: (query.get('utm_content') || '').slice(0, 200),
       term: (query.get('utm_term') || '').slice(0, 200), landingPage: (window.location.pathname || '/').slice(0, 500),
       referrer: (document.referrer || '').slice(0, 500), insightSlug: ((link && link.getAttribute('data-source-page') || '').match(/\/insights\/([^/]+)/) || [])[1] || '',
-      ctaId: link ? link.getAttribute('data-cta-id') || '' : '', ctaType: link ? link.getAttribute('data-cta-type') || '' : '', capturedAt: new Date().toISOString()
+      ctaId: link ? link.getAttribute('data-cta-id') || '' : '', ctaType: link ? link.getAttribute('data-cta-type') || '' : '', editorialIntent: link ? link.getAttribute('data-editorial-intent') || '' : '', capturedAt: new Date().toISOString()
     };
     var saved = {};
     try { saved = JSON.parse(window.localStorage.getItem(ATTRIBUTION_KEY) || '{}'); } catch (_) {}
@@ -23,6 +23,7 @@
       cta_type: link.getAttribute('data-cta-type') || '',
       placement: link.getAttribute('data-placement') || '',
       source_page: link.getAttribute('data-source-page') || window.location.pathname || '/',
+      editorial_intent: link.getAttribute('data-editorial-intent') || '',
       transport_type: 'beacon',
     });
   }

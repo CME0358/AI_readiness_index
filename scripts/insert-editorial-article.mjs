@@ -7,9 +7,10 @@ const args = process.argv.slice(2);
 const value = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
 const slug = value('--slug');
 const targetDate = value('--date');
+const editorialIntent = value('--editorial-intent');
 const dryRun = args.includes('--dry-run');
 if (!slug || !targetDate) {
-  console.error('Usage: node scripts/insert-editorial-article.mjs --slug SLUG --date YYYY-MM-DD [--dry-run] [--apply]');
+  console.error('Usage: node scripts/insert-editorial-article.mjs --slug SLUG --date YYYY-MM-DD [--editorial-intent INTENT] [--dry-run] [--apply]');
   process.exit(1);
 }
 const queue = fs.existsSync(PATHS.bufferQueue) ? JSON.parse(fs.readFileSync(PATHS.bufferQueue, 'utf8')) : { posts: [] };
@@ -19,6 +20,7 @@ const plan = applyEmergencyInsertion({
   targetDate,
   slotType: SLOT_TYPES.DAILY_PRIMARY,
   bufferQueue: queue.posts,
+  editorialIntent,
   dryRun: dryRun || !args.includes('--apply'),
 });
 console.log(JSON.stringify({

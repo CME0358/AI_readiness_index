@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Convert a column markdown file into insights article HTML.
- * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label]
+ * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label] [--editorial-intent INTENT]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -33,6 +33,7 @@ const desc = arg('--desc', '');
 const crumb = arg('--crumb', '');
 const titleOverride = arg('--title', '');
 const ctaExtra = arg('--cta-extra', ''); // href|label
+const editorialIntent = arg('--editorial-intent', '');
 
 if (!mdPath || !slug || !date || !outDir) {
   console.error('Required: --md --slug --date --out');
@@ -331,7 +332,7 @@ ${RELATED_INSIGHTS_CSS}
   <article class="article-body container" data-article-slug="${slug}" data-article-title="${escapeHtmlLocal(displayTitle)}">
     <div class="article-container">
 ${bodyHtml}
-${renderInsightCtaHtml(slug)}
+${renderInsightCtaHtml(slug, 'end', { editorialIntent, title: displayTitle, primarySearchIntent: seoPkg?.primarySearchIntent })}
       <div class="article-cta">
         <h2>関連リソース</h2>
         <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>

@@ -1,4 +1,5 @@
 import { CTA_TYPES } from './cta.mjs';
+import { ctaIntentProfile, classifyEditorialIntent } from '../editorial-intent.mjs';
 
 const FREE_WHITEPAPER = Object.freeze({
   type: CTA_TYPES.LEARN,
@@ -40,7 +41,11 @@ const INSIGHT_CTA_PROFILES = Object.freeze({
   'availability-signals': [FREE_WHITEPAPER, REPORT],
 });
 
-function getInsightCtaProfile(slug) {
+function getInsightCtaProfile(slug, article = null) {
+  if (article) {
+    const intent = classifyEditorialIntent({ ...article, slug });
+    return ctaIntentProfile(intent, { local: article.localIntent ?? undefined });
+  }
   return INSIGHT_CTA_PROFILES[slug] || [FREE_WHITEPAPER, { ...REPORT, label: 'Company Reportを見る' }];
 }
 
@@ -48,23 +53,33 @@ function ctaId(slug, cta, index) {
   return `insight_${slug}_${cta.type.toLowerCase()}_${index + 1}`;
 }
 
-function renderCtaLink(cta, slug, placement, index) {
+function renderCtaLink(cta, slug, placement, index, editorialIntent = '') {
   const id = ctaId(slug, cta, index);
   const secondary = index > 0 ? ' btn-secondary' : ' btn-navy';
-  return `<a href="${cta.destination}" class="btn${secondary}" data-funnel-cta data-cta-id="${id}" data-cta-type="${cta.type}" data-placement="${placement}" data-source-page="/insights/${slug}/">${cta.label}</a>`;
+  const intentAttr = editorialIntent ? ` data-editorial-intent="${editorialIntent}"` : '';
+  return `<a href="${cta.destination}" class="btn${secondary}" data-funnel-cta data-cta-id="${id}" data-cta-type="${cta.type}" data-placement="${placement}" data-source-page="/insights/${slug}/"${intentAttr}>${cta.label}</a>`;
 }
 
-function renderInsightCtaHtml(slug, placement = 'end') {
-  const [primary, secondary] = getInsightCtaProfile(slug);
-  return `      <div class="sitewide-cta" data-cta-profile="${slug}">\n        <h2>次のリソース</h2>\n        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>\n        ${renderCtaLink(primary, slug, placement, 0)}\n        ${renderCtaLink(secondary, slug, placement, 1)}\n      </div>\n`;
+function renderInsightCtaHtml(slug, placement = 'end', article = null) {
+  const [primary, secondary] = getInsightCtaProfile(slug, article);
+  const editorialIntent = article ? classifyEditorialIntent({ ...article, slug }) : '';
+  const links = [primary, secondary].map((cta, index) => renderCtaLink(cta, slug, placement, index, editorialIntent)).join('\n');
+  return [
+    `      <div class="sitewide-cta" data-cta-profile="${slug}">`,
+    '        <h2>次のリソース</h2>',
+    '        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>',
+    links,
+    '      </div>',
+    '',
+  ].join('\n');
 }
 
-function injectInsightCta(html, slug) {
+function injectInsightCta(html, slug, article = null) {
   const marker = /(<div class="article-cta">)/;
   let result = html;
   if (!result.includes('data-cta-profile="' + slug + '"')) {
     if (!marker.test(result)) return result;
-    result = result.replace(marker, `${renderInsightCtaHtml(slug)}$1`);
+    result = result.replace(marker, `${renderInsightCtaHtml(slug, 'end', article)}$1`);
   }
   if (!result.includes('/assets/sitewide-cta.css')) result = result.replace('</head>', '  <link rel="stylesheet" href="/assets/sitewide-cta.css">\n</head>');
   if (!result.includes('sitewide-cta-tracking.js')) result = result.replace('</body>', '  <script src="/assets/sitewide-cta-tracking.js" defer></script>\n</body>');
