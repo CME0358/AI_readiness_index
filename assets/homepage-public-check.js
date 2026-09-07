@@ -53,7 +53,7 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting || seen) return;
         seen = true;
-        track('check_impression', { cta_id: 'homepage_check_section', cta_type: 'CHECK', page: '/' });
+        track('check_impression', { cta_id: 'homepage_check_section', cta_type: 'CHECK', page: '/', source_surface: 'homepage', landing_page: '/' });
         observer.disconnect();
       });
     }, { threshold: 0.2 });
@@ -66,11 +66,11 @@
     show(errorEl, false);
     show(resultEl, false);
     var value = (input && input.value || '').trim();
-    track('check_start', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', page: '/' });
+    track('check_start', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', page: '/', source_surface: 'homepage', landing_page: '/' });
     if (!value) {
       errorEl.textContent = '公式サイトのURLを入力してください。';
       show(errorEl, true);
-      track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'invalid', result_category: 'invalid' });
+      track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'invalid', result_category: 'invalid', source_surface: 'homepage', landing_page: '/' });
       return;
     }
     setBusy(true);
@@ -94,7 +94,7 @@
         };
         errorEl.textContent = messages[body.error] || messages.unreachable;
         show(errorEl, true);
-        track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: body.error || 'unreachable' });
+        track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: body.error || 'unreachable', source_surface: 'homepage', landing_page: '/' });
         return;
       }
       if (hostEl) hostEl.textContent = body.host || '';
@@ -105,11 +105,13 @@
         cta_type: 'CHECK',
         status: 'ok',
         result_category: categoryFrom(body.findings),
+        source_surface: 'homepage',
+        landing_page: '/',
       });
     }).catch(function () {
       errorEl.textContent = '確認を完了できませんでした。再試行するか、無料ガイドをご覧ください。';
       show(errorEl, true);
-      track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: 'unreachable' });
+      track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: 'unreachable', source_surface: 'homepage', landing_page: '/' });
     }).finally(function () {
       setBusy(false);
     });

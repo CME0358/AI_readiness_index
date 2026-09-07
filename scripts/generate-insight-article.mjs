@@ -329,7 +329,7 @@ ${RELATED_INSIGHTS_CSS}
     </div>
   </header>
 
-  <article class="article-body container" data-article-slug="${slug}" data-article-title="${escapeHtmlLocal(displayTitle)}">
+  <article class="article-body container" data-article-slug="${slug}" data-article-title="${escapeHtmlLocal(displayTitle)}"${editorialIntent ? ` data-editorial-intent="${escapeHtmlLocal(editorialIntent)}"` : ''}>
     <div class="article-container">
 ${bodyHtml}
 ${renderInsightCtaHtml(slug, 'end', { editorialIntent, title: displayTitle, primarySearchIntent: seoPkg?.primarySearchIntent })}

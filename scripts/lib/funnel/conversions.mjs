@@ -42,18 +42,28 @@ function createConversion(input = {}) {
     segment: input.segment || '',
     partnerType: input.partnerType || '',
     qualificationBand: input.qualificationBand || '',
-    firstTouch: input.firstTouch || {},
-    lastTouch: input.lastTouch || {},
+    firstTouch: sanitizeTouch(input.firstTouch),
+    lastTouch: sanitizeTouch(input.lastTouch),
+    source: String(input.source || '').slice(0, 200),
+    medium: String(input.medium || '').slice(0, 200),
+    campaign: String(input.campaign || '').slice(0, 200),
     sourcePage: String(input.sourcePage || '').slice(0, 500),
     insightSlug: String(input.insightSlug || '').slice(0, 120),
     ctaId: String(input.ctaId || '').slice(0, 120),
     ctaType: String(input.ctaType || '').slice(0, 40),
+    editorialIntent: String(input.editorialIntent || '').slice(0, 40),
     value: isReportPurchase ? REPORT_VALUE_JPY : (input.value ?? null),
     currency: isReportPurchase ? 'JPY' : (input.currency || 'JPY'),
     externalReference: String(input.externalReference || '').slice(0, 200),
     occurredAt: input.occurredAt || new Date().toISOString(),
     schemaVersion: CONVERSION_SCHEMA_VERSION,
   };
+}
+
+function sanitizeTouch(touch = {}) {
+  if (!touch || typeof touch !== 'object') return {};
+  const allowed = ['source', 'medium', 'campaign', 'content', 'term', 'landingPage', 'referrer', 'sourceSurface', 'insightSlug', 'ctaId', 'ctaType', 'editorialIntent', 'capturedAt'];
+  return Object.fromEntries(allowed.filter((key) => touch[key] !== undefined && touch[key] !== null).map((key) => [key, String(touch[key]).slice(0, 500)]));
 }
 
 function createConversionRepository({ saveConversion, findConversion } = {}) {

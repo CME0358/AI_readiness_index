@@ -108,7 +108,23 @@ export default async function handler(req, res) {
         const { createConversion, createConversionRepository } = await import('../scripts/lib/funnel/conversions.mjs');
         const { saveConversionToAirtable, findConversionByDedupeKey } = await import('./_lib/airtable.cjs');
         const repository = createConversionRepository({ saveConversion: saveConversionToAirtable, findConversion: findConversionByDedupeKey });
-        await repository.saveConversion(createConversion({ conversionType: 'REPORT_PURCHASE', leadId: String(body.leadId || ''), externalReference: session.id, segment: 'AGENT_PARTNER', sourcePage: '/report/' }));
+        const attribution = body.attribution && typeof body.attribution === 'object' ? body.attribution : {};
+        await repository.saveConversion(createConversion({
+          conversionType: 'REPORT_PURCHASE',
+          leadId: String(body.leadId || ''),
+          externalReference: session.id,
+          segment: 'AGENT_PARTNER',
+          sourcePage: '/report/',
+          firstTouch: attribution.firstTouch,
+          lastTouch: attribution.lastTouch,
+          source: attribution.source,
+          medium: attribution.medium,
+          campaign: attribution.campaign,
+          insightSlug: attribution.insightSlug,
+          ctaId: attribution.ctaId,
+          ctaType: attribution.ctaType,
+          editorialIntent: attribution.editorialIntent,
+        }));
       } catch { /* conversion persistence failure must not revoke verified access */ }
     }
 

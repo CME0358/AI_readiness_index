@@ -4,6 +4,66 @@
 
 const REPORT_START_KEY = 'ari_report_start_sent';
 const CONVERSION_KEY = 'ari_conversion_log_v1';
+const PROOF_IMPRESSION_KEY = 'ari_report_proof_impression_v1';
+
+function readAttributionContext() {
+  let stored = {};
+  try { stored = JSON.parse(localStorage.getItem('ari_attribution_v1') || '{}'); } catch { stored = {}; }
+  const firstTouch = stored.firstTouch || {};
+  const lastTouch = stored.lastTouch || {};
+  const current = Object.keys(lastTouch).length ? lastTouch : firstTouch;
+  return {
+    firstTouch,
+    lastTouch,
+    source: current.source || '',
+    medium: current.medium || '',
+    campaign: current.campaign || '',
+    landingPage: current.landingPage || '',
+    referrer: current.referrer || '',
+    insightSlug: current.insightSlug || firstTouch.insightSlug || '',
+    ctaId: current.ctaId || firstTouch.ctaId || '',
+    ctaType: current.ctaType || firstTouch.ctaType || '',
+    editorialIntent: current.editorialIntent || firstTouch.editorialIntent || '',
+    sourceSurface: current.sourceSurface || firstTouch.sourceSurface || '',
+  };
+}
+
+function eventAttribution(context = readAttributionContext()) {
+  return {
+    source: context.source,
+    medium: context.medium,
+    campaign: context.campaign,
+    landing_page: context.landingPage,
+    insight_slug: context.insightSlug,
+    cta_id: context.ctaId,
+    cta_type: context.ctaType,
+    editorial_intent: context.editorialIntent,
+    source_surface: context.sourceSurface,
+  };
+}
+
+function conversionAttribution(context = readAttributionContext()) {
+  return {
+    firstTouch: context.firstTouch,
+    lastTouch: context.lastTouch,
+    source: context.source,
+    medium: context.medium,
+    campaign: context.campaign,
+    sourcePage: context.landingPage,
+    insightSlug: context.insightSlug,
+    ctaId: context.ctaId,
+    ctaType: context.ctaType,
+    editorialIntent: context.editorialIntent,
+  };
+}
+
+function oncePerSession(key) {
+  try {
+    if (sessionStorage.getItem(key) === '1') return false;
+    sessionStorage.setItem(key, '1');
+  } catch { /* session storage is optional */ }
+  return true;
+}
 
 function recordConversion(conversionType, params = {}) {
   if (!conversionType) return null;
@@ -12,11 +72,11 @@ function recordConversion(conversionType, params = {}) {
   let records = [];
   try { records = JSON.parse(localStorage.getItem(CONVERSION_KEY) || '[]'); } catch { records = []; }
   if (records.some((record) => record.key === key)) return records.find((record) => record.key === key);
-  const record = { ...params, key, conversionType, value: conversionType === 'REPORT_PURCHASE' ? 29800 : null, currency: 'JPY', occurredAt: new Date().toISOString(), schemaVersion: '1' };
+  const record = { ...conversionAttribution(), ...params, key, conversionType, value: conversionType === 'REPORT_PURCHASE' ? 29800 : null, currency: 'JPY', occurredAt: new Date().toISOString(), schemaVersion: '1' };
   delete record.email; delete record.company; delete record.domain; delete record.note;
   records = [...records.slice(-99), record];
   try { localStorage.setItem(CONVERSION_KEY, JSON.stringify(records)); } catch { /* optional storage */ }
-  trackGaEvent('conversion', { conversion_type: conversionType, segment: record.segment, partner_type: record.partnerType, qualification_band: record.qualificationBand, cta_id: record.ctaId, cta_type: record.ctaType, source_page: record.sourcePage, insight_slug: record.insightSlug, value: record.value, currency: record.currency });
+  trackGaEvent('conversion', { conversion_type: conversionType, segment: record.segment, partner_type: record.partnerType, qualification_band: record.qualificationBand, cta_id: record.ctaId, cta_type: record.ctaType, source_page: record.sourcePage, insight_slug: record.insightSlug, editorial_intent: record.editorialIntent, value: record.value, currency: record.currency });
   return record;
 }
 
@@ -26,6 +86,12 @@ export function trackGaEvent(name, params = {}) {
   delete safe.email;
   delete safe.company;
   delete safe.url;
+  delete safe.domain;
+  delete safe.host;
+  delete safe.firstTouch;
+  delete safe.lastTouch;
+  delete safe.attribution;
+  delete safe.referrer;
   window.gtag('event', name, {
     transport_type: 'beacon',
     ...safe,
@@ -52,28 +118,31 @@ export function trackReportFormComplete() {
 }
 
 export function trackReportCheckoutStart(params = {}) {
-  trackGaEvent('report_checkout_start', { source: 'ari_report', ...params });
+  trackGaEvent('report_checkout_start', { source: 'ari_report', ...eventAttribution(), ...params });
 }
 
 export function trackReportProofImpression(params = {}) {
-  trackGaEvent('report_proof_impression', { source: 'ari_report', ...params });
+  if (!oncePerSession(PROOF_IMPRESSION_KEY)) return false;
+  trackGaEvent('report_proof_impression', { source: 'ari_report', ...eventAttribution(), ...params });
+  return true;
 }
 
 export function trackLocalCtaClick(params = {}) {
-  trackGaEvent('local_cta_click', { source: 'ari_report', cta_type: 'LOCAL', ...params });
+  trackGaEvent('local_cta_click', { source: 'ari_report', ...eventAttribution(), cta_type: 'LOCAL', ...params });
 }
 
 export function trackPurchaseVerified(params = {}) {
   const { purchase_reference, ...analyticsParams } = params;
-  trackGaEvent('purchase_verified', { source: 'ari_report', ...analyticsParams });
-  if (params.verified === true && ['company_report_bundle', 'company_report_legacy', 'company_report'].includes(params.product_id)) recordConversion('REPORT_PURCHASE', { externalReference: purchase_reference || params.product_id, segment: params.segment, partnerType: params.partnerType, sourcePage: window.location.pathname || '/report/' });
+  const context = readAttributionContext();
+  trackGaEvent('purchase_verified', { source: 'ari_report', ...eventAttribution(context), ...analyticsParams });
+  if (params.verified === true && ['company_report_bundle', 'company_report_legacy', 'company_report'].includes(params.product_id)) recordConversion('REPORT_PURCHASE', { ...conversionAttribution(context), externalReference: purchase_reference || params.product_id, segment: params.segment, partnerType: params.partnerType });
 }
 
 export function trackReportResultView(params = {}) {
-  trackGaEvent('report_result_view', { source: 'ari_report', ...params });
+  trackGaEvent('report_result_view', { source: 'ari_report', ...eventAttribution(), ...params });
 }
 
-export { recordConversion };
+export { recordConversion, readAttributionContext, conversionAttribution };
 
 export function trackResearchEntitlementOpen(params = {}) {
   trackGaEvent('research_entitlement_open', { source: 'ari_report', ...params });

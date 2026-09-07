@@ -64,8 +64,9 @@ function renderInsightCtaHtml(slug, placement = 'end', article = null) {
   const [primary, secondary] = getInsightCtaProfile(slug, article);
   const editorialIntent = article ? classifyEditorialIntent({ ...article, slug }) : '';
   const links = [primary, secondary].map((cta, index) => renderCtaLink(cta, slug, placement, index, editorialIntent)).join('\n');
+  const intentAttr = editorialIntent ? ` data-editorial-intent="${editorialIntent}"` : '';
   return [
-    `      <div class="sitewide-cta" data-cta-profile="${slug}">`,
+    `      <div class="sitewide-cta" data-cta-profile="${slug}"${intentAttr}>`,
     '        <h2>次のリソース</h2>',
     '        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>',
     links,

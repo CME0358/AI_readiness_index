@@ -25,6 +25,7 @@ import {
   trackReportResultView,
   trackResearchEntitlementOpen,
   trackHandbookUpgradeClick,
+  conversionAttribution,
 } from './analytics.js';
 
 export {
@@ -110,7 +111,7 @@ export async function verifyPurchaseSession(sessionId, productHint = 'company_re
     const res = await fetch('/api/verify-purchase', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId, productHint, leadId: (() => { try { return localStorage.getItem('ari_lead_id') || ''; } catch { return ''; } })() }),
+      body: JSON.stringify({ sessionId, productHint, leadId: (() => { try { return localStorage.getItem('ari_lead_id') || ''; } catch { return ''; } })(), attribution: conversionAttribution() }),
     });
     const data = await res.json().catch(() => ({}));
 

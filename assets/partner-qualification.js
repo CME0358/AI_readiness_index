@@ -11,9 +11,22 @@
   if (!purchase || purchase.verified !== true || !purchase.entitlements || purchase.entitlements.companyReport !== true || eligibleIds.indexOf(purchase.productId) === -1) return;
   if (purchase.expiresAt && Date.now() > purchase.expiresAt) return;
   section.classList.add('is-eligible');
+  function attribution() {
+    try {
+      var saved = JSON.parse(window.localStorage.getItem('ari_attribution_v1') || '{}');
+      var first = saved.firstTouch || {};
+      var last = saved.lastTouch || first;
+      return {
+        firstTouch: first, lastTouch: last,
+        source: last.source || first.source || '', medium: last.medium || first.medium || '', campaign: last.campaign || first.campaign || '',
+        insightSlug: last.insightSlug || first.insightSlug || '', ctaId: last.ctaId || first.ctaId || '', ctaType: last.ctaType || first.ctaType || '', editorialIntent: last.editorialIntent || first.editorialIntent || ''
+      };
+    } catch (_) { return { firstTouch: {}, lastTouch: {} }; }
+  }
   function track(name, params) {
     if (typeof window.gtag !== 'function') return;
-    var safe = { source: 'company_report', schema_version: '1' };
+    var touch = attribution();
+    var safe = { source: 'company_report', schema_version: '1', medium: touch.medium, campaign: touch.campaign, insight_slug: touch.insightSlug, cta_id: touch.ctaId, cta_type: touch.ctaType, editorial_intent: touch.editorialIntent };
     Object.keys(params || {}).forEach(function (key) { if (['email', 'company', 'domain', 'name', 'note'].indexOf(key) === -1) safe[key] = params[key]; });
     window.gtag('event', name, safe);
   }
@@ -36,12 +49,14 @@
         if (!response.ok) throw new Error(response.body.error || 'qualification_failed');
         var qualification = response.body.qualification;
         track('partner_qualification_complete', { partner_type: qualification.partnerType, purpose: qualification.purpose, scope: qualification.scope, timeline: qualification.timeline, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction });
-        recordConversion('PARTNER_QUALIFIED', { partner_type: qualification.partnerType, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction, source_page: window.location.pathname });
-        persistConversion('PARTNER_QUALIFIED', { leadId: payload.leadId, partnerType: qualification.partnerType, qualificationBand: qualification.qualificationBand, sourcePage: window.location.pathname });
+        var touch = attribution();
+        var qualifiedAttribution = { partner_type: qualification.partnerType, qualification_band: qualification.qualificationBand, recommended_action: qualification.recommendedAction, source_page: window.location.pathname, firstTouch: touch.firstTouch, lastTouch: touch.lastTouch, source: touch.source, medium: touch.medium, campaign: touch.campaign, insightSlug: touch.insightSlug, ctaId: touch.ctaId, ctaType: touch.ctaType, editorialIntent: touch.editorialIntent };
+        recordConversion('PARTNER_QUALIFIED', qualifiedAttribution);
+        persistConversion('PARTNER_QUALIFIED', { leadId: payload.leadId, partnerType: qualification.partnerType, qualificationBand: qualification.qualificationBand, sourcePage: window.location.pathname, firstTouch: touch.firstTouch, lastTouch: touch.lastTouch, source: touch.source, medium: touch.medium, campaign: touch.campaign, insightSlug: touch.insightSlug, ctaId: touch.ctaId, ctaType: touch.ctaType, editorialIntent: touch.editorialIntent });
         if (result) { result.textContent = qualification.recommendedAction === 'CONSULT' ? 'ありがとうございます。現在の状況を踏まえてご相談いただけます。' : 'ありがとうございます。まずはResearch Hubの資料をご覧ください。'; result.hidden = false; }
         if (button) button.disabled = true;
         var cta = document.querySelector('.hero-cta');
-        if (qualification.recommendedAction === 'CONSULT' && cta) { track('partner_consult_cta_impression'); cta.addEventListener('click', function () { track('partner_consult_cta_click'); recordConversion('CONSULT_CLICK', { source_page: window.location.pathname }); }); }
+        if (qualification.recommendedAction === 'CONSULT' && cta) { track('partner_consult_cta_impression'); cta.addEventListener('click', function () { var consultTouch = attribution(); track('partner_consult_cta_click'); recordConversion('CONSULT_CLICK', { source_page: window.location.pathname, firstTouch: consultTouch.firstTouch, lastTouch: consultTouch.lastTouch, source: consultTouch.source, medium: consultTouch.medium, campaign: consultTouch.campaign, insightSlug: consultTouch.insightSlug, ctaId: consultTouch.ctaId, ctaType: consultTouch.ctaType, editorialIntent: consultTouch.editorialIntent }); }); }
       })
       .catch(function () { if (error) { error.textContent = '送信を完了できませんでした。時間をおいて、もう一度お試しください。'; error.hidden = false; } if (button) button.disabled = false; });
   });
