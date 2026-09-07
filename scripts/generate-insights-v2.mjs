@@ -11,6 +11,7 @@ import { execSync } from 'node:child_process';
 import { PATHS, ROOT, articleUrl } from './lib/insights-v2-paths.mjs';
 import { getScheduledSeoPackage } from './lib/insights-seo-package.mjs';
 import { isoAtJst, toJstDateString, charCountNoSpace } from './lib/business-days.mjs';
+import { normalizeEditorialIntent } from './lib/editorial-intent.mjs';
 
 const skipHtml = process.argv.includes('--skip-html');
 const skipSchedule = process.argv.includes('--skip-schedule');
@@ -45,6 +46,7 @@ function materializeMarkdown(articles) {
       crumb: seo?.breadcrumb ?? a.crumb,
       cardSummary: a.cardSummary,
       ctaExtra: a.ctaExtra || '',
+      ...(normalizeEditorialIntent(a.editorialIntent) ? { editorialIntent: normalizeEditorialIntent(a.editorialIntent) } : {}),
       mdFile: `${a.slug}.md`,
     };
     const liPath = path.join(PATHS.linkedinDir, `${a.slug}.md`);
@@ -82,6 +84,7 @@ function generateHtml(articles, plan) {
       a.crumb,
     ];
     if (a.ctaExtra) args.push('--cta-extra', a.ctaExtra);
+    if (normalizeEditorialIntent(a.editorialIntent)) args.push('--editorial-intent', normalizeEditorialIntent(a.editorialIntent));
     execSync(args.map((x) => `"${x.replace(/"/g, '\\"')}"`).join(' '), {
       cwd: ROOT,
       stdio: 'inherit',
@@ -106,6 +109,7 @@ function appendSchedule(plan) {
       cardSummary: art?.cardSummary || a.mainConclusion,
       llmsLabel: a.title.slice(0, 40),
       series: 'v2',
+      ...(normalizeEditorialIntent(a.editorialIntent) ? { editorialIntent: normalizeEditorialIntent(a.editorialIntent) } : {}),
     });
     added++;
   }

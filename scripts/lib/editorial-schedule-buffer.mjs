@@ -3,6 +3,7 @@ import path from 'node:path';
 import { businessDaysFrom, isoAtJst, isWeekday } from './business-days.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import { isSameBufferLedgerEntry } from './buffer-ledger.mjs';
+import { normalizeEditorialIntent } from './editorial-intent.mjs';
 
 export const SLOT_TYPES = Object.freeze({ DAILY_PRIMARY: 'DAILY_PRIMARY' });
 export const PUBLICATION_STATES = Object.freeze({
@@ -128,6 +129,7 @@ export function planEmergencyInsertion(schedule, {
   targetDate,
   slotType = SLOT_TYPES.DAILY_PRIMARY,
   bufferQueue = [],
+  editorialIntent = null,
 } = {}) {
   const before = structuredClone(schedule);
   const entries = schedule.articles || [];
@@ -151,7 +153,13 @@ export function planEmergencyInsertion(schedule, {
     const shiftedDate = shifts.get(entry.slug);
     if (shiftedDate && !isPublished(entry)) Object.assign(entry, eventFor(entry, shiftedDate, 1, { preservePublicationId: false }));
   }
-  proposedEntries.push(eventFor({ slug, status: EDITORIAL_STATUSES.SCHEDULED, publicationState: PUBLICATION_STATES.SCHEDULED }, targetDate));
+  const normalizedIntent = normalizeEditorialIntent(editorialIntent);
+  proposedEntries.push(eventFor({
+    slug,
+    status: EDITORIAL_STATUSES.SCHEDULED,
+    publicationState: PUBLICATION_STATES.SCHEDULED,
+    ...(normalizedIntent ? { editorialIntent: normalizedIntent } : {}),
+  }, targetDate));
   proposedEntries.sort((a, b) => {
     const ad = slotDateOf(a) || '9999-99-99';
     const bd = slotDateOf(b) || '9999-99-99';
