@@ -626,7 +626,7 @@
     },
     {
       "slug": "ai-search-52-percent",
-      "status": "scheduled",
+      "status": "published",
       "publicationState": "SCHEDULED",
       "publicationId": "PUB-20260907-DAILY-001",
       "slotDate": "2026-09-07",
@@ -644,7 +644,10 @@
       "primarySearchIntent": "生成AI 検索 利用率 企業対策",
       "unlockedAt": "2026-09-06T07:01:22.605Z",
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-06T07:03:54.410Z"
+      "heroReadyAt": "2026-09-06T07:03:54.410Z",
+      "publishAttemptedAt": "2026-09-07T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-07T01:00:00.000Z"
     },
     {
       "slug": "exec-readiness-kpi",
