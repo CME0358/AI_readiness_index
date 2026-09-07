@@ -1780,7 +1780,7 @@
     {
       "slug": "ai-search-52-percent",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-search-52-percent/",
-      "status": "scheduled",
+      "status": "partially_queued",
       "articlePublishAt": "2026-09-07T10:00:00+09:00",
       "bufferTransferAt": "2026-09-07T10:30:00+09:00",
       "channels": {
@@ -1788,41 +1788,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/ai-search-52-percent.md",
           "publishAt": "2026-09-07T11:30:00+09:00",
-          "status": "scheduled",
+          "status": "buffer_transfer_failed",
           "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
-          "lastError": null,
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-07T01:00:00.000Z",
+          "lastError": "length 428 outside 450-900",
           "updatedAt": "2026-09-06T07:01:22.620Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/ai-search-52-percent.md",
           "publishAt": "2026-09-07T11:45:00+09:00",
-          "status": "scheduled",
+          "status": "buffer_transfer_failed",
           "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
-          "lastError": null,
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-07T01:00:00.000Z",
+          "lastError": "length 240 outside 300-650; hashtag count 0 outside 1-3",
           "updatedAt": "2026-09-06T07:01:22.620Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/ai-search-52-percent.md",
           "publishAt": "2026-09-07T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6a9e0cb17211e25b6da74f53",
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-07T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-09-06T07:01:22.620Z"
+          "updatedAt": "2026-09-07T01:00:00.000Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-06T07:01:22.605Z",
-      "updatedAt": "2026-09-06T07:01:22.605Z",
+      "updatedAt": "2026-09-07T01:00:00.000Z",
       "series": "current-event",
       "unlockedAt": "2026-09-06T07:01:22.605Z"
     }

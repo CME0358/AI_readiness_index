@@ -9,13 +9,17 @@ slug: ai-search-52-percent
 ## WEB
 scheduled: 10:00
 published: true
-productionVerified: false
+productionVerified: true
 
 ## BUFFER
-linkedin: scheduled
-facebook: scheduled
-x: scheduled
+linkedin: buffer_transfer_failed
+facebook: buffer_transfer_failed
+x: queued
 
 ## PIPELINE
 status: RECOVERING
-publish: ai-search-52-percent
+verify: ok (2 attempts)
+buffer actions:
+- linkedin: error
+- facebook: error
+- x: queued

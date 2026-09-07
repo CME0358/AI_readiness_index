@@ -620,7 +620,16 @@
       "publishAt": "2026-09-04T12:00:00+09:00",
       "dueAtUtc": "2026-09-04T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-07T01:00:00.000Z",
+      "slug": "ai-search-52-percent",
+      "channel": "x",
+      "bufferUpdateId": "6a9e0cb17211e25b6da74f53",
+      "publishAt": "2026-09-07T12:00:00+09:00",
+      "dueAtUtc": "2026-09-07T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-04T01:07:00.062Z"
+  "updatedAt": "2026-09-07T01:00:34.278Z"
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-04T01:07:00.068Z",
+  "updatedAt": "2026-09-07T01:00:34.279Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -19,11 +19,20 @@
       "retryable": true,
       "attemptCount": 1,
       "lastSuccessStage": "published_verified"
+    },
+    "ai-search-52-percent": {
+      "slug": "ai-search-52-percent",
+      "stage": "buffer",
+      "attemptedAt": "2026-09-07T01:00:34.279Z",
+      "failureReason": "buffer_partial_or_failed",
+      "retryable": true,
+      "attemptCount": 1,
+      "lastSuccessStage": "published_verified"
     }
   },
   "lastSuccess": {
-    "slug": "marketing-info-design",
-    "stage": "buffer_queued",
-    "at": "2026-09-04T01:07:00.068Z"
+    "slug": "ai-search-52-percent",
+    "stage": "published_verified",
+    "at": "2026-09-07T01:00:33.038Z"
   }
 }
