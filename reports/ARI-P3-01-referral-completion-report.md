@@ -4,16 +4,16 @@
 ARI-P3-01
 
 ## STATUS
-**VERIFIED**（ローカルテスト・/go/ リダイレクト検証済み。掲載・送信・投稿予約は未実施）
+**DEPLOYED**（本番反映・本番確認済み 2026-09-08）
 
 ## BRANCH
-`fix/ari-p3-01-referral`
+`fix/ari-p3-01-referral` → merged to `main`
 
 ## BASE_SHA
-`89420674e958cff126d3ec90be65dd071a0985b6`（main @ P2-02 DEPLOYED 後）
+`89420674e958cff126d3ec90be65dd071a0985b6`
 
 ## FINAL_SHA_OR_UNCOMMITTED
-未コミット（本ブランチ上の差分）
+`2e9ee13`（main にマージ・push済み）
 
 ---
 
@@ -110,10 +110,18 @@ node --test scripts/tests/x-traffic-sidecar.test.mjs
 ---
 
 ## DEPLOYMENT_STATUS
-**未デプロイ**（本プロンプトに本番反映指示なし）
+**DEPLOYED** — `git push origin main`（`8942067..2e9ee13`）→ Vercel 自動デプロイ
 
 ## PRODUCTION_CHECKS
-該当なし（承認前。デプロイ後は `/cases/` の対象別CTA と `/go/ref2609e1` の302を確認）
+
+| URL | 結果 |
+| --- | --- |
+| `/cases/bar-secret/` | HTTP 200 · 観測スクリーンショット掲載確認 |
+| `/cases/` | HTTP 200 · 対象別CTA確認 |
+| `/assets/cases/bar-secret/case-chatgpt-bar.png` | HTTP 200 |
+| `/go/ref2609e1` | HTTP 302 → `/report/?utm_campaign=ari_ref_enterprise` · `X-Redirect-Kind: referral` |
+
+**注記:** SNS投稿・メール送信は未実施（下書きのみ）。
 
 ---
 
