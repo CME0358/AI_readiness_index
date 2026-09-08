@@ -1,5 +1,5 @@
 import { CTA_TYPES } from './cta.mjs';
-import { ctaIntentProfile, classifyEditorialIntent } from '../editorial-intent.mjs';
+import { ctaIntentProfile, classifyEditorialIntent, isLocalIntent } from '../editorial-intent.mjs';
 
 const FREE_WHITEPAPER = Object.freeze({
   type: CTA_TYPES.LEARN,
@@ -44,7 +44,9 @@ const INSIGHT_CTA_PROFILES = Object.freeze({
 function getInsightCtaProfile(slug, article = null) {
   if (article) {
     const intent = classifyEditorialIntent({ ...article, slug });
-    return ctaIntentProfile(intent, { local: article.localIntent ?? undefined });
+    return ctaIntentProfile(intent, {
+      local: article.localIntent ?? isLocalIntent({ ...article, slug }),
+    });
   }
   return INSIGHT_CTA_PROFILES[slug] || [FREE_WHITEPAPER, { ...REPORT, label: 'Company Reportを見る' }];
 }

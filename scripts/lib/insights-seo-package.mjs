@@ -250,6 +250,38 @@ export const SCHEDULED_SEO_PACKAGES = {
     lead: 'IAB「Measuring Visibility in the AI Era」は、AI回答でブランドが「出たか」だけでなく、目立ち方・文脈・行動への影響までを分けて測る出発点です。ただし単発のスコアを事業成果とみなさず、測定条件と限界を開示し、改善判断へ接続する必要があります。',
     breadcrumb: 'IAB AI Visibility計測',
   },
+  'openai-product-discovery-agentic-commerce': {
+    intent: 'B',
+    primarySearchIntent: 'ChatGPT 商品探索 Agentic Commerce 事業者',
+    h1: 'ChatGPTの商品探索が変える、AIに比較される情報の整え方',
+    meta: 'OpenAIが2026年3月24日に発表したChatGPTの商品探索を起点に、何が変わったか、事業者が今確認できる情報は何かを整理します。比較・購入導線と公式情報の整備観点を解説します。',
+    lead: 'AI検索や対話画面が、答えを返すだけでなく商品を探し、比較する入口になっています。ここではOpenAIの公式発表を一つの変化として読み、事業者が確認できる情報と、まだ分からないことを分けて整理します。',
+    breadcrumb: 'ChatGPT商品探索',
+  },
+  'competitors-visible-company-missing': {
+    intent: 'A',
+    primarySearchIntent: 'AI検索 競合 自社 出てこない',
+    h1: 'AI検索では競合が出るのに、自社が出てこない理由',
+    meta: '競合は推薦されるのに自社が見つからないとき、まず確認したい情報の一貫性・比較材料・行動導線を整理します。推薦の成否を断定せず、公式情報の連続性を点検する実務観点を丁寧に解説します。',
+    lead: 'AI検索で競合の店やサービスは出てくるのに、自社は候補に入らない。この差を見つけたとき、すぐに「順位」や「AI対策ツール」の話へ進む前に、AIが比較に使える情報へ到達できているかを確認する必要があります。',
+    breadcrumb: '競合は出る自社は出ない',
+  },
+  'html-observation-check-limits': {
+    intent: 'B',
+    primarySearchIntent: 'サイト HTML AI 読み取り 確認',
+    h1: 'サイトのHTMLだけでAI対応状況をどこまで確認できるか',
+    meta: '公開HTMLから確認できる基本情報・比較材料・行動導線の観測範囲と、AIの推薦結果までは断定できない限界を整理します。軽量観測と有料分析の違い、事業判断への接続方法も丁寧に解説します。',
+    lead: 'AIに推薦されるかを、サイトのHTMLだけで証明することはできません。一方で、AIが理解するための基本情報や、比較・行動に必要な信号が公開ページに現れているかは、軽量な観測で確認できます。本記事ではその範囲を整理します。',
+    breadcrumb: 'HTML観測の限界',
+  },
+  'seo-meo-ai-recommendation-gap': {
+    intent: 'A',
+    primarySearchIntent: 'SEO MEO AI検索 推薦されない',
+    h1: 'SEOやMEOをしているのに、AI検索で推薦されない理由',
+    meta: 'SEOやMEOの成果を否定せず、AIが理解・比較・行動につなげるために追加で確認したい項目を整理します。検索面とAI面の観測を分け、最初に直す優先順位と確認手順を丁寧に解説します。',
+    lead: '検索順位や地図上の表示を改善してきたのに、AI検索では店やサービスが候補に出ない。これはSEOやMEOが無意味という話ではなく、AIが理解・比較・行動へ進むための情報が別の形で不足している可能性があります。',
+    breadcrumb: 'SEO MEO AI推薦ギャップ',
+  },
 };
 
 /**
