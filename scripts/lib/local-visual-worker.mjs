@@ -15,6 +15,7 @@ import {
   PACKAGE_STATES,
 } from './insights-package-readiness.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
+import { upsertPlannedCard } from './unlock-next-insight.mjs';
 
 export const VISUAL_MODES = Object.freeze({
   PRIMARY_PREPUBLISH: 'PRIMARY_PREPUBLISH',
@@ -24,7 +25,7 @@ export const VISUAL_MODES = Object.freeze({
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_ROOT = path.resolve(__dirname, '../..');
 export const CANONICAL_HERO_SIZE = Object.freeze({ width: 1672, height: 941 });
-export const MAX_CANDIDATES_PER_RUN = 1;
+export const MAX_CANDIDATES_PER_RUN = 2;
 export const MAX_GENERATION_ATTEMPTS = 3;
 export const PRODUCTION_ORIGIN = 'https://readiness.coaretail.com';
 export const DEFAULT_LOCK_PATH = '/private/tmp/ari-insights-visual-worker.lock';
@@ -408,7 +409,15 @@ export function integrateScheduledCanonicalHero(config, slug, { root = config.ro
   }
   let index = fs.readFileSync(indexPath, 'utf8');
   const plannedMarker = `data-scheduled-slug="${slug}"`;
-  if (!index.includes(plannedMarker)) throw new Error(`planned_card_missing:${slug}`);
+  if (!index.includes(plannedMarker)) {
+    const schedulePath = path.join(root, 'insights/_scheduled/schedule.json');
+    if (!fs.existsSync(schedulePath)) throw new Error(`planned_card_missing:${slug}`);
+    const schedule = readJson(schedulePath);
+    const entry = schedule.articles.find((article) => article.slug === slug);
+    if (!entry) throw new Error(`planned_card_missing:${slug}`);
+    index = upsertPlannedCard(index, entry, schedule);
+    fs.writeFileSync(indexPath, index, 'utf8');
+  }
   const cardStart = index.indexOf(`<article class="insight-card planned"`);
   const cardEnd = index.indexOf('</article>', cardStart);
   const card = cardStart >= 0 && cardEnd >= 0 ? index.slice(cardStart, cardEnd) : '';
@@ -605,7 +614,7 @@ export function runNativeGeneration(workspace, candidate, canon, attempt) {
     status: result.status,
     timedOut: result.error?.code === 'ETIMEDOUT',
     stderr: (result.stderr || '').slice(-2000),
-    capabilityFailure: /usage limit|token limit|authentication|not available|unavailable|OPENAI_API_KEY|api key|rate limit/i.test(`${result.stderr || ''}\n${result.stdout || ''}`),
+    capabilityFailure: result.status !== 0 && /(?:usage limit|token limit|rate limit exceeded|authentication failed|not authenticated|invalid api key|OPENAI_API_KEY)/i.test(`${result.stderr || ''}\n${result.stdout || ''}`),
     outputPath,
   };
 }
@@ -689,6 +698,16 @@ export async function verifyProductionReferences(config, slug, { productionCheck
   return { ok: errors.length === 0, article, index, hero, heroCss, errors };
 }
 
+function saveHeroRecoveryArtifacts(recoveryDir, heroOutput, quality) {
+  fs.mkdirSync(recoveryDir, { recursive: true });
+  if (heroOutput && fs.existsSync(heroOutput)) {
+    fs.copyFileSync(heroOutput, path.join(recoveryDir, 'hero.webp'));
+  }
+  if (quality?.imagePath && fs.existsSync(quality.imagePath)) {
+    fs.copyFileSync(quality.imagePath, path.join(recoveryDir, path.basename(quality.imagePath)));
+  }
+}
+
 async function processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha }) {
   const recoveryDir = path.join(config.logDir, 'recovery', candidate.slug, runId);
   fs.mkdirSync(recoveryDir, { recursive: true });
@@ -735,11 +754,16 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     const heroOutput = path.join(workspace, 'assets', 'insights', candidate.slug, 'hero.webp');
     optimizeToWebp(quality.imagePath, heroOutput, workspace);
     const workspaceConfig = { ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') };
-    if (prepublish) {
-      integrateScheduledCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
-      updateScheduleHeroReadiness(workspace, candidate.slug, PACKAGE_STATES.PACKAGE_READY);
-    } else {
-      integrateCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
+    try {
+      if (prepublish) {
+        integrateScheduledCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
+        updateScheduleHeroReadiness(workspace, candidate.slug, PACKAGE_STATES.PACKAGE_READY);
+      } else {
+        integrateCanonicalHero(workspaceConfig, candidate.slug, { root: workspace });
+      }
+    } catch (integrationError) {
+      saveHeroRecoveryArtifacts(recoveryDir, heroOutput, quality);
+      throw integrationError;
     }
     log({ stage: 'PRESENTATION_CHECK_STARTED', slug: candidate.slug, visualMode: candidate.visualMode });
     const presentation = prepublish
@@ -837,11 +861,21 @@ export async function runWorker({
       const finalResult = visualMode === VISUAL_MODES.RECOVERY_POSTPUBLISH ? 'NO_CANDIDATE' : 'NO_PREPUBLISH_CANDIDATE';
       return { finalResult, runId, reasons: discovered.reasons, visualMode };
     }
-    const candidate = discovered.candidates[0];
-    if (dryRun || simulate) return { finalResult: 'DRY_RUN_CANDIDATE', runId, slug: candidate.slug, title: candidate.title };
-    const result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha });
-    log({ slug: candidate.slug, finalResult: result.finalResult });
-    return { ...result, runId };
+
+    const candidateResults = [];
+    for (const candidate of discovered.candidates) {
+      if (dryRun || simulate) {
+        return { finalResult: 'DRY_RUN_CANDIDATE', runId, slug: candidate.slug, title: candidate.title };
+      }
+      const result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha });
+      log({ slug: candidate.slug, finalResult: result.finalResult });
+      candidateResults.push(result);
+      if (result.finalResult !== 'SUCCESS') {
+        return { ...result, runId, processed: candidateResults };
+      }
+    }
+    const last = candidateResults[candidateResults.length - 1];
+    return { ...last, runId, processed: candidateResults };
   } catch (error) {
     const finalResult = classifyWorkerFailure(error);
     log({ stage: 'ERROR', finalResult, error: error.message });

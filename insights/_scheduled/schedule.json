@@ -730,7 +730,9 @@
       "ctaProfile": {
         "primary": "CHECK",
         "secondary": "REPORT"
-      }
+      },
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z"
     },
     {
       "slug": "consent-data-design",
@@ -774,7 +776,9 @@
       "seoTitle": "AIエージェントが予約・購入できるサイトの条件とは？",
       "metaDescription": "AIエージェントが予約・購入を完結できるサイトの条件——実行前チェックリストと障害ログ。Actionabilityの定義ではなく、Execution Readinessの実務改善サイクルを解説します。",
       "searchIntentClass": "A",
-      "primarySearchIntent": "AI 予約 購入 サイト 条件"
+      "primarySearchIntent": "AI 予約 購入 サイト 条件",
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z"
     },
     {
       "slug": "html-observation-check-limits",
@@ -799,7 +803,9 @@
       "ctaProfile": {
         "primary": "CHECK",
         "secondary": "REPORT"
-      }
+      },
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z"
     },
     {
       "slug": "interaction-contract",
@@ -839,7 +845,9 @@
       "ctaProfile": {
         "primary": "LEARN",
         "secondary": "CHECK"
-      }
+      },
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z"
     },
     {
       "slug": "seo-meo-ai-recommendation-gap",
@@ -860,7 +868,9 @@
       "ctaProfile": {
         "primary": "CHECK",
         "secondary": "LOCAL"
-      }
+      },
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z"
     },
     {
       "slug": "standards-landscape",

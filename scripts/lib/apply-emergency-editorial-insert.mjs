@@ -20,6 +20,10 @@ import {
 } from './unlock-next-insight.mjs';
 import { isSameBufferLedgerEntry, normalizePublicationDate } from './buffer-ledger.mjs';
 import { triggerImmediatePrepublishHero } from './trigger-immediate-prepublish-hero.mjs';
+import {
+  formatSocialValidationFailure,
+  validateSocialContentForSlug,
+} from './validate-social-content.mjs';
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -209,6 +213,16 @@ export function applyEmergencyEditorialInsert({
   const prepared = prepareScheduledArticle(slug, { strict: true });
   if (!prepared.ok) {
     return { ok: false, reason: `prepare_failed:${prepared.error}`, prepared, plan };
+  }
+
+  const socialValidation = validateSocialContentForSlug(slug, { root });
+  if (!socialValidation.ok) {
+    return {
+      ok: false,
+      reason: `social_copy_invalid:${formatSocialValidationFailure(socialValidation)}`,
+      socialValidation,
+      plan,
+    };
   }
 
   let indexHtml = fs.readFileSync(paths.insightsIndex, 'utf8');

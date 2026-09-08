@@ -21,6 +21,10 @@ import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
 import { markHeroPending } from './insights-package-readiness.mjs';
 import { triggerImmediatePrepublishHero } from './trigger-immediate-prepublish-hero.mjs';
 import { isSameBufferLedgerEntry, normalizePublicationDate } from './buffer-ledger.mjs';
+import {
+  formatSocialValidationFailure,
+  validateSocialContentForSlug,
+} from './validate-social-content.mjs';
 
 export const UNLOCK_TIME_JST = '15:00';
 export const UNLOCK_LATENESS_WINDOW_MINUTES = 18 * 60;
@@ -220,6 +224,17 @@ export function unlockNextInsight({
       publishYmd,
       reason: `prepare_failed:${prepared.error}`,
       prepare: prepared,
+    };
+  }
+
+  const socialValidation = validateSocialContentForSlug(next.slug);
+  if (!socialValidation.ok) {
+    return {
+      updated: false,
+      slug: next.slug,
+      publishYmd,
+      reason: `social_copy_invalid:${formatSocialValidationFailure(socialValidation)}`,
+      socialValidation,
     };
   }
 

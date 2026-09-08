@@ -14,6 +14,7 @@ import {
   isArticlePublishedOnDisk,
   articleDestPath,
 } from './publishing-state-machine.mjs';
+import { upsertPlannedCard, findEarliestScheduledArticle } from './unlock-next-insight.mjs';
 
 const SCHEDULE_PATH = PATHS.schedule;
 const INDEX_PATH = PATHS.insightsIndex;
@@ -228,6 +229,11 @@ export function publishDueArticles({
 
     result.published.push(article.slug);
     result.updated = true;
+  }
+
+  const nextPlanned = findEarliestScheduledArticle(schedule);
+  if (nextPlanned) {
+    indexHtml = upsertPlannedCard(indexHtml, nextPlanned, schedule);
   }
 
   if (result.updated && !dryRun) {

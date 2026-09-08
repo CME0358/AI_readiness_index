@@ -94,6 +94,19 @@ test('scheduled integration updates planned card and scheduled article refs', ()
   fs.rmSync(root, { recursive: true, force: true });
 });
 
+test('scheduled integration self-heals missing planned card from schedule', () => {
+  const { root, slug } = fixture();
+  fs.writeFileSync(path.join(root, 'assets/insights', slug, 'hero.webp'), 'hero');
+  fs.writeFileSync(path.join(root, 'insights/index.html'), '<!-- INSIGHTS_CARDS_START -->\n<a class="insight-card">published only</a>');
+  const config = { root, origin: 'https://readiness.coaretail.com', assetsPath: path.join(root, 'assets/insights') };
+  integrateScheduledCanonicalHero(config, slug, { root });
+  const index = fs.readFileSync(path.join(root, 'insights/index.html'), 'utf8');
+  assert.match(index, new RegExp(`data-scheduled-slug="${slug}"`));
+  const validation = validateScheduledIntegration(config, slug, { root });
+  assert.equal(validation.ok, true);
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
 test('readiness state transitions', () => {
   const entry = { slug: 'x', status: 'scheduled', publishAt: '2026-09-05T10:00:00+09:00' };
   markHeroPending(entry, { now: new Date('2026-09-04T06:00:00Z') });

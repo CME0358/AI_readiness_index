@@ -30,6 +30,7 @@ if (role === PREPUBLISH_ROLES.MORNING_PREFLIGHT) {
     dryRun,
     simulate,
     visualMode: VISUAL_MODES.PRIMARY_PREPUBLISH,
+    configOverrides: { maxCandidates: 2 },
     productionCheck: simulate ? async () => ({ ok: true, status: 200, simulated: true }) : undefined,
   });
   console.log(JSON.stringify({ role, action: 'MORNING_PREFLIGHT_RECOVERY', result }, null, 2));
