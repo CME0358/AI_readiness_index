@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Run Sidecar
         id: sidecar
@@ -70,5 +70,7 @@ jobs:
         if: steps.sidecar.outputs.changed == 'true'
         run: |
           chmod +x scripts/lib/gha-git-push.sh
-          git add insights/_social/x-sidecar/ledger.json insights/_social/x-sidecar/redirects.json
-          scripts/lib/gha-git-push.sh "chore(sidecar): update ledger and redirects [skip ci]"
+          scripts/lib/gha-git-push.sh \
+            "chore(sidecar): update ledger and redirects [skip ci]" \
+            insights/_social/x-sidecar/ledger.json \
+            insights/_social/x-sidecar/redirects.json
