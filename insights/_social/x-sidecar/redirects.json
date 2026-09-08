@@ -9,6 +9,22 @@
       "date": "2026-09-07",
       "slot": "15:00",
       "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x260908d",
+      "destination": "https://readiness.coaretail.com/insights/recommendation-logic/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=260908_1500",
+      "article_slug": "recommendation-logic",
+      "date": "2026-09-08",
+      "slot": "15:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x260908e",
+      "destination": "https://readiness.coaretail.com/insights/files/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=260908_1800",
+      "article_slug": "files",
+      "date": "2026-09-08",
+      "slot": "18:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
     }
   ]
 }

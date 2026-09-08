@@ -17,7 +17,7 @@ export const SLOTS = Object.freeze([
   { time: '18:00', angle: 'CONVERSION', key: 'conversion', label: 'CONVERSION' },
 ]);
 export const DEFAULT_COOLDOWN_DAYS = 14;
-export const DEFAULT_MAX_UTF16 = 280;
+export const DEFAULT_MAX_UTF16 = 279;
 
 export const SIDECAR_DIR = path.join(ROOT, 'insights/_social/x-sidecar');
 export const LEDGER_PATH = path.join(SIDECAR_DIR, 'ledger.json');
@@ -40,8 +40,28 @@ export function yymmdd(ymd) {
   return ymd.replaceAll('-', '').slice(2);
 }
 
+const URL_TOKEN_LENGTH = 23;
+const URL_REGEX = /https?:\/\/[^\s]+/g;
+
+function isWeightedCjk(code) {
+  return (
+    (code >= 0x1100 && code <= 0x11ff) ||
+    (code >= 0x2e80 && code <= 0x9fff) ||
+    (code >= 0xac00 && code <= 0xd7af) ||
+    (code >= 0xf900 && code <= 0xfaff) ||
+    (code >= 0xfe30 && code <= 0xfe4f) ||
+    (code >= 0xff00 && code <= 0xffef)
+  );
+}
+
+/** X / Buffer weighted character count (CJK=2, URLs=t.co length). */
 export function utf16Length(text) {
-  return [...String(text)].reduce((n, char) => n + (char.codePointAt(0) > 0xffff ? 2 : 1), 0);
+  const normalized = String(text).replace(URL_REGEX, 'x'.repeat(URL_TOKEN_LENGTH));
+  return [...normalized].reduce((n, char) => {
+    const code = char.codePointAt(0);
+    if (code > 0xffff) return n + 2;
+    return n + (isWeightedCjk(code) ? 2 : 1);
+  }, 0);
 }
 
 export function normalizeUrl(url) {
@@ -215,7 +235,9 @@ export function generatePost(article, slot, shortUrl, { maxUtf16 = DEFAULT_MAX_U
     conversion: `AI時代の集客を見直すなら、まず自社のVisibility・Authority・Actionabilityを確認する。\n\n${f}。ARI Insightsで論点を確認できます。`,
   };
   const hashtags = slot.key === 'conversion' ? '#AgentReadiness' : '#AgentReadiness #AI';
-  return trimTo(`${templates[slot.key]}\n\n${shortUrl}\n${hashtags}`, maxUtf16);
+  const footer = `\n\n${shortUrl}\n${hashtags}`;
+  const body = trimTo(templates[slot.key], maxUtf16 - utf16Length(footer));
+  return `${body}${footer}`;
 }
 
 export function buildShortId(date, index) {
@@ -247,17 +269,24 @@ export function validateDestination(destination) {
 
 export function planDay({ date, articles, ledger, redirects = { redirects: [] }, cooldownDays = DEFAULT_COOLDOWN_DAYS, verifiedSlugs = null, maxUtf16 = DEFAULT_MAX_UTF16 } = {}) {
   const selection = selectArticles(articles, { date, ledger, cooldownDays, verifiedSlugs });
-  const usedShortIds = new Set([
-    ...(ledger?.posts || []).map((post) => post.short_id).filter(Boolean),
-    ...(redirects?.redirects || []).map((redirect) => redirect.short_id).filter(Boolean),
-  ]);
+  const ledgerShortIds = new Set((ledger?.posts || []).map((post) => post.short_id).filter(Boolean));
+  const usedShortIds = new Set(ledgerShortIds);
+  for (const redirect of redirects?.redirects || []) {
+    if (!redirect?.short_id || ledgerShortIds.has(redirect.short_id)) continue;
+    // Same-day redirects are recoverable from a prior partial delivery attempt.
+    if (redirect.date === date) continue;
+    usedShortIds.add(redirect.short_id);
+  }
   const posts = SLOTS.map((slot, index) => {
     const selected = selection.chosen[index];
     if (!selected) return {
       slot: slot.time, angle: slot.angle, state: 'HOLD', error_code: 'INSUFFICIENT_ELIGIBLE_ARTICLES',
     };
     const shortId = buildShortId(date, index);
-    const collision = usedShortIds.has(shortId);
+    const alreadyLedgered = (ledger?.posts || []).some(
+      (post) => post.short_id === shortId && post.date === date && post.slot === slot.time,
+    );
+    const collision = !alreadyLedgered && usedShortIds.has(shortId);
     usedShortIds.add(shortId);
     const shortUrl = `${SITE_ORIGIN}/go/${shortId}`;
     const destination = buildDestination(selected.article, date, slot);

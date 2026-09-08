@@ -19,7 +19,8 @@ import {
 } from './core.mjs';
 import { loadCanonicalBufferEnv } from '../lib/buffer-env.mjs';
 import { getBufferConfig, getChannelId } from '../lib/buffer-client.mjs';
-import { assertSidecarSafeMode, evaluateSidecarProductionGate } from '../lib/sidecar-production-gate.mjs';
+import { assertSidecarSafeMode } from '../lib/sidecar-production-gate.mjs';
+import { deliverSidecarPlan, isPlanPostDeliverable, isSlotSchedulable } from '../lib/sidecar-buffer-delivery.mjs';
 
 const dryRun = process.env.ARI_X_TRAFFIC_DRY_RUN !== 'false' || process.argv.includes('--dry-run');
 const enabled = process.env.ARI_X_TRAFFIC_ENABLED === 'true';
@@ -34,11 +35,24 @@ function verifiedSlugs() {
   return new Set(schedule.articles.filter((a) => a.status === 'published' && a.productionVerifiedAt).map((a) => a.slug));
 }
 
+function syncLedgerSentStates(ledger) {
+  const next = { ...ledger, posts: [...(ledger?.posts || [])] };
+  for (const entry of next.posts) {
+    if (entry.buffer_post_id && entry.state === 'SCHEDULED' && entry.date < ymdJst()) {
+      entry.state = 'SENT';
+      entry.remote_state = 'SENT';
+      entry.published_at = entry.published_at || entry.scheduled_at;
+      entry.updated_at = new Date().toISOString();
+    }
+  }
+  return next;
+}
+
 function safeCapacityUnknown(reason) {
   return { status: 'CAPACITY_UNKNOWN', safe: false, reason };
 }
 
-async function bufferReadOnlyGate({ date, cfg }) {
+async function bufferReadOnlyGate({ date, cfg, requestedCount = SLOTS.length }) {
   const channelId = getChannelId('x', cfg);
   if (!cfg.accessToken || !cfg.organizationId || !channelId) return safeCapacityUnknown('missing_buffer_read_only_configuration');
   const query = `query SidecarCapacity($organizationId: OrganizationId!, $organizationFilterId: String!, $channelId: ChannelId!, $date: DateTime!) {
@@ -63,7 +77,7 @@ async function bufferReadOnlyGate({ date, cfg }) {
     const limit = data.data.dailyPostingLimits[0];
     const organizationLimit = data.data.account?.organizations?.[0]?.limits?.scheduledPosts;
     if (data.data.posts?.pageInfo?.hasNextPage || organizationLimit == null) return safeCapacityUnknown('scheduled_posts_or_organization_limit_unknown');
-    const requested = SLOTS.length;
+    const requested = requestedCount;
     const capacity = evaluateCapacity({
       scheduledCount: scheduled.length,
       requestedCount: requested,
@@ -88,7 +102,7 @@ async function bufferReadOnlyGate({ date, cfg }) {
   }
 }
 
-function printPlan(plan, capacity, gate) {
+function printPlan(plan, capacity, gate, delivery = null) {
   console.log('=== ARI X TRAFFIC SIDECAR DAILY REPORT ===');
   console.log(`DATE: ${plan.date}`);
   console.log(`TIMEZONE: ${plan.timezone}`);
@@ -111,33 +125,45 @@ function printPlan(plan, capacity, gate) {
   console.log(`TOTAL_HOLD: ${plan.posts.filter((p) => p.state === 'HOLD').length + (capacity.safe ? 0 : plan.posts.filter((p) => p.state !== 'HOLD').length)}`);
   console.log('EXISTING_BUFFER_POSTS_MODIFIED: 0');
   console.log('EXISTING_BUFFER_POSTS_DELETED: 0');
-  console.log(`PRODUCTION_ACTIVATION: ${gate.liveCreateAllowed ? 'APPROVED_NOT_IMPLEMENTED' : 'HOLD'}`);
+  console.log(`PRODUCTION_ACTIVATION: ${gate.liveCreateAllowed ? (delivery ? 'LIVE' : 'APPROVED') : 'HOLD'}`);
   if (!gate.liveCreateAllowed) {
     console.log(`SIDECAR_GATE: ${gate.reasons.join('; ')}`);
+  }
+  if (delivery?.results?.length) {
+    console.log('\nDELIVERY:');
+    for (const item of delivery.results) {
+      console.log(JSON.stringify(item));
+    }
   }
 }
 
 async function main() {
+  const now = new Date();
   const gate = assertSidecarSafeMode({ argv: process.argv });
-  const ledger = readJson(LEDGER_PATH, { posts: [] });
+  let ledger = syncLedgerSentStates(readJson(LEDGER_PATH, { posts: [] }));
   const articles = loadPublishedInsights({ root: ROOT });
   const redirects = readJson(REDIRECTS_PATH, { redirects: [] });
   const plan = planDay({ date, articles, ledger, redirects, cooldownDays, verifiedSlugs: verifiedSlugs(), maxUtf16 });
   loadCanonicalBufferEnv();
   const cfg = getBufferConfig();
-  const capacity = await bufferReadOnlyGate({ date, cfg });
+  const pendingCount = plan.posts.filter((post) => isPlanPostDeliverable(post) && isSlotSchedulable(post.scheduled_at, now)).length;
+  const capacity = await bufferReadOnlyGate({ date, cfg, requestedCount: pendingCount || 1 });
   if (!dryRun && (!enabled || !capacity.safe)) {
     for (const post of plan.posts) if (post.state !== 'HOLD') post.state = 'HOLD';
   }
-  printPlan(plan, capacity, gate);
+  let delivery = null;
   if (!dryRun && enabled && capacity.safe) {
-    const liveGate = evaluateSidecarProductionGate({ argv: process.argv });
-    if (!liveGate.liveCreateAllowed) {
-      throw new Error(`SIDECAR_LIVE_CREATE_BLOCKED: ${liveGate.reasons.join('; ')}`);
-    }
-    throw new Error('LIVE_BUFFER_CREATE_DISABLED_IN_V1_VALIDATION');
+    delivery = await deliverSidecarPlan({
+      plan,
+      ledger,
+      redirects,
+      cfg,
+      now,
+      dryRun: false,
+    });
+    if (delivery.exitCode !== 0) process.exitCode = delivery.exitCode;
   }
-  if (!dryRun || !fs.existsSync(REDIRECTS_PATH)) return;
+  printPlan(plan, capacity, gate, delivery);
 }
 
 main().catch((error) => {

@@ -1,8 +1,8 @@
-name: ARI X Traffic Sidecar (dry-run)
+name: ARI X Traffic Sidecar
 
 on:
   schedule:
-    # 05:00 JST (20:00 UTC previous day): prepare before the 06:00 JST slot.
+    # 05:00 JST (20:00 UTC previous day): queue remaining slots before 06:00 JST.
     - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
@@ -10,36 +10,65 @@ on:
         description: 'Optional JST date YYYY-MM-DD'
         required: false
         default: ''
+      dry_run:
+        description: 'Dry run only (true/false)'
+        required: false
+        default: 'false'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ari-x-traffic-sidecar
   cancel-in-progress: false
 
 jobs:
-  dry-run:
+  sidecar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Generate Sidecar plan and read-only capacity report
+
+      - name: Run Sidecar
+        id: sidecar
         env:
-          ARI_X_TRAFFIC_ENABLED: 'false'
-          ARI_X_TRAFFIC_DRY_RUN: 'true'
-          ARI_X_TRAFFIC_COOLDOWN_DAYS: '14'
-          ARI_X_TRAFFIC_MAX_UTF16: '280'
           BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
           BUFFER_CHANNEL_ID_TWITTER: ${{ secrets.BUFFER_CHANNEL_ID_TWITTER }}
-          SIDEcar_DATE: ${{ github.event.inputs.date }}
+          SIDECAR_LIVE_CREATE_APPROVAL: ${{ secrets.SIDECAR_LIVE_CREATE_APPROVAL }}
+          SIDECAR_DATE: ${{ github.event.inputs.date }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
         run: |
           set -euo pipefail
-          if [ -n "${SIDEcar_DATE:-}" ]; then
-            node scripts/x-traffic-sidecar/run.mjs --dry-run --date="${SIDEcar_DATE}"
+          DRY_RUN="${DRY_RUN_INPUT:-false}"
+          if [ "$DRY_RUN" != "true" ] && [ -n "${SIDECAR_LIVE_CREATE_APPROVAL:-}" ]; then
+            printf '%s\n' "$SIDECAR_LIVE_CREATE_APPROVAL" > insights/_social/x-sidecar/.live-create-approved
+            export ARI_X_TRAFFIC_ENABLED=true
+            export ARI_X_TRAFFIC_DRY_RUN=false
+            export ARI_X_TRAFFIC_LIVE_CREATE=true
           else
-            node scripts/x-traffic-sidecar/run.mjs --dry-run
+            export ARI_X_TRAFFIC_ENABLED=false
+            export ARI_X_TRAFFIC_DRY_RUN=true
+            export ARI_X_TRAFFIC_LIVE_CREATE=false
+            DRY_RUN=true
           fi
+          export ARI_X_TRAFFIC_COOLDOWN_DAYS=14
+          export ARI_X_TRAFFIC_MAX_UTF16=279
+          ARGS=()
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--dry-run); fi
+          if [ -n "${SIDECAR_DATE:-}" ]; then ARGS+=(--date="${SIDECAR_DATE}"); fi
+          node scripts/x-traffic-sidecar/run.mjs "${ARGS[@]}" | tee /tmp/sidecar.log
+          if git diff --quiet -- insights/_social/x-sidecar/ledger.json insights/_social/x-sidecar/redirects.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit ledger and redirects
+        if: steps.sidecar.outputs.changed == 'true'
+        run: |
+          chmod +x scripts/lib/gha-git-push.sh
+          git add insights/_social/x-sidecar/ledger.json insights/_social/x-sidecar/redirects.json
+          scripts/lib/gha-git-push.sh "chore(sidecar): update ledger and redirects [skip ci]"
