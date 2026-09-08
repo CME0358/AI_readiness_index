@@ -647,7 +647,34 @@
       "publishAt": "2026-09-07T11:45:00+09:00",
       "dueAtUtc": "2026-09-07T02:45:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-08T02:00:00.000Z",
+      "slug": "exec-readiness-kpi",
+      "channel": "linkedin",
+      "bufferUpdateId": "6a9f6c874c4e8f2911785874",
+      "publishAt": "2026-09-08T11:30:00+09:00",
+      "dueAtUtc": "2026-09-08T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-08T02:00:00.000Z",
+      "slug": "exec-readiness-kpi",
+      "channel": "facebook",
+      "bufferUpdateId": "6a9f6c884c4e8f29117858b5",
+      "publishAt": "2026-09-08T11:45:00+09:00",
+      "dueAtUtc": "2026-09-08T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-08T02:00:00.000Z",
+      "slug": "exec-readiness-kpi",
+      "channel": "x",
+      "bufferUpdateId": "6a9f6c8aff0db23b220cfdf1",
+      "publishAt": "2026-09-08T12:00:00+09:00",
+      "dueAtUtc": "2026-09-08T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-07T01:51:49.162Z"
+  "updatedAt": "2026-09-08T02:01:46.508Z"
 }
