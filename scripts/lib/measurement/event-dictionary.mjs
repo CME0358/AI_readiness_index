@@ -107,6 +107,7 @@ const SERVICE_VIEW_RULES = Object.freeze([
   { match: (pathname) => pathname.startsWith('/framework/'), serviceKind: 'framework', serviceId: 'framework' },
   { match: (pathname) => pathname.startsWith('/oisummit/'), serviceKind: 'oisummit', serviceId: 'oisummit' },
   { match: (pathname) => pathname.startsWith('/services/'), serviceKind: 'services_hub', serviceId: 'services' },
+  { match: (pathname) => pathname.startsWith('/guides/'), serviceKind: 'purchase_guide', serviceId: 'guides' },
   { match: (pathname) => pathname.startsWith('/cases/'), serviceKind: 'case_study', serviceId: 'cases' },
   { match: (pathname) => pathname.startsWith('/sample/'), serviceKind: 'report_sample', serviceId: 'sample' },
 ]);

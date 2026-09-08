@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="/assets/ga4.js" async></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内製か外注か — 競合比較の観測から決める｜購入前ガイド</title>
+  <meta name="description" content="AI検索対策を内製するか外注するか。固定競合リストの限界、定点観測、診断・伴走・実装の判断フロー。成果保証はしません。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://readiness.coaretail.com/guides/inhouse-vs-outsource/">
+  <link rel="stylesheet" href="/assets/hub-animations.css">
+  <style>
+    body{font-family:Inter,-apple-system,sans-serif;margin:0;color:#09090b;line-height:1.7}
+    .container{max-width:720px;margin:0 auto;padding:24px}
+    h1{font-size:clamp(1.6rem,4vw,2rem);margin:16px 0}
+    h2{font-size:1.2rem;margin:40px 0 12px}
+    .lead,.note{color:#52525b}
+    .note{background:#fafafa;border-left:3px solid #09090b;padding:12px 16px;margin:24px 0;font-size:14px}
+    ol,ul{padding-left:1.3em;color:#52525b}
+    table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}
+    th,td{border:1px solid rgba(0,0,0,.1);padding:10px;text-align:left;vertical-align:top}
+    th{background:#fafafa}
+    .btn{display:inline-block;margin:8px 8px 0 0;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px}
+    .btn-primary{background:#06c755;color:#fff}
+    .btn-dark{background:#09090b;color:#fff}
+    .btn-outline{border:1px solid rgba(0,0,0,.15);color:#09090b}
+    .meta{font-size:13px;color:#71717a}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="meta" aria-label="パンくず">
+      <a href="/">Agent Readiness</a> / <a href="/guides/">購入前ガイド</a> / <span>内製/外注</span>
+    </nav>
+    <h1>内製か外注か — 競合比較の観測から決める</h1>
+    <p class="lead">「競合3社の順位」だけでは、AI検索時代の比較セットは捉えられません（<a href="/insights/competitor-blind-spot/">競合分析が見えなくなる理由</a>）。内製・外注の判断は、<strong>観測できる質問集合</strong>と社内リソースから決めます。</p>
+
+    <h2>手順1 — 比較セットを固定しない</h2>
+    <ol>
+      <li>代表質問10〜20件を業務から抽出（地域・予算・目的・時間帯を含む）</li>
+      <li>月次でAI回答を記録し、自社が候補に入る条件の<strong>幅</strong>を見る</li>
+      <li>順位ツールの業界平均ではなく、<a href="/insights/recommendation-logic/">推薦ロジック</a>の文脈で読む</li>
+    </ol>
+
+    <h2>手順2 — 内製 / 外注 / 診断の切り分け</h2>
+    <table>
+      <thead><tr><th>選択肢</th><th>向く条件</th><th>readiness の接続</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>内製</strong></td>
+          <td>情報オーナー・更新ルールを社内で回せる（<a href="/insights/three-pillars-ops/">三柱の運用</a>）</td>
+          <td><a href="/framework/">Framework</a> + <a href="/research/">Research</a> で設計</td>
+        </tr>
+        <tr>
+          <td><strong>診断から</strong></td>
+          <td>優先順位が不明・部門間で認識が割れている</td>
+          <td><a href="/report/">Company Report</a> ¥29,800（税別）</td>
+        </tr>
+        <tr>
+          <td><strong>外注・伴走</strong></td>
+          <td>定点観測とロードマップ更新を継続したい</td>
+          <td><a href="/improve.html">Advisory</a> または <a href="https://localgeo.coaretail.com/?utm_source=ari_guides&utm_medium=outbound&utm_campaign=direct_buyer" target="_blank" rel="noopener">Local GEO</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">実装作業は Design / Implementation プランとして別契約（<a href="/improve.html">improve.html</a> 掲載）。成果保証・広告費包含は公開約束に含めません。</p>
+
+    <h2>手順3 — 業種事例の読み方</h2>
+    <ul>
+      <li><a href="/cases/">公開事例一覧</a> — 観測・申告・ログの層を分離</li>
+      <li><a href="/cases/bar-secret/">Bar SECRET（飲食・恵比寿）</a> — GEO対策後のAI検索露出（社内記録。来店増率は未掲載）</li>
+      <li><a href="/dental.html">歯科ベンチマーク</a> — 業界Structure参照（商用は Report / 相談へ分岐）</li>
+    </ul>
+
+    <h2>関連Insights</h2>
+    <ul>
+      <li><a href="/insights/competitor-blind-spot/">AI時代に競合分析が見えなくなる理由</a></li>
+      <li><a href="/insights/citation-vs-action/">引用されることと実行されることの差</a></li>
+      <li><a href="/insights/execution-readiness/">実行準備度とは</a></li>
+    </ul>
+
+    <h2>次のアクション</h2>
+    <a href="/report/" class="btn btn-primary" data-funnel-cta data-cta-id="guide_inhouse_report" data-cta-type="REPORT" data-placement="guide_inhouse_outsource" data-source-page="/guides/inhouse-vs-outsource/">優先順位を診断する</a>
+    <a href="https://www.coaretail.com/readiness/mtgschedule" class="btn btn-dark" target="_blank" rel="noopener" data-funnel-cta data-cta-id="guide_inhouse_consult" data-cta-type="CONSULT" data-placement="guide_inhouse_outsource" data-source-page="/guides/inhouse-vs-outsource/">無料相談</a>
+    <a href="/guides/ai-search-services/" class="btn btn-outline">料金・範囲ガイド</a>
+  </div>
+  <script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>

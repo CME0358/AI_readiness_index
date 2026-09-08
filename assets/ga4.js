@@ -36,6 +36,7 @@
     if (pathname.indexOf('/framework/') === 0) return { service_kind: 'framework', service_id: 'framework' };
     if (pathname.indexOf('/oisummit/') === 0) return { service_kind: 'oisummit', service_id: 'oisummit' };
     if (pathname.indexOf('/services/') === 0) return { service_kind: 'services_hub', service_id: 'services' };
+    if (pathname.indexOf('/guides/') === 0) return { service_kind: 'purchase_guide', service_id: 'guides' };
     if (pathname.indexOf('/cases/') === 0) return { service_kind: 'case_study', service_id: 'cases' };
     if (pathname.indexOf('/sample/') === 0) return { service_kind: 'report_sample', service_id: 'sample' };
     return null;

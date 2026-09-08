@@ -8,6 +8,7 @@
 - [Research Updates](https://readiness.coaretail.com/research/#updates): 更新履歴
 - [Evidence](https://readiness.coaretail.com/evidence/): 根拠ライブラリ
 - [Services](https://readiness.coaretail.com/services/): サービス・料金・提供範囲
+- [Purchase Guides](https://readiness.coaretail.com/guides/): 購入前プレイブック（依頼先・ChatGPT露出・内製/外注）
 - [Sample Report](https://readiness.coaretail.com/sample/): レポート構成見本（架空データ明示）
 - [Cases](https://readiness.coaretail.com/cases/): 公開事例
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
