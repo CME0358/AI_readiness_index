@@ -110,9 +110,21 @@ function resolvePublicCheckTarget(input) {
   };
 }
 
-async function assertPublicHostname(hostname, lookup = dns.lookup) {
-  const records = await lookup(hostname, { all: true, verbatim: true });
+function isCloudflareAddress(address) {
+  const ip = String(address || '');
+  if (ip.startsWith('104.21.') || ip.startsWith('104.22.') || ip.startsWith('104.23.') || ip.startsWith('104.24.') || ip.startsWith('104.25.') || ip.startsWith('104.26.') || ip.startsWith('104.27.')) return true;
+  if (ip.startsWith('172.67.') || ip.startsWith('172.68.') || ip.startsWith('172.69.') || ip.startsWith('172.70.') || ip.startsWith('172.71.')) return true;
+  return false;
+}
+
+async function lookupPublicIpv4(hostname, lookup = dns.lookup) {
+  const records = await lookup(hostname, { all: true, family: 4, verbatim: true });
   const list = Array.isArray(records) ? records : records?.address ? [records] : [];
+  return list.filter((record) => record.family === 4 || !record.family);
+}
+
+async function assertPublicHostname(hostname, lookup = dns.lookup) {
+  const list = await lookupPublicIpv4(hostname, lookup);
   if (!list.length) {
     const err = new Error('unresolved_host');
     err.code = 'unresolved_host';
@@ -132,6 +144,10 @@ function classifyFetchFailure(error) {
   const name = error?.name || '';
   const code = error?.code || '';
   const message = String(error?.message || '');
+  const status = Number(error?.httpStatus);
+  if (error?.cfRay || [403, 503, 520, 521, 522, 523, 524, 525, 526, 530].includes(status)) {
+    return 'cloudflare_protected';
+  }
   if (name === 'TimeoutError' || code === 'ABORT_ERR' || message.includes('timeout') || message === 'timeout') {
     return 'timeout';
   }
@@ -226,7 +242,12 @@ async function fetchPublicDocument(startHref, deps = {}) {
       if (hop === PUBLIC_CHECK_LIMITS.maxRedirects) throw new Error('too_many_redirects');
       continue;
     }
-    if (!res.ok) throw new Error('unreachable');
+    if (!res.ok) {
+      const err = new Error('unreachable');
+      err.httpStatus = status;
+      err.cfRay = res.headers.get('cf-ray');
+      throw err;
+    }
     if (!isHtmlContentType(res.headers.get('content-type'))) throw new Error('non_html');
     const html = await readBoundedBody(res, PUBLIC_CHECK_LIMITS.maxBytes);
     const trimmed = html.trim();
@@ -353,7 +374,7 @@ async function runPublicCheck(input = {}, deps = {}) {
     }
   }
   const errorCode = classifyFetchFailure(lastError);
-  const status = errorCode === 'invalid_url' ? 400 : errorCode === 'non_html' ? 422 : 502;
+  const status = errorCode === 'invalid_url' ? 400 : errorCode === 'non_html' ? 422 : errorCode === 'cloudflare_protected' ? 503 : 502;
   return {
     ok: false,
     error: errorCode,
@@ -367,6 +388,8 @@ export {
   FINDING_CODES,
   NEXT_STEPS,
   isBlockedIp,
+  isCloudflareAddress,
+  lookupPublicIpv4,
   resolvePublicCheckTarget,
   assertPublicHostname,
   extractHtmlSignals,

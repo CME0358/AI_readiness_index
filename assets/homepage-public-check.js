@@ -90,6 +90,7 @@
           timeout: '応答が時間内に返りませんでした。時間をおいて再試行するか、無料ガイドをご覧ください。',
           non_html: 'HTMLの公開ページとして確認できませんでした。',
           blocked_target: 'この宛先は確認対象にできません。',
+          cloudflare_protected: 'Cloudflareで保護されているため、サーバーからの自動確認がブロックされています。別の公開URLでお試しください。自社ドメインの場合はCloudflareで User-Agent「AgentReadinessCheck」を許可してください。',
           unreachable: '公開ページに到達できませんでした。再試行するか、無料ガイドをご覧ください。',
         };
         errorEl.textContent = messages[body.error] || messages.unreachable;

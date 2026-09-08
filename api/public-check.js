@@ -4,6 +4,11 @@ import {
   runPublicCheck,
 } from '../scripts/lib/funnel/public-check.mjs';
 
+export const config = {
+  // Outbound fetch for JP Cloudflare zones is more reliable from Tokyo than US regions.
+  regions: ['hnd1'],
+};
+
 const MAX_BODY_BYTES = 8 * 1024;
 
 async function readBody(req) {

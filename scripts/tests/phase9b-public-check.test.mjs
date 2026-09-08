@@ -92,6 +92,25 @@ test('private IPv6 / loopback is rejected', () => {
   assert.equal(normalizeDomain('https://[::1]/').valid, false);
 });
 
+test('Cloudflare HTTP failures map to cloudflare_protected', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => ({
+      ok: false,
+      status: 403,
+      headers: { get: (key) => (key.toLowerCase() === 'cf-ray' ? 'abc123' : null) },
+    }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'cloudflare_protected');
+  assert.equal(result.status, 503);
+});
+
+test('api/public-check is pinned to Tokyo for outbound fetch reliability', () => {
+  const api = read('api/public-check.js');
+  assert.match(api, /regions:\s*\['hnd1'\]/);
+});
+
 test('redirect to private target is rejected', async () => {
   const result = await runPublicCheck({ url: 'https://example.com' }, {
     lookup: lookupPublic(),
