@@ -1,0 +1,1 @@
+record_id,wave_id,observation_mode,question_id,question_text,segment,target_ai,model_id,search_enabled,interface_type,observed_at,locale,region,conversation_state,repeat_count,execution_status,error_code,mentions_brand_unprompted,recommends_vendor,vendor_names,citation_urls,pricing_claim_accurate,pricing_claim_notes,has_consult_path,consult_path_notes,operator_notes

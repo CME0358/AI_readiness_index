@@ -2,7 +2,8 @@
 
 > **RMVU-05A** — 手動 Search Console 週次計測テンプレート  
 > **Property:** `https://readiness.coaretail.com/`  
-> **Baseline status:** Not Yet Recorded（初回 GSC エクスポート後に入力）
+> **Baseline status:** Not Yet Recorded（初回 GSC エクスポート後に入力）  
+> **AI観測（P2-02）:** 手順・CSV・集計は [`observation/README.md`](../observation/README.md) — `import-observation-week.mjs` で `weekly-report.json` を生成
 
 ---
 
@@ -140,6 +141,25 @@ RMVU-05 audit planning references — **baseline取得後にのみ target を設
 
 ---
 
+## AI Observation (weekly, separate from GSC)
+
+| Metric | Current week | Previous week | Source |
+|---|---:|---:|---|
+| AI valid responses (denominator) | TBD | TBD | `ai-responses.csv` |
+| Unprompted brand mention rate | TBD | TBD | aggregate |
+| Vendor recommend rate | TBD | TBD | aggregate |
+| AI citation count | TBD | TBD | `citation_urls` |
+| AI referral sessions | TBD | TBD | GA4 export |
+| Service view events | TBD | TBD | GA4 `service_view` |
+| Inquiries (deduped) | TBD | TBD | CRM export |
+| Consults | TBD | TBD | CRM export |
+| Orders | TBD | TBD | CRM export |
+
+指名認識テストは `observation/named-entity/` で別ウェーブ。購入意図12問と混在しない。
+
+---
+
 ## Update History
 
+- 2026-09-08: P2-02 AI観測セクション追加。`observation/README.md` へ手順統合。
 - 2026-08-09: RMVU-05A template created. Baseline not yet recorded.
