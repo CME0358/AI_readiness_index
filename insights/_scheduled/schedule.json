@@ -654,7 +654,7 @@
     {
       "slug": "exec-readiness-kpi",
       "publishAt": "2026-09-08T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "経営が見るべきReadiness指標",
       "cardSummary": "順位ではなく段階別到達率と実行成功率を見る。基準論ではなく経営KPI設計",
       "llmsLabel": "経営が見るべきReadiness指標",
@@ -670,7 +670,10 @@
       "slotType": "DAILY_PRIMARY",
       "scheduledPublishAt": "2026-09-08T10:00:00+09:00",
       "publicationState": "SCHEDULED",
-      "heroReadyAt": "2026-09-08T00:27:37.139Z"
+      "heroReadyAt": "2026-09-08T00:27:37.139Z",
+      "publishAttemptedAt": "2026-09-08T01:55:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-08T01:55:00.000Z"
     },
     {
       "slug": "abis-ari-bridge",

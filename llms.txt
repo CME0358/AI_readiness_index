@@ -10,6 +10,7 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
+- [経営が見るべきReadiness指標](https://readiness.coaretail.com/insights/exec-readiness-kpi/): Insights Column（2026-09-08）
 - [生成AI検索52.3%。「第二の検索プラットフォーム」で企業が測るべきもの](https://readiness.coaretail.com/insights/ai-search-52-percent/): Insights Column（2026-09-07）
 - [マーケが担う情報設計の再定義](https://readiness.coaretail.com/insights/marketing-info-design/): Insights Column（2026-09-04）
 - [複数エージェントが比較するとき](https://readiness.coaretail.com/insights/multi-agent-compare/): Insights Column（2026-09-03）
