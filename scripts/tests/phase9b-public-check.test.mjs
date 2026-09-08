@@ -43,7 +43,24 @@ test('valid public HTTPS domain is accepted as a check target', () => {
   const target = resolvePublicCheckTarget('https://www.example.com/path');
   assert.equal(target.valid, true);
   assert.equal(target.host, 'example.com');
-  assert.equal(target.href, 'https://example.com/');
+  assert.equal(target.href, 'https://www.example.com/');
+});
+
+test('apex-only domain falls back to www when apex is unreachable', async () => {
+  let calls = 0;
+  const result = await runPublicCheck({ url: 'https://coaretail.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async (url) => {
+      calls += 1;
+      if (url === 'https://coaretail.com/') {
+        return { ok: false, status: 525, headers: { get: () => null } };
+      }
+      return htmlResponse('<html><head><meta property="og:title" content="Coa"></head><body>contact</body></html>');
+    },
+  });
+  assert.equal(calls, 2);
+  assert.equal(result.ok, true);
+  assert.equal(result.host, 'coaretail.com');
 });
 
 test('invalid URL is rejected', async () => {

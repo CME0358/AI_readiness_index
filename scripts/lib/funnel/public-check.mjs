@@ -86,9 +86,28 @@ function isBlockedIp(ip) {
 }
 
 function resolvePublicCheckTarget(input) {
-  const domain = normalizeDomain(input);
+  const raw = String(input || '').trim();
+  if (!raw) return { valid: false, reason: 'invalid_url' };
+  const domain = normalizeDomain(raw);
   if (!domain.valid) return { valid: false, reason: domain.reason || 'invalid_url' };
-  return { valid: true, host: domain.value, href: `https://${domain.value}/` };
+
+  let fetchHostname = domain.value;
+  try {
+    const candidate = /^[a-z][a-z\d+.-]*:\/\//i.test(raw) ? raw : `https://${raw}`;
+    const parsed = new URL(candidate);
+    if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+      fetchHostname = parsed.hostname.toLowerCase().replace(/\.$/, '');
+    }
+  } catch {
+    // keep canonical hostname
+  }
+
+  return {
+    valid: true,
+    host: domain.value,
+    fetchHostname,
+    href: `https://${fetchHostname}/`,
+  };
 }
 
 async function assertPublicHostname(hostname, lookup = dns.lookup) {
@@ -305,28 +324,38 @@ async function runPublicCheck(input = {}, deps = {}) {
   if (!target.valid) {
     return { ok: false, error: 'invalid_url', status: 400, writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 } };
   }
-  try {
-    const document = await fetchPublicDocument(target.href, deps);
-    const signals = extractHtmlSignals(document.html);
-    const findings = buildFindings(signals);
-    return {
-      ok: true,
-      host: target.host,
-      findings,
-      resultCategory: resultCategory(findings),
-      status: 200,
-      writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
-    };
-  } catch (error) {
-    const errorCode = classifyFetchFailure(error);
-    const status = errorCode === 'invalid_url' ? 400 : errorCode === 'non_html' ? 422 : 502;
-    return {
-      ok: false,
-      error: errorCode,
-      status,
-      writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
-    };
+  const fetchHost = target.fetchHostname || target.host;
+  const hrefs = [target.href];
+  if (!fetchHost.startsWith('www.') && fetchHost === target.host) {
+    hrefs.push(`https://www.${target.host}/`);
   }
+
+  let lastError;
+  for (const href of hrefs) {
+    try {
+      const document = await fetchPublicDocument(href, deps);
+      const signals = extractHtmlSignals(document.html);
+      const findings = buildFindings(signals);
+      return {
+        ok: true,
+        host: target.host,
+        findings,
+        resultCategory: resultCategory(findings),
+        status: 200,
+        writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+      };
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  const errorCode = classifyFetchFailure(lastError);
+  const status = errorCode === 'invalid_url' ? 400 : errorCode === 'non_html' ? 422 : 502;
+  return {
+    ok: false,
+    error: errorCode,
+    status,
+    writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+  };
 }
 
 export {
