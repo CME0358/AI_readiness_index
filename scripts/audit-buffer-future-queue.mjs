@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { bufferGraphql, getBufferConfig, getChannelId } from './lib/buffer-client.mjs';
+import { loadCanonicalBufferEnv } from './lib/buffer-env.mjs';
 
 const ROOT = process.cwd();
 const CHANNELS = [
@@ -158,6 +159,7 @@ export async function runAudit({ now = new Date(), cfg = getBufferConfig(), grap
 }
 
 async function main() {
+  loadCanonicalBufferEnv();
   const output = await runAudit();
   fs.mkdirSync(path.join(ROOT, 'artifacts'), { recursive: true });
   fs.writeFileSync(path.join(ROOT, 'artifacts/buffer-future-queue-audit.json'), `${JSON.stringify(output, null, 2)}\n`, 'utf8');
