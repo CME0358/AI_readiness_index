@@ -208,7 +208,11 @@ async function fetchPublicDocument(startHref, deps = {}) {
         method: 'GET',
         redirect: 'manual',
         signal: controller.signal,
-        headers: { Accept: 'text/html,application/xhtml+xml;q=0.9' },
+        headers: {
+          Accept: 'text/html,application/xhtml+xml;q=0.9',
+          'Accept-Language': 'ja,en;q=0.9',
+          'User-Agent': 'Mozilla/5.0 (compatible; AgentReadinessCheck/1.0; +https://readiness.coaretail.com)',
+        },
       });
     } finally {
       clearTimeout(timer);
