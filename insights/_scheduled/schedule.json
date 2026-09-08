@@ -664,13 +664,13 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "Agent Readiness KPI 経営指標",
       "unlockedAt": "2026-09-04T10:52:02.127Z",
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-04T10:52:02.127Z",
+      "packageReadiness": "PACKAGE_READY",
       "publicationId": "PUB-20260908-DAILY-001",
       "slotDate": "2026-09-08",
       "slotType": "DAILY_PRIMARY",
       "scheduledPublishAt": "2026-09-08T10:00:00+09:00",
-      "publicationState": "SCHEDULED"
+      "publicationState": "SCHEDULED",
+      "heroReadyAt": "2026-09-08T00:27:37.139Z"
     },
     {
       "slug": "abis-ari-bridge",
