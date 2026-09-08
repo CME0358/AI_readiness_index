@@ -4,17 +4,17 @@
 ARI-P2-02
 
 ## STATUS
-**VERIFIED**（ローカルテスト・CLIスモークテスト済み）  
+**DEPLOYED**（本番反映・本番確認済み 2026-09-08）  
 **OBSERVING**（実運用ベースライン未取得 — 観測期間未経過のため成果達成としない）
 
 ## BRANCH
-`fix/ari-p2-02-observation`
+`fix/ari-p2-02-observation` → merged to `main`
 
 ## BASE_SHA
 `1377d89c0fa009ff516125e5173a04d6e432e676`（main @ P2-01 DEPLOYED 後）
 
 ## FINAL_SHA_OR_UNCOMMITTED
-未コミット（本ブランチ上の差分）
+`0ee76a1d4c67db4d7e801140f71fe3212a96628b`（main にマージ・push済み）
 
 ---
 
@@ -120,10 +120,19 @@ node scripts/import-observation-week.mjs --wave 2026-W36-test --dir observation/
 ---
 
 ## DEPLOYMENT_STATUS
-**未デプロイ**（本プロンプトに本番反映指示なし。変更はRunbook・スクリプト・テンプレのみ）
+**DEPLOYED** — `git push origin main`（`1377d89..0ee76a1`）→ Vercel 自動デプロイ
 
 ## PRODUCTION_CHECKS
-該当なし（サイト表示変更なし）
+
+| URL | 結果 | 備考 |
+| --- | --- | --- |
+| `https://readiness.coaretail.com/` | HTTP 200 | `age: 0`（デプロイ直後） |
+| `https://readiness.coaretail.com/guides/` | HTTP 200 | P2-01 回帰なし |
+| `https://readiness.coaretail.com/report/` | HTTP 200 | 回帰なし |
+
+**ローカル:** `npm run build:all` 成功（exit 0）
+
+**注記:** P2-02 の観測基盤（`observation/`, 集計CLI）はリポジトリ内運用ツールであり、公開サイトの新規URLは追加していない。
 
 ---
 
@@ -176,4 +185,5 @@ git branch -D fix/ari-p2-02-observation
 ---
 
 ## 更新履歴
+- 2026-09-08: DEPLOYED — main マージ・本番確認
 - 2026-09-08: 初版作成（VERIFIED + OBSERVING）
