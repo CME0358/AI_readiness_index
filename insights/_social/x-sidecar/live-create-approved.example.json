@@ -1,0 +1,6 @@
+{
+  "approved": false,
+  "expiresAt": "2099-12-31T23:59:59+09:00",
+  "approver": "set-to-true-only-for-explicit-live-sidecar-approval",
+  "note": "Copy to .live-create-approved and set approved=true with a valid expiresAt JST ISO8601 timestamp."
+}

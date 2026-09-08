@@ -17,3 +17,6 @@ crucial_data/
 .env
 .env.*
 !.env.example
+
+# Sidecar live-create approval token (never commit)
+insights/_social/x-sidecar/.live-create-approved

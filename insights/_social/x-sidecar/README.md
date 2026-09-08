@@ -8,6 +8,12 @@ This namespace is independent from `insights/_social/buffer/` and
 - `ownership` must be `ari_x_traffic_sidecar_v1`.
 - Existing Buffer posts are read-only and must never be added to this ledger.
 - `ARI_X_TRAFFIC_ENABLED=false` and `ARI_X_TRAFFIC_DRY_RUN=true` are the safe defaults.
+- Live Buffer create requires **all** of:
+  - `ARI_X_TRAFFIC_ENABLED=true`
+  - `ARI_X_TRAFFIC_DRY_RUN=false`
+  - `ARI_X_TRAFFIC_LIVE_CREATE=true`
+  - `insights/_social/x-sidecar/.live-create-approved` (JSON with `approved: true` and future `expiresAt`)
+- `node scripts/cleanup-buffer-empty-drafts.mjs` removes unauthorized empty Buffer drafts.
 
 The Sidecar uses Buffer read-only queries for scheduled posts, organization
 scheduled-post limits, daily channel limits, and rate-limit headers before any

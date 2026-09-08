@@ -19,6 +19,7 @@ import {
 } from './core.mjs';
 import { loadCanonicalBufferEnv } from '../lib/buffer-env.mjs';
 import { getBufferConfig, getChannelId } from '../lib/buffer-client.mjs';
+import { assertSidecarSafeMode, evaluateSidecarProductionGate } from '../lib/sidecar-production-gate.mjs';
 
 const dryRun = process.env.ARI_X_TRAFFIC_DRY_RUN !== 'false' || process.argv.includes('--dry-run');
 const enabled = process.env.ARI_X_TRAFFIC_ENABLED === 'true';
@@ -87,7 +88,7 @@ async function bufferReadOnlyGate({ date, cfg }) {
   }
 }
 
-function printPlan(plan, capacity) {
+function printPlan(plan, capacity, gate) {
   console.log('=== ARI X TRAFFIC SIDECAR DAILY REPORT ===');
   console.log(`DATE: ${plan.date}`);
   console.log(`TIMEZONE: ${plan.timezone}`);
@@ -110,10 +111,14 @@ function printPlan(plan, capacity) {
   console.log(`TOTAL_HOLD: ${plan.posts.filter((p) => p.state === 'HOLD').length + (capacity.safe ? 0 : plan.posts.filter((p) => p.state !== 'HOLD').length)}`);
   console.log('EXISTING_BUFFER_POSTS_MODIFIED: 0');
   console.log('EXISTING_BUFFER_POSTS_DELETED: 0');
-  console.log(`PRODUCTION_ACTIVATION: ${enabled ? 'CONFIGURED_BUT_NOT_EXECUTED' : 'HOLD'}`);
+  console.log(`PRODUCTION_ACTIVATION: ${gate.liveCreateAllowed ? 'APPROVED_NOT_IMPLEMENTED' : 'HOLD'}`);
+  if (!gate.liveCreateAllowed) {
+    console.log(`SIDECAR_GATE: ${gate.reasons.join('; ')}`);
+  }
 }
 
 async function main() {
+  const gate = assertSidecarSafeMode({ argv: process.argv });
   const ledger = readJson(LEDGER_PATH, { posts: [] });
   const articles = loadPublishedInsights({ root: ROOT });
   const redirects = readJson(REDIRECTS_PATH, { redirects: [] });
@@ -124,8 +129,12 @@ async function main() {
   if (!dryRun && (!enabled || !capacity.safe)) {
     for (const post of plan.posts) if (post.state !== 'HOLD') post.state = 'HOLD';
   }
-  printPlan(plan, capacity);
+  printPlan(plan, capacity, gate);
   if (!dryRun && enabled && capacity.safe) {
+    const liveGate = evaluateSidecarProductionGate({ argv: process.argv });
+    if (!liveGate.liveCreateAllowed) {
+      throw new Error(`SIDECAR_LIVE_CREATE_BLOCKED: ${liveGate.reasons.join('; ')}`);
+    }
     throw new Error('LIVE_BUFFER_CREATE_DISABLED_IN_V1_VALIDATION');
   }
   if (!dryRun || !fs.existsSync(REDIRECTS_PATH)) return;
