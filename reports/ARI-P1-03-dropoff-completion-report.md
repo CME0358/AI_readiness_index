@@ -4,7 +4,7 @@
 ARI-P1-03
 
 ## STATUS
-**VERIFIED**（ローカルテスト 70件 PASS・本番未反映）
+**DEPLOYED**（本番反映・本番確認済み 2026-09-08）
 
 ## BRANCH
 `fix/ari-p1-03-dropoff`
@@ -115,18 +115,18 @@ node --test \
 ---
 
 ## DEPLOYMENT_STATUS
-**未デプロイ** — プロンプトに本番反映指示なし。ブランチ `fix/ari-p1-03-dropoff` @ `6cd9c81` でレビュー可能。
-
-### 反映手順（参考）
-1. `git checkout main && git merge fix/ari-p1-03-dropoff`
-2. `npm run build:all`
-3. Vercel 本番デプロイ（既存ゲート）
-4. 本番確認: 公開チェック再試行、whitepaper フォーム invalid 表示、checkout ボタン busy
-
----
+**DEPLOYED** — `main` @ `2039c59` を `origin/main` に push。Vercel `npm run build:all` 自動デプロイ完了（約2.5分後に本番反映確認）。
 
 ## PRODUCTION_CHECKS
-未実施（DEPLOYED ではない）
+| 確認項目 | 結果 |
+| --- | --- |
+| `https://readiness.coaretail.com/assets/form-ux.js` | HTTP **200**、`AriFormUx` 定義あり |
+| `index.html` `data-public-check-retry` | **1件** |
+| `index.html` `homepage_check_consult` + mtgschedule | **1件** |
+| `whitepaper/2026/free/` `form-ux.js` 読込 | **1件** |
+| `homepage-public-check.js` `runCheck` | **3件** |
+| `whitepaper-checkout.js` `redirecting` ガード | 本番に反映 |
+| `POST /api/public-check` (`www.coaretail.com`) | HTTP **200** `ok:true` |
 
 ---
 
