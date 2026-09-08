@@ -4,7 +4,7 @@
 ARI-P2-01
 
 ## STATUS
-**VERIFIED**（ローカルテスト済み・本番未反映）
+**DEPLOYED**（本番反映・本番確認済み 2026-09-08）
 
 ## BRANCH
 `fix/ari-p2-01-seo-intent`
@@ -108,22 +108,17 @@ node --test scripts/tests/related-links.test.mjs          # PASS
 ---
 
 ## DEPLOYMENT_STATUS
-**未デプロイ** — プロンプトに本番反映指示なし。
-
-### 反映手順
-```bash
-git checkout main && git merge fix/ari-p2-01-seo-intent
-npm run build:all
-git push origin main
-# Vercel 自動デプロイ後:
-# curl guides/ai-search-services/ canonical
-# blind → guide リンク確認
-```
-
----
+**DEPLOYED** — `main` @ `02821c8` を `origin/main` に push。Vercel 自動デプロイ完了（約45秒後に本番反映確認）。
 
 ## PRODUCTION_CHECKS
-未実施
+| 確認項目 | 結果 |
+| --- | --- |
+| `https://readiness.coaretail.com/guides/` | HTTP **200**・「購入前ガイド」あり |
+| `/guides/ai-search-services/` | HTTP **200** |
+| `/guides/chatgpt-visibility-check/` | HTTP **200** |
+| `/insights/blind/` → `guides/chatgpt-visibility-check` | **2件** |
+| `/insights/ari-vs-geo-seo/` → `guides/ai-search-services` | **2件** |
+| `/services/` → guides 導線 | **1件** |
 
 ---
 
