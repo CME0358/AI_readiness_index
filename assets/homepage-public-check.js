@@ -87,15 +87,16 @@
       if (!body.ok) {
         var messages = {
           invalid_url: '入力されたURLを確認できませんでした。公開されているhttpsの公式サイトを指定してください。',
-          timeout: '応答が時間内に返りませんでした。時間をおいて再試行するか、無料ガイドをご覧ください。',
+          slow_response: 'サイトからの応答に時間がかかっているため、今回の簡易確認では一部情報を取得できませんでした。時間をおいて再試行するか、無料ガイドをご覧ください。',
+          ssl_connection: 'サイトへの安全な接続を確立できなかったため、一部情報を確認できませんでした。',
+          access_restricted: 'サイト側の自動アクセス制限により、一部情報を確認できませんでした。別の公開URLでお試しください。',
+          connection_failed: 'サイトに接続できなかったため、今回の簡易確認を完了できませんでした。無料ガイドをご覧ください。',
           non_html: 'HTMLの公開ページとして確認できませんでした。',
           blocked_target: 'この宛先は確認対象にできません。',
-          cloudflare_protected: 'Cloudflareで保護されているため、サーバーからの自動確認がブロックされています。別の公開URLでお試しください。自社ドメインの場合はCloudflareで User-Agent「AgentReadinessCheck」を許可してください。',
-          unreachable: '公開ページに到達できませんでした。再試行するか、無料ガイドをご覧ください。',
         };
-        errorEl.textContent = messages[body.error] || messages.unreachable;
+        errorEl.textContent = messages[body.error] || messages.connection_failed;
         show(errorEl, true);
-        track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: body.error || 'unreachable', source_surface: 'homepage', landing_page: '/' });
+        track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: body.error || 'connection_failed', source_surface: 'homepage', landing_page: '/' });
         return;
       }
       if (hostEl) hostEl.textContent = body.host || '';

@@ -11,13 +11,18 @@ import { resolveLeadRoute } from '../lib/funnel/routing.mjs';
 import { SEGMENTS } from '../lib/funnel/segments.mjs';
 import {
   NEXT_STEPS,
+  PUBLIC_CHECK_LIMITS,
   assertNoPaidPayload,
+  classifyFetchFailure,
+  classifyHttpStatus,
   extractHtmlSignals,
   buildFindings,
   isBlockedIp,
+  isAbortError,
   publicView,
   resolvePublicCheckTarget,
   runPublicCheck,
+  userFacingError,
 } from '../lib/funnel/public-check.mjs';
 import { shouldRejectPaidAnalysis } from '../lib/product-integrity.mjs';
 
@@ -26,12 +31,58 @@ const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');
 
 const PUBLIC_A = [{ address: '93.184.216.34', family: 4 }];
 
+function headerMap(values = {}) {
+  const lower = Object.fromEntries(Object.entries(values).map(([k, v]) => [k.toLowerCase(), v]));
+  return { get: (key) => lower[key.toLowerCase()] ?? null };
+}
+
 function htmlResponse(html, headers = { 'content-type': 'text/html' }) {
+  const merged = { ...headers };
   return {
     ok: true,
     status: 200,
-    headers: { get: (key) => headers[key] || headers[key.toLowerCase()] || null },
+    headers: headerMap(merged),
     text: async () => html,
+    body: {
+      getReader() {
+        const encoder = new TextEncoder();
+        const chunk = encoder.encode(html);
+        let sent = false;
+        return {
+          async read() {
+            if (sent) return { done: true, value: undefined };
+            sent = true;
+            return { done: false, value: chunk };
+          },
+          async cancel() {},
+        };
+      },
+    },
+  };
+}
+
+function errorResponse(status, headers = {}) {
+  const body = headers.body || '';
+  return {
+    ok: false,
+    status,
+    headers: headerMap(headers),
+    text: async () => body,
+    body: {
+      getReader() {
+        const encoder = new TextEncoder();
+        const chunk = encoder.encode(body);
+        let sent = false;
+        return {
+          async read() {
+            if (sent) return { done: true, value: undefined };
+            sent = true;
+            return { done: false, value: chunk };
+          },
+          async cancel() {},
+        };
+      },
+    },
   };
 }
 
@@ -39,28 +90,207 @@ function lookupPublic() {
   return async () => PUBLIC_A;
 }
 
+test('PUBLIC_CHECK_LIMITS timeout is 15000ms', () => {
+  assert.equal(PUBLIC_CHECK_LIMITS.timeoutMs, 15000);
+});
+
 test('valid public HTTPS domain is accepted as a check target', () => {
   const target = resolvePublicCheckTarget('https://www.example.com/path');
   assert.equal(target.valid, true);
   assert.equal(target.host, 'example.com');
   assert.equal(target.href, 'https://www.example.com/');
+  assert.equal(target.isApexInput, false);
 });
 
-test('apex-only domain falls back to www when apex is unreachable', async () => {
+test('apex input is flagged for controlled www fallback', () => {
+  const target = resolvePublicCheckTarget('https://coaretail.com');
+  assert.equal(target.isApexInput, true);
+  assert.equal(target.href, 'https://coaretail.com/');
+});
+
+test('cf-ray on HTTP 200 succeeds without protection classification', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => htmlResponse('<html><head><meta property="og:title" content="ok"></head><body>contact</body></html>', {
+      'content-type': 'text/html',
+      'cf-ray': 'abc123-NRT',
+      server: 'cloudflare',
+    }),
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.diagnostics.at(-1).classification, 'success');
+  assert.equal(result.diagnostics.at(-1).cfRay, 'abc123-NRT');
+});
+
+test('cf-ray on HTTP 403 without challenge maps to access_denied', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => errorResponse(403, { 'cf-ray': 'deny123', body: 'forbidden' }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'access_denied');
+  assert.equal(publicView(result).error, 'access_restricted');
+});
+
+test('HTTP 403 with challenge evidence maps to cloudflare_protected internally', () => {
+  const headers = headerMap({ 'cf-mitigated': 'challenge' });
+  assert.equal(classifyHttpStatus(403, headers, ''), 'cloudflare_protected');
+});
+
+test('HTTP 524 maps to origin_timeout', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => errorResponse(524, { 'cf-ray': 'to123', body: '' }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'origin_timeout');
+  assert.equal(publicView(result).error, 'slow_response');
+});
+
+test('HTTP 525 maps to ssl_origin_error', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => errorResponse(525, { 'cf-ray': 'ssl123', body: '' }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'ssl_origin_error');
+  assert.equal(publicView(result).error, 'ssl_connection');
+});
+
+test('AbortError name maps to timeout', () => {
+  const err = new DOMException('aborted', 'AbortError');
+  assert.equal(isAbortError(err), true);
+  assert.equal(classifyFetchFailure(err), 'timeout');
+});
+
+test('AbortError numeric code 20 maps to timeout', () => {
+  const err = new Error('aborted');
+  err.name = 'AbortError';
+  err.code = 20;
+  assert.equal(classifyFetchFailure(err), 'timeout');
+});
+
+test('timeout is handled without throwing', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    timeoutMs: 20,
+    fetchImpl: (_url, opts) => new Promise((_resolve, reject) => {
+      opts.signal.addEventListener('abort', () => {
+        reject(new DOMException('The operation was aborted', 'AbortError'));
+      });
+    }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'timeout');
+  assert.equal(publicView(result).error, 'slow_response');
+});
+
+test('body read abort inside deadline maps to timeout', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    timeoutMs: 30,
+    fetchImpl: async (_url, opts) => ({
+      ok: true,
+      status: 200,
+      headers: headerMap({ 'content-type': 'text/html' }),
+      body: {
+        getReader() {
+          return {
+            async read() {
+              await new Promise((resolve) => setTimeout(resolve, 60));
+              if (opts.signal.aborted) throw new DOMException('aborted', 'AbortError');
+              return { done: false, value: new TextEncoder().encode('x') };
+            },
+            async cancel() {},
+          };
+        },
+      },
+    }),
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'timeout');
+});
+
+test('apex 525 falls back to www 200 success with diagnostics', async () => {
   let calls = 0;
   const result = await runPublicCheck({ url: 'https://coaretail.com' }, {
     lookup: lookupPublic(),
+    region: 'hnd1',
     fetchImpl: async (url) => {
       calls += 1;
       if (url === 'https://coaretail.com/') {
-        return { ok: false, status: 525, headers: { get: () => null } };
+        return errorResponse(525, { 'cf-ray': 'apex525', body: '' });
       }
-      return htmlResponse('<html><head><meta property="og:title" content="Coa"></head><body>contact</body></html>');
+      return htmlResponse('<html><head><meta property="og:title" content="Coa"></head><body>contact</body></html>', {
+        'cf-ray': 'www200',
+      });
     },
   });
   assert.equal(calls, 2);
   assert.equal(result.ok, true);
   assert.equal(result.host, 'coaretail.com');
+  const fallbackAttempt = result.diagnostics.find((item) => item.fallbackUsed);
+  assert.equal(fallbackAttempt.initialUrl, 'https://coaretail.com/');
+  assert.equal(fallbackAttempt.initialStatus, 525);
+  assert.equal(fallbackAttempt.fallbackUrl, 'https://www.coaretail.com/');
+  assert.equal(fallbackAttempt.fallbackStatus, 200);
+});
+
+test('www input does not fall back to apex', async () => {
+  let calls = 0;
+  const result = await runPublicCheck({ url: 'https://www.example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async (url) => {
+      calls += 1;
+      return errorResponse(525, { body: '' });
+    },
+  });
+  assert.equal(calls, 1);
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'ssl_origin_error');
+});
+
+test('redirect hop consumes shared deadline budget', async () => {
+  let hop = 0;
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    timeoutMs: 60,
+    fetchImpl: async (url, opts) => {
+      hop += 1;
+      if (hop === 1) {
+        return {
+          ok: false,
+          status: 302,
+          headers: headerMap({ location: 'https://example.com/landing' }),
+        };
+      }
+      return new Promise((_resolve, reject) => {
+        opts.signal.addEventListener('abort', () => {
+          reject(new DOMException('aborted', 'AbortError'));
+        });
+      });
+    },
+  });
+  assert.equal(hop, 2);
+  assert.equal(result.error, 'timeout');
+});
+
+test('redirect to private target is rejected after fallback SSRF validation', async () => {
+  const result = await runPublicCheck({ url: 'https://coaretail.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async (url) => {
+      if (url === 'https://coaretail.com/') {
+        return errorResponse(525, { body: '' });
+      }
+      return {
+        ok: false,
+        status: 302,
+        headers: headerMap({ location: 'https://127.0.0.1/' }),
+      };
+    },
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.error, 'blocked_target');
 });
 
 test('invalid URL is rejected', async () => {
@@ -92,52 +322,9 @@ test('private IPv6 / loopback is rejected', () => {
   assert.equal(normalizeDomain('https://[::1]/').valid, false);
 });
 
-test('Cloudflare HTTP failures map to cloudflare_protected', async () => {
-  const result = await runPublicCheck({ url: 'https://example.com' }, {
-    lookup: lookupPublic(),
-    fetchImpl: async () => ({
-      ok: false,
-      status: 403,
-      headers: { get: (key) => (key.toLowerCase() === 'cf-ray' ? 'abc123' : null) },
-    }),
-  });
-  assert.equal(result.ok, false);
-  assert.equal(result.error, 'cloudflare_protected');
-  assert.equal(result.status, 503);
-});
-
 test('api/public-check is pinned to Tokyo for outbound fetch reliability', () => {
   const api = read('api/public-check.js');
   assert.match(api, /regions:\s*\['hnd1'\]/);
-});
-
-test('redirect to private target is rejected', async () => {
-  const result = await runPublicCheck({ url: 'https://example.com' }, {
-    lookup: lookupPublic(),
-    fetchImpl: async () => ({
-      ok: false,
-      status: 302,
-      headers: { get: (key) => (key.toLowerCase() === 'location' ? 'https://127.0.0.1/' : null) },
-    }),
-  });
-  assert.equal(result.ok, false);
-  assert.equal(result.error, 'blocked_target');
-});
-
-test('timeout is handled without throwing', async () => {
-  const result = await runPublicCheck({ url: 'https://example.com' }, {
-    lookup: lookupPublic(),
-    timeoutMs: 20,
-    fetchImpl: (_url, opts) => new Promise((_resolve, reject) => {
-      opts.signal.addEventListener('abort', () => {
-        const error = new Error('timeout');
-        error.name = 'TimeoutError';
-        reject(error);
-      });
-    }),
-  });
-  assert.equal(result.ok, false);
-  assert.equal(result.error, 'timeout');
 });
 
 test('non-HTML responses are handled', async () => {
@@ -160,9 +347,19 @@ test('successful check returns at most two observations and no paid fields', asy
   const view = publicView(result);
   assert.equal(assertNoPaidPayload(view), true);
   assert.equal(JSON.stringify(view).includes('overallScore'), false);
-  assert.equal(JSON.stringify(view).includes('scoreBreakdown'), false);
-  assert.equal(JSON.stringify(view).includes('aiRecognition'), false);
-  assert.equal(JSON.stringify(view).includes('roadmap'), false);
+  assert.equal(JSON.stringify(view).includes('cf-ray'), false);
+  assert.equal(JSON.stringify(view).includes('cfRay'), false);
+});
+
+test('publicView does not expose diagnostics metadata', async () => {
+  const result = await runPublicCheck({ url: 'https://example.com' }, {
+    lookup: lookupPublic(),
+    fetchImpl: async () => errorResponse(403, { 'cf-ray': 'secret', body: '' }),
+  });
+  const view = publicView(result);
+  assert.equal(view.error, 'access_restricted');
+  assert.equal(view.cfRay, undefined);
+  assert.equal(view.diagnostics, undefined);
 });
 
 test('result causes no Airtable, Leads, Inbound_Leads, or conversion writes', async () => {
@@ -198,6 +395,16 @@ test('CHECK CTA attributes, LOCAL destination, and REPORT destination are correc
   assert.doesNotMatch(html.slice(html.indexOf('id="company-check"'), html.indexOf('id="about"')), /月額 ¥198,000/);
 });
 
+test('homepage user-facing messages avoid Cloudflare branding', () => {
+  const js = read('assets/homepage-public-check.js');
+  assert.match(js, /slow_response/);
+  assert.match(js, /ssl_connection/);
+  assert.match(js, /access_restricted/);
+  assert.match(js, /connection_failed/);
+  assert.doesNotMatch(js, /cloudflare_protected/);
+  assert.doesNotMatch(js, /Cloudflare/);
+});
+
 test('analytics payload contains no raw URL, domain, or PII', () => {
   const js = read('assets/homepage-public-check.js');
   assert.match(js, /check_impression/);
@@ -219,6 +426,14 @@ test('analytics payload contains no raw URL, domain, or PII', () => {
   assert.equal(payload.domain, undefined);
   assert.equal(payload.email, undefined);
   assert.equal(payload.company, undefined);
+});
+
+test('userFacingError normalization covers timeout family', () => {
+  assert.equal(userFacingError('timeout'), 'slow_response');
+  assert.equal(userFacingError('origin_timeout'), 'slow_response');
+  assert.equal(userFacingError('ssl_origin_error'), 'ssl_connection');
+  assert.equal(userFacingError('access_denied'), 'access_restricted');
+  assert.equal(userFacingError('unreachable'), 'connection_failed');
 });
 
 test('existing funnel routing regression remains PASS', () => {
@@ -272,6 +487,7 @@ test('public-check HTTP handler does not write leads', async () => {
   assert.equal(json.ok, false);
   assert.equal(json.leadId, undefined);
   assert.equal(assertNoPaidPayload(json), true);
+  assert.equal(json.cfRay, undefined);
 });
 
 test('homepage keeps Hero, About, Whitepaper, Report, and Framework', () => {

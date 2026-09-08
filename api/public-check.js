@@ -42,7 +42,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return send(res, 405, { ok: false, error: 'method_not_allowed' });
   try {
     const input = await readBody(req);
-    const result = await runPublicCheck({ url: input.url || input.domain });
+    const result = await runPublicCheck(
+      { url: input.url || input.domain },
+      { region: process.env.VERCEL_REGION || 'unknown' },
+    );
     return send(res, result.status || (result.ok ? 200 : 400), publicView(result));
   } catch {
     return send(res, 400, { ok: false, error: 'invalid_request', findings: [] });

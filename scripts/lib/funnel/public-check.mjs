@@ -1,14 +1,17 @@
 /** Homepage public Check — lightweight HTML observations only. */
 import dns from 'node:dns/promises';
 import net from 'node:net';
+import { performance } from 'node:perf_hooks';
 import { normalizeDomain } from './lead-capture.mjs';
 import { localGeoDestination } from './routing.mjs';
 
 const PUBLIC_CHECK_LIMITS = Object.freeze({
-  timeoutMs: 8000,
+  timeoutMs: 15000,
   maxBytes: 512 * 1024,
   maxRedirects: 3,
 });
+
+const APEX_WWW_FALLBACK_STATUSES = new Set([521, 522, 523, 524, 525, 526]);
 
 const FINDING_CODES = Object.freeze({
   AI_DISCOVERABILITY_SIGNAL: 'AI_DISCOVERABILITY_SIGNAL',
@@ -35,6 +38,12 @@ const NEXT_STEPS = Object.freeze({
     ctaType: 'LOCAL',
     ctaId: 'homepage_check_local',
   }),
+});
+
+const FETCH_HEADERS = Object.freeze({
+  Accept: 'text/html,application/xhtml+xml;q=0.9',
+  'Accept-Language': 'ja,en;q=0.9',
+  'User-Agent': 'Mozilla/5.0 (compatible; AgentReadinessCheck/1.0; +https://readiness.coaretail.com)',
 });
 
 function homepageLocalDestination() {
@@ -102,11 +111,14 @@ function resolvePublicCheckTarget(input) {
     // keep canonical hostname
   }
 
+  const isApexInput = !fetchHostname.startsWith('www.') && fetchHostname === domain.value;
+
   return {
     valid: true,
     host: domain.value,
     fetchHostname,
     href: `https://${fetchHostname}/`,
+    isApexInput,
   };
 }
 
@@ -140,15 +152,66 @@ async function assertPublicHostname(hostname, lookup = dns.lookup) {
   return list;
 }
 
+function extractResponseMetadata(res) {
+  const headers = res?.headers;
+  const get = (key) => headers?.get?.(key) ?? null;
+  return {
+    httpStatus: Number(res?.status) || null,
+    cfRay: get('cf-ray'),
+    server: get('server'),
+    serverTiming: get('server-timing'),
+    cfCacheStatus: get('cf-cache-status'),
+  };
+}
+
+function hasCloudflareChallengeEvidence(headers, bodySnippet = '') {
+  const body = String(bodySnippet || '').toLowerCase();
+  const mitigated = headers?.get?.('cf-mitigated');
+  if (mitigated && String(mitigated).toLowerCase().includes('challenge')) return true;
+  return body.includes('cf-browser-verification')
+    || body.includes('challenge-platform')
+    || body.includes('just a moment')
+    || body.includes('attention required');
+}
+
+function classifyHttpStatus(status, headers = {}, bodySnippet = '') {
+  const challenge = hasCloudflareChallengeEvidence(headers, bodySnippet);
+  switch (status) {
+    case 403: return challenge ? 'cloudflare_protected' : 'access_denied';
+    case 429: return 'rate_limited';
+    case 503: return challenge ? 'cloudflare_protected' : 'service_unavailable';
+    case 520: return 'origin_unknown_error';
+    case 521: return 'origin_down';
+    case 522: return 'origin_connection_timeout';
+    case 523: return 'origin_unreachable';
+    case 524: return 'origin_timeout';
+    case 525: return 'ssl_origin_error';
+    case 526: return 'invalid_origin_certificate';
+    case 530: return 'origin_dns_or_edge_error';
+    default: return 'unreachable';
+  }
+}
+
+function isAbortError(error) {
+  if (!error) return false;
+  if (error.name === 'AbortError') return true;
+  if (error.code === 20 || error.code === 'ABORT_ERR') return true;
+  return false;
+}
+
 function classifyFetchFailure(error) {
+  if (isAbortError(error)) return 'timeout';
+
   const name = error?.name || '';
   const code = error?.code || '';
   const message = String(error?.message || '');
   const status = Number(error?.httpStatus);
-  if (error?.cfRay || [403, 503, 520, 521, 522, 523, 524, 525, 526, 530].includes(status)) {
-    return 'cloudflare_protected';
+
+  if (Number.isFinite(status) && status > 0) {
+    return classifyHttpStatus(status, error?.responseHeaders, error?.bodySnippet);
   }
-  if (name === 'TimeoutError' || code === 'ABORT_ERR' || message.includes('timeout') || message === 'timeout') {
+
+  if (name === 'TimeoutError' || message.includes('timeout') || message === 'timeout') {
     return 'timeout';
   }
   if (code === 'blocked_address' || message === 'blocked_address') return 'blocked_target';
@@ -159,20 +222,55 @@ function classifyFetchFailure(error) {
   return 'unreachable';
 }
 
+function userFacingError(internalCode) {
+  const slow = new Set(['timeout', 'origin_timeout', 'origin_connection_timeout', 'service_unavailable', 'rate_limited']);
+  const ssl = new Set(['ssl_origin_error', 'invalid_origin_certificate']);
+  const restricted = new Set(['access_denied', 'cloudflare_protected']);
+  const connection = new Set([
+    'unreachable', 'origin_down', 'origin_unreachable', 'origin_unknown_error', 'origin_dns_or_edge_error',
+  ]);
+  if (slow.has(internalCode)) return 'slow_response';
+  if (ssl.has(internalCode)) return 'ssl_connection';
+  if (restricted.has(internalCode)) return 'access_restricted';
+  if (connection.has(internalCode)) return 'connection_failed';
+  return internalCode;
+}
+
+function httpStatusForError(internalCode) {
+  if (internalCode === 'invalid_url') return 400;
+  if (internalCode === 'non_html') return 422;
+  if (internalCode === 'blocked_target') return 400;
+  if (['access_denied', 'cloudflare_protected', 'rate_limited'].includes(internalCode)) return 503;
+  if (['timeout', 'origin_timeout', 'origin_connection_timeout', 'service_unavailable'].includes(internalCode)) return 504;
+  if (['ssl_origin_error', 'invalid_origin_certificate'].includes(internalCode)) return 502;
+  return 502;
+}
+
 function isHtmlContentType(value) {
   const type = String(value || '').split(';')[0].trim().toLowerCase();
   if (!type) return true;
   return type === 'text/html' || type === 'application/xhtml+xml' || type === 'text/plain';
 }
 
-async function readBoundedBody(res, maxBytes) {
+function createRequestDeadline(budgetMs) {
+  const controller = new AbortController();
+  const started = performance.now();
+  const timer = setTimeout(() => controller.abort(), budgetMs);
+  return {
+    signal: controller.signal,
+    elapsedMs: () => Math.round(performance.now() - started),
+    dispose: () => clearTimeout(timer),
+  };
+}
+
+async function readBoundedBody(res, maxBytes, signal) {
   const declared = Number(res.headers?.get?.('content-length'));
   if (Number.isFinite(declared) && declared > maxBytes) {
-    const err = new Error('oversized');
-    throw err;
+    throw new Error('oversized');
   }
   if (!res.body || typeof res.body.getReader !== 'function') {
     const text = await res.text();
+    if (signal?.aborted) throw signal.reason || new DOMException('The operation was aborted', 'AbortError');
     if (Buffer.byteLength(text) > maxBytes) throw new Error('oversized');
     return text;
   }
@@ -180,6 +278,10 @@ async function readBoundedBody(res, maxBytes) {
   const chunks = [];
   let size = 0;
   while (true) {
+    if (signal?.aborted) {
+      try { await reader.cancel(); } catch { /* ignore */ }
+      throw signal.reason || new DOMException('The operation was aborted', 'AbortError');
+    }
     const { done, value } = await reader.read();
     if (done) break;
     size += value.byteLength;
@@ -192,71 +294,84 @@ async function readBoundedBody(res, maxBytes) {
   return Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))).toString('utf8');
 }
 
+function buildFetchError(status, headers, bodySnippet = '') {
+  const err = new Error('http_error');
+  err.httpStatus = status;
+  err.responseHeaders = headers;
+  err.bodySnippet = bodySnippet;
+  err.cfRay = headers?.get?.('cf-ray') ?? null;
+  return err;
+}
+
 async function fetchPublicDocument(startHref, deps = {}) {
   const fetchImpl = deps.fetchImpl || fetch;
   const lookup = deps.lookup || dns.lookup;
-  const timeoutMs = deps.timeoutMs || PUBLIC_CHECK_LIMITS.timeoutMs;
+  const budgetMs = deps.timeoutMs || PUBLIC_CHECK_LIMITS.timeoutMs;
+  const deadline = createRequestDeadline(budgetMs);
   let current = startHref;
   const seen = new Set();
 
-  for (let hop = 0; hop <= PUBLIC_CHECK_LIMITS.maxRedirects; hop += 1) {
-    const parsed = new URL(current);
-    if (parsed.protocol !== 'https:') {
-      const err = new Error('blocked_address');
-      err.code = 'blocked_address';
-      throw err;
-    }
-    const target = resolvePublicCheckTarget(parsed.hostname);
-    if (!target.valid) {
-      const err = new Error('blocked_address');
-      err.code = 'blocked_address';
-      throw err;
-    }
-    await assertPublicHostname(parsed.hostname, lookup);
-    if (seen.has(current)) throw new Error('redirect_loop');
-    seen.add(current);
+  try {
+    for (let hop = 0; hop <= PUBLIC_CHECK_LIMITS.maxRedirects; hop += 1) {
+      const parsed = new URL(current);
+      if (parsed.protocol !== 'https:') {
+        const err = new Error('blocked_address');
+        err.code = 'blocked_address';
+        throw err;
+      }
+      const target = resolvePublicCheckTarget(parsed.hostname);
+      if (!target.valid) {
+        const err = new Error('blocked_address');
+        err.code = 'blocked_address';
+        throw err;
+      }
+      await assertPublicHostname(parsed.hostname, lookup);
+      if (seen.has(current)) throw new Error('redirect_loop');
+      seen.add(current);
 
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    let res;
-    try {
-      res = await fetchImpl(current, {
+      const res = await fetchImpl(current, {
         method: 'GET',
         redirect: 'manual',
-        signal: controller.signal,
-        headers: {
-          Accept: 'text/html,application/xhtml+xml;q=0.9',
-          'Accept-Language': 'ja,en;q=0.9',
-          'User-Agent': 'Mozilla/5.0 (compatible; AgentReadinessCheck/1.0; +https://readiness.coaretail.com)',
-        },
+        signal: deadline.signal,
+        headers: FETCH_HEADERS,
       });
-    } finally {
-      clearTimeout(timer);
-    }
 
-    const status = res.status;
-    if ([301, 302, 303, 307, 308].includes(status)) {
-      const location = res.headers.get('location');
-      if (!location) throw new Error('unreachable');
-      current = new URL(location, current).toString();
-      if (hop === PUBLIC_CHECK_LIMITS.maxRedirects) throw new Error('too_many_redirects');
-      continue;
+      const status = res.status;
+      if ([301, 302, 303, 307, 308].includes(status)) {
+        const location = res.headers.get('location');
+        if (!location) throw new Error('unreachable');
+        current = new URL(location, current).toString();
+        if (hop === PUBLIC_CHECK_LIMITS.maxRedirects) throw new Error('too_many_redirects');
+        continue;
+      }
+
+      if (!res.ok) {
+        let snippet = '';
+        try {
+          snippet = await readBoundedBody(res, 4096, deadline.signal);
+        } catch {
+          // diagnostic snippet is optional
+        }
+        throw buildFetchError(status, res.headers, snippet);
+      }
+
+      if (!isHtmlContentType(res.headers.get('content-type'))) throw new Error('non_html');
+      const html = await readBoundedBody(res, PUBLIC_CHECK_LIMITS.maxBytes, deadline.signal);
+      const trimmed = html.trim();
+      if (trimmed.startsWith('{') || trimmed.startsWith('[') || trimmed.startsWith('%PDF')) {
+        throw new Error('non_html');
+      }
+      return {
+        html,
+        finalHref: current,
+        metadata: extractResponseMetadata(res),
+        elapsedMs: deadline.elapsedMs(),
+      };
     }
-    if (!res.ok) {
-      const err = new Error('unreachable');
-      err.httpStatus = status;
-      err.cfRay = res.headers.get('cf-ray');
-      throw err;
-    }
-    if (!isHtmlContentType(res.headers.get('content-type'))) throw new Error('non_html');
-    const html = await readBoundedBody(res, PUBLIC_CHECK_LIMITS.maxBytes);
-    const trimmed = html.trim();
-    if (trimmed.startsWith('{') || trimmed.startsWith('[') || trimmed.startsWith('%PDF')) {
-      throw new Error('non_html');
-    }
-    return { html, finalHref: current };
+    throw new Error('too_many_redirects');
+  } finally {
+    deadline.dispose();
   }
-  throw new Error('too_many_redirects');
 }
 
 function extractHtmlSignals(html) {
@@ -317,11 +432,52 @@ function resultCategory(findings) {
   return 'mixed';
 }
 
+function buildAttemptLog({
+  normalizedHost,
+  attemptedUrl,
+  region,
+  metadata = {},
+  elapsedMs,
+  classification,
+  fallbackUsed = false,
+  initialUrl = null,
+  initialStatus = null,
+  fallbackUrl = null,
+  fallbackStatus = null,
+}) {
+  return {
+    normalizedHost,
+    attemptedUrl,
+    region,
+    httpStatus: metadata.httpStatus ?? null,
+    cfRay: metadata.cfRay ?? null,
+    server: metadata.server ?? null,
+    serverTiming: metadata.serverTiming ?? null,
+    cfCacheStatus: metadata.cfCacheStatus ?? null,
+    elapsedMs,
+    classification,
+    fallbackUsed,
+    initialUrl,
+    initialStatus,
+    fallbackUrl,
+    fallbackStatus,
+  };
+}
+
+function logPublicCheckAttempts(attempts, outcome) {
+  if (!attempts?.length) return;
+  console.log(JSON.stringify({
+    event: 'public_check_observability',
+    outcome,
+    attempts,
+  }));
+}
+
 function publicView(result) {
   if (!result.ok) {
     return {
       ok: false,
-      error: result.error,
+      error: userFacingError(result.error),
       findings: [],
       next: NEXT_STEPS,
     };
@@ -344,23 +500,100 @@ function assertNoPaidPayload(payload) {
   return !forbidden.some((token) => raw.includes(token));
 }
 
+function shouldApexWwwFallback(error, target) {
+  if (!target.isApexInput) return false;
+  const status = Number(error?.httpStatus);
+  return APEX_WWW_FALLBACK_STATUSES.has(status);
+}
+
+async function attemptFetch(href, deps, target, region) {
+  const started = performance.now();
+  try {
+    const document = await fetchPublicDocument(href, deps);
+    const classification = 'success';
+    const attempt = buildAttemptLog({
+      normalizedHost: target.host,
+      attemptedUrl: href,
+      region,
+      metadata: document.metadata,
+      elapsedMs: document.elapsedMs ?? Math.round(performance.now() - started),
+      classification,
+      fallbackUsed: false,
+    });
+    return { ok: true, document, attempt };
+  } catch (error) {
+    const metadata = {
+      httpStatus: error?.httpStatus ?? null,
+      cfRay: error?.cfRay ?? null,
+      server: error?.responseHeaders?.get?.('server') ?? null,
+      serverTiming: error?.responseHeaders?.get?.('server-timing') ?? null,
+      cfCacheStatus: error?.responseHeaders?.get?.('cf-cache-status') ?? null,
+    };
+    const classification = classifyFetchFailure(error);
+    const attempt = buildAttemptLog({
+      normalizedHost: target.host,
+      attemptedUrl: href,
+      region,
+      metadata,
+      elapsedMs: Math.round(performance.now() - started),
+      classification,
+      fallbackUsed: false,
+    });
+    return { ok: false, error, attempt, classification };
+  }
+}
+
 async function runPublicCheck(input = {}, deps = {}) {
+  const region = deps.region || process.env.VERCEL_REGION || 'unknown';
   const target = resolvePublicCheckTarget(input.url || input.domain || input);
   if (!target.valid) {
-    return { ok: false, error: 'invalid_url', status: 400, writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 } };
-  }
-  const fetchHost = target.fetchHostname || target.host;
-  const hrefs = [target.href];
-  if (!fetchHost.startsWith('www.') && fetchHost === target.host) {
-    hrefs.push(`https://www.${target.host}/`);
+    return {
+      ok: false,
+      error: 'invalid_url',
+      status: 400,
+      writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+      diagnostics: [],
+    };
   }
 
-  let lastError;
-  for (const href of hrefs) {
-    try {
-      const document = await fetchPublicDocument(href, deps);
-      const signals = extractHtmlSignals(document.html);
+  const attempts = [];
+  const primaryHref = target.href;
+  const primary = await attemptFetch(primaryHref, deps, target, region);
+  attempts.push(primary.attempt);
+
+  if (primary.ok) {
+    const signals = extractHtmlSignals(primary.document.html);
+    const findings = buildFindings(signals);
+    logPublicCheckAttempts(attempts, 'success');
+    return {
+      ok: true,
+      host: target.host,
+      findings,
+      resultCategory: resultCategory(findings),
+      status: 200,
+      writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+      diagnostics: attempts,
+    };
+  }
+
+  let lastError = primary.error;
+  let lastClassification = primary.classification;
+
+  const fallbackHref = target.isApexInput ? `https://www.${target.host}/` : null;
+  if (fallbackHref && shouldApexWwwFallback(primary.error, target)) {
+    const fallbackTarget = resolvePublicCheckTarget(`https://www.${target.host}`);
+    const fallback = await attemptFetch(fallbackHref, deps, fallbackTarget, region);
+    fallback.attempt.fallbackUsed = true;
+    fallback.attempt.initialUrl = primaryHref;
+    fallback.attempt.initialStatus = primary.attempt.httpStatus;
+    fallback.attempt.fallbackUrl = fallbackHref;
+    attempts.push(fallback.attempt);
+
+    if (fallback.ok) {
+      fallback.attempt.fallbackStatus = fallback.attempt.httpStatus;
+      const signals = extractHtmlSignals(fallback.document.html);
       const findings = buildFindings(signals);
+      logPublicCheckAttempts(attempts, 'success_with_fallback');
       return {
         ok: true,
         host: target.host,
@@ -368,30 +601,43 @@ async function runPublicCheck(input = {}, deps = {}) {
         resultCategory: resultCategory(findings),
         status: 200,
         writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+        diagnostics: attempts,
       };
-    } catch (error) {
-      lastError = error;
     }
+
+    fallback.attempt.fallbackStatus = fallback.attempt.httpStatus;
+    lastError = fallback.error;
+    lastClassification = fallback.classification;
   }
-  const errorCode = classifyFetchFailure(lastError);
-  const status = errorCode === 'invalid_url' ? 400 : errorCode === 'non_html' ? 422 : errorCode === 'cloudflare_protected' ? 503 : 502;
+
+  const errorCode = lastClassification || classifyFetchFailure(lastError);
+  logPublicCheckAttempts(attempts, errorCode);
   return {
     ok: false,
     error: errorCode,
-    status,
+    status: httpStatusForError(errorCode),
     writes: { airtable: 0, leads: 0, inboundLeads: 0, conversions: 0 },
+    diagnostics: attempts,
   };
 }
 
 export {
   PUBLIC_CHECK_LIMITS,
+  APEX_WWW_FALLBACK_STATUSES,
   FINDING_CODES,
   NEXT_STEPS,
+  FETCH_HEADERS,
   isBlockedIp,
   isCloudflareAddress,
   lookupPublicIpv4,
   resolvePublicCheckTarget,
   assertPublicHostname,
+  extractResponseMetadata,
+  hasCloudflareChallengeEvidence,
+  classifyHttpStatus,
+  classifyFetchFailure,
+  isAbortError,
+  userFacingError,
   extractHtmlSignals,
   buildFindings,
   resultCategory,
@@ -400,4 +646,6 @@ export {
   runPublicCheck,
   fetchPublicDocument,
   homepageLocalDestination,
+  buildAttemptLog,
+  logPublicCheckAttempts,
 };
