@@ -26,6 +26,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_ROOT = path.resolve(__dirname, '../..');
 export const CANONICAL_HERO_SIZE = Object.freeze({ width: 1672, height: 941 });
 export const MAX_CANDIDATES_PER_RUN = 2;
+export const PREPUBLISH_HORIZON_DAYS = 3;
 export const MAX_GENERATION_ATTEMPTS = 3;
 export const PRODUCTION_ORIGIN = 'https://readiness.coaretail.com';
 export const DEFAULT_LOCK_PATH = '/private/tmp/ari-insights-visual-worker.lock';
@@ -130,8 +131,10 @@ export function discoverPrepublishCandidates(config, {
 } = {}) {
   const candidates = [];
   const reasons = [];
+  const horizonMs = PREPUBLISH_HORIZON_DAYS * 24 * 60 * 60 * 1000;
   const ordered = [...(schedule.articles || [])]
     .filter((article) => isScheduledPrepublishArticle(article, now))
+    .filter((article) => new Date(article.publishAt).getTime() - now.getTime() <= horizonMs)
     .sort((a, b) => new Date(a.publishAt).getTime() - new Date(b.publishAt).getTime());
   for (const article of ordered) {
     if (fs.existsSync(canonicalHeroPath(config, article.slug))) {
@@ -871,6 +874,10 @@ export async function runWorker({
       log({ slug: candidate.slug, finalResult: result.finalResult });
       candidateResults.push(result);
       if (result.finalResult !== 'SUCCESS') {
+        if (visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH && candidateResults.some((entry) => entry.finalResult === 'SUCCESS')) {
+          const lastSuccess = candidateResults.findLast((entry) => entry.finalResult === 'SUCCESS');
+          return { ...lastSuccess, runId, processed: candidateResults, partial: true };
+        }
         return { ...result, runId, processed: candidateResults };
       }
     }
