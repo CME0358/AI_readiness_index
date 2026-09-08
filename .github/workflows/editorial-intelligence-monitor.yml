@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # RMVU-05F: best-effort state restore (not durable DB; contents:read preserved)
       - name: Restore intelligence runtime state

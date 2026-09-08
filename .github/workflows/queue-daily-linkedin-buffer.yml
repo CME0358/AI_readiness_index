@@ -21,7 +21,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: queue-daily-linkedin-buffer
+  group: insights-publishing-git
   cancel-in-progress: false
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Validate v2 assets
         run: node scripts/validate-insights-v2.mjs || true

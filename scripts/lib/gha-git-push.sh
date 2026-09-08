@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# Safe git commit + push for GitHub Actions (rebase on concurrent workflow commits).
+# Safe git commit + push for GitHub Actions.
+#
+# Commits worker output on top of the latest origin branch without
+# commit-then-rebase (which repeatedly conflicts on insights/index.html and
+# insights/_scheduled/schedule.json when multiple publishing workflows overlap).
+#
 # Usage: scripts/lib/gha-git-push.sh "Commit message" path1 path2 ...
 set -euo pipefail
 
@@ -14,26 +19,31 @@ shift
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-git add "$@"
-
-if git diff --staged --quiet; then
-  echo "No staged changes — skip commit"
-  exit 0
-fi
-
-git commit -m "$MSG"
-
 branch="${GITHUB_REF_NAME:-main}"
+
 for attempt in 1 2 3 4 5; do
-  if git pull --rebase --autostash origin "$branch"; then
-    if git push origin "HEAD:${branch}"; then
-      echo "Pushed on attempt ${attempt}"
-      exit 0
-    fi
-  else
-    git rebase --abort 2>/dev/null || true
+  git fetch origin "$branch"
+
+  # Preserve worker modifications in the working tree; align HEAD/index to remote.
+  git reset --mixed "origin/${branch}"
+
+  git add "$@"
+
+  if git diff --staged --quiet; then
+    echo "No staged changes — skip commit"
+    exit 0
   fi
-  echo "Push/rebase failed (attempt ${attempt}) — retry in 5s"
+
+  git commit -m "$MSG"
+
+  if git push origin "HEAD:${branch}"; then
+    echo "Pushed on attempt ${attempt}"
+    exit 0
+  fi
+
+  # Non-FF push — drop the local commit but keep working-tree edits for retry.
+  git reset --mixed HEAD~1
+  echo "Push failed (attempt ${attempt}) — retry in 5s"
   sleep 5
 done
 
