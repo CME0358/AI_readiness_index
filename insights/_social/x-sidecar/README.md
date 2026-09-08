@@ -14,6 +14,8 @@ This namespace is independent from `insights/_social/buffer/` and
   - `ARI_X_TRAFFIC_LIVE_CREATE=true`
   - `insights/_social/x-sidecar/.live-create-approved` (JSON with `approved: true` and future `expiresAt`)
 - `node scripts/cleanup-buffer-empty-drafts.mjs` removes unauthorized empty Buffer drafts.
+- `npm run x-sidecar:live -- --date=YYYY-MM-DD` runs approved live delivery locally.
+- GitHub Actions live mode requires secret `SIDECAR_LIVE_CREATE_APPROVAL` (JSON body of `.live-create-approved`).
 
 The Sidecar uses Buffer read-only queries for scheduled posts, organization
 scheduled-post limits, daily channel limits, and rate-limit headers before any

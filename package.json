@@ -41,6 +41,7 @@
     "queue:buffer:fb-x": "node scripts/queue-daily-buffer-posts.mjs --channels facebook,x --dry-run",
     "x-sidecar:dry": "ARI_X_TRAFFIC_ENABLED=false ARI_X_TRAFFIC_DRY_RUN=true node scripts/x-traffic-sidecar/run.mjs --dry-run",
     "x-sidecar:run": "ARI_X_TRAFFIC_DRY_RUN=true node scripts/x-traffic-sidecar/run.mjs",
+    "x-sidecar:live": "ARI_X_TRAFFIC_ENABLED=true ARI_X_TRAFFIC_DRY_RUN=false ARI_X_TRAFFIC_LIVE_CREATE=true node scripts/x-traffic-sidecar/run.mjs",
     "buffer:draft-cleanup": "node scripts/cleanup-buffer-empty-drafts.mjs",
     "buffer:draft-cleanup:dry": "node scripts/cleanup-buffer-empty-drafts.mjs --dry-run",
     "reconcile:publishing": "node scripts/reconcile-publishing-pipeline.mjs",
