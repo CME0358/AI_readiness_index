@@ -105,8 +105,11 @@ test('localgeo handoff uses outbound UTM without GA linker', () => {
 test('lead_submit_success maps to LEAD_CREATED conversion only after server success path', () => {
   assert.equal(mapEventToConversion('lead_submit_success', {}), CONVERSION_TYPES.LEAD_CREATED);
   const capture = read('assets/whitepaper-lead-capture.js');
-  assert.match(capture, /if \(!result\.ok\) throw/);
+  assert.match(capture, /if \(!result\.ok\)/);
+  assert.match(capture, /throw new Error/);
   assert.match(capture, /track\('lead_created'/);
   const submitBlock = capture.slice(capture.indexOf("form.addEventListener('submit'"));
-  assert.doesNotMatch(submitBlock.slice(0, submitBlock.indexOf('.then(function (result)')), /lead_created/);
+  const successMarker = submitBlock.indexOf('if (typeof ux.clearDraft');
+  assert.ok(successMarker > 0, 'success path should clear draft before lead_created');
+  assert.doesNotMatch(submitBlock.slice(0, successMarker), /lead_created/);
 });

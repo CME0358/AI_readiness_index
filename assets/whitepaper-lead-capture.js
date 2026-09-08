@@ -7,7 +7,32 @@
 
   var ATTRIBUTION_KEY = 'ari_attribution_v1';
   var ROUTING_KEY = 'ari_routing_decision_v1';
+  var DRAFT_KEY = 'ari_whitepaper_lead_draft_v1';
   var CTA_ID = 'whitepaper_free_2026';
+  var ux = window.AriFormUx || {};
+  var FIELD_MESSAGES = {
+    company: {
+      required_or_too_long: '会社名を入力してください（200文字以内）。',
+      default: '会社名を確認してください。',
+    },
+    domain: {
+      required: '公式サイトURLを入力してください。',
+      invalid_url: '有効なURLを入力してください（例: example.com）。',
+      invalid_host: '有効なドメインを入力してください。',
+      unsafe_host: '確認できないドメインです。別のURLをお試しください。',
+      protocol: 'http または https のURLを入力してください。',
+      default: '公式サイトURLを確認してください。',
+    },
+    email: {
+      invalid_email: '有効なメールアドレスを入力してください。',
+      default: 'メールアドレスを確認してください。',
+    },
+    consent: {
+      required: '利用規約への同意が必要です。',
+      default: '同意チェックをオンにしてください。',
+    },
+    _fallback: '入力内容を確認してください。',
+  };
 
   function track(name, params) {
     if (typeof window.gtag !== 'function') return;
@@ -107,14 +132,21 @@
   }
 
   var touches = attribution();
+  if (typeof ux.bindDraftAutosave === 'function') ux.bindDraftAutosave(form, DRAFT_KEY);
   track('lead_capture_start');
+
+  var submitButton = form.querySelector('button[type="submit"]');
+  var submitState = typeof ux.bindSubmitButton === 'function'
+    ? ux.bindSubmitButton(submitButton, { busyLabel: '送信中…', idleLabel: submitButton ? submitButton.textContent : '' })
+    : { busy: function () { if (submitButton) submitButton.disabled = true; }, idle: function () { if (submitButton) submitButton.disabled = false; } };
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    var submit = form.querySelector('button[type="submit"]');
-    if (submit && submit.disabled) return;
-    if (submit) submit.disabled = true;
+    if (submitButton && submitButton.disabled) return;
+    if (typeof ux.clearFieldErrors === 'function') ux.clearFieldErrors(form);
     if (error) error.hidden = true;
+    submitState.busy();
+    if (typeof ux.saveDraft === 'function') ux.saveDraft(DRAFT_KEY, form);
     var data = new FormData(form);
     var payload = {
       company: data.get('company'), domain: data.get('domain'), email: data.get('email'),
@@ -125,9 +157,21 @@
       firstTouch: touches.firstTouch, lastTouch: touches.lastTouch
     };
     fetch('/api/whitepaper-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-      .then(function (response) { return response.json().then(function (body) { return { ok: response.ok, body: body }; }); })
+      .then(function (response) { return response.json().then(function (body) { return { ok: response.ok, status: response.status, body: body }; }); })
       .then(function (result) {
-        if (!result.ok) throw new Error(result.body.error || 'lead_capture_failed');
+        if (!result.ok) {
+          if (result.status === 400 && result.body && result.body.error === 'invalid_form' && result.body.fields && typeof ux.mapServerFields === 'function') {
+            var mapped = ux.mapServerFields(form, result.body.fields, FIELD_MESSAGES);
+            if (!mapped && error) {
+              error.textContent = '入力内容を確認してください。';
+              error.hidden = false;
+            }
+            submitState.idle();
+            return;
+          }
+          throw new Error(result.body && result.body.error || 'lead_capture_failed');
+        }
+        if (typeof ux.clearDraft === 'function') ux.clearDraft(DRAFT_KEY);
         form.hidden = true;
         success.hidden = false;
         var awareness = String(data.get('awarenessChannel') || '').toUpperCase();
@@ -152,8 +196,8 @@
         }
       })
       .catch(function () {
-        if (error) { error.textContent = '送信を完了できませんでした。時間をおいて、もう一度お試しください。'; error.hidden = false; }
-        if (submit) submit.disabled = false;
+        if (error) { error.textContent = '送信を完了できませんでした。入力内容は保持されています。時間をおいて、もう一度お試しください。'; error.hidden = false; }
+        submitState.idle();
       });
   });
 

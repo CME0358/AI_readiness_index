@@ -16,9 +16,33 @@
   var hint = document.getElementById("wp-checkout-hint");
   if (!btn) return;
 
+  var idleLabel = btn.textContent;
+  var redirecting = false;
+
+  function trackCheckoutStart() {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", "whitepaper_checkout_start", {
+      product: product,
+      page: window.location.pathname,
+      measurement_schema: "p0-03",
+    });
+  }
+
   if (cfg.paymentLink) {
     btn.addEventListener("click", function () {
-      window.location.href = cfg.paymentLink;
+      if (redirecting || btn.disabled) return;
+      redirecting = true;
+      btn.disabled = true;
+      btn.setAttribute("aria-busy", "true");
+      btn.textContent = "Stripeに接続中…";
+      if (hint) {
+        hint.textContent = "決済ページへ移動します。ブラウザを閉じずにお待ちください。";
+        hint.hidden = false;
+      }
+      trackCheckoutStart();
+      window.setTimeout(function () {
+        window.location.href = cfg.paymentLink;
+      }, 120);
     });
   } else {
     btn.disabled = true;

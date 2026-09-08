@@ -9,6 +9,7 @@
   var statusEl = section.querySelector('[data-public-check-status]');
   var resultEl = section.querySelector('[data-public-check-result]');
   var errorEl = section.querySelector('[data-public-check-error]');
+  var retryEl = section.querySelector('[data-public-check-retry]');
   var hostEl = section.querySelector('[data-public-check-host]');
   var findingsEl = section.querySelector('[data-public-check-findings]');
   var PII = ['email', 'company', 'phone', 'url', 'domain', 'host'];
@@ -30,6 +31,7 @@
   function setBusy(busy) {
     if (submit) submit.disabled = busy;
     if (input) input.disabled = busy;
+    if (retryEl) retryEl.disabled = busy;
     if (statusEl) statusEl.textContent = busy ? '公開ページを確認しています…' : '';
   }
 
@@ -47,23 +49,9 @@
     return findings.length === 1 ? 'single' : 'pair';
   }
 
-  if (typeof window.IntersectionObserver === 'function') {
-    var seen = false;
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting || seen) return;
-        seen = true;
-        track('check_impression', { cta_id: 'homepage_check_section', cta_type: 'CHECK', page: '/', source_surface: 'homepage', landing_page: '/' });
-        observer.disconnect();
-      });
-    }, { threshold: 0.2 });
-    observer.observe(section);
-  }
-
-  if (!form) return;
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+  function runCheck() {
     show(errorEl, false);
+    show(retryEl, false);
     show(resultEl, false);
     var value = (input && input.value || '').trim();
     track('check_start', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', page: '/', source_surface: 'homepage', landing_page: '/' });
@@ -96,6 +84,7 @@
         };
         errorEl.textContent = messages[body.error] || messages.connection_failed;
         show(errorEl, true);
+        show(retryEl, true);
         track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: body.error || 'connection_failed', source_surface: 'homepage', landing_page: '/' });
         return;
       }
@@ -111,11 +100,39 @@
         landing_page: '/',
       });
     }).catch(function () {
-      errorEl.textContent = '確認を完了できませんでした。再試行するか、無料ガイドをご覧ください。';
+      errorEl.textContent = '確認を完了できませんでした。入力内容は保持されています。再試行するか、無料ガイドをご覧ください。';
       show(errorEl, true);
+      show(retryEl, true);
       track('check_result', { cta_id: 'homepage_check_submit', cta_type: 'CHECK', status: 'error', result_category: 'unreachable', source_surface: 'homepage', landing_page: '/' });
     }).finally(function () {
       setBusy(false);
     });
+  }
+
+  if (typeof window.IntersectionObserver === 'function') {
+    var seen = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || seen) return;
+        seen = true;
+        track('check_impression', { cta_id: 'homepage_check_section', cta_type: 'CHECK', page: '/', source_surface: 'homepage', landing_page: '/' });
+        observer.disconnect();
+      });
+    }, { threshold: 0.2 });
+    observer.observe(section);
+  }
+
+  if (!form) return;
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (submit && submit.disabled) return;
+    runCheck();
   });
+
+  if (retryEl) {
+    retryEl.addEventListener('click', function () {
+      if (retryEl.disabled) return;
+      runCheck();
+    });
+  }
 })();
