@@ -1,10 +1,13 @@
 /**
- * TMVU-04 / RMVU-03 — ARI Report GA4 events (uses window.gtag from /assets/ga4.js).
+ * TMVU-04 / RMVU-03 / ARI-P0-03 — ARI Report GA4 events (uses window.gtag from /assets/ga4.js).
  */
+
+import { emitWithCanonicalAlias, purchaseDedupeKey, createDedupeStore } from '../../scripts/lib/measurement/canonical-emit.mjs';
 
 const REPORT_START_KEY = 'ari_report_start_sent';
 const CONVERSION_KEY = 'ari_conversion_log_v1';
 const PROOF_IMPRESSION_KEY = 'ari_report_proof_impression_v1';
+const purchaseDedupe = createDedupeStore(typeof localStorage !== 'undefined' ? localStorage : null);
 
 function readAttributionContext() {
   let stored = {};
@@ -92,10 +95,10 @@ export function trackGaEvent(name, params = {}) {
   delete safe.lastTouch;
   delete safe.attribution;
   delete safe.referrer;
-  window.gtag('event', name, {
-    transport_type: 'beacon',
-    ...safe,
-  });
+  const bridge = typeof window.ariMeasurement?.emitWithAlias === 'function'
+    ? (event, payload) => window.ariMeasurement.emitWithAlias(event, payload)
+    : (event, payload) => emitWithCanonicalAlias((evt, p) => window.gtag('event', evt, { transport_type: 'beacon', ...p }), event, payload);
+  bridge(name, safe);
 }
 
 /** Fires once per browser tab session when user starts diagnosis (landing → form). */
@@ -133,9 +136,13 @@ export function trackLocalCtaClick(params = {}) {
 
 export function trackPurchaseVerified(params = {}) {
   const { purchase_reference, ...analyticsParams } = params;
+  const reference = purchase_reference || params.sessionId || '';
+  if (reference && !purchaseDedupe.once(purchaseDedupeKey(reference))) return;
   const context = readAttributionContext();
-  trackGaEvent('purchase_verified', { source: 'ari_report', ...eventAttribution(context), ...analyticsParams });
-  if (params.verified === true && ['company_report_bundle', 'company_report_legacy', 'company_report'].includes(params.product_id)) recordConversion('REPORT_PURCHASE', { ...conversionAttribution(context), externalReference: purchase_reference || params.product_id, segment: params.segment, partnerType: params.partnerType });
+  trackGaEvent('purchase_verified', { source: 'ari_report', verified: true, ...eventAttribution(context), ...analyticsParams, purchase_reference: reference });
+  if (params.verified === true && ['company_report_bundle', 'company_report_legacy', 'company_report'].includes(params.product_id)) {
+    recordConversion('REPORT_PURCHASE', { ...conversionAttribution(context), externalReference: reference || params.product_id, segment: params.segment, partnerType: params.partnerType });
+  }
 }
 
 export function trackReportResultView(params = {}) {

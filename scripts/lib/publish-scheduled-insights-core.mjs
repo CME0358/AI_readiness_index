@@ -15,43 +15,16 @@ import {
   articleDestPath,
 } from './publishing-state-machine.mjs';
 import { upsertPlannedCard, findEarliestScheduledArticle } from './unlock-next-insight.mjs';
+import { buildPublishedCardHtml, dateParts } from './insights-index-cards.mjs';
+import { syncInsightsPublicSurfaces } from './insights-public-sync.mjs';
 
 const SCHEDULE_PATH = PATHS.schedule;
 const INDEX_PATH = PATHS.insightsIndex;
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
 const LLMS_PATH = path.join(ROOT, 'llms.txt');
 
-function dateParts(iso) {
-  const d = new Date(iso);
-  const y = d.toLocaleString('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric' });
-  const m = d.toLocaleString('en-CA', { timeZone: 'Asia/Tokyo', month: '2-digit' });
-  const day = d.toLocaleString('en-CA', { timeZone: 'Asia/Tokyo', day: '2-digit' });
-  return { ymd: `${y}-${m}-${day}`, dot: `${y}.${m}.${day}` };
-}
-
-function indexCardThumbnail(slug) {
-  const heroPath = `/assets/insights/${slug}/hero.webp`;
-  const heroFile = path.join(ROOT, 'assets/insights', slug, 'hero.webp');
-  if (!fs.existsSync(heroFile)) return '';
-  return `        <div class="insight-card-thumb">
-          <img src="${heroPath}" alt="" loading="lazy" width="1672" height="941">
-        </div>
-`;
-}
-
 function cardHtml(article) {
-  const { ymd, dot } = dateParts(article.publishAt);
-  const thumb = indexCardThumbnail(article.slug);
-  return `      <a class="insight-card" href="/insights/${article.slug}/" data-insight-slug="${article.slug}">
-${thumb}        <div class="insight-meta">
-          <time datetime="${ymd}">${dot}</time>
-          <span class="insight-tag">Column</span>
-        </div>
-        <h3>${escapeHtml(article.title)}</h3>
-        <p>${escapeHtml(article.cardSummary)}</p>
-        <span class="read-more">続きを読む →</span>
-      </a>
-`;
+  return buildPublishedCardHtml(article);
 }
 
 function sitemapEntry(article) {
@@ -69,14 +42,6 @@ function llmsLine(article) {
   const { ymd } = dateParts(article.publishAt);
   return `- [${article.llmsLabel}](https://readiness.coaretail.com/insights/${article.slug}/): Insights Column（${ymd}）
 `;
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }
 
 function insertAfterMarker(content, marker, insertion) {
@@ -216,6 +181,7 @@ export function publishDueArticles({
 
     if (entry) {
       entry.status = EDITORIAL_STATUSES.PUBLISHED;
+      entry.publicationState = 'PUBLISHED';
       entry.publishedAt = now.toISOString();
       delete entry.lastPublishFailure;
       if (!dryRun) {
@@ -237,10 +203,8 @@ export function publishDueArticles({
   }
 
   if (result.updated && !dryRun) {
-    fs.writeFileSync(INDEX_PATH, indexHtml, 'utf8');
-    fs.writeFileSync(SITEMAP_PATH, sitemap, 'utf8');
-    fs.writeFileSync(LLMS_PATH, llms, 'utf8');
     fs.writeFileSync(SCHEDULE_PATH, JSON.stringify(schedule, null, 2) + '\n', 'utf8');
+    syncInsightsPublicSurfaces({ updateFooter: true });
   }
 
   return result;

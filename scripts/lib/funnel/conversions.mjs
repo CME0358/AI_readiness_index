@@ -15,6 +15,7 @@ const CONVERSION_SCHEMA_VERSION = '1';
 
 const EVENT_CONVERSION_MAP = Object.freeze({
   lead_created: CONVERSION_TYPES.LEAD_CREATED,
+  lead_submit_success: CONVERSION_TYPES.LEAD_CREATED,
   partner_qualification_complete: CONVERSION_TYPES.PARTNER_QUALIFIED,
   partner_consult_cta_click: CONVERSION_TYPES.CONSULT_CLICK,
 });

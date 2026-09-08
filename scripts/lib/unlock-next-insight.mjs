@@ -25,6 +25,7 @@ import {
   formatSocialValidationFailure,
   validateSocialContentForSlug,
 } from './validate-social-content.mjs';
+import { resolvePublicCardSummary } from './insights-card-summary.mjs';
 
 export const UNLOCK_TIME_JST = '15:00';
 export const UNLOCK_LATENESS_WINDOW_MINUTES = 18 * 60;
@@ -169,23 +170,9 @@ export function buildChannelEntries(slug, times) {
   return channels;
 }
 
-export function buildPlannedCardHtml(article) {
-  const ymd = article.publishAt.slice(0, 10);
-  const dot = ymd.replace(/-/g, '.');
-  const tag =
-    article.series === 'current-event' || article.editorialType === 'current_event'
-      ? 'Current Event'
-      : '公開予定';
-  return `      <article class="insight-card planned" data-scheduled-slug="${article.slug}">
-        <div class="insight-meta">
-          <time datetime="${ymd}">${dot} 10:00</time>
-          <span class="insight-tag soon">${tag}</span>
-        </div>
-        <h3>${article.title}</h3>
-        <p>${article.cardSummary || ''}</p>
-      </article>
-`;
-}
+import { buildPlannedCardHtml } from './insights-index-cards.mjs';
+
+export { buildPlannedCardHtml };
 
 /** Replace planned card with the earliest scheduled article (preserves current-event priority). */
 export function upsertPlannedCard(html, article, schedule = null) {

@@ -1,6 +1,7 @@
 import { createLead } from './lead-schema.mjs';
 import { parseAttribution } from './attribution.mjs';
 import { classifyLead } from './classification.mjs';
+import { normalizeAwarenessChannel } from '../measurement/event-dictionary.mjs';
 
 const ROLE_VALUES = Object.freeze([
   'EXECUTIVE', 'MARKETING', 'WEB', 'DX', 'BUSINESS_DEVELOPMENT', 'ENGINEERING', 'SALES', 'OTHER', 'UNKNOWN',
@@ -67,6 +68,7 @@ function normalizeLeadCaptureForm(input = {}) {
       campaign: String(input.campaign || '').slice(0, 200),
       firstTouch: input.firstTouch || null,
       lastTouch: input.lastTouch || null,
+      awarenessChannelSelfReported: normalizeAwarenessChannel(input.awarenessChannel || input.awarenessChannelSelfReported),
     },
   };
 }
@@ -93,6 +95,7 @@ function buildWhitepaperLead(input, { now } = {}) {
       segment: classification.segment,
       partnerType: classification.partnerType,
       directBuyerType: classification.directBuyerType,
+      awarenessChannelSelfReported: value.awarenessChannelSelfReported,
     }),
     classification,
   };

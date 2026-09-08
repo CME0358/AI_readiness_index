@@ -350,6 +350,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://readiness.coaretail.com/services/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://readiness.coaretail.com/sample/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://readiness.coaretail.com/cases/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://readiness.coaretail.com/cases/bar-secret/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://readiness.coaretail.com/dental.html</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>

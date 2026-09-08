@@ -1,5 +1,10 @@
 const FUNNEL_EVENTS = Object.freeze({
   LANDING_VIEW: 'landing_view',
+  SERVICE_VIEW: 'service_view',
+  DIAGNOSIS_START: 'diagnosis_start',
+  DIAGNOSIS_COMPLETE: 'diagnosis_complete',
+  LEAD_SUBMIT_SUCCESS: 'lead_submit_success',
+  PURCHASE: 'purchase',
   INSIGHT_VIEW: 'insight_view',
   RESEARCH_VIEW: 'research_view',
   CTA_IMPRESSION: 'cta_impression',
@@ -36,7 +41,10 @@ const FUNNEL_EVENTS = Object.freeze({
 
 const LEGACY_EVENT_MAP = Object.freeze({
   preview_visit: FUNNEL_EVENTS.LANDING_VIEW,
-  report_start: FUNNEL_EVENTS.REPORT_START,
+  report_start: FUNNEL_EVENTS.DIAGNOSIS_START,
+  report_result_view: FUNNEL_EVENTS.DIAGNOSIS_COMPLETE,
+  lead_created: FUNNEL_EVENTS.LEAD_SUBMIT_SUCCESS,
+  purchase_verified: FUNNEL_EVENTS.PURCHASE,
   preview_engaged: FUNNEL_EVENTS.CTA_CLICK,
   insight_cta_framework: FUNNEL_EVENTS.CTA_CLICK,
   insight_cta_research: FUNNEL_EVENTS.CTA_CLICK,
@@ -44,7 +52,7 @@ const LEGACY_EVENT_MAP = Object.freeze({
 });
 
 const SAFE_FIELDS = Object.freeze([
-  'page', 'landingPage', 'sourceSurface', 'insightSlug', 'editorialIntent', 'ctaId', 'ctaType', 'segment', 'partnerType', 'directBuyerType', 'purpose', 'scope', 'timeline', 'qualificationBand', 'recommendedAction', 'track', 'templateId', 'messageType', 'status', 'source', 'medium', 'campaign', 'action', 'confidenceBand', 'destinationType', 'routeVersion', 'schemaVersion', 'resultCategory',
+  'page', 'landingPage', 'sourceSurface', 'insightSlug', 'editorialIntent', 'ctaId', 'ctaType', 'segment', 'partnerType', 'directBuyerType', 'purpose', 'scope', 'timeline', 'qualificationBand', 'recommendedAction', 'track', 'templateId', 'messageType', 'status', 'source', 'medium', 'campaign', 'action', 'confidenceBand', 'destinationType', 'routeVersion', 'schemaVersion', 'resultCategory', 'serviceKind', 'serviceId', 'awarenessChannelSelfReported', 'canonicalSourceEvent', 'measurementSchema', 'trafficType', 'verified', 'productId',
 ]);
 
 function canonicalEventName(name) {

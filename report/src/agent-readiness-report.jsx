@@ -689,7 +689,8 @@ function LandingPage({ onStart }) {
             />
           </div>
           <div className="lp-hero__content">
-            <h1>集客の入口が、検索からAIに移っています</h1>
+            <p className="lp-hero__kicker">Decision Product — Personalized Decision Report</p>
+            <h1 id="start">集客の入口が、検索からAIに移っています</h1>
             <p className="lp-hero__sub">
               広告費を足しても伸びないとき、原因はクリエイティブではなく、AIが御社を候補に上げていないことです。公式サイトURLから、推薦されない理由と直す順をレポートにします。
             </p>

@@ -15,6 +15,10 @@
     Object.keys(params || {}).forEach(function (key) {
       if (['email', 'company', 'domain', 'url', 'role', 'industry'].indexOf(key) === -1) safe[key] = params[key];
     });
+    if (typeof window.ariMeasurement !== 'undefined' && typeof window.ariMeasurement.emitWithAlias === 'function') {
+      window.ariMeasurement.emitWithAlias(name, safe);
+      return;
+    }
     window.gtag('event', name, safe);
   }
 
@@ -115,6 +119,7 @@
     var payload = {
       company: data.get('company'), domain: data.get('domain'), email: data.get('email'),
       role: data.get('role'), consent: data.get('consent') === 'on', website: data.get('website'),
+      awarenessChannel: data.get('awarenessChannel') || '',
       ctaId: CTA_ID, ctaType: 'LEARN', landingPage: window.location.pathname,
       referrer: document.referrer, query: window.location.search,
       firstTouch: touches.firstTouch, lastTouch: touches.lastTouch
@@ -125,7 +130,18 @@
         if (!result.ok) throw new Error(result.body.error || 'lead_capture_failed');
         form.hidden = true;
         success.hidden = false;
-        track('lead_created', { segment: result.body.segment, partner_type: result.body.partnerType, direct_buyer_type: result.body.directBuyerType });
+        var awareness = String(data.get('awarenessChannel') || '').toUpperCase();
+        var leadParams = {
+          segment: result.body.segment,
+          partner_type: result.body.partnerType,
+          direct_buyer_type: result.body.directBuyerType,
+          awareness_channel_self_reported: awareness || '',
+        };
+        var leadId = result.body.leadId || '';
+        var dedupeKey = leadId ? 'ari_ga_lead_success:' + leadId : '';
+        if (!dedupeKey || window.ariMeasurement.once(sessionStorage, dedupeKey)) {
+          track('lead_created', leadParams);
+        }
         if (result.body.leadId) { try { window.localStorage.setItem('ari_lead_id', result.body.leadId); } catch (_) {} }
         if (result.body.storageRecordId) { try { window.localStorage.setItem('ari_lead_record_id', result.body.storageRecordId); } catch (_) {} }
         recordConversion('LEAD_CREATED', { lead_id: result.body.leadId, segment: result.body.segment, partner_type: result.body.partnerType, cta_id: CTA_ID, cta_type: 'LEARN', page: window.location.pathname });

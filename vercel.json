@@ -10,6 +10,16 @@
   ],
   "redirects": [
     {
+      "source": "/report",
+      "destination": "/report/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/_scheduled/:path*",
+      "destination": "/insights/",
+      "statusCode": 404
+    },
+    {
       "source": "/insights/zentoshin-payment-readiness",
       "destination": "/insights/zentoshin",
       "permanent": true

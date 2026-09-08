@@ -46,6 +46,7 @@ function createLead(input = {}) {
     consentSource: String(input.consentSource || 'WHITEPAPER'),
     createdAt: input.createdAt || now,
     updatedAt: input.updatedAt || now,
+    awarenessChannelSelfReported: String(input.awarenessChannelSelfReported || '').slice(0, 40),
     schemaVersion: LEAD_SCHEMA_VERSION,
   };
 }

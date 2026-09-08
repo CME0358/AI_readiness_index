@@ -5,6 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ARI診断レポート｜AIに推薦されない理由を可視化（¥29,800）</title>
   <meta name="description" content="集客の入口が検索からAIに移っています。公式サイトURLから、AIが御社を比較・推薦・問い合わせまでつなげるかを23項目で診断。レポートPDF ¥29,800（税別）。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://readiness.coaretail.com/report/">
+  <meta property="og:title" content="ARI診断レポート｜Agent Readiness Company Report">
+  <meta property="og:description" content="公式サイトURLから、AIが御社を比較・推薦・問い合わせまでつなげるかを23項目で診断。Decision Product — Personalized Decision Report。¥29,800（税別）。">
+  <meta property="og:url" content="https://readiness.coaretail.com/report/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Readiness Index">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ARI診断レポート｜Agent Readiness Company Report">
+  <meta name="twitter:description" content="23項目でAI推薦ギャップと改善優先順位を可視化。¥29,800（税別）・約3分・PDFダウンロード。">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Agent Readiness Company Report",
+    "description": "公式サイトURLから、AIが企業を比較・推薦・問い合わせまでつなげるかを23項目で診断する Personalized Decision Report。",
+    "brand": { "@type": "Brand", "name": "Agent Readiness Index" },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://readiness.coaretail.com/report/",
+      "priceCurrency": "JPY",
+      "price": "29800",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "29800",
+        "priceCurrency": "JPY",
+        "valueAddedTaxIncluded": false
+      },
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
   <script src="/assets/ga4.js" async></script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -12,30 +44,38 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+    html, body { background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; color: #0a0a0a; line-height: 1.6; }
     #root { min-height: 100vh; }
+    #report-static-landing {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+    #report-static-landing header { margin-bottom: 24px; font-size: 14px; }
+    #report-static-landing header a { color: #0d1b3e; text-decoration: none; font-weight: 600; }
+    #report-static-landing h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.25; margin-bottom: 16px; letter-spacing: -0.02em; }
+    #report-static-landing h2 { font-size: 20px; margin: 28px 0 12px; }
+    #report-static-landing p { margin-bottom: 12px; color: #333; }
+    #report-static-landing ul { margin: 0 0 16px 1.2em; color: #333; }
+    #report-static-landing .report-static-kicker { font-size: 13px; color: #1b56b0; font-weight: 600; margin-bottom: 8px; }
+    #report-static-landing .report-static-price { font-size: 28px; font-weight: 700; margin: 8px 0; }
+    #report-static-landing .report-static-cta { display: inline-block; margin: 12px 0; padding: 12px 20px; background: #0a0a0a; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; }
+    #report-static-landing .report-static-cta--secondary { background: #fff; color: #0a0a0a; border: 1px solid rgba(0,0,0,.16); }
+    #report-static-landing footer { margin-top: 32px; font-size: 12px; color: #8a93a6; }
+    html[data-report-route="preview"] #report-static-landing { display: none !important; }
     .hero-h1 {
       font-size: clamp(36px, 5vw, 64px);
       letter-spacing: -2px;
       word-break: keep-all;
       line-break: strict;
     }
-    .hero-h1-line {
-      display: inline;
-    }
+    .hero-h1-line { display: inline; }
     @media (min-width: 768px) {
-      .hero-h1 {
-        font-size: clamp(38px, 4.2vw, 46px);
-        letter-spacing: -1.5px;
-      }
-      .hero-h1-line {
-        display: block;
-      }
+      .hero-h1 { font-size: clamp(38px, 4.2vw, 46px); letter-spacing: -1.5px; }
+      .hero-h1-line { display: block; }
     }
     @media (min-width: 1024px) {
-      .hero-h1 {
-        font-size: 46px;
-      }
+      .hero-h1 { font-size: 46px; }
     }
     .hero-statement-br { display: none; }
     @media (min-width: 768px) {
@@ -45,18 +85,78 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
     }
-    .hero-eyebrow {
-      animation: heroEyebrowBlink 1.4s ease-in-out infinite;
-    }
+    .hero-eyebrow { animation: heroEyebrowBlink 1.4s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) {
       .hero-eyebrow { animation: none; }
     }
   </style>
   <link rel="stylesheet" href="/assets/design-system.css">
   <link rel="stylesheet" href="../assets/hub-animations.css">
+  <script>
+    (function () {
+      var p = window.location.pathname;
+      if (/^\/report\/p\//i.test(p) || /partner-preview/i.test(p)) {
+        document.documentElement.setAttribute('data-report-route', 'preview');
+      }
+    })();
+  </script>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <main id="report-static-landing" lang="ja">
+      <header>
+        <a href="/">Agent Readiness Index™</a>
+      </header>
+      <p class="report-static-kicker">Decision Product — Personalized Decision Report</p>
+      <h1>集客の入口が、検索からAIに移っています</h1>
+      <p>広告費を足しても伸びないとき、原因はクリエイティブではなく、AIが御社を候補に上げていないことです。公式サイトURLから、推薦されない理由と直す順をレポートにします。</p>
+      <p class="report-static-price">¥29,800<small>（税別）</small> ・ 通常 ¥49,800</p>
+      <p>約3分で診断完了 ・ PDFダウンロード ・ 1社1回</p>
+      <p><a class="report-static-cta" href="/report/#start">レポートを入手する</a></p>
+
+      <section id="features">
+        <h2>経営が次に打つ手を決めるための診断です</h2>
+        <p><a href="/framework/">Agent Readiness Framework</a>に基づき、認識・比較・推薦・行動のどこで落ちているかを数値化します。23項目のスコアから改善優先順位とロードマップを提示します。</p>
+      </section>
+
+      <section id="proof">
+        <h2>¥29,800で分かること</h2>
+        <p>スコアを見るためのレポートではありません。AIが何を理解でき、どこで比較・推薦につまずき、何から直すべきかを判断するためのレポートです。</p>
+        <ul>
+          <li>4大AI（ChatGPT・Gemini・Claude・Perplexity）の認識分析</li>
+          <li>比較・推薦・問い合わせ導線の評価</li>
+          <li>改善優先順位とロードマップ</li>
+        </ul>
+      </section>
+
+      <section id="pricing">
+        <h2>ARI診断とレポートダウンロード</h2>
+        <p>プランは1つです。診断本体とPDF、調査レポート同梱。</p>
+        <ul>
+          <li>12セクション / 23項目の詳細レポート</li>
+          <li>4大AI認識分析</li>
+          <li>改善優先順位とロードマップ</li>
+          <li>PDFダウンロード</li>
+          <li>ARI Research Report 2026 同梱</li>
+        </ul>
+        <p class="report-static-price">¥29,800<small>（税別）</small></p>
+        <p><a class="report-static-cta" href="/report/#start">レポートを入手する</a></p>
+      </section>
+
+      <section id="consult">
+        <h2>店舗・クリニックの継続改善</h2>
+        <p>レポート結果をどこから着手すべきか迷う場合は、Local GEO の月額プラン（月額60,000円・税別）または無料相談をご利用ください。</p>
+        <p>
+          <a class="report-static-cta report-static-cta--secondary" href="https://localgeo.coaretail.com/?utm_source=ari_report&amp;utm_medium=outbound&amp;utm_campaign=direct_buyer&amp;utm_content=report_static">店舗・クリニックの集客改善を任せたい（月額60,000円）</a>
+        </p>
+        <p>
+          <a class="report-static-cta report-static-cta--secondary" href="https://www.coaretail.com/readiness/mtgschedule">無料相談を予約する</a>
+        </p>
+      </section>
+
+      <footer>© 2026 合同会社コア・リテール（Coa Retail G.K.）</footer>
+    </main>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
