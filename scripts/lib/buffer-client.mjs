@@ -22,6 +22,20 @@ mutation CreatePost($input: CreatePostInput!) {
 }
 `;
 
+const EDIT_POST_MUTATION = `
+mutation EditPost($input: EditPostInput!) {
+  editPost(input: $input) {
+    __typename
+    ... on PostActionSuccess {
+      post { id status text }
+    }
+    ... on MutationError {
+      message
+    }
+  }
+}
+`;
+
 export function getBufferConfig() {
   const legacy = process.env[LEGACY_CHANNEL_ENV]?.trim() || '';
   return {
@@ -230,4 +244,28 @@ export async function createBufferPost({
     rejected: false,
     dueAtUtc,
   };
+}
+
+/**
+ * @returns {Promise<{postId: string|null, error: string|null}>}
+ */
+export async function editBufferPost({
+  postId,
+  accessToken,
+  text,
+  mediaUrl = null,
+  dryRun = false,
+}) {
+  if (dryRun) return { postId, error: null };
+  const input = { id: postId, text };
+  if (mediaUrl) input.assets = [{ image: { url: mediaUrl } }];
+  const data = await bufferGraphql(accessToken, EDIT_POST_MUTATION, { input });
+  if (data.errors?.length) {
+    return { postId: null, error: JSON.stringify(data.errors) };
+  }
+  const result = data.data?.editPost;
+  if (result?.__typename === 'PostActionSuccess') {
+    return { postId: result.post?.id || postId, error: null };
+  }
+  return { postId: null, error: mutationErrorMessage(result) };
 }

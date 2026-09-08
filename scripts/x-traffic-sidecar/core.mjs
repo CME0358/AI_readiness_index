@@ -240,6 +240,12 @@ export function generatePost(article, slot, shortUrl, { maxUtf16 = DEFAULT_MAX_U
   return `${body}${footer}`;
 }
 
+/** Every sidecar post must include the first-party /go/{short_id} CTA URL. */
+export function validatePostTextIncludesShortUrl(text, shortUrl) {
+  if (!text || !shortUrl) return false;
+  return String(text).includes(String(shortUrl));
+}
+
 export function buildShortId(date, index) {
   return `x${yymmdd(date)}${String.fromCharCode(97 + index)}`;
 }
@@ -291,6 +297,9 @@ export function planDay({ date, articles, ledger, redirects = { redirects: [] },
     const shortUrl = `${SITE_ORIGIN}/go/${shortId}`;
     const destination = buildDestination(selected.article, date, slot);
     const generatedText = generatePost(selected.article, slot, shortUrl, { maxUtf16 });
+    const shortUrlInText = validatePostTextIncludesShortUrl(generatedText, shortUrl);
+    const state = collision || !shortUrlInText ? 'HOLD' : 'GENERATED';
+    const errorCode = collision ? 'SHORT_URL_COLLISION' : (!shortUrlInText ? 'MISSING_SHORT_URL_IN_TEXT' : null);
     return {
       sidecar_post_id: `ari-x-${date}-${slot.time.replace(':', '')}`,
       date,
@@ -306,14 +315,15 @@ export function planDay({ date, articles, ledger, redirects = { redirects: [] },
       destination_url: destination,
       hero_url: selected.article.hero_url,
       topic: selected.topic,
-      state: collision ? 'HOLD' : 'GENERATED',
-      error_code: collision ? 'SHORT_URL_COLLISION' : null,
+      state,
+      error_code: errorCode,
       ownership: OWNERSHIP,
       validation: {
         article: selected.check.errors.length === 0,
         canonical: normalizeUrl(selected.article.canonical_url) === expectedArticleUrl(selected.article.slug),
         hero: selected.article.hero_available,
         short_url_unique: !collision,
+        short_url_in_text: shortUrlInText,
         redirect_target_valid: validateDestination(destination),
         utf16_length: utf16Length(generatedText),
         x_length_valid: utf16Length(generatedText) <= maxUtf16,

@@ -86,6 +86,11 @@ test('X post uses conservative UTF-16 limit', () => {
   assert.ok(plan.posts.every((p) => utf16Length(p.generated_text) <= DEFAULT_MAX_UTF16));
 });
 
+test('every sidecar post includes the /go short URL CTA', () => {
+  assert.ok(plan.posts.every((p) => p.generated_text.includes(p.short_url)));
+  assert.ok(plan.posts.every((p) => p.validation?.short_url_in_text === true));
+});
+
 test('destination is canonical Insight URL with approved host', () => {
   const destination = buildDestination(articles[0], date, SLOTS[0]);
   assert.equal(new URL(destination).hostname, 'readiness.coaretail.com');

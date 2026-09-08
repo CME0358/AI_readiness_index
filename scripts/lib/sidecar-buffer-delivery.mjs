@@ -2,9 +2,9 @@
  * Live Buffer delivery for ARI X Traffic Sidecar planned posts.
  */
 import fs from 'node:fs';
-import { OWNERSHIP, REDIRECTS_PATH, LEDGER_PATH, SIDECAR_VERSION } from '../x-traffic-sidecar/core.mjs';
+import { OWNERSHIP, REDIRECTS_PATH, LEDGER_PATH, SIDECAR_VERSION, validatePostTextIncludesShortUrl } from '../x-traffic-sidecar/core.mjs';
 import { assertSidecarLiveCreateAllowed } from './sidecar-production-gate.mjs';
-import { createBufferPost, getChannelId } from './buffer-client.mjs';
+import { createBufferPost, editBufferPost, getChannelId } from './buffer-client.mjs';
 import { isScheduleInstantInFuture } from './social-schedule.mjs';
 
 export function findLedgerEntry(ledger, sidecarPostId) {
@@ -13,10 +13,18 @@ export function findLedgerEntry(ledger, sidecarPostId) {
 
 export function isPlanPostDeliverable(post) {
   if (!post || post.state === 'HOLD') return false;
-  if (!post.generated_text || !post.scheduled_at || !post.hero_url) return false;
+  if (!post.generated_text || !post.scheduled_at || !post.hero_url || !post.short_url) return false;
+  if (!validatePostTextIncludesShortUrl(post.generated_text, post.short_url)) return false;
   const validation = post.validation || {};
-  const required = ['article', 'canonical', 'hero', 'short_url_unique', 'redirect_target_valid', 'x_length_valid'];
+  const required = ['article', 'canonical', 'hero', 'short_url_unique', 'short_url_in_text', 'redirect_target_valid', 'x_length_valid'];
   return required.every((key) => validation[key] === true);
+}
+
+export function resolveDeliveryText(post) {
+  if (!validatePostTextIncludesShortUrl(post.generated_text, post.short_url)) {
+    throw new Error(`MISSING_SHORT_URL_IN_TEXT: slot ${post.slot}`);
+  }
+  return post.generated_text;
 }
 
 export function isSlotSchedulable(scheduledAt, now = new Date()) {
@@ -129,12 +137,35 @@ export async function deliverSidecarPlan({
 
     const existing = findLedgerEntry(nextLedger, post.sidecar_post_id);
     if (existing?.buffer_post_id) {
-      results.push({
-        slot: post.slot,
-        action: 'skip',
-        reason: 'already_ledgered',
-        bufferPostId: existing.buffer_post_id,
-      });
+      const needsRepair = !dryRun
+        && isSlotSchedulable(post.scheduled_at, now)
+        && !validatePostTextIncludesShortUrl(existing.generated_text, post.short_url)
+        && validatePostTextIncludesShortUrl(post.generated_text, post.short_url);
+      if (needsRepair) {
+        const repair = await editBufferPost({
+          postId: existing.buffer_post_id,
+          accessToken: cfg.accessToken,
+          text: resolveDeliveryText(post),
+          mediaUrl: post.hero_url,
+          dryRun: false,
+        });
+        if (repair.error) {
+          anyFailed = true;
+          results.push({ slot: post.slot, action: 'repair_failed', error: repair.error, bufferPostId: existing.buffer_post_id });
+        } else {
+          const repaired = { ...existing, generated_text: post.generated_text, updated_at: now.toISOString() };
+          nextLedger = upsertLedgerEntry(nextLedger, repaired);
+          updated = true;
+          results.push({ slot: post.slot, action: 'repaired', bufferPostId: existing.buffer_post_id });
+        }
+      } else {
+        results.push({
+          slot: post.slot,
+          action: 'skip',
+          reason: 'already_ledgered',
+          bufferPostId: existing.buffer_post_id,
+        });
+      }
       continue;
     }
 
@@ -164,7 +195,7 @@ export async function deliverSidecarPlan({
       channelKey: 'x',
       channelId,
       accessToken: cfg.accessToken,
-      text: post.generated_text,
+      text: resolveDeliveryText(post),
       dueAt: post.scheduled_at,
       mediaUrl: post.hero_url,
       dryRun: false,

@@ -26,7 +26,7 @@ const basePost = {
   hero_url: 'https://readiness.coaretail.com/assets/insights/recommendation-logic/hero.webp',
   scheduled_at: '2026-09-08T15:00:00+09:00',
   state: 'GENERATED',
-  validation: { article: true, canonical: true, hero: true, short_url_unique: true, redirect_target_valid: true, x_length_valid: true, utf16_length: 120 },
+  validation: { article: true, canonical: true, hero: true, short_url_unique: true, short_url_in_text: true, redirect_target_valid: true, x_length_valid: true, utf16_length: 120 },
 };
 
 test('isPlanPostDeliverable accepts valid planned post', () => {
@@ -54,8 +54,17 @@ test('deliverSidecarPlan dry-run skips past slots', async () => {
 });
 
 test('deliverSidecarPlan queues future slot and updates ledger', async () => {
-  const plan = { posts: [basePost] };
-  const createPost = async () => ({ postId: 'buffer-123', dueAtUtc: '2026-09-08T06:00:00Z' });
+  const futurePost = {
+    ...basePost,
+    sidecar_post_id: 'ari-x-2026-09-09-1500',
+    date: '2026-09-09',
+    scheduled_at: '2026-09-09T15:00:00+09:00',
+    short_id: 'x260909d',
+    short_url: 'https://readiness.coaretail.com/go/x260909d',
+    generated_text: 'Post body\n\nhttps://readiness.coaretail.com/go/x260909d',
+  };
+  const plan = { posts: [futurePost] };
+  const createPost = async () => ({ postId: 'buffer-123', dueAtUtc: '2026-09-09T06:00:00Z' });
   const result = await deliverSidecarPlan({
     plan,
     ledger: { posts: [] },
@@ -68,8 +77,8 @@ test('deliverSidecarPlan queues future slot and updates ledger', async () => {
     paths: { ledger: '/tmp/ledger.json', redirects: '/tmp/redirects.json' },
   });
   assert.equal(result.results[0].action, 'queued');
-  assert.equal(findLedgerEntry(result.ledger, basePost.sidecar_post_id).buffer_post_id, 'buffer-123');
-  assert.equal(result.redirects.redirects[0].short_id, 'x260908d');
+  assert.equal(findLedgerEntry(result.ledger, futurePost.sidecar_post_id).buffer_post_id, 'buffer-123');
+  assert.equal(result.redirects.redirects[0].short_id, 'x260909d');
 });
 
 test('ledger and redirect builders preserve ownership', () => {
@@ -77,6 +86,23 @@ test('ledger and redirect builders preserve ownership', () => {
   const redirect = buildRedirectRecord(basePost);
   assert.equal(record.ownership, 'ari_x_traffic_sidecar_v1');
   assert.equal(redirect.ownership, 'ari_x_traffic_sidecar_v1');
+});
+
+test('deliverSidecarPlan rejects posts missing short URL in text', async () => {
+  const badPost = { ...basePost, generated_text: 'no url here', validation: { ...basePost.validation, short_url_in_text: false } };
+  const plan = { posts: [badPost] };
+  const result = await deliverSidecarPlan({
+    plan,
+    ledger: { posts: [] },
+    redirects: { redirects: [] },
+    cfg: { accessToken: 'token', organizationId: 'org', channelIds: { x: 'channel-x' } },
+    now: new Date('2026-09-08T12:00:00+09:00'),
+    dryRun: false,
+    createPost: async () => ({ postId: 'should-not-run' }),
+    assertLive: () => ({}),
+    paths: { ledger: '/tmp/ledger.json', redirects: '/tmp/redirects.json' },
+  });
+  assert.equal(result.results[0].reason, 'not_deliverable');
 });
 
 test('upsert helpers are idempotent by sidecar_post_id / short_id', () => {
