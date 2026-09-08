@@ -25,6 +25,7 @@
         "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
         "publisher": { "@type": "Organization", "name": "合同会社コア・リテール" },
         "dateModified": "2026-09-08",
+        "image": "https://readiness.coaretail.com/assets/cases/bar-secret/case-chatgpt-bar.png",
         "inLanguage": "ja",
         "about": {
           "@type": "LocalBusiness",
@@ -57,6 +58,13 @@
     ul{padding-left:1.2em;color:#52525b}
     .btn{display:inline-block;margin-top:20px;padding:12px 18px;border-radius:8px;background:#09090b;color:#fff;text-decoration:none;font-weight:600;font-size:14px}
     .btn-outline{background:#fff;color:#09090b;border:1px solid rgba(0,0,0,.12);margin-left:8px}
+    .figure-grid{display:grid;gap:20px;margin:20px 0}
+    @media(min-width:640px){.figure-grid{grid-template-columns:1fr 1fr}}
+    figure{margin:0;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;background:#fafafa}
+    figure img{display:block;width:100%;height:auto}
+    figcaption{padding:12px 14px;font-size:13px;color:#52525b;line-height:1.5}
+    figcaption strong{display:block;color:#09090b;margin-bottom:4px}
+    .figure-note{font-size:12px;color:#71717a;margin-top:8px}
   </style>
 </head>
 <body>
@@ -87,7 +95,26 @@
       <li>公式情報の構造化・比較材料の整理（情報設計）</li>
       <li>AIが参照できる公開面の整備（GEO Search Protocol）</li>
     </ul>
-    <p class="meta">改善期間・観測クエリ・スクリーンショットの公開版は未整備（<a href="/services/#unresolved">未確認リスト</a>）。</p>
+    <p class="meta">改善期間・観測クエリ一覧の公開版は未整備。下記は Local GEO サイト掲載素材から転用した<strong>観測スクリーンショット（定点の一例）</strong>です（<a href="/services/#unresolved">未確認リスト</a>）。</p>
+
+    <h2>観測スクリーンショット（公開版）</h2>
+    <p class="meta figure-note">出典：Local GEO 導入事例掲載素材（同一グループ内・店名掲載許諾済み）。AIモデル・検索設定・日時により結果は変わります。来店数・売上の増加率は断定しません。</p>
+    <div class="figure-grid">
+      <figure>
+        <img src="/assets/cases/bar-secret/case-secret-hp.png" width="1200" height="675" loading="lazy" alt="Bar SECRET 公式サイト barsecret.tokyo の画面">
+        <figcaption>
+          <strong>対象店舗 HP — Bar SECRET</strong>
+          公式サイト（barsecret.tokyo）。AIが参照する公開情報の整備対象。
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/cases/bar-secret/case-chatgpt-bar.png" width="1200" height="675" loading="lazy" alt="ChatGPT で恵比寿 地下バーを検索した結果のスクリーンショット。店名の推薦表示が含まれる">
+        <figcaption>
+          <strong>ChatGPT検索結果 — 「恵比寿 地下バー」</strong>
+          実名での推薦表示が確認された観測例（社内記録）。特定日付・全クエリのログではない。
+        </figcaption>
+      </figure>
+    </div>
 
     <h2>結果の整理（証拠の種類ごと）</h2>
     <table>

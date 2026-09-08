@@ -93,7 +93,7 @@ export const UNRESOLVED_COMMERCIAL = Object.freeze([
   { id: 'local_geo_term', topic: 'Local GEO の最低契約期間・解約条件', status: '未確認（別サイト）' },
   { id: 'advisory_sla', topic: 'Advisory の定例回数・SLA', status: '個別契約で確定' },
   { id: 'bar_secret_visit', topic: 'Bar SECRET の来店数・売上インパクト', status: '公開用検証データなし' },
-  { id: 'bar_secret_queries', topic: 'Bar SECRET の観測クエリ一覧・定点観測ログ', status: '公開版未整備' },
+  { id: 'bar_secret_queries', topic: 'Bar SECRET の観測クエリ一覧・定点観測ログ（全件）', status: '公開版はスクリーンショット2点のみ。一覧ログ未整備' },
 ]);
 
 export const CASE_STUDIES = Object.freeze([
@@ -112,7 +112,7 @@ export const CASE_STUDIES = Object.freeze([
         layer: 'AI推薦表示（観測）',
         status: 'documented',
         summary: 'GEO対策後、AI検索における露出・上位表示が確認された（社内記録・CLAUDE.md）',
-        limitation: '公開ページでは特定クエリ・スクリーンショット・定点日付は未掲載',
+        limitation: '公開ページでは観測スクリーンショット2点を掲載。定点ログ・全クエリ一覧は未公開',
       },
       {
         layer: '顧客申告',

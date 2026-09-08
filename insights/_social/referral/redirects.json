@@ -1,0 +1,55 @@
+{
+  "referral_version": "1.0",
+  "ownership": "ari_referral_p3",
+  "note": "P3-01 referral campaign — do not reuse x-sidecar short_ids",
+  "redirects": [
+    {
+      "short_id": "ref2609e1",
+      "audience": "enterprise",
+      "label": "企業向け — Company Report",
+      "destination": "https://readiness.coaretail.com/report/?utm_source=referral&utm_medium=outbound&utm_campaign=ari_ref_enterprise&utm_content=p3_ent_report",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    },
+    {
+      "short_id": "ref2609e2",
+      "audience": "enterprise",
+      "label": "企業向け — 無料URL確認",
+      "destination": "https://readiness.coaretail.com/?utm_source=referral&utm_medium=outbound&utm_campaign=ari_ref_enterprise&utm_content=p3_ent_check#company-check",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    },
+    {
+      "short_id": "ref2609s1",
+      "audience": "store",
+      "label": "店舗向け — Local GEO",
+      "destination": "https://localgeo.coaretail.com/?utm_source=referral&utm_medium=outbound&utm_campaign=ari_ref_store&utm_content=p3_store_localgeo",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    },
+    {
+      "short_id": "ref2609c1",
+      "audience": "store",
+      "label": "店舗向け — 飲食事例",
+      "destination": "https://readiness.coaretail.com/cases/bar-secret/?utm_source=referral&utm_medium=outbound&utm_campaign=ari_ref_store&utm_content=p3_store_case",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    },
+    {
+      "short_id": "ref2609p1",
+      "audience": "partner",
+      "label": "協業向け — 無料相談",
+      "destination": "https://www.coaretail.com/readiness/mtgschedule?utm_source=referral&utm_medium=partner&utm_campaign=ari_ref_partner&utm_content=p3_partner_consult",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    },
+    {
+      "short_id": "ref2609p2",
+      "audience": "partner",
+      "label": "協業向け — 内製/外注ガイド",
+      "destination": "https://readiness.coaretail.com/guides/inhouse-vs-outsource/?utm_source=referral&utm_medium=partner&utm_campaign=ari_ref_partner&utm_content=p3_partner_guides",
+      "ownership": "ari_referral_p3",
+      "status": "approved_pending_publish"
+    }
+  ]
+}
