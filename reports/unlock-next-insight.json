@@ -1,17 +1,17 @@
 {
-  "unlockedAt": "2026-09-04T10:52:02.127Z",
-  "slug": "exec-readiness-kpi",
-  "publishYmd": "2026-09-07",
+  "unlockedAt": "2026-09-09T10:56:38.429Z",
+  "slug": "content-ops-ai",
+  "publishYmd": "2026-09-10",
   "times": {
-    "web": "2026-09-07T10:00:00+09:00",
-    "bufferTransfer": "2026-09-07T10:30:00+09:00",
-    "linkedin": "2026-09-07T11:30:00+09:00",
-    "facebook": "2026-09-07T11:45:00+09:00",
-    "x": "2026-09-07T12:00:00+09:00"
+    "web": "2026-09-10T10:00:00+09:00",
+    "bufferTransfer": "2026-09-10T10:30:00+09:00",
+    "linkedin": "2026-09-10T11:30:00+09:00",
+    "facebook": "2026-09-10T11:45:00+09:00",
+    "x": "2026-09-10T12:00:00+09:00"
   },
-  "unlockDay": "2026-09-04",
-  "actualRunAt": "2026-09-04T10:52:02.127Z",
-  "effectiveUnlockAt": "2026-09-04T06:00:00.000Z",
-  "latenessMinutes": 292,
+  "unlockDay": "2026-09-09",
+  "actualRunAt": "2026-09-09T10:56:38.429Z",
+  "effectiveUnlockAt": "2026-09-09T06:00:00.000Z",
+  "latenessMinutes": 297,
   "result": "UNLOCKED"
 }
