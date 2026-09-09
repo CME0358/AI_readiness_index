@@ -22,9 +22,26 @@ const reportAnalyticsPath = path.join(ROOT, 'report/src/analytics.js');
 const ga4Path = path.join(ROOT, 'assets/ga4.js');
 const analyticsPath = path.join(ROOT, 'assets/analytics.js');
 
+const LEGACY_SHARED_MEASUREMENT_ID = 'G-BS30YQY1N7';
+const DEDICATED_ARI_MEASUREMENT_ID = 'G-RGP8XZHK5V';
+const ALLOWED_MEASUREMENT_IDS = new Set([LEGACY_SHARED_MEASUREMENT_ID, DEDICATED_ARI_MEASUREMENT_ID]);
+
 const ga4 = fs.readFileSync(ga4Path, 'utf8');
-if (!ga4.includes('G-BS30YQY1N7')) errors.push('ga4.js: expected Measurement ID G-BS30YQY1N7');
-if ((ga4.match(/gtag\('config'/g) || []).length !== 1) errors.push('ga4.js: duplicate gtag config');
+if (!ga4.includes(LEGACY_SHARED_MEASUREMENT_ID)) {
+  errors.push(`ga4.js: expected legacy shared Measurement ID ${LEGACY_SHARED_MEASUREMENT_ID}`);
+}
+if (!ga4.includes(DEDICATED_ARI_MEASUREMENT_ID)) {
+  errors.push(`ga4.js: expected dedicated ARI Measurement ID ${DEDICATED_ARI_MEASUREMENT_ID}`);
+}
+const configCount = (ga4.match(/\.gtag\('config'/g) || []).length;
+if (configCount !== 2) {
+  errors.push(`ga4.js: expected 2 gtag config calls during DUAL_TAG_VALIDATION, found ${configCount}`);
+}
+const measurementIdsInGa4 = [...new Set(ga4.match(/G-[A-Z0-9]+/g) || [])];
+const unexpectedIds = measurementIdsInGa4.filter((id) => !ALLOWED_MEASUREMENT_IDS.has(id));
+if (unexpectedIds.length) {
+  errors.push(`ga4.js: unexpected Measurement ID(s): ${unexpectedIds.join(', ')}`);
+}
 
 const analytics = fs.readFileSync(analyticsPath, 'utf8');
 for (const evt of ['insight_cta_framework', 'insight_cta_research', 'insight_cta_report']) {

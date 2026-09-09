@@ -7,6 +7,9 @@ import { fileURLToPath } from 'node:url';
 import {
   CANONICAL_FUNNEL_EVENTS,
   CANONICAL_IMPLEMENTATION,
+  GA4_PROPERTY,
+  LEGACY_SHARED_MEASUREMENT_ID,
+  DEDICATED_ARI_MEASUREMENT_ID,
   resolveServiceView,
   normalizeAwarenessChannel,
   isNonProductionHost,
@@ -24,6 +27,19 @@ import { mapEventToConversion, CONVERSION_TYPES } from '../lib/funnel/conversion
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');
+
+test('dual-tag migration configures legacy and dedicated ARI measurement IDs only', () => {
+  assert.equal(GA4_PROPERTY.migrationState, 'DUAL_TAG_VALIDATION');
+  assert.equal(LEGACY_SHARED_MEASUREMENT_ID, 'G-BS30YQY1N7');
+  assert.equal(DEDICATED_ARI_MEASUREMENT_ID, 'G-RGP8XZHK5V');
+  assert.deepEqual([...GA4_PROPERTY.measurementIds].sort(), [LEGACY_SHARED_MEASUREMENT_ID, DEDICATED_ARI_MEASUREMENT_ID].sort());
+  const ga4 = read('assets/ga4.js');
+  assert.equal((ga4.match(/\.gtag\('config'/g) || []).length, 2);
+  assert.match(ga4, /send_to/);
+  const ids = [...new Set(ga4.match(/G-[A-Z0-9]+/g) || [])].sort();
+  assert.deepEqual(ids, [DEDICATED_ARI_MEASUREMENT_ID, LEGACY_SHARED_MEASUREMENT_ID].sort());
+  assert.doesNotMatch(ga4, /G-R3QVBJZ53S/);
+});
 
 test('canonical funnel taxonomy maps legacy report and lead events', () => {
   assert.equal(canonicalEventName('report_start'), CANONICAL_FUNNEL_EVENTS.DIAGNOSIS_START);
@@ -100,6 +116,15 @@ test('localgeo handoff uses outbound UTM without GA linker', () => {
   assert.match(read('report/index.html'), /localgeo\.coaretail\.com\/\?utm_source=ari_report/);
   const ga4 = read('assets/ga4.js');
   assert.doesNotMatch(ga4, /linker/);
+});
+
+test('report SPA inherits sitewide ga4 and purchase_verified uses central gtag pipeline', () => {
+  assert.match(read('report/index.html'), /<script src="\/assets\/ga4\.js" async><\/script>/);
+  const reportAnalytics = read('report/src/analytics.js');
+  assert.doesNotMatch(reportAnalytics, /G-[A-Z0-9]+/);
+  assert.match(reportAnalytics, /window\.gtag\('event'/);
+  assert.match(reportAnalytics, /purchase_verified/);
+  assert.match(reportAnalytics, /ari_attribution_v1/);
 });
 
 test('lead_submit_success maps to LEAD_CREATED conversion only after server success path', () => {

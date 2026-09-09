@@ -1,11 +1,27 @@
 /**
  * Google Analytics 4 — readiness.coaretail.com
- * Measurement ID: G-BS30YQY1N7
+ * Migration state: DUAL_TAG_VALIDATION
+ * LEGACY_SHARED_MEASUREMENT_ID: G-BS30YQY1N7 (portfolio shared — retained during validation)
+ * DEDICATED_ARI_MEASUREMENT_ID: G-RGP8XZHK5V (dedicated ARI property)
  * ARI-P0-03: service_view, test traffic separation, measurement bridge for canonical aliases.
  */
-(function (w, d, id) {
+(function (w, d) {
+  var LEGACY_SHARED_MEASUREMENT_ID = 'G-BS30YQY1N7';
+  var DEDICATED_ARI_MEASUREMENT_ID = 'G-RGP8XZHK5V';
+  var MEASUREMENT_IDS = [LEGACY_SHARED_MEASUREMENT_ID, DEDICATED_ARI_MEASUREMENT_ID];
+  var EVENT_SEND_TO = MEASUREMENT_IDS.join(',');
+
   w.dataLayer = w.dataLayer || [];
   w.gtag = function () {
+    if (arguments[0] === 'event') {
+      var params = arguments[2];
+      if (params && typeof params === 'object' && !('send_to' in params)) {
+        var merged = Object.assign({}, params, { send_to: EVENT_SEND_TO });
+        return (function (eventName, eventParams) {
+          w.dataLayer.push(arguments);
+        }).call(null, 'event', arguments[1], merged);
+      }
+    }
     w.dataLayer.push(arguments);
   };
   w.gtag('js', new Date());
@@ -26,7 +42,9 @@
   }
 
   var testTraffic = isTestTraffic();
-  w.gtag('config', id, testTraffic ? { debug_mode: true, traffic_type: 'internal' } : {});
+  var configOptions = testTraffic ? { debug_mode: true, traffic_type: 'internal' } : {};
+  w.gtag('config', LEGACY_SHARED_MEASUREMENT_ID, configOptions);
+  w.gtag('config', DEDICATED_ARI_MEASUREMENT_ID, configOptions);
 
   function serviceViewForPath(pathname) {
     if (pathname.indexOf('/report/') === 0) return { service_kind: 'company_report', service_id: 'report' };
@@ -87,6 +105,7 @@
   w.ariMeasurement = {
     isTestTraffic: isTestTraffic,
     measurementContext: measurementContext,
+    measurementIds: MEASUREMENT_IDS.slice(),
     once: function (storage, key) {
       if (!key || !storage) return true;
       try {
@@ -116,6 +135,6 @@
   var first = d.getElementsByTagName('script')[0];
   var tag = d.createElement('script');
   tag.async = true;
-  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + LEGACY_SHARED_MEASUREMENT_ID;
   first.parentNode.insertBefore(tag, first);
-})(window, document, 'G-BS30YQY1N7');
+})(window, document);

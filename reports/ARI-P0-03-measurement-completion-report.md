@@ -4,7 +4,7 @@
 ARI-P0-03
 
 ## STATUS
-**VERIFIED**（ローカルテスト・コード検証済み。本番未反映。GA4実測はBLOCKED）
+**DUAL_TAG_VALIDATION**（2026-09-10 — 専用プロパティ `G-RGP8XZHK5V` への二重送信フェーズ開始。GA4 Realtime 実測は手動確認待ち）
 
 ## BRANCH
 `fix/ari-p0-03-measurement`
@@ -23,7 +23,7 @@ ARI-P0-03
 
 | 項目 | 証拠 |
 | --- | --- |
-| GA4基盤 `G-BS30YQY1N7` | `assets/ga4.js` — gtag直接、GTMなし |
+| GA4基盤（DUAL_TAG） | `assets/ga4.js` — legacy `G-BS30YQY1N7` + dedicated `G-RGP8XZHK5V`、gtag直接、GTMなし |
 | `landing_view` 全ページ | `assets/ga4.js` `trackLandingView()` |
 | `cta_click` / 初回・直近タッチ | `assets/sitewide-cta-tracking.js` — `ari_attribution_v1` |
 | 購入＝Stripe検証後のみ | `api/verify-purchase.js` + `report/src/fulfillment.js` → `trackPurchaseVerified({ verified: true })` |

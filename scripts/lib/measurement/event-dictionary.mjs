@@ -141,8 +141,19 @@ const OUTBOUND_MEASUREMENT_HANDOFFS = Object.freeze({
   },
 });
 
+const MIGRATION_STATE = 'DUAL_TAG_VALIDATION';
+
+const LEGACY_SHARED_MEASUREMENT_ID = 'G-BS30YQY1N7';
+
+const DEDICATED_ARI_MEASUREMENT_ID = 'G-RGP8XZHK5V';
+
 const GA4_PROPERTY = Object.freeze({
-  measurementId: 'G-BS30YQY1N7',
+  migrationState: MIGRATION_STATE,
+  legacySharedMeasurementId: LEGACY_SHARED_MEASUREMENT_ID,
+  dedicatedAriMeasurementId: DEDICATED_ARI_MEASUREMENT_ID,
+  measurementIds: Object.freeze([LEGACY_SHARED_MEASUREMENT_ID, DEDICATED_ARI_MEASUREMENT_ID]),
+  /** @deprecated Prefer legacySharedMeasurementId + dedicatedAriMeasurementId during migration */
+  measurementId: LEGACY_SHARED_MEASUREMENT_ID,
   gtm: false,
   crossDomainLinker: false,
 });
@@ -173,6 +184,9 @@ function normalizeAwarenessChannel(value) {
 
 export {
   MEASUREMENT_SCHEMA_VERSION,
+  MIGRATION_STATE,
+  LEGACY_SHARED_MEASUREMENT_ID,
+  DEDICATED_ARI_MEASUREMENT_ID,
   CANONICAL_FUNNEL_EVENTS,
   CANONICAL_IMPLEMENTATION,
   LEGACY_TO_CANONICAL,
