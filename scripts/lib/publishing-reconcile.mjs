@@ -34,6 +34,7 @@ import {
   recordPipelineFailure,
   clearPipelineFailure,
 } from './publishing-failure-state.mjs';
+import { recoverPublishDayGap, listWeekdayGaps } from './publish-day-gap-recovery.mjs';
 
 export function bumpBufferTimesForArticle(bufferPost, now = new Date()) {
   if (!bufferPost?.channels) return false;
@@ -163,7 +164,21 @@ export async function reconcilePublishingPipeline({
     buffer: null,
     updated: false,
     activeSlug: null,
+    gapRecovery: null,
   };
+
+  let schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
+  if (!forceSlug && !skipPublish) {
+    const gaps = listWeekdayGaps(schedule, { startYmd: todayYmd, endYmd: todayYmd });
+    if (gaps.length) {
+      const recovery = recoverPublishDayGap({ schedule, now, dryRun });
+      summary.gapRecovery = recovery;
+      if (recovery.recovered && !dryRun) {
+        summary.updated = true;
+        schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
+      }
+    }
+  }
 
   // A. Publish reconciliation
   if (!skipPublish) {
@@ -188,7 +203,7 @@ export async function reconcilePublishingPipeline({
     }
   }
 
-  const schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
+  schedule = JSON.parse(fs.readFileSync(PATHS.schedule, 'utf8'));
   const queue = readJsonFile(PATHS.bufferQueue, { posts: [] });
 
   const newlyPublished = summary.publish?.published || [];

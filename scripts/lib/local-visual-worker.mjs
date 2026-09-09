@@ -95,10 +95,17 @@ export function isPublishedArticle(article) {
 }
 
 export function isScheduledPrepublishArticle(article, now = new Date()) {
-  return article?.status === EDITORIAL_STATUSES.SCHEDULED &&
-    article.publishAt &&
-    new Date(article.publishAt).getTime() > now.getTime() &&
-    !isProtectedSlug(article.slug);
+  if (article?.status !== EDITORIAL_STATUSES.SCHEDULED || !article.publishAt || isProtectedSlug(article.slug)) {
+    return false;
+  }
+  const publishMs = new Date(article.publishAt).getTime();
+  const nowMs = now.getTime();
+  const horizonMs = PREPUBLISH_HORIZON_DAYS * 24 * 60 * 60 * 1000;
+  if (publishMs > nowMs && publishMs - nowMs <= horizonMs) return true;
+  // Same-day catch-up: unlock/reschedule missed the day-before prepublish window.
+  const publishYmd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date(article.publishAt));
+  const todayYmd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(now);
+  return publishYmd === todayYmd && publishMs <= nowMs;
 }
 
 export function scheduledArticleHtmlPath(config, slug, root = config.root) {

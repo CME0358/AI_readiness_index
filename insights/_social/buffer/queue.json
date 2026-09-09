@@ -1686,48 +1686,48 @@
       "slug": "openai-product-discovery-agentic-commerce",
       "articleUrl": "https://readiness.coaretail.com/insights/openai-product-discovery-agentic-commerce/",
       "status": "scheduled",
-      "articlePublishAt": "2026-09-14T10:00:00+09:00",
-      "bufferTransferAt": "2026-09-14T10:30:00+09:00",
+      "articlePublishAt": "2026-09-09T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-09T10:30:00+09:00",
       "channels": {
         "linkedin": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/openai-product-discovery-agentic-commerce.md",
-          "publishAt": "2026-09-14T11:30:00+09:00",
+          "publishAt": "2026-09-09T11:30:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-09-07T03:33:35.505Z"
+          "updatedAt": "2026-09-09T01:59:31.483Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/openai-product-discovery-agentic-commerce.md",
-          "publishAt": "2026-09-14T11:45:00+09:00",
+          "publishAt": "2026-09-09T11:45:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-09-07T03:33:35.505Z"
+          "updatedAt": "2026-09-09T01:59:31.487Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/openai-product-discovery-agentic-commerce.md",
-          "publishAt": "2026-09-14T12:00:00+09:00",
+          "publishAt": "2026-09-09T12:00:00+09:00",
           "status": "scheduled",
           "bufferUpdateId": null,
           "attempts": 0,
           "lastAttemptAt": null,
           "lastError": null,
-          "updatedAt": "2026-09-07T03:33:35.505Z"
+          "updatedAt": "2026-09-09T01:59:31.487Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:35.502Z",
-      "updatedAt": "2026-09-07T03:33:35.502Z",
+      "updatedAt": "2026-09-09T01:59:31.487Z",
       "series": "current-event"
     },
     {

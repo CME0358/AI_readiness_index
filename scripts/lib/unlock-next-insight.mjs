@@ -26,6 +26,9 @@ import {
   validateSocialContentForSlug,
 } from './validate-social-content.mjs';
 import { resolvePublicCardSummary } from './insights-card-summary.mjs';
+import { PROTECTED_ABIS_SLUGS } from './product-integrity.mjs';
+
+const PROTECTED_ABIS = new Set(PROTECTED_ABIS_SLUGS);
 
 export const UNLOCK_TIME_JST = '15:00';
 export const UNLOCK_LATENESS_WINDOW_MINUTES = 18 * 60;
@@ -80,7 +83,9 @@ export function resolveEffectiveUnlockSlot({ actualRunAt = new Date() } = {}) {
 
 export function findNextHoldArticle(schedule) {
   return schedule.articles.find(
-    (a) => a.series === 'v2' && a.status === EDITORIAL_STATUSES.HOLD
+    (a) => a.series === 'v2' &&
+      a.status === EDITORIAL_STATUSES.HOLD &&
+      !PROTECTED_ABIS.has(a.slug),
   );
 }
 
@@ -197,13 +202,29 @@ export function unlockNextInsight({
   const times = articleTimesForPublishDay(publishYmd);
 
   if (plan.reason !== 'ready_to_unlock') return { ...plan, times };
-  const next = schedule.articles.find((a) => a.slug === plan.slug);
+  let next = schedule.articles.find((a) => a.slug === plan.slug);
 
   if (dryRun) {
     return { updated: false, slug: next.slug, publishYmd, reason: 'dry_run' };
   }
 
-  const prepared = prepareScheduledArticle(next.slug, { strict: true });
+  let prepared = prepareScheduledArticle(next.slug, { strict: true });
+  if (!prepared.ok) {
+    const tried = new Set([next.slug]);
+    while (!prepared.ok) {
+      const fallback = schedule.articles.find(
+        (a) => a.series === 'v2' &&
+          a.status === EDITORIAL_STATUSES.HOLD &&
+          !PROTECTED_ABIS.has(a.slug) &&
+          !tried.has(a.slug),
+      );
+      if (!fallback) break;
+      tried.add(fallback.slug);
+      next = fallback;
+      plan.slug = fallback.slug;
+      prepared = prepareScheduledArticle(next.slug, { strict: true });
+    }
+  }
   if (!prepared.ok) {
     return {
       updated: false,
