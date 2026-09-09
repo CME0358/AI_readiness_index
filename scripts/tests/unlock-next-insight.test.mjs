@@ -49,6 +49,16 @@ test('findNextHoldArticle returns recommendation-logic after ai-search-shift pub
   assert.equal(findNextHoldArticle(schedule).slug, 'recommendation-logic');
 });
 
+test('findNextHoldArticle skips protected ABIS slugs', () => {
+  const schedule = {
+    articles: [
+      { slug: 'abis-ari-bridge', series: 'v2', status: 'editorial_hold' },
+      { slug: 'recommendation-logic', series: 'v2', status: 'editorial_hold' },
+    ],
+  };
+  assert.equal(findNextHoldArticle(schedule).slug, 'recommendation-logic');
+});
+
 test('upsertPlannedCard keeps earlier current-event when unlocking later v2 slot', () => {
   const html = '<!-- INSIGHTS_CARDS_START -->\n<a class="insight-card">published</a>';
   const schedule = {

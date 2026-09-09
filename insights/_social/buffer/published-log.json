@@ -674,7 +674,34 @@
       "publishAt": "2026-09-08T12:00:00+09:00",
       "dueAtUtc": "2026-09-08T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-09T02:12:00.000Z",
+      "slug": "openai-product-discovery-agentic-commerce",
+      "channel": "linkedin",
+      "bufferUpdateId": "6aa0c0a43c5ae934d5212da5",
+      "publishAt": "2026-09-09T11:45:00+09:00",
+      "dueAtUtc": "2026-09-09T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-09T02:12:00.000Z",
+      "slug": "openai-product-discovery-agentic-commerce",
+      "channel": "facebook",
+      "bufferUpdateId": "6aa0c0a5493bbf8c2827c86b",
+      "publishAt": "2026-09-09T11:45:00+09:00",
+      "dueAtUtc": "2026-09-09T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-09T02:12:00.000Z",
+      "slug": "openai-product-discovery-agentic-commerce",
+      "channel": "x",
+      "bufferUpdateId": "6aa0c0a63c5ae934d5212dee",
+      "publishAt": "2026-09-09T12:00:00+09:00",
+      "dueAtUtc": "2026-09-09T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-08T02:01:46.508Z"
+  "updatedAt": "2026-09-09T02:12:54.546Z"
 }

@@ -585,13 +585,13 @@
       "linkedinPublishAt": "2026-09-09T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/openai-product-discovery-agentic-commerce/",
       "contentFile": "insights/_social/linkedin/posts/openai-product-discovery-agentic-commerce.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aa0c0a43c5ae934d5212da5",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:35.502Z",
-      "updatedAt": "2026-09-09T01:59:31.489Z",
+      "updatedAt": "2026-09-09T02:12:54.566Z",
       "series": "current-event"
     },
     {

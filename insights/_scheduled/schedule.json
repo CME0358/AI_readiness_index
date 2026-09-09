@@ -857,7 +857,9 @@
       "heroPendingAt": "2026-09-08T00:25:24.226Z",
       "publishAttemptedAt": "2026-09-09T02:05:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-09T02:05:00.000Z"
+      "publishedAt": "2026-09-09T02:05:00.000Z",
+      "productionVerifiedAt": "2026-09-09T02:12:50.365Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "seo-meo-ai-recommendation-gap",

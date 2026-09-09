@@ -17,6 +17,7 @@ import {
 import { upsertPlannedCard, findEarliestScheduledArticle } from './unlock-next-insight.mjs';
 import { buildPublishedCardHtml, dateParts } from './insights-index-cards.mjs';
 import { syncInsightsPublicSurfaces } from './insights-public-sync.mjs';
+import { canonicalHeroPath, integrateCanonicalHero, configFor } from './local-visual-worker.mjs';
 
 const SCHEDULE_PATH = PATHS.schedule;
 const INDEX_PATH = PATHS.insightsIndex;
@@ -162,6 +163,10 @@ export function publishDueArticles({
 
     if (!dryRun) {
       fs.renameSync(src, dest);
+      const publishConfig = configFor(ROOT);
+      if (fs.existsSync(canonicalHeroPath(publishConfig, article.slug))) {
+        integrateCanonicalHero(publishConfig, article.slug, { root: ROOT });
+      }
     }
 
     if (!indexHtml.includes(`data-insight-slug="${article.slug}"`)) {
