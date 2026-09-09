@@ -232,7 +232,19 @@ h3 { font-size: 1.125rem; margin-bottom: 8px; }
 .company-check-explain { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; max-width: 54ch; }
 .company-check-next { display: flex; flex-wrap: wrap; gap: 12px; }
 @media (max-width: 768px) {
-  .company-check-form { flex-direction: column; }
+  .company-check-form {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .company-check-form input {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 14px 16px;
+    line-height: 1.35;
+    min-height: 52px;
+    box-sizing: border-box;
+  }
   .company-check-form .btn { width: 100%; }
 }
 .hub-hero-inner {
