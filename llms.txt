@@ -14,51 +14,50 @@
 - [News](https://readiness.coaretail.com/news/): プレスリリース・発表記録
 - [Insights](https://readiness.coaretail.com/insights/): 考察・解説コラム
 # INSIGHTS_LLMS_START
-- [経営が見るべきReadiness指標](https://readiness.coaretail.com/insights/exec-readiness-kpi/): Insights Column（2026-09-08）
-- [生成AI検索52.3%。「第二の検索プラットフォーム」で企業が測るべきもの](https://readiness.coaretail.com/insights/ai-search-52-percent/): Insights Column（2026-09-07）
-- [マーケが担う情報設計の再定義](https://readiness.coaretail.com/insights/marketing-info-design/): Insights Column（2026-09-04）
-- [複数エージェントが比較するとき](https://readiness.coaretail.com/insights/multi-agent-compare/): Insights Column（2026-09-03）
-- [MCPとビジネスAPIの接点](https://readiness.coaretail.com/insights/mcp-business-api/): Insights Column（2026-09-02）
-- [AIエージェントと人間の引き継ぎ設計](https://readiness.coaretail.com/insights/agent-handoff/): Insights Column（2026-09-01）
-- [AIが顧客の代わりに選び始めたマーケティング構造変化](https://readiness.coaretail.com/insights/ai-agent-marketing-shift/): Insights Flagship（2026-08-31）
-- [Agent Experienceとは何か](https://readiness.coaretail.com/insights/agent-experience/): Insights Column（2026-08-28）
-- [規約・返金・キャンセルの明確さ](https://readiness.coaretail.com/insights/policy-clarity/): Insights Column（2026-08-27）
-- [購買導線をAIが辿れる設計](https://readiness.coaretail.com/insights/purchase-path-design/): Insights Column（2026-08-26）
-- [空きと営業時間を機械に伝える](https://readiness.coaretail.com/insights/availability-signals/): Insights Column（2026-08-25）
-- [求人情報をAIが比較できる状態](https://readiness.coaretail.com/insights/hiring-readiness/): Insights Column（2026-08-24）
-- [Web上の意味構造とAIの読み取り](https://readiness.coaretail.com/insights/semantic-web-ai/): Insights Column（2026-08-21）
-- [Organizationスキーマの実務的役割](https://readiness.coaretail.com/insights/org-schema-basics/): Insights Column（2026-08-20）
-- [AI向けFAQ設計の基本](https://readiness.coaretail.com/insights/faq-for-agents/): Insights Column（2026-08-19）
-- [IABのAI Visibility計測フレーム](https://readiness.coaretail.com/insights/iab-ai-visibility/): Insights Column（2026-08-18）
-- [検索離れとAI完結——20代48%の調査](https://readiness.coaretail.com/insights/search-departure-ai/): Insights Column（2026-08-17）
-- [企業情報の一貫性がAIの理解を決める](https://readiness.coaretail.com/insights/entity-consistency/): Insights Column（2026-08-14）
-- [「準備できている」の最低ライン](https://readiness.coaretail.com/insights/readiness-baseline/): Insights Column（2026-08-13）
-- [SEO・GEO・ARIの役割分担を整理する](https://readiness.coaretail.com/insights/ari-vs-geo-seo/): Insights Column（2026-08-12）
-- [Cloudflare AEO — ranking→recommended](https://readiness.coaretail.com/insights/cloudflare-aeo/): Insights Column（2026-08-11）
-- [Visibility・Authority・Actionabilityを運用に落と](https://readiness.coaretail.com/insights/three-pillars-ops/): Insights Column（2026-08-10）
-- [競合分析がAI時代に見えなくなる理由](https://readiness.coaretail.com/insights/competitor-blind-spot/): Insights Column（2026-08-07）
-- [引用されることと実行されることの差](https://readiness.coaretail.com/insights/citation-vs-action/): Insights Column（2026-08-06）
-- [AIは「おすすめ」をどう組み立てるのか](https://readiness.coaretail.com/insights/recommendation-logic/): Insights Column（2026-08-05）
-- [AI検索が変える「比較」の意味](https://readiness.coaretail.com/insights/ai-search-shift/): Insights Column（2026-08-04）
-- [なぜAgent Readinessが新しい基準か](https://readiness.coaretail.com/insights/why-ari/): Insights Column（2026-08-03）
-- [AIが決済できる会社](https://readiness.coaretail.com/insights/pay/): Insights Column（2026-07-31）
-- [AIが予約できる会社](https://readiness.coaretail.com/insights/book/): Insights Column（2026-07-30）
-- [AIはレビューをどう比較するか](https://readiness.coaretail.com/insights/reviews/): Insights Column（2026-07-29）
-- [AIは価格をどう理解するか](https://readiness.coaretail.com/insights/price/): Insights Column（2026-07-28）
-- [Actionabilityとは何か](https://readiness.coaretail.com/insights/act/): Insights Column（2026-07-27）
-- [Authorityを失う企業の共通点](https://readiness.coaretail.com/insights/wrong/): Insights Column（2026-07-24）
-- [信頼の証拠（レビューの先）](https://readiness.coaretail.com/insights/trust/): Insights Column（2026-07-23）
-- [Authorityとは何か](https://readiness.coaretail.com/insights/auth/): Insights Column（2026-07-22）
-- [Visibility実践チェックリスト](https://readiness.coaretail.com/insights/checklist/): Insights Column（2026-07-21）
-- [Visibilityを阻害する5つの原因](https://readiness.coaretail.com/insights/blind/): Insights Column（2026-07-20）
-- [Visibilityとは何か](https://readiness.coaretail.com/insights/vis/): Insights Column（2026-07-17）
-- [検索から実行へ（Agent Readiness）](https://readiness.coaretail.com/insights/exec/): Insights Column（2026-07-16）
-- [llms.txtだけでは推薦されない理由](https://readiness.coaretail.com/insights/grounds/): Insights Column（2026-07-15）
-- [Schema.orgとllms.txt](https://readiness.coaretail.com/insights/schema/): Insights Column（2026-07-14）
 - [robots / sitemap / llms.txtの違い](https://readiness.coaretail.com/insights/files/): Insights Column（2026-07-13）
-- [llms.txtは本当に必要か？](https://readiness.coaretail.com/insights/llms-txt/): Insights Column（2026-07-10）
-- [HTTP 402とx402](https://readiness.coaretail.com/insights/http-402/): Insights Column（2026-07-09）
-- [全東信と決済できる企業](https://readiness.coaretail.com/insights/zentoshin/): Insights Column（2026-07-08）
+- [Schema.orgとllms.txt](https://readiness.coaretail.com/insights/schema/): Insights Column（2026-07-14）
+- [llms.txtだけでは推薦されない理由](https://readiness.coaretail.com/insights/grounds/): Insights Column（2026-07-15）
+- [検索から実行へ（Agent Readiness）](https://readiness.coaretail.com/insights/exec/): Insights Column（2026-07-16）
+- [Visibilityとは何か](https://readiness.coaretail.com/insights/vis/): Insights Column（2026-07-17）
+- [Visibilityを阻害する5つの原因](https://readiness.coaretail.com/insights/blind/): Insights Column（2026-07-20）
+- [Visibility実践チェックリスト](https://readiness.coaretail.com/insights/checklist/): Insights Column（2026-07-21）
+- [Authorityとは何か](https://readiness.coaretail.com/insights/auth/): Insights Column（2026-07-22）
+- [信頼の証拠（レビューの先）](https://readiness.coaretail.com/insights/trust/): Insights Column（2026-07-23）
+- [Authorityを失う企業の共通点](https://readiness.coaretail.com/insights/wrong/): Insights Column（2026-07-24）
+- [Actionabilityとは何か](https://readiness.coaretail.com/insights/act/): Insights Column（2026-07-27）
+- [AIは価格をどう理解するか](https://readiness.coaretail.com/insights/price/): Insights Column（2026-07-28）
+- [AIはレビューをどう比較するか](https://readiness.coaretail.com/insights/reviews/): Insights Column（2026-07-29）
+- [AIが予約できる会社](https://readiness.coaretail.com/insights/book/): Insights Column（2026-07-30）
+- [AIが決済できる会社](https://readiness.coaretail.com/insights/pay/): Insights Column（2026-07-31）
+- [なぜAgent Readinessが新しい基準か](https://readiness.coaretail.com/insights/why-ari/): Insights Column（2026-08-03）
+- [AI検索が変える「比較」の意味](https://readiness.coaretail.com/insights/ai-search-shift/): Insights Column（2026-08-04）
+- [AIは「おすすめ」をどう組み立てるのか](https://readiness.coaretail.com/insights/recommendation-logic/): Insights Column（2026-08-05）
+- [引用されることと実行されることの差](https://readiness.coaretail.com/insights/citation-vs-action/): Insights Column（2026-08-06）
+- [競合分析がAI時代に見えなくなる理由](https://readiness.coaretail.com/insights/competitor-blind-spot/): Insights Column（2026-08-07）
+- [Visibility・Authority・Actionabilityを運用に落と](https://readiness.coaretail.com/insights/three-pillars-ops/): Insights Column（2026-08-10）
+- [Cloudflare AEO — ranking→recommended](https://readiness.coaretail.com/insights/cloudflare-aeo/): Insights Column（2026-08-11）
+- [SEO・GEO・ARIの役割分担を整理する](https://readiness.coaretail.com/insights/ari-vs-geo-seo/): Insights Column（2026-08-12）
+- [「準備できている」の最低ライン](https://readiness.coaretail.com/insights/readiness-baseline/): Insights Column（2026-08-13）
+- [企業情報の一貫性がAIの理解を決める](https://readiness.coaretail.com/insights/entity-consistency/): Insights Column（2026-08-14）
+- [検索離れとAI完結——20代48%の調査](https://readiness.coaretail.com/insights/search-departure-ai/): Insights Column（2026-08-17）
+- [IABのAI Visibility計測フレーム](https://readiness.coaretail.com/insights/iab-ai-visibility/): Insights Column（2026-08-18）
+- [AI向けFAQ設計の基本](https://readiness.coaretail.com/insights/faq-for-agents/): Insights Column（2026-08-19）
+- [Organizationスキーマの実務的役割](https://readiness.coaretail.com/insights/org-schema-basics/): Insights Column（2026-08-20）
+- [Web上の意味構造とAIの読み取り](https://readiness.coaretail.com/insights/semantic-web-ai/): Insights Column（2026-08-21）
+- [求人情報をAIが比較できる状態](https://readiness.coaretail.com/insights/hiring-readiness/): Insights Column（2026-08-24）
+- [空きと営業時間を機械に伝える](https://readiness.coaretail.com/insights/availability-signals/): Insights Column（2026-08-25）
+- [購買導線をAIが辿れる設計](https://readiness.coaretail.com/insights/purchase-path-design/): Insights Column（2026-08-26）
+- [規約・返金・キャンセルの明確さ](https://readiness.coaretail.com/insights/policy-clarity/): Insights Column（2026-08-27）
+- [Agent Experienceとは何か](https://readiness.coaretail.com/insights/agent-experience/): Insights Column（2026-08-28）
+- [AIが顧客の代わりに選び始めたマーケティング構造変化](https://readiness.coaretail.com/insights/ai-agent-marketing-shift/): Insights Column（2026-08-31）
+- [AIエージェントと人間の引き継ぎ設計](https://readiness.coaretail.com/insights/agent-handoff/): Insights Column（2026-09-01）
+- [MCPとビジネスAPIの接点](https://readiness.coaretail.com/insights/mcp-business-api/): Insights Column（2026-09-02）
+- [複数エージェントが比較するとき](https://readiness.coaretail.com/insights/multi-agent-compare/): Insights Column（2026-09-03）
+- [マーケが担う情報設計の再定義](https://readiness.coaretail.com/insights/marketing-info-design/): Insights Column（2026-09-04）
+- [生成AI検索52.3%。「第二の検索プラットフォーム」で企業が測るべきもの](https://readiness.coaretail.com/insights/ai-search-52-percent/): Insights Column（2026-09-07）
+- [経営が見るべきReadiness指標](https://readiness.coaretail.com/insights/exec-readiness-kpi/): Insights Column（2026-09-08）
+- [ChatGPTの商品探索と事業者の確認項目](https://readiness.coaretail.com/insights/openai-product-discovery-agentic-commerce/): Insights Column（2026-09-09）
+
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
 - [Benchmarks](https://readiness.coaretail.com/dental.html): 業界調査（Dental）

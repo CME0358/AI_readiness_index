@@ -828,8 +828,8 @@
     {
       "slug": "openai-product-discovery-agentic-commerce",
       "publishAt": "2026-09-09T10:00:00+09:00",
-      "status": "scheduled",
-      "publicationState": "SCHEDULED",
+      "status": "published",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260909-DAILY-001",
       "slotDate": "2026-09-09",
       "slotType": "DAILY_PRIMARY",
@@ -853,7 +853,11 @@
         "secondary": "CHECK"
       },
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-09T02:03:35.194Z"
+      "heroReadyAt": "2026-09-09T02:03:35.194Z",
+      "heroPendingAt": "2026-09-08T00:25:24.226Z",
+      "publishAttemptedAt": "2026-09-09T02:05:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-09T02:05:00.000Z"
     },
     {
       "slug": "seo-meo-ai-recommendation-gap",
