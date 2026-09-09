@@ -852,8 +852,8 @@
         "primary": "LEARN",
         "secondary": "CHECK"
       },
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-08T00:25:24.226Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-09T02:03:35.194Z"
     },
     {
       "slug": "seo-meo-ai-recommendation-gap",
