@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI検索とオーガニックは別の仕事｜｜Shopifyデータが示す構造化カタログの価値｜—Shopifyデータが示す構造化カタログの価値</title>
+<meta name="description" content="Shopify公開データで、AI紹介の質とオーガニックの量、構造化カタログの差を整理する。決済プロトコルは扱わない。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/shopify-ai-vs-organic-structured-catalog/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI検索とオーガニックは別の仕事——Shopifyデータが示す構造化カタログの価値",
+  "description": "Shopify公開データで、AI紹介の質とオーガニックの量、構造化カタログの差を整理する。決済プロトコルは扱わない。",
+  "datePublished": "2026-09-25",
+  "dateModified": "2026-09-25",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/shopify-ai-vs-organic-structured-catalog/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>AI検索とオーガニックは別の仕事——Shopif</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-09-25">2026.09.25</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>AI検索とオーガニックは別の仕事——Shopifyデータが示す構造化カタログの価値</h1>
+      <p class="lead">ShopifyのQ2データは、AI経由とオーガニックが別の仕事をしていると示す。構造化カタログの価値を、比較・推薦の情報設計までで読む。</p>
+    </div>
+  </header>
+
+  <article class="article-body container" data-article-slug="shopify-ai-vs-organic-structured-catalog" data-article-title="AI検索とオーガニックは別の仕事——Shopifyデータが示す構造化カタログの価値" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <h2>WHAT CHANGED｜Shopifyデータが示した「別の仕事」</h2>
+      <p>Shopifyは2026年8月11日付のEnterpriseブログで、Q2のコマースデータを使い、<strong>AI検索とオーガニック検索は今、違う仕事をしている</strong>、と整理しました。公式の骨格は3つです。</p>
+      <ul>
+        <li>AI紹介セッションは前年同期比 <strong>197%</strong>（およそ3倍）。オーガニックはより大きな母数のうえで <strong>12%</strong> 増。オーガニックの方が、追跡したAI面を合計しても紹介セッションは多い</li>
+        <li>仕様比較が重いカテゴリでは、AI紹介の転換率がオーガニックのおよそ <strong>2倍</strong></li>
+        <li>AIが <strong>構造化されたShopify Catalog</strong> の商品データを使った場合、スクレイピングや第三者フィード由来のAIセッションより、紹介された買い物客の転換率が <strong>2倍</strong></li>
+      </ul>
+      <p>同じ週の決算説明を報じたTechCrunchは、社長Harley Finkelstein氏の発言として、AIは検索の代替ではなく補完、従来検索はストアフロントセッションのおよそ3分の1を維持し、なお成長している、と伝えています。AI紹介の半分が商品詳細ページに直接着地し、それは従来検索の <strong>2.5倍</strong>、という説明も決算側にあります。</p>
+      <p>これは「AIが検索を殺した」話ではありません。公式自身が、両方とも伸び、パイが広がっている、と書いています。</p>
+      <h2>WHY IT MATTERS｜比較と推薦の情報設計まで</h2>
+      <p>ARIで読むと、伸び率と母数を混ぜない、が第一です。AI面は成長速度、オーガニックは規模、です。<a href="/insights/search-departure-ai/">検索離れ</a>や<a href="/insights/ai-search-52-percent/">生成AI検索52.3%</a>は、調べものの入口が移る話でした。Shopifyデータは、<strong>同じ事業者が両方の入口を同時に抱える</strong>ときの、紹介品質の差を示しています。</p>
+      <p>公式が「buyer journey compression」と呼ぶ現象は、発見と比較の一部が会話側で終わり、商品ページに高意図で着地する、という読みです。Q2ではAI紹介セッションの <strong>50%</strong> が商品詳細に直接着地した、とブログは書いています。着地したページが、仕様・対象・制約・レビュー・配送や返品を確認できなければ、比較の途中で止まります。</p>
+      <p>構造化カタログの2倍、は「スキーマを置けば勝つ」という話ではありません。公式が比較しているのは、きれいな構造化商品データと、スクレイピング／第三者フィードです。ARIのUnderstanding / Comparisonに落とすと、属性が欠けるフィードは、推薦理由を組み立てる材料が弱い、という観測です。決済手順やエージェントチェックアウトの実装には、ここでは入りません。</p>
+      <h2>CATEGORY READ｜仕様型と嗜好型</h2>
+      <p>ブログは、買うものが面の使い分けの代理指標になる、と注意したうえで、次のように書いています。</p>
+      <ul>
+        <li>仕様・互換・用途・レビュー・トレードオフを比較する旅では、AI紹介の転換優位が強い。仕様主導カテゴリではおおよそ2倍</li>
+        <li>嗜好やブランドが先にある旅では、オーガニックが発見と閲覧を広く支える。一方AIは、オーガニックの約 <strong>1.3倍</strong> の割合で新規顧客を連れてきた、という記述がある</li>
+        <li>親カテゴリは粗い。アパレル全体ではAIがオーガニックより約 <strong>1.6倍</strong> 転換しやすいが、時計は約 <strong>2.4倍</strong>、ネックレスは約 <strong>2.3倍</strong></li>
+      </ul>
+      <p>「このカテゴリはAI向き、あれはSEO向き」と切るな、と公式は書いています。今のAIの強み（基準に照らして考える）が、目の前の仕事に合うところで使われている、という読みです。視覚やフィットが強くなれば、旅の種類は広がる可能性がある、とも書いています。これは将来見通しであり、確定ではありません。</p>
+      <h2>WHAT TO CHECK NOW｜カタログと着地ページ</h2>
+      <p>公式が商人向けに挙げている確認は、比較・推薦・情報設計の範囲に収まります。</p>
+      <ul>
+        <li>商品属性が、会話での聞き方（用途、対象、互換、素材、向いている場面）に対応しているか</li>
+        <li>商品詳細が、AI経由の深い着地に耐えるか。説明、仕様、用途、互換、レビュー、配送・返品、FAQ、比較できる事実があるか</li>
+        <li>レビューが収集され、ページ上で読めるか</li>
+        <li>AI紹介とオーガニックを、同じレポートで並べているか。Google AI Overviewsはオーガニックに計上されやすく、AI側は過小評価になりうる、と公式は注意している</li>
+        <li>構造化カタログと、スクレイピングされやすい薄いページの差を、自社で見ているか</li>
+      </ul>
+      <p><a href="/insights/price/">価格の理解</a>と<a href="/insights/reviews/">レビューの比較</a>は、着地ページの比較材料を点検するときの参照です。<a href="/insights/openai-product-discovery-agentic-commerce/">商品探索</a>は、対話画面で比較が起きる、という発表側の変化です。本記事は、その着地品質をShopifyの公開データで見る、という角度です。</p>
+      <h2>WHAT THIS DOES NOT PROVE｜データだけでは分からないこと</h2>
+      <ul>
+        <li>Shopify商人以外、日本市場、非ECでも同じ倍率になること</li>
+        <li>構造化すれば必ず2倍になること（公式は自社Catalog経由の観測）</li>
+        <li>オーガニックを減らしてAIだけに寄せるべきこと（公式は両方を持て、と書いている）</li>
+        <li>エージェント決済やチェックアウトプロトコルの優劣</li>
+        <li>サンプル商人数や取引件数（Search Engine Landも、商人数・取引数は未開示と注記している）</li>
+      </ul>
+      <p>決算数字（売上高など）は会社全体の業績であり、AI紹介の因果証明ではありません。TechCrunchが伝えた「補完であって代替ではない」は、Shopify経営陣の説明です。</p>
+      <h2>NEXT ACTION｜次の一手</h2>
+      <p>AIとオーガニックを、セッション数と転換率で別列にします。次に、主力SKUの属性（対象、用途、互換、制約）が公式ページで欠落していないかを見ます。着地が商品詳細に集中しているなら、そこで比較が完了するかを優先します。チェックアウト実装の深掘りは、このデータの次の宿題であり、本記事では扱いません。</p>
+      <blockquote>
+        <strong>出典：</strong> <a href="https://www.shopify.com/enterprise/blog/ai-search-category-behavior">Kyle Risley, Shopify Enterprise, “AI and organic search are doing different jobs: What Shopify's data shows,” 2026-08-11</a>。補助：<a href="https://techcrunch.com/2026/08/05/shopify-says-ai-search-is-driving-more-traffic-and-sales-not-replacing-google/">Sarah Perez, TechCrunch, “Shopify says AI search is driving more traffic and sales, not replacing Google,” 2026-08-05</a>。倍率はShopify公開データおよび決算説明の報道範囲です。
+      </blockquote>
+
+      <div class="sitewide-cta" data-cta-profile="shopify-ai-vs-organic-structured-catalog" data-editorial-intent="EVIDENCE">
+        <h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+<a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_shopify-ai-vs-organic-structured-catalog_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/shopify-ai-vs-organic-structured-catalog/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_shopify-ai-vs-organic-structured-catalog_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/shopify-ai-vs-organic-structured-catalog/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+
+            <section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/agent-experience/">Agent Experience（AX）とは？エージェント体験設計の基本</a>
+        </li>
+        <li>
+          <a href="/insights/agent-handoff/">AIエージェントから人間への引き継ぎ設計</a>
+        </li>
+        <li>
+          <a href="/insights/ai-agent-marketing-shift/">「マーケティングが難しくなった」のではない。AIが顧客の代わりに選び始めた。</a>
+        </li>
+        </ul>
+      </section>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-09-25</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search ConsoleのAIインプレッションをどう読むか｜｜スコアボードにしない｜—スコアボードにしない</title>
+<meta name="description" content="GSCの生成AIレポートはインプレッション・ページ・国・デバイス・日付。クエリやCTRは公式列挙に無い。診断用に読む。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/gsc-ai-impressions-how-to-read/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Search ConsoleのAIインプレッションをどう読むか——スコアボードにしない",
+  "description": "GSCの生成AIレポートはインプレッション・ページ・国・デバイス・日付。クエリやCTRは公式列挙に無い。診断用に読む。",
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-01",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/gsc-ai-impressions-how-to-read/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Search ConsoleのAIインプレッショ</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-10-01">2026.10.01</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>Search ConsoleのAIインプレッションをどう読むか——スコアボードにしない</h1>
+      <p class="lead">Search ConsoleのAIインプレッションはスコアボードではない。公式が示す範囲と、まだ分からないことを分けて読む。</p>
+    </div>
+  </header>
+
+  <article class="article-body container" data-article-slug="gsc-ai-impressions-how-to-read" data-article-title="Search ConsoleのAIインプレッションをどう読むか——スコアボードにしない" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <h2>WHAT CHANGED｜AIインプレッションが分離された</h2>
+      <p>Google Search Central Blogは2026年6月3日、Search Consoleに <strong>Search Generative AI performance reports</strong> を追加した、と発表しました。Search向けとDiscover向けの専用ビューで、検索の生成AI機能（例：AI Overviews、AI Mode）およびDiscoverの生成AI機能における、サイトの見え方を見る、としています。このデータは従来の総合パフォーマンス報告にも含まれ続け、今回は生成AI面だけの分離ビューを出した、と書いています。2026年8月31日時点で、世界の全ウェブサイトへ展開した、という注記が公式記事にあります。</p>
+      <p>公式が列挙している項目は次です。</p>
+      <ul>
+        <li><strong>Impressions</strong>：生成AI機能に、自サイトのURLがどれだけ現れたか</li>
+        <li><strong>Pages</strong>：どのURLがAI機能内に現れたか</li>
+        <li><strong>Countries</strong>：国別</li>
+        <li><strong>Devices</strong>：どのデバイスで見られたか（Search結果向け）</li>
+        <li><strong>Dates</strong>：時間・日・週・月</li>
+      </ul>
+      <p>公式は、追加指標を時間をかけて足す可能性に触れています。<strong>クエリ、クリック、CTR、平均掲載順位は、この発表の列挙に含まれていません。</strong> 無いものを、あるかのようにダッシュボードへ足しません。</p>
+      <h2>TRADE READING｜診断レンズであり、スコアボードではない</h2>
+      <p>Carolyn Shelby氏のSearch Engine Journal論考（2026年8月4日）は、公式列挙を実務の読みに落とす<strong>業界分析</strong>です。要点だけを、公式と分けて置きます。</p>
+      <ul>
+        <li>今は主にインプレッション報告である。リンクが生成機能のどこかに現れた、ことは分かる。ユーザーがソースに気づいたか、何の役に立ったか、は分からない</li>
+        <li>プロパティ集計とページ表では、数え方が違う場合がある。1つの生成応答に自社URLが2つあれば、チャート（プロパティ）では1、ページ表では各1、になりうる。ページ合計は、プロパティ合計と一致しないことがある</li>
+        <li>従来の検索インプレッションと、生成AIインプレッションは、同じ「インプレッション」でも体験が違う。後者の主製品は合成された答えであり、リンクは目立つことも、多数の引用の一つであることも、展開するまで見えないこともある</li>
+        <li>SEJがGoogleの数え方として述べている差：AI Overviewsでは、リンクがスクロールまたは展開で見えるまでインプレッションにならない場合がある。AI Modeでは、追加質問を新しいクエリとして扱い、その応答のリンクが追加インプレッションになりうる</li>
+        <li>生成と従来を足して「検索可視性合計」や、ブレンドCTRを作るな</li>
+      </ul>
+      <p>ARIでは、この読みを<a href="/insights/iab-ai-visibility/">IAB計測</a>の「単一スコアをDecision-Gradeと取り違えるな」と同型に置きます。GSCのAIインプレッションは、Google面での<strong>Presenceの入口</strong>です。推薦の正しさも、成果も、まだ入っていません。</p>
+      <h2>WHY IT MATTERS｜分離されたからこそ混ぜない</h2>
+      <p>これまで、AI Overviewsに出ているのか、従来結果に出ているのかを、総合レポートから切り出すのが難しかった、というのが公式の動機です。分離されたあとの失敗は、新しい大きな数字を経営ダッシュボードの一番上に置き、緑にする、ことです。</p>
+      <p><a href="/insights/vis/">Visibility</a>は「見つけてもらえるか」です。GSCのAIインプレッションは、Googleの生成機能にリンクが出たか、です。ChatGPTやClaudeの引用、エージェント棚、問い合わせ数とは別列です。公式が「総合パフォーマンスにも含まれ続ける」と書いているので、総合とAI専用を足すと二重計上になります。</p>
+      <h2>WHAT TO CHECK NOW｜スコアにせず比較する</h2>
+      <p>公式データでできることと、SEJが提案している比較を分けます。</p>
+      <p>公式で確認できること：</p>
+      <ul>
+        <li>生成AI面のインプレッション推移（十分な期間。数日のローンチノイズで結論しない）</li>
+        <li>どのURLが現れているか（Pages）</li>
+        <li>国・デバイス・日付の内訳</li>
+      </ul>
+      <p>業界分析が提案している、公式には無いが従来レポートと突き合わせる見方：</p>
+      <ul>
+        <li>従来オーガニックで強いのに、AIインプレッションが弱いページ</li>
+        <li>従来は地味なのに、AIインプレッションが相対的に強いページ（定義、比較、一次情報が抜きやすいか）</li>
+        <li>インプレッションが少数URLに集中していないか</li>
+        <li>実質的な改稿の前後で、持続して動いたか（見出しを1つ変えて3日後に上がった、を因果にしない）</li>
+      </ul>
+      <p>クエリがAIレポートに無い以上、「このキーワードでAIに出た」は、従来パフォーマンスのクエリや、手元の代表質問観測で補う、とSEJは書いています。補完である旨を残します。</p>
+      <p>クリックや成果は、分析ツール側で識別できるAI紹介だけを、別途見ます。インプレッションとセッションを、同じ成果指標にしない、という注意はSEJにもあります。Search ConsoleとAnalyticsは、以前から完全一致しません。</p>
+      <h2>WHAT THIS DOES NOT PROVE｜レポートが言わないこと</h2>
+      <ul>
+        <li>クエリ単位で、どの質問に出たか（公式列挙にクエリは無い）</li>
+        <li>クリック、CTR、平均順位、引用位置、使われた箇所、売上</li>
+        <li>インプレッション増が、認知や成果の証明であること</li>
+        <li>自社インプレッション合計が「AI市場シェア」であること</li>
+        <li>ChatGPTなど、Google以外の面の可視性</li>
+      </ul>
+      <p>公式は当初サブセット公開で、8月31日に世界展開と注記しています。ヘルプが「全プロパティに無い」と残る、インプレッションが少ないとレポート自体が無い、といった展開差は、業界報道側の注記です。自社画面に無いことを、即時の技術失敗と決めません。</p>
+      <p>Googleは、AI Overviews / AI Mode / Discover生成機能からコンテンツを外す制御も試している、とSEJは書いています。既定は包含です。オフは、AIインプレッションとその面からの流入の両方を捨てる、というSEJの注意があります。公式発表本文は、レポートの話が中心です。オプトアウトの最新仕様は、Search Consoleのヘルプで確認します。</p>
+      <h2>NEXT ACTION｜次の一手</h2>
+      <p>AIインプレッションを、従来オーガニックと並べた「診断表」にします。合計点は見出しに使っても、改善判断はURLタイプとテーマの比較で行います。クエリやCTRが欲しくなったら、公式が足すまで待つか、従来レポートと代表質問観測で補い、欠けを明記します。</p>
+      <blockquote>
+        <strong>出典（公式）：</strong> <a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports">Hillel Maoz / Moshe Samet, Google Search Central, “Introducing Search Generative AI performance reports in Search Console,” 2026-06-03</a>（2026-08-31世界展開の注記あり）。<strong>業界分析：</strong> <a href="https://www.searchenginejournal.com/google-reports-ai-search-impressions-how-to-read-them/582824/">Carolyn Shelby, Search Engine Journal, “Google Now Reports AI Search Impressions. Here’s How To Read Them,” 2026-08-04</a>。クエリやCTRの欠如は、公式列挙に無いこと、およびSEJの整理として書いています。
+      </blockquote>
+
+      <div class="sitewide-cta" data-cta-profile="gsc-ai-impressions-how-to-read" data-editorial-intent="EVIDENCE">
+        <h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+<a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_gsc-ai-impressions-how-to-read_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/gsc-ai-impressions-how-to-read/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_gsc-ai-impressions-how-to-read_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/gsc-ai-impressions-how-to-read/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+
+            <section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/agent-experience/">Agent Experience（AX）とは？エージェント体験設計の基本</a>
+        </li>
+        <li>
+          <a href="/insights/agent-handoff/">AIエージェントから人間への引き継ぎ設計</a>
+        </li>
+        <li>
+          <a href="/insights/ai-agent-marketing-shift/">「マーケティングが難しくなった」のではない。AIが顧客の代わりに選び始めた。</a>
+        </li>
+        </ul>
+      </section>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-10-01</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>

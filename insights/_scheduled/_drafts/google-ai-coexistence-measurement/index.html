@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「95%がまだGoogleにいる」で安心するな｜｜重複・置換・ゼロクリックを分けて測る｜—重複・置換・ゼロクリックを分けて測る</title>
+<meta name="description" content="Similarwebの95%重複と、クエリ減・ゼロクリック研究を分けて読む。人数が残ることとクリック保全は別指標。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "「95%がまだGoogleにいる」で安心するな——重複・置換・ゼロクリックを分けて測る",
+  "description": "Similarwebの95%重複と、クエリ減・ゼロクリック研究を分けて読む。人数が残ることとクリック保全は別指標。",
+  "datePublished": "2026-09-28",
+  "dateModified": "2026-09-28",
+  "author": { "@type": "Organization", "name": "合同会社コア・リテール" },
+  "publisher": { "@type": "Organization", "name": "合同会社コア・リテール", "url": "https://www.coaretail.com" },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>「95%がまだGoogleにいる」で安心するな—</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-09-28">2026.09.28</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>「95%がまだGoogleにいる」で安心するな——重複・置換・ゼロクリックを分けて測る</h1>
+      <p class="lead">ChatGPT利用者の95%がGoogleも使う、という数字だけでは安心できない。重複・置換・ゼロクリックを分けて測る。</p>
+    </div>
+  </header>
+
+  <article class="article-body container" data-article-slug="google-ai-coexistence-measurement" data-article-title="「95%がまだGoogleにいる」で安心するな——重複・置換・ゼロクリックを分けて測る" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <h2>WHAT CHANGED｜「95%がまだGoogleにいる」の読み方</h2>
+      <p>Search Engine JournalのMatt G. Southern氏は2026年9月4日、Similarwebの重なり数字と、検索回数・クリックを測った別研究を並べ、<strong>両方同時に成り立つ</strong>、と整理しました。これは業界メディアの分析です。ARIの既存コラム——<a href="/insights/search-departure-ai/">20代の検索離れ</a>や<a href="/insights/ai-search-52-percent/">生成AI検索52.3%</a>——が入口の移動を扱ったのに対し、本記事は<strong>人数の重複、クエリの置換、ゼロクリックを、指標として分ける</strong>話です。</p>
+      <p>Similarwebは、ChatGPT利用者のうちGoogleのオーディエンスにも現れる割合を、2025年9月時点で95%、2026年5月まで95%のまま、と置いています。同時期、生成AIプラットフォームへの訪問は前年比70%増、という記述があります。Similarweb自身の読みは、AIが検索に足されているのであって、置き換わってはいない、です。</p>
+      <p>同じ「まだGoogleを使っている」は、月に1回マップを開いただけでも成立します。重なりは人数であり、回数でもクリックでもありません。</p>
+      <h2>THREE METRICS｜重複・置換・ゼロクリック</h2>
+      <p>SEJが並べている観測を、ARI用に3列へ分けます。数字は各研究に帰属します。</p>
+      <h3>1. オーディエンス重複（人数）</h3>
+      <p>Similarwebの95%は、ある期間に両方のオーディエンスへ現れた人の割合です。セッション単位の使い分けや、クエリ種類の移動は見ません。Similarwebの8月解説（SEJ経由）は、API利用、デスクトップアプリ、アプリ内AIはパネルに入りにくく、検索を置き換えやすい活動ほど見えにくい、と注意しています。</p>
+      <p>Pewの2026年2月調査（米成人5,119人、SEJが6月に扱った数字）：チャットボットを「使ったことがある」49%、情報探索に使う42%、検索結果上部のAI要約を読む60%。「使ったことがある」は広い定義です。</p>
+      <h3>2. クエリ置換（回数）</h3>
+      <p>Bocconi大学のワーキングペーパー（Shi, Zhu &amp; Gu、米デスクトップ世帯、2024年10月–2025年7月、Comscore）：ChatGPT Searchへのアクセスが広がった世帯は、従来検索クエリが週平均3.14回減（拡大前平均33.51回の約 <strong>9.4%</strong>）。20週後には約 <strong>17.0%</strong>。情報系の紹介減が目立つ、と論文は記述しています（学術 −32.8%、レファレンス −26.5%、開発者 −15.1%、ニュース −13.4%）。マーケットプレイスとエンタメは、ゼロと区別できないか、動きが小さい。論文は記述的であり、因果は主張していません。</p>
+      <p>同じパネルで、Googleの世帯リーチは約49%で安定、ChatGPTは4.6%から7.9%へ、という記述があります。人数は残り、回数は減る、が同時に起きうる、というSEJの読みです。データは2025年7月までで、現在のAI Mode規模の前です。</p>
+      <h3>3. ゼロクリック（同じGoogle内）</h3>
+      <p>GoogleはI/Oで、AI Overviews月間25億超、AI Modeは初年度で10億超、と発表しています（SEJ経由）。社側の要約は「AI機能を使うとSearchをより使う」です。ベースラインやユーザー単位の公開データは、SEJも独立検証できない、と書いています。</p>
+      <p>Wangら（arXiv、2026年8月18日、米Chromeユーザー1,100人、7日間）：標準Google、AI Overviews非表示、全検索をAI Modeへ、の3群。AI Mode群は外部サイトへのクリックが <strong>18.8ポイント</strong> 減（95% CI −22.2〜−15.3）。検索セッションは1日あたり約0.92回減（平均4.0から）。ニュースクリック参加者は12.5ポイント減、Reddit 21.2、Wikipedia 9.9。これは強制的に近い全採用であり、任意利用とは違う、と著者は書いています。対象は若め・高学歴に偏り、7日では習慣の長期変化は見えません。査読前です。</p>
+      <p>人数がGoogleに残っても、従来の結果ページを見ず、クリックしない、がありえます。重複指標だけでは、この層は「残っている」に見えます。</p>
+      <h2>WHY IT MATTERS｜安心の指標が隠す穴</h2>
+      <p>クライアントや経営が95%を見るとき、よく起きる読みは「検索対策は今まで通りでよい」です。SEJが指摘するのは、人数が残っても、情報系クエリが減り、AI Mode内でクリックが減る、という報告が同時にある、ことです。Search Consoleのブランド検索増は、ChatGPTで名前を知ってからGoogleした、という経路を、AI紹介として返せません。</p>
+      <p><a href="/insights/iab-ai-visibility/">IAB計測</a>のPresenceは回答内の存在です。本記事の3列は、検索側の人数・回数・クリックです。混ぜると、「Googleに残っているのに紹介が減った」が説明不能になります。説明不能のまま平均スコアを上げ下げしても、<a href="/insights/vis/">Visibility</a>のどこが傷ついたかは分かりません。</p>
+      <h2>WHAT TO CHECK NOW｜分けて測ること</h2>
+      <ul>
+        <li>オーディエンス重複（同じ人が両方に現れるか）を、クエリ回数やクリックと別列にする</li>
+        <li>情報系と取引系で、紹介の減り方を分けて見る（Bocconiは記述的な差だけを示している）</li>
+        <li>Google内のAI Overviews / AI Modeを、従来検索クリックと混ぜない</li>
+        <li>「Google印象は維持、紹介は減少」が同時に起きていないか</li>
+        <li>ブランド検索増を、自動的にSEO成果ともAI成果とも決め打ちしない</li>
+        <li>自社パネルに、アプリ・API・デスクトップがどれだけ欠けているかを書く</li>
+      </ul>
+      <p><a href="/insights/citation-vs-action/">引用と実行</a>は、見えたことと行動の差です。本記事は、見えた人数と、検索回数と、クリックの差です。</p>
+      <h2>WHAT THIS DOES NOT PROVE｜どのデータも見えないこと</h2>
+      <p>SEJが明示している限界です。どのデータセットも、Google検索・AI Mode・ChatGPT・Geminiを、同じ人の同じ課題で長期間は追っていません。Similarwebはオーディエンス中心。Bocconiと一部研究は米デスクトップで、Bocconiは2025年7月まで。Wangは約1,000人・7日の強制寄りのAI Modeです。Googleはクエリ増を主張していますが、AI Modeのクエリ定義とベースラインは公開されていません。3本の学術系は原稿段階、とSEJは注記しています。</p>
+      <p>95%は「誰もGoogleを捨てていない」の見出しには使えます。クリック保全の証明には使えません。Bocconiの9.4%は、そのパネル・期間の記述です。日本のスマホ中心利用にそのまま置けません。</p>
+      <h2>NEXT ACTION｜次の一手</h2>
+      <p>経営資料の「AI vs Google」を、重複／置換／ゼロクリックの3行に書き換えます。数字が無い行は「未観測」と書き、95%だけで安心した結論を止めます。入口調査（検索離れ、利用率）は別シリーズとして残し、本枠は測定の分解専用にします。</p>
+      <blockquote>
+        <strong>出典（業界分析）：</strong> <a href="https://www.searchenginejournal.com/google-chatgpt-audience-search-queries-clicks/588200/">Matt G. Southern, Search Engine Journal, “People Aren't Leaving Google For AI. They're Using Both,” 2026-09-04</a>。引用研究はSimilarweb、Bocconi working paper、Pew、Wang et al.（arXiv）、Google I/O発表など、SEJ本文が名前を出したものに限ります。
+      </blockquote>
+
+      <div class="sitewide-cta" data-cta-profile="google-ai-coexistence-measurement" data-editorial-intent="EVIDENCE">
+        <h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+<a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_google-ai-coexistence-measurement_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/google-ai-coexistence-measurement/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_google-ai-coexistence-measurement_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/google-ai-coexistence-measurement/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+
+            <section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/agent-experience/">Agent Experience（AX）とは？エージェント体験設計の基本</a>
+        </li>
+        <li>
+          <a href="/insights/agent-handoff/">AIエージェントから人間への引き継ぎ設計</a>
+        </li>
+        <li>
+          <a href="/insights/ai-agent-marketing-shift/">「マーケティングが難しくなった」のではない。AIが顧客の代わりに選び始めた。</a>
+        </li>
+        </ul>
+      </section>
+
+      <div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-09-28</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>
