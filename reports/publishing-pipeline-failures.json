@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-09T02:12:54.569Z",
+  "updatedAt": "2026-09-10T01:13:18.008Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -19,6 +19,15 @@
       "retryable": true,
       "attemptCount": 1,
       "lastSuccessStage": "published_verified"
+    },
+    "content-ops-ai": {
+      "slug": "content-ops-ai",
+      "stage": "production_verification",
+      "attemptedAt": "2026-09-10T01:13:18.005Z",
+      "failureReason": "HTTP 404",
+      "retryable": true,
+      "attemptCount": 1,
+      "lastSuccessStage": "published"
     }
   },
   "lastSuccess": {
