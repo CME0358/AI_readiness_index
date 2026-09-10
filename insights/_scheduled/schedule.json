@@ -765,8 +765,8 @@
       "searchIntentClass": "B",
       "primarySearchIntent": "コンテンツ運用 AI 更新 一貫性",
       "unlockedAt": "2026-09-09T10:56:38.429Z",
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-09T10:56:38.429Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-10T00:11:56.675Z"
     },
     {
       "slug": "execution-readiness",
