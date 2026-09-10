@@ -1,0 +1,11 @@
+Cloudflareは2026年7月1日、AIトラフィックをSearch・Agent・Trainingの三つに分類し、用途ごとに独立制御できると発表しました。2026年9月15日から新規ドメインの既定値も変わりますが、本稿執筆時点（9月10日）では変更後の影響は未観測です。
+
+事業者が見るべきは、ブロック設定そのものではなく、検索用・学習用・リアルタイム取得の境界が自社の情報政策と一致しているかです。Searchを許可しTrainingを拒否する場合でも、比較に必要な公式情報の機械可読性は別問題として残ります。
+
+Visibility・Authority・Actionabilityの三柱で、クローラー分類を測定設計に接続する視点を整理しました。
+
+https://readiness.coaretail.com/insights/cloudflare-ai-traffic-search-agent-training/
+
+#AgentReadiness #AI検索 #Cloudflare
+
+既存ドメインは9月15日までオプトアウト可能です。変更前にrobots.txtとCloudflare設定の矛盾がないかも確認してください。

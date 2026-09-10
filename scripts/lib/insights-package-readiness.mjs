@@ -11,6 +11,7 @@ export const PACKAGE_STATES = Object.freeze({
   HERO_PENDING: 'HERO_PENDING',
   HERO_READY: 'HERO_READY',
   PACKAGE_READY: 'PACKAGE_READY',
+  HOLD_READY: 'HOLD_READY',
 });
 
 export function canonicalHeroPath(slug, root = ROOT) {
@@ -58,6 +59,17 @@ export function markHeroReady(entry, { now = new Date() } = {}) {
   entry.packageReadiness = PACKAGE_STATES.PACKAGE_READY;
   entry.heroReadyAt = now.toISOString();
   delete entry.heroPendingAt;
+}
+
+export function markHoldReady(entry, { now = new Date() } = {}) {
+  if (!entry) return;
+  entry.packageReadiness = PACKAGE_STATES.HOLD_READY;
+  entry.holdReady = true;
+  entry.holdReadyAt = now.toISOString();
+}
+
+export function isHoldStockEntry(entry) {
+  return entry?.series === 'v2-stock' && entry?.status === 'editorial_hold';
 }
 
 export function loadSchedule(schedulePath = PATHS.schedule) {

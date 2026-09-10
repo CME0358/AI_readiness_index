@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Google検索とAI機能の共存——クリックとインプレッションの読み分け | Agent Readiness Insights</title>
+<meta name="description" content="Google検索は一覧と生成AI機能が共存します。Search Consoleでクリックと生成AIインプレッションを同じURLで突き合わせ、露出・正確性・導線を分けて読む測定手順をAgent Readinessの視点で解説します。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google検索とAI機能の共存——クリックとインプレッションの読み分け">
+<meta property="og:description" content="Google検索は一覧と生成AI機能が共存します。Search Consoleでクリックと生成AIインプレッションを同じURLで突き合わせ、露出・正確性・導線を分けて読む測定手順をAgent Readinessの視点で解説します。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://readiness.coaretail.com/assets/insights/google-ai-coexistence-measurement/hero.webp">
+<meta name="twitter:image" content="https://readiness.coaretail.com/assets/insights/google-ai-coexistence-measurement/hero.webp">
+
+<meta name="twitter:title" content="Google検索とAI機能の共存——クリックとインプレッションの読み分け">
+<meta name="twitter:description" content="Google検索は一覧と生成AI機能が共存します。Search Consoleでクリックと生成AIインプレッションを同じURLで突き合わせ、露出・正確性・導線を分けて読む測定手順をAgent Readinessの視点で解説します。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google検索とAI機能の共存——クリックとインプレッションの読み分け",
+  "description": "Google検索は一覧と生成AI機能が共存します。Search Consoleでクリックと生成AIインプレッションを同じURLで突き合わせ、露出・正確性・導線を分けて読む測定手順をAgent Readinessの視点で解説します。",
+  "datePublished": "2026-09-10",
+  "dateModified": "2026-09-10",
+  "author": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール",
+    "url": "https://www.coaretail.com"
+  },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="../../assets/insights/hero.css">
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>Google AI共存測定</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-09-10">2026.09.10</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>Google検索とAI機能の共存——クリックとインプレッションの読み分け</h1>
+      <p class="lead">一覧のクリックだけを追うと、AI回答内の露出変化を見逃す。Search Consoleで生成AIインプレッションと全体パフォーマンスを併読し、露出・要約の正確性・行動導線を分ける——共存時代の測定読み分けを本記事で整理する。</p>
+    </div>
+  </header>
+  <figure class="insight-hero"><img src="/assets/insights/google-ai-coexistence-measurement/hero.webp" alt="google-ai-coexistence-measurement のInsight Hero" width="1672" height="941" loading="eager"></figure>
+
+  <article class="article-body container" data-article-slug="google-ai-coexistence-measurement" data-article-title="Google検索とAI機能の共存——クリックとインプレッションの読み分け" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <div class="sitewide-cta" data-cta-profile="google-ai-coexistence-measurement" data-editorial-intent="EVIDENCE">
+        <a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_google-ai-coexistence-measurement_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/google-ai-coexistence-measurement/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_google-ai-coexistence-measurement_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/google-ai-coexistence-measurement/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+<h2>WHAT CHANGED｜共存する二つの面</h2>
+      <p>Google検索は、従来の結果一覧と生成AI機能（AI Overviews、AI Mode、Discover上の生成AI表示）を並行して運用しています。2026年6月の<a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports">Search Console発表</a>では、生成AI機能におけるインプレッション・掲載URL・国・デバイス・日次推移を専用レポートで見られると説明され、同時に全体パフォーマンスにも集計が残るとされています。2026年8月31日までに全世界展開が完了したと追記されています。</p>
+<h2>WHY IT MATTERS｜クリックとインプレッションの分離</h2>
+      <p>AI概要に載ってもクリックが増えない——という現象は、測定指標の混線が原因の一つです。一覧クリック中心のKPIだけでは、回答内露出の変化を捉えられません。逆に、生成AIインプレッションだけを追うと、従来検索からの流入減を見逃します。Visibility運用では、両方のレポートを同じURL粒度で突き合わせる必要があります。</p>
+<h2>HOW TO READ｜読み分けの手順</h2>
+      <p>第一に、全体パフォーマンスでクリック・CTR・掲載順位の推移を確認します。第二に、生成AIレポートで同URLのインプレッション有無を確認します。第三に、差分を「回答内露出」「一覧露出」「両方」「どちらもなし」に分類します。第四に、代表クエリ群で手動観測を月次で固定し、レポートに出ないブランド言及を補完します。因果ではなく共存関係の記録が目的です。</p>
+<h2>BUSINESS IMPLICATION｜事業判断への接続</h2>
+      <p>インプレッション単独を成功指標にしないでください。回答内で正しく説明されているか（Authority）、その後の予約・購入に進める情報がサイト側にあるか（Actionability）を別テーブルで管理します。クリック減があっても、誤情報の露出が減ったならネット改善の可能性もあります。数値の良し悪しは文脈付きでレビューします。</p>
+<h2>RELATION TO SEO/MEO｜ギャップの再確認</h2>
+      <p><a href="/insights/seo-meo-ai-recommendation-gap/">SEO・MEOとAI推薦のギャップ</a>で述べたように、検索面の成功はAI面の成功を自動的に意味しません。GSCの新レポートは、そのギャップを数値化する片側の窓です。地図・口コミ・公式サイトの一貫性は、生成AIレポートが示すURLの中身を支える土台になります。</p>
+<h2>LIMITS｜言えないこと</h2>
+      <p>Search ConsoleのデータはGoogle検索エコシステム内の可視性です。ChatGPTやPerplexityの引用状況は別観測が必要です。インプレッションは露出の近似であり、推薦や購買の因果を意味しません。レポートのフィードバックフォームから追加メトリクスが来る可能性はありますが、未提供の指標を推測で埋めないでください。</p>
+      <blockquote>
+        <strong>出典：</strong> <a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports">Google Search Central「Search Generative AI performance reports」2026-06</a>
+      </blockquote>
+<h2>SAMPLE WORKFLOW｜週次ワークフロー</h2>
+      <p>月曜：前週の全体クリックと生成AIインプレッションをエクスポート。火曜：インプレッション上位10 URLの手動要約チェック。水曜：誤要約があればAuthority改善チケット起票。木曜：AI経由セッション（あれば）と予約・購入完了を確認。金曜：代表クエリの手動観測でレポート未反映の言及を補完。このサイクルは因果証明ではなく、変化検知のための運用です。</p>
+<h2>SEO/MEO HANDOFF｜担当分離</h2>
+      <p>SEO担当は第1層のクエリ・URL、コンテンツ担当は第2・3層の要約正確性、営業担当は問い合わせ品質の変化——と役割を分けます。一つのダッシュボードに全員が同じ数字だけを見ると、クリック減少の panic やインプレッション増加の過信が起きやすくなります。</p>
+<h2>CROSS-CHANNEL NOTE｜他AIとの併読</h2>
+      <p>GSCはGoogle内のログです。同週にChatGPT・Perplexityの代表質問観測を行い、GoogleでインプレッションがあるURLが他AIで引用されているかを突き合わせます。一致しない場合、Google最適化だけでは他面のVisibilityは担保されません。</p>
+<h2>BASELINE TIP｜初月のベースライン</h2>
+      <p>初月は改善施策を入れず、現状のクリック・インプレッション・手動観測だけを記録し、翌月以降の変化検知の基準線を作ります。</p>
+<h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+
+<section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/act/">Actionabilityとは？AIが予約・購入まで実行できる状態</a>
+        </li>
+        <li>
+          <a href="/insights/ai-search-shift/">AI検索で「比較」はどう変わる？順位以外の評価軸</a>
+        </li>
+        <li>
+          <a href="/insights/ari-vs-geo-seo/">SEO・GEO・Agent Readinessの違いとは？AI検索対策を比較</a>
+        </li>
+        </ul>
+      </section>
+<div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-09-10</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>

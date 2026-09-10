@@ -20,6 +20,7 @@ import { upsertPlannedCard } from './unlock-next-insight.mjs';
 export const VISUAL_MODES = Object.freeze({
   PRIMARY_PREPUBLISH: 'PRIMARY_PREPUBLISH',
   RECOVERY_POSTPUBLISH: 'RECOVERY_POSTPUBLISH',
+  HOLD_STOCK: 'HOLD_STOCK',
 });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -438,6 +439,53 @@ export function integrateScheduledCanonicalHero(config, slug, { root = config.ro
     fs.writeFileSync(indexPath, index, 'utf8');
   }
   return { articlePath, indexPath, heroUrl, heroPath };
+}
+
+/** Hold-stock hero integration — scheduled HTML only, no index planned-card mutation. */
+export function integrateHoldStockHero(config, slug, { root = config.root } = {}) {
+  const heroUrl = canonicalHeroUrl(config, slug);
+  const heroPath = `/assets/insights/${slug}/hero.webp`;
+  const articlePath = scheduledArticleHtmlPath(config, slug, root);
+  if (!fs.existsSync(articlePath)) throw new Error(`scheduled_article_missing:${slug}`);
+  let article = fs.readFileSync(articlePath, 'utf8');
+  if (!article.includes(heroUrl)) {
+    const meta = `\n${metaTag('og:image', heroUrl)}\n${metaTag('twitter:image', heroUrl)}\n`;
+    const marker = '<meta name="twitter:card" content="summary_large_image">';
+    if (!article.includes(marker)) throw new Error(`article_metadata_marker_missing:${slug}`);
+    article = article.replace(marker, marker + meta);
+    const repaired = repairCanonicalHeroCssLink(article, { heroCssExists: fs.existsSync(path.join(root, 'assets/insights/hero.css')) });
+    if (repaired.changed) article = repaired.html;
+    const hero = `\n  <figure class="insight-hero"><img src="${heroPath}" alt="${slug} のInsight Hero" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}" loading="eager"></figure>\n`;
+    const articleMarker = '  </header>\n\n  <article class="article-body container"';
+    if (article.includes(articleMarker)) {
+      article = article.replace(articleMarker, `  </header>${hero}\n  <article class="article-body container"`);
+    } else {
+      const articleStart = article.search(new RegExp(`<article\\b[^>]*data-article-slug=["']${slug}["'][^>]*>`));
+      if (articleStart < 0) throw new Error(`scheduled_article_hero_marker_missing:${slug}`);
+      article = article.slice(0, articleStart) + hero.trimStart() + '\n' + article.slice(articleStart);
+    }
+    fs.writeFileSync(articlePath, article, 'utf8');
+  }
+  return { articlePath, heroUrl, heroPath };
+}
+
+export function validateHoldStockIntegration(config, slug, { root = config.root } = {}) {
+  const hero = canonicalHeroPath(config, slug);
+  const articlePath = scheduledArticleHtmlPath(config, slug, root);
+  const errors = [];
+  if (!fs.existsSync(hero)) errors.push('hero_missing');
+  if (!fs.existsSync(articlePath)) errors.push('scheduled_article_missing');
+  if (!errors.length) {
+    const article = fs.readFileSync(articlePath, 'utf8');
+    const url = canonicalHeroUrl(config, slug);
+    const rel = `/assets/insights/${slug}/hero.webp`;
+    for (const [name, ok] of [
+      ['scheduled_article_hero', article.includes(rel)],
+      ['og_image', article.includes(`<meta property="og:image" content="${url}">`)],
+      ['twitter_image', article.includes(`<meta name="twitter:image" content="${url}">`)],
+    ]) if (!ok) errors.push(name);
+  }
+  return { ok: errors.length === 0, errors };
 }
 
 export function validateScheduledIntegration(config, slug, { root = config.root } = {}) {

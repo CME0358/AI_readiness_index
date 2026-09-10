@@ -1,0 +1,6 @@
+Google検索とAI機能は共存します。クリックとAIインプレッションを読み分ける測定視点をInsightsで整理。一覧流入だけを見ると、回答内露出の変化を逃します。
+
+https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/
+#AgentReadiness #SEO
+
+生成AIレポートはGoogle内の露出ログです。ChatGPT等の引用は別観測が必要です。クリック減とインプレッション増が同時に起きる場合の読み方も整理しています。 週次で全体クリックと生成AIインプレッションを突き合わせる手順を解説。他AI引用は別観測が必要です。
