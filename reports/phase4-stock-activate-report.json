@@ -1,0 +1,60 @@
+{
+  "activatedAt": "2026-09-10T03:35:39.073Z",
+  "activations": [
+    {
+      "slug": "cloudflare-ai-traffic-search-agent-training",
+      "slotDate": "2026-09-17",
+      "publishAt": "2026-09-17T10:00:00+09:00",
+      "publicationId": "PUB-20260917-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20260917-DAILY-001",
+        "slotDate": "2026-09-17",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "cloudflare-ai-traffic-search-agent-training",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-09-17T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-09-17T11:30:00+09:00",
+          "facebook": "2026-09-17T11:45:00+09:00",
+          "x": "2026-09-17T12:00:00+09:00"
+        }
+      },
+      "livePath": "/Users/takeshisasaki/ARIInsightsVisualWorker/insights/cloudflare-ai-traffic-search-agent-training/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "niq-similarweb-agentic-shelf-measurement",
+      "slotDate": "2026-09-18",
+      "publishAt": "2026-09-18T10:00:00+09:00",
+      "publicationId": "PUB-20260918-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20260918-DAILY-001",
+        "slotDate": "2026-09-18",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "niq-similarweb-agentic-shelf-measurement",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-09-18T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-09-18T11:30:00+09:00",
+          "facebook": "2026-09-18T11:45:00+09:00",
+          "x": "2026-09-18T12:00:00+09:00"
+        }
+      },
+      "livePath": "/Users/takeshisasaki/ARIInsightsVisualWorker/insights/niq-similarweb-agentic-shelf-measurement/index.html",
+      "liveExists": false
+    }
+  ],
+  "inventory": {
+    "scheduledCount": 6,
+    "autoUnlockableCount": 1,
+    "holdReadyCount": 8,
+    "operationalRunway": 15,
+    "stockHealth": "NORMAL"
+  },
+  "bufferMutated": false,
+  "linkedinMutated": false
+}

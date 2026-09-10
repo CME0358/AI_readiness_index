@@ -920,8 +920,8 @@
     },
     {
       "slug": "cloudflare-ai-traffic-search-agent-training",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-17T10:00:00+09:00",
+      "status": "scheduled",
       "title": "CloudflareのAIトラフィック分類が変える、検索と学習の境界線",
       "cardSummary": "AIクローラーは用途が違う。Cloudflareの三分類は検索インデックス・リアルタイム取得・学習利用の境界を運用で切り分ける発表だ。9月15日の既定変更は発表済みだが効果は未観測——許可方針と公式情報の整合を点検する視点を整理する。",
       "llmsLabel": "Cloudflare AI分類",
@@ -934,8 +934,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:33.389Z",
       "freshnessReviewedAt": "2026-09-10T03:22:33.389Z",
       "eirId": "EIR-20260917-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://developers.cloudflare.com/changelog/post/2026-07-01-ai-traffic-options/",
@@ -954,12 +954,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.089Z",
-      "holdReadyAt": "2026-09-10T03:23:21.120Z"
+      "scheduledPublishAt": "2026-09-17T10:00:00+09:00",
+      "slotDate": "2026-09-17",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260917-DAILY-001",
+      "activatedAt": "2026-09-10T03:35:39.073Z"
     },
     {
       "slug": "niq-similarweb-agentic-shelf-measurement",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-18T10:00:00+09:00",
+      "status": "scheduled",
       "title": "NIQ×Similarwebが測る「Agentic Shelf」——AI推薦棚の見え方",
       "cardSummary": "AIの「棚」は見えないままでは改善できない。NIQ×SimilarwebはAgentic Shelf Visibilityなど五領域の測定をQ4から始める——ツール前に商品情報の一貫性と構造化を自社で監査する視点を本記事で整理する。",
       "llmsLabel": "Agentic Shelf測定",
@@ -972,8 +977,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:37.972Z",
       "freshnessReviewedAt": "2026-09-10T03:22:37.972Z",
       "eirId": "EIR-20260918-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://nielseniq.com/global/en/news-center/2026/niq-and-similarweb-advance-agentic-commerce-measurement-for-the-ai-shopping-era/",
@@ -992,7 +997,12 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.174Z",
-      "holdReadyAt": "2026-09-10T03:23:21.174Z"
+      "scheduledPublishAt": "2026-09-18T10:00:00+09:00",
+      "slotDate": "2026-09-18",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260918-DAILY-001",
+      "activatedAt": "2026-09-10T03:35:39.073Z"
     },
     {
       "slug": "weighted-ai-visibility-stack",
