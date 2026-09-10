@@ -769,7 +769,9 @@
       "heroReadyAt": "2026-09-10T00:11:56.675Z",
       "publishAttemptedAt": "2026-09-10T01:20:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-10T01:20:00.000Z"
+      "publishedAt": "2026-09-10T01:20:00.000Z",
+      "productionVerifiedAt": "2026-09-10T01:30:49.489Z",
+      "verificationAttemptCount": 1
     },
     {
       "slug": "execution-readiness",

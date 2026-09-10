@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-10T01:29:19.481Z",
+  "updatedAt": "2026-09-10T01:31:44.881Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -19,20 +19,11 @@
       "retryable": true,
       "attemptCount": 1,
       "lastSuccessStage": "published_verified"
-    },
-    "content-ops-ai": {
-      "slug": "content-ops-ai",
-      "stage": "production_verification",
-      "attemptedAt": "2026-09-10T01:29:19.472Z",
-      "failureReason": "HTTP 404",
-      "retryable": true,
-      "attemptCount": 3,
-      "lastSuccessStage": "published"
     }
   },
   "lastSuccess": {
-    "slug": "openai-product-discovery-agentic-commerce",
+    "slug": "content-ops-ai",
     "stage": "buffer_queued",
-    "at": "2026-09-09T02:12:54.569Z"
+    "at": "2026-09-10T01:31:44.881Z"
   }
 }

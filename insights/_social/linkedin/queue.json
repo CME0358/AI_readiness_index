@@ -388,13 +388,13 @@
       "linkedinPublishAt": "2026-09-10T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/content-ops-ai/",
       "contentFile": "insights/_social/linkedin/posts/content-ops-ai.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aa2086739e94eabd5183518",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-08-04T00:02:50.111Z",
-      "updatedAt": "2026-09-10T01:29:58.294Z"
+      "updatedAt": "2026-09-10T01:31:44.876Z"
     },
     {
       "id": "ARI-LI-024",
