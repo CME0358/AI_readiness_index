@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { listWeekdayGaps, recoverPublishDayGap } from '../lib/publish-day-gap-recovery.mjs';
+import { listWeekdayGaps, recoverPublishDayGap, recoverAllPublishDayGaps, findGapScanWindow } from '../lib/publish-day-gap-recovery.mjs';
 import { EDITORIAL_STATUSES } from '../lib/editorial-status.mjs';
 
 test('listWeekdayGaps detects empty weekday between published and scheduled', () => {
@@ -13,6 +13,18 @@ test('listWeekdayGaps detects empty weekday between published and scheduled', ()
   };
   const gaps = listWeekdayGaps(schedule, { startYmd: '2026-09-09', endYmd: '2026-09-09' });
   assert.deepEqual(gaps, ['2026-09-09']);
+});
+
+test('findGapScanWindow spans next weekday through latest scheduled article', () => {
+  const schedule = {
+    articles: [
+      { slug: 'published', status: EDITORIAL_STATUSES.PUBLISHED, publishAt: '2026-09-10T10:00:00+09:00' },
+      { slug: 'future', status: EDITORIAL_STATUSES.SCHEDULED, publishAt: '2026-09-15T10:00:00+09:00' },
+    ],
+  };
+  const window = findGapScanWindow(schedule, new Date('2026-09-10T10:00:00+09:00'));
+  assert.equal(window.startYmd, '2026-09-11');
+  assert.equal(window.endYmd, '2026-09-15');
 });
 
 test('recoverPublishDayGap pull-forwards earliest scheduled article', () => {
@@ -36,5 +48,5 @@ test('recoverPublishDayGap pull-forwards earliest scheduled article', () => {
   });
   assert.equal(result.recovered, true);
   assert.equal(result.slug, 'future');
-  assert.equal(result.toYmd, '2026-09-09');
+  assert.equal(result.toYmd, '2026-09-10');
 });
