@@ -1,6 +1,6 @@
 # Pipeline Health — 2026-09-10
 
-> Reconciliation run: 2026-09-10T01:08:00.000Z
+> Reconciliation run: 2026-09-10T01:22:00.000Z
 
 ## TODAY
 
@@ -12,11 +12,8 @@ published: true
 productionVerified: false
 
 ## BUFFER
-linkedin: scheduled
-facebook: scheduled
-x: scheduled
+(no buffer entry)
 
 ## PIPELINE
 status: RECOVERING
-publish: content-ops-ai
 verify: HTTP 404 (5 attempts)

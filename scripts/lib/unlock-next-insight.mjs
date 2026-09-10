@@ -253,7 +253,8 @@ export function unlockNextInsight({
   markHeroPending(next, { now });
 
   const linkedinQueue = JSON.parse(fs.readFileSync(PATHS.linkedinQueue, 'utf8'));
-  const liPost = linkedinQueue.posts.find((p) => p.slug === next.slug && normalizePublicationDate(p) === publishYmd);
+  const liPost = linkedinQueue.posts.find((p) => p.slug === next.slug && normalizePublicationDate(p) === publishYmd)
+    || linkedinQueue.posts.find((p) => p.slug === next.slug && p.status === EDITORIAL_STATUSES.HOLD);
   if (liPost) {
     liPost.status = EDITORIAL_STATUSES.SCHEDULED;
     liPost.articlePublishAt = times.web;
@@ -269,7 +270,8 @@ export function unlockNextInsight({
   let bufferQueue = null;
   if (fs.existsSync(PATHS.bufferQueue)) {
     bufferQueue = JSON.parse(fs.readFileSync(PATHS.bufferQueue, 'utf8'));
-    const bufPost = bufferQueue.posts.find((p) => isSameBufferLedgerEntry(p, next.slug, publishYmd));
+    const bufPost = bufferQueue.posts.find((p) => isSameBufferLedgerEntry(p, next.slug, publishYmd))
+      || bufferQueue.posts.find((p) => p.slug === next.slug && p.status === EDITORIAL_STATUSES.HOLD);
     if (bufPost) {
       bufPost.status = EDITORIAL_STATUSES.SCHEDULED;
       bufPost.articlePublishAt = times.web;

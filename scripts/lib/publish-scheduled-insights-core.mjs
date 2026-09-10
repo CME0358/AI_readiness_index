@@ -163,16 +163,21 @@ export function publishDueArticles({
 
     if (!dryRun) {
       fs.renameSync(src, dest);
-      const publishConfig = configFor(ROOT);
-      if (fs.existsSync(canonicalHeroPath(publishConfig, article.slug))) {
-        integrateCanonicalHero(publishConfig, article.slug, { root: ROOT });
-      }
     }
 
     if (!indexHtml.includes(`data-insight-slug="${article.slug}"`)) {
       indexHtml = insertAfterMarker(indexHtml, '<!-- INSIGHTS_CARDS_START -->', cardHtml(article));
     }
     indexHtml = removePlannedCard(indexHtml, article.slug);
+
+    if (!dryRun) {
+      const publishConfig = configFor(ROOT);
+      if (fs.existsSync(canonicalHeroPath(publishConfig, article.slug))) {
+        fs.writeFileSync(INDEX_PATH, indexHtml, 'utf8');
+        integrateCanonicalHero(publishConfig, article.slug, { root: ROOT });
+        indexHtml = fs.readFileSync(INDEX_PATH, 'utf8');
+      }
+    }
     indexHtml = updateFooterDate(indexHtml, ymd);
 
     if (!sitemap.includes(`/insights/${article.slug}/`)) {

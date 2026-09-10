@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-10T01:13:18.008Z",
+  "updatedAt": "2026-09-10T01:29:19.481Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -23,10 +23,10 @@
     "content-ops-ai": {
       "slug": "content-ops-ai",
       "stage": "production_verification",
-      "attemptedAt": "2026-09-10T01:13:18.005Z",
+      "attemptedAt": "2026-09-10T01:29:19.472Z",
       "failureReason": "HTTP 404",
       "retryable": true,
-      "attemptCount": 1,
+      "attemptCount": 3,
       "lastSuccessStage": "published"
     }
   },

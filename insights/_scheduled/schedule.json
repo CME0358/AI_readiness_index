@@ -755,7 +755,7 @@
     {
       "slug": "content-ops-ai",
       "publishAt": "2026-09-10T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "コンテンツ運用のAI前提化",
       "cardSummary": "更新頻度・一貫性・構造化がSEO以上に重要。意味構造論ではなく運用プロセス",
       "llmsLabel": "コンテンツ運用のAI前提化",
@@ -766,7 +766,10 @@
       "primarySearchIntent": "コンテンツ運用 AI 更新 一貫性",
       "unlockedAt": "2026-09-09T10:56:38.429Z",
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-10T00:11:56.675Z"
+      "heroReadyAt": "2026-09-10T00:11:56.675Z",
+      "publishAttemptedAt": "2026-09-10T01:20:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-10T01:20:00.000Z"
     },
     {
       "slug": "execution-readiness",
