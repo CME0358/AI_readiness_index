@@ -21,7 +21,7 @@ Agent Readiness Insights 向けの未公開ドラフト10本。`scripts/generate
 | EIR-20260930-001 | 2026-09-30 | `geo-social-citation-authority` | PROBLEM_AWARE | TACTICAL · Authority |
 | EIR-20261001-001 | 2026-10-01 | `gsc-ai-impressions-how-to-read` | EVIDENCE | TACTICAL MEASUREMENT |
 | EIR-20261002-001 | 2026-10-02 | `schema-not-ai-citation-cheat-code` | EVIDENCE | DATA/RESEARCH |
-| EIR-20261003-001 | 2026-10-03 | `chatgpt-retrieval-citation-practice` | NEWS | TACTICAL |
+| EIR-20261003-001 | 2026-10-06 | `chatgpt-retrieval-citation-practice` | NEWS | TACTICAL |
 
 各フォルダに `source.md` と生成 `index.html` がある。リード／meta はおおよそ120字以内。既存ドラフト末尾の「次のリソース／関連リソース」重複は source に入れておらず、ジェネレータが各1回だけ付与する。
 
@@ -98,7 +98,7 @@ Agent Readiness Insights 向けの未公開ドラフト10本。`scripts/generate
 - **既存との差：** `schema` / `org-schema-basics` は役割と公式定義。本稿は制御研究によるチート否定。
 - **ABIS境界：** マークアップ衛生と Authority。相互作用記述標準には入らない。
 
-### 10) chatgpt-retrieval-citation-practice（2026-10-03）
+### 10) chatgpt-retrieval-citation-practice（2026-10-06）
 
 - **論点：** 取得・キャッシュ・引用の実務点検。H1 付近スニペット、4MB、JS 非実行は RESONEO/SEL が支える範囲だけ。
 - **主枠：** [Search Engine Land / RESONEO 2026-08-17](https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036) — 取得成功。**第三者観察。OpenAI 公式ではない。**
@@ -158,7 +158,7 @@ Agent Readiness Insights 向けの未公開ドラフト10本。`scripts/generate
 | 2026-09-30 | 水 | geo-social-citation-authority |
 | 2026-10-01 | 木 | gsc-ai-impressions-how-to-read |
 | 2026-10-02 | 金 | schema-not-ai-citation-cheat-code |
-| 2026-10-03 | 土 | chatgpt-retrieval-citation-practice ※土日スキップ方針なら 2026-10-06（月）へずらす提案 |
+| 2026-10-06 | 月 | chatgpt-retrieval-citation-practice |
 
 投入するときは `insert-editorial-article.mjs --apply` と Buffer 編集を、この PR とは別オペレーションにすること。
 
