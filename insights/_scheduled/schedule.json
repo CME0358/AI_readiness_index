@@ -736,8 +736,8 @@
         "primary": "CHECK",
         "secondary": "REPORT"
       },
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-08T00:25:24.226Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-10T01:53:09.361Z"
     },
     {
       "slug": "consent-data-design",
