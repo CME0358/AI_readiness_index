@@ -795,8 +795,8 @@
       "metaDescription": "AIエージェントが予約・購入を完結できるサイトの条件——実行前チェックリストと障害ログ。Actionabilityの定義ではなく、Execution Readinessの実務改善サイクルを解説します。",
       "searchIntentClass": "A",
       "primarySearchIntent": "AI 予約 購入 サイト 条件",
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-08T00:25:24.226Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-11T06:08:03.138Z"
     },
     {
       "slug": "html-observation-check-limits",
