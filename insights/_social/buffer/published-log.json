@@ -728,7 +728,34 @@
       "publishAt": "2026-09-10T12:00:00+09:00",
       "dueAtUtc": "2026-09-10T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-11T01:00:00.000Z",
+      "slug": "competitors-visible-company-missing",
+      "channel": "linkedin",
+      "bufferUpdateId": "6aa352b319e660bbb5d7d6a6",
+      "publishAt": "2026-09-11T11:30:00+09:00",
+      "dueAtUtc": "2026-09-11T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-11T01:00:00.000Z",
+      "slug": "competitors-visible-company-missing",
+      "channel": "facebook",
+      "bufferUpdateId": "6aa352b448fd860ab1ff55a6",
+      "publishAt": "2026-09-11T11:45:00+09:00",
+      "dueAtUtc": "2026-09-11T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-11T01:00:00.000Z",
+      "slug": "competitors-visible-company-missing",
+      "channel": "x",
+      "bufferUpdateId": "6aa352b571ba1c02ccef381d",
+      "publishAt": "2026-09-11T12:00:00+09:00",
+      "dueAtUtc": "2026-09-11T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-10T01:31:44.867Z"
+  "updatedAt": "2026-09-11T01:00:37.907Z"
 }

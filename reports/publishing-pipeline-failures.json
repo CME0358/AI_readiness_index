@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-10T01:31:44.881Z",
+  "updatedAt": "2026-09-11T01:00:37.908Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "content-ops-ai",
+    "slug": "competitors-visible-company-missing",
     "stage": "buffer_queued",
-    "at": "2026-09-10T01:31:44.881Z"
+    "at": "2026-09-11T01:00:37.908Z"
   }
 }

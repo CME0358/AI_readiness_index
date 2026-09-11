@@ -740,7 +740,9 @@
       "heroReadyAt": "2026-09-10T01:53:09.361Z",
       "publishAttemptedAt": "2026-09-11T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-11T01:00:00.000Z"
+      "publishedAt": "2026-09-11T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-11T01:00:33.832Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "consent-data-design",

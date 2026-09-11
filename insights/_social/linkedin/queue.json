@@ -602,13 +602,13 @@
       "linkedinPublishAt": "2026-09-11T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/competitors-visible-company-missing/",
       "contentFile": "insights/_social/linkedin/posts/competitors-visible-company-missing.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aa352b319e660bbb5d7d6a6",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:35.790Z",
-      "updatedAt": "2026-09-10T01:40:15.964Z",
+      "updatedAt": "2026-09-11T01:00:37.908Z",
       "series": "current-event"
     },
     {

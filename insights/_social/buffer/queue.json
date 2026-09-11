@@ -1734,7 +1734,7 @@
     {
       "slug": "competitors-visible-company-missing",
       "articleUrl": "https://readiness.coaretail.com/insights/competitors-visible-company-missing/",
-      "status": "scheduled",
+      "status": "buffer_queued",
       "articlePublishAt": "2026-09-11T10:00:00+09:00",
       "bufferTransferAt": "2026-09-11T10:30:00+09:00",
       "channels": {
@@ -1742,41 +1742,41 @@
           "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
           "contentFile": "insights/_social/linkedin/posts/competitors-visible-company-missing.md",
           "publishAt": "2026-09-11T11:30:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6aa352b319e660bbb5d7d6a6",
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-11T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-09-10T01:40:15.928Z"
+          "updatedAt": "2026-09-11T01:00:00.000Z"
         },
         "facebook": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
           "contentFile": "insights/_social/facebook/posts/competitors-visible-company-missing.md",
           "publishAt": "2026-09-11T11:45:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6aa352b448fd860ab1ff55a6",
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-11T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-09-10T01:40:15.950Z"
+          "updatedAt": "2026-09-11T01:00:00.000Z"
         },
         "x": {
           "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
           "contentFile": "insights/_social/x/posts/competitors-visible-company-missing.md",
           "publishAt": "2026-09-11T12:00:00+09:00",
-          "status": "scheduled",
-          "bufferUpdateId": null,
-          "attempts": 0,
-          "lastAttemptAt": null,
+          "status": "buffer_queued",
+          "bufferUpdateId": "6aa352b571ba1c02ccef381d",
+          "attempts": 1,
+          "lastAttemptAt": "2026-09-11T01:00:00.000Z",
           "lastError": null,
-          "updatedAt": "2026-09-10T01:40:15.950Z"
+          "updatedAt": "2026-09-11T01:00:00.000Z"
         }
       },
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:35.790Z",
-      "updatedAt": "2026-09-10T01:40:15.950Z",
+      "updatedAt": "2026-09-11T01:00:00.000Z",
       "series": "current-event"
     },
     {
