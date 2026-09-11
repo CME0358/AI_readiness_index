@@ -719,8 +719,8 @@
     {
       "slug": "competitors-visible-company-missing",
       "publishAt": "2026-09-11T10:00:00+09:00",
-      "status": "scheduled",
-      "publicationState": "SCHEDULED",
+      "status": "published",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260911-DAILY-001",
       "slotDate": "2026-09-11",
       "slotType": "DAILY_PRIMARY",
@@ -737,7 +737,10 @@
         "secondary": "REPORT"
       },
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-10T01:53:09.361Z"
+      "heroReadyAt": "2026-09-10T01:53:09.361Z",
+      "publishAttemptedAt": "2026-09-11T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-11T01:00:00.000Z"
     },
     {
       "slug": "consent-data-design",

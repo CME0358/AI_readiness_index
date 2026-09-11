@@ -58,6 +58,7 @@
 - [経営が見るべきReadiness指標](https://readiness.coaretail.com/insights/exec-readiness-kpi/): Insights Column（2026-09-08）
 - [ChatGPTの商品探索と事業者の確認項目](https://readiness.coaretail.com/insights/openai-product-discovery-agentic-commerce/): Insights Column（2026-09-09）
 - [コンテンツ運用のAI前提化](https://readiness.coaretail.com/insights/content-ops-ai/): Insights Column（2026-09-10）
+- [競合は出るのに自社が出ない理由](https://readiness.coaretail.com/insights/competitors-visible-company-missing/): Insights Column（2026-09-11）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
