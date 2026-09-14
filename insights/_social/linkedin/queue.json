@@ -619,13 +619,13 @@
       "linkedinPublishAt": "2026-09-14T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/execution-readiness/",
       "contentFile": "insights/_social/linkedin/posts/execution-readiness.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aa74732328928f53953ea21",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:36.087Z",
-      "updatedAt": "2026-09-10T01:40:57.357Z",
+      "updatedAt": "2026-09-14T01:00:36.431Z",
       "series": "current-event"
     },
     {

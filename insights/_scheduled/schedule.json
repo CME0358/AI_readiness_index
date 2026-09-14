@@ -799,7 +799,9 @@
       "heroReadyAt": "2026-09-11T06:08:03.138Z",
       "publishAttemptedAt": "2026-09-14T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-14T01:00:00.000Z"
+      "publishedAt": "2026-09-14T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-14T01:00:33.359Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "html-observation-check-limits",
