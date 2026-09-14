@@ -781,8 +781,8 @@
     {
       "slug": "execution-readiness",
       "publishAt": "2026-09-14T10:00:00+09:00",
-      "status": "scheduled",
-      "publicationState": "SCHEDULED",
+      "status": "published",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260914-DAILY-001",
       "slotDate": "2026-09-14",
       "slotType": "DAILY_PRIMARY",
@@ -796,7 +796,10 @@
       "searchIntentClass": "A",
       "primarySearchIntent": "AI 予約 購入 サイト 条件",
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-11T06:08:03.138Z"
+      "heroReadyAt": "2026-09-11T06:08:03.138Z",
+      "publishAttemptedAt": "2026-09-14T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-14T01:00:00.000Z"
     },
     {
       "slug": "html-observation-check-limits",
