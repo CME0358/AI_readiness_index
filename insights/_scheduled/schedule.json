@@ -827,8 +827,8 @@
         "primary": "CHECK",
         "secondary": "REPORT"
       },
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-08T00:25:24.226Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-14T06:14:54.012Z"
     },
     {
       "slug": "interaction-contract",
