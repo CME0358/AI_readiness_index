@@ -60,6 +60,7 @@
 - [コンテンツ運用のAI前提化](https://readiness.coaretail.com/insights/content-ops-ai/): Insights Column（2026-09-10）
 - [競合は出るのに自社が出ない理由](https://readiness.coaretail.com/insights/competitors-visible-company-missing/): Insights Column（2026-09-11）
 - [Execution Readinessの実務](https://readiness.coaretail.com/insights/execution-readiness/): Insights Column（2026-09-14）
+- [HTML観測で分かること・分からないこと](https://readiness.coaretail.com/insights/html-observation-check-limits/): Insights Column（2026-09-15）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断

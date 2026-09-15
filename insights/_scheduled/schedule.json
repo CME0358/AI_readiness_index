@@ -806,8 +806,8 @@
     {
       "slug": "html-observation-check-limits",
       "publishAt": "2026-09-15T10:00:00+09:00",
-      "status": "scheduled",
-      "publicationState": "SCHEDULED",
+      "status": "published",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260915-DAILY-001",
       "slotDate": "2026-09-15",
       "slotType": "DAILY_PRIMARY",
@@ -828,7 +828,10 @@
         "secondary": "REPORT"
       },
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-14T06:14:54.012Z"
+      "heroReadyAt": "2026-09-14T06:14:54.012Z",
+      "publishAttemptedAt": "2026-09-15T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-15T01:00:00.000Z"
     },
     {
       "slug": "interaction-contract",
