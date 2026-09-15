@@ -904,8 +904,8 @@
         "primary": "CHECK",
         "secondary": "LOCAL"
       },
-      "packageReadiness": "HERO_PENDING",
-      "heroPendingAt": "2026-09-08T00:25:24.226Z"
+      "packageReadiness": "PACKAGE_READY",
+      "heroReadyAt": "2026-09-15T06:19:54.923Z"
     },
     {
       "slug": "standards-landscape",
