@@ -831,7 +831,9 @@
       "heroReadyAt": "2026-09-14T06:14:54.012Z",
       "publishAttemptedAt": "2026-09-15T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-15T01:00:00.000Z"
+      "publishedAt": "2026-09-15T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-15T01:00:33.084Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "interaction-contract",
