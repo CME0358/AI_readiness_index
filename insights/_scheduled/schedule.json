@@ -887,8 +887,8 @@
     {
       "slug": "seo-meo-ai-recommendation-gap",
       "publishAt": "2026-09-16T10:00:00+09:00",
-      "status": "scheduled",
-      "publicationState": "SCHEDULED",
+      "status": "published",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260916-DAILY-001",
       "slotDate": "2026-09-16",
       "slotType": "DAILY_PRIMARY",
@@ -905,7 +905,10 @@
         "secondary": "LOCAL"
       },
       "packageReadiness": "PACKAGE_READY",
-      "heroReadyAt": "2026-09-15T06:19:54.923Z"
+      "heroReadyAt": "2026-09-15T06:19:54.923Z",
+      "publishAttemptedAt": "2026-09-16T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-16T01:00:00.000Z"
     },
     {
       "slug": "standards-landscape",
