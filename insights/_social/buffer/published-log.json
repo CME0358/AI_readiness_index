@@ -809,7 +809,34 @@
       "publishAt": "2026-09-15T12:00:00+09:00",
       "dueAtUtc": "2026-09-15T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-16T01:00:00.000Z",
+      "slug": "seo-meo-ai-recommendation-gap",
+      "channel": "linkedin",
+      "bufferUpdateId": "6aa9ea33501861120db26917",
+      "publishAt": "2026-09-16T11:30:00+09:00",
+      "dueAtUtc": "2026-09-16T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-16T01:00:00.000Z",
+      "slug": "seo-meo-ai-recommendation-gap",
+      "channel": "facebook",
+      "bufferUpdateId": "6aa9ea34501861120db269d2",
+      "publishAt": "2026-09-16T11:45:00+09:00",
+      "dueAtUtc": "2026-09-16T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-16T01:00:00.000Z",
+      "slug": "seo-meo-ai-recommendation-gap",
+      "channel": "x",
+      "bufferUpdateId": "6aa9ea35dfcd8cd99b8020b2",
+      "publishAt": "2026-09-16T12:00:00+09:00",
+      "dueAtUtc": "2026-09-16T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-15T01:00:37.159Z"
+  "updatedAt": "2026-09-16T01:00:37.983Z"
 }

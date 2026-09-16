@@ -653,13 +653,13 @@
       "linkedinPublishAt": "2026-09-16T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/seo-meo-ai-recommendation-gap/",
       "contentFile": "insights/_social/linkedin/posts/seo-meo-ai-recommendation-gap.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aa9ea33501861120db26917",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-07T03:33:36.646Z",
-      "updatedAt": "2026-09-10T01:40:57.784Z",
+      "updatedAt": "2026-09-16T01:00:37.984Z",
       "series": "current-event"
     }
   ]
