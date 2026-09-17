@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-16T01:00:37.984Z",
+  "updatedAt": "2026-09-17T01:00:38.315Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "seo-meo-ai-recommendation-gap",
+    "slug": "cloudflare-ai-traffic-search-agent-training",
     "stage": "buffer_queued",
-    "at": "2026-09-16T01:00:37.984Z"
+    "at": "2026-09-17T01:00:38.315Z"
   }
 }

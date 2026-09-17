@@ -836,7 +836,34 @@
       "publishAt": "2026-09-16T12:00:00+09:00",
       "dueAtUtc": "2026-09-16T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-17T01:00:00.000Z",
+      "slug": "cloudflare-ai-traffic-search-agent-training",
+      "channel": "linkedin",
+      "bufferUpdateId": "6aab3bb3665cd88db871387a",
+      "publishAt": "2026-09-17T11:30:00+09:00",
+      "dueAtUtc": "2026-09-17T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-17T01:00:00.000Z",
+      "slug": "cloudflare-ai-traffic-search-agent-training",
+      "channel": "facebook",
+      "bufferUpdateId": "6aab3bb474a50499382e2739",
+      "publishAt": "2026-09-17T11:45:00+09:00",
+      "dueAtUtc": "2026-09-17T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-17T01:00:00.000Z",
+      "slug": "cloudflare-ai-traffic-search-agent-training",
+      "channel": "x",
+      "bufferUpdateId": "6aab3bb618dc878204ca4c9f",
+      "publishAt": "2026-09-17T12:00:00+09:00",
+      "dueAtUtc": "2026-09-17T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-16T01:00:37.983Z"
+  "updatedAt": "2026-09-17T01:00:38.314Z"
 }
