@@ -661,6 +661,23 @@
       "createdAt": "2026-09-07T03:33:36.646Z",
       "updatedAt": "2026-09-16T01:00:37.984Z",
       "series": "current-event"
+    },
+    {
+      "id": "ARI-LI-CE-cloudflare-ai-traffic-search-agent-training-2026-09-17",
+      "slug": "cloudflare-ai-traffic-search-agent-training",
+      "articlePublishAt": "2026-09-17T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-17T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-17T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/cloudflare-ai-traffic-search-agent-training/",
+      "contentFile": "insights/_social/linkedin/posts/cloudflare-ai-traffic-search-agent-training.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-17T01:00:00.265Z",
+      "updatedAt": "2026-09-17T01:00:00.265Z",
+      "series": "v2-stock"
     }
   ]
 }
