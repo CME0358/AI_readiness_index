@@ -32,20 +32,51 @@ import { prepareScheduledArticle } from './prepare-scheduled-article.mjs';
 import { validateHoldStockIntegration, configFor } from './local-visual-worker.mjs';
 import { computeStockHealth as phase3Inventory } from './phase3-stock-build.mjs';
 
+/** Phase 4 batch 2 — C.M.E authorized HOLD_READY → SCHEDULED after Silver Week. */
 export const AUTHORIZED_ACTIVATIONS = Object.freeze([
   {
-    slug: 'cloudflare-ai-traffic-search-agent-training',
-    slotDate: '2026-09-17',
-    publishAt: '2026-09-17T10:00:00+09:00',
+    slug: 'weighted-ai-visibility-stack',
+    slotDate: '2026-09-24',
+    publishAt: '2026-09-24T10:00:00+09:00',
   },
   {
-    slug: 'niq-similarweb-agentic-shelf-measurement',
-    slotDate: '2026-09-18',
-    publishAt: '2026-09-18T10:00:00+09:00',
+    slug: 'shopify-ai-vs-organic-structured-catalog',
+    slotDate: '2026-09-25',
+    publishAt: '2026-09-25T10:00:00+09:00',
+  },
+  {
+    slug: 'google-ai-coexistence-measurement',
+    slotDate: '2026-09-28',
+    publishAt: '2026-09-28T10:00:00+09:00',
+  },
+  {
+    slug: 'gemini-3-8-ai-mode-visibility',
+    slotDate: '2026-09-29',
+    publishAt: '2026-09-29T10:00:00+09:00',
+  },
+  {
+    slug: 'geo-social-citation-authority',
+    slotDate: '2026-09-30',
+    publishAt: '2026-09-30T10:00:00+09:00',
+  },
+  {
+    slug: 'gsc-ai-impressions-how-to-read',
+    slotDate: '2026-10-01',
+    publishAt: '2026-10-01T10:00:00+09:00',
+  },
+  {
+    slug: 'schema-not-ai-citation-cheat-code',
+    slotDate: '2026-10-02',
+    publishAt: '2026-10-02T10:00:00+09:00',
+  },
+  {
+    slug: 'chatgpt-retrieval-citation-practice',
+    slotDate: '2026-10-06',
+    publishAt: '2026-10-06T10:00:00+09:00',
   },
 ]);
 
-const REMAINING_HOLD_SLUGS = Object.freeze([
+const HOLD_STOCK_SLUGS = Object.freeze([
   'weighted-ai-visibility-stack',
   'shopify-ai-vs-organic-structured-catalog',
   'google-ai-coexistence-measurement',
@@ -56,12 +87,43 @@ const REMAINING_HOLD_SLUGS = Object.freeze([
   'chatgpt-retrieval-citation-practice',
 ]);
 
+/** Slugs that must remain HOLD_READY — excludes anything listed in the current activation plan. */
+const REMAINING_HOLD_SLUGS = Object.freeze(
+  HOLD_STOCK_SLUGS.filter((slug) => !AUTHORIZED_ACTIVATIONS.some((act) => act.slug === slug)),
+);
+
 const PROTECTED_SCHEDULED = Object.freeze({
   'competitors-visible-company-missing': '2026-09-11T10:00:00+09:00',
   'execution-readiness': '2026-09-14T10:00:00+09:00',
   'html-observation-check-limits': '2026-09-15T10:00:00+09:00',
   'seo-meo-ai-recommendation-gap': '2026-09-16T10:00:00+09:00',
+  'cloudflare-ai-traffic-search-agent-training': '2026-09-17T10:00:00+09:00',
+  'niq-similarweb-agentic-shelf-measurement': '2026-09-18T10:00:00+09:00',
 });
+
+const FORBIDDEN_SLOT_WINDOWS = Object.freeze([
+  { start: '2026-09-19', end: '2026-09-23', reason: 'silver_week' },
+]);
+
+const PROTECTED_STATUSES = new Set([
+  EDITORIAL_STATUSES.SCHEDULED,
+  EDITORIAL_STATUSES.PUBLISHED,
+]);
+
+function forbiddenSlotReason(slotDate) {
+  const window = FORBIDDEN_SLOT_WINDOWS.find((w) => slotDate >= w.start && slotDate <= w.end);
+  return window ? window.reason : null;
+}
+
+function isProtectedEntryIntact(entry, publishAt) {
+  if (!entry || entry.publishAt !== publishAt) return false;
+  if (!PROTECTED_STATUSES.has(entry.status)) return false;
+  if (entry.status === EDITORIAL_STATUSES.PUBLISHED) {
+    const historical = entry.scheduledPublishAt || entry.publishAt;
+    return historical === publishAt;
+  }
+  return true;
+}
 
 function assertHoldReady(entry) {
   if (!entry) return { ok: false, reason: 'missing_entry' };
@@ -95,6 +157,10 @@ export function validateActivationPlan(schedule, activations = AUTHORIZED_ACTIVA
     if (!isWeekday(new Date(`${act.slotDate}T01:00:00Z`))) {
       errors.push(`${act.slug}:not_business_day:${act.slotDate}`);
     }
+    const forbidden = forbiddenSlotReason(act.slotDate);
+    if (forbidden) {
+      errors.push(`${act.slug}:forbidden_slot:${forbidden}:${act.slotDate}`);
+    }
     const occupant = findScheduledOnDate(schedule, act.slotDate);
     if (occupant && occupant.slug !== act.slug) {
       errors.push(`${act.slotDate}:slot_occupied:${occupant.slug}`);
@@ -110,7 +176,7 @@ export function validateActivationPlan(schedule, activations = AUTHORIZED_ACTIVA
   }
   for (const [slug, publishAt] of Object.entries(PROTECTED_SCHEDULED)) {
     const e = schedule.articles.find((a) => a.slug === slug);
-    if (!e || e.publishAt !== publishAt || e.status !== EDITORIAL_STATUSES.SCHEDULED) {
+    if (!isProtectedEntryIntact(e, publishAt)) {
       errors.push(`protected_schedule_changed:${slug}`);
     }
   }
@@ -130,6 +196,7 @@ export function activateHoldStock({
   now = new Date(),
 } = {}) {
   const schedule = loadSchedule();
+  const inventoryBefore = phase3Inventory(schedule);
   const bufferBefore = fs.existsSync(PATHS.bufferQueue)
     ? fs.readFileSync(PATHS.bufferQueue, 'utf8')
     : '';
@@ -205,7 +272,14 @@ export function activateHoldStock({
   }
 
   if (dryRun) {
-    return { ok: true, dryRun: true, results, inventory: phase3Inventory(schedule) };
+    return {
+      ok: true,
+      dryRun: true,
+      batch: 'phase4-batch2',
+      results,
+      inventoryBefore,
+      inventory: inventoryBefore,
+    };
   }
 
   let indexHtml = fs.readFileSync(PATHS.insightsIndex, 'utf8');
@@ -216,10 +290,14 @@ export function activateHoldStock({
   const bufferAfter = fs.readFileSync(PATHS.bufferQueue, 'utf8');
   const linkedinAfter = fs.readFileSync(PATHS.linkedinQueue, 'utf8');
 
+  const inventoryAfter = phase3Inventory(loadSchedule());
   const report = {
+    batch: 'phase4-batch2',
     activatedAt: now.toISOString(),
     activations: results,
-    inventory: phase3Inventory(loadSchedule()),
+    inventoryBefore,
+    inventory: inventoryAfter,
+    inventoryAfter,
     bufferMutated: bufferBefore !== bufferAfter,
     linkedinMutated: linkedinBefore !== linkedinAfter,
   };
