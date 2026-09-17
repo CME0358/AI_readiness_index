@@ -1,60 +1,260 @@
 {
-  "activatedAt": "2026-09-10T03:35:39.073Z",
+  "batch": "phase4-batch2",
+  "activatedAt": "2026-09-17T23:29:21.197Z",
   "activations": [
     {
-      "slug": "cloudflare-ai-traffic-search-agent-training",
-      "slotDate": "2026-09-17",
-      "publishAt": "2026-09-17T10:00:00+09:00",
-      "publicationId": "PUB-20260917-DAILY-001",
+      "slug": "weighted-ai-visibility-stack",
+      "slotDate": "2026-09-24",
+      "publishAt": "2026-09-24T10:00:00+09:00",
+      "publicationId": "PUB-20260924-DAILY-001",
       "packageReadiness": "PACKAGE_READY",
       "heroReused": true,
       "publicationEvent": {
-        "publicationId": "PUB-20260917-DAILY-001",
-        "slotDate": "2026-09-17",
+        "publicationId": "PUB-20260924-DAILY-001",
+        "slotDate": "2026-09-24",
         "slotType": "DAILY_PRIMARY",
-        "slug": "cloudflare-ai-traffic-search-agent-training",
+        "slug": "weighted-ai-visibility-stack",
         "status": "SCHEDULED",
-        "scheduledPublishAt": "2026-09-17T10:00:00+09:00",
+        "scheduledPublishAt": "2026-09-24T10:00:00+09:00",
         "socialSchedule": {
-          "linkedin": "2026-09-17T11:30:00+09:00",
-          "facebook": "2026-09-17T11:45:00+09:00",
-          "x": "2026-09-17T12:00:00+09:00"
+          "linkedin": "2026-09-24T11:30:00+09:00",
+          "facebook": "2026-09-24T11:45:00+09:00",
+          "x": "2026-09-24T12:00:00+09:00"
         }
       },
-      "livePath": "/Users/takeshisasaki/ARIInsightsVisualWorker/insights/cloudflare-ai-traffic-search-agent-training/index.html",
+      "livePath": "/workspace/insights/weighted-ai-visibility-stack/index.html",
       "liveExists": false
     },
     {
-      "slug": "niq-similarweb-agentic-shelf-measurement",
-      "slotDate": "2026-09-18",
-      "publishAt": "2026-09-18T10:00:00+09:00",
-      "publicationId": "PUB-20260918-DAILY-001",
+      "slug": "shopify-ai-vs-organic-structured-catalog",
+      "slotDate": "2026-09-25",
+      "publishAt": "2026-09-25T10:00:00+09:00",
+      "publicationId": "PUB-20260925-DAILY-001",
       "packageReadiness": "PACKAGE_READY",
       "heroReused": true,
       "publicationEvent": {
-        "publicationId": "PUB-20260918-DAILY-001",
-        "slotDate": "2026-09-18",
+        "publicationId": "PUB-20260925-DAILY-001",
+        "slotDate": "2026-09-25",
         "slotType": "DAILY_PRIMARY",
-        "slug": "niq-similarweb-agentic-shelf-measurement",
+        "slug": "shopify-ai-vs-organic-structured-catalog",
         "status": "SCHEDULED",
-        "scheduledPublishAt": "2026-09-18T10:00:00+09:00",
+        "scheduledPublishAt": "2026-09-25T10:00:00+09:00",
         "socialSchedule": {
-          "linkedin": "2026-09-18T11:30:00+09:00",
-          "facebook": "2026-09-18T11:45:00+09:00",
-          "x": "2026-09-18T12:00:00+09:00"
+          "linkedin": "2026-09-25T11:30:00+09:00",
+          "facebook": "2026-09-25T11:45:00+09:00",
+          "x": "2026-09-25T12:00:00+09:00"
         }
       },
-      "livePath": "/Users/takeshisasaki/ARIInsightsVisualWorker/insights/niq-similarweb-agentic-shelf-measurement/index.html",
+      "livePath": "/workspace/insights/shopify-ai-vs-organic-structured-catalog/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "google-ai-coexistence-measurement",
+      "slotDate": "2026-09-28",
+      "publishAt": "2026-09-28T10:00:00+09:00",
+      "publicationId": "PUB-20260928-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20260928-DAILY-001",
+        "slotDate": "2026-09-28",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "google-ai-coexistence-measurement",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-09-28T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-09-28T11:30:00+09:00",
+          "facebook": "2026-09-28T11:45:00+09:00",
+          "x": "2026-09-28T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/google-ai-coexistence-measurement/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "gemini-3-8-ai-mode-visibility",
+      "slotDate": "2026-09-29",
+      "publishAt": "2026-09-29T10:00:00+09:00",
+      "publicationId": "PUB-20260929-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20260929-DAILY-001",
+        "slotDate": "2026-09-29",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "gemini-3-8-ai-mode-visibility",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-09-29T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-09-29T11:30:00+09:00",
+          "facebook": "2026-09-29T11:45:00+09:00",
+          "x": "2026-09-29T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/gemini-3-8-ai-mode-visibility/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "geo-social-citation-authority",
+      "slotDate": "2026-09-30",
+      "publishAt": "2026-09-30T10:00:00+09:00",
+      "publicationId": "PUB-20260930-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20260930-DAILY-001",
+        "slotDate": "2026-09-30",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "geo-social-citation-authority",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-09-30T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-09-30T11:30:00+09:00",
+          "facebook": "2026-09-30T11:45:00+09:00",
+          "x": "2026-09-30T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/geo-social-citation-authority/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "gsc-ai-impressions-how-to-read",
+      "slotDate": "2026-10-01",
+      "publishAt": "2026-10-01T10:00:00+09:00",
+      "publicationId": "PUB-20261001-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20261001-DAILY-001",
+        "slotDate": "2026-10-01",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "gsc-ai-impressions-how-to-read",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-10-01T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-10-01T11:30:00+09:00",
+          "facebook": "2026-10-01T11:45:00+09:00",
+          "x": "2026-10-01T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/gsc-ai-impressions-how-to-read/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "schema-not-ai-citation-cheat-code",
+      "slotDate": "2026-10-02",
+      "publishAt": "2026-10-02T10:00:00+09:00",
+      "publicationId": "PUB-20261002-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20261002-DAILY-001",
+        "slotDate": "2026-10-02",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "schema-not-ai-citation-cheat-code",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-10-02T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-10-02T11:30:00+09:00",
+          "facebook": "2026-10-02T11:45:00+09:00",
+          "x": "2026-10-02T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/schema-not-ai-citation-cheat-code/index.html",
+      "liveExists": false
+    },
+    {
+      "slug": "chatgpt-retrieval-citation-practice",
+      "slotDate": "2026-10-06",
+      "publishAt": "2026-10-06T10:00:00+09:00",
+      "publicationId": "PUB-20261006-DAILY-001",
+      "packageReadiness": "PACKAGE_READY",
+      "heroReused": true,
+      "publicationEvent": {
+        "publicationId": "PUB-20261006-DAILY-001",
+        "slotDate": "2026-10-06",
+        "slotType": "DAILY_PRIMARY",
+        "slug": "chatgpt-retrieval-citation-practice",
+        "status": "SCHEDULED",
+        "scheduledPublishAt": "2026-10-06T10:00:00+09:00",
+        "socialSchedule": {
+          "linkedin": "2026-10-06T11:30:00+09:00",
+          "facebook": "2026-10-06T11:45:00+09:00",
+          "x": "2026-10-06T12:00:00+09:00"
+        }
+      },
+      "livePath": "/workspace/insights/chatgpt-retrieval-citation-practice/index.html",
       "liveExists": false
     }
   ],
-  "inventory": {
-    "scheduledCount": 6,
+  "inventoryBefore": {
+    "scheduledCount": 1,
     "autoUnlockableCount": 1,
     "holdReadyCount": 8,
-    "operationalRunway": 15,
-    "stockHealth": "NORMAL"
+    "operationalRunway": 10,
+    "stockHealth": "REPLENISH"
+  },
+  "inventory": {
+    "scheduledCount": 9,
+    "autoUnlockableCount": 1,
+    "holdReadyCount": 0,
+    "operationalRunway": 10,
+    "stockHealth": "REPLENISH"
+  },
+  "inventoryAfter": {
+    "scheduledCount": 9,
+    "autoUnlockableCount": 1,
+    "holdReadyCount": 0,
+    "operationalRunway": 10,
+    "stockHealth": "REPLENISH"
   },
   "bufferMutated": false,
-  "linkedinMutated": false
+  "linkedinMutated": false,
+  "dryRun": {
+    "ok": true,
+    "allEightSlotsApproved": true
+  },
+  "verification": {
+    "scheduledAfter918": [
+      { "slotDate": "2026-09-24", "slug": "weighted-ai-visibility-stack", "publishAt": "2026-09-24T10:00:00+09:00" },
+      { "slotDate": "2026-09-25", "slug": "shopify-ai-vs-organic-structured-catalog", "publishAt": "2026-09-25T10:00:00+09:00" },
+      { "slotDate": "2026-09-28", "slug": "google-ai-coexistence-measurement", "publishAt": "2026-09-28T10:00:00+09:00" },
+      { "slotDate": "2026-09-29", "slug": "gemini-3-8-ai-mode-visibility", "publishAt": "2026-09-29T10:00:00+09:00" },
+      { "slotDate": "2026-09-30", "slug": "geo-social-citation-authority", "publishAt": "2026-09-30T10:00:00+09:00" },
+      { "slotDate": "2026-10-01", "slug": "gsc-ai-impressions-how-to-read", "publishAt": "2026-10-01T10:00:00+09:00" },
+      { "slotDate": "2026-10-02", "slug": "schema-not-ai-citation-cheat-code", "publishAt": "2026-10-02T10:00:00+09:00" },
+      { "slotDate": "2026-10-06", "slug": "chatgpt-retrieval-citation-practice", "publishAt": "2026-10-06T10:00:00+09:00" }
+    ],
+    "batch2HoldReadyRemaining": 0,
+    "niq918Unchanged": true,
+    "published911to917Unchanged": true,
+    "abisHoldsUnchanged": [
+      "abis-ari-bridge",
+      "abis-intro",
+      "abis-readiness-gap",
+      "consent-data-design",
+      "interaction-contract",
+      "standards-landscape",
+      "vendor-selection"
+    ],
+    "forbiddenDatesEmpty": [
+      "2026-09-19",
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05"
+    ],
+    "plannedCardSlug": "niq-similarweb-agentic-shelf-measurement",
+    "bufferQueueUnchanged": true,
+    "linkedinQueueUnchanged": true,
+    "counts": {
+      "before": { "published": 49, "editorial_hold": 15, "scheduled": 1, "holdReady": 8 },
+      "after": { "published": 49, "editorial_hold": 7, "scheduled": 9, "holdReady": 0 }
+    }
+  }
 }

@@ -1031,8 +1031,8 @@
     },
     {
       "slug": "weighted-ai-visibility-stack",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-24T10:00:00+09:00",
+      "status": "scheduled",
       "title": "AI Visibilityを重み付けで読む——検索・回答・引用の三層スタック",
       "cardSummary": "露出は一つではない。検索到達・回答内掲載・引用根拠の三層に分けて重み付け観測しないと改善判断がズレる。GSC生成AIレポートと併読し、層ごとの担当と限界を運用スタックとして本記事で丁寧に整理する視点です。",
       "llmsLabel": "AI Visibility三層",
@@ -1045,8 +1045,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:39.327Z",
       "freshnessReviewedAt": "2026-09-10T03:22:39.327Z",
       "eirId": "EIR-20260924-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
@@ -1065,12 +1065,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.185Z",
-      "holdReadyAt": "2026-09-10T03:23:21.185Z"
+      "scheduledPublishAt": "2026-09-24T10:00:00+09:00",
+      "slotDate": "2026-09-24",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260924-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "shopify-ai-vs-organic-structured-catalog",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-25T10:00:00+09:00",
+      "status": "scheduled",
       "title": "ShopifyのAI機能と構造化カタログ——オーガニック発見を残す設計",
       "cardSummary": "Shopify Catalogに載ることと、オーガニックに見つかることは別の入口だ。AI向け構造化配信とWeb発見を両立するには、価格・在庫・条件の差分監査が先——二重入口の整合設計を本記事で整理する。",
       "llmsLabel": "Shopify Catalog設計",
@@ -1083,8 +1088,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:41.245Z",
       "freshnessReviewedAt": "2026-09-10T03:22:41.245Z",
       "eirId": "EIR-20260925-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products",
@@ -1103,12 +1108,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.192Z",
-      "holdReadyAt": "2026-09-10T03:23:21.192Z"
+      "scheduledPublishAt": "2026-09-25T10:00:00+09:00",
+      "slotDate": "2026-09-25",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260925-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "google-ai-coexistence-measurement",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-28T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Google検索とAI機能の共存——クリックとインプレッションの読み分け",
       "cardSummary": "一覧のクリックだけを追うと、AI回答内の露出変化を見逃す。Search Consoleで生成AIインプレッションと全体パフォーマンスを併読し、露出・要約の正確性・行動導線を分ける——共存時代の測定読み分けを本記事で整理する。",
       "llmsLabel": "Google AI共存測定",
@@ -1121,8 +1131,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:42.152Z",
       "freshnessReviewedAt": "2026-09-10T03:22:42.152Z",
       "eirId": "EIR-20260928-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
@@ -1141,12 +1151,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.202Z",
-      "holdReadyAt": "2026-09-10T03:23:21.202Z"
+      "scheduledPublishAt": "2026-09-28T10:00:00+09:00",
+      "slotDate": "2026-09-28",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260928-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "gemini-3-8-ai-mode-visibility",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-29T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Gemini 3.8とAI Mode——複数AI面でのVisibility確認",
       "cardSummary": "同じGoogleでもAI面は一つではない。Gemini 3.8はAI Modeに登場したがOverviews既定は別——面ごとに定点観測を分け、モデル世代と日時をログに残すVisibility確認の実務を本記事で整理する。",
       "llmsLabel": "Gemini 3.8 AI Mode",
@@ -1159,8 +1174,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:44.324Z",
       "freshnessReviewedAt": "2026-09-10T03:22:44.324Z",
       "eirId": "EIR-20260929-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
@@ -1179,12 +1194,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.223Z",
-      "holdReadyAt": "2026-09-10T03:23:21.223Z"
+      "scheduledPublishAt": "2026-09-29T10:00:00+09:00",
+      "slotDate": "2026-09-29",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260929-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "geo-social-citation-authority",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-09-30T10:00:00+09:00",
+      "status": "scheduled",
       "title": "GEOとソーシャル引用——Authorityの新しい観測点",
       "cardSummary": "いいね数はAuthorityの代理指標にならない。ソーシャル引用は観測点の拡張であり、公式情報と一致する事実の積み上げが前提——GEOとソーシャル引用をAuthority設計に接続する視点を本記事で整理する。",
       "llmsLabel": "ソーシャル引用Authority",
@@ -1197,8 +1217,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:45.951Z",
       "freshnessReviewedAt": "2026-09-10T03:22:45.951Z",
       "eirId": "EIR-20260930-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://www.iab.com/guidelines/measuring-visibility-in-the-ai-era/",
@@ -1217,12 +1237,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.240Z",
-      "holdReadyAt": "2026-09-10T03:23:21.240Z"
+      "scheduledPublishAt": "2026-09-30T10:00:00+09:00",
+      "slotDate": "2026-09-30",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20260930-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "gsc-ai-impressions-how-to-read",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-10-01T10:00:00+09:00",
+      "status": "scheduled",
       "title": "GSCのAIインプレッションをどう読むか——クリックがない指標の使い方",
       "cardSummary": "AIインプレッションは流入ではない。GSCの生成AIレポートはクリックなし露出のログであり、全体パフォーマンスと併読して要約の正確性と導線を別管理する——読み方と限界をAgent Readinessの視点で本記事で整理する。",
       "llmsLabel": "GSC AIインプレッション",
@@ -1235,8 +1260,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:49.610Z",
       "freshnessReviewedAt": "2026-09-10T03:22:49.610Z",
       "eirId": "EIR-20261001-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://support.google.com/webmasters/answer/16984139",
@@ -1255,12 +1280,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.243Z",
-      "holdReadyAt": "2026-09-10T03:23:21.243Z"
+      "scheduledPublishAt": "2026-10-01T10:00:00+09:00",
+      "slotDate": "2026-10-01",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261001-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "schema-not-ai-citation-cheat-code",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-10-02T10:00:00+09:00",
+      "status": "scheduled",
       "title": "SchemaはAI引用のチートコードではない——構造化の役割と限界",
       "cardSummary": "Schemaは理解補助であり引用の保証ではない。本文と矛盾するマークアップは信頼を損ねる——構造化の役割と限界を分け、事実整備・正確な型・更新プロセスの順で設計する実務視点を本記事で丁寧に整理する視点です。",
       "llmsLabel": "Schemaの限界",
@@ -1273,8 +1303,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:51.231Z",
       "freshnessReviewedAt": "2026-09-10T03:22:51.231Z",
       "eirId": "EIR-20261002-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://schema.org/",
@@ -1293,12 +1323,17 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.255Z",
-      "holdReadyAt": "2026-09-10T03:23:21.255Z"
+      "scheduledPublishAt": "2026-10-02T10:00:00+09:00",
+      "slotDate": "2026-10-02",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261002-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     },
     {
       "slug": "chatgpt-retrieval-citation-practice",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-10-06T10:00:00+09:00",
+      "status": "scheduled",
       "title": "ChatGPTの引用と取得——第三者分析から読み取れる実務示唆",
       "cardSummary": "Labrador等の内部名称はOpenAI未確認だ。Peec.ai等の第三者分析は参考資料——取得パイプラインの切替と冒頭可視テキストの設計を、断定ではなく検証可能なチェックに落とす視点を本記事で整理する。",
       "llmsLabel": "ChatGPT引用分析",
@@ -1311,8 +1346,8 @@
       "editorialReviewedAt": "2026-09-10T03:22:52.355Z",
       "freshnessReviewedAt": "2026-09-10T03:22:52.355Z",
       "eirId": "EIR-20261003-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://peec.ai/blog/chatgpt-built-its-own-search-index",
@@ -1331,7 +1366,12 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-10T03:23:21.260Z",
-      "holdReadyAt": "2026-09-10T03:23:21.260Z"
+      "scheduledPublishAt": "2026-10-06T10:00:00+09:00",
+      "slotDate": "2026-10-06",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261006-DAILY-001",
+      "activatedAt": "2026-09-17T23:29:21.197Z"
     }
   ]
 }
