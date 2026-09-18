@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://readiness.coaretail.com/insights/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -400,6 +400,13 @@
   <url>
     <loc>https://readiness.coaretail.com/insights/cloudflare-ai-traffic-search-agent-training/</loc>
     <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

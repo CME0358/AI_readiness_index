@@ -63,6 +63,7 @@
 - [HTML観測で分かること・分からないこと](https://readiness.coaretail.com/insights/html-observation-check-limits/): Insights Column（2026-09-15）
 - [SEO・MEOの先にあるAI検索の確認項目](https://readiness.coaretail.com/insights/seo-meo-ai-recommendation-gap/): Insights Column（2026-09-16）
 - [Cloudflare AI分類](https://readiness.coaretail.com/insights/cloudflare-ai-traffic-search-agent-training/): Insights Column（2026-09-17）
+- [Agentic Shelf測定](https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/): Insights Column（2026-09-18）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断

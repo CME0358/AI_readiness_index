@@ -678,6 +678,23 @@
       "createdAt": "2026-09-17T01:00:00.265Z",
       "updatedAt": "2026-09-17T01:00:38.315Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-niq-similarweb-agentic-shelf-measurement-2026-09-18",
+      "slug": "niq-similarweb-agentic-shelf-measurement",
+      "articlePublishAt": "2026-09-18T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-18T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-18T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/",
+      "contentFile": "insights/_social/linkedin/posts/niq-similarweb-agentic-shelf-measurement.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-18T01:00:00.588Z",
+      "updatedAt": "2026-09-18T01:00:00.588Z",
+      "series": "v2-stock"
     }
   ]
 }

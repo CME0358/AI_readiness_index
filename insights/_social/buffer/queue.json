@@ -1972,6 +1972,54 @@
       "series": "v2-stock"
     },
     {
+      "slug": "niq-similarweb-agentic-shelf-measurement",
+      "articleUrl": "https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-09-18T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-18T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/niq-similarweb-agentic-shelf-measurement.md",
+          "publishAt": "2026-09-18T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-18T01:00:00.589Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/niq-similarweb-agentic-shelf-measurement.md",
+          "publishAt": "2026-09-18T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-18T01:00:00.589Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/niq-similarweb-agentic-shelf-measurement.md",
+          "publishAt": "2026-09-18T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-09-18T01:00:00.589Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-18T01:00:00.588Z",
+      "updatedAt": "2026-09-18T01:00:00.588Z",
+      "series": "v2-stock"
+    },
+    {
       "slug": "ai-agent-marketing-shift",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-agent-marketing-shift/",
       "status": "buffer_queued",
