@@ -212,7 +212,6 @@ ${seoPkg ? headMetadata.replace(/<meta charset="UTF-8">\n<meta name="viewport" c
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/hub-animations.css">
-<link rel="stylesheet" href="/assets/sitewide-cta.css">
 <style>
 :root {
   --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
@@ -261,6 +260,8 @@ h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: 
 .btn-navy:hover { background: #162040; color: #FFFFFF; }
 .article-cta .btn-navy,
 .article-cta .btn-navy:hover { color: #FFFFFF; }
+.article-body a.btn-navy,
+.article-body a.btn-navy:hover { color: #FFFFFF; }
 .sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
 .sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
 .sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
@@ -290,6 +291,7 @@ ${RELATED_INSIGHTS_CSS}
   .nav { position: relative; }
 }
 </style>
+<link rel="stylesheet" href="/assets/sitewide-cta.css">
 </head>
 <body>
 

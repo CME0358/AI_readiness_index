@@ -77,16 +77,68 @@ function renderInsightCtaHtml(slug, placement = 'end', article = null) {
   ].join('\n');
 }
 
-function injectInsightCta(html, slug, article = null) {
+const SITEWIDE_CTA_STYLESHEET = '<link rel="stylesheet" href="/assets/sitewide-cta.css">';
+const ARTICLE_BODY_NAVY_OVERRIDE = `.article-body a.btn-navy,
+.article-body a.btn-navy:hover { color: #FFFFFF; }`;
+
+function ensureInsightNavyCtaContrast(html) {
+  if (html.includes('.article-body a.btn-navy')) return html;
+  if (html.includes('.article-cta .btn-navy,\n.article-cta .btn-navy:hover { color: #FFFFFF; }')) {
+    return html.replace(
+      '.article-cta .btn-navy,\n.article-cta .btn-navy:hover { color: #FFFFFF; }',
+      `.article-cta .btn-navy,\n.article-cta .btn-navy:hover { color: #FFFFFF; }\n${ARTICLE_BODY_NAVY_OVERRIDE}`,
+    );
+  }
+  if (html.includes('.article-cta .btn-navy { color:#FFFFFF; }')) {
+    return html.replace(
+      '.article-cta .btn-navy { color:#FFFFFF; }',
+      `.article-cta .btn-navy { color:#FFFFFF; }\n${ARTICLE_BODY_NAVY_OVERRIDE}`,
+    );
+  }
+  if (html.includes('.article-body a { color: var(--text); }')) {
+    return html.replace(
+      '.article-body a { color: var(--text); }',
+      `.article-body a { color: var(--text); }\n${ARTICLE_BODY_NAVY_OVERRIDE}`,
+    );
+  }
+  if (html.includes('.article-body a { color:var(--text); }')) {
+    return html.replace(
+      '.article-body a { color:var(--text); }',
+      `.article-body a { color:var(--text); }\n${ARTICLE_BODY_NAVY_OVERRIDE}`,
+    );
+  }
+  return html;
+}
+
+function ensureSitewideCtaStylesheet(html) {
+  if (!html.includes('</head>')) return html;
+  const withoutLink = html.replace(/\n?[ \t]*<link rel="stylesheet" href="\/assets\/sitewide-cta\.css">/g, '');
+  return withoutLink.replace('</head>', `  ${SITEWIDE_CTA_STYLESHEET}\n</head>`);
+}
+
+function injectInsightCta(html, slug, article = null, options = {}) {
+  const injectBlock = options.injectBlock !== false;
   const marker = /(<div class="article-cta">)/;
   let result = html;
-  if (!result.includes('data-cta-profile="' + slug + '"')) {
-    if (!marker.test(result)) return result;
-    result = result.replace(marker, `${renderInsightCtaHtml(slug, 'end', article)}$1`);
+  if (injectBlock && !result.includes('data-cta-profile="' + slug + '"')) {
+    if (marker.test(result)) {
+      result = result.replace(marker, `${renderInsightCtaHtml(slug, 'end', article)}$1`);
+    }
   }
-  if (!result.includes('/assets/sitewide-cta.css')) result = result.replace('</head>', '  <link rel="stylesheet" href="/assets/sitewide-cta.css">\n</head>');
-  if (!result.includes('sitewide-cta-tracking.js')) result = result.replace('</body>', '  <script src="/assets/sitewide-cta-tracking.js" defer></script>\n</body>');
+  result = ensureInsightNavyCtaContrast(result);
+  result = ensureSitewideCtaStylesheet(result);
+  const hasCta = result.includes('class="sitewide-cta"') || result.includes('data-cta-profile=');
+  if (hasCta && !result.includes('sitewide-cta-tracking.js') && result.includes('</body>')) {
+    result = result.replace('</body>', '  <script src="/assets/sitewide-cta-tracking.js" defer></script>\n</body>');
+  }
   return result;
 }
 
-export { INSIGHT_CTA_PROFILES, getInsightCtaProfile, renderInsightCtaHtml, injectInsightCta };
+export {
+  INSIGHT_CTA_PROFILES,
+  getInsightCtaProfile,
+  renderInsightCtaHtml,
+  injectInsightCta,
+  ensureInsightNavyCtaContrast,
+  ensureSitewideCtaStylesheet,
+};
