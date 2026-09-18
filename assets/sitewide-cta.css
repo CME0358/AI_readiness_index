@@ -2,3 +2,19 @@
 .sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: #09090B; }
 .sitewide-cta p { font-size: 15px; color: #52525B; margin-bottom: 16px; }
 .sitewide-cta .btn { margin-right: 8px; margin-bottom: 8px; }
+
+/* Beat `.article-body a { color: var(--text); }` (0,1,1) so navy primary CTAs stay white. */
+.article-body .sitewide-cta a.btn-navy,
+.article-body .sitewide-cta a.btn-navy:hover,
+.sitewide-cta a.btn-navy,
+.sitewide-cta a.btn-navy:hover {
+  color: #FFFFFF;
+}
+.article-body .sitewide-cta a.btn-secondary,
+.sitewide-cta a.btn-secondary {
+  color: var(--text, #09090B);
+}
+.article-body .sitewide-cta a.btn:not(.btn-secondary),
+.article-body .sitewide-cta a.btn:not(.btn-secondary):hover {
+  color: #FFFFFF;
+}
