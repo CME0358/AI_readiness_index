@@ -1030,7 +1030,9 @@
       "activatedAt": "2026-09-10T03:35:39.073Z",
       "publishAttemptedAt": "2026-09-18T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-18T01:00:00.000Z"
+      "publishedAt": "2026-09-18T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-18T01:00:33.901Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "weighted-ai-visibility-stack",

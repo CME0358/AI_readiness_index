@@ -687,13 +687,13 @@
       "linkedinPublishAt": "2026-09-18T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/",
       "contentFile": "insights/_social/linkedin/posts/niq-similarweb-agentic-shelf-measurement.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6aac8d33ea02db373dde569e",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-18T01:00:00.588Z",
-      "updatedAt": "2026-09-18T01:00:00.588Z",
+      "updatedAt": "2026-09-18T01:00:37.576Z",
       "series": "v2-stock"
     }
   ]

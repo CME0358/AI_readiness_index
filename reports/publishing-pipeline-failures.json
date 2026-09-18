@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-17T01:00:38.315Z",
+  "updatedAt": "2026-09-18T01:00:37.576Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "cloudflare-ai-traffic-search-agent-training",
+    "slug": "niq-similarweb-agentic-shelf-measurement",
     "stage": "buffer_queued",
-    "at": "2026-09-17T01:00:38.315Z"
+    "at": "2026-09-18T01:00:37.576Z"
   }
 }
