@@ -1037,7 +1037,7 @@
     {
       "slug": "weighted-ai-visibility-stack",
       "publishAt": "2026-09-21T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "AI Visibilityを重み付けで読む——検索・回答・引用の三層スタック",
       "cardSummary": "露出は一つではない。検索到達・回答内掲載・引用根拠の三層に分けて重み付け観測しないと改善判断がズレる。GSC生成AIレポートと併読し、層ごとの担当と限界を運用スタックとして本記事で丁寧に整理する視点です。",
       "llmsLabel": "AI Visibility三層",
@@ -1073,9 +1073,12 @@
       "scheduledPublishAt": "2026-09-21T10:00:00+09:00",
       "slotDate": "2026-09-21",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260921-DAILY-001",
-      "activatedAt": "2026-09-17T23:29:21.197Z"
+      "activatedAt": "2026-09-17T23:29:21.197Z",
+      "publishAttemptedAt": "2026-09-21T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-21T01:00:00.000Z"
     },
     {
       "slug": "shopify-ai-vs-organic-structured-catalog",
