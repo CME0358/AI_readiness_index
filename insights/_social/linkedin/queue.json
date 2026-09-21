@@ -704,13 +704,13 @@
       "linkedinPublishAt": "2026-09-21T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/weighted-ai-visibility-stack/",
       "contentFile": "insights/_social/linkedin/posts/weighted-ai-visibility-stack.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ab081b25a51e9fa48ace2c8",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-21T01:00:00.252Z",
-      "updatedAt": "2026-09-21T01:00:00.252Z",
+      "updatedAt": "2026-09-21T01:00:36.812Z",
       "series": "v2-stock"
     }
   ]
