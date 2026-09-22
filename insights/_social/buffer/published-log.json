@@ -917,7 +917,34 @@
       "publishAt": "2026-09-21T12:00:00+09:00",
       "dueAtUtc": "2026-09-21T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-22T01:00:00.000Z",
+      "slug": "shopify-ai-vs-organic-structured-catalog",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ab1d332e1612e2f787cabc3",
+      "publishAt": "2026-09-22T11:30:00+09:00",
+      "dueAtUtc": "2026-09-22T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-22T01:00:00.000Z",
+      "slug": "shopify-ai-vs-organic-structured-catalog",
+      "channel": "facebook",
+      "bufferUpdateId": "6ab1d333e1612e2f787cac09",
+      "publishAt": "2026-09-22T11:45:00+09:00",
+      "dueAtUtc": "2026-09-22T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-22T01:00:00.000Z",
+      "slug": "shopify-ai-vs-organic-structured-catalog",
+      "channel": "x",
+      "bufferUpdateId": "6ab1d333826cfc54b86150c1",
+      "publishAt": "2026-09-22T12:00:00+09:00",
+      "dueAtUtc": "2026-09-22T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-21T01:00:36.811Z"
+  "updatedAt": "2026-09-22T01:00:36.212Z"
 }
