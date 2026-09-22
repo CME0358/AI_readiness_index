@@ -65,6 +65,7 @@
 - [Cloudflare AI分類](https://readiness.coaretail.com/insights/cloudflare-ai-traffic-search-agent-training/): Insights Column（2026-09-17）
 - [Agentic Shelf測定](https://readiness.coaretail.com/insights/niq-similarweb-agentic-shelf-measurement/): Insights Column（2026-09-18）
 - [AI Visibility三層](https://readiness.coaretail.com/insights/weighted-ai-visibility-stack/): Insights Column（2026-09-21）
+- [Shopify Catalog設計](https://readiness.coaretail.com/insights/shopify-ai-vs-organic-structured-catalog/): Insights Column（2026-09-22）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断

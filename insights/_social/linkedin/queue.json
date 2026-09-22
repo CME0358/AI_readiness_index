@@ -712,6 +712,23 @@
       "createdAt": "2026-09-21T01:00:00.252Z",
       "updatedAt": "2026-09-21T01:00:36.812Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-shopify-ai-vs-organic-structured-catalog-2026-09-22",
+      "slug": "shopify-ai-vs-organic-structured-catalog",
+      "articlePublishAt": "2026-09-22T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-22T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-22T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/shopify-ai-vs-organic-structured-catalog/",
+      "contentFile": "insights/_social/linkedin/posts/shopify-ai-vs-organic-structured-catalog.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-22T01:00:00.179Z",
+      "updatedAt": "2026-09-22T01:00:00.179Z",
+      "series": "v2-stock"
     }
   ]
 }
