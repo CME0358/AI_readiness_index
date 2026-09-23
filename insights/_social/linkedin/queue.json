@@ -729,6 +729,23 @@
       "createdAt": "2026-09-22T01:00:00.179Z",
       "updatedAt": "2026-09-22T01:00:36.213Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-google-ai-coexistence-measurement-2026-09-23",
+      "slug": "google-ai-coexistence-measurement",
+      "articlePublishAt": "2026-09-23T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-23T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-23T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/",
+      "contentFile": "insights/_social/linkedin/posts/google-ai-coexistence-measurement.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-23T01:00:00.773Z",
+      "updatedAt": "2026-09-23T01:00:00.773Z",
+      "series": "v2-stock"
     }
   ]
 }
