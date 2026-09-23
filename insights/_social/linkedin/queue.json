@@ -738,13 +738,13 @@
       "linkedinPublishAt": "2026-09-23T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/google-ai-coexistence-measurement/",
       "contentFile": "insights/_social/linkedin/posts/google-ai-coexistence-measurement.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ab324b5557b1c68e6bef1a3",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-23T01:00:00.773Z",
-      "updatedAt": "2026-09-23T01:00:00.773Z",
+      "updatedAt": "2026-09-23T01:00:40.253Z",
       "series": "v2-stock"
     }
   ]

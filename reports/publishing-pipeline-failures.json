@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-22T01:00:36.214Z",
+  "updatedAt": "2026-09-23T01:00:40.253Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "shopify-ai-vs-organic-structured-catalog",
+    "slug": "google-ai-coexistence-measurement",
     "stage": "buffer_queued",
-    "at": "2026-09-22T01:00:36.214Z"
+    "at": "2026-09-23T01:00:40.253Z"
   }
 }

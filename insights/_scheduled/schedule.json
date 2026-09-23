@@ -1174,7 +1174,9 @@
       "activatedAt": "2026-09-17T23:29:21.197Z",
       "publishAttemptedAt": "2026-09-23T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-23T01:00:00.000Z"
+      "publishedAt": "2026-09-23T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-23T01:00:36.188Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "gemini-3-8-ai-mode-visibility",
