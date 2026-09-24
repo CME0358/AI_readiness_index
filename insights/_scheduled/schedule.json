@@ -1181,7 +1181,7 @@
     {
       "slug": "gemini-3-8-ai-mode-visibility",
       "publishAt": "2026-09-24T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Gemini 3.8とAI Mode——複数AI面でのVisibility確認",
       "cardSummary": "同じGoogleでもAI面は一つではない。Gemini 3.8はAI Modeに登場したがOverviews既定は別——面ごとに定点観測を分け、モデル世代と日時をログに残すVisibility確認の実務を本記事で整理する。",
       "llmsLabel": "Gemini 3.8 AI Mode",
@@ -1217,9 +1217,12 @@
       "scheduledPublishAt": "2026-09-24T10:00:00+09:00",
       "slotDate": "2026-09-24",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260924-DAILY-001",
-      "activatedAt": "2026-09-17T23:29:21.197Z"
+      "activatedAt": "2026-09-17T23:29:21.197Z",
+      "publishAttemptedAt": "2026-09-24T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-24T01:00:00.000Z"
     },
     {
       "slug": "geo-social-citation-authority",

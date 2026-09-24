@@ -746,6 +746,23 @@
       "createdAt": "2026-09-23T01:00:00.773Z",
       "updatedAt": "2026-09-23T01:00:40.253Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-gemini-3-8-ai-mode-visibility-2026-09-24",
+      "slug": "gemini-3-8-ai-mode-visibility",
+      "articlePublishAt": "2026-09-24T10:00:00+09:00",
+      "bufferTransferAt": "2026-09-24T10:30:00+09:00",
+      "linkedinPublishAt": "2026-09-24T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/gemini-3-8-ai-mode-visibility/",
+      "contentFile": "insights/_social/linkedin/posts/gemini-3-8-ai-mode-visibility.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-09-24T01:00:00.246Z",
+      "updatedAt": "2026-09-24T01:00:00.246Z",
+      "series": "v2-stock"
     }
   ]
 }
