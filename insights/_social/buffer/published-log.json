@@ -971,7 +971,34 @@
       "publishAt": "2026-09-23T12:00:00+09:00",
       "dueAtUtc": "2026-09-23T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-24T01:00:00.000Z",
+      "slug": "gemini-3-8-ai-mode-visibility",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ab47632ccbef1e0a5401daf",
+      "publishAt": "2026-09-24T11:30:00+09:00",
+      "dueAtUtc": "2026-09-24T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-24T01:00:00.000Z",
+      "slug": "gemini-3-8-ai-mode-visibility",
+      "channel": "facebook",
+      "bufferUpdateId": "6ab47633b4fa591f3ece80f5",
+      "publishAt": "2026-09-24T11:45:00+09:00",
+      "dueAtUtc": "2026-09-24T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-24T01:00:00.000Z",
+      "slug": "gemini-3-8-ai-mode-visibility",
+      "channel": "x",
+      "bufferUpdateId": "6ab47634b4fa591f3ece8136",
+      "publishAt": "2026-09-24T12:00:00+09:00",
+      "dueAtUtc": "2026-09-24T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-23T01:00:40.251Z"
+  "updatedAt": "2026-09-24T01:00:36.302Z"
 }

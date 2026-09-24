@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-23T01:00:40.253Z",
+  "updatedAt": "2026-09-24T01:00:36.304Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "google-ai-coexistence-measurement",
+    "slug": "gemini-3-8-ai-mode-visibility",
     "stage": "buffer_queued",
-    "at": "2026-09-23T01:00:40.253Z"
+    "at": "2026-09-24T01:00:36.304Z"
   }
 }

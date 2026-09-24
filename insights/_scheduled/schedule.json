@@ -1222,7 +1222,9 @@
       "activatedAt": "2026-09-17T23:29:21.197Z",
       "publishAttemptedAt": "2026-09-24T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-09-24T01:00:00.000Z"
+      "publishedAt": "2026-09-24T01:00:00.000Z",
+      "productionVerifiedAt": "2026-09-24T01:00:32.612Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "geo-social-citation-authority",

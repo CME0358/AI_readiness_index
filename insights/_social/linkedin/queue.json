@@ -755,13 +755,13 @@
       "linkedinPublishAt": "2026-09-24T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/gemini-3-8-ai-mode-visibility/",
       "contentFile": "insights/_social/linkedin/posts/gemini-3-8-ai-mode-visibility.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ab47632ccbef1e0a5401daf",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-24T01:00:00.246Z",
-      "updatedAt": "2026-09-24T01:00:00.246Z",
+      "updatedAt": "2026-09-24T01:00:36.304Z",
       "series": "v2-stock"
     }
   ]
