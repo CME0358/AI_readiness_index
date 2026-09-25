@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-24T01:00:36.304Z",
+  "updatedAt": "2026-09-25T01:00:38.818Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "gemini-3-8-ai-mode-visibility",
+    "slug": "geo-social-citation-authority",
     "stage": "buffer_queued",
-    "at": "2026-09-24T01:00:36.304Z"
+    "at": "2026-09-25T01:00:38.818Z"
   }
 }

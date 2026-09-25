@@ -998,7 +998,34 @@
       "publishAt": "2026-09-24T12:00:00+09:00",
       "dueAtUtc": "2026-09-24T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-25T01:00:00.000Z",
+      "slug": "geo-social-citation-authority",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ab5c7b44be54730309f76a4",
+      "publishAt": "2026-09-25T11:30:00+09:00",
+      "dueAtUtc": "2026-09-25T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-25T01:00:00.000Z",
+      "slug": "geo-social-citation-authority",
+      "channel": "facebook",
+      "bufferUpdateId": "6ab5c7b5607bee5b03219d35",
+      "publishAt": "2026-09-25T11:45:00+09:00",
+      "dueAtUtc": "2026-09-25T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-25T01:00:00.000Z",
+      "slug": "geo-social-citation-authority",
+      "channel": "x",
+      "bufferUpdateId": "6ab5c7b6cbe818dd4ff38105",
+      "publishAt": "2026-09-25T12:00:00+09:00",
+      "dueAtUtc": "2026-09-25T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-24T01:00:36.302Z"
+  "updatedAt": "2026-09-25T01:00:38.816Z"
 }

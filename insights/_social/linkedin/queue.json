@@ -772,13 +772,13 @@
       "linkedinPublishAt": "2026-09-25T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/geo-social-citation-authority/",
       "contentFile": "insights/_social/linkedin/posts/geo-social-citation-authority.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ab5c7b44be54730309f76a4",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-25T01:00:00.260Z",
-      "updatedAt": "2026-09-25T01:00:00.260Z",
+      "updatedAt": "2026-09-25T01:00:38.817Z",
       "series": "v2-stock"
     }
   ]
