@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか | Agent Readiness Insights</title>
+<meta name="description" content="Search Consoleは2026年9月24日から、ウェブのマルチモーダル検索を検索パフォーマンスと生成AIレポートで報告します。新しいフィルタの範囲と、クエリが出ない限界を整理します。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/gsc-multimodal-search-reporting/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか">
+<meta property="og:description" content="Search Consoleは2026年9月24日から、ウェブのマルチモーダル検索を検索パフォーマンスと生成AIレポートで報告します。新しいフィルタの範囲と、クエリが出ない限界を整理します。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/gsc-multimodal-search-reporting/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://readiness.coaretail.com/assets/insights/gsc-multimodal-search-reporting/hero.webp">
+<meta name="twitter:image" content="https://readiness.coaretail.com/assets/insights/gsc-multimodal-search-reporting/hero.webp">
+
+<meta name="twitter:title" content="カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか">
+<meta name="twitter:description" content="Search Consoleは2026年9月24日から、ウェブのマルチモーダル検索を検索パフォーマンスと生成AIレポートで報告します。新しいフィルタの範囲と、クエリが出ない限界を整理します。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか",
+  "description": "Search Consoleは2026年9月24日から、ウェブのマルチモーダル検索を検索パフォーマンスと生成AIレポートで報告します。新しいフィルタの範囲と、クエリが出ない限界を整理します。",
+  "datePublished": "2026-09-25",
+  "dateModified": "2026-09-25",
+  "author": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール",
+    "url": "https://www.coaretail.com"
+  },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/gsc-multimodal-search-reporting/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="../../assets/insights/hero.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.article-body a.btn-navy,
+.article-body a.btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+  <link rel="stylesheet" href="/assets/sitewide-cta.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>マルチモーダル検索</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-09-25">2026.09.25</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか</h1>
+      <p class="lead">カメラがクエリになる検索が、Search Consoleの新しいデータとして加わりました。Lensや画像アップロードの露出は、テキスト検索や生成AIレポートとは別フィルタで読み、件数を足し合わせない前提が要ります。</p>
+    </div>
+  </header>
+  <figure class="insight-hero"><img src="/assets/insights/gsc-multimodal-search-reporting/hero.webp" alt="gsc-multimodal-search-reporting のInsight Hero" width="1672" height="941" loading="eager"></figure>
+
+  <article class="article-body container" data-article-slug="gsc-multimodal-search-reporting" data-article-title="カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <div class="sitewide-cta" data-cta-profile="gsc-multimodal-search-reporting" data-editorial-intent="EVIDENCE">
+        <a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_gsc-multimodal-search-reporting_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/gsc-multimodal-search-reporting/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_gsc-multimodal-search-reporting_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/gsc-multimodal-search-reporting/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+<h2>WHAT IS NEW｜9月24日に入ったデータ</h2>
+      <p>Google Search Centralのブログは2026年9月24日、Harsh Kharbanda氏とMoshe Samet氏の名義で、Search Consoleがウェブのマルチモーダル検索を報告し始めたと説明しています。入るのは検索結果のパフォーマンスレポートと、生成AI機能のレポートの両方です。展開はその日から世界規模で始まり、エクスポートにも対応します。一次情報は<a href="https://developers.google.com/search/blog/2026/09/web-multimodal-in-sc">Search Centralブログ</a>です。</p>
+<h2>CAMERA AS QUERY｜何がマルチモーダルか</h2>
+      <p>公式が挙げているのは、Googleレンズ、Androidのかこって検索（Circle to Search）、Google検索への画像アップロード、Chromeで画像を右クリックする「Search this image」です。テキストを打つ代わりに、カメラや画像そのものがクエリになります。これは、すでに公開されている生成AIインプレッションの定義を言い換えたものではありません。検索の入口が画像側に広がった、別の計測です。</p>
+<h2>THE FILTER｜Webが二つに分かれる</h2>
+      <p>Search Engine Roundtableの2026年9月24日の記事は、検索タイプのフィルタがWebを「Text-based」と「Multimodal」に分けると伝えています。John Mueller氏は担当チームに確認したうえで、このデータは「以前の件数には入っていなかった。レポートには新しいデータがある」（wasn't previously in the counts, the report has new data）と述べたと同記事は記しています。フィルタ追加前のWeb合計と、追加後のWeb合計を、同じ母集団のまま比べない方が安全です。<a href="https://www.seroundtable.com/google-search-console-multimodal-search-type-filter-42156.html">SERoundtable</a>が伝聞の出所です。</p>
+<h2>NO QUERIES｜選べない次元</h2>
+      <p>ヘルプセンターは、マルチモーダルの検索タイプを選んでいるあいだ、クエリの次元は使えないと説明しています（<a href="https://support.google.com/webmasters/answer/17011259">ヘルプ</a>）。画像が何を尋ねたのかは、このフィルタの中ではクエリ文字列として戻りません。見えるのは、どのページが、どの検索タイプで、どれだけ露出したかという側です。改善の仮説は、クエリ一覧ではなく、ページ本文と画像まわりの説明が画像クエリに耐えるか、という観察に落とします。</p>
+<h2>NOT THE GEN-AI REPORT｜生成AIレポートとの境界</h2>
+      <p>同じSearch Consoleでも、生成AI機能のレポートは別の読み方が要ります。SERoundtableは、生成AIレポートには今もクリックもクエリもない、と整理しています。9月28日公開予定の「GSCのAIインプレッションをどう読むか」は、クリックがない指標の使い方が主題です。本稿はそこを繰り返さず、新しく入ったマルチモーダルのデータが何を足し、何をまだ出さないかに限定します。両方を同じ「AI露出」として一枚にするのは、計測の混線です。</p>
+<h2>ON INADEQUATE｜不十分という見出しの置き場所</h2>
+      <p>Search Engine Journalの2026年9月13日の記事（Roger Montti氏）は、生成AIレポートの限界についてMueller氏が同意した、という枠で伝えています。「レポートは不十分」という言い方は、SEJ側の見出しの枠です。Mueller氏自身の言葉として同記事が置いているのは、「Position for these is hard to do in a way that makes it useful」（これらについて順位を、役に立つ形で扱うのは難しい）です。順位はブロックとして追われ、ばらして出ません。AI Overviewsのインプレッションは、リンクがスクロールで画面に入っていなくてもカウントされ得ます。生成AIレポートはWebデータのフィルタ済みの見え方であり、二つのレポートを足してはいけません。<a href="https://www.searchenginejournal.com/google-admits-search-console-reporting-for-ai-search-is-inadequate/589236/">SEJ</a></p>
+<h2>HOW TO USE｜Agent Readinessでの読み順</h2>
+      <p>第一に、WebをText-basedとMultimodalに分け、追加前の期間と件数を混ぜない。第二に、マルチモーダルでクエリが出ないことを欠測として記録し、ページ単位の露出だけを見る。第三に、生成AIレポートのクリックなし露出は別帳票のまま併読する。<a href="/insights/google-ai-coexistence-measurement/">Google検索とAI機能の共存</a>で整理した読み分けと、<a href="/insights/weighted-ai-visibility-stack/">三層の重み付け</a>は、この新しいフィルタを検索到達の中の入口差として置くのに使えます。第四に、HTML上の説明が画像クエリに対して足りるかは、<a href="/insights/html-observation-check-limits/">HTML観測の限界</a>のとおり、回答そのものの代替にはなりません。</p>
+<h2>LIMITS｜まだ言えないこと</h2>
+      <p>展開は9月24日に始まった段階です。全プロパティで同じ深さまで出揃ったとは、公式ブログは述べていません。マルチモーダルのインプレッションから、売上や推薦順位は推定できません。日本の需要が画像側にどれだけ寄っているかも、このレポート単体では出ません。</p>
+      <blockquote>
+        <strong>出典：</strong> <a href="https://developers.google.com/search/blog/2026/09/web-multimodal-in-sc">Google Search Central Blog「Web multimodal search in Search Console」2026-09-24</a>／<a href="https://support.google.com/webmasters/answer/17011259">Search Consoleヘルプ（マルチモーダル検索タイプ）</a>／<a href="https://www.seroundtable.com/google-search-console-multimodal-search-type-filter-42156.html">Search Engine Roundtable 2026-09-24</a>／<a href="https://www.searchenginejournal.com/google-admits-search-console-reporting-for-ai-search-is-inadequate/589236/">Search Engine Journal 2026-09-13</a>
+      </blockquote>
+<h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+
+<section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/google-ai-coexistence-measurement/">Google検索とAI機能の共存——クリックとインプレッションの読み分け</a>
+        </li>
+        <li>
+          <a href="/insights/weighted-ai-visibility-stack/">AI Visibilityを重み付けで読む——検索・回答・引用の三層スタック</a>
+        </li>
+        <li>
+          <a href="/insights/html-observation-check-limits/">サイトのHTMLだけでAI対応状況をどこまで確認できるか</a>
+        </li>
+        </ul>
+      </section>
+<div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-09-25</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>
