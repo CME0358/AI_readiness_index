@@ -1400,7 +1400,8 @@
     },
     {
       "slug": "gsc-multimodal-search-reporting",
-      "status": "editorial_hold",
+      "publishAt": "2026-10-01T10:00:00+09:00",
+      "status": "scheduled",
       "title": "カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか",
       "cardSummary": "9月24日からのマルチモーダル検索は、生成AIインプレッションの読み方とは別の帳票です。新しいフィルタが見せる範囲と、クエリが出ない限界を切り分けます。",
       "llmsLabel": "カメラがクエリになる",
@@ -1413,8 +1414,8 @@
       "editorialReviewedAt": "2026-09-25T00:18:00.000Z",
       "freshnessReviewedAt": "2026-09-25T00:18:00.000Z",
       "eirId": "EIR-20261001-002",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://developers.google.com/search/blog/2026/09/web-multimodal-in-sc",
@@ -1431,11 +1432,19 @@
           "sourceFreshness": "2026-09-24"
         }
       },
-      "heroReadyAt": "2026-09-25T00:18:00.000Z"
+      "phase3Stock": true,
+      "heroReadyAt": "2026-09-25T00:18:00.000Z",
+      "scheduledPublishAt": "2026-10-01T10:00:00+09:00",
+      "slotDate": "2026-10-01",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261001-DAILY-001",
+      "activatedAt": "2026-09-25T00:38:13.228Z"
     },
     {
       "slug": "aio-external-link-ai-mode-rct",
-      "status": "editorial_hold",
+      "publishAt": "2026-10-02T10:00:00+09:00",
+      "status": "scheduled",
       "title": "AI Overviewsの外部リンクとAI Mode誘導——クリックが減る条件を分ける",
       "cardSummary": "見た目のリンクがAI Modeへ入るテスト、外部リンク割合の第三者データ、米国のフィールド実験は三つに分けます。プレプリントは日本の流入へ一般化しません。",
       "llmsLabel": "外部リンクとAI Mode",
@@ -1448,8 +1457,8 @@
       "editorialReviewedAt": "2026-09-25T00:18:00.000Z",
       "freshnessReviewedAt": "2026-09-25T00:18:00.000Z",
       "eirId": "EIR-20261002-002",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://arxiv.org/abs/2608.18352",
@@ -1467,11 +1476,19 @@
           "note": "preprint_not_peer_reviewed; calendar date of the preprint is not stated beyond identifier 2608.18352. publicationDate here is the newest explicitly dated trade report in this package (2026-09-23), not an arXiv stamp."
         }
       },
-      "heroReadyAt": "2026-09-25T00:18:00.000Z"
+      "phase3Stock": true,
+      "heroReadyAt": "2026-09-25T00:18:00.000Z",
+      "scheduledPublishAt": "2026-10-02T10:00:00+09:00",
+      "slotDate": "2026-10-02",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261002-DAILY-001",
+      "activatedAt": "2026-09-25T00:38:13.228Z"
     },
     {
       "slug": "september-2026-spam-update",
-      "status": "editorial_hold",
+      "publishAt": "2026-10-05T10:00:00+09:00",
+      "status": "scheduled",
       "title": "2026年9月のスパムアップデート——生成AI回答の操作はポリシーの対象",
       "cardSummary": "9月24日開始、全世界・全言語、展開は最大2週間。生成AI回答の操作は現行ポリシーの対象です。9月23–24日の変動は未確認として扱います。",
       "llmsLabel": "9月のスパム更新",
@@ -1484,8 +1501,8 @@
       "editorialReviewedAt": "2026-09-25T00:18:00.000Z",
       "freshnessReviewedAt": "2026-09-25T00:18:00.000Z",
       "eirId": "EIR-20261005-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://status.search.google.com/incidents/XhUDXP7A67iHCD2kmbVu",
@@ -1502,11 +1519,19 @@
           "sourceFreshness": "2026-09-24"
         }
       },
-      "heroReadyAt": "2026-09-25T00:18:00.000Z"
+      "phase3Stock": true,
+      "heroReadyAt": "2026-09-25T00:18:00.000Z",
+      "scheduledPublishAt": "2026-10-05T10:00:00+09:00",
+      "slotDate": "2026-10-05",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261005-DAILY-001",
+      "activatedAt": "2026-09-25T00:38:13.228Z"
     },
     {
       "slug": "merchant-center-native-checkout-holiday",
-      "status": "editorial_hold",
+      "publishAt": "2026-10-06T10:00:00+09:00",
+      "status": "scheduled",
       "title": "Merchant Centerのネイティブチェックアウト——対象市場と自動対象の境界",
       "cardSummary": "Shopify一致の店舗へのメールと、直接連携の既定オフは別です。日本は対象外。米国・カナダ・豪州で売る場合の事前確認として整理します。",
       "llmsLabel": "ネイティブチェックアウトの境界",
@@ -1519,8 +1544,8 @@
       "editorialReviewedAt": "2026-09-25T00:18:00.000Z",
       "freshnessReviewedAt": "2026-09-25T00:18:00.000Z",
       "eirId": "EIR-20261006-002",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://blog.google/products-and-platforms/products/shopping/google-shopping-updates-holiday-shopping/",
@@ -1537,11 +1562,19 @@
           "sourceFreshness": "2026-09-22"
         }
       },
-      "heroReadyAt": "2026-09-25T00:18:00.000Z"
+      "phase3Stock": true,
+      "heroReadyAt": "2026-09-25T00:18:00.000Z",
+      "scheduledPublishAt": "2026-10-06T10:00:00+09:00",
+      "slotDate": "2026-10-06",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261006-DAILY-001",
+      "activatedAt": "2026-09-25T00:38:13.228Z"
     },
     {
       "slug": "uk-cma-choice-screens-three-shelves",
-      "status": "editorial_hold",
+      "publishAt": "2026-10-07T10:00:00+09:00",
+      "status": "scheduled",
       "title": "英国CMAの検索選択画面と、ChatGPT広告の三つの棚",
       "cardSummary": "CMAの選択画面は提案の段階で、相談は10月9日17時までです。三つの棚は編集上の枠で、ChatGPT広告の提供国は特定しません。",
       "llmsLabel": "選択画面と三つの棚",
@@ -1554,8 +1587,8 @@
       "editorialReviewedAt": "2026-09-25T00:18:00.000Z",
       "freshnessReviewedAt": "2026-09-25T00:18:00.000Z",
       "eirId": "EIR-20261007-001",
-      "holdReady": true,
-      "packageReadiness": "HOLD_READY",
+      "holdReady": false,
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://www.gov.uk/government/news/cma-strengthens-proposals-allowing-people-choice-over-their-search-service",
@@ -1573,7 +1606,14 @@
           "note": "OpenAI advertising page returned HTTP 403 to this editorial environment; facts below are limited to the verified brief and are not extended from a live fetch."
         }
       },
-      "heroReadyAt": "2026-09-25T00:18:00.000Z"
+      "phase3Stock": true,
+      "heroReadyAt": "2026-09-25T00:18:00.000Z",
+      "scheduledPublishAt": "2026-10-07T10:00:00+09:00",
+      "slotDate": "2026-10-07",
+      "slotType": "DAILY_PRIMARY",
+      "publicationState": "SCHEDULED",
+      "publicationId": "PUB-20261007-DAILY-001",
+      "activatedAt": "2026-09-25T00:38:13.228Z"
     }
   ]
 }
