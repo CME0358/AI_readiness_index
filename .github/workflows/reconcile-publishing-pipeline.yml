@@ -87,17 +87,66 @@ jobs:
 
       - name: Commit and push authoritative Web state
         if: steps.publish.outputs.changed == 'true'
+        env:
+          FORCE_SLUG: ${{ github.event.inputs.force_slug }}
+          NOW: ${{ github.event.inputs.now }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run }}
         run: |
           set -euo pipefail
           chmod +x scripts/lib/gha-git-push.sh
-          scripts/lib/gha-git-push.sh \
-            "$(cat <<'EOF'
+          branch="${GITHUB_REF_NAME:-main}"
+          commit_and_push() {
+            scripts/lib/gha-git-push.sh \
+              "$(cat <<'EOF'
           Reconcile Insights publication state
 
           Persist publish attempt and Web source before production verification.
           EOF
           )" \
-            insights/ sitemap.xml llms.txt insights/_scheduled/ insights/_social/ reports/
+              insights/ sitemap.xml llms.txt insights/_scheduled/ insights/_social/ reports/
+          }
+          # Exit 42 means origin changed a file this checkout also edited
+          # (the 7a575ac overwrite). Discard the stale tree and recompute.
+          recompute_from_origin() {
+            git fetch origin "$branch"
+            git reset --hard "origin/${branch}"
+            git clean -fd
+            CMD=(node scripts/reconcile-publishing-pipeline.mjs --skip-verify --skip-buffer)
+            if [ "${DRY_RUN_INPUT:-false}" = "true" ]; then CMD+=(--dry-run); fi
+            if [ -n "${FORCE_SLUG:-}" ]; then CMD+=(--force-slug "$FORCE_SLUG"); fi
+            if [ -n "${NOW:-}" ]; then CMD+=(--now "$NOW"); fi
+            "${CMD[@]}" | tee /tmp/reconcile-publish-retry.log
+            if ! grep -q 'UPDATED=1' /tmp/reconcile-publish-retry.log; then
+              echo "Recompute produced no publication changes"
+              exit 0
+            fi
+          }
+          set +e
+          commit_and_push
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          if [ "$code" -ne 42 ]; then
+            exit "$code"
+          fi
+          for attempt in 2 3 4 5; do
+            echo "origin moved under files this run edited — recomputing from latest ${branch} (attempt ${attempt})"
+            recompute_from_origin
+            set +e
+            commit_and_push
+            code=$?
+            set -e
+            if [ "$code" -eq 0 ]; then
+              exit 0
+            fi
+            if [ "$code" -ne 42 ]; then
+              exit "$code"
+            fi
+          done
+          echo "Could not publish without overwriting newer commits on ${branch}" >&2
+          exit 1
 
       - name: Stop after persisted publication failure
         if: steps.publish.outputs.exit_code != '0'
