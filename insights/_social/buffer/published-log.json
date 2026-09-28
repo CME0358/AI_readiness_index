@@ -1025,7 +1025,34 @@
       "publishAt": "2026-09-25T12:00:00+09:00",
       "dueAtUtc": "2026-09-25T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-28T01:00:00.000Z",
+      "slug": "gsc-ai-impressions-how-to-read",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ab9bc32612c9e6ac939f80a",
+      "publishAt": "2026-09-28T11:30:00+09:00",
+      "dueAtUtc": "2026-09-28T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-28T01:00:00.000Z",
+      "slug": "gsc-ai-impressions-how-to-read",
+      "channel": "facebook",
+      "bufferUpdateId": "6ab9bc33a94ef4516f23d406",
+      "publishAt": "2026-09-28T11:45:00+09:00",
+      "dueAtUtc": "2026-09-28T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-28T01:00:00.000Z",
+      "slug": "gsc-ai-impressions-how-to-read",
+      "channel": "x",
+      "bufferUpdateId": "6ab9bc3436a0dcfcb3eab0ef",
+      "publishAt": "2026-09-28T12:00:00+09:00",
+      "dueAtUtc": "2026-09-28T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-25T01:00:38.816Z"
+  "updatedAt": "2026-09-28T01:00:36.377Z"
 }

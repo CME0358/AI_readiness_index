@@ -789,13 +789,13 @@
       "linkedinPublishAt": "2026-09-28T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/gsc-ai-impressions-how-to-read/",
       "contentFile": "insights/_social/linkedin/posts/gsc-ai-impressions-how-to-read.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ab9bc32612c9e6ac939f80a",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-28T01:00:00.613Z",
-      "updatedAt": "2026-09-28T01:00:00.613Z",
+      "updatedAt": "2026-09-28T01:00:36.378Z",
       "series": "v2-stock"
     }
   ]
