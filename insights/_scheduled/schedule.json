@@ -1277,7 +1277,7 @@
     {
       "slug": "gsc-ai-impressions-how-to-read",
       "publishAt": "2026-09-28T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "GSCのAIインプレッションをどう読むか——クリックがない指標の使い方",
       "cardSummary": "AIインプレッションは流入ではない。GSCの生成AIレポートはクリックなし露出のログであり、全体パフォーマンスと併読して要約の正確性と導線を別管理する——読み方と限界をAgent Readinessの視点で本記事で整理する。",
       "llmsLabel": "GSC AIインプレッション",
@@ -1313,9 +1313,12 @@
       "scheduledPublishAt": "2026-09-28T10:00:00+09:00",
       "slotDate": "2026-09-28",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260928-DAILY-001",
-      "activatedAt": "2026-09-17T23:29:21.197Z"
+      "activatedAt": "2026-09-17T23:29:21.197Z",
+      "publishAttemptedAt": "2026-09-28T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-28T01:00:00.000Z"
     },
     {
       "slug": "schema-not-ai-citation-cheat-code",
