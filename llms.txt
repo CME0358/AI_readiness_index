@@ -70,6 +70,7 @@
 - [Gemini 3.8 AI Mode](https://readiness.coaretail.com/insights/gemini-3-8-ai-mode-visibility/): Insights Column（2026-09-24）
 - [ソーシャル引用Authority](https://readiness.coaretail.com/insights/geo-social-citation-authority/): Insights Column（2026-09-25）
 - [GSC AIインプレッション](https://readiness.coaretail.com/insights/gsc-ai-impressions-how-to-read/): Insights Column（2026-09-28）
+- [Schemaの限界](https://readiness.coaretail.com/insights/schema-not-ai-citation-cheat-code/): Insights Column（2026-09-29）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断

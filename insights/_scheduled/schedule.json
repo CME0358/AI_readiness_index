@@ -1325,7 +1325,7 @@
     {
       "slug": "schema-not-ai-citation-cheat-code",
       "publishAt": "2026-09-29T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "SchemaはAI引用のチートコードではない——構造化の役割と限界",
       "cardSummary": "Schemaは理解補助であり引用の保証ではない。本文と矛盾するマークアップは信頼を損ねる——構造化の役割と限界を分け、事実整備・正確な型・更新プロセスの順で設計する実務視点を本記事で丁寧に整理する視点です。",
       "llmsLabel": "Schemaの限界",
@@ -1361,9 +1361,12 @@
       "scheduledPublishAt": "2026-09-29T10:00:00+09:00",
       "slotDate": "2026-09-29",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260929-DAILY-001",
-      "activatedAt": "2026-09-17T23:29:21.197Z"
+      "activatedAt": "2026-09-17T23:29:21.197Z",
+      "publishAttemptedAt": "2026-09-29T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-29T01:00:00.000Z"
     },
     {
       "slug": "chatgpt-retrieval-citation-practice",
