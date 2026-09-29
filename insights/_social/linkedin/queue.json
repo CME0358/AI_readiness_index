@@ -806,13 +806,13 @@
       "linkedinPublishAt": "2026-09-29T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/schema-not-ai-citation-cheat-code/",
       "contentFile": "insights/_social/linkedin/posts/schema-not-ai-citation-cheat-code.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6abb0db3320ca548b4d38a11",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-29T01:00:00.220Z",
-      "updatedAt": "2026-09-29T01:00:00.220Z",
+      "updatedAt": "2026-09-29T01:00:36.805Z",
       "series": "v2-stock"
     }
   ]
