@@ -823,13 +823,13 @@
       "linkedinPublishAt": "2026-09-30T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/chatgpt-retrieval-citation-practice/",
       "contentFile": "insights/_social/linkedin/posts/chatgpt-retrieval-citation-practice.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6abc5f35d3050be9e37bac58",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-09-30T01:00:00.187Z",
-      "updatedAt": "2026-09-30T01:00:00.187Z",
+      "updatedAt": "2026-09-30T01:00:38.825Z",
       "series": "v2-stock"
     }
   ]

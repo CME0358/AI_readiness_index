@@ -1079,7 +1079,34 @@
       "publishAt": "2026-09-29T12:00:00+09:00",
       "dueAtUtc": "2026-09-29T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-09-30T01:00:00.000Z",
+      "slug": "chatgpt-retrieval-citation-practice",
+      "channel": "linkedin",
+      "bufferUpdateId": "6abc5f35d3050be9e37bac58",
+      "publishAt": "2026-09-30T11:30:00+09:00",
+      "dueAtUtc": "2026-09-30T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-30T01:00:00.000Z",
+      "slug": "chatgpt-retrieval-citation-practice",
+      "channel": "facebook",
+      "bufferUpdateId": "6abc5f35f3db08ac926e504e",
+      "publishAt": "2026-09-30T11:45:00+09:00",
+      "dueAtUtc": "2026-09-30T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-09-30T01:00:00.000Z",
+      "slug": "chatgpt-retrieval-citation-practice",
+      "channel": "x",
+      "bufferUpdateId": "6abc5f36bc79f721888f4066",
+      "publishAt": "2026-09-30T12:00:00+09:00",
+      "dueAtUtc": "2026-09-30T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-29T01:00:36.803Z"
+  "updatedAt": "2026-09-30T01:00:38.823Z"
 }
