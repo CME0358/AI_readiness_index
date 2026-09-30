@@ -1373,7 +1373,7 @@
     {
       "slug": "chatgpt-retrieval-citation-practice",
       "publishAt": "2026-09-30T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "ChatGPTの引用と取得——第三者分析から読み取れる実務示唆",
       "cardSummary": "Labrador等の内部名称はOpenAI未確認だ。Peec.ai等の第三者分析は参考資料——取得パイプラインの切替と冒頭可視テキストの設計を、断定ではなく検証可能なチェックに落とす視点を本記事で整理する。",
       "llmsLabel": "ChatGPT引用分析",
@@ -1409,9 +1409,12 @@
       "scheduledPublishAt": "2026-09-30T10:00:00+09:00",
       "slotDate": "2026-09-30",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20260930-DAILY-001",
-      "activatedAt": "2026-09-17T23:29:21.197Z"
+      "activatedAt": "2026-09-17T23:29:21.197Z",
+      "publishAttemptedAt": "2026-09-30T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-09-30T01:00:00.000Z"
     },
     {
       "slug": "gsc-multimodal-search-reporting",
