@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>AI Overviewの引用は下へ動き、Show moreはLoadingになる | Agent Readiness Insights</title>
+<meta name="description" content="デスクトップのAI Overviewsで、引用カードが右ではなく下に出るテストがあります。別の日には、Show moreがLoading...になるテストがあります。クリックの変化は報告されていません。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/aio-citation-cards-and-loading/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Overviewの引用は下へ動き、Show moreはLoadingになる">
+<meta property="og:description" content="デスクトップのAI Overviewsで、引用カードが右ではなく下に出るテストがあります。別の日には、Show moreがLoading...になるテストがあります。クリックの変化は報告されていません。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/aio-citation-cards-and-loading/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://readiness.coaretail.com/assets/insights/aio-citation-cards-and-loading/hero.webp">
+<meta name="twitter:image" content="https://readiness.coaretail.com/assets/insights/aio-citation-cards-and-loading/hero.webp">
+
+<meta name="twitter:title" content="AI Overviewの引用は下へ動き、Show moreはLoadingになる">
+<meta name="twitter:description" content="デスクトップのAI Overviewsで、引用カードが右ではなく下に出るテストがあります。別の日には、Show moreがLoading...になるテストがあります。クリックの変化は報告されていません。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Overviewの引用は下へ動き、Show moreはLoadingになる",
+  "description": "デスクトップのAI Overviewsで、引用カードが右ではなく下に出るテストがあります。別の日には、Show moreがLoading...になるテストがあります。クリックの変化は報告されていません。",
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-01",
+  "author": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール",
+    "url": "https://www.coaretail.com"
+  },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/aio-citation-cards-and-loading/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="../../assets/insights/hero.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.article-body a.btn-navy,
+.article-body a.btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+  <link rel="stylesheet" href="/assets/sitewide-cta.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>引用カードとLoading</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-10-01">2026.10.01</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>AI Overviewの引用は下へ動き、Show moreはLoadingになる</h1>
+      <p class="lead">AI Overviewsの引用カードが、デスクトップでは右ではなく下に出るテストがあります。別のテストでは、Show moreがLoading...になっています。クリックが変わった、とは書きません。</p>
+    </div>
+  </header>
+  <figure class="insight-hero"><img src="/assets/insights/aio-citation-cards-and-loading/hero.webp" alt="aio-citation-cards-and-loading のInsight Hero" width="1672" height="941" loading="eager"></figure>
+
+  <article class="article-body container" data-article-slug="aio-citation-cards-and-loading" data-article-title="AI Overviewの引用は下へ動き、Show moreはLoadingになる" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <div class="sitewide-cta" data-cta-profile="aio-citation-cards-and-loading" data-editorial-intent="EVIDENCE">
+        <a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_aio-citation-cards-and-loading_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/aio-citation-cards-and-loading/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_aio-citation-cards-and-loading_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/aio-citation-cards-and-loading/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+<h2>CITATION CARDS｜デスクトップでは下</h2>
+      <p>Search Engine Roundtableは2026年9月29日、デスクトップのAI Overviewsで、引用カードが右ではなく下に出るテストを伝えています。同様の見え方は、2026年3月と、その前の2025年9月にも試された、と同記事は書いています。Glenn Gabe氏が見つけ、引用が回答の下に積まれ、右の引用バーが消え、show allを押すと下に一覧が出る、と投稿しています。<a href="https://www.seroundtable.com/google-ai-overviews-citations-cards-bottom-42177.html">SERoundtable</a></p>
+<h2>SHOW MORE｜開くまでカードが無い</h2>
+      <p>同じ記事は、Show moreを押したあとに、引用リンクが広がる様子を書いています。Barry Schwartz氏は、Show moreを押さない限り、そしてGoogleが自動で広げない限り、引用カードは無く、回答の中のリンクアイコンだけだ、と書いています。Gabe氏は、下にある方がリンクが魅力的に見える、と述べています。これは印象です。クリックが変わった、という計測ではありません。</p>
+<h2>LOADING｜別の日の、ボタン文言</h2>
+      <p>2026年9月28日の別記事は、AI Overviewsの下のShow moreを、Loading...というボタンに置き換えるテストを伝えています。今年の早い時期には、ボタンの文言をEnter AI Modeにするテストがあり、それは定着しなかった、とも書いています。見つけたのはSachin Patel氏と、Khushal Bherwani氏です。Barry Schwartz氏は再現できず、自分の画面ではShow moreのままだった、と書いています。氏は、Loading...が好ましいかは分からないが、利用者をAI Modeへ入れるよりはましだ、と書いています。これは感想です。クリックの計測ではありません。<a href="https://www.seroundtable.com/google-ai-overviews-loading-button-42170.html">SERoundtable</a></p>
+<h2>NOT THE DIVERSION PIECE｜10月2日の記事とは別</h2>
+      <p>見た目のリンクがAI Modeへ入るテストは、<a href="/insights/aio-external-link-ai-mode-rct/">10月2日の記事</a>が扱っています。本稿はそれを書き換えません。ここで分けるのは、引用カードの位置と、展開ボタンの文言です。どちらも、テストとして報告されたものです。恒久の仕様だとは書かれていません。クリックが減った、とも書きません。</p>
+<h2>SEPTEMBER 30｜同じページの更新は、別の観察</h2>
+      <p>Loadingの記事には、2026年9月30日の更新があります。Gagan Ghotra氏が、モバイルではShow moreを押すとオーバーレイが開き、通常の結果を見るには戻る必要がある、と投稿した、という内容です。これは、Loading...という文言のテストとは別の観察として置きます。クリック率の変化ではありません。9月29日の日次まとめも、引用カードが下に出るテストを、その日の項目として挙げています。<a href="https://www.seroundtable.com/recap-09-29-2026-42182.html">SERoundtable</a></p>
+<h2>WHAT TO LOG｜自社で残す項目</h2>
+      <p>残すなら、デスクトップかモバイルか、引用が右か下か、展開ボタンの文言がShow moreかLoading...か、押したあとの行き先が回答の続きか別の画面か、観測日時、です。10月2日の記事が扱う、外部リンクの行き先とは、列を分けてください。</p>
+      <blockquote>
+        <strong>出典：</strong> <a href="https://www.seroundtable.com/google-ai-overviews-citations-cards-bottom-42177.html">Search Engine Roundtable 2026-09-29</a>（引用カード。2026年3月と2025年9月の先行テスト）／<a href="https://www.seroundtable.com/google-ai-overviews-loading-button-42170.html">Search Engine Roundtable 2026-09-28</a>（Show moreがLoading...）／<a href="https://www.seroundtable.com/recap-09-29-2026-42182.html">日次まとめ 2026-09-29</a>（クリックの変化は主張しない）
+      </blockquote>
+<h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+
+<section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/aio-external-link-ai-mode-rct/">AI Overviewsの外部リンクとAI Mode誘導——クリックが減る条件を分ける</a>
+        </li>
+        <li>
+          <a href="/insights/google-ai-coexistence-measurement/">Google検索とAI機能の共存——クリックとインプレッションの読み分け</a>
+        </li>
+        <li>
+          <a href="/insights/gemini-3-8-ai-mode-visibility/">Gemini 3.8とAI Mode——複数AI面でのVisibility確認</a>
+        </li>
+        </ul>
+      </section>
+<div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-10-01</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>
