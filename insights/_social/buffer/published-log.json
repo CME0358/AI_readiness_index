@@ -1106,7 +1106,34 @@
       "publishAt": "2026-09-30T12:00:00+09:00",
       "dueAtUtc": "2026-09-30T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-01T01:00:00.000Z",
+      "slug": "gsc-multimodal-search-reporting",
+      "channel": "linkedin",
+      "bufferUpdateId": "6abdb0b2b29c0fecf4109c91",
+      "publishAt": "2026-10-01T11:30:00+09:00",
+      "dueAtUtc": "2026-10-01T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-01T01:00:00.000Z",
+      "slug": "gsc-multimodal-search-reporting",
+      "channel": "facebook",
+      "bufferUpdateId": "6abdb0b326106f733269f32f",
+      "publishAt": "2026-10-01T11:45:00+09:00",
+      "dueAtUtc": "2026-10-01T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-01T01:00:00.000Z",
+      "slug": "gsc-multimodal-search-reporting",
+      "channel": "x",
+      "bufferUpdateId": "6abdb0b324db200ef441abc5",
+      "publishAt": "2026-10-01T12:00:00+09:00",
+      "dueAtUtc": "2026-10-01T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-09-30T01:00:38.823Z"
+  "updatedAt": "2026-10-01T01:00:36.014Z"
 }
