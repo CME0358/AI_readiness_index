@@ -1,0 +1,12 @@
+# APPLIED 2026-10-01T12:00:00.000Z — do not re-apply.
+# Five packages added as status "scheduled" in insights/_scheduled/schedule.json.
+# Weekend 2026-10-10, 2026-10-11 and Sports Day 2026-10-12 are left empty.
+#   2026-10-08 ai-mode-information-monitoring
+#   2026-10-09 branded-queries-ai-overviews
+#   2026-10-13 bing-edge-ai-mode-naming
+#   2026-10-14 ai-contribution-pilot-economics
+#   2026-10-15 aio-citation-cards-and-loading
+# publishAt and scheduledPublishAt are 10:00+09:00, slotType DAILY_PRIMARY,
+# publicationState SCHEDULED, publicationId PUB-YYYYMMDD-DAILY-001.
+# This file is a record only. publish-scheduled-insights, unlock-next-insight,
+# and reconcile-publishing-pipeline do not read it.
