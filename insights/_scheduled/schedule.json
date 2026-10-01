@@ -1421,7 +1421,7 @@
     {
       "slug": "gsc-multimodal-search-reporting",
       "publishAt": "2026-10-01T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "カメラがクエリになる——GSCのマルチモーダル検索は何を見せ、何を見せないか",
       "cardSummary": "9月24日からのマルチモーダル検索は、生成AIインプレッションの読み方とは別の帳票です。新しいフィルタが見せる範囲と、クエリが出ない限界を切り分けます。",
       "llmsLabel": "カメラがクエリになる",
@@ -1457,9 +1457,12 @@
       "scheduledPublishAt": "2026-10-01T10:00:00+09:00",
       "slotDate": "2026-10-01",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261001-DAILY-001",
-      "activatedAt": "2026-09-25T00:38:13.228Z"
+      "activatedAt": "2026-09-25T00:38:13.228Z",
+      "publishAttemptedAt": "2026-10-01T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-01T01:00:00.000Z"
     },
     {
       "slug": "aio-external-link-ai-mode-rct",

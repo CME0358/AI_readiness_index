@@ -831,6 +831,23 @@
       "createdAt": "2026-09-30T01:00:00.187Z",
       "updatedAt": "2026-09-30T01:00:38.825Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-gsc-multimodal-search-reporting-2026-10-01",
+      "slug": "gsc-multimodal-search-reporting",
+      "articlePublishAt": "2026-10-01T10:00:00+09:00",
+      "bufferTransferAt": "2026-10-01T10:30:00+09:00",
+      "linkedinPublishAt": "2026-10-01T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/gsc-multimodal-search-reporting/",
+      "contentFile": "insights/_social/linkedin/posts/gsc-multimodal-search-reporting.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-10-01T01:00:00.285Z",
+      "updatedAt": "2026-10-01T01:00:00.285Z",
+      "series": "v2-stock"
     }
   ]
 }
