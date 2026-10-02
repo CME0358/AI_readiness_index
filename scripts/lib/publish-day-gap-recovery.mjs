@@ -3,7 +3,7 @@
  */
 import fs from 'node:fs';
 import { PATHS } from './insights-v2-paths.mjs';
-import { toJstDateString, isWeekday, nextPublishDayAfterUnlock } from './business-days.mjs';
+import { toJstDateString, isWeekday, isClosedPublishDate, nextPublishDayAfterUnlock } from './business-days.mjs';
 import {
   findEarliestScheduledArticle,
   findPublishedOnDate,
@@ -24,7 +24,7 @@ export function listWeekdayGaps(schedule, { startYmd, endYmd } = {}) {
   const gaps = [];
   let ymd = startYmd;
   while (ymd <= endYmd) {
-    if (isWeekday(new Date(`${ymd}T12:00:00+09:00`))) {
+    if (isWeekday(new Date(`${ymd}T12:00:00+09:00`)) && !isClosedPublishDate(ymd)) {
       const scheduled = findScheduledOnDate(schedule, ymd);
       const published = findPublishedOnDate(schedule, ymd);
       if (!scheduled && !published) gaps.push(ymd);
@@ -57,6 +57,9 @@ export function recoverPublishDayGap({
   if (!gaps.length) return { recovered: false, reason: 'no_gap', startYmd, endYmd };
 
   const gapYmd = gaps[0];
+  if (isClosedPublishDate(gapYmd)) {
+    return { recovered: false, reason: 'closed_publish_day', gaps, startYmd, endYmd, gapYmd };
+  }
   const candidate = schedule.articles
     .filter((a) => a.status === EDITORIAL_STATUSES.SCHEDULED && a.publishAt)
     .filter((a) => a.publishAt.slice(0, 10) > gapYmd)
