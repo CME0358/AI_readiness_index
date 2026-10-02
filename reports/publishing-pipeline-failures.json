@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-01T01:00:36.016Z",
+  "updatedAt": "2026-10-02T01:00:36.543Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "gsc-multimodal-search-reporting",
+    "slug": "aio-external-link-ai-mode-rct",
     "stage": "buffer_queued",
-    "at": "2026-10-01T01:00:36.016Z"
+    "at": "2026-10-02T01:00:36.543Z"
   }
 }

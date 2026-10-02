@@ -857,13 +857,13 @@
       "linkedinPublishAt": "2026-10-02T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/aio-external-link-ai-mode-rct/",
       "contentFile": "insights/_social/linkedin/posts/aio-external-link-ai-mode-rct.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6abf023263de9e09a2867283",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-02T01:00:00.289Z",
-      "updatedAt": "2026-10-02T01:00:00.289Z",
+      "updatedAt": "2026-10-02T01:00:36.541Z",
       "series": "v2-stock"
     }
   ]

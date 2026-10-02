@@ -1133,7 +1133,34 @@
       "publishAt": "2026-10-01T12:00:00+09:00",
       "dueAtUtc": "2026-10-01T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-02T01:00:00.000Z",
+      "slug": "aio-external-link-ai-mode-rct",
+      "channel": "linkedin",
+      "bufferUpdateId": "6abf023263de9e09a2867283",
+      "publishAt": "2026-10-02T11:30:00+09:00",
+      "dueAtUtc": "2026-10-02T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-02T01:00:00.000Z",
+      "slug": "aio-external-link-ai-mode-rct",
+      "channel": "facebook",
+      "bufferUpdateId": "6abf02338bccc8e641641c61",
+      "publishAt": "2026-10-02T11:45:00+09:00",
+      "dueAtUtc": "2026-10-02T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-02T01:00:00.000Z",
+      "slug": "aio-external-link-ai-mode-rct",
+      "channel": "x",
+      "bufferUpdateId": "6abf023422215530c70e3965",
+      "publishAt": "2026-10-02T12:00:00+09:00",
+      "dueAtUtc": "2026-10-02T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-10-01T01:00:36.014Z"
+  "updatedAt": "2026-10-02T01:00:36.539Z"
 }

@@ -1511,7 +1511,9 @@
       "activatedAt": "2026-09-25T00:38:13.228Z",
       "publishAttemptedAt": "2026-10-02T01:00:00.000Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-10-02T01:00:00.000Z"
+      "publishedAt": "2026-10-02T01:00:00.000Z",
+      "productionVerifiedAt": "2026-10-02T01:00:33.697Z",
+      "verificationAttemptCount": 2
     },
     {
       "slug": "september-2026-spam-update",
