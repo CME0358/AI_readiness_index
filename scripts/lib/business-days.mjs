@@ -11,6 +11,19 @@ export function isWeekday(date) {
   return wd >= 1 && wd <= 5;
 }
 
+/**
+ * Weekdays that stay empty. There is no holiday calendar in this repo;
+ * add a single date when a Japanese holiday must not receive a pulled-forward slot.
+ * 2026-10-12 is Sports Day (スポーツの日).
+ */
+export const CLOSED_PUBLISH_DATES = Object.freeze([
+  '2026-10-12',
+]);
+
+export function isClosedPublishDate(ymd) {
+  return CLOSED_PUBLISH_DATES.includes(String(ymd || '').slice(0, 10));
+}
+
 /** @param {string} startYmd YYYY-MM-DD */
 export function businessDaysFrom(startYmd, count) {
   const [y, m, d] = startYmd.split('-').map(Number);
