@@ -20,11 +20,36 @@ export function findLatestScheduledArticle(schedule) {
 }
 import { rescheduleArticlePublishDay } from './reschedule-publish-day.mjs';
 
+function heldPublishEntries(schedule) {
+  const held = schedule?.policy?.heldPublishDates;
+  return Array.isArray(held) ? held : [];
+}
+
+/** A weekday left empty because an article was held, not cancelled. */
+export function isHeldPublishDate(schedule, ymd) {
+  const date = String(ymd || '').slice(0, 10);
+  return heldPublishEntries(schedule).some((entry) => String(entry?.date || '').slice(0, 10) === date);
+}
+
+function heldPublishEntriesInWindow(schedule, startYmd, endYmd) {
+  return heldPublishEntries(schedule).filter((entry) => {
+    const date = String(entry?.date || '').slice(0, 10);
+    if (!date) return false;
+    if (startYmd && date < startYmd) return false;
+    if (endYmd && date > endYmd) return false;
+    return true;
+  });
+}
+
 export function listWeekdayGaps(schedule, { startYmd, endYmd } = {}) {
   const gaps = [];
   let ymd = startYmd;
   while (ymd <= endYmd) {
-    if (isWeekday(new Date(`${ymd}T12:00:00+09:00`)) && !isClosedPublishDate(ymd)) {
+    if (
+      isWeekday(new Date(`${ymd}T12:00:00+09:00`)) &&
+      !isClosedPublishDate(ymd) &&
+      !isHeldPublishDate(schedule, ymd)
+    ) {
       const scheduled = findScheduledOnDate(schedule, ymd);
       const published = findPublishedOnDate(schedule, ymd);
       if (!scheduled && !published) gaps.push(ymd);
@@ -54,11 +79,35 @@ export function recoverPublishDayGap({
 } = {}) {
   const { startYmd, endYmd } = findGapScanWindow(schedule, now);
   const gaps = listWeekdayGaps(schedule, { startYmd, endYmd });
-  if (!gaps.length) return { recovered: false, reason: 'no_gap', startYmd, endYmd };
+  if (!gaps.length) {
+    const held = heldPublishEntriesInWindow(schedule, startYmd, endYmd);
+    if (held.length) {
+      return {
+        recovered: false,
+        reason: held[0].reason || 'held_not_cancelled',
+        held,
+        startYmd,
+        endYmd,
+      };
+    }
+    return { recovered: false, reason: 'no_gap', startYmd, endYmd };
+  }
 
   const gapYmd = gaps[0];
   if (isClosedPublishDate(gapYmd)) {
     return { recovered: false, reason: 'closed_publish_day', gaps, startYmd, endYmd, gapYmd };
+  }
+  if (isHeldPublishDate(schedule, gapYmd)) {
+    const held = heldPublishEntries(schedule).find((entry) => String(entry?.date || '').slice(0, 10) === gapYmd);
+    return {
+      recovered: false,
+      reason: held?.reason || 'held_not_cancelled',
+      held,
+      gaps,
+      startYmd,
+      endYmd,
+      gapYmd,
+    };
   }
   const candidate = schedule.articles
     .filter((a) => a.status === EDITORIAL_STATUSES.SCHEDULED && a.publishAt)

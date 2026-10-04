@@ -3,7 +3,15 @@
   "policy": {
     "publishTime": "10:00",
     "weekdaysOnly": true,
-    "note": "平日（月〜金）のみ公開。土日はスキップ。"
+    "note": "平日（月〜金）のみ公開。土日はスキップ。",
+    "heldPublishDates": [
+      {
+        "date": "2026-10-05",
+        "slug": "september-2026-spam-update",
+        "reason": "held_not_cancelled",
+        "note": "September 2026 Spam Update is still Active (https://status.search.google.com/incidents/XhUDXP7A67iHCD2kmbVu as of 2026-10-05 07:52 JST). The 2026-10-05 10:00 JST slot was held, not cancelled. Do not pull another article onto this date."
+      }
+    ]
   },
   "articles": [
     {
@@ -1517,7 +1525,7 @@
     },
     {
       "slug": "september-2026-spam-update",
-      "publishAt": "2026-10-05T10:00:00+09:00",
+      "publishAt": "2026-10-16T10:00:00+09:00",
       "status": "scheduled",
       "title": "2026年9月のスパムアップデート——生成AI回答の操作はポリシーの対象",
       "cardSummary": "9月24日開始、全世界・全言語、展開は最大2週間。生成AI回答の操作は現行ポリシーの対象です。9月23–24日の変動は未確認として扱います。",
@@ -1551,11 +1559,11 @@
       },
       "phase3Stock": true,
       "heroReadyAt": "2026-09-25T00:18:00.000Z",
-      "scheduledPublishAt": "2026-10-05T10:00:00+09:00",
-      "slotDate": "2026-10-05",
+      "scheduledPublishAt": "2026-10-16T10:00:00+09:00",
+      "slotDate": "2026-10-16",
       "slotType": "DAILY_PRIMARY",
       "publicationState": "SCHEDULED",
-      "publicationId": "PUB-20261005-DAILY-001",
+      "publicationId": "PUB-20261016-DAILY-001",
       "activatedAt": "2026-09-25T00:38:13.228Z"
     },
     {
