@@ -1893,7 +1893,7 @@
       "freshnessReviewedAt": "2026-10-05T02:00:00.000Z",
       "eirId": "EIR-20261005-002",
       "holdReady": false,
-      "packageReadiness": "HERO_PENDING",
+      "packageReadiness": "PACKAGE_READY",
       "sourceMetadata": {
         "type": "primary_source",
         "url": "https://www.searchenginejournal.com/google-gemini-adds-utm-parameters-for-referral-attribution/591754/",
@@ -1913,7 +1913,6 @@
         }
       },
       "phase3Stock": true,
-      "heroPendingAt": "2026-10-05T02:00:00.000Z",
       "scheduledPublishAt": "2026-10-05T10:00:00+09:00",
       "slotDate": "2026-10-05",
       "slotType": "DAILY_PRIMARY",
@@ -1922,7 +1921,8 @@
       "activatedAt": "2026-10-05T02:00:00.000Z",
       "publishAttemptedAt": "2026-10-05T06:38:12.193Z",
       "publishAttemptCount": 1,
-      "publishedAt": "2026-10-05T06:38:12.193Z"
+      "publishedAt": "2026-10-05T06:38:12.193Z",
+      "heroReadyAt": "2026-10-05T11:06:07.634Z"
     }
   ]
 }
