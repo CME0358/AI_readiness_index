@@ -28,4 +28,8 @@ const result = await runWorker({
 });
 
 console.log(JSON.stringify({ mode, visualMode, ...result }, null, 2));
+if (result.finalResult === 'VISUAL_WORKER_TOOLCHAIN_MISSING') {
+  console.error(result.error);
+  process.exit(1);
+}
 process.exit(0);

@@ -34,6 +34,7 @@ if (role === PREPUBLISH_ROLES.MORNING_PREFLIGHT) {
     productionCheck: simulate ? async () => ({ ok: true, status: 200, simulated: true }) : undefined,
   });
   console.log(JSON.stringify({ role, action: 'MORNING_PREFLIGHT_RECOVERY', result }, null, 2));
+  if (result.finalResult === 'VISUAL_WORKER_TOOLCHAIN_MISSING') console.error(result.error);
   process.exit(result.finalResult === 'SUCCESS' ? 0 : 1);
 }
 
@@ -50,6 +51,7 @@ const result = await runWorker({
 });
 
 console.log(JSON.stringify({ role, visualMode, ...result }, null, 2));
+if (result.finalResult === 'VISUAL_WORKER_TOOLCHAIN_MISSING') console.error(result.error);
 process.exit(
   result.finalResult === 'SUCCESS' || result.finalResult === 'NO_PREPUBLISH_CANDIDATE' || result.finalResult === 'DRY_RUN_CANDIDATE'
     ? 0

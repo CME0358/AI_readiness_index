@@ -34,6 +34,10 @@ import {
   configFor,
   canonicalHeroPath,
 } from './local-visual-worker.mjs';
+import {
+  INSIGHTS_HERO_TOOLCHAIN_CODE,
+  assertInsightsHeroToolchain,
+} from './insights-hero-toolchain.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MANIFEST_PATH = path.join(ROOT, 'crucial_data/editorial/phase3-top10.json');
@@ -187,7 +191,11 @@ export function checkAbisBoundary(article, bodyText = '') {
   return { pass: true, status: 'ABIS_BOUNDARY_PASS' };
 }
 
-export async function generateHoldStockHero(slug, { root = ROOT, skipHero = false } = {}) {
+export async function generateHoldStockHero(slug, {
+  root = ROOT,
+  skipHero = false,
+  assertToolchain = assertInsightsHeroToolchain,
+} = {}) {
   if (skipHero) return { ok: false, status: 'HERO_SKIPPED', attempts: 0 };
   const config = configFor(root);
   const articlePath = path.join(root, 'insights/_scheduled', slug, 'index.html');
@@ -195,6 +203,21 @@ export async function generateHoldStockHero(slug, { root = ROOT, skipHero = fals
   if (fs.existsSync(canonicalHeroPath(config, slug))) {
     integrateHoldStockHero(config, slug, { root });
     return { ok: true, status: 'HERO_PASS', attempts: 0, reused: true };
+  }
+
+  try {
+    assertToolchain();
+  } catch (error) {
+    if (error.code === INSIGHTS_HERO_TOOLCHAIN_CODE) {
+      return {
+        ok: false,
+        status: 'HERO_TOOLCHAIN_MISSING',
+        reason: error.message,
+        attempts: 0,
+        toolchainMissing: true,
+      };
+    }
+    throw error;
   }
 
   const workspace = fs.mkdtempSync(path.join('/private/tmp', `ari-phase3-hero-${slug}-`));
@@ -210,29 +233,42 @@ export async function generateHoldStockHero(slug, { root = ROOT, skipHero = fals
 
   let quality = null;
   let attempts = 0;
-  for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt += 1) {
-    attempts = attempt;
-    const generation = runNativeGeneration(workspace, candidate, canon, attempt);
-    quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generation.timedOut ? 'timeout' : 'codex_exec_failure' };
-    if (generation.ok && quality.ok) break;
-    if (!generation.ok && (generation.capabilityFailure || generation.timedOut)) {
-      return { ok: false, status: 'HERO_FAILED', reason: generation.timedOut ? 'timeout' : 'capability_failure', attempts };
+  try {
+    for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt += 1) {
+      attempts = attempt;
+      const generation = runNativeGeneration(workspace, candidate, canon, attempt);
+      quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generation.timedOut ? 'timeout' : 'codex_exec_failure' };
+      if (generation.ok && quality.ok) break;
+      if (!generation.ok && (generation.capabilityFailure || generation.timedOut)) {
+        return { ok: false, status: 'HERO_FAILED', reason: generation.timedOut ? 'timeout' : 'capability_failure', attempts };
+      }
     }
-  }
-  if (!quality?.ok) {
-    return { ok: false, status: 'HERO_FAILED', reason: quality?.reason || 'quality_gate_failed', attempts };
-  }
+    if (!quality?.ok) {
+      return { ok: false, status: 'HERO_FAILED', reason: quality?.reason || 'quality_gate_failed', attempts };
+    }
 
-  const heroOutput = path.join(root, 'assets', 'insights', slug, 'hero.webp');
-  optimizeToWebp(quality.imagePath, heroOutput, workspace);
-  integrateHoldStockHero(config, slug, { root });
-  const integration = validateHoldStockIntegration(config, slug, { root });
-  return {
-    ok: integration.ok,
-    status: integration.ok ? 'HERO_PASS' : 'HERO_FAILED',
-    attempts,
-    integrationErrors: integration.errors,
-  };
+    const heroOutput = path.join(root, 'assets', 'insights', slug, 'hero.webp');
+    optimizeToWebp(quality.imagePath, heroOutput, workspace);
+    integrateHoldStockHero(config, slug, { root });
+    const integration = validateHoldStockIntegration(config, slug, { root });
+    return {
+      ok: integration.ok,
+      status: integration.ok ? 'HERO_PASS' : 'HERO_FAILED',
+      attempts,
+      integrationErrors: integration.errors,
+    };
+  } catch (error) {
+    if (error.code === INSIGHTS_HERO_TOOLCHAIN_CODE) {
+      return {
+        ok: false,
+        status: 'HERO_TOOLCHAIN_MISSING',
+        reason: error.message,
+        attempts,
+        toolchainMissing: true,
+      };
+    }
+    throw error;
+  }
 }
 
 function upsertHoldStockScheduleEntry(schedule, article, seoPkg, state, { now = new Date() } = {}) {
@@ -428,7 +464,7 @@ export async function processPhase3Article(article, { root = ROOT, skipHero = fa
 
   const hero = await generateHoldStockHero(article.slug, { root, skipHero });
   result.heroAttempts = hero.attempts || 0;
-  result.heroStatus = hero.ok ? 'PASS' : 'FAIL';
+  result.heroStatus = hero.ok ? 'PASS' : (hero.toolchainMissing ? 'TOOLCHAIN_MISSING' : 'FAIL');
 
   const scheduleAfter = loadSchedule();
   const entryAfter = scheduleAfter.articles.find((a) => a.slug === article.slug);

@@ -43,6 +43,12 @@
 | `GITHUB_DISPATCH_TOKEN` | GitHub PAT（`repo` + `workflow` / `actions:write`） |
 | `GITHUB_REPOSITORY` | 省略可。既定 `CME0358/AI_readiness_index` |
 
+## ヒーロー画像
+
+`assets/insights/<slug>/hero.webp` は Codex Native（`codex exec`）と Mac の `convert-webp.mjs` だけで作る。手順は `docs/insights-hero-generation.md`。
+
+`codex` または変換スクリプトが無い環境（クラウド VM を含む）では画像を置かず、`schedule.json` の `packageReadiness` は `HERO_PENDING` のままにする。Pillow、GenerateImage、ffmpeg、`cwebp` でヒーローを作らない。公開日時と Buffer のキューはヒーローの有無で動かさない。
+
 ## 手動実行
 
 ```bash

@@ -2,6 +2,10 @@
 /**
  * Convert a column markdown file into insights article HTML.
  * Usage: node scripts/generate-insight-article.mjs --md <path> --slug <slug> --date YYYY-MM-DD --out <dir> [--lead "..."] [--desc "..."] [--crumb "..."] [--cta-extra href|label] [--editorial-intent INTENT]
+ *
+ * Does not create assets/insights/<slug>/hero.webp. Heroes use Codex Native and
+ * convert-webp.mjs (docs/insights-hero-generation.md). If that toolchain is
+ * missing, leave packageReadiness HERO_PENDING and skip image generation.
  */
 import fs from 'node:fs';
 import path from 'node:path';

@@ -18,4 +18,5 @@ if (report.ok) {
 
 const result = await runWorker({ visualMode: VISUAL_MODES.PRIMARY_PREPUBLISH });
 console.log(JSON.stringify({ action: 'PREPUBLISH_RECOVERY', result }, null, 2));
+if (result.finalResult === 'VISUAL_WORKER_TOOLCHAIN_MISSING') console.error(result.error);
 process.exit(result.finalResult === 'SUCCESS' ? 0 : 1);
