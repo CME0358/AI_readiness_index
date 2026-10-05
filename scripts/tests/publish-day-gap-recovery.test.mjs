@@ -181,11 +181,18 @@ test('schedule.json holds 2026-10-05 and moves only the spam update to 2026-10-1
       .map((value) => String(value).slice(0, 10));
     return dates.includes('2026-10-05');
   });
-  assert.deepEqual(onHeldDay.map((article) => article.slug), []);
+  assert.deepEqual(onHeldDay.map((article) => article.slug), ['gemini-utm-and-st-source']);
+  const utm = bySlug['gemini-utm-and-st-source'];
+  assert.equal(utm.status, 'scheduled');
+  assert.equal(utm.publishAt, '2026-10-05T10:00:00+09:00');
+  assert.equal(utm.slotDate, '2026-10-05');
+  assert.equal(utm.scheduledPublishAt, '2026-10-05T10:00:00+09:00');
 
   const hold = schedule.policy.heldPublishDates.find((entry) => entry.date === '2026-10-05');
   assert.equal(hold.slug, 'september-2026-spam-update');
   assert.equal(hold.reason, 'held_not_cancelled');
+  assert.match(hold.note, /gemini-utm-and-st-source/);
+  assert.match(hold.note, /merchant-center-native-checkout-holiday/);
 
   const slots = {
     'merchant-center-native-checkout-holiday': '2026-10-06',
