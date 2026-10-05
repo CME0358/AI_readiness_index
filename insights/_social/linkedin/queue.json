@@ -874,13 +874,13 @@
       "linkedinPublishAt": "2026-10-05T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/gemini-utm-and-st-source/",
       "contentFile": "insights/_social/linkedin/posts/gemini-utm-and-st-source.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "pre-existing-buffer-post",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-05T06:38:12.249Z",
-      "updatedAt": "2026-10-05T06:38:12.249Z",
+      "updatedAt": "2026-10-05T12:56:53.066Z",
       "series": "v2-stock"
     }
   ]
