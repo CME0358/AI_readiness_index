@@ -1922,7 +1922,9 @@
       "publishAttemptedAt": "2026-10-05T06:38:12.193Z",
       "publishAttemptCount": 1,
       "publishedAt": "2026-10-05T06:38:12.193Z",
-      "heroReadyAt": "2026-10-05T11:06:07.634Z"
+      "heroReadyAt": "2026-10-05T11:06:07.634Z",
+      "productionVerifiedAt": "2026-10-05T13:03:07.710Z",
+      "verificationAttemptCount": 1
     }
   ]
 }
