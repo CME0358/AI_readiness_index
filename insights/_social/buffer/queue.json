@@ -2500,6 +2500,54 @@
       "series": "v2-stock"
     },
     {
+      "slug": "gemini-utm-and-st-source",
+      "articleUrl": "https://readiness.coaretail.com/insights/gemini-utm-and-st-source/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-10-05T10:00:00+09:00",
+      "bufferTransferAt": "2026-10-05T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/gemini-utm-and-st-source.md",
+          "publishAt": "2026-10-05T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-05T06:38:12.249Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/gemini-utm-and-st-source.md",
+          "publishAt": "2026-10-05T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-05T06:38:12.249Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/gemini-utm-and-st-source.md",
+          "publishAt": "2026-10-05T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-05T06:38:12.249Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-10-05T06:38:12.249Z",
+      "updatedAt": "2026-10-05T06:38:12.249Z",
+      "series": "v2-stock"
+    },
+    {
       "slug": "ai-agent-marketing-shift",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-agent-marketing-shift/",
       "status": "buffer_queued",

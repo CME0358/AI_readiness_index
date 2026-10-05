@@ -1879,7 +1879,7 @@
     {
       "slug": "gemini-utm-and-st-source",
       "publishAt": "2026-10-05T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "AIの参照タグは、全部がGoogleのものではない——GeminiのUTMと拡張のst_source",
       "cardSummary": "Geminiの外向きリンクにutm_source=geminiが付いた、と報じられています。条件は文書化されていません。?st_source=ai_overviewはChrome拡張が足したパラメータです。",
       "llmsLabel": "参照タグの出所を分ける",
@@ -1917,9 +1917,12 @@
       "scheduledPublishAt": "2026-10-05T10:00:00+09:00",
       "slotDate": "2026-10-05",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261005-DAILY-001",
-      "activatedAt": "2026-10-05T02:00:00.000Z"
+      "activatedAt": "2026-10-05T02:00:00.000Z",
+      "publishAttemptedAt": "2026-10-05T06:38:12.193Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-05T06:38:12.193Z"
     }
   ]
 }

@@ -74,6 +74,7 @@
 - [ChatGPT引用分析](https://readiness.coaretail.com/insights/chatgpt-retrieval-citation-practice/): Insights Column（2026-09-30）
 - [カメラがクエリになる](https://readiness.coaretail.com/insights/gsc-multimodal-search-reporting/): Insights Column（2026-10-01）
 - [外部リンクとAI Mode](https://readiness.coaretail.com/insights/aio-external-link-ai-mode-rct/): Insights Column（2026-10-02）
+- [参照タグの出所を分ける](https://readiness.coaretail.com/insights/gemini-utm-and-st-source/): Insights Column（2026-10-05）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断
