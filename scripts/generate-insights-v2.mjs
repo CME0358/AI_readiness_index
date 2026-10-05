@@ -4,6 +4,9 @@
  * Materializes MD, LinkedIn, HTML, schedule, queue, calendar from editorial assets.
  *
  * Usage: node scripts/generate-insights-v2.mjs [--skip-html] [--skip-schedule]
+ *
+ * Does not generate Insights hero.webp. See docs/insights-hero-generation.md.
+ * Without Codex Native and convert-webp.mjs, leave HERO_PENDING.
  */
 import fs from 'node:fs';
 import path from 'node:path';

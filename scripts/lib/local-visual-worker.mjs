@@ -16,6 +16,14 @@ import {
 } from './insights-package-readiness.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
 import { upsertPlannedCard } from './unlock-next-insight.mjs';
+import {
+  INSIGHTS_HERO_CONVERT_NODE,
+  INSIGHTS_HERO_CONVERT_WEBP,
+  INSIGHTS_HERO_TOOLCHAIN_CODE,
+  assertInsightsHeroToolchain,
+  codexNativeExecArgs,
+  insightsHeroToolchainError,
+} from './insights-hero-toolchain.mjs';
 
 export const VISUAL_MODES = Object.freeze({
   PRIMARY_PREPUBLISH: 'PRIMARY_PREPUBLISH',
@@ -39,6 +47,7 @@ export const WORKER_INTEGRITY_PATHS = Object.freeze([
   'scripts/run-prepublish-hero.sh',
   'scripts/morning-preflight-insights.mjs',
   'scripts/lib/local-visual-worker.mjs',
+  'scripts/lib/insights-hero-toolchain.mjs',
   'scripts/lib/insights-presentation.mjs',
   'scripts/lib/insights-package-readiness.mjs',
   'launchd/com.ari.insights.visual-worker.plist',
@@ -269,11 +278,14 @@ function isNetworkFailure(error) {
   return /could not resolve host|unable to access|network is unreachable|failed to connect|connection timed out|temporary failure in name resolution/i.test(String(error?.message || error));
 }
 
-function classifyWorkerFailure(error) {
+export function classifyWorkerFailure(error) {
   const message = String(error?.message || '');
   if (message.startsWith('VISUAL_WORKER_REMOTE_DIVERGED')) return 'VISUAL_WORKER_REMOTE_DIVERGED';
   if (message.startsWith('VISUAL_WORKER_CODE_DIRTY')) return 'VISUAL_WORKER_CODE_DIRTY';
   if (message.startsWith('VISUAL_WORKER_NETWORK_BLOCKED')) return 'VISUAL_WORKER_NETWORK_BLOCKED';
+  if (error?.code === INSIGHTS_HERO_TOOLCHAIN_CODE || message.startsWith(`${INSIGHTS_HERO_TOOLCHAIN_CODE}:`)) {
+    return 'VISUAL_WORKER_TOOLCHAIN_MISSING';
+  }
   return 'VISUAL_WORKER_SKIPPED';
 }
 
@@ -321,8 +333,9 @@ ${articleHtml}
 
 export function imageDimensions(file, cwd) {
   const result = runCommand('/usr/bin/sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', file], { cwd, allowFailure: true });
-  const width = Number((result.stdout.match(/pixelWidth:\s*(\d+)/) || [])[1]);
-  const height = Number((result.stdout.match(/pixelHeight:\s*(\d+)/) || [])[1]);
+  const stdout = result.stdout || '';
+  const width = Number((stdout.match(/pixelWidth:\s*(\d+)/) || [])[1]);
+  const height = Number((stdout.match(/pixelHeight:\s*(\d+)/) || [])[1]);
   return { width, height, ok: result.status === 0 && Number.isFinite(width) && Number.isFinite(height) };
 }
 
@@ -345,9 +358,16 @@ export function readQualityGate(workspace, attempt) {
   return { ok, imagePath, dimensions, quality: flags, brief, reason: ok ? null : 'quality_gate_failed' };
 }
 
-export function optimizeToWebp(input, output, cwd) {
+export function optimizeToWebp(input, output, cwd, {
+  assertToolchain = assertInsightsHeroToolchain,
+  run = runCommand,
+} = {}) {
+  const toolchain = assertToolchain();
+  if (toolchain.converter !== INSIGHTS_HERO_CONVERT_WEBP || toolchain.nodePath !== INSIGHTS_HERO_CONVERT_NODE) {
+    throw insightsHeroToolchainError([toolchain.nodePath, toolchain.converter].filter(Boolean));
+  }
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  runCommand('/usr/local/bin/node', ['/Users/takeshisasaki/ari-webp-tool-l5sDwJ/convert-webp.mjs', input, output], { cwd });
+  run(toolchain.nodePath, [toolchain.converter, input, output], { cwd });
   if (!fs.existsSync(output) || fs.statSync(output).size === 0) throw new Error('webp_output_missing');
   return output;
 }
@@ -652,7 +672,11 @@ function codexEnvironment() {
   return env;
 }
 
-export function runNativeGeneration(workspace, candidate, canon, attempt) {
+export function runNativeGeneration(workspace, candidate, canon, attempt, {
+  assertToolchain = assertInsightsHeroToolchain,
+  run = runCommand,
+} = {}) {
+  assertToolchain();
   const articlePath = path.join(workspace, 'article.html');
   const prompt = createBriefPrompt({
     articleHtml: fs.readFileSync(articlePath, 'utf8'),
@@ -662,11 +686,14 @@ export function runNativeGeneration(workspace, candidate, canon, attempt) {
     outputDir: workspace,
   });
   const outputPath = path.join(workspace, `codex-${attempt}.final.txt`);
-  const result = runCommand('codex', [
-    'exec', '--ephemeral', '--skip-git-repo-check',
-    '--cd', workspace, '--sandbox', 'workspace-write',
-    '--output-last-message', outputPath,
-  ], { cwd: workspace, input: prompt, env: codexEnvironment(), allowFailure: true, timeout: 12 * 60 * 1000 });
+  const result = run('codex', codexNativeExecArgs(workspace, outputPath), {
+    cwd: workspace,
+    input: prompt,
+    env: codexEnvironment(),
+    allowFailure: true,
+    timeout: 12 * 60 * 1000,
+  });
+  if (result.error?.code === 'ENOENT') throw insightsHeroToolchainError(['codex']);
   return {
     ok: result.status === 0 && fs.existsSync(path.join(workspace, `generation-${attempt}.png`)),
     status: result.status,
@@ -771,6 +798,7 @@ async function processCandidate({ root, config, candidate, runId, log, productio
   fs.mkdirSync(recoveryDir, { recursive: true });
   const prepublish = candidate.visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH;
   try {
+    assertInsightsHeroToolchain();
     const sourceArticle = prepublish
       ? scheduledArticleHtmlPath(config, candidate.slug, workspace)
       : path.join(workspace, 'insights', candidate.slug, 'index.html');

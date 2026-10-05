@@ -48,7 +48,7 @@
     "reconcile:publishing:dry": "node scripts/reconcile-publishing-pipeline.mjs --dry-run",
     "report:insights:v2": "node scripts/generate-insights-report.mjs",
     "visual:worker": "node scripts/run-insights-visual-worker.mjs",
-    "visual:worker:test": "node --test scripts/tests/local-visual-worker.test.mjs",
+    "visual:worker:test": "node --test scripts/tests/local-visual-worker.test.mjs scripts/tests/insights-hero-toolchain.test.mjs scripts/tests/immediate-prepublish-hero.test.mjs",
     "visual:worker:dry": "node scripts/run-insights-visual-worker.mjs --dry-run",
     "visual:worker:simulate": "node scripts/run-insights-visual-worker.mjs --simulate",
     "visual:worker:status": "./scripts/status-local-visual-worker.sh",

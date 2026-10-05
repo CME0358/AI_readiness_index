@@ -1,0 +1,19 @@
+---
+description: Insights hero images must use Codex Native and convert-webp.mjs
+alwaysApply: true
+---
+
+# Insights ヒーロー生成
+
+新規の `assets/insights/<slug>/hero.webp` は、リポジトリの手順だけを使う。
+
+1. `createBriefPrompt` / `ARI_INSIGHTS_VISUAL_CANON.md` / TYPOGRAPHIC ONLY
+2. `runNativeGeneration` → `codex exec --ephemeral --skip-git-repo-check --sandbox workspace-write`
+3. `readQualityGate`（1672×941 と `quality.json`）
+4. `optimizeToWebp` → `/Users/takeshisasaki/ari-webp-tool-l5sDwJ/convert-webp.mjs`（`/usr/local/bin/node`）
+
+詳細は `docs/insights-hero-generation.md`。
+
+`codex` またはその変換スクリプトが無いホスト（Cursor のクラウド VM を含む）では、画像を作らず `packageReadiness` を `HERO_PENDING` のままにする。Pillow、GenerateImage、ffmpeg `drawtext`、単体の `cwebp` でヒーローを描いたり WebP 化したりしない。
+
+既存の `hero.webp` を、このルールを理由に再生成・置換しない。Buffer の日程や投稿文も、ヒーロー手順の変更に伴って動かさない。

@@ -26,6 +26,12 @@ test('triggerImmediatePrepublishHero defers in CI', () => {
   const result = triggerImmediatePrepublishHero({ root });
   assert.equal(result.triggered, false);
   assert.equal(result.reason, 'NOT_NATIVE_ENVIRONMENT');
+  const marker = JSON.parse(fs.readFileSync(result.marker, 'utf8'));
+  assert.equal(marker.status, 'DEFERRED_TO_LOCAL_RUNTIME');
+  assert.equal(marker.packageReadiness, 'HERO_PENDING');
+  assert.match(marker.instruction, /Pillow/);
+  assert.match(marker.instruction, /GenerateImage/);
+  assert.match(marker.instruction, /cwebp/);
   process.env.CI = prev;
   fs.rmSync(root, { recursive: true, force: true });
 });

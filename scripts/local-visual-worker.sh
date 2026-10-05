@@ -1,4 +1,6 @@
 #!/bin/sh
+# Insights heroes: Codex Native (`codex exec`) + convert-webp.mjs only.
+# A missing toolchain exits INSIGHTS_HERO_TOOLCHAIN_MISSING. Do not draw a hero another way.
 set -eu
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)

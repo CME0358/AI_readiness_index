@@ -4,9 +4,10 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { PATHS } from './insights-v2-paths.mjs';
+import { inspectInsightsHeroToolchain } from './insights-hero-toolchain.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_ROOT = path.resolve(__dirname, '../..');
@@ -17,12 +18,11 @@ export const PREPUBLISH_ROLES = Object.freeze({
   MORNING_PREFLIGHT: 'MORNING_PREFLIGHT',
 });
 
-/** True when Codex Native hero generation can run on this host. */
-export function isNativeHeroEnvironment() {
-  if (process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true') return false;
-  if (process.env.ARI_SKIP_NATIVE_HERO === '1') return false;
-  const which = spawnSync('which', ['codex'], { encoding: 'utf8' });
-  return which.status === 0 && Boolean(which.stdout?.trim());
+/** True when Codex Native plus convert-webp.mjs can run on this host. */
+export function isNativeHeroEnvironment(env = process.env) {
+  if (env.CI === 'true' || env.GITHUB_ACTIONS === 'true') return false;
+  if (env.ARI_SKIP_NATIVE_HERO === '1') return false;
+  return inspectInsightsHeroToolchain().ok;
 }
 
 function writeHeroRequestMarker(root, payload) {
@@ -50,8 +50,15 @@ export function triggerImmediatePrepublishHero({
     nativeCapable: isNativeHeroEnvironment(),
   };
 
-  if (!isNativeHeroEnvironment()) {
-    const marker = writeHeroRequestMarker(root, { ...payload, status: 'DEFERRED_TO_LOCAL_RUNTIME' });
+  if (!payload.nativeCapable) {
+    const toolchain = inspectInsightsHeroToolchain();
+    const marker = writeHeroRequestMarker(root, {
+      ...payload,
+      status: 'DEFERRED_TO_LOCAL_RUNTIME',
+      packageReadiness: 'HERO_PENDING',
+      missing: toolchain.missing,
+      instruction: 'Leave HERO_PENDING. Do not generate hero.webp with Pillow, GenerateImage, ffmpeg drawtext, or bare cwebp. Run Codex Native on a machine that has codex and convert-webp.mjs.',
+    });
     return { triggered: false, reason: 'NOT_NATIVE_ENVIRONMENT', marker, role };
   }
 
