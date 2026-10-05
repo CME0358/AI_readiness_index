@@ -1,0 +1,13 @@
+# APPLIED 2026-10-06 — do not re-apply.
+# Five packages added as status "scheduled" in insights/_scheduled/schedule.json.
+# packageReadiness is HERO_PENDING. No hero.webp. Heroes stay on local Codex Native.
+# Weekend dates are not used. 2026-10-12 stays empty. september-2026-spam-update stays on 2026-10-16.
+#   2026-10-19 cloudflare-pay-per-use
+#   2026-10-20 ai-content-manual-factcheck
+#   2026-10-21 court-record-on-clicks
+#   2026-10-22 ai-crawler-discovery-paths
+#   2026-10-23 barcelona-ai-features-on-seo
+# publishAt and scheduledPublishAt are 10:00+09:00, slotType DAILY_PRIMARY,
+# publicationState SCHEDULED, publicationId PUB-YYYYMMDD-DAILY-001.
+# Index planned card is unchanged: it remains the earliest scheduled article.
+# This file is a record only. publish-scheduled-insights does not read it.
