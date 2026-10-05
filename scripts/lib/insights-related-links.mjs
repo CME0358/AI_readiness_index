@@ -122,6 +122,7 @@ export const RELATED_INSIGHTS_OVERRIDES = {
   'ai-search-52-percent': ['search-departure-ai', 'ai-search-shift', 'cloudflare-aeo'],
   'multi-agent-compare': ['ai-search-shift', 'recommendation-logic'],
   'hiring-readiness': ['execution-readiness', 'agent-experience'],
+  'gemini-utm-and-st-source': ['google-ai-coexistence-measurement', 'gsc-ai-impressions-how-to-read', 'aio-external-link-ai-mode-rct'],
 };
 
 /** Published-only intent when no scheduled SEO package exists. */
