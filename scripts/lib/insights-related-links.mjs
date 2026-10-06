@@ -123,7 +123,13 @@ export const RELATED_INSIGHTS_OVERRIDES = {
   'multi-agent-compare': ['ai-search-shift', 'recommendation-logic'],
   'hiring-readiness': ['execution-readiness', 'agent-experience'],
   'gemini-utm-and-st-source': ['google-ai-coexistence-measurement', 'gsc-ai-impressions-how-to-read', 'aio-external-link-ai-mode-rct'],
+  'cloudflare-pay-per-use': ['cloudflare-ai-traffic-search-agent-training', 'ai-contribution-pilot-economics', 'citation-vs-action'],
+  'ai-content-manual-factcheck': ['september-2026-spam-update', 'content-ops-ai', 'wrong'],
+  'court-record-on-clicks': ['aio-external-link-ai-mode-rct', 'google-ai-coexistence-measurement', 'gsc-ai-impressions-how-to-read'],
+  'ai-crawler-discovery-paths': ['files', 'schema', 'cloudflare-ai-traffic-search-agent-training'],
+  'barcelona-ai-features-on-seo': ['schema-not-ai-citation-cheat-code', 'gsc-ai-impressions-how-to-read', 'september-2026-spam-update'],
 };
+
 
 /** Published-only intent when no scheduled SEO package exists. */
 const PUBLISHED_INTENT = {

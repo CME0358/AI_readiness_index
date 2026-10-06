@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/assets/ga4.js" async></script>
+  <script src="/assets/analytics.js" defer></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない | Agent Readiness Insights</title>
+<meta name="description" content="John Mueller氏は、AIの学習クローラーにはサイトマップの送信窓口が通常ない、と話しています。標準名のsitemap.xmlかRSSを挙げ、llms.txtは優先しない、とも言っています。CloudflareのWeb Search APIは、verified botの規則に従う提携です。">
+<link rel="canonical" href="https://readiness.coaretail.com/insights/ai-crawler-discovery-paths/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない">
+<meta property="og:description" content="John Mueller氏は、AIの学習クローラーにはサイトマップの送信窓口が通常ない、と話しています。標準名のsitemap.xmlかRSSを挙げ、llms.txtは優先しない、とも言っています。CloudflareのWeb Search APIは、verified botの規則に従う提携です。">
+<meta property="og:url" content="https://readiness.coaretail.com/insights/ai-crawler-discovery-paths/">
+<meta property="og:site_name" content="Agent Readiness Research Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://readiness.coaretail.com/assets/insights/ai-crawler-discovery-paths/hero.webp">
+<meta name="twitter:image" content="https://readiness.coaretail.com/assets/insights/ai-crawler-discovery-paths/hero.webp">
+
+<meta name="twitter:title" content="AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない">
+<meta name="twitter:description" content="John Mueller氏は、AIの学習クローラーにはサイトマップの送信窓口が通常ない、と話しています。標準名のsitemap.xmlかRSSを挙げ、llms.txtは優先しない、とも言っています。CloudflareのWeb Search APIは、verified botの規則に従う提携です。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない",
+  "description": "John Mueller氏は、AIの学習クローラーにはサイトマップの送信窓口が通常ない、と話しています。標準名のsitemap.xmlかRSSを挙げ、llms.txtは優先しない、とも言っています。CloudflareのWeb Search APIは、verified botの規則に従う提携です。",
+  "datePublished": "2026-10-06",
+  "dateModified": "2026-10-06",
+  "author": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "合同会社コア・リテール",
+    "url": "https://www.coaretail.com"
+  },
+  "mainEntityOfPage": "https://readiness.coaretail.com/insights/ai-crawler-discovery-paths/",
+  "inLanguage": "ja"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<link rel="stylesheet" href="../../assets/insights/hero.css">
+<style>
+:root {
+  --bg: #FFFFFF; --bg-elevated: #FAFAFA; --bg-card: #F4F4F5;
+  --border: rgba(0,0,0,0.08);
+  --text: #09090B; --text-secondary: #52525B; --text-muted: #71717A;
+  --cta: #09090B; --cta-text: #FFFFFF;
+  --radius: 12px; --max: 720px; --max-wide: 1120px; --nav-h: 64px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+.article-container { max-width: var(--max); margin: 0 auto; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--text-muted); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { background: var(--cta); color: var(--cta-text) !important; padding: 8px 14px; border-radius: 8px; font-size: 13px !important; font-weight: 500 !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.article-header { padding: calc(var(--nav-h) + 56px) 0 40px; }
+.breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.article-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+.article-meta time { font-weight: 600; }
+.article-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 20px; }
+.lead { font-size: 1.125rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+.article-body h2 { font-size: 1.375rem; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.article-body h3 { font-size: 1.125rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+.article-body p { margin-bottom: 1.25em; color: var(--text-secondary); }
+.article-body ul { margin: 0 0 1.25em 1.25em; color: var(--text-secondary); }
+.article-body li { margin-bottom: 0.5em; }
+.article-body strong { color: var(--text); font-weight: 600; }
+.article-body a { color: var(--text); }
+.article-body blockquote { border-left: 3px solid var(--text); padding: 12px 20px; margin: 24px 0; background: var(--bg-elevated); font-size: 16px; color: var(--text-secondary); line-height: 1.75; }
+.article-body blockquote strong { color: var(--text); }
+.article-body .closing-lines { margin-top: 1.5em; line-height: 2; }
+.article-cta { margin: 48px 0; padding: 28px; background: var(--bg-elevated); border-radius: var(--radius); border: 1px solid var(--border); }
+.article-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.article-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn { display: inline-flex; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--cta); color: var(--cta-text); margin-right: 8px; margin-bottom: 8px; }
+.btn-navy { background: #0D1B3E; color: #FFFFFF; }
+.btn-navy:hover { background: #162040; color: #FFFFFF; }
+.article-cta .btn-navy,
+.article-cta .btn-navy:hover { color: #FFFFFF; }
+.article-body a.btn-navy,
+.article-body a.btn-navy:hover { color: #FFFFFF; }
+.sitewide-cta { margin: 48px 0 24px; padding: 24px 28px; background: #F4F4F5; border-radius: var(--radius); border: 1px solid var(--border); }
+.sitewide-cta h2 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text); }
+.sitewide-cta p { font-size: 15px; color: var(--text-secondary); margin-bottom: 16px; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.back-link { display: inline-block; margin: 40px 0 80px; font-size: 14px; color: var(--text-muted); text-decoration: none; }
+.back-link:hover { color: var(--text); }
+.related-insights { margin: 48px 0 0; }
+.related-insights h2 { font-size: 1.375rem; font-weight: 600; margin: 0 0 16px; letter-spacing: -0.02em; color: var(--text); }
+.related-insights ul { margin: 0 0 0 1.25em; color: var(--text-secondary); }
+.related-insights li { margin-bottom: 0.5em; }
+.related-insights a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.research-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 48px 0 32px; }
+.footer-brand { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.footer-org { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+.footer-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+.footer-layers { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 24px; }
+.footer-layers a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px 24px; margin-bottom: 20px; }
+.footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 13px; color: var(--text-muted); padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: var(--nav-h); left: 0; right: 0; background: var(--bg);
+    border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px; align-items: flex-start;
+  }
+  .nav-toggle { display: block; }
+  .nav { position: relative; }
+}
+</style>
+  <link rel="stylesheet" href="/assets/sitewide-cta.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Agent Readiness <span>Research Hub</span></a>
+    <button class="nav-toggle" aria-label="メニュー" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/framework/">Framework</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/whitepaper/">Whitepaper</a></li>
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/news/">News</a></li>
+      <li><a href="/insights/" class="active">Insights</a></li>
+      <li><a href="/methodology.html">Methodology</a></li>
+      <li><a href="/report/" class="nav-cta">診断レポート</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <header class="article-header container">
+    <div class="article-container">
+      <nav class="breadcrumb" aria-label="パンくず">
+        <a href="/">Agent Readiness</a><span aria-hidden="true">/</span>
+        <a href="/insights/">Insights</a><span aria-hidden="true">/</span>
+        <span>見つけられる名前</span>
+      </nav>
+      <p class="article-meta">
+        <time datetime="2026-10-06">2026.10.06</time>
+        <span class="article-tag">Column</span>
+      </p>
+      <h1>AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない</h1>
+      <p class="lead">John Mueller氏は、AIの学習クローラーにはサイトマップを送る窓口が通常ない、と話しています。見つけてもらうならsitemap.xmlかRSSです。llms.txtは優先しない、とも言っています。Web Search APIは、別の入口です。</p>
+    </div>
+  </header>
+  <figure class="insight-hero"><img src="/assets/insights/ai-crawler-discovery-paths/hero.webp" alt="ai-crawler-discovery-paths のInsight Hero" width="1672" height="941" loading="eager"></figure>
+
+  <article class="article-body container" data-article-slug="ai-crawler-discovery-paths" data-article-title="AIクローラーに送信窓口はない——sitemap.xmlとRSS、llms.txtは優先しない" data-editorial-intent="EVIDENCE">
+    <div class="article-container">
+      <div class="sitewide-cta" data-cta-profile="ai-crawler-discovery-paths" data-editorial-intent="EVIDENCE">
+        <a href="/#company-check" class="btn btn-navy" data-funnel-cta data-cta-id="insight_ai-crawler-discovery-paths_check_1" data-cta-type="CHECK" data-placement="end" data-source-page="/insights/ai-crawler-discovery-paths/" data-editorial-intent="EVIDENCE">自社サイトを無料で確認する</a>
+<a href="/report/" class="btn btn-secondary" data-funnel-cta data-cta-id="insight_ai-crawler-discovery-paths_report_2" data-cta-type="REPORT" data-placement="end" data-source-page="/insights/ai-crawler-discovery-paths/" data-editorial-intent="EVIDENCE">Company Reportで詳しく調べる</a>
+      </div>
+<h2>NO CONSOLE｜送る場所がない</h2>
+      <p>Search Engine Journal（Matt G. Southern氏）は、2026年10月1日の Search Off the Record「Do sitemaps still matter?」を記事にしています。話し手はJohn Mueller氏とMartin Splitt氏です。本稿は音声を独自に書き起こしていません。以下は、同記事が伝えた発言です。<a href="https://www.searchenginejournal.com/googles-mueller-says-ai-crawlers-access-sitemaps-rss-in-his-logs/592012/">Search Engine Journal</a> 回そのものは <a href="https://www.youtube.com/watch?v=hDva5VoZJsE">YouTube</a> にあります。</p>
+      <p>Mueller氏は、サイトマップを非公開にしたいなら、珍しいファイル名にし、robots.txtには書かず、Googleへ直接送れる、と話した、と同記事は書いています。欠点は、他の仕組みが見つけられないことです。Bingには、たぶん独自の送信が要る、ともあります。AIの学習クローラーは違う、と続きます。サイトマップを送るコンソールや仕組みが、通常はない、からです。コンテンツをAIの仕組みに入れたいサイトへの提案は、標準の名前、つまり sitemap.xml と呼ぶか、RSSに寄せるか、です。</p>
+<h2>LOGS｜自分のログで両方を見た。名前は出ていない</h2>
+      <p>サイトマップのプロトコルでは、robots.txtの Sitemap 行は user-agent の行とは独立で、一つのクローラーの規則には結び付かない、と同記事は書いています。フィードは、ページのHTMLの head からリンクされることが多く、見つけやすい、ともMueller氏は述べた、とあります。自分のサーバーログで、あるAIクローラーがサイトマップを取りに来たのを見た。RSSでも同じだ、と話した、と同記事は続けます。クローラーの名前は出していません。AI企業がこれを文書化しているか、ファイルをどう使うかは、自分には分からない、とも言った、とあります。</p>
+      <p>当サイトの「robots.txt・sitemap.xml・llms.txtの違い」は、三つのファイルの役割を分けています。本稿が足すのは、送る窓口がないクローラーには、標準の名前とRSSが入口になる、というこの発言です。llms.txtを置いただけで見つけてもらえる、にはしません。</p>
+<h2>LLMS.TXT｜希望は、現実より大きい</h2>
+      <p>llms.txtがXMLサイトマップの代わりになるか、と問われて、Mueller氏はMarkdownのファイルをHTMLのサイトマップになぞらえた、と同記事は書いています。厳密な形式がないので、Googleの仕組みはサイトマップとしては使えない、と。希望は現実より大きい、いまは何も起きていない、試すのは構わないが頼らない、とも言った、とあります。8月には、自分のテストサイトでMarkdownを受け取ると称したクローラーはSEOのツールだけだった、という過去の発言も、同記事は参照しています。5月の案内が、生成AI機能のためにサイトがllms.txtを要しない施策の一つに挙げていた、とも書いています。</p>
+<h2>COULDN'T FETCH｜取得できない、はファイルの外にもある</h2>
+      <p>Splitt氏は、正しくて公開され、robots.txtからリンクされたサイトマップが、Search Consoleで Couldn't fetch になる理由を尋ねた、と同記事は書いています。Mueller氏が挙げた一つは、ホストの負荷です。Googleの仕組みが忙しくて取れず、それも Couldn't fetch と出る、と。もう一つは、クロールの需要です。これ以上クロールする必要がないと見ると、サイトマップを飛ばすことがある、と。需要は、サイトの品質の見立てに基づくことが多い、純粋に技術の話ではない、とも言った、とあります。2月には、新しく重要なコンテンツがあると納得できなければサイトマップを使わない、とRedditで述べた、とも同記事は書いています。Search Consoleのヘルプは、需要の低さを、取得できない理由の一つに挙げ、他に robots.txt のブロック、未解決の手動対策、誤ったURLがある、とも書いています。</p>
+<h2>WEB SEARCH｜エージェントの検索は、Googleだけではない</h2>
+      <p>Cloudflareの変更履歴は2026年10月2日、Web Search APIがベータで使える、と書いています。起動時の提供者は Ceramic.ai、Exa、Linkup の三社です。三社とも、Cloudflare経由のリクエストで Zero Data Retention に対応し、Cloudflareの verified bot のクロール基準に従う、と変更履歴は書いています。検索は AI Gateway を通り、各社の定価で、上乗せはない、ともあります。既存の鍵を持ち込める、とも書いています。<a href="https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/">Cloudflare Changelog</a></p>
+      <p>同じ日のブログは、提供者のクローラーは、開発者向け文書が公開している Verified bots の要件に合う必要がある、と書いています。検索の応答は、クロールした中身の場所へのリンクを含む、ともあります。クローラーを識別し、robots.txtを尊重し、結果の出所を示す、という書き方です。エージェントがURLを推測して取りに行く代わりに、検索から入る、というのがブログの入口です。<a href="https://blog.cloudflare.com/introducing-web-search-api/">Cloudflare Blog</a></p>
+      <p>これは、Googleへ送るサイトマップとは別の入口です。規則に従う、という約束が、自社のページがその索引に入ることを保証する、とはどちらにも書いてありません。ブロックすればすべてのエージェントから消える、とも書いてありません。残すなら、標準名の sitemap.xml、RSS、robots.txt、そして自社のログで、どのボットがファイルを取りに来たか、です。</p>
+<h2>WHAT TO LOG｜名前と、ログと、規則を分けて残す</h2>
+      <p>確認する列は四つです。サイトマップのファイル名が sitemap.xml か、それとも送らないと見つからない名前か。RSSがHTMLから辿れるか。llms.txtを、サイトマップの代わりとして数えていないか。サーバーログに、名前の付いていないAIクローラーがサイトマップかRSSを取りに来たか。Web Search APIの三社は、verified bot の基準に従う、とCloudflareが書いた提携先です。自社の計測で、見つけられた割合は出していません。</p>
+      <blockquote>
+        <strong>出典：</strong> <a href="https://www.searchenginejournal.com/googles-mueller-says-ai-crawlers-access-sitemaps-rss-in-his-logs/592012/">Search Engine Journal</a>（2026-10-01の回。音声は未書き起こし。クローラー名はなし）／<a href="https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/">Cloudflare Changelog 2026-10-02</a>／<a href="https://blog.cloudflare.com/introducing-web-search-api/">Cloudflare Blog</a>
+      </blockquote>
+
+<h2>次のリソース</h2>
+        <p>Research Hubの知見を、自社の理解・比較・推薦・行動準備へつなげます。</p>
+
+<section class="related-insights">
+        <h2>関連Insights</h2>
+        <ul>
+        <li>
+          <a href="/insights/files/">robots.txt・sitemap.xml・llms.txtの違い──AIは何を見ているのか</a>
+        </li>
+        <li>
+          <a href="/insights/schema/">Schema.orgとllms.txt、AIはどちらを重視するのか</a>
+        </li>
+        <li>
+          <a href="/insights/cloudflare-ai-traffic-search-agent-training/">CloudflareのAIトラフィック分類が変える、検索と学習の境界線</a>
+        </li>
+        </ul>
+      </section>
+<div class="article-cta">
+        <h2>関連リソース</h2>
+        <p>Agent Readiness Framework は、AIが企業を理解・比較・推薦・実行するまでの状態を評価する基準です。個別技術を点ではなく仕組みとしてつなぐ視点を Research Hub で公開しています。</p>
+        <a href="/framework/" class="btn btn-navy" data-ga-insight-cta="framework">Framework</a>
+        <a href="/research/" class="btn btn-secondary" data-ga-insight-cta="research">Research Hub</a>
+        <a href="/report/" class="btn btn-secondary" data-ga-insight-cta="report">ARI診断</a>
+      </div>
+
+      <a href="/insights/" class="back-link">← Insights 一覧に戻る</a>
+    </div>
+  </article>
+</main>
+
+
+<footer class="research-footer">
+  <div class="container">
+    <p class="footer-brand">Agent Readiness Research Hub</p>
+    <p class="footer-org">Insights · Coa Retail</p>
+    <p class="footer-meta">Version 1.0 · Last Updated 2026-10-06</p>
+    <nav class="footer-links" aria-label="Site">
+      <a href="/">トップ</a>
+      <a href="/framework/">Framework</a>
+      <a href="/research/">Research</a>
+      <a href="/whitepaper/">Whitepaper</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/news/">News</a>
+      <a href="/insights/">Insights</a>
+      <a href="/methodology.html">Methodology</a>
+      <a href="/dental.html">Benchmarks</a>
+      <a href="/report/">診断レポート</a>
+      <a href="https://www.coaretail.com" target="_blank" rel="noopener">Coa Retail</a>
+    </nav>
+    <nav class="footer-layers" aria-label="Research">
+      <a href="/research/#principles">Principles</a>
+      <a href="/research/#updates">Updates</a>
+      <a href="/research/#citation">Citation Policy</a>
+      <a href="/research/#faq">FAQ</a>
+    </nav>
+    <p class="footer-copy">© 2026 <a href="https://www.coaretail.com/" target="_blank" rel="noopener">合同会社コア・リテール</a></p>
+  </div>
+</footer>
+<script src="/assets/sitewide-cta-tracking.js" defer></script>
+</body>
+</html>
