@@ -6,6 +6,7 @@ import test from 'node:test';
 import { generateHoldStockHero } from '../lib/phase3-stock-build.mjs';
 import {
   CANONICAL_HERO_SIZE,
+  CODEX_OUTPUT_TAIL_CHARS,
   classifyWorkerFailure,
   createBriefPrompt,
   optimizeToWebp,
@@ -105,6 +106,53 @@ test('runNativeGeneration calls codex exec and rejects a missing binary', () => 
   );
   assert.equal(captured.command, 'codex');
   assert.deepEqual(captured.args, codexNativeExecArgs(workspace, path.join(workspace, 'codex-1.final.txt')));
+  fs.rmSync(workspace, { recursive: true, force: true });
+});
+
+test('runNativeGeneration keeps stdout, stderr, and the final message when no image is written', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-hero-native-'));
+  fs.writeFileSync(path.join(workspace, 'article.html'), '<article>本文</article>');
+  const finalPath = path.join(workspace, 'codex-2.final.txt');
+  const result = runNativeGeneration(workspace, { slug: 'native-slug' }, 'TYPOGRAPHIC MODE ONLY', 2, {
+    assertToolchain: () => ({ ok: true }),
+    run: () => {
+      fs.writeFileSync(finalPath, 'image tool was not called\nFINAL_MESSAGE_TAIL');
+      return {
+        status: 0,
+        stdout: `${'x'.repeat(CODEX_OUTPUT_TAIL_CHARS + 80)}STDOUT_TAIL_MARKER`,
+        stderr: 'STDERR_TAIL_MARKER',
+        error: null,
+      };
+    },
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 0);
+  assert.match(result.stdoutTail, /STDOUT_TAIL_MARKER$/);
+  assert.equal(result.stdoutTail.length, CODEX_OUTPUT_TAIL_CHARS);
+  assert.equal(result.stderrTail, 'STDERR_TAIL_MARKER');
+  assert.match(result.finalMessageTail, /FINAL_MESSAGE_TAIL/);
+  assert.equal(result.finalMessagePath, finalPath);
+  assert.equal(result.capabilityFailure, false);
+  fs.rmSync(workspace, { recursive: true, force: true });
+});
+
+test('runNativeGeneration records a non-zero codex failure, including auth text in the final message', () => {
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-hero-native-'));
+  fs.writeFileSync(path.join(workspace, 'article.html'), '<article>本文</article>');
+  const finalPath = path.join(workspace, 'codex-1.final.txt');
+  const result = runNativeGeneration(workspace, { slug: 'native-slug' }, 'TYPOGRAPHIC MODE ONLY', 1, {
+    assertToolchain: () => ({ ok: true }),
+    run: () => {
+      fs.writeFileSync(finalPath, 'authentication failed\n');
+      return { status: 1, stdout: 'stdout-bit', stderr: 'stderr-bit', error: null };
+    },
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 1);
+  assert.equal(result.stdoutTail, 'stdout-bit');
+  assert.equal(result.stderrTail, 'stderr-bit');
+  assert.match(result.finalMessageTail, /authentication failed/);
+  assert.equal(result.capabilityFailure, true);
   fs.rmSync(workspace, { recursive: true, force: true });
 });
 

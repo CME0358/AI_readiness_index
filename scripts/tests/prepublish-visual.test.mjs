@@ -94,6 +94,97 @@ test('scheduled integration updates planned card and scheduled article refs', ()
   fs.rmSync(root, { recursive: true, force: true });
 });
 
+test('later reservation keeps the current planned card and still validates', () => {
+  const { root, slug } = fixture();
+  const later = 'ai-mode-information-monitoring';
+  const schedulePath = path.join(root, 'insights/_scheduled/schedule.json');
+  const schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+  schedule.articles.push({
+    slug: later,
+    status: 'scheduled',
+    publishAt: '2026-09-10T10:00:00+09:00',
+    title: '後続の予約',
+  });
+  fs.writeFileSync(schedulePath, JSON.stringify(schedule));
+  fs.mkdirSync(path.join(root, 'insights/_scheduled', later), { recursive: true });
+  fs.mkdirSync(path.join(root, 'assets/insights', later), { recursive: true });
+  fs.writeFileSync(path.join(root, 'insights/_scheduled', later, 'index.html'), `<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../assets/hub-animations.css">
+<header class="article-header container"></header>
+
+  <article class="article-body container" data-article-slug="${later}"><p>本文</p></article>`);
+  fs.writeFileSync(path.join(root, 'assets/insights', later, 'hero.webp'), 'hero');
+  const indexPath = path.join(root, 'insights/index.html');
+  const before = fs.readFileSync(indexPath, 'utf8');
+  const config = { root, origin: 'https://readiness.coaretail.com', assetsPath: path.join(root, 'assets/insights') };
+  integrateScheduledCanonicalHero(config, later, { root });
+  const index = fs.readFileSync(indexPath, 'utf8');
+  assert.equal(index, before);
+  assert.match(index, new RegExp(`data-scheduled-slug="${slug}"`));
+  assert.doesNotMatch(index, new RegExp(`data-scheduled-slug="${later}"`));
+  const validation = validateScheduledIntegration(config, later, { root });
+  assert.equal(validation.ok, true, validation.errors.join(','));
+  const article = fs.readFileSync(path.join(root, 'insights/_scheduled', later, 'index.html'), 'utf8');
+  assert.match(article, new RegExp(`/assets/insights/${later}/hero.webp`));
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
+test('an existing planned card must contain its own thumbnail', () => {
+  const { root, slug } = fixture();
+  const later = 'branded-queries-ai-overviews';
+  const schedulePath = path.join(root, 'insights/_scheduled/schedule.json');
+  const schedule = JSON.parse(fs.readFileSync(schedulePath, 'utf8'));
+  schedule.articles.push({
+    slug: later,
+    status: 'scheduled',
+    publishAt: '2026-09-10T10:00:00+09:00',
+    title: '後続の予約',
+  });
+  fs.writeFileSync(schedulePath, JSON.stringify(schedule));
+  fs.mkdirSync(path.join(root, 'insights/_scheduled', later), { recursive: true });
+  fs.mkdirSync(path.join(root, 'assets/insights', later), { recursive: true });
+  fs.writeFileSync(path.join(root, 'insights/_scheduled', later, 'index.html'), `<meta name="twitter:card" content="summary_large_image">
+<header class="article-header container"></header>
+
+  <article class="article-body container" data-article-slug="${later}"><p>本文</p></article>`);
+  fs.writeFileSync(path.join(root, 'assets/insights', later, 'hero.webp'), 'hero');
+  const rel = `/assets/insights/${later}/hero.webp`;
+  fs.writeFileSync(path.join(root, 'insights/index.html'), `<article class="insight-card planned" data-scheduled-slug="${slug}"><h3>next</h3></article>
+<article class="insight-card planned" data-scheduled-slug="${later}"><h3>later</h3></article>
+<img src="${rel}">`);
+  const config = { root, origin: 'https://readiness.coaretail.com', assetsPath: path.join(root, 'assets/insights') };
+  const beforeIntegrate = validateScheduledIntegration(config, later, { root });
+  assert.equal(beforeIntegrate.ok, false);
+  assert.ok(beforeIntegrate.errors.includes('planned_card_thumbnail'));
+  integrateScheduledCanonicalHero(config, later, { root });
+  const index = fs.readFileSync(path.join(root, 'insights/index.html'), 'utf8');
+  const laterAt = index.indexOf(`data-scheduled-slug="${later}"`);
+  const laterCard = index.slice(index.lastIndexOf('<article', laterAt), index.indexOf('</article>', laterAt));
+  const earlierAt = index.indexOf(`data-scheduled-slug="${slug}"`);
+  const earlierCard = index.slice(index.lastIndexOf('<article', earlierAt), index.indexOf('</article>', earlierAt));
+  assert.match(laterCard, /insight-card-thumb/);
+  assert.match(laterCard, new RegExp(rel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  assert.doesNotMatch(earlierCard, new RegExp(later));
+  const validation = validateScheduledIntegration(config, later, { root });
+  assert.equal(validation.ok, true, validation.errors.join(','));
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
+test('a hero path outside the planned card does not satisfy the thumbnail check', () => {
+  const { root, slug } = fixture();
+  fs.writeFileSync(path.join(root, 'assets/insights', slug, 'hero.webp'), 'hero');
+  const config = { root, origin: 'https://readiness.coaretail.com', assetsPath: path.join(root, 'assets/insights') };
+  integrateScheduledCanonicalHero(config, slug, { root });
+  const indexPath = path.join(root, 'insights/index.html');
+  let index = fs.readFileSync(indexPath, 'utf8');
+  index = index.replace(/<div class="insight-card-thumb">[\s\S]*?<\/div>/, '');
+  const rel = `/assets/insights/${slug}/hero.webp`;
+  fs.writeFileSync(indexPath, `<img src="${rel}">\n${index}`, 'utf8');
+  const validation = validateScheduledIntegration(config, slug, { root });
+  assert.deepEqual(validation.errors, ['planned_card_thumbnail']);
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
 test('scheduled integration self-heals missing planned card from schedule', () => {
   const { root, slug } = fixture();
   fs.writeFileSync(path.join(root, 'assets/insights', slug, 'hero.webp'), 'hero');
