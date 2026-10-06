@@ -649,6 +649,22 @@
       "date": "2026-10-06",
       "slot": "18:00",
       "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261007d",
+      "destination": "https://readiness.coaretail.com/insights/citation-vs-action/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261007_1500",
+      "article_slug": "citation-vs-action",
+      "date": "2026-10-07",
+      "slot": "15:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261007e",
+      "destination": "https://readiness.coaretail.com/insights/wrong/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261007_1800",
+      "article_slug": "wrong",
+      "date": "2026-10-07",
+      "slot": "18:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
     }
   ]
 }
