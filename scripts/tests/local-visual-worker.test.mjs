@@ -21,6 +21,8 @@ import {
   runWorker,
   sortNewestFirst,
   validatePresentationContract,
+  resolveMaxGenerationAttempts,
+  shouldContinuePrepublishQueue,
   validateIntegration,
   verifyProductionReferences,
 } from '../lib/local-visual-worker.mjs';
@@ -202,7 +204,35 @@ test('token limit fallback is explicit in prompt policy', () => {
   assert.match(prompt, /Do not access or modify the production repository/);
 });
 
-test('quality fail x3 is bounded', () => assert.equal(3, 3));
+test('generation attempts default to 3 and honor a bounded override', () => {
+  assert.equal(resolveMaxGenerationAttempts({}), 3);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: '1' }), 1);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: '6' }), 6);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: '9' }), 3);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: '0' }), 3);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: 'nope' }), 3);
+  assert.equal(resolveMaxGenerationAttempts({ ARI_VISUAL_MAX_GENERATION_ATTEMPTS: '' }), 3);
+});
+
+test('prepublish queue continues after a per-article generation or integration failure', () => {
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_SKIPPED_QUALITY', reason: 'codex_exec_no_image' }), true);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_SKIPPED', error: 'integration_failed:planned_card_thumbnail' }), true);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_SKIPPED', reason: 'timeout' }), true);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'SUCCESS' }), true);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_SKIPPED', reason: 'capability_or_auth_failure' }), false);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_TOOLCHAIN_MISSING' }), false);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_REMOTE_DIVERGED' }), false);
+  assert.equal(shouldContinuePrepublishQueue({ finalResult: 'VISUAL_WORKER_NETWORK_BLOCKED' }), false);
+  assert.equal(shouldContinuePrepublishQueue(null), false);
+});
+
+test('codex failure tails are recorded for the operator log', () => {
+  const source = workerSource();
+  assert.match(source, /CODEX_EXEC_FAILED/);
+  assert.match(source, /codexFailures/);
+  assert.match(source, /finalMessageTail/);
+  assert.match(source, /shouldContinuePrepublishQueue/);
+});
 
 test('quality gate rejects missing artifacts', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-quality-'));

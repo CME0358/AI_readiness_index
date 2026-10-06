@@ -11,6 +11,16 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PAT
 export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 export ARI_VISUAL_WORKER_LOG_DIR="${ARI_VISUAL_WORKER_LOG_DIR:-$HOME/Library/Logs/ARIInsightsVisualWorker}"
 export ARI_VISUAL_WORKER_LOCK_PATH="${ARI_VISUAL_WORKER_LOCK_PATH:-/private/tmp/ari-insights-prepublish-hero.lock}"
+# Codex retries per article. Integers 1-6 are honored; anything else keeps the default of 3.
+ARI_VISUAL_MAX_GENERATION_ATTEMPTS="${ARI_VISUAL_MAX_GENERATION_ATTEMPTS:-3}"
+case "$ARI_VISUAL_MAX_GENERATION_ATTEMPTS" in
+  1|2|3|4|5|6) ;;
+  *)
+    echo "ARI_VISUAL_MAX_GENERATION_ATTEMPTS must be an integer from 1 to 6; using 3" >&2
+    ARI_VISUAL_MAX_GENERATION_ATTEMPTS=3
+    ;;
+esac
+export ARI_VISUAL_MAX_GENERATION_ATTEMPTS
 
 # Production launchd workspace must track origin/main before each run.
 if [ -z "${ARI_VISUAL_WORKER_SYNC_SKIP:-}" ]; then

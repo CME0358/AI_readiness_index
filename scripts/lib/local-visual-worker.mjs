@@ -15,7 +15,7 @@ import {
   PACKAGE_STATES,
 } from './insights-package-readiness.mjs';
 import { EDITORIAL_STATUSES } from './editorial-status.mjs';
-import { upsertPlannedCard } from './unlock-next-insight.mjs';
+import { findEarliestScheduledArticle, upsertPlannedCard } from './unlock-next-insight.mjs';
 import {
   INSIGHTS_HERO_CONVERT_NODE,
   INSIGHTS_HERO_CONVERT_WEBP,
@@ -37,6 +37,13 @@ export const CANONICAL_HERO_SIZE = Object.freeze({ width: 1672, height: 941 });
 export const MAX_CANDIDATES_PER_RUN = 2;
 export const PREPUBLISH_HORIZON_DAYS = 3;
 export const MAX_GENERATION_ATTEMPTS = 3;
+export const CODEX_OUTPUT_TAIL_CHARS = 4000;
+const PREPUBLISH_QUEUE_HARD_STOPS = new Set([
+  'VISUAL_WORKER_REMOTE_DIVERGED',
+  'VISUAL_WORKER_TOOLCHAIN_MISSING',
+  'VISUAL_WORKER_NETWORK_BLOCKED',
+  'VISUAL_WORKER_CODE_DIRTY',
+]);
 export const PRODUCTION_ORIGIN = 'https://readiness.coaretail.com';
 export const DEFAULT_LOCK_PATH = '/private/tmp/ari-insights-visual-worker.lock';
 export const DEFAULT_LOG_DIR = path.join(os.homedir(), 'Library/Logs/ARIInsightsVisualWorker');
@@ -413,6 +420,43 @@ export function integrateCanonicalHero(config, slug, { root = config.root } = {}
   return { articlePath, indexPath, heroUrl, heroPath };
 }
 
+function plannedCardBounds(index, slug) {
+  const marker = `data-scheduled-slug="${slug}"`;
+  const markerAt = index.indexOf(marker);
+  if (markerAt < 0) return null;
+  const start = index.lastIndexOf('<article', markerAt);
+  const closeAt = index.indexOf('</article>', markerAt);
+  if (start < 0 || closeAt < 0 || start > markerAt) return null;
+  return { start, end: closeAt + '</article>'.length, markerAt };
+}
+
+/** Thumbnail is required only inside this slug's planned card. A missing card is not a failure. */
+export function plannedCardThumbnailSatisfied(index, slug, heroPath) {
+  const bounds = plannedCardBounds(index, slug);
+  if (!bounds) return { present: false, ok: true };
+  const card = index.slice(bounds.start, bounds.end);
+  return {
+    present: true,
+    ok: card.includes(heroPath) && card.includes('insight-card-thumb'),
+  };
+}
+
+function slugOwnsPlannedSlot(schedule, slug) {
+  const earliest = findEarliestScheduledArticle(schedule);
+  return !earliest || earliest.slug === slug;
+}
+
+function insertPlannedCardThumbnail(index, slug, heroPath) {
+  const bounds = plannedCardBounds(index, slug);
+  if (!bounds) return index;
+  const card = index.slice(bounds.start, bounds.end);
+  if (card.includes(heroPath)) return index;
+  const openEnd = index.indexOf('>', bounds.markerAt);
+  if (openEnd < 0 || openEnd >= bounds.end) return index;
+  const thumbnail = `\n        <div class="insight-card-thumb">\n          <img src="${heroPath}" alt="" loading="lazy" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}">\n        </div>`;
+  return index.slice(0, openEnd + 1) + thumbnail + index.slice(openEnd + 1);
+}
+
 export function integrateScheduledCanonicalHero(config, slug, { root = config.root } = {}) {
   const heroUrl = canonicalHeroUrl(config, slug);
   const heroPath = `/assets/insights/${slug}/hero.webp`;
@@ -440,23 +484,27 @@ export function integrateScheduledCanonicalHero(config, slug, { root = config.ro
   }
   let index = fs.readFileSync(indexPath, 'utf8');
   const plannedMarker = `data-scheduled-slug="${slug}"`;
+  // The public index shows one planned card: the earliest scheduled article.
+  // The 10:00 JST publish job rotates it. A later reservation must not replace that card.
   if (!index.includes(plannedMarker)) {
     const schedulePath = path.join(root, 'insights/_scheduled/schedule.json');
     if (!fs.existsSync(schedulePath)) throw new Error(`planned_card_missing:${slug}`);
     const schedule = readJson(schedulePath);
     const entry = schedule.articles.find((article) => article.slug === slug);
     if (!entry) throw new Error(`planned_card_missing:${slug}`);
-    index = upsertPlannedCard(index, entry, schedule);
-    fs.writeFileSync(indexPath, index, 'utf8');
+    if (slugOwnsPlannedSlot(schedule, slug)) {
+      if (!index.includes('<!-- INSIGHTS_CARDS_START -->')) throw new Error(`planned_card_missing:${slug}`);
+      index = upsertPlannedCard(index, entry, schedule);
+      fs.writeFileSync(indexPath, index, 'utf8');
+      if (!index.includes(plannedMarker)) throw new Error(`planned_card_missing:${slug}`);
+    }
   }
-  const cardStart = index.indexOf(`<article class="insight-card planned"`);
-  const cardEnd = index.indexOf('</article>', cardStart);
-  const card = cardStart >= 0 && cardEnd >= 0 ? index.slice(cardStart, cardEnd) : '';
-  if (!card.includes(heroPath)) {
-    const insertAt = index.indexOf('>', index.indexOf(plannedMarker)) + 1;
-    const thumbnail = `\n        <div class="insight-card-thumb">\n          <img src="${heroPath}" alt="" loading="lazy" width="${CANONICAL_HERO_SIZE.width}" height="${CANONICAL_HERO_SIZE.height}">\n        </div>`;
-    index = index.slice(0, insertAt) + thumbnail + index.slice(insertAt);
-    fs.writeFileSync(indexPath, index, 'utf8');
+  if (index.includes(plannedMarker)) {
+    const updated = insertPlannedCardThumbnail(index, slug, heroPath);
+    if (updated !== index) {
+      index = updated;
+      fs.writeFileSync(indexPath, index, 'utf8');
+    }
   }
   return { articlePath, indexPath, heroUrl, heroPath };
 }
@@ -521,9 +569,10 @@ export function validateScheduledIntegration(config, slug, { root = config.root 
     const index = fs.readFileSync(indexPath, 'utf8');
     const url = canonicalHeroUrl(config, slug);
     const rel = `/assets/insights/${slug}/hero.webp`;
+    const plannedThumb = plannedCardThumbnailSatisfied(index, slug, rel);
     for (const [name, ok] of [
       ['scheduled_article_hero', article.includes(rel)],
-      ['planned_card_thumbnail', index.includes(rel) && index.includes(`data-scheduled-slug="${slug}"`)],
+      ['planned_card_thumbnail', plannedThumb.ok],
       ['og_image', article.includes(`<meta property="og:image" content="${url}">`)],
       ['twitter_image', article.includes(`<meta name="twitter:image" content="${url}">`)],
     ]) if (!ok) errors.push(name);
@@ -672,6 +721,63 @@ function codexEnvironment() {
   return env;
 }
 
+export function tailText(value, limit = CODEX_OUTPUT_TAIL_CHARS) {
+  const text = String(value ?? '');
+  return text.length <= limit ? text : text.slice(text.length - limit);
+}
+
+export function readCodexFinalMessage(outputPath, limit = CODEX_OUTPUT_TAIL_CHARS) {
+  if (!outputPath || !fs.existsSync(outputPath)) return '';
+  try {
+    return tailText(fs.readFileSync(outputPath, 'utf8'), limit);
+  } catch (error) {
+    return tailText(`final_message_unreadable:${error.message}`, limit);
+  }
+}
+
+const CAPABILITY_FAILURE_PATTERN = /(?:usage limit|token limit|rate limit exceeded|authentication failed|not authenticated|invalid api key|OPENAI_API_KEY)/i;
+
+export function codexExecDiagnostics(result, outputPath) {
+  const stdoutTail = tailText(result?.stdout);
+  const stderrTail = tailText(result?.stderr);
+  const finalMessageTail = readCodexFinalMessage(outputPath);
+  const status = result?.status ?? null;
+  return {
+    status,
+    timedOut: result?.error?.code === 'ETIMEDOUT',
+    stdoutTail,
+    stderrTail,
+    finalMessagePath: outputPath || null,
+    finalMessageTail,
+    errorCode: result?.error?.code || null,
+    signal: result?.signal || null,
+    capabilityFailure: status !== 0 && status !== null && CAPABILITY_FAILURE_PATTERN.test(`${result?.stderr || ''}\n${result?.stdout || ''}\n${finalMessageTail}`),
+  };
+}
+
+export function generationFailureReason(diagnostics) {
+  if (diagnostics?.timedOut) return 'timeout';
+  if (diagnostics?.status === 0) return 'codex_exec_no_image';
+  return 'codex_exec_failure';
+}
+
+export function resolveMaxGenerationAttempts(env = process.env) {
+  const raw = env?.ARI_VISUAL_MAX_GENERATION_ATTEMPTS;
+  if (raw == null || String(raw).trim() === '') return MAX_GENERATION_ATTEMPTS;
+  const parsed = Number(String(raw).trim());
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 6) return MAX_GENERATION_ATTEMPTS;
+  return parsed;
+}
+
+/** Prepublish keeps walking the horizon queue after a per-article generation or integration failure. */
+export function shouldContinuePrepublishQueue(result) {
+  if (!result) return false;
+  if (result.finalResult === 'SUCCESS') return true;
+  if (result.reason === 'capability_or_auth_failure') return false;
+  if (PREPUBLISH_QUEUE_HARD_STOPS.has(result.finalResult)) return false;
+  return true;
+}
+
 export function runNativeGeneration(workspace, candidate, canon, attempt, {
   assertToolchain = assertInsightsHeroToolchain,
   run = runCommand,
@@ -694,12 +800,10 @@ export function runNativeGeneration(workspace, candidate, canon, attempt, {
     timeout: 12 * 60 * 1000,
   });
   if (result.error?.code === 'ENOENT') throw insightsHeroToolchainError(['codex']);
+  const diagnostics = codexExecDiagnostics(result, outputPath);
   return {
     ok: result.status === 0 && fs.existsSync(path.join(workspace, `generation-${attempt}.png`)),
-    status: result.status,
-    timedOut: result.error?.code === 'ETIMEDOUT',
-    stderr: (result.stderr || '').slice(-2000),
-    capabilityFailure: result.status !== 0 && /(?:usage limit|token limit|rate limit exceeded|authentication failed|not authenticated|invalid api key|OPENAI_API_KEY)/i.test(`${result.stderr || ''}\n${result.stdout || ''}`),
+    ...diagnostics,
     outputPath,
   };
 }
@@ -738,6 +842,12 @@ async function createExecutionWorkspace(root, runId, baseSha, { readOnly = false
 function removeIsolatedWorktree(root, workspace) {
   runCommand('git', ['worktree', 'remove', '--force', workspace], { cwd: root, allowFailure: true });
   if (fs.existsSync(workspace)) fs.rmSync(workspace, { recursive: true, force: true });
+}
+
+async function replaceIsolatedWorktree(root, current, runId, baseSha) {
+  const next = await createIsolatedWorktree(root, runId, baseSha);
+  removeIsolatedWorktree(root, current);
+  return next;
 }
 
 export async function verifyProduction(config, slug, { productionCheck = defaultProductionCheck } = {}) {
@@ -783,6 +893,42 @@ export async function verifyProductionReferences(config, slug, { productionCheck
   return { ok: errors.length === 0, article, index, hero, heroCss, errors };
 }
 
+function archiveCodexAttempt(recoveryDir, workspace, attempt, generation, { includeImage = false } = {}) {
+  const evidenceDir = path.join(recoveryDir, `attempt-${attempt}`);
+  fs.mkdirSync(evidenceDir, { recursive: true });
+  if (generation?.finalMessagePath && fs.existsSync(generation.finalMessagePath)) {
+    fs.copyFileSync(generation.finalMessagePath, path.join(evidenceDir, path.basename(generation.finalMessagePath)));
+  }
+  fs.writeFileSync(path.join(evidenceDir, 'codex-exec.json'), `${JSON.stringify({
+    status: generation?.status ?? null,
+    timedOut: Boolean(generation?.timedOut),
+    stdoutTail: generation?.stdoutTail || '',
+    stderrTail: generation?.stderrTail || '',
+    finalMessagePath: generation?.finalMessagePath || null,
+    finalMessageTail: generation?.finalMessageTail || '',
+    errorCode: generation?.errorCode || null,
+  }, null, 2)}\n`, 'utf8');
+  if (!includeImage) return;
+  for (const file of [`generation-${attempt}.png`, 'visual-brief.json', 'quality.json']) {
+    const source = path.join(workspace, file);
+    if (fs.existsSync(source)) fs.copyFileSync(source, path.join(evidenceDir, file));
+  }
+}
+
+function codexFailureRecord(attempt, generation) {
+  return {
+    attempt,
+    status: generation.status ?? null,
+    timedOut: Boolean(generation.timedOut),
+    reason: generationFailureReason(generation),
+    stdoutTail: generation.stdoutTail || '',
+    stderrTail: generation.stderrTail || '',
+    finalMessagePath: generation.finalMessagePath || generation.outputPath || null,
+    finalMessageTail: generation.finalMessageTail || '',
+    errorCode: generation.errorCode || null,
+  };
+}
+
 function saveHeroRecoveryArtifacts(recoveryDir, heroOutput, quality) {
   fs.mkdirSync(recoveryDir, { recursive: true });
   if (heroOutput && fs.existsSync(heroOutput)) {
@@ -805,38 +951,60 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     const canon = fs.readFileSync(path.join(workspace, 'ARI_INSIGHTS_VISUAL_CANON.md'), 'utf8');
     fs.copyFileSync(sourceArticle, path.join(workspace, 'article.html'));
     let quality = null;
-    for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt += 1) {
-      log({ stage: 'CODEX_EXEC_STARTED', slug: candidate.slug, attempt });
+    const codexFailures = [];
+    const maxAttempts = resolveMaxGenerationAttempts();
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+      log({ stage: 'CODEX_EXEC_STARTED', slug: candidate.slug, attempt, maxAttempts });
       const generation = runNativeGeneration(workspace, candidate, canon, attempt);
-      quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generation.timedOut ? 'timeout' : 'codex_exec_failure' };
+      quality = generation.ok ? readQualityGate(workspace, attempt) : { ok: false, reason: generationFailureReason(generation) };
+      if (!generation.ok) {
+        const failure = codexFailureRecord(attempt, generation);
+        codexFailures.push(failure);
+        log({ stage: 'CODEX_EXEC_FAILED', slug: candidate.slug, ...failure });
+      }
       log({
         stage: 'GENERATION_RESULT',
         slug: candidate.slug,
         attempt,
-        generation: { ok: generation.ok, status: generation.status, timedOut: generation.timedOut },
+        generation: {
+          ok: generation.ok,
+          status: generation.status,
+          timedOut: generation.timedOut,
+          finalMessagePath: generation.finalMessagePath || null,
+          stdoutTail: generation.ok ? undefined : generation.stdoutTail,
+          stderrTail: generation.ok ? undefined : generation.stderrTail,
+          finalMessageTail: generation.ok ? undefined : generation.finalMessageTail,
+        },
         quality: quality.reason || 'pass',
         dimensions: quality.dimensions || null,
         qualityFlags: quality.quality || null,
       });
       log({ stage: 'QUALITY_RESULT', slug: candidate.slug, attempt, ok: quality.ok, reason: quality.reason || null, dimensions: quality.dimensions || null, qualityFlags: quality.quality || null });
-      if (generation.ok && !quality.ok) {
-        const evidenceDir = path.join(recoveryDir, `attempt-${attempt}`);
-        fs.mkdirSync(evidenceDir, { recursive: true });
-        for (const file of [
-          `generation-${attempt}.png`,
-          'visual-brief.json',
-          'quality.json',
-        ]) {
-          const source = path.join(workspace, file);
-          if (fs.existsSync(source)) fs.copyFileSync(source, path.join(evidenceDir, file));
+      if (!generation.ok || !quality.ok) {
+        try {
+          archiveCodexAttempt(recoveryDir, workspace, attempt, generation, { includeImage: generation.ok && !quality.ok });
+        } catch (archiveError) {
+          log({ stage: 'CODEX_EVIDENCE_ARCHIVE_FAILED', slug: candidate.slug, attempt, error: archiveError.message });
         }
       }
       if (!generation.ok && (generation.capabilityFailure || generation.timedOut)) {
-        return { finalResult: 'VISUAL_WORKER_SKIPPED', slug: candidate.slug, reason: generation.timedOut ? 'timeout' : 'capability_or_auth_failure' };
+        return {
+          finalResult: 'VISUAL_WORKER_SKIPPED',
+          slug: candidate.slug,
+          reason: generation.timedOut ? 'timeout' : 'capability_or_auth_failure',
+          codexFailures,
+        };
       }
       if (quality.ok) break;
     }
-    if (!quality?.ok) return { finalResult: 'VISUAL_WORKER_SKIPPED_QUALITY', slug: candidate.slug };
+    if (!quality?.ok) {
+      return {
+        finalResult: 'VISUAL_WORKER_SKIPPED_QUALITY',
+        slug: candidate.slug,
+        reason: quality?.reason || 'quality_gate_failed',
+        codexFailures,
+      };
+    }
     const heroOutput = path.join(workspace, 'assets', 'insights', candidate.slug, 'hero.webp');
     optimizeToWebp(quality.imagePath, heroOutput, workspace);
     const workspaceConfig = { ...config, root: workspace, assetsPath: path.join(workspace, 'assets/insights') };
@@ -883,15 +1051,15 @@ async function processCandidate({ root, config, candidate, runId, log, productio
     log({ stage: 'PUSH_RESULT', slug: candidate.slug, ok: true, force: false, visualMode: candidate.visualMode });
     if (prepublish) {
       log({ stage: 'SCHEDULED_PACKAGE_VERIFY_RESULT', slug: candidate.slug, ok: true, integration });
-      return { finalResult: 'SUCCESS', slug: candidate.slug, visualMode: candidate.visualMode, integration };
+      return { finalResult: 'SUCCESS', slug: candidate.slug, visualMode: candidate.visualMode, integration, commitSha };
     }
     const production = await verifyProductionReferences(config, candidate.slug, { productionCheck });
     log({ stage: 'PRODUCTION_VERIFY_RESULT', slug: candidate.slug, ok: production.ok, errors: production.errors });
     if (!production.ok) {
       fs.cpSync(quality.imagePath, path.join(recoveryDir, path.basename(quality.imagePath)));
-      return { finalResult: 'PRODUCTION_VERIFY_FAILED', slug: candidate.slug, production, recoveryDir };
+      return { finalResult: 'PRODUCTION_VERIFY_FAILED', slug: candidate.slug, production, recoveryDir, commitSha };
     }
-    return { finalResult: 'SUCCESS', slug: candidate.slug, production };
+    return { finalResult: 'SUCCESS', slug: candidate.slug, production, commitSha };
   } finally { /* workspace cleanup is owned by runWorker */ }
 }
 
@@ -908,7 +1076,7 @@ export async function runWorker({
 } = {}) {
   const config = configFor(root, configOverrides);
   const log = createLogger(config, runId);
-  log({ stage: 'RUN_STARTED', mode: dryRun ? 'dry-run' : simulate ? 'simulate' : 'run', visualMode });
+  log({ stage: 'RUN_STARTED', mode: dryRun ? 'dry-run' : simulate ? 'simulate' : 'run', visualMode, maxGenerationAttempts: resolveMaxGenerationAttempts() });
   const lock = acquireLock(config.lockPath, { runId, now });
   if (!lock.acquired) {
     log({ stage: 'LOCK', finalResult: 'VISUAL_WORKER_SKIPPED', candidateState: 'lock_active' });
@@ -948,24 +1116,57 @@ export async function runWorker({
       return { finalResult, runId, reasons: discovered.reasons, visualMode };
     }
 
+    let activeBaseSha = baseSha;
     const candidateResults = [];
-    for (const candidate of discovered.candidates) {
+    for (let index = 0; index < discovered.candidates.length; index += 1) {
+      const candidate = discovered.candidates[index];
       if (dryRun || simulate) {
         return { finalResult: 'DRY_RUN_CANDIDATE', runId, slug: candidate.slug, title: candidate.title };
       }
-      const result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha });
-      log({ slug: candidate.slug, finalResult: result.finalResult });
+      let result;
+      try {
+        result = await processCandidate({ root, config, candidate, runId, log, productionCheck, workspace, baseSha: activeBaseSha });
+      } catch (error) {
+        const failed = { finalResult: classifyWorkerFailure(error), error: error.message, slug: candidate.slug };
+        const continuable = visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH && shouldContinuePrepublishQueue(failed);
+        if (!continuable) {
+          if (visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH && candidateResults.some((entry) => entry.finalResult === 'SUCCESS')) {
+            log({ stage: 'CANDIDATE_FAILED', slug: candidate.slug, finalResult: failed.finalResult, error: error.message });
+            candidateResults.push(failed);
+            const lastSuccess = candidateResults.findLast((entry) => entry.finalResult === 'SUCCESS');
+            return { ...lastSuccess, runId, processed: candidateResults, partial: true };
+          }
+          throw error;
+        }
+        log({ stage: 'CANDIDATE_FAILED_CONTINUE', slug: candidate.slug, finalResult: failed.finalResult, error: error.message });
+        result = failed;
+      }
+      log({
+        slug: candidate.slug,
+        finalResult: result.finalResult,
+        reason: result.reason || null,
+        error: result.error || null,
+        codexFailures: result.codexFailures || null,
+      });
       candidateResults.push(result);
-      if (result.finalResult !== 'SUCCESS') {
+      const prepublishContinue = visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH && shouldContinuePrepublishQueue(result);
+      const recoverySuccess = visualMode !== VISUAL_MODES.PRIMARY_PREPUBLISH && result.finalResult === 'SUCCESS';
+      if (!prepublishContinue && !recoverySuccess) {
         if (visualMode === VISUAL_MODES.PRIMARY_PREPUBLISH && candidateResults.some((entry) => entry.finalResult === 'SUCCESS')) {
           const lastSuccess = candidateResults.findLast((entry) => entry.finalResult === 'SUCCESS');
           return { ...lastSuccess, runId, processed: candidateResults, partial: true };
         }
         return { ...result, runId, processed: candidateResults };
       }
+      if (result.finalResult === 'SUCCESS' && result.commitSha) activeBaseSha = result.commitSha;
+      if (index === discovered.candidates.length - 1) break;
+      workspace = await replaceIsolatedWorktree(root, workspace, `${runId}-c${index + 1}`, activeBaseSha);
+      log({ stage: 'WORKTREE_REFRESHED', workspace, baseSha: activeBaseSha, previousSlug: candidate.slug });
     }
-    const last = candidateResults[candidateResults.length - 1];
-    return { ...last, runId, processed: candidateResults };
+    const lastSuccess = candidateResults.findLast((entry) => entry.finalResult === 'SUCCESS');
+    const last = lastSuccess || candidateResults[candidateResults.length - 1];
+    const partial = Boolean(lastSuccess) && candidateResults.some((entry) => entry.finalResult !== 'SUCCESS');
+    return { ...last, runId, processed: candidateResults, ...(partial ? { partial: true } : {}) };
   } catch (error) {
     const finalResult = classifyWorkerFailure(error);
     log({ stage: 'ERROR', finalResult, error: error.message });

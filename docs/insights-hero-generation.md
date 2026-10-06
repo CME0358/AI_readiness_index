@@ -27,7 +27,7 @@ test -x /usr/local/bin/node
 test -f /Users/takeshisasaki/ari-webp-tool-l5sDwJ/convert-webp.mjs
 ```
 
-公開前（予約記事、最大 2 本）:
+公開前（予約記事、公開 3 日以内、最大 2 本）:
 
 ```bash
 ./scripts/run-prepublish-hero.sh
@@ -46,6 +46,16 @@ npm run visual:worker
 `codex` のログイン状態は `CODEX_HOME`（既定は `$HOME/.codex`）を使う。launchd からの常駐は `scripts/install-local-visual-worker.sh`。
 
 どちらも、ツールが無い状態で候補の生成に入ると `INSIGHTS_HERO_TOOLCHAIN_MISSING` で終了する。画像ファイルは作らない。
+
+1 記事あたりの Codex 試行回数は `ARI_VISUAL_MAX_GENERATION_ATTEMPTS`（1 から 6 の整数、それ以外は既定の 3）。`codex exec` が画像を残せなかったときは、標準出力・標準エラーの末尾と `codex-N.final.txt` をワーカーログと終了 JSON の `codexFailures` に残す。
+
+## 公開前ヒーローと一覧の予定カード
+
+`insights/index.html` の予定カードは 1 件だけで、公開時刻が最も早い `scheduled` 記事を示す。10:00 JST の公開ジョブが、公開後に次の予約へ差し替える。
+
+次の公開より先の予約には、まだ自分の `data-scheduled-slug` が無い。その状態では予定カードを書き換えず、予約 HTML と `hero.webp` と package readiness だけを更新する。予定カードが自分の slug にあるときだけ、そのカードの中のサムネイルを必須にする。1672×941 と `quality.json` の画質ゲートは変えない。
+
+先頭候補の生成または統合が失敗しても、認証失敗・ツール不足・リモート分岐以外なら同じ実行で次の候補へ進む。認証失敗とタイムアウトはその記事で打ち切り、認証失敗はキューも止める。タイムアウトのあとは次の候補へ進む。
 
 ## クラウド VM / CI
 
