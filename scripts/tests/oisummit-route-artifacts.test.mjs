@@ -30,6 +30,7 @@ test("Agent Readiness permanent landing route artifacts", () => {
   for (const route of permanentRoutes) {
     assert.equal(fs.existsSync(path.join(root, "public_build", route)), true, `artifact missing: ${route}`);
   }
+  assert.equal(fs.existsSync(path.join(root, "public_build/oisummit/capture/index.html")), false, "legacy capture page must not be public");
   for (const asset of sharedAssets) {
     assert.equal(fs.existsSync(path.join(root, asset)), true, `source asset missing: ${asset}`);
     assert.equal(fs.existsSync(path.join(root, "public_build", asset)), true, `artifact asset missing: ${asset}`);
