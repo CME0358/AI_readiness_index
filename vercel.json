@@ -30,6 +30,11 @@
       "permanent": true
     },
     {
+      "source": "/oisummit/capture/",
+      "destination": "/agent-readiness/",
+      "permanent": true
+    },
+    {
       "source": "/oisummit/:path*",
       "destination": "/agent-readiness/",
       "permanent": true

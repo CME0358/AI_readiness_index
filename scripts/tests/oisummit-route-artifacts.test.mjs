@@ -49,6 +49,7 @@ test("Agent Readiness permanent landing route artifacts", () => {
     ["/oisummit/enterprise/", "/agent-readiness/enterprise/"],
     ["/oisummit/public/", "/agent-readiness/public/"],
     ["/oisummit/tech/", "/agent-readiness/tech/"],
+    ["/oisummit/capture/", "/agent-readiness/"],
   ]) {
     assert.ok(deployment.redirects.some((redirect) => redirect.source === source && redirect.destination === destination && redirect.permanent));
   }
