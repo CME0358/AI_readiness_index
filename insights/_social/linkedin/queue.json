@@ -891,13 +891,13 @@
       "linkedinPublishAt": "2026-10-06T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/merchant-center-native-checkout-holiday/",
       "contentFile": "insights/_social/linkedin/posts/merchant-center-native-checkout-holiday.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ac44831b0e0485fb464a307",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-06T01:00:00.267Z",
-      "updatedAt": "2026-10-06T01:00:00.267Z",
+      "updatedAt": "2026-10-06T01:00:35.236Z",
       "series": "v2-stock"
     }
   ]

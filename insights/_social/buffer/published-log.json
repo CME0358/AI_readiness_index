@@ -1160,7 +1160,34 @@
       "publishAt": "2026-10-02T12:00:00+09:00",
       "dueAtUtc": "2026-10-02T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-06T01:00:00.000Z",
+      "slug": "merchant-center-native-checkout-holiday",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ac44831b0e0485fb464a307",
+      "publishAt": "2026-10-06T11:30:00+09:00",
+      "dueAtUtc": "2026-10-06T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-06T01:00:00.000Z",
+      "slug": "merchant-center-native-checkout-holiday",
+      "channel": "facebook",
+      "bufferUpdateId": "6ac44832acc08dcd5e9b44bf",
+      "publishAt": "2026-10-06T11:45:00+09:00",
+      "dueAtUtc": "2026-10-06T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-06T01:00:00.000Z",
+      "slug": "merchant-center-native-checkout-holiday",
+      "channel": "x",
+      "bufferUpdateId": "6ac4483398d02b181e1a01f9",
+      "publishAt": "2026-10-06T12:00:00+09:00",
+      "dueAtUtc": "2026-10-06T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-10-02T01:00:36.539Z"
+  "updatedAt": "2026-10-06T01:00:35.234Z"
 }

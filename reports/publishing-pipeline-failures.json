@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T13:03:07.711Z",
+  "updatedAt": "2026-10-06T01:00:35.237Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "gemini-utm-and-st-source",
-    "stage": "published_verified",
-    "at": "2026-10-05T13:03:07.711Z"
+    "slug": "merchant-center-native-checkout-holiday",
+    "stage": "buffer_queued",
+    "at": "2026-10-06T01:00:35.237Z"
   }
 }
