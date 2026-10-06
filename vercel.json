@@ -10,6 +10,31 @@
   ],
   "redirects": [
     {
+      "source": "/oisummit/",
+      "destination": "/agent-readiness/",
+      "permanent": true
+    },
+    {
+      "source": "/oisummit/enterprise/",
+      "destination": "/agent-readiness/enterprise/",
+      "permanent": true
+    },
+    {
+      "source": "/oisummit/public/",
+      "destination": "/agent-readiness/public/",
+      "permanent": true
+    },
+    {
+      "source": "/oisummit/tech/",
+      "destination": "/agent-readiness/tech/",
+      "permanent": true
+    },
+    {
+      "source": "/oisummit/:path*",
+      "destination": "/agent-readiness/",
+      "permanent": true
+    },
+    {
       "source": "/report",
       "destination": "/report/",
       "permanent": true

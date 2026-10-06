@@ -25,12 +25,15 @@ test('OISUMMIT pages exist with required assets', () => {
     assert.match(html, /\/assets\/ga4\.js/);
     assert.match(html, /\/assets\/oisummit-analytics\.js/);
     assert.match(html, /data-agent-demo|data-demo-scenario/);
-    assert.match(html, /readiness\.coaretail\.com\/oisummit/);
+    assert.match(html, /readiness\.coaretail\.com\/agent-readiness/);
   });
 });
 
-test('All OISUMMIT pages do not expose ABIS brand', () => {
-  PAGES.forEach((rel) => {
+test('ABIS remains a supplementary bridge from the Agent Readiness overview', () => {
+  const overview = fs.readFileSync(path.join(ROOT, PAGES[0]), 'utf8');
+  assert.match(overview, /研究・公開仕様としてABISを開発/);
+  assert.match(overview, /https:\/\/abis\.coaretail\.com/);
+  PAGES.slice(1).forEach((rel) => {
     const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
     assert.doesNotMatch(html, /Agent Business Interaction Standard/i, rel);
     assert.doesNotMatch(html, /\bABIS\b/, rel);
@@ -123,7 +126,7 @@ test('build:all includes oisummit copy step', () => {
 test('OISUMMIT analytics and lead capture exclude PII keys', () => {
   const analytics = fs.readFileSync(path.join(ROOT, 'assets/oisummit-analytics.js'), 'utf8');
   const lead = fs.readFileSync(path.join(ROOT, 'assets/oisummit-lead-capture.js'), 'utf8');
-  assert.match(analytics, /oisummit_lp_view/);
-  assert.match(lead, /oisummit_lead_submit/);
+  assert.match(analytics, /agent_readiness_lp_view/);
+  assert.match(lead, /agent_readiness_lead_submit/);
   assert.match(analytics, /\['name', 'email', 'company', 'message', 'domain'\]/);
 });

@@ -17,9 +17,17 @@ const sharedAssets = [
   "assets/oisummit-config.js",
 ];
 
-test("OISUMMIT five-route artifact regression", () => {
+test("Agent Readiness permanent landing route artifacts", () => {
   for (const route of routes) {
     assert.equal(fs.existsSync(path.join(root, route)), true, `source missing: ${route}`);
+  }
+  const permanentRoutes = [
+    "agent-readiness/index.html",
+    "agent-readiness/enterprise/index.html",
+    "agent-readiness/public/index.html",
+    "agent-readiness/tech/index.html",
+  ];
+  for (const route of permanentRoutes) {
     assert.equal(fs.existsSync(path.join(root, "public_build", route)), true, `artifact missing: ${route}`);
   }
   for (const asset of sharedAssets) {
@@ -27,10 +35,21 @@ test("OISUMMIT five-route artifact regression", () => {
     assert.equal(fs.existsSync(path.join(root, "public_build", asset)), true, `artifact asset missing: ${asset}`);
   }
 
-  const publicPages = routes.slice(0, 4).map((route) => fs.readFileSync(path.join(root, route), "utf8")).join("\n");
+  const publicPages = permanentRoutes.map((route) => fs.readFileSync(path.join(root, "public_build", route), "utf8")).join("\n");
   assert.match(publicPages, /AI AGENTS ARE BECOMING[\s\S]*THE NEW INTERFACE\./);
   assert.match(publicPages, /Agent Readiness/);
   assert.match(publicPages, /Municipal Agent Readiness|MAR/);
   assert.match(publicPages, /Agent Execution/);
-  assert.doesNotMatch(publicPages, /ABIS|Agent Business Interaction Standard|Family [BD]|M[1-8]|R[1-7]/);
+  assert.match(publicPages, /abis\.coaretail\.com/);
+  assert.doesNotMatch(publicPages, /OISUMMIT|OI SUMMIT|30分オンラインMTG/);
+  const deployment = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
+  for (const [source, destination] of [
+    ["/oisummit/", "/agent-readiness/"],
+    ["/oisummit/enterprise/", "/agent-readiness/enterprise/"],
+    ["/oisummit/public/", "/agent-readiness/public/"],
+    ["/oisummit/tech/", "/agent-readiness/tech/"],
+  ]) {
+    assert.ok(deployment.redirects.some((redirect) => redirect.source === source && redirect.destination === destination && redirect.permanent));
+  }
+  assert.ok(deployment.redirects.some((redirect) => redirect.source === "/oisummit/:path*" && redirect.destination === "/agent-readiness/" && redirect.permanent));
 });

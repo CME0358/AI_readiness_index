@@ -1,5 +1,5 @@
 /**
- * OISUMMIT lead forms — /api/oisummit-lead
+ * Agent Readiness landing page lead forms — /api/oisummit-lead
  */
 (function () {
   'use strict';
@@ -24,7 +24,7 @@
   }
 
   function track(name, params) {
-    if (typeof window.oisummitTrack === 'function') window.oisummitTrack(name, params);
+    if (typeof window.agentReadinessTrack === 'function') window.agentReadinessTrack(name, params);
   }
 
   document.querySelectorAll('[data-oisummit-lead-form]').forEach(function (form) {
@@ -36,7 +36,7 @@
     form.addEventListener('focusin', function () {
       if (!started) {
         started = true;
-        track('oisummit_form_start', { segment: segment, cta_type: 'form' });
+        track('agent_readiness_form_start', { segment: segment, cta_type: 'form' });
       }
     });
 
@@ -60,7 +60,7 @@
         orgType: data.get('orgType'),
         consent: data.get('consent') === 'on',
         website: data.get('website'),
-        ctaId: 'oisummit_' + segment + '_form',
+        ctaId: 'agent_readiness_' + segment + '_form',
         landingPage: window.location.pathname,
         referrer: document.referrer,
         query: window.location.search,
@@ -82,7 +82,7 @@
           if (!result.ok) throw new Error(result.body.error || 'submit_failed');
           form.hidden = true;
           if (success) success.hidden = false;
-          track('oisummit_lead_submit', { segment: segment, cta_type: 'form' });
+          track('agent_readiness_lead_submit', { segment: segment, cta_type: 'form' });
           if (result.body.leadId) {
             try { window.localStorage.setItem('ari_lead_id', result.body.leadId); } catch (_) {}
           }
@@ -97,7 +97,7 @@
               leadId: result.body.leadId,
               segment: result.body.segment,
               sourcePage: window.location.pathname,
-              ctaId: 'oisummit_' + segment + '_form',
+              ctaId: 'agent_readiness_' + segment + '_form',
               ctaType: 'CONSULT',
             }),
           }).catch(function () {});

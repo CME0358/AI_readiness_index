@@ -1,5 +1,5 @@
 /**
- * OISUMMIT GA4 events — no PII in parameters.
+ * Agent Readiness landing page GA4 events — no PII in parameters.
  */
 (function (w) {
   'use strict';
@@ -43,18 +43,18 @@
     w.gtag('event', name, safe);
   }
 
-  var segment = parseMeta('ari:oisummit-segment') || 'general';
+  var segment = parseMeta('ari:agent-readiness-segment') || 'general';
   var utmContent = new URLSearchParams(w.location.search).get('utm_content') || segment;
 
   captureAttribution();
-  track('oisummit_lp_view', { segment: segment, utm_content: utmContent });
+  track('agent_readiness_lp_view', { segment: segment, utm_content: utmContent });
 
-  w.oisummitTrack = track;
+  w.agentReadinessTrack = track;
 
   document.addEventListener('click', function (event) {
     var link = event.target.closest('[data-oisummit-cta]');
     if (!link) return;
-    track('oisummit_cta_click', {
+    track('agent_readiness_cta_click', {
       segment: link.getAttribute('data-segment') || segment,
       cta_type: link.getAttribute('data-cta-type') || 'link',
       utm_content: utmContent,
@@ -72,7 +72,7 @@
 
   document.querySelectorAll('[data-oisummit-meeting]').forEach(function (link) {
     link.addEventListener('click', function () {
-      track('oisummit_meeting_click', {
+      track('agent_readiness_contact_click', {
         segment: link.getAttribute('data-segment') || segment,
         cta_type: 'meeting',
         utm_content: utmContent,
