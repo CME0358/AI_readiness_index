@@ -128,6 +128,11 @@ export const RELATED_INSIGHTS_OVERRIDES = {
   'court-record-on-clicks': ['aio-external-link-ai-mode-rct', 'google-ai-coexistence-measurement', 'gsc-ai-impressions-how-to-read'],
   'ai-crawler-discovery-paths': ['files', 'schema', 'cloudflare-ai-traffic-search-agent-training'],
   'barcelona-ai-features-on-seo': ['schema-not-ai-citation-cheat-code', 'gsc-ai-impressions-how-to-read', 'september-2026-spam-update'],
+  'preferred-source-counts-and-ai-include': ['gsc-ai-impressions-how-to-read', 'branded-queries-ai-overviews', 'ai-mode-information-monitoring'],
+  'ai-best-for-product-labels': ['recommendation-logic', 'openai-product-discovery-agentic-commerce', 'bing-edge-ai-mode-naming'],
+  'shopify-agentic-holiday-legibility': ['shopify-ai-vs-organic-structured-catalog', 'citation-vs-action', 'openai-product-discovery-agentic-commerce'],
+  'business-panel-ai-overview-study': ['branded-queries-ai-overviews', 'entity-consistency', 'reviews'],
+  'chatgpt-ads-measurement-so-far': ['uk-cma-choice-screens-three-shelves', 'openai-product-discovery-agentic-commerce', 'court-record-on-clicks'],
 };
 
 
