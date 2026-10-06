@@ -1569,7 +1569,7 @@
     {
       "slug": "merchant-center-native-checkout-holiday",
       "publishAt": "2026-10-06T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "Merchant Centerのネイティブチェックアウト——対象市場と自動対象の境界",
       "cardSummary": "Shopify一致の店舗へのメールと、直接連携の既定オフは別です。日本は対象外。米国・カナダ・豪州で売る場合の事前確認として整理します。",
       "llmsLabel": "ネイティブチェックアウトの境界",
@@ -1605,9 +1605,12 @@
       "scheduledPublishAt": "2026-10-06T10:00:00+09:00",
       "slotDate": "2026-10-06",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261006-DAILY-001",
-      "activatedAt": "2026-09-25T00:38:13.228Z"
+      "activatedAt": "2026-09-25T00:38:13.228Z",
+      "publishAttemptedAt": "2026-10-06T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-06T01:00:00.000Z"
     },
     {
       "slug": "uk-cma-choice-screens-three-shelves",

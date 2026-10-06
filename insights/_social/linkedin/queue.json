@@ -882,6 +882,23 @@
       "createdAt": "2026-10-05T06:38:12.249Z",
       "updatedAt": "2026-10-05T12:56:53.066Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-merchant-center-native-checkout-holiday-2026-10-06",
+      "slug": "merchant-center-native-checkout-holiday",
+      "articlePublishAt": "2026-10-06T10:00:00+09:00",
+      "bufferTransferAt": "2026-10-06T10:30:00+09:00",
+      "linkedinPublishAt": "2026-10-06T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/merchant-center-native-checkout-holiday/",
+      "contentFile": "insights/_social/linkedin/posts/merchant-center-native-checkout-holiday.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-10-06T01:00:00.267Z",
+      "updatedAt": "2026-10-06T01:00:00.267Z",
+      "series": "v2-stock"
     }
   ]
 }
