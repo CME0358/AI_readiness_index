@@ -12,6 +12,8 @@ const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');
 
 test('Homepage exposes Learn primary Whitepaper CTA and preserves Report CTA', () => {
   const html = read('index.html');
+  const nav = html.match(/<header class="nav">([\s\S]*?)<\/header>/)?.[1] || '';
+  assert.match(nav, /<a href="\/agent-readiness\/">Agent Readiness<\/a>/);
   assert.match(html, /data-cta-id="homepage_primary_whitepaper" data-cta-type="LEARN"/);
   assert.match(html, /href="report\/"[^>]*data-cta-type="REPORT"/);
 });
