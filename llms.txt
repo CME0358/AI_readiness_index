@@ -76,6 +76,7 @@
 - [外部リンクとAI Mode](https://readiness.coaretail.com/insights/aio-external-link-ai-mode-rct/): Insights Column（2026-10-02）
 - [参照タグの出所を分ける](https://readiness.coaretail.com/insights/gemini-utm-and-st-source/): Insights Column（2026-10-05）
 - [ネイティブチェックアウトの境界](https://readiness.coaretail.com/insights/merchant-center-native-checkout-holiday/): Insights Column（2026-10-06）
+- [選択画面と三つの棚](https://readiness.coaretail.com/insights/uk-cma-choice-screens-three-shelves/): Insights Column（2026-10-07）
 
 - [Methodology](https://readiness.coaretail.com/methodology.html): 評価手法
 - [ARI Diagnosis](https://readiness.coaretail.com/report/): 約3分診断

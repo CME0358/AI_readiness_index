@@ -2596,6 +2596,54 @@
       "series": "v2-stock"
     },
     {
+      "slug": "uk-cma-choice-screens-three-shelves",
+      "articleUrl": "https://readiness.coaretail.com/insights/uk-cma-choice-screens-three-shelves/",
+      "status": "scheduled",
+      "articlePublishAt": "2026-10-07T10:00:00+09:00",
+      "bufferTransferAt": "2026-10-07T10:30:00+09:00",
+      "channels": {
+        "linkedin": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_LINKEDIN",
+          "contentFile": "insights/_social/linkedin/posts/uk-cma-choice-screens-three-shelves.md",
+          "publishAt": "2026-10-07T11:30:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-07T01:00:00.612Z"
+        },
+        "facebook": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_FACEBOOK",
+          "contentFile": "insights/_social/facebook/posts/uk-cma-choice-screens-three-shelves.md",
+          "publishAt": "2026-10-07T11:45:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-07T01:00:00.612Z"
+        },
+        "x": {
+          "channelIdEnv": "BUFFER_CHANNEL_ID_TWITTER",
+          "contentFile": "insights/_social/x/posts/uk-cma-choice-screens-three-shelves.md",
+          "publishAt": "2026-10-07T12:00:00+09:00",
+          "status": "scheduled",
+          "bufferUpdateId": null,
+          "attempts": 0,
+          "lastAttemptAt": null,
+          "lastError": null,
+          "updatedAt": "2026-10-07T01:00:00.612Z"
+        }
+      },
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-10-07T01:00:00.612Z",
+      "updatedAt": "2026-10-07T01:00:00.612Z",
+      "series": "v2-stock"
+    },
+    {
       "slug": "ai-agent-marketing-shift",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-agent-marketing-shift/",
       "status": "buffer_queued",

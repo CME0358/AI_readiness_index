@@ -1617,7 +1617,7 @@
     {
       "slug": "uk-cma-choice-screens-three-shelves",
       "publishAt": "2026-10-07T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "英国CMAの検索選択画面と、ChatGPT広告の三つの棚",
       "cardSummary": "CMAの選択画面は提案の段階で、相談は10月9日17時までです。三つの棚は編集上の枠で、ChatGPT広告の提供国は特定しません。",
       "llmsLabel": "選択画面と三つの棚",
@@ -1654,9 +1654,12 @@
       "scheduledPublishAt": "2026-10-07T10:00:00+09:00",
       "slotDate": "2026-10-07",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261007-DAILY-001",
-      "activatedAt": "2026-09-25T00:38:13.228Z"
+      "activatedAt": "2026-09-25T00:38:13.228Z",
+      "publishAttemptedAt": "2026-10-07T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-07T01:00:00.000Z"
     },
     {
       "slug": "ai-mode-information-monitoring",
