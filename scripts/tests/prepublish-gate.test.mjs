@@ -5,6 +5,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -165,4 +166,34 @@ test('T15 force protected ABIS still BLOCKED', () => {
   const result = runPrepublishEditorialGate('abis-intro', { forceSlug: 'abis-intro' });
   assert.equal(result.status, 'BLOCKED');
   assert.ok(result.blockers.some((b) => b.code === 'PROTECTED_ABIS_PREPUBLICATION'));
+});
+
+test('T18 scheduled article with short LinkedIn copy is BLOCKED', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-prepublish-social-'));
+  const slug = 'ai-mode-information-monitoring';
+  const url = `https://readiness.coaretail.com/insights/${slug}/`;
+  const linkedinDir = path.join(root, 'insights/_social/linkedin/posts');
+  const facebookDir = path.join(root, 'insights/_social/facebook/posts');
+  const xDir = path.join(root, 'insights/_social/x/posts');
+  fs.mkdirSync(linkedinDir, { recursive: true });
+  fs.mkdirSync(facebookDir, { recursive: true });
+  fs.mkdirSync(xDir, { recursive: true });
+  fs.writeFileSync(path.join(linkedinDir, `${slug}.md`), `too short ${url} #AgentReadiness #AI\n`);
+  fs.writeFileSync(path.join(facebookDir, `${slug}.md`), `${'b'.repeat(300)} ${url} #AI\n`);
+  fs.writeFileSync(path.join(xDir, `${slug}.md`), `${'c'.repeat(80)} ${url} #AI\n`);
+  const html = readScheduled(slug);
+  const blocked = runPrepublishEditorialGate(slug, {
+    html,
+    scheduleEntry: scheduleEntry(slug),
+    socialRoot: root,
+  });
+  assert.equal(blocked.status, 'BLOCKED');
+  assert.ok(blocked.blockers.some((b) => b.code === 'SOCIAL_COPY_LENGTH' && /length \d+ outside 450-900/.test(b.message)));
+  const published = runPrepublishEditorialGate(slug, {
+    html,
+    scheduleEntry: { ...scheduleEntry(slug), status: 'published' },
+    socialRoot: root,
+  });
+  assert.equal(published.blockers.some((b) => b.code === 'SOCIAL_COPY_LENGTH'), false);
+  fs.rmSync(root, { recursive: true, force: true });
 });

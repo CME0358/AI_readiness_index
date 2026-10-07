@@ -14,6 +14,7 @@ import {
   getPublishedSlugsFromFilesystem,
 } from './insights-related-links.mjs';
 import { validateInsightGa4Tracking } from './insights-ga4-tracking.mjs';
+import { socialCopyBlockersForEntry } from './validate-social-content.mjs';
 
 export { PROTECTED_INTERNAL_LINK_SLUGS as PROTECTED_ABIS_SLUGS };
 
@@ -426,6 +427,7 @@ export function runPrepublishEditorialGate(slug, options = {}) {
     now = new Date(),
     forceSlug = null,
     skipReuseGates = false,
+    socialRoot = ROOT,
   } = options;
 
   const blockers = [];
@@ -506,6 +508,8 @@ export function runPrepublishEditorialGate(slug, options = {}) {
     }
   }
 
+  blockers.push(...socialCopyBlockersForEntry(slug, entry, { root: socialRoot }));
+
   return finalizeResult(slug, blockers, observations, {
     protected: false,
     freshnessClass: freshness.freshnessClass,
@@ -514,6 +518,7 @@ export function runPrepublishEditorialGate(slug, options = {}) {
       seo: !blockers.some((b) => b.code.startsWith('SEO_')),
       links: !blockers.some((b) => b.code === 'INTERNAL_LINK_INTEGRITY'),
       ga4: !blockers.some((b) => b.code === 'GA4_INTEGRITY'),
+      social: !blockers.some((b) => b.code === 'SOCIAL_COPY_LENGTH'),
       intent: !blockers.some((b) => b.code.includes('INTENT') || b.code.includes('PROPER_NOUN')),
     },
   });

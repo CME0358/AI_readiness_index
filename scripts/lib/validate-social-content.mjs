@@ -37,3 +37,18 @@ export function formatSocialValidationFailure(validation) {
     .map(({ channel, errors }) => `${channel}: ${errors.join('; ')}`)
     .join(' | ');
 }
+
+/**
+ * Blocking prepublish findings for articles that are still `scheduled`.
+ * Uses the same trim + `text.length` rule as Buffer handoff (`validateChannelContent`).
+ * Published and held articles are left alone: their copy is not waiting on this gate.
+ */
+export function socialCopyBlockersForEntry(slug, entry, { root = ROOT } = {}) {
+  if (entry?.status !== 'scheduled') return [];
+  const validation = validateSocialContentForSlug(slug, { root });
+  if (validation.ok) return [];
+  return validation.errors.map(({ channel, errors }) => ({
+    code: 'SOCIAL_COPY_LENGTH',
+    message: `${slug} ${channel}: ${errors.join('; ')}`,
+  }));
+}
