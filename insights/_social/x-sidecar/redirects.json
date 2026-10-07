@@ -665,6 +665,22 @@
       "date": "2026-10-07",
       "slot": "18:00",
       "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261008d",
+      "destination": "https://readiness.coaretail.com/insights/why-ari/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261008_1500",
+      "article_slug": "why-ari",
+      "date": "2026-10-08",
+      "slot": "15:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261008e",
+      "destination": "https://readiness.coaretail.com/insights/trust/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261008_1800",
+      "article_slug": "trust",
+      "date": "2026-10-08",
+      "slot": "18:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
     }
   ]
 }
