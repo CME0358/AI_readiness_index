@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T01:00:35.237Z",
+  "updatedAt": "2026-10-07T02:34:39.855Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "merchant-center-native-checkout-holiday",
+    "slug": "uk-cma-choice-screens-three-shelves",
     "stage": "buffer_queued",
-    "at": "2026-10-06T01:00:35.237Z"
+    "at": "2026-10-07T02:34:39.855Z"
   }
 }

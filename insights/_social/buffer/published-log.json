@@ -1187,7 +1187,16 @@
       "publishAt": "2026-10-06T12:00:00+09:00",
       "dueAtUtc": "2026-10-06T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-07T02:34:37.884Z",
+      "slug": "uk-cma-choice-screens-three-shelves",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ac5afbf53551104161bcc1d",
+      "publishAt": "2026-10-07T12:15:00+09:00",
+      "dueAtUtc": "2026-10-07T03:15:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-10-06T01:00:35.234Z"
+  "updatedAt": "2026-10-07T02:34:39.151Z"
 }

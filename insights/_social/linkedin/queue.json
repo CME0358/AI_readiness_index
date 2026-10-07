@@ -908,13 +908,13 @@
       "linkedinPublishAt": "2026-10-07T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/uk-cma-choice-screens-three-shelves/",
       "contentFile": "insights/_social/linkedin/posts/uk-cma-choice-screens-three-shelves.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ac5afbf53551104161bcc1d",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-07T01:00:00.612Z",
-      "updatedAt": "2026-10-07T01:00:00.612Z",
+      "updatedAt": "2026-10-07T02:34:39.735Z",
       "series": "v2-stock"
     }
   ]
