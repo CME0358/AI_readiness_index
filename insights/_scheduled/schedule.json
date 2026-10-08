@@ -1666,7 +1666,7 @@
     {
       "slug": "ai-mode-information-monitoring",
       "publishAt": "2026-10-08T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "AI Modeの情報モニタリング——全利用者への展開と、書かれていない参照経路",
       "cardSummary": "UltraとProの次に、AI Modeの情報モニタリングが全利用者へ広がります。月曜日の投稿は、ウェブへ戻るリンクを書いていません。リンクが無い、とは書きません。",
       "llmsLabel": "情報モニタリングの参照経路",
@@ -1704,9 +1704,12 @@
       "scheduledPublishAt": "2026-10-08T10:00:00+09:00",
       "slotDate": "2026-10-08",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261008-DAILY-001",
-      "activatedAt": "2026-10-01T12:00:00.000Z"
+      "activatedAt": "2026-10-01T12:00:00.000Z",
+      "publishAttemptedAt": "2026-10-08T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-08T01:00:00.000Z"
     },
     {
       "slug": "branded-queries-ai-overviews",

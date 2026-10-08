@@ -916,6 +916,23 @@
       "createdAt": "2026-10-07T01:00:00.612Z",
       "updatedAt": "2026-10-07T02:34:39.735Z",
       "series": "v2-stock"
+    },
+    {
+      "id": "ARI-LI-CE-ai-mode-information-monitoring-2026-10-08",
+      "slug": "ai-mode-information-monitoring",
+      "articlePublishAt": "2026-10-08T10:00:00+09:00",
+      "bufferTransferAt": "2026-10-08T10:30:00+09:00",
+      "linkedinPublishAt": "2026-10-08T11:30:00+09:00",
+      "articleUrl": "https://readiness.coaretail.com/insights/ai-mode-information-monitoring/",
+      "contentFile": "insights/_social/linkedin/posts/ai-mode-information-monitoring.md",
+      "status": "scheduled",
+      "bufferUpdateId": null,
+      "attempts": 0,
+      "lastAttemptAt": null,
+      "lastError": null,
+      "createdAt": "2026-10-08T01:00:00.230Z",
+      "updatedAt": "2026-10-08T01:00:00.230Z",
+      "series": "v2-stock"
     }
   ]
 }
