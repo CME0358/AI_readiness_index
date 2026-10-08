@@ -925,13 +925,13 @@
       "linkedinPublishAt": "2026-10-08T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/ai-mode-information-monitoring/",
       "contentFile": "insights/_social/linkedin/posts/ai-mode-information-monitoring.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ac6eb3157f9bd074d211cfa",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-08T01:00:00.230Z",
-      "updatedAt": "2026-10-08T01:00:00.230Z",
+      "updatedAt": "2026-10-08T01:00:34.666Z",
       "series": "v2-stock"
     }
   ]

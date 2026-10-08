@@ -1196,7 +1196,34 @@
       "publishAt": "2026-10-07T12:15:00+09:00",
       "dueAtUtc": "2026-10-07T03:15:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-08T01:00:00.000Z",
+      "slug": "ai-mode-information-monitoring",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ac6eb3157f9bd074d211cfa",
+      "publishAt": "2026-10-08T11:30:00+09:00",
+      "dueAtUtc": "2026-10-08T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-08T01:00:00.000Z",
+      "slug": "ai-mode-information-monitoring",
+      "channel": "facebook",
+      "bufferUpdateId": "6ac6eb32365feab0d7367ee2",
+      "publishAt": "2026-10-08T11:45:00+09:00",
+      "dueAtUtc": "2026-10-08T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-08T01:00:00.000Z",
+      "slug": "ai-mode-information-monitoring",
+      "channel": "x",
+      "bufferUpdateId": "6ac6eb32365feab0d7367f18",
+      "publishAt": "2026-10-08T12:00:00+09:00",
+      "dueAtUtc": "2026-10-08T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-10-07T02:34:39.151Z"
+  "updatedAt": "2026-10-08T01:00:34.664Z"
 }
