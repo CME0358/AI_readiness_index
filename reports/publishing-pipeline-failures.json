@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-08T01:00:34.667Z",
+  "updatedAt": "2026-10-09T01:01:37.343Z",
   "failures": {
     "search-departure-ai": {
       "slug": "search-departure-ai",
@@ -22,8 +22,8 @@
     }
   },
   "lastSuccess": {
-    "slug": "ai-mode-information-monitoring",
+    "slug": "branded-queries-ai-overviews",
     "stage": "buffer_queued",
-    "at": "2026-10-08T01:00:34.667Z"
+    "at": "2026-10-09T01:01:37.343Z"
   }
 }

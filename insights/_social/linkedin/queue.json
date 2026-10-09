@@ -942,13 +942,13 @@
       "linkedinPublishAt": "2026-10-09T11:30:00+09:00",
       "articleUrl": "https://readiness.coaretail.com/insights/branded-queries-ai-overviews/",
       "contentFile": "insights/_social/linkedin/posts/branded-queries-ai-overviews.md",
-      "status": "scheduled",
-      "bufferUpdateId": null,
+      "status": "buffer_queued",
+      "bufferUpdateId": "6ac83cf004f06b2e8f735cc0",
       "attempts": 0,
       "lastAttemptAt": null,
       "lastError": null,
       "createdAt": "2026-10-09T01:00:00.620Z",
-      "updatedAt": "2026-10-09T01:00:00.620Z",
+      "updatedAt": "2026-10-09T01:01:37.342Z",
       "series": "v2-stock"
     }
   ]

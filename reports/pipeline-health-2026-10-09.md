@@ -9,13 +9,17 @@ slug: branded-queries-ai-overviews
 ## WEB
 scheduled: 10:00
 published: true
-productionVerified: false
+productionVerified: true
 
 ## BUFFER
-linkedin: scheduled
-facebook: scheduled
-x: scheduled
+linkedin: queued
+facebook: queued
+x: queued
 
 ## PIPELINE
-status: RECOVERING
-publish: branded-queries-ai-overviews
+status: COMPLETE
+verify: ok (3 attempts)
+buffer actions:
+- linkedin: queued
+- facebook: queued
+- x: queued

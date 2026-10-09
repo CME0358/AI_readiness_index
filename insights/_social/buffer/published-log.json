@@ -1223,7 +1223,34 @@
       "publishAt": "2026-10-08T12:00:00+09:00",
       "dueAtUtc": "2026-10-08T03:00:00.000Z",
       "dryRun": false
+    },
+    {
+      "at": "2026-10-09T01:00:00.000Z",
+      "slug": "branded-queries-ai-overviews",
+      "channel": "linkedin",
+      "bufferUpdateId": "6ac83cf004f06b2e8f735cc0",
+      "publishAt": "2026-10-09T11:30:00+09:00",
+      "dueAtUtc": "2026-10-09T02:30:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-09T01:00:00.000Z",
+      "slug": "branded-queries-ai-overviews",
+      "channel": "facebook",
+      "bufferUpdateId": "6ac83cf093f9e5101fe16a32",
+      "publishAt": "2026-10-09T11:45:00+09:00",
+      "dueAtUtc": "2026-10-09T02:45:00.000Z",
+      "dryRun": false
+    },
+    {
+      "at": "2026-10-09T01:00:00.000Z",
+      "slug": "branded-queries-ai-overviews",
+      "channel": "x",
+      "bufferUpdateId": "6ac83cf17d9f9f33011df9de",
+      "publishAt": "2026-10-09T12:00:00+09:00",
+      "dueAtUtc": "2026-10-09T03:00:00.000Z",
+      "dryRun": false
     }
   ],
-  "updatedAt": "2026-10-08T01:00:34.664Z"
+  "updatedAt": "2026-10-09T01:01:37.340Z"
 }
