@@ -1716,7 +1716,7 @@
     {
       "slug": "branded-queries-ai-overviews",
       "publishAt": "2026-10-09T10:00:00+09:00",
-      "status": "scheduled",
+      "status": "published",
       "title": "ブランド名のクエリに出るAI Overviews——公式結果の下という位置",
       "cardSummary": "Chris Long氏は、調べたブランドの93%でAI Overviewsが出たと投稿しています。標本は約100です。多くは公式結果より下です。クリックは測られていません。",
       "llmsLabel": "ブランド名とAI Overviews",
@@ -1753,9 +1753,12 @@
       "scheduledPublishAt": "2026-10-09T10:00:00+09:00",
       "slotDate": "2026-10-09",
       "slotType": "DAILY_PRIMARY",
-      "publicationState": "SCHEDULED",
+      "publicationState": "PUBLISHED",
       "publicationId": "PUB-20261009-DAILY-001",
-      "activatedAt": "2026-10-01T12:00:00.000Z"
+      "activatedAt": "2026-10-01T12:00:00.000Z",
+      "publishAttemptedAt": "2026-10-09T01:00:00.000Z",
+      "publishAttemptCount": 1,
+      "publishedAt": "2026-10-09T01:00:00.000Z"
     },
     {
       "slug": "bing-edge-ai-mode-naming",
