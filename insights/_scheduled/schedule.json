@@ -935,8 +935,8 @@
     },
     {
       "slug": "vendor-selection",
-      "publishAt": null,
-      "status": "editorial_hold",
+      "publishAt": "2026-10-12T10:00:00+09:00",
+      "status": "scheduled",
       "title": "予約SaaS選定のReadiness視点",
       "cardSummary": "機能表ではなくAIが接続・実行できるかで選ぶ。予約可否の説明ではなくSaaS選定基準",
       "llmsLabel": "予約SaaS選定のReadiness視点",
@@ -944,7 +944,10 @@
       "seoTitle": "予約SaaS選定のReadiness視点——機能比較の先",
       "metaDescription": "予約SaaS選定は機能表ではなく、AIが接続・実行できるかで判断する。Agent Readinessの視点から、SaaS選定基準と実行可能性——空き確認から予約完了まで——を解説します。",
       "searchIntentClass": "B",
-      "primarySearchIntent": "予約SaaS 選定 Agent Readiness"
+      "primarySearchIntent": "予約SaaS 選定 Agent Readiness",
+      "unlockedAt": "2026-10-09T12:48:21.030Z",
+      "packageReadiness": "HERO_PENDING",
+      "heroPendingAt": "2026-10-09T12:48:21.030Z"
     },
     {
       "slug": "cloudflare-ai-traffic-search-agent-training",

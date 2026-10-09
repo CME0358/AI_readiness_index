@@ -1,17 +1,17 @@
 {
-  "unlockedAt": "2026-09-09T10:56:38.429Z",
-  "slug": "content-ops-ai",
-  "publishYmd": "2026-09-10",
+  "unlockedAt": "2026-10-09T12:48:21.030Z",
+  "slug": "vendor-selection",
+  "publishYmd": "2026-10-12",
   "times": {
-    "web": "2026-09-10T10:00:00+09:00",
-    "bufferTransfer": "2026-09-10T10:30:00+09:00",
-    "linkedin": "2026-09-10T11:30:00+09:00",
-    "facebook": "2026-09-10T11:45:00+09:00",
-    "x": "2026-09-10T12:00:00+09:00"
+    "web": "2026-10-12T10:00:00+09:00",
+    "bufferTransfer": "2026-10-12T10:30:00+09:00",
+    "linkedin": "2026-10-12T11:30:00+09:00",
+    "facebook": "2026-10-12T11:45:00+09:00",
+    "x": "2026-10-12T12:00:00+09:00"
   },
-  "unlockDay": "2026-09-09",
-  "actualRunAt": "2026-09-09T10:56:38.429Z",
-  "effectiveUnlockAt": "2026-09-09T06:00:00.000Z",
-  "latenessMinutes": 297,
+  "unlockDay": "2026-10-09",
+  "actualRunAt": "2026-10-09T12:48:21.030Z",
+  "effectiveUnlockAt": "2026-10-09T06:00:00.000Z",
+  "latenessMinutes": 408,
   "result": "UNLOCKED"
 }
