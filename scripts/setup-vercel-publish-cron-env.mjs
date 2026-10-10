@@ -17,7 +17,7 @@ const TEAM_ID = process.env.VERCEL_TEAM_ID || 'team_bca3GA1UtAZfnPhpeoaqH6Vs';
 const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
 const CRON_SECRET = process.env.CRON_SECRET || crypto.randomBytes(32).toString('hex');
 const GITHUB_DISPATCH_TOKEN = process.env.GITHUB_DISPATCH_TOKEN;
-const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY || 'CME0358/AI_readiness_index';
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY || 'CoaRetail/AI_readiness_index';
 
 if (!VERCEL_TOKEN) {
   console.error('VERCEL_TOKEN is required.');

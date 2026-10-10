@@ -9,7 +9,7 @@
  *   CRON_SECRET — Vercel sends Authorization: Bearer <CRON_SECRET>
  *   GITHUB_DISPATCH_TOKEN — PAT with repo + workflow (actions:write)
  * Optional:
- *   GITHUB_REPOSITORY — default CME0358/AI_readiness_index
+ *   GITHUB_REPOSITORY — default CoaRetail/AI_readiness_index
  */
 import { handlePublishInsightsCron } from '../../scripts/lib/github-workflow-dispatch.mjs';
 

@@ -7,7 +7,7 @@ LABEL=com.ari.insights.visual-worker
 TARGET="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG_DIR="${HOME}/Library/Logs/ARIInsightsVisualWorker"
 WORKSPACE="${ARI_VISUAL_WORKER_WORKSPACE:-$HOME/ARIInsightsVisualWorker}"
-REPO_URL="${ARI_VISUAL_WORKER_REPO_URL:-https://github.com/CME0358/AI_readiness_index.git}"
+REPO_URL="${ARI_VISUAL_WORKER_REPO_URL:-https://github.com/CoaRetail/AI_readiness_index.git}"
 RUNTIME_MARKER=".ari-visual-worker-runtime"
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"

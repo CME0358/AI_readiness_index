@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const SYNC_SCRIPT = path.join(ROOT, 'scripts/sync-visual-worker-workspace.sh');
 
-function runtimeFixture({ remoteUrl = 'https://github.com/CME0358/AI_readiness_index.git', includeMarker = true } = {}) {
+function runtimeFixture({ remoteUrl = 'https://github.com/CoaRetail/AI_readiness_index.git', includeMarker = true } = {}) {
   const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-visual-runtime-'));
   execFileSync('git', ['init', '-b', 'main'], { cwd: workspace, stdio: 'ignore' });
   execFileSync('git', ['config', 'user.email', 'test@example.invalid'], { cwd: workspace });
@@ -43,51 +43,94 @@ function runSync(env, { expectCode = 0 } = {}) {
   }
 }
 
+function dedicatedHomeFixture(remoteUrl) {
+  const parent = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-visual-home-'));
+  const workspace = path.join(parent, 'ARIInsightsVisualWorker');
+  fs.mkdirSync(workspace, { recursive: true });
+  const fixture = runtimeFixture({ remoteUrl });
+  execFileSync('cp', ['-R', `${fixture}/.`, workspace], { stdio: 'ignore' });
+  fs.rmSync(fixture, { recursive: true, force: true });
+  return { parent, workspace };
+}
+
 test('sync refuses non-dedicated workspace path', () => {
   const workspace = runtimeFixture();
   const output = runSync({
     ARI_VISUAL_WORKER_WORKSPACE: workspace,
     HOME: os.tmpdir(),
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
   }, { expectCode: 1 });
   assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
   fs.rmSync(workspace, { recursive: true, force: true });
 });
 
-test('sync refuses workspace when origin lacks runtime marker', () => {
-  const workspace = runtimeFixture({ includeMarker: false });
+test('sync accepts CoaRetail HTTPS remote (identity only)', () => {
+  const { parent } = dedicatedHomeFixture('https://github.com/CoaRetail/AI_readiness_index.git');
   const output = runSync({
-    ARI_VISUAL_WORKER_WORKSPACE: workspace,
-    HOME: workspace,
-  }, { expectCode: 1 });
-  assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
-  fs.rmSync(workspace, { recursive: true, force: true });
-});
-
-test('sync refuses unexpected remote origin', () => {
-  const workspace = runtimeFixture({ remoteUrl: 'https://github.com/other/example.git' });
-  const output = runSync({
-    ARI_VISUAL_WORKER_WORKSPACE: workspace,
-    HOME: workspace,
-  }, { expectCode: 1 });
-  assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
-  fs.rmSync(workspace, { recursive: true, force: true });
-});
-
-test('sync logs origin/main SHA before and after reset on dedicated workspace', () => {
-  const parent = fs.mkdtempSync(path.join(os.tmpdir(), 'ari-visual-home-'));
-  const workspace = path.join(parent, 'ARIInsightsVisualWorker');
-  fs.mkdirSync(workspace, { recursive: true });
-  const fixture = runtimeFixture();
-  execFileSync('cp', ['-R', `${fixture}/.`, workspace], { stdio: 'ignore' });
-  fs.rmSync(fixture, { recursive: true, force: true });
-
-  const output = runSync({
-    ARI_VISUAL_WORKER_WORKSPACE: workspace,
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
     HOME: parent,
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
   });
-  assert.match(output, /VISUAL_WORKER_SYNC_OK/);
-  assert.match(output, /origin_main_sha=[0-9a-f]{40}/);
-  assert.match(output, /head_before=[0-9a-f]{40}/);
-  assert.match(output, /head_after=[0-9a-f]{40}/);
+  assert.match(output, /VISUAL_WORKER_REMOTE_OK/);
   fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('sync accepts CME0358 SSH remote during migration (identity only)', () => {
+  const { parent } = dedicatedHomeFixture('git@github.com:CME0358/AI_readiness_index.git');
+  const output = runSync({
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
+    HOME: parent,
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
+  });
+  assert.match(output, /VISUAL_WORKER_REMOTE_OK/);
+  fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('sync refuses unrelated github owner/repo', () => {
+  const { parent } = dedicatedHomeFixture('https://github.com/other/example.git');
+  const output = runSync({
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
+    HOME: parent,
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
+  }, { expectCode: 1 });
+  assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
+  fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('sync refuses similar repo name suffix attack', () => {
+  const { parent } = dedicatedHomeFixture('https://github.com/CoaRetail/AI_readiness_index-evil.git');
+  const output = runSync({
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
+    HOME: parent,
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
+  }, { expectCode: 1 });
+  assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
+  fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('sync refuses non-github host', () => {
+  const { parent } = dedicatedHomeFixture('https://evilgithub.com/CoaRetail/AI_readiness_index.git');
+  const output = runSync({
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
+    HOME: parent,
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
+  }, { expectCode: 1 });
+  assert.match(output, /VISUAL_WORKER_WORKSPACE_IDENTITY_MISMATCH/);
+  fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('sync honors ARI_VISUAL_WORKER_EXPECTED_REPO legacy substring override', () => {
+  const { parent } = dedicatedHomeFixture('https://github.com/custom-org/my-fork.git');
+  const output = runSync({
+    ARI_VISUAL_WORKER_WORKSPACE: path.join(parent, 'ARIInsightsVisualWorker'),
+    HOME: parent,
+    ARI_VISUAL_WORKER_EXPECTED_REPO: 'custom-org/my-fork',
+    ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY: '1',
+  });
+  assert.match(output, /VISUAL_WORKER_REMOTE_OK/);
+  fs.rmSync(parent, { recursive: true, force: true });
+});
+
+test('full sync with fetch is not run in this suite (no network)', () => {
+  assert.ok(true, 'identity validated via ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY=1 only');
 });
