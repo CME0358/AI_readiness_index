@@ -713,6 +713,22 @@
       "date": "2026-10-10",
       "slot": "18:00",
       "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261011d",
+      "destination": "https://readiness.coaretail.com/insights/agent-handoff/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261011_1500",
+      "article_slug": "agent-handoff",
+      "date": "2026-10-11",
+      "slot": "15:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
+    },
+    {
+      "short_id": "x261011e",
+      "destination": "https://readiness.coaretail.com/insights/schema-not-ai-citation-cheat-code/?utm_source=x&utm_medium=organic&utm_campaign=ari_x_traffic&utm_content=261011_1800",
+      "article_slug": "schema-not-ai-citation-cheat-code",
+      "date": "2026-10-11",
+      "slot": "18:00",
+      "ownership": "ari_x_traffic_sidecar_v1"
     }
   ]
 }
