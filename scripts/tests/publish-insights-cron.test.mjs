@@ -10,6 +10,7 @@ import {
   parseGitHubRepo,
   verifyCronAuth,
   PUBLISH_WORKFLOW_FILE,
+  DEFAULT_REPO,
 } from '../lib/github-workflow-dispatch.mjs';
 
 test('buildPublishNowIso uses JST 10:00 wall clock', () => {
@@ -17,11 +18,33 @@ test('buildPublishNowIso uses JST 10:00 wall clock', () => {
   assert.equal(iso, '2026-08-10T10:00:00+09:00');
 });
 
+test('DEFAULT_REPO is canonical CoaRetail owner', () => {
+  assert.equal(DEFAULT_REPO, 'CoaRetail/AI_readiness_index');
+});
+
 test('parseGitHubRepo splits owner/name', () => {
+  assert.deepEqual(parseGitHubRepo('CoaRetail/AI_readiness_index'), {
+    owner: 'CoaRetail',
+    name: 'AI_readiness_index',
+  });
   assert.deepEqual(parseGitHubRepo('CME0358/AI_readiness_index'), {
     owner: 'CME0358',
     name: 'AI_readiness_index',
   });
+});
+
+test('parseGitHubRepo prefers explicit env over default', () => {
+  const prev = process.env.GITHUB_REPOSITORY;
+  process.env.GITHUB_REPOSITORY = 'CME0358/AI_readiness_index';
+  try {
+    assert.deepEqual(parseGitHubRepo(), {
+      owner: 'CME0358',
+      name: 'AI_readiness_index',
+    });
+  } finally {
+    if (prev === undefined) delete process.env.GITHUB_REPOSITORY;
+    else process.env.GITHUB_REPOSITORY = prev;
+  }
 });
 
 test('verifyCronAuth accepts bearer token', () => {
@@ -47,7 +70,47 @@ test('dispatchGitHubWorkflow posts workflow_dispatch', async () => {
 
   assert.equal(result.ok, true);
   assert.match(captured.url, /reconcile-publishing-pipeline\.yml\/dispatches$/);
+  assert.match(captured.url, /\/repos\/CoaRetail\/AI_readiness_index\//);
   assert.equal(JSON.parse(captured.init.body).inputs.now, '2026-08-10T10:00:00+09:00');
+});
+
+test('dispatchGitHubWorkflow honors explicit repo over default', async () => {
+  let captured;
+  const fetchImpl = async (url) => {
+    captured = url;
+    return { status: 204, json: async () => ({}) };
+  };
+
+  await dispatchGitHubWorkflow({
+    workflowFile: PUBLISH_WORKFLOW_FILE,
+    token: 'ghp_test',
+    repo: 'CME0358/AI_readiness_index',
+    fetchImpl,
+  });
+
+  assert.match(captured, /\/repos\/CME0358\/AI_readiness_index\//);
+});
+
+test('handlePublishInsightsCron uses GITHUB_REPOSITORY env when set', async () => {
+  let captured;
+  const monday = new Date('2026-08-10T01:00:00.000Z');
+  const { status, body } = await handlePublishInsightsCron(
+    { headers: { authorization: 'Bearer cron-secret' } },
+    {
+      CRON_SECRET: 'cron-secret',
+      GITHUB_DISPATCH_TOKEN: 'ghp_test',
+      GITHUB_REPOSITORY: 'CME0358/AI_readiness_index',
+      now: monday,
+      fetchImpl: async (url) => {
+        captured = url;
+        return { status: 204, json: async () => ({}) };
+      },
+    }
+  );
+
+  assert.equal(status, 200);
+  assert.equal(body.dispatched, true);
+  assert.match(captured, /\/repos\/CME0358\/AI_readiness_index\//);
 });
 
 test('handlePublishInsightsCron skips weekends', async () => {

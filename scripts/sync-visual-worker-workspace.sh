@@ -6,7 +6,6 @@ set -eu
 WORKSPACE="${ARI_VISUAL_WORKER_WORKSPACE:-$HOME/ARIInsightsVisualWorker}"
 BRANCH="${ARI_VISUAL_WORKER_BRANCH:-main}"
 REMOTE="${ARI_VISUAL_WORKER_REMOTE:-origin}"
-EXPECTED_REPO_SUBSTR="${ARI_VISUAL_WORKER_EXPECTED_REPO:-CME0358/AI_readiness_index}"
 RUNTIME_MARKER=".ari-visual-worker-runtime"
 DEFAULT_WORKSPACE="$HOME/ARIInsightsVisualWorker"
 
@@ -40,10 +39,60 @@ esac
 
 cd "$RESOLVED_WORKSPACE"
 REMOTE_URL="$(/usr/bin/git remote get-url "$REMOTE" 2>/dev/null || true)"
-case "$REMOTE_URL" in
-  *"$EXPECTED_REPO_SUBSTR"*) ;;
-  *) fail_identity "remote origin must reference $EXPECTED_REPO_SUBSTR (got ${REMOTE_URL:-missing})" ;;
-esac
+
+if [ -n "${ARI_VISUAL_WORKER_EXPECTED_REPO:-}" ]; then
+  case "$REMOTE_URL" in
+    *"$ARI_VISUAL_WORKER_EXPECTED_REPO"*) ;;
+    *) fail_identity "remote origin must reference $ARI_VISUAL_WORKER_EXPECTED_REPO (got ${REMOTE_URL:-missing})" ;;
+  esac
+else
+  if ! /usr/bin/python3 - "$REMOTE_URL" <<'PY'
+import re
+import sys
+from urllib.parse import urlparse
+
+ALLOWED = {
+    ("CoaRetail", "AI_readiness_index"),
+    ("CME0358", "AI_readiness_index"),
+}
+
+
+def parse_github_owner_repo(url: str):
+    url = (url or "").strip()
+    if not url:
+        return None
+    if url.startswith("git@github.com:"):
+        path = url.split(":", 1)[1]
+    elif url.startswith("ssh://"):
+        parsed = urlparse(url)
+        if parsed.hostname != "github.com":
+            return None
+        path = parsed.path.lstrip("/")
+    else:
+        parsed = urlparse(url)
+        if parsed.hostname != "github.com":
+            return None
+        path = parsed.path.lstrip("/")
+    path = re.sub(r"\.git$", "", path)
+    parts = [p for p in path.split("/") if p]
+    if len(parts) != 2:
+        return None
+    return parts[0], parts[1]
+
+
+pair = parse_github_owner_repo(sys.argv[1])
+if pair not in ALLOWED:
+    sys.exit(1)
+PY
+  then
+    fail_identity "remote must be github.com/CoaRetail/AI_readiness_index or github.com/CME0358/AI_readiness_index (got ${REMOTE_URL:-missing})"
+  fi
+fi
+
+if [ "${ARI_VISUAL_WORKER_VALIDATE_REMOTE_ONLY:-}" = "1" ]; then
+  echo "VISUAL_WORKER_REMOTE_OK url=$REMOTE_URL"
+  exit 0
+fi
 
 /usr/bin/git fetch --prune "$REMOTE"
 

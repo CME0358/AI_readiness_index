@@ -3,7 +3,7 @@
  */
 import { isWeekday } from './business-days.mjs';
 
-export const DEFAULT_REPO = 'CME0358/AI_readiness_index';
+export const DEFAULT_REPO = 'CoaRetail/AI_readiness_index';
 export const PUBLISH_WORKFLOW_FILE = 'reconcile-publishing-pipeline.yml';
 
 export function parseGitHubRepo(repo = process.env.GITHUB_REPOSITORY || DEFAULT_REPO) {
